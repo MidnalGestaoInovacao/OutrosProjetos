@@ -152,6 +152,10 @@ def step_media():
              (BSLOGO, "bs-logo-t", "bs-agro-capital-logo-transparente.png", "BS Agro Capital — logotipo (fundo transparente)", "Logotipo da BS Agro Capital em dourado"),
              (BSLOGO, "bs-logo-t600", "bs-agro-capital-logo-transparente-600.png", "BS Agro Capital — logotipo pequeno", "Logotipo da BS Agro Capital em dourado"),
              (BSLOGO, "bs-logo-preto", "bs-agro-capital-logo-preto.jpg", "BS Agro Capital — logotipo sobre preto", "Logotipo da BS Agro Capital em dourado sobre preto")]
+    LOGOS2 = os.path.join(ROOT, "logos", "out2")
+    for name in ("opcao-1-selo-de-trigo-horizontal-dourado.png", "opcao-2-sol-e-campo-horizontal-dourado.png", "opcao-3-arco-e-espiga-horizontal-dourado.png",
+                 "opcao-4-assinatura-horizontal-dourado.png", "opcao-5-crescimento-horizontal-dourado.png", "evellyn-brandao-logos-conceitos.zip"):
+        extra.append((LOGOS2, "dl2-" + name.rsplit(".", 1)[0], name, "Logo Évellyn Brandão — conceito " + name.replace("-horizontal-dourado", "").rsplit(".", 1)[0].replace("-", " "), "Conceito de logotipo de Évellyn Brandão"))
     for name in ("evellyn-brandao-logo-monograma-dourado.png", "evellyn-brandao-logo-horizontal-dourado.png", "evellyn-brandao-logo-vertical-dourado.png",
                  "evellyn-brandao-logo-horizontal-preta.png", "evellyn-brandao-logo-horizontal-branca.png", "evellyn-brandao-logos.zip"):
         extra.append((LOGOS, "dl-" + name.rsplit(".", 1)[0], name, "Logo Évellyn Brandão — " + name.rsplit(".", 1)[0].replace("evellyn-brandao-logo-", "").replace("-", " "), "Logotipo de Évellyn Brandão"))

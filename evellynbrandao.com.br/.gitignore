@@ -6,4 +6,6 @@ imggen/out/*.html
 imggen/out/spec.json
 logos/out/*.html
 logos/out/spec.json
+logos/out2/*.html
+logos/out2/spec.json
 venv/
