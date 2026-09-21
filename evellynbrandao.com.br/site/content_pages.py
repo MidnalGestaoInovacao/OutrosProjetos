@@ -268,7 +268,7 @@ BS = {
         <p class="eb-lead">Nossa atuação combina visão estratégica, crédito, relacionamento institucional e desenvolvimento de negócios, com foco na construção de parcerias de longo prazo e geração de valor.</p>
         <div class="eb-row eb-mt24"><a class="eb-btn eb-btn--p" href="/contato/">Falar com a BS Agro Capital</a><a class="eb-btn eb-btn--g" href="/solucoes/">Ver soluções</a></div>
       </div>
-      <div class="eb-rev eb-rev--d1"><img src="{{IMG:visual-bs}}" alt="BS Agro Capital — estratégia, capital e parcerias" width="1600" height="1000" style="border-radius:var(--eb-r-lg);border:1px solid var(--eb-line2);box-shadow:var(--eb-shadow)"></div>
+      <div class="eb-rev eb-rev--d1"><div class="eb-brandcard"><img src="{{IMG:bs-logo}}" alt="Logotipo da BS Agro Capital: monograma BS dourado sobre verde" width="1429" height="1101"></div><p class="eb-note eb-center" style="margin-top:14px">Marca registrada da BS Agro Capital · Anápolis/GO</p></div>
     </div>
   </div>
 </section>
@@ -341,6 +341,7 @@ BS = {
 
 <section class="eb-sec eb-sec--alt">
   <div class="eb-wrap">
+    <div class="eb-center eb-rev" style="margin-bottom:34px"><img src="{{IMG:bs-logo-t600}}" alt="BS Agro Capital" width="600" height="460" loading="lazy" style="height:120px;width:auto;filter:drop-shadow(0 8px 24px rgba(212,175,55,.25))"></div>
     <blockquote class="eb-quote eb-rev"><p>Estratégia, capital e parcerias para um campo de maiores resultados.</p><cite>BS Agro Capital · Anápolis/GO</cite></blockquote>
     <div class="eb-center eb-mt40"><a class="eb-btn eb-btn--p" href="/contato/">Agendar diagnóstico gratuito</a></div>
   </div>

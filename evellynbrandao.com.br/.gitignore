@@ -4,4 +4,6 @@
 __pycache__/
 imggen/out/*.html
 imggen/out/spec.json
+logos/out/*.html
+logos/out/spec.json
 venv/

@@ -74,3 +74,15 @@ Cada etapa é idempotente: IDs criados ficam em `site/state.json` e são atualiz
 ## Ícone do navegador (favicon)
 
 O ícone (`imggen/out/favicon.png`, enviado à biblioteca de mídia) é declarado no HTML e movido para o `<head>` via script. Para que o WordPress também o sirva em `/favicon.ico` e nos ícones de dispositivos móveis, defina-o uma vez em **Configurações → Geral → Ícone do site** (ou Aparência → Personalizar → Identidade do site) escolhendo a mídia "Ícone do site" — a API MCP não expõe essa opção.
+
+## Logo da BS Agro Capital
+
+`bslogo/process.py` extrai a logo do PDF em alta resolução (`bslogo/bs.pdf`) e gera as versões em `bslogo/out/` (mockup JPG, PNG transparente, PNG 600 px e versão sobre preto).
+Ela aparece na página `/bs-agro-capital/` (cartão de marca e assinatura da citação), na seção BS Agro Capital da página inicial, no destaque do megamenu, no rodapé,
+como imagem de compartilhamento da página da empresa e como `logo` da `Organization` nos dados estruturados.
+
+## Kit de logos de Évellyn Brandão
+
+`logos/make_logos.py` gera o kit vetorial (SVG com os textos convertidos em caminhos a partir das fontes Cinzel e Montserrat, `logos/font*.woff2`)
+e os PNGs transparentes em alta resolução (2400–4000 px): monograma, horizontal e vertical em dourado, e horizontal em preto e branco; mais o ZIP completo.
+Os arquivos estão em `logos/out/` e também na biblioteca de mídia do WordPress (títulos "Logo Évellyn Brandão — …").

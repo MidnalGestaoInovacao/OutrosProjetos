@@ -155,6 +155,66 @@
    "url": "https://evellynbrandao.com.br/wp-content/uploads/2026/09/evellyn-campo-wide.jpg",
    "file": "evellyn-campo-wide.jpg",
    "size": 479702
+  },
+  "bs-logo": {
+   "id": 162,
+   "url": "https://evellynbrandao.com.br/wp-content/uploads/2026/09/bs-agro-capital-logo.jpg",
+   "file": "bs-agro-capital-logo.jpg",
+   "size": 339889
+  },
+  "bs-logo-t": {
+   "id": 163,
+   "url": "https://evellynbrandao.com.br/wp-content/uploads/2026/09/bs-agro-capital-logo-transparente.png",
+   "file": "bs-agro-capital-logo-transparente.png",
+   "size": 1632429
+  },
+  "bs-logo-t600": {
+   "id": 164,
+   "url": "https://evellynbrandao.com.br/wp-content/uploads/2026/09/bs-agro-capital-logo-transparente-600.png",
+   "file": "bs-agro-capital-logo-transparente-600.png",
+   "size": 157904
+  },
+  "bs-logo-preto": {
+   "id": 165,
+   "url": "https://evellynbrandao.com.br/wp-content/uploads/2026/09/bs-agro-capital-logo-preto.jpg",
+   "file": "bs-agro-capital-logo-preto.jpg",
+   "size": 104520
+  },
+  "dl-evellyn-brandao-logo-monograma-dourado": {
+   "id": 170,
+   "url": "https://evellynbrandao.com.br/wp-content/uploads/2026/09/evellyn-brandao-logo-monograma-dourado.png",
+   "file": "evellyn-brandao-logo-monograma-dourado.png",
+   "size": 521585
+  },
+  "dl-evellyn-brandao-logo-horizontal-dourado": {
+   "id": 171,
+   "url": "https://evellynbrandao.com.br/wp-content/uploads/2026/09/evellyn-brandao-logo-horizontal-dourado-scaled.png",
+   "file": "evellyn-brandao-logo-horizontal-dourado.png",
+   "size": 303067
+  },
+  "dl-evellyn-brandao-logo-vertical-dourado": {
+   "id": 172,
+   "url": "https://evellynbrandao.com.br/wp-content/uploads/2026/09/evellyn-brandao-logo-vertical-dourado.png",
+   "file": "evellyn-brandao-logo-vertical-dourado.png",
+   "size": 209616
+  },
+  "dl-evellyn-brandao-logo-horizontal-preta": {
+   "id": 173,
+   "url": "https://evellynbrandao.com.br/wp-content/uploads/2026/09/evellyn-brandao-logo-horizontal-preta-scaled.png",
+   "file": "evellyn-brandao-logo-horizontal-preta.png",
+   "size": 134293
+  },
+  "dl-evellyn-brandao-logo-horizontal-branca": {
+   "id": 174,
+   "url": "https://evellynbrandao.com.br/wp-content/uploads/2026/09/evellyn-brandao-logo-horizontal-branca-scaled.png",
+   "file": "evellyn-brandao-logo-horizontal-branca.png",
+   "size": 113956
+  },
+  "dl-evellyn-brandao-logos": {
+   "id": 175,
+   "url": "https://evellynbrandao.com.br/wp-content/uploads/2026/09/evellyn-brandao-logos.zip",
+   "file": "evellyn-brandao-logos.zip",
+   "size": 1660873
   }
  },
  "blocks": {

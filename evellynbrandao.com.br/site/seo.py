@@ -32,10 +32,10 @@ def _clean(s, n=160):
     s = re.sub(r"<[^>]+>", " ", s or ""); s = H.unescape(re.sub(r"\s+", " ", s)).strip()
     return (s[: n - 1].rsplit(" ", 1)[0] + "…") if len(s) > n else s
 
-def global_jsonld(logo_url, og_url):
+def global_jsonld(logo_url, og_url, org_logo_url=None):
     data = {"@context": "https://schema.org", "@graph": [
         dict(PERSON, image=og_url),
-        dict(ORG, logo={"@type": "ImageObject", "url": logo_url}),
+        dict(ORG, logo={"@type": "ImageObject", "url": org_logo_url or logo_url}),
         {"@type": "WebSite", "@id": SITE + "/#website", "url": SITE + "/", "name": SITE_NAME, "inLanguage": "pt-BR",
          "publisher": {"@id": SITE + "/#person"},
          "potentialAction": {"@type": "SearchAction", "target": SITE + "/?s={search_term_string}", "query-input": "required name=search_term_string"}},

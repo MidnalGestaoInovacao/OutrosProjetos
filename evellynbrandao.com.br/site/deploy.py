@@ -142,12 +142,22 @@ def step_media():
     upload("visual-sobre", "visual-sobre.jpg", "Crédito é estrutura — visual", "Composição dourada com a frase Crédito não é sorte, crédito é estrutura")
     upload("portrait", "portrait.png", "Évellyn Brandão — retrato", "Évellyn Brandão")
     FOTOS = os.path.join(ROOT, "fotos", "out")
-    for key, fn, title, alt in (("retrato", "evellyn-retrato.jpg", "Évellyn Brandão — retrato no campo", "Évellyn Brandão, CEO e Fundadora da BS Agro Capital, em lavoura de milho"),
-                                ("avatar", "evellyn-avatar.jpg", "Évellyn Brandão — avatar", "Évellyn Brandão"),
-                                ("campo", "evellyn-campo.jpg", "Évellyn Brandão no campo", "Évellyn Brandão em lavoura de milho ao entardecer"),
-                                ("campo-wide", "evellyn-campo-wide.jpg", "Évellyn Brandão — campo (panorâmica)", "Évellyn Brandão em lavoura de milho, vista panorâmica")):
-        if os.path.exists(os.path.join(FOTOS, fn)):
-            _orig = globals()["IMG_DIR"]; globals()["IMG_DIR"] = FOTOS
+    BSLOGO = os.path.join(ROOT, "bslogo", "out")
+    LOGOS = os.path.join(ROOT, "logos", "out")
+    extra = [(FOTOS, "retrato", "evellyn-retrato.jpg", "Évellyn Brandão — retrato no campo", "Évellyn Brandão, CEO e Fundadora da BS Agro Capital, em lavoura de milho"),
+             (FOTOS, "avatar", "evellyn-avatar.jpg", "Évellyn Brandão — avatar", "Évellyn Brandão"),
+             (FOTOS, "campo", "evellyn-campo.jpg", "Évellyn Brandão no campo", "Évellyn Brandão em lavoura de milho ao entardecer"),
+             (FOTOS, "campo-wide", "evellyn-campo-wide.jpg", "Évellyn Brandão — campo (panorâmica)", "Évellyn Brandão em lavoura de milho, vista panorâmica"),
+             (BSLOGO, "bs-logo", "bs-agro-capital-logo.jpg", "BS Agro Capital — logotipo", "Logotipo da BS Agro Capital: monograma BS dourado sobre verde"),
+             (BSLOGO, "bs-logo-t", "bs-agro-capital-logo-transparente.png", "BS Agro Capital — logotipo (fundo transparente)", "Logotipo da BS Agro Capital em dourado"),
+             (BSLOGO, "bs-logo-t600", "bs-agro-capital-logo-transparente-600.png", "BS Agro Capital — logotipo pequeno", "Logotipo da BS Agro Capital em dourado"),
+             (BSLOGO, "bs-logo-preto", "bs-agro-capital-logo-preto.jpg", "BS Agro Capital — logotipo sobre preto", "Logotipo da BS Agro Capital em dourado sobre preto")]
+    for name in ("evellyn-brandao-logo-monograma-dourado.png", "evellyn-brandao-logo-horizontal-dourado.png", "evellyn-brandao-logo-vertical-dourado.png",
+                 "evellyn-brandao-logo-horizontal-preta.png", "evellyn-brandao-logo-horizontal-branca.png", "evellyn-brandao-logos.zip"):
+        extra.append((LOGOS, "dl-" + name.rsplit(".", 1)[0], name, "Logo Évellyn Brandão — " + name.rsplit(".", 1)[0].replace("evellyn-brandao-logo-", "").replace("-", " "), "Logotipo de Évellyn Brandão"))
+    for d, key, fn, title, alt in extra:
+        if os.path.exists(os.path.join(d, fn)):
+            _orig = globals()["IMG_DIR"]; globals()["IMG_DIR"] = d
             try: upload(key, fn, title, alt)
             finally: globals()["IMG_DIR"] = _orig
     for p in load_posts():
@@ -157,8 +167,8 @@ def step_media():
 
 # ---------------------------------------------------------------- BLOCOS (cabeçalho/rodapé sincronizados)
 def build_header_block():
-    head = seo.head_links(img("favicon"), img("logo")) + seo.global_jsonld(img("logo"), img("og"))
-    return html_block(FONTS + head + "\n<style>\n" + CSS + "\n</style>\n" + HEADER)
+    head = seo.head_links(img("favicon"), img("logo")) + seo.global_jsonld(img("logo"), img("og"), img("bs-logo-t") or img("bs-logo"))
+    return html_block(FONTS + head + "\n<style>\n" + CSS + "\n</style>\n" + fill_imgs(HEADER))
 
 def page_seo(slug, title, excerpt, path, image_key="og", breadcrumbs=None):
     return seo.seo_block(title, excerpt, path, img(image_key) or img("og"), "website", breadcrumbs=breadcrumbs)
@@ -248,7 +258,7 @@ def step_pages():
     def upsert_page(slug, *a, **k):
         if only and slug not in only: return state["pages"].get(slug)
         return _upsert(slug, *a, **k)
-    page_images = {"sobre": "visual-sobre", "bs-agro-capital": "visual-bs"}
+    page_images = {"sobre": "visual-sobre", "bs-agro-capital": "bs-logo"}
     def crumbs_for(slug, title, parent_title=None, parent_slug=None):
         c = [("Início", "/")]
         if parent_slug: c.append((parent_title, "/%s/" % parent_slug)); c.append((title, "/%s/%s/" % (parent_slug, slug)))
