@@ -46,10 +46,10 @@ Cada etapa é idempotente: IDs criados ficam em `site/state.json` e são atualiz
 
 ## Pendências conhecidas (ajustes rápidos)
 
-- **Número do WhatsApp**: `EB_CONFIG.whatsapp` em `site/header.html` está com o valor provisório `5562000000000`. Troque pelo número oficial e execute `python3 site/deploy.py blocks`.
+- **Número do WhatsApp**: `EB_CONFIG.whatsapp` em `site/header.html` = `5562999232488` (+55 62 9 9923-2488). Para trocar, edite e execute `python3 site/deploy.py blocks`.
 - **E-mail do DPO**: o pedido original citava `dpo@ouvidoria@evellynbrandao.com.br` (formato inválido). O site usa `dpo@evellynbrandao.com.br`; se o correto for outro, ajuste em `site/header.html`, `site/footer.html`, `site/content_pages.py`, `site/tpl.py` e `content/policies.json` e republique.
 - **Ativação do FormSubmit**: cada endereço de destino precisa clicar uma vez em "Activate Form" no e-mail enviado pelo FormSubmit (já disparado para contato@ e ouvidoria@; para dpo@ o disparo será feito no primeiro envio pelo site).
-- **Foto profissional**: a imagem `imggen/out/portrait.png` é um medalhão-placeholder. Substitua por uma foto real (1000×1000) e execute `python3 site/deploy.py media templates pages`.
+- **Fotos profissionais**: tratadas por `fotos/process.py` (Pillow) a partir de `fotos/foto1-3.jpg` → `fotos/out/` (retrato quadrado na página inicial, foto vertical na página Sobre, avatar nos cartões da autora e na imagem de compartilhamento `og.png`). Para trocar as fotos, substitua os arquivos de origem, rode o script, `cd imggen && python3 gen.py og` e depois `python3 site/deploy.py media blocks templates pages`.
 - **Ícone do site (favicon)**: injetado via `<link rel="icon">` no cabeçalho; para definir também em Aparência → Personalizar → Identidade do site, use `imggen/out/favicon.png`.
 
 ## Pontos de configuração

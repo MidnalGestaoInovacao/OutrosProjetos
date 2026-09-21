@@ -68,7 +68,7 @@ def banner_page(crumb_html, with_excerpt=True, variant="page", extra=""):
 ASIDE_AUTHOR = """
 <div class="eb-card">
   <div class="eb-author">
-    <img src="{{IMG:portrait}}" alt="Évellyn Brandão" width="64" height="64" loading="lazy">
+    <img src="{{IMG:avatar}}" alt="Évellyn Brandão" width="64" height="64" loading="lazy">
     <div><b class="notranslate">Évellyn Brandão</b><span>CEO e Fundadora da BS Agro Capital · 10 anos de mercado financeiro</span></div>
   </div>
   <p style="margin:16px 0 0;color:var(--eb-mut);font-size:.92rem;line-height:1.6">Conectando produtores rurais e empresas do agro a bancos, cooperativas, fundos e diferentes fontes de capital.</p>

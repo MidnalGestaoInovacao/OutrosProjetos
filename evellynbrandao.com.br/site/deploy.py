@@ -141,6 +141,15 @@ def step_media():
     upload("visual-bs", "visual-bs.jpg", "BS Agro Capital — visual", "Composição dourada representando o campo, capital e estrutura")
     upload("visual-sobre", "visual-sobre.jpg", "Crédito é estrutura — visual", "Composição dourada com a frase Crédito não é sorte, crédito é estrutura")
     upload("portrait", "portrait.png", "Évellyn Brandão — retrato", "Évellyn Brandão")
+    FOTOS = os.path.join(ROOT, "fotos", "out")
+    for key, fn, title, alt in (("retrato", "evellyn-retrato.jpg", "Évellyn Brandão — retrato no campo", "Évellyn Brandão, CEO e Fundadora da BS Agro Capital, em lavoura de milho"),
+                                ("avatar", "evellyn-avatar.jpg", "Évellyn Brandão — avatar", "Évellyn Brandão"),
+                                ("campo", "evellyn-campo.jpg", "Évellyn Brandão no campo", "Évellyn Brandão em lavoura de milho ao entardecer"),
+                                ("campo-wide", "evellyn-campo-wide.jpg", "Évellyn Brandão — campo (panorâmica)", "Évellyn Brandão em lavoura de milho, vista panorâmica")):
+        if os.path.exists(os.path.join(FOTOS, fn)):
+            _orig = globals()["IMG_DIR"]; globals()["IMG_DIR"] = FOTOS
+            try: upload(key, fn, title, alt)
+            finally: globals()["IMG_DIR"] = _orig
     for p in load_posts():
         fn = "banner-%s.jpg" % p["slug"]
         if os.path.exists(os.path.join(IMG_DIR, fn)):
@@ -234,6 +243,11 @@ def faq_html(pol):
 def step_pages():
     print("== PÁGINAS ==")
     pol = policies()
+    only = set(x for x in os.environ.get("EB_PAGES", "").split(",") if x)  # ex.: EB_PAGES=sobre,contato → atualiza só estas
+    _upsert = globals()["upsert_page"]
+    def upsert_page(slug, *a, **k):
+        if only and slug not in only: return state["pages"].get(slug)
+        return _upsert(slug, *a, **k)
     page_images = {"sobre": "visual-sobre", "bs-agro-capital": "visual-bs"}
     def crumbs_for(slug, title, parent_title=None, parent_slug=None):
         c = [("Início", "/")]

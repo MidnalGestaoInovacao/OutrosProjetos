@@ -19,10 +19,10 @@
    "size": 71535
   },
   "og": {
-   "id": 15,
-   "url": "https://evellynbrandao.com.br/wp-content/uploads/2026/09/og.png",
+   "id": 133,
+   "url": "https://evellynbrandao.com.br/wp-content/uploads/2026/09/og-1.png",
    "file": "og.png",
-   "size": 140319
+   "size": 315693
   },
   "visual-bs": {
    "id": 16,
@@ -131,6 +131,30 @@
    "url": "https://evellynbrandao.com.br/wp-content/uploads/2026/09/banner-mulheres-no-agro-e-nas-financas-lideranca-que-transforma-o-campo.jpg",
    "file": "banner-mulheres-no-agro-e-nas-financas-lideranca-que-transforma-o-campo.jpg",
    "size": 75810
+  },
+  "retrato": {
+   "id": 134,
+   "url": "https://evellynbrandao.com.br/wp-content/uploads/2026/09/evellyn-retrato.jpg",
+   "file": "evellyn-retrato.jpg",
+   "size": 355214
+  },
+  "avatar": {
+   "id": 135,
+   "url": "https://evellynbrandao.com.br/wp-content/uploads/2026/09/evellyn-avatar.jpg",
+   "file": "evellyn-avatar.jpg",
+   "size": 96099
+  },
+  "campo": {
+   "id": 136,
+   "url": "https://evellynbrandao.com.br/wp-content/uploads/2026/09/evellyn-campo.jpg",
+   "file": "evellyn-campo.jpg",
+   "size": 532034
+  },
+  "campo-wide": {
+   "id": 137,
+   "url": "https://evellynbrandao.com.br/wp-content/uploads/2026/09/evellyn-campo-wide.jpg",
+   "file": "evellyn-campo-wide.jpg",
+   "size": 479702
   }
  },
  "blocks": {

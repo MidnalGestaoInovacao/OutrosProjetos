@@ -14,7 +14,7 @@ SOBRE = {
 <section class="eb-sec">
   <div class="eb-wrap">
     <div class="eb-grid eb-grid--2" style="gap:56px;align-items:center">
-      <div class="eb-rev"><img src="{{IMG:portrait}}" alt="Évellyn Brandão" width="1000" height="1000" style="border-radius:var(--eb-r-lg);border:1px solid var(--eb-line2);box-shadow:var(--eb-shadow)"></div>
+      <div class="eb-rev"><img src="{{IMG:campo}}" alt="Évellyn Brandão em lavoura de milho ao entardecer" width="1120" height="1400" style="border-radius:var(--eb-r-lg);border:1px solid var(--eb-line2);box-shadow:var(--eb-shadow),0 0 60px rgba(212,175,55,.12)"></div>
       <div class="eb-rev eb-rev--d1">
         <p class="eb-kicker">Quem é Évellyn</p>
         <h2 class="eb-h2">Uma executiva que aprendeu crédito onde ele é decidido</h2>

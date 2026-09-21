@@ -65,11 +65,19 @@ add("favicon", '<div style="position:absolute;inset:0;display:flex;align-items:c
 add("logo-horizontal", ('<div style="position:absolute;inset:0;display:flex;align-items:center;gap:40px;padding:60px">%s<div><div class="brand gtx" style="font-size:78px;line-height:1">Évellyn Brandão</div>'
                         '<div class="small" style="font-size:26px;margin-top:22px">CEO · BS Agro Capital</div></div></div>') % logo_svg(300), 1600, 420, transparent=True, bg="transparent")
 
-# ---- imagem de compartilhamento (Open Graph) ----
+# ---- imagem de compartilhamento (Open Graph): foto em medalhão dourado + nome ----
+AVATAR = os.path.join(os.path.dirname(HERE), "fotos", "out", "evellyn-avatar.jpg")
+if os.path.exists(AVATAR):
+    photo = ('<div style="position:relative;width:330px;height:330px;flex:none"><div style="position:absolute;inset:-10px;border-radius:50%%;background:linear-gradient(135deg,#f7e7b0,#d4af37 45%%,#6e5416);"></div>'
+             '<div style="position:absolute;inset:-4px;border-radius:50%%;background:#050505"></div>'
+             '<img src="file://%s" style="position:absolute;inset:0;width:100%%;height:100%%;border-radius:50%%;object-fit:cover">'
+             '<div style="position:absolute;right:-6px;bottom:-6px;width:96px;height:96px;border-radius:50%%;background:#050505;display:flex;align-items:center;justify-content:center;border:1px solid rgba(212,175,55,.5)">%s</div></div>' % (AVATAR, logo_svg(70)))
+else:
+    photo = logo_svg(300)
 add("og", ('<div class="hexbg"></div><div class="glow" style="width:700px;height:700px;background:#d4af37;left:-200px;top:-300px;opacity:.25"></div>'
-           '<div style="position:absolute;inset:0;display:flex;align-items:center;gap:60px;padding:90px 100px">%s<div><div class="kicker" style="font-size:20px;margin-bottom:22px">CEO e Fundadora da BS Agro Capital</div>'
-           '<div class="brand gtx" style="font-size:66px;line-height:1.05">Évellyn Brandão</div><div class="title" style="font-size:40px;margin-top:26px;color:#f6f0e2;font-style:italic">Crédito não é sorte. Crédito é estrutura.</div>'
-           '<div class="small" style="font-size:18px;margin-top:34px">evellynbrandao.com.br</div></div></div>') % logo_svg(300), 1200, 630)
+           '<div style="position:absolute;inset:0;display:flex;align-items:center;gap:64px;padding:90px 100px">%s<div><div class="kicker" style="font-size:20px;margin-bottom:22px">CEO e Fundadora da BS Agro Capital</div>'
+           '<div class="brand gtx" style="font-size:62px;line-height:1.05">Évellyn Brandão</div><div class="title" style="font-size:38px;margin-top:26px;color:#f6f0e2;font-style:italic">Crédito não é sorte. Crédito é estrutura.</div>'
+           '<div class="small" style="font-size:18px;margin-top:34px">evellynbrandao.com.br</div></div></div>') % photo, 1200, 630)
 
 # ---- visuais ----
 add("visual-bs", ('<div class="hexbg"></div><div class="glow" style="width:900px;height:900px;background:#d4af37;right:-250px;top:-250px;opacity:.28"></div><div class="glow" style="width:600px;height:600px;background:#8a6a1c;left:-200px;bottom:-300px;opacity:.35"></div>'
