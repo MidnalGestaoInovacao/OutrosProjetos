@@ -1,0 +1,239 @@
+{
+ "media": {
+  "logo": {
+   "id": 12,
+   "url": "https://evellynbrandao.com.br/wp-content/uploads/2026/09/logo.png",
+   "file": "logo.png",
+   "size": 161176
+  },
+  "favicon": {
+   "id": 13,
+   "url": "https://evellynbrandao.com.br/wp-content/uploads/2026/09/favicon.png",
+   "file": "favicon.png",
+   "size": 46943
+  },
+  "logo-horizontal": {
+   "id": 14,
+   "url": "https://evellynbrandao.com.br/wp-content/uploads/2026/09/logo-horizontal.png",
+   "file": "logo-horizontal.png",
+   "size": 71535
+  },
+  "og": {
+   "id": 15,
+   "url": "https://evellynbrandao.com.br/wp-content/uploads/2026/09/og.png",
+   "file": "og.png",
+   "size": 140319
+  },
+  "visual-bs": {
+   "id": 16,
+   "url": "https://evellynbrandao.com.br/wp-content/uploads/2026/09/visual-bs.jpg",
+   "file": "visual-bs.jpg",
+   "size": 131868
+  },
+  "visual-sobre": {
+   "id": 17,
+   "url": "https://evellynbrandao.com.br/wp-content/uploads/2026/09/visual-sobre.jpg",
+   "file": "visual-sobre.jpg",
+   "size": 108315
+  },
+  "portrait": {
+   "id": 18,
+   "url": "https://evellynbrandao.com.br/wp-content/uploads/2026/09/portrait.png",
+   "file": "portrait.png",
+   "size": 234596
+  },
+  "banner-plano-safra-como-preparar-sua-fazenda-para-captar-melhor": {
+   "id": 19,
+   "url": "https://evellynbrandao.com.br/wp-content/uploads/2026/09/banner-plano-safra-como-preparar-sua-fazenda-para-captar-melhor.jpg",
+   "file": "banner-plano-safra-como-preparar-sua-fazenda-para-captar-melhor.jpg",
+   "size": 71115
+  },
+  "banner-cpr-a-espinha-dorsal-do-credito-privado-no-agro": {
+   "id": 20,
+   "url": "https://evellynbrandao.com.br/wp-content/uploads/2026/09/banner-cpr-a-espinha-dorsal-do-credito-privado-no-agro.jpg",
+   "file": "banner-cpr-a-espinha-dorsal-do-credito-privado-no-agro.jpg",
+   "size": 75976
+  },
+  "banner-barter-trocar-grao-por-insumo-com-inteligencia": {
+   "id": 21,
+   "url": "https://evellynbrandao.com.br/wp-content/uploads/2026/09/banner-barter-trocar-grao-por-insumo-com-inteligencia.jpg",
+   "file": "banner-barter-trocar-grao-por-insumo-com-inteligencia.jpg",
+   "size": 73353
+  },
+  "banner-fiagro-como-os-fundos-de-investimento-chegaram-ao-campo": {
+   "id": 22,
+   "url": "https://evellynbrandao.com.br/wp-content/uploads/2026/09/banner-fiagro-como-os-fundos-de-investimento-chegaram-ao-campo.jpg",
+   "file": "banner-fiagro-como-os-fundos-de-investimento-chegaram-ao-campo.jpg",
+   "size": 68191
+  },
+  "banner-7-erros-que-travam-o-credito-do-produtor-rural": {
+   "id": 23,
+   "url": "https://evellynbrandao.com.br/wp-content/uploads/2026/09/banner-7-erros-que-travam-o-credito-do-produtor-rural.jpg",
+   "file": "banner-7-erros-que-travam-o-credito-do-produtor-rural.jpg",
+   "size": 74354
+  },
+  "banner-fluxo-de-caixa-da-safra-o-mapa-que-o-banco-quer-ver": {
+   "id": 24,
+   "url": "https://evellynbrandao.com.br/wp-content/uploads/2026/09/banner-fluxo-de-caixa-da-safra-o-mapa-que-o-banco-quer-ver.jpg",
+   "file": "banner-fluxo-de-caixa-da-safra-o-mapa-que-o-banco-quer-ver.jpg",
+   "size": 71175
+  },
+  "banner-garantias-no-credito-rural-da-hipoteca-ao-penhor-de-safra": {
+   "id": 25,
+   "url": "https://evellynbrandao.com.br/wp-content/uploads/2026/09/banner-garantias-no-credito-rural-da-hipoteca-ao-penhor-de-safra.jpg",
+   "file": "banner-garantias-no-credito-rural-da-hipoteca-ao-penhor-de-safra.jpg",
+   "size": 75507
+  },
+  "banner-custeio-investimento-ou-comercializacao-qual-linha-para-cada-momento": {
+   "id": 26,
+   "url": "https://evellynbrandao.com.br/wp-content/uploads/2026/09/banner-custeio-investimento-ou-comercializacao-qual-linha-para-cada-momento.jpg",
+   "file": "banner-custeio-investimento-ou-comercializacao-qual-linha-para-cada-momento.jpg",
+   "size": 79831
+  },
+  "banner-seguro-rural-e-proagro-proteger-a-safra-e-proteger-o-credito": {
+   "id": 27,
+   "url": "https://evellynbrandao.com.br/wp-content/uploads/2026/09/banner-seguro-rural-e-proagro-proteger-a-safra-e-proteger-o-credito.jpg",
+   "file": "banner-seguro-rural-e-proagro-proteger-a-safra-e-proteger-o-credito.jpg",
+   "size": 69915
+  },
+  "banner-renegociacao-de-dividas-rurais-como-sentar-a-mesa-com-estrutura": {
+   "id": 28,
+   "url": "https://evellynbrandao.com.br/wp-content/uploads/2026/09/banner-renegociacao-de-dividas-rurais-como-sentar-a-mesa-com-estrutura.jpg",
+   "file": "banner-renegociacao-de-dividas-rurais-como-sentar-a-mesa-com-estrutura.jpg",
+   "size": 79660
+  },
+  "banner-cooperativas-bancos-ou-fundos-como-escolher-a-fonte-de-capital-certa": {
+   "id": 31,
+   "url": "https://evellynbrandao.com.br/wp-content/uploads/2026/09/banner-cooperativas-bancos-ou-fundos-como-escolher-a-fonte-de-capital-certa.jpg",
+   "file": "banner-cooperativas-bancos-ou-fundos-como-escolher-a-fonte-de-capital-certa.jpg",
+   "size": 77884
+  },
+  "banner-lideranca-de-equipes-comerciais-de-alta-performance": {
+   "id": 32,
+   "url": "https://evellynbrandao.com.br/wp-content/uploads/2026/09/banner-lideranca-de-equipes-comerciais-de-alta-performance.jpg",
+   "file": "banner-lideranca-de-equipes-comerciais-de-alta-performance.jpg",
+   "size": 80250
+  },
+  "banner-negociacao-no-agro-persuasao-etica-que-fecha-bons-negocios": {
+   "id": 33,
+   "url": "https://evellynbrandao.com.br/wp-content/uploads/2026/09/banner-negociacao-no-agro-persuasao-etica-que-fecha-bons-negocios.jpg",
+   "file": "banner-negociacao-no-agro-persuasao-etica-que-fecha-bons-negocios.jpg",
+   "size": 75030
+  },
+  "banner-esg-e-credito-verde-no-agro-sustentabilidade-que-reduz-o-custo-do-capital": {
+   "id": 36,
+   "url": "https://evellynbrandao.com.br/wp-content/uploads/2026/09/banner-esg-e-credito-verde-no-agro-sustentabilidade-que-reduz-o-custo-do-capital.jpg",
+   "file": "banner-esg-e-credito-verde-no-agro-sustentabilidade-que-reduz-o-custo-do-capital.jpg",
+   "size": 75954
+  },
+  "banner-mulheres-no-agro-e-nas-financas-lideranca-que-transforma-o-campo": {
+   "id": 38,
+   "url": "https://evellynbrandao.com.br/wp-content/uploads/2026/09/banner-mulheres-no-agro-e-nas-financas-lideranca-que-transforma-o-campo.jpg",
+   "file": "banner-mulheres-no-agro-e-nas-financas-lideranca-que-transforma-o-campo.jpg",
+   "size": 75810
+  }
+ },
+ "blocks": {
+  "header": 29,
+  "footer": 30
+ },
+ "pages": {
+  "sobre": 44,
+  "solucoes": 45,
+  "bs-agro-capital": 46,
+  "contato": 47,
+  "materias": 48,
+  "credito-rural": 49,
+  "estruturacao-de-operacoes": 50,
+  "fontes-de-capital": 51,
+  "consultoria-financeira-estrategica": 52,
+  "renegociacao-e-reestruturacao": 53,
+  "treinamento-de-equipes-comerciais": 54,
+  "mentoria-e-palestras": 58,
+  "portal-do-titular": 59,
+  "canal-de-integridade": 60,
+  "politica-de-privacidade": 61,
+  "politica-de-cookies": 62,
+  "politica-de-compliance-anticorrupcao": 64,
+  "politica-de-esg": 65,
+  "acessibilidade": 66
+ },
+ "posts": {
+  "plano-safra-como-preparar-sua-fazenda-para-captar-melhor": 56,
+  "cpr-a-espinha-dorsal-do-credito-privado-no-agro": 63,
+  "barter-trocar-grao-por-insumo-com-inteligencia": 67,
+  "custeio-investimento-ou-comercializacao-qual-linha-para-cada-momento": 68,
+  "lideranca-de-equipes-comerciais-de-alta-performance": 74,
+  "seguro-rural-e-proagro-proteger-a-safra-e-proteger-o-credito": 78,
+  "fiagro-como-os-fundos-de-investimento-chegaram-ao-campo": 79,
+  "negociacao-no-agro-persuasao-etica-que-fecha-bons-negocios": 80,
+  "7-erros-que-travam-o-credito-do-produtor-rural": 81,
+  "esg-e-credito-verde-no-agro-sustentabilidade-que-reduz-o-custo-do-capital": 83,
+  "renegociacao-de-dividas-rurais-como-sentar-a-mesa-com-estrutura": 85,
+  "mulheres-no-agro-e-nas-financas-lideranca-que-transforma-o-campo": 86,
+  "fluxo-de-caixa-da-safra-o-mapa-que-o-banco-quer-ver": 87,
+  "cooperativas-bancos-ou-fundos-como-escolher-a-fonte-de-capital-certa": 88,
+  "garantias-no-credito-rural-da-hipoteca-ao-penhor-de-safra": 89
+ },
+ "tags": {
+  "plano safra": 9,
+  "crédito rural": 10,
+  "planejamento": 11,
+  "pronaf": 12,
+  "pronamp": 13,
+  "cpr": 14,
+  "crédito privado": 15,
+  "lei do agro": 16,
+  "títulos do agro": 17,
+  "garantias": 18,
+  "barter": 19,
+  "insumos": 20,
+  "cpr física": 21,
+  "comercialização": 22,
+  "margem": 23,
+  "custeio": 24,
+  "fiagro": 25,
+  "liderança": 26,
+  "fundos de investimento": 27,
+  "mercado de capitais": 28,
+  "investimento": 29,
+  "linhas de crédito": 30,
+  "equipes comerciais": 31,
+  "mcr": 32,
+  "alta performance": 33,
+  "gestão de pessoas": 34,
+  "seguro rural": 35,
+  "proagro": 36,
+  "gestão de risco": 37,
+  "vendas": 38,
+  "cra": 39,
+  "cvm": 40,
+  "negociação": 41,
+  "pnl": 42,
+  "persuasão": 43,
+  "agronegócio": 44,
+  "esg": 45,
+  "documentação": 46,
+  "análise de crédito": 47,
+  "crédito verde": 48,
+  "car": 49,
+  "renovagro": 50,
+  "sustentabilidade": 51,
+  "mulheres no agro": 52,
+  "renegociação": 53,
+  "liderança feminina": 54,
+  "mercado financeiro": 55,
+  "tendências": 56,
+  "fluxo de caixa": 57,
+  "dívidas rurais": 58,
+  "gestão financeira": 59,
+  "capacidade de pagamento": 60,
+  "fontes de capital": 61,
+  "cooperativas de crédito": 62,
+  "planejamento de safra": 63,
+  "estruturação": 64,
+  "hipoteca": 65,
+  "penhor rural": 66,
+  "alienação fiduciária": 67
+ }
+}

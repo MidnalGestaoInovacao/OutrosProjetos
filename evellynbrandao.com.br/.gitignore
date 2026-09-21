@@ -1,0 +1,7 @@
+.wpmcp_key
+.mcp_session
+*.tmp
+__pycache__/
+imggen/out/*.html
+imggen/out/spec.json
+venv/
