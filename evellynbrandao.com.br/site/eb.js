@@ -65,6 +65,14 @@
     var io = new IntersectionObserver(function (es) { es.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('eb-in'); io.unobserve(en.target); } }); }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
     revs.forEach(function (el) { io.observe(el); });
   } else { revs.forEach(function (el) { el.classList.add('eb-in'); }); }
+  /* Reforço: revela o que já está na tela ao rolar (garante exibição mesmo se o observer atrasar) */
+  var revTick = false;
+  function revealVisible() {
+    revTick = false;
+    revs.forEach(function (el) { if (!el.classList.contains('eb-in')) { var r = el.getBoundingClientRect(); if (w.innerHeight - 20 > r.top && r.bottom > 0) el.classList.add('eb-in'); } });
+  }
+  w.addEventListener('scroll', function () { if (!revTick) { revTick = true; (w.requestAnimationFrame || setTimeout)(revealVisible); } }, { passive: true });
+  setTimeout(revealVisible, 900);
 
   /* Cards com inclinação 3D sutil (apenas com mouse) */
   if (!reduce && w.matchMedia && w.matchMedia('(hover:hover)').matches) {
