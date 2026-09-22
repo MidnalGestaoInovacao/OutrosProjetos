@@ -1,0 +1,32 @@
+/* EB Crédito Rural — admin */
+.ebcr-admin .ebcr-badge{display:inline-block;padding:3px 10px;border-radius:999px;font-size:.78rem;font-weight:700;color:#fff;background:var(--ebcr-badge,#6b7280)}
+.ebcr-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin:16px 0}
+.ebcr-cardk{background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:14px 16px}
+.ebcr-cardk b{display:block;font-size:1.6rem;line-height:1.2}
+.ebcr-cardk span{color:#646970;font-size:.85rem}
+.ebcr-detail{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:20px;align-items:start}
+@media (max-width:1100px){.ebcr-detail{grid-template-columns:minmax(0,1fr)}}
+.ebcr-box{background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:14px 16px;margin-bottom:16px}
+.ebcr-box h3{margin-top:0}
+.ebcr-tabs-nav{margin:12px 0}
+.ebcr-tabpanel[hidden]{display:none}
+.ebcr-kv{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:4px 16px;margin:0}
+.ebcr-kv dt{font-weight:600;color:#50575e}.ebcr-kv dd{margin:0}
+.ebcr-admin table.ebcr-t{border-collapse:collapse;width:100%}
+.ebcr-admin table.ebcr-t th,.ebcr-admin table.ebcr-t td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-align:top}
+.ebcr-timeline{list-style:none;margin:0;padding:0 0 0 6px;border-left:2px solid #dcdcde}
+.ebcr-timeline li{position:relative;padding:0 0 12px 16px}
+.ebcr-timeline li::before{content:"";position:absolute;left:-7px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--ebcr-badge,#6b7280)}
+.ebcr-msg{border:1px solid #dcdcde;border-radius:8px;padding:8px 12px;margin-bottom:8px;background:#f6f7f7}
+.ebcr-msg--interno{background:#fff8e5;border-color:#f0c36d}
+.ebcr-msg-meta{font-size:.8rem;color:#646970}
+.ebcr-help-field{color:#646970;font-size:.85rem;margin:4px 0 0}
+.ebcr-settings-intro{background:#f6f7f7;border-left:4px solid #d4af37;padding:10px 14px;margin:12px 0}
+.ebcr-status-ok{color:#00a32a;font-weight:600}.ebcr-status-bad{color:#d63638;font-weight:600}.ebcr-status-warn{color:#dba617;font-weight:600}
+.ebcr-matrix input[type=text]{width:100%}
+.ebcr-review-form{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:4px}
+.ebcr-review-form textarea{width:100%}
+.ebcr-indicators{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+.ebcr-indicators div{background:#f6f7f7;border-radius:6px;padding:8px 10px}
+.ebcr-indicators b{display:block;font-size:1.1rem}
+pre.ebcr-code{background:#1f2937;color:#e5e7eb;padding:12px;border-radius:6px;overflow:auto}
