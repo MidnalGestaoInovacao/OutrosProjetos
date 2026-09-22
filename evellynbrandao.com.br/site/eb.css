@@ -63,7 +63,11 @@ h1,h2,h3,h4{font-family:var(--eb-f-head);color:var(--eb-txt);line-height:1.15}
 .eb-grid--4{grid-template-columns:repeat(4,1fr)}
 .eb-rule{height:1px;background:var(--eb-grad);opacity:.55;margin:28px 0;border:0}
 @media (max-width:1100px){.eb-grid--4{grid-template-columns:repeat(2,1fr)}.eb-grid--3{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:720px){.eb-grid--4,.eb-grid--3,.eb-grid--2{grid-template-columns:1fr}.eb-sec{padding:64px 0}}
+@media (max-width:720px){.eb-grid--4,.eb-grid--3,.eb-grid--2{grid-template-columns:minmax(0,1fr)}.eb-sec{padding:64px 0}
+  /* celular: nada mais largo que a tela (botões quebram linha; itens de grade/flex podem encolher) */
+  .eb-btn{white-space:normal;text-align:center;max-width:100%}
+  .eb-grid>*,.eb-hero .eb-wrap>*,.eb-content .eb-wrap>*,.eb-row>*,.eb-tl,.eb-tl-it{min-width:0}
+  .eb-hero .eb-wrap{grid-template-columns:minmax(0,1fr)}}
 
 /* botões */
 .eb-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;
