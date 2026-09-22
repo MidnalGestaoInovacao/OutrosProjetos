@@ -71,6 +71,10 @@ Cada etapa é idempotente: IDs criados ficam em `site/state.json` e são atualiz
 - Como o tema em bloco não permite PHP no `<head>`, as tags são emitidas no início do conteúdo e movidas para o `<head>` pelo `eb.js` no carregamento (o Google renderiza JavaScript; redes sociais leem as tags do HTML estático).
 - O WordPress fornece nativamente `<title>`, canonical, RSS, `robots.txt` e o sitemap em `/wp-sitemap.xml` (o firewall da hospedagem devolve 406 para user-agents genéricos, mas responde 200 para navegadores e buscadores).
 - Recomendado após a publicação: cadastrar o domínio no Google Search Console e enviar `https://evellynbrandao.com.br/wp-sitemap.xml`.
+- **Yoast SEO** está instalado no site (instalado manualmente; o MCP não instala plugins). Ele emite no `<head>` as próprias tags Open Graph/Twitter e o JSON-LD, usando a **imagem destacada** de cada matéria como `og:image`;
+  as tags geradas por `seo.py` continuam válidas como reserva (redes sociais usam a primeira ocorrência, que é a do Yoast). Quando a imagem destacada de uma matéria é trocada via API, o cache do Yoast (indexable) pode ficar
+  com a imagem antiga: basta regravar a matéria (`wp_update_post` com `post_id` e `status`), como faz `python3 site/deploy.py posts`. Sugestões no painel do Yoast: em *SEO → Configurações → Representação do site* escolher
+  "Pessoa" (Évellyn Brandão) com a logo-assinatura, definir a imagem social padrão (`imggen/out/og.png`) e ajustar o nome de exibição do usuário `admin` para "Évellyn Brandão" (aparece como autor nas tags do Yoast).
 
 ## Ícone do navegador (favicon)
 
