@@ -11,7 +11,7 @@ formulários por e-mail e 15 matérias sobre crédito e capital no agronegócio.
 | --- | --- |
 | `mcp.py` | Cliente MCP (Streamable HTTP) usado para falar com o WordPress. Lê a chave em `WPMCP_KEY` ou em `.wpmcp_key` (não versionado). |
 | `site/eb.css` | Design system (prefixo `eb-`): cores, tipografia, cabeçalho, megamenu, hero/banners, cards, matérias, formulários, rodapé, acessibilidade, cookies, canais flutuantes. |
-| `site/header.html` | Configuração global (`EB_CONFIG`: WhatsApp, LinkedIn, e-mails), sprite de ícones e logo em SVG, topbar (Portal do Titular, Canal de Integridade, LinkedIn, bandeiras), cabeçalho com megamenu e painel de acessibilidade. |
+| `site/header.html` | Configuração global (`EB_CONFIG`: WhatsApp, LinkedIn, e-mails), sprite de ícones e monograma em SVG, logo-assinatura (PNG transparente), topbar (Portal do Titular, Canal de Integridade, LinkedIn, bandeiras), cabeçalho com megamenu e painel de acessibilidade. |
 | `site/footer.html` | Rodapé (marca, Soluções, Institucional, Atendimento com formulário), selos, canais flutuantes (WhatsApp, e-mail, LinkedIn, contato), aviso de cookies, contêineres do Google Tradutor e do VLibras. |
 | `site/eb.js` | Interações: megamenu, menu mobile, revelação ao rolar, inclinação 3D dos cards, acessibilidade (A+/A−/contraste, persistido), idiomas (cookie `googtrans` + Google Tradutor), cookies, canais flutuantes, VLibras, envio dos formulários (FormSubmit), sumário automático, breadcrumb e tempo de leitura. |
 | `site/eb3d.js` | Cenas 3D dos banners (Three.js r128 via cdnjs): variantes `hero`, `page` e `post`, partículas douradas, paralaxe com mouse/giroscópio e rolagem; respeita `prefers-reduced-motion`. |
@@ -21,7 +21,8 @@ formulários por e-mail e 15 matérias sobre crédito e capital no agronegócio.
 | `site/deploy.py` | Publicação: mídia → blocos sincronizados (cabeçalho/rodapé) → templates → páginas → matérias. Estado em `site/state.json`. |
 | `content/posts_a.json`, `content/posts_b.json` | As 15 matérias (HTML + metadados). |
 | `content/policies.json` | Política de Privacidade, Política de Cookies, Política de Compliance e Anticorrupção, Política de ESG, Declaração de Acessibilidade, textos do Portal do Titular e do Canal de Integridade e FAQ. |
-| `imggen/gen.py`, `imggen/render.js` | Geração das imagens (logo, favicon, Open Graph, visuais e banners das matérias) com Chromium/Playwright. |
+| `imggen/gen.py`, `imggen/render.js` | Geração das imagens (monograma, favicon, Open Graph, visuais e banners das matérias) com Chromium/Playwright. |
+| `logos/assinatura/process.py` | Logo oficial (assinatura dourada "Évellyn Brandão · Crédito Rural"): remove o fundo verde do original e gera as versões transparentes usadas no site. |
 
 ## Como publicar / atualizar
 
@@ -74,6 +75,15 @@ Cada etapa é idempotente: IDs criados ficam em `site/state.json` e são atualiz
 ## Ícone do navegador (favicon)
 
 O ícone (`imggen/out/favicon.png`, enviado à biblioteca de mídia) é declarado no HTML e movido para o `<head>` via script. Para que o WordPress também o sirva em `/favicon.ico` e nos ícones de dispositivos móveis, defina-o uma vez em **Configurações → Geral → Ícone do site** (ou Aparência → Personalizar → Identidade do site) escolhendo a mídia "Ícone do site" — a API MCP não expõe essa opção.
+
+## Logo-assinatura de Évellyn Brandão (logo oficial do site)
+
+A logo horizontal com o nome (assinatura manuscrita dourada + "CRÉDITO RURAL") vem do arquivo `logos/assinatura/assinatura-src.jpg` (dourado sobre verde).
+`logos/assinatura/process.py` remove o fundo (chave no canal vermelho com reamostragem 2x, bordas descontaminadas com o dourado vizinho) e gera em `logos/assinatura/out/`:
+`evellyn-brandao-assinatura.png` (transparente, 2400 px), `-800.png` (cabeçalho e rodapé), `-branca.png` e `-preta.png` (monocromáticas) e `-sobre-preto.jpg`.
+Onde aparece: cabeçalho (`.eb-brand`, 64 px; 52 px ao rolar e no celular; 44 px abaixo de 480 px), rodapé (76 px), imagem de compartilhamento `og.png`
+e canto de marca dos 15 banners das matérias (`imggen/gen.py`). O monograma EB continua como ícone do site (favicon) e nos ícones auxiliares.
+Para trocar a logo: substitua `assinatura-src.jpg`, rode `python3 logos/assinatura/process.py`, `cd imggen && python3 gen.py og.png banner-` e `python3 site/deploy.py media blocks templates pages posts`.
 
 ## Logo da BS Agro Capital
 

@@ -136,7 +136,6 @@ def step_media():
     print("== MEDIA ==")
     upload("logo", "logo.png", "Logo Évellyn Brandão", "Logotipo de Évellyn Brandão — monograma EB com espiga dourada")
     upload("favicon", "favicon.png", "Ícone do site", "Ícone Évellyn Brandão")
-    upload("logo-horizontal", "logo-horizontal.png", "Logo horizontal Évellyn Brandão", "Logotipo horizontal Évellyn Brandão")
     upload("og", "og.png", "Évellyn Brandão — compartilhamento", "Évellyn Brandão — CEO e Fundadora da BS Agro Capital")
     upload("visual-bs", "visual-bs.jpg", "BS Agro Capital — visual", "Composição dourada representando o campo, capital e estrutura")
     upload("visual-sobre", "visual-sobre.jpg", "Crédito é estrutura — visual", "Composição dourada com a frase Crédito não é sorte, crédito é estrutura")
@@ -152,6 +151,12 @@ def step_media():
              (BSLOGO, "bs-logo-t", "bs-agro-capital-logo-transparente.png", "BS Agro Capital — logotipo (fundo transparente)", "Logotipo da BS Agro Capital em dourado"),
              (BSLOGO, "bs-logo-t600", "bs-agro-capital-logo-transparente-600.png", "BS Agro Capital — logotipo pequeno", "Logotipo da BS Agro Capital em dourado"),
              (BSLOGO, "bs-logo-preto", "bs-agro-capital-logo-preto.jpg", "BS Agro Capital — logotipo sobre preto", "Logotipo da BS Agro Capital em dourado sobre preto")]
+    ASSIN = os.path.join(ROOT, "logos", "assinatura", "out")
+    extra += [(ASSIN, "assinatura", "evellyn-brandao-assinatura.png", "Logo Évellyn Brandão — assinatura (Crédito Rural)", "Évellyn Brandão — Crédito Rural"),
+              (ASSIN, "assinatura-800", "evellyn-brandao-assinatura-800.png", "Logo Évellyn Brandão — assinatura (800 px, cabeçalho e rodapé)", "Évellyn Brandão — Crédito Rural"),
+              (ASSIN, "assinatura-branca", "evellyn-brandao-assinatura-branca.png", "Logo Évellyn Brandão — assinatura branca", "Évellyn Brandão — Crédito Rural (versão branca)"),
+              (ASSIN, "assinatura-preta", "evellyn-brandao-assinatura-preta.png", "Logo Évellyn Brandão — assinatura preta", "Évellyn Brandão — Crédito Rural (versão preta)"),
+              (ASSIN, "assinatura-sobre-preto", "evellyn-brandao-assinatura-sobre-preto.jpg", "Logo Évellyn Brandão — assinatura sobre preto", "Évellyn Brandão — Crédito Rural sobre preto")]
     LOGOS2 = os.path.join(ROOT, "logos", "out2")
     for name in ("opcao-1-selo-de-trigo-horizontal-dourado.png", "opcao-2-sol-e-campo-horizontal-dourado.png", "opcao-3-arco-e-espiga-horizontal-dourado.png",
                  "opcao-4-assinatura-horizontal-dourado.png", "opcao-5-crescimento-horizontal-dourado.png", "evellyn-brandao-logos-conceitos.zip"):

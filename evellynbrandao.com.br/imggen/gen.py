@@ -62,8 +62,11 @@ def add(name, body, w, h, extra_css="", transparent=False, bg="#050505", ext="pn
 # ---- logo (transparente) e favicon ----
 add("logo", '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">%s</div>' % logo_svg(1000), 1024, 1024, transparent=True, bg="transparent")
 add("favicon", '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#050505;border-radius:22%%">%s</div>' % logo_svg(440), 512, 512)
-add("logo-horizontal", ('<div style="position:absolute;inset:0;display:flex;align-items:center;gap:40px;padding:60px">%s<div><div class="brand gtx" style="font-size:78px;line-height:1">Évellyn Brandão</div>'
-                        '<div class="small" style="font-size:26px;margin-top:22px">CEO · BS Agro Capital</div></div></div>') % logo_svg(300), 1600, 420, transparent=True, bg="transparent")
+# logo-assinatura (logos/assinatura/out): usada no OG e no canto de marca dos banners
+ASSIN = os.path.join(os.path.dirname(HERE), "logos", "assinatura", "out", "evellyn-brandao-assinatura.png")
+def sig_img(width=None, height=None):
+    dim = "width:%dpx;height:auto" % width if width else "height:%dpx;width:auto" % height
+    return '<img src="file://%s" alt="" style="display:block;%s">' % (ASSIN, dim)
 
 # ---- imagem de compartilhamento (Open Graph): foto em medalhão dourado + nome ----
 AVATAR = os.path.join(os.path.dirname(HERE), "fotos", "out", "evellyn-avatar.jpg")
@@ -76,8 +79,8 @@ else:
     photo = logo_svg(300)
 add("og", ('<div class="hexbg"></div><div class="glow" style="width:700px;height:700px;background:#d4af37;left:-200px;top:-300px;opacity:.25"></div>'
            '<div style="position:absolute;inset:0;display:flex;align-items:center;gap:64px;padding:90px 100px">%s<div><div class="kicker" style="font-size:20px;margin-bottom:22px">CEO e Fundadora da BS Agro Capital</div>'
-           '<div class="brand gtx" style="font-size:62px;line-height:1.05">Évellyn Brandão</div><div class="title" style="font-size:38px;margin-top:26px;color:#f6f0e2;font-style:italic">Crédito não é sorte. Crédito é estrutura.</div>'
-           '<div class="small" style="font-size:18px;margin-top:34px">evellynbrandao.com.br</div></div></div>') % photo, 1200, 630)
+           '%s<div class="title" style="font-size:36px;margin-top:30px;color:#f6f0e2;font-style:italic">Crédito não é sorte. Crédito é estrutura.</div>'
+           '<div class="small" style="font-size:18px;margin-top:34px">evellynbrandao.com.br</div></div></div>') % (photo, sig_img(width=560)), 1200, 630)
 
 # ---- visuais ----
 add("visual-bs", ('<div class="hexbg"></div><div class="glow" style="width:900px;height:900px;background:#d4af37;right:-250px;top:-250px;opacity:.28"></div><div class="glow" style="width:600px;height:600px;background:#8a6a1c;left:-200px;bottom:-300px;opacity:.35"></div>'
@@ -96,9 +99,9 @@ def banner(slug, title, kicker, icon):
     t = H.escape(title)
     body = ('<div class="hexbg"></div><div class="glow" style="width:760px;height:760px;background:#d4af37;right:-200px;top:-260px;opacity:.26"></div><div class="glow" style="width:500px;height:500px;background:#8a6a1c;left:-160px;bottom:-260px;opacity:.3"></div>'
             '<div style="position:absolute;right:70px;top:50%%;transform:translateY(-50%%);opacity:.95">%s</div>'
-            '<div style="position:absolute;left:80px;top:72px;display:flex;align-items:center;gap:18px">%s<div><div class="brand gtx" style="font-size:22px;line-height:1">Évellyn Brandão</div><div class="small" style="font-size:11px;margin-top:6px">Matérias · evellynbrandao.com.br</div></div></div>'
+            '<div style="position:absolute;left:80px;top:56px">%s<div class="small" style="font-size:11px;margin-top:10px">Matérias · evellynbrandao.com.br</div></div>'
             '<div style="position:absolute;left:80px;bottom:78px;max-width:720px"><div class="kicker" style="font-size:16px;margin-bottom:18px">%s</div><div class="title" style="font-size:%dpx;color:#f6f0e2">%s</div><div class="line" style="width:180px;margin-top:28px"></div></div>'
-            % (icon_svg(icon, 380, "#d4af37"), logo_svg(64), H.escape(kicker), 50 if len(title) < 60 else 42, t))
+            % (icon_svg(icon, 380, "#d4af37"), sig_img(height=86), H.escape(kicker), 50 if len(title) < 60 else 42, t))
     add("banner-" + slug, body, 1200, 675, ext="jpg")
 
 if __name__ == "__main__":
