@@ -145,7 +145,7 @@ final class Admin {
 			if ( ( Options::bool( 'encrypt_files' ) || Options::bool( 'encrypt_fields' ) ) && ! Crypto::is_available() ) {
 				$msgs[] = array( 'error', __( 'A criptografia está ligada, mas a chave EBCR_ENCRYPTION_KEY não está definida (ou é inválida) no wp-config.php. Novos dados NÃO estão sendo criptografados.', 'eb-credito-rural' ) );
 			}
-			if ( ! Options::int( 'portal_page_id' ) ) {
+			if ( ! \EBCR\Support\Helpers::portal_page_id() ) {
 				$msgs[] = array( 'warning', sprintf( /* translators: %s: shortcode */ __( 'Nenhuma página do portal configurada. Crie uma página com %s e selecione-a em Configurações → Geral.', 'eb-credito-rural' ), '<code>[ebcr_portal]</code>' ) );
 			}
 		}

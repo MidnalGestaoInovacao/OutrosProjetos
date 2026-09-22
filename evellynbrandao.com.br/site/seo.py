@@ -47,8 +47,8 @@ def head_links(favicon_url, logo_url):
             '<link rel="shortcut icon" href="%s"><meta name="theme-color" content="#050505"><meta name="msapplication-TileColor" content="#050505">'
             '<meta name="msapplication-TileImage" content="%s">' % (favicon_url, favicon_url, favicon_url, favicon_url))
 
-def seo_block(title, description, path, image, kind="website", article=None, breadcrumbs=None, keywords=None):
-    """Retorna um bloco wp:html com as tags de SEO. path: caminho absoluto iniciando por '/'."""
+def seo_block(title, description, path, image, kind="website", article=None, breadcrumbs=None, keywords=None, robots=None):
+    """Retorna um bloco wp:html com as tags de SEO. path: caminho absoluto iniciando por '/'. robots: ex. "noindex,nofollow" para páginas apartadas."""
     url = SITE + path
     desc = _clean(description)
     t = H.escape(title, quote=True); d = H.escape(desc, quote=True)
@@ -61,6 +61,8 @@ def seo_block(title, description, path, image, kind="website", article=None, bre
             '<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="%s"><meta name="twitter:description" content="%s"><meta name="twitter:image" content="%s">' % (t, d, image)]
     if keywords:
         tags.append('<meta name="keywords" content="%s">' % H.escape(", ".join(keywords), quote=True))
+    if robots:
+        tags.append('<meta name="robots" content="%s">' % H.escape(robots, quote=True))
     graph = []
     if kind == "article" and article:
         tags.append('<meta property="article:published_time" content="%s"><meta property="article:author" content="%s">' % (article["date"], SITE + "/sobre/"))

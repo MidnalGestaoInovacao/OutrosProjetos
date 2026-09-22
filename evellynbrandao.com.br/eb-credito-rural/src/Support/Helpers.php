@@ -161,9 +161,29 @@ final class Helpers {
 	 * @return string
 	 */
 	public static function portal_url( array $args = array() ) {
-		$page_id = Options::int( 'portal_page_id' );
+		$page_id = self::portal_page_id();
 		$base    = $page_id ? get_permalink( $page_id ) : home_url( '/' );
 		return $args ? add_query_arg( array_map( 'rawurlencode', $args ), $base ) : $base;
+	}
+
+	/**
+	 * ID da página do portal: a configurada ou, se vazia, a primeira página publicada que contém [ebcr_portal] (cache de 1 h).
+	 *
+	 * @return int
+	 */
+	public static function portal_page_id() {
+		$page_id = Options::int( 'portal_page_id' );
+		if ( $page_id && 'publish' === get_post_status( $page_id ) ) {
+			return $page_id;
+		}
+		$cached = get_transient( 'ebcr_portal_page_auto' );
+		if ( false !== $cached ) {
+			return (int) $cached;
+		}
+		global $wpdb;
+		$found = (int) $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_type = 'page' AND post_status = 'publish' AND post_content LIKE %s ORDER BY ID ASC LIMIT 1", '%' . $wpdb->esc_like( '[ebcr_portal' ) . '%' ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery -- busca simples com cache.
+		set_transient( 'ebcr_portal_page_auto', $found, HOUR_IN_SECONDS );
+		return $found;
 	}
 
 	/**

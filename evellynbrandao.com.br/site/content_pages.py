@@ -479,4 +479,14 @@ INTEGRIDADE = {
 </div>
 """}
 
+# ------------------------------------------------------------------ PROPOSTAS (página apartada com o portal do plugin EB Crédito Rural)
+import os as _os
+_PROPOSTAS_FILE = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "propostas.html")
+PROPOSTAS = {
+  "slug": "propostas", "title": "Propostas de crédito rural", "template": "page-no-title",
+  "excerpt": "Área do produtor: crie sua conta, envie dados e documentos com segurança e acompanhe a análise da sua proposta de crédito rural.",
+  "robots": "noindex,nofollow",  # apartada do site por enquanto: não indexar
+  "html": open(_PROPOSTAS_FILE, encoding="utf-8").read() if _os.path.exists(_PROPOSTAS_FILE) else "",
+}
+
 LANDING_PAGES = [SOBRE, SOLUCOES, BS, CONTATO]

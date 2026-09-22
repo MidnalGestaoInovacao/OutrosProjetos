@@ -30,7 +30,7 @@ Se `DISABLE_WP_CRON` estiver definido, configure um cron do sistema chamando `wp
 
 | Shortcode | Função |
 | --- | --- |
-| `[ebcr_portal]` | Login/cadastro para visitantes; painel completo para clientes; atalho ao admin para a equipe |
+| `[ebcr_portal]` | Login/cadastro para visitantes; painel completo para clientes; atalho ao admin para a equipe. Se nenhuma página estiver configurada, o plugin usa a primeira página publicada que contém o shortcode |
 | `[ebcr_login]` / `[ebcr_register]` | Apenas login / apenas cadastro |
 | `[ebcr_form]` | Formulário (redireciona ao login se necessário) |
 | `[ebcr_cta titulo="" texto="" botao="" url=""]` | Chamada para ação |

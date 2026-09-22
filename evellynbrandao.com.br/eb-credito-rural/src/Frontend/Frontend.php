@@ -34,6 +34,12 @@ final class Frontend {
 		add_action( 'wp_enqueue_scripts', array( $this, 'register_assets' ) );
 		add_action( 'init', array( $this, 'form_cookie' ) );
 		add_filter( 'logout_redirect', array( $this, 'logout_redirect' ), 10, 3 );
+		add_action(
+			'save_post_page',
+			static function () {
+				delete_transient( 'ebcr_portal_page_auto' );
+			}
+		);
 	}
 
 	/**

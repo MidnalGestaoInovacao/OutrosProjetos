@@ -278,6 +278,15 @@ def step_pages():
         htm = fill_imgs(pg["html"]).replace("{{FAQ}}", faq_html(pol))
         head = page_seo(pg["slug"], pg["title"] if pg["slug"] != "sobre" else "Sobre Évellyn Brandão — trajetória, formação e reconhecimentos", pg["excerpt"], "/%s/" % pg["slug"], page_images.get(pg["slug"], "og"), crumbs_for(pg["slug"], pg["title"]))
         upsert_page(pg["slug"], pg["title"], head + html_block(htm), pg["excerpt"], pg["template"])
+    # propostas (apartada: sem menu, noindex; {{PORTAL}} vira o bloco do shortcode [ebcr_portal])
+    pg = CP.PROPOSTAS
+    if pg["html"]:
+        head = seo.seo_block(pg["title"] + " — Évellyn Brandão", pg["excerpt"], "/%s/" % pg["slug"], img("og"), "website", breadcrumbs=crumbs_for(pg["slug"], pg["title"]), robots=pg.get("robots"))
+        parts = fill_imgs(pg["html"]).split("{{PORTAL}}")
+        body = html_block(parts[0])
+        for extra in parts[1:]:
+            body += '<!-- wp:shortcode -->\n[ebcr_portal]\n<!-- /wp:shortcode -->\n' + html_block(extra)
+        upsert_page(pg["slug"], pg["title"], head + body, pg["excerpt"], pg["template"])
     # matérias (listagem)
     mat = CP.MATERIAS
     content = page_seo(mat["slug"], "Matérias — crédito, capital e gestão no agro", mat["excerpt"], "/materias/", "og", crumbs_for("materias", "Matérias"))
