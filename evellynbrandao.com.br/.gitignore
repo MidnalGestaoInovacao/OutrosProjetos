@@ -9,3 +9,4 @@ logos/out/spec.json
 logos/out2/*.html
 logos/out2/spec.json
 venv/
+.phpunit.result.cache
