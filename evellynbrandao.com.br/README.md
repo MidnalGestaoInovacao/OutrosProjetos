@@ -106,3 +106,10 @@ Os arquivos estão em `logos/out/` e também na biblioteca de mídia do WordPres
 `logos/make_logos2.py` gera cinco conceitos com elementos distintos, em dourado, preto e branco (SVG vetorial + PNG transparente), em `logos/out2/`:
 1 Selo de Trigo (selo circular, ramos de trigo, EB e nome em arco) · 2 Sol & Campo (sol nascente sobre sulcos) · 3 Arco & Espiga (arco com colunas abrigando uma espiga) ·
 4 Assinatura (nome manuscrito em Great Vibes com floreio) · 5 Crescimento (barras ascendentes que culminam em espiga, em moldura). Fontes: `logos/script.woff2` (Great Vibes, OFL).
+
+## Plugin EB Crédito Rural (captação de solicitações de crédito)
+
+A pasta `eb-credito-rural/` contém o plugin WordPress especificado em `eb-credito-rural/SPEC.md` (Fase 1 — MVP seguro): cadastro do produtor com confirmação de e-mail,
+formulário em sete etapas com validação no servidor, documentos em pasta privada com download autenticado, e-mails com fila, área do cliente, painel da equipe,
+auditoria e configurações. Instalação, configuração inicial, testes (PHPUnit + PHPCS) e checklist de publicação estão em `eb-credito-rural/README.md`.
+O plugin não é instalado pelo MCP (o Easy MCP AI não instala plugins): envie o ZIP em Plugins → Adicionar novo.
