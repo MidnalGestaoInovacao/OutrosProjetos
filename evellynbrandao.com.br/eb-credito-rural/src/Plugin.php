@@ -96,6 +96,14 @@ final class Plugin {
 		// Front-end (shortcodes, portal, autenticação).
 		( new Frontend() )->register();
 		( new \EBCR\Frontend\FormRouter() )->register();
+		( new \EBCR\Frontend\Simulator() )->register();
+		( new \EBCR\Integrations\Lookup() )->register();
+		( new \EBCR\Integrations\WhatsApp() )->register();
+		( new \EBCR\Security\Turnstile() )->register();
+		( new \EBCR\Security\TwoFactor() )->register();
+		( new \EBCR\Esign\Esign() )->register();
+		( new \EBCR\Admin\Crm() )->register();
+		( new \EBCR\Admin\Reports() )->register();
 
 		// Admin.
 		if ( is_admin() ) {

@@ -115,6 +115,14 @@ final class Mailer {
 				continue;
 			}
 			$ids[] = Queue::enqueue( $event, $recipient, $subject, $html, $attachments );
+			/**
+			 * Dispara após enfileirar um e-mail de evento (ex.: espelhar por WhatsApp).
+			 *
+			 * @param string $event     Evento.
+			 * @param string $recipient E-mail do destinatário.
+			 * @param array  $vars      Variáveis do template (protocolo, nome, status…).
+			 */
+			do_action( 'ebcr_notification_sent', $event, $recipient, $vars );
 		}
 		return $ids;
 	}

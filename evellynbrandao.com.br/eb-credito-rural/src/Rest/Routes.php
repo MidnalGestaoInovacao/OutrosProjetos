@@ -43,6 +43,12 @@ final class Routes {
 	 */
 	public function routes() {
 		$uuid = '(?P<id>[a-f0-9-]{36})';
+		/**
+		 * Permite que módulos registrem rotas no namespace do plugin.
+		 *
+		 * @param string $ns Namespace REST (ebcr/v1).
+		 */
+		do_action( 'ebcr_rest_routes', self::NS );
 		register_rest_route(
 			self::NS,
 			'/captcha',

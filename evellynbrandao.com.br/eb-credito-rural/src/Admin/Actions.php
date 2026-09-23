@@ -33,7 +33,7 @@ final class Actions {
 	 * @return void
 	 */
 	public function register() {
-		foreach ( array( 'status', 'assign', 'request_document', 'review_document', 'message', 'checks', 'export_one' ) as $a ) {
+		foreach ( array( 'status', 'assign', 'request_document', 'review_document', 'message', 'checks', 'export_one', 'fund', 'dossier' ) as $a ) {
 			add_action( 'admin_post_ebcr_admin_' . $a, array( $this, 'handle_' . $a ) );
 		}
 	}
@@ -99,6 +99,37 @@ final class Actions {
 		$s = $this->guard( 'admin_assign' );
 		$r = SubmissionService::assign( get_current_user_id(), $s, isset( $_POST['analyst_id'] ) ? absint( $_POST['analyst_id'] ) : 0 );
 		$this->back( $s['public_id'], is_wp_error( $r ) ? $r->get_error_message() : __( 'Analista atribuído.', 'eb-credito-rural' ), is_wp_error( $r ) ? 'error' : 'success' );
+	}
+
+	/**
+	 * Vincula a solicitação a um fundo/carteira.
+	 *
+	 * @return void
+	 */
+	public function handle_fund() {
+		$s = $this->guard( 'admin_fund' );
+		if ( ! current_user_can( Capabilities::CAP_EDIT ) ) {
+			wp_die( esc_html__( 'Sem permissão.', 'eb-credito-rural' ), 403 );
+		}
+		$fund  = isset( $_POST['fund'] ) ? sanitize_key( wp_unslash( $_POST['fund'] ) ) : '';
+		$funds = \EBCR\Support\Options::pairs( 'funds' );
+		if ( $fund && ! isset( $funds[ $fund ] ) ) {
+			$this->back( $s['public_id'], __( 'Carteira inválida.', 'eb-credito-rural' ), 'error' );
+		}
+		( new SubmissionRepository() )->update( (int) $s['id'], array( 'fund' => $fund ) );
+		\EBCR\Security\AuditLog::log( 'fund_set', 'submission', $s['public_id'], array( 'fund' => $fund ) );
+		$this->back( $s['public_id'], __( 'Carteira atualizada.', 'eb-credito-rural' ) );
+	}
+
+	/**
+	 * Dossiê em PDF para o comitê.
+	 *
+	 * @return void
+	 */
+	public function handle_dossier() {
+		$s = $this->guard( 'admin_dossier' );
+		\EBCR\Security\AuditLog::log( 'dossier', 'submission', $s['public_id'], array() );
+		\EBCR\Reports\Dossier::download( $s );
 	}
 
 	/**

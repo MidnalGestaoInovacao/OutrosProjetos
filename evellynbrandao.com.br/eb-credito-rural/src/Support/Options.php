@@ -96,6 +96,39 @@ final class Options {
 			'statuses'                   => \EBCR\Domain\Status::defaults(),
 			// Desinstalação.
 			'keep_data_on_uninstall'     => true,
+			// Fundos / carteiras (relatórios).
+			'funds'                      => 'geral|Carteira geral',
+			// CRM.
+			'crm_stages'                 => "novo|Novo lead\ncontato|Em contato\nproposta|Proposta em andamento\nanalise|Em análise\naprovado|Aprovado\nperdido|Perdido",
+			'lead_sources'               => "site|Site\nindicacao|Indicação\nwhatsapp|WhatsApp\nevento|Evento\noutro|Outro",
+			'crm_task_reminders'         => true,
+			// Segurança da equipe (2FA).
+			'team_2fa_mode'              => 'optional',
+			// Integrações.
+			'cep_lookup'                 => true,
+			'cnpj_lookup'                => true,
+			'turnstile_site_key'         => '',
+			'turnstile_secret_key'       => '',
+			'whatsapp_enabled'           => false,
+			'whatsapp_token'             => '',
+			'whatsapp_phone_id'          => '',
+			'whatsapp_template'          => '',
+			'whatsapp_notify_client'     => true,
+			'whatsapp_notify_team'       => false,
+			'whatsapp_team_number'       => '',
+			// Assinatura eletrônica.
+			'esign_enabled'              => true,
+			'esign_doc_types'            => 'autorizacao_scr',
+			'esign_scr_text'             => 'Autorizo a consulta das minhas informações no Sistema de Informações de Crédito do Banco Central (SCR) e em birôs de crédito (Serasa, SPC e similares), bem como o registro de dados desta operação nesses sistemas, para fins de análise da solicitação de crédito rural identificada pelo protocolo {protocolo}.',
+			// Simulador.
+			'simulator_enabled'          => true,
+			'simulator_rate'             => 12,
+			'simulator_system'           => 'price',
+			'simulator_min_amount'       => 50000,
+			'simulator_max_amount'       => 50000000,
+			'simulator_max_term'         => 180,
+			'simulator_grace_months'     => 0,
+			'simulator_cta_url'          => '',
 			// Interno.
 			'sentinel_name'              => '',
 			'last_protection_test'       => array(),

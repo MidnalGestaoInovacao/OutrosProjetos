@@ -69,6 +69,11 @@ final class Settings {
 		'retention_months_rejected' => array( 1, 600 ),
 		'retention_months_approved' => array( 1, 600 ),
 		'audit_retention_days'      => array( 30, 3650 ),
+		'simulator_rate'            => array( 0, 200 ),
+		'simulator_min_amount'      => array( 0, null ),
+		'simulator_max_amount'      => array( 0, null ),
+		'simulator_max_term'        => array( 1, 600 ),
+		'simulator_grace_months'    => array( 0, 60 ),
 	);
 
 	/**
@@ -114,6 +119,14 @@ final class Settings {
 				'label' => __( 'Ferramentas', 'eb-credito-rural' ),
 				'intro' => __( 'Verificação do ambiente, fila de e-mails, retenção e exportação/importação das configurações (sem segredos).', 'eb-credito-rural' ),
 			),
+			'crm'         => array(
+				'label' => __( 'CRM', 'eb-credito-rural' ),
+				'intro' => __( 'Estágios do funil, origens de lead e lembretes de tarefas da equipe comercial.', 'eb-credito-rural' ),
+			),
+			'integracoes' => array(
+				'label' => __( 'Integrações', 'eb-credito-rural' ),
+				'intro' => __( 'Consultas automáticas (CEP/CNPJ), captcha Turnstile, WhatsApp, assinatura eletrônica e simulador. Tudo opcional: o plugin funciona sem nenhuma integração externa.', 'eb-credito-rural' ),
+			),
 			'desinstalar' => array(
 				'label' => __( 'Desinstalação', 'eb-credito-rural' ),
 				'intro' => __( 'O que acontece com os dados se o plugin for removido.', 'eb-credito-rural' ),
@@ -137,6 +150,7 @@ final class Settings {
 					'portal_page_id'          => array( 'page', __( 'Página do portal do cliente', 'eb-credito-rural' ), __( 'Página que contém o shortcode [ebcr_portal]. Todos os links dos e-mails apontam para ela. Obrigatório.', 'eb-credito-rural' ) ),
 					'protocol_prefix'         => array( 'text', __( 'Prefixo do protocolo', 'eb-credito-rural' ), __( 'Ex.: EB gera EB-2026-000123. Só letras e números. Impacto: apenas exibição; os links usam identificadores não sequenciais.', 'eb-credito-rural' ) ),
 					'email_logo_url'          => array( 'url', __( 'URL do logotipo para e-mails', 'eb-credito-rural' ), __( 'Imagem PNG/JPG (largura recomendada 280 px). Deixe em branco para usar o nome do site.', 'eb-credito-rural' ) ),
+					'funds'                   => array( 'textarea', __( 'Fundos / carteiras', 'eb-credito-rural' ), __( 'Uma por linha no formato chave|Nome (ex.: fiagro|FIAGRO Safra). Cada solicitação pode ser vinculada a uma carteira na tela de detalhe; os Relatórios agrupam por carteira.', 'eb-credito-rural' ) ),
 				);
 			case 'formulario':
 				return array(
@@ -175,7 +189,15 @@ final class Settings {
 					'encrypt_fields'        => array( 'checkbox', __( 'Criptografar campos sensíveis (identificação e financeiro)', 'eb-credito-rural' ), __( 'CPF/CNPJ, renda e dívidas ficam cifrados no banco. A busca por CPF na lista deixa de funcionar para esses registros.', 'eb-credito-rural' ) ),
 					'login_max_attempts'    => array( 'number', __( 'Tentativas de login antes do bloqueio', 'eb-credito-rural' ), __( 'Por IP e por usuário, dentro da janela abaixo. Bloqueios repetidos dobram a duração. Recomendado: 5.', 'eb-credito-rural' ) ),
 					'login_window_minutes'  => array( 'number', __( 'Janela / duração do bloqueio (minutos)', 'eb-credito-rural' ), __( 'Recomendado: 15.', 'eb-credito-rural' ) ),
-					'captcha_provider'      => array( 'select', __( 'Provedor de captcha', 'eb-credito-rural' ), __( 'Matemático: gerado no servidor, sem serviços externos. Outros provedores podem ser adicionados por extensão (filtro ebcr_captcha_provider).', 'eb-credito-rural' ), array( 'math' => __( 'Matemático (nativo)', 'eb-credito-rural' ) ) ),
+					'captcha_provider'      => array(
+						'select',
+						__( 'Provedor de captcha', 'eb-credito-rural' ),
+						__( 'Matemático: gerado no servidor, sem serviços externos. Outros provedores podem ser adicionados por extensão (filtro ebcr_captcha_provider).', 'eb-credito-rural' ),
+						array(
+							'math'      => __( 'Matemático (nativo)', 'eb-credito-rural' ),
+							'turnstile' => __( 'Cloudflare Turnstile (chaves em Integrações)', 'eb-credito-rural' ),
+						),
+					),
 					'captcha_difficulty'    => array(
 						'select',
 						__( 'Dificuldade do captcha', 'eb-credito-rural' ),
@@ -189,6 +211,16 @@ final class Settings {
 					'honeypot'              => array( 'checkbox', __( 'Campo honeypot', 'eb-credito-rural' ), __( 'Campo invisível que robôs preenchem. Sem impacto para pessoas. Recomendado: ligado.', 'eb-credito-rural' ) ),
 					'min_fill_seconds'      => array( 'number', __( 'Tempo mínimo de preenchimento (segundos)', 'eb-credito-rural' ), __( 'Envios mais rápidos que isso em login/cadastro/envio são rejeitados. Recomendado: 3.', 'eb-credito-rural' ) ),
 					'team_session_hours'    => array( 'number', __( 'Expiração da sessão da equipe (horas)', 'eb-credito-rural' ), __( 'Analistas e gestores precisam entrar novamente após esse tempo. 0 = padrão do WordPress. Recomendado: 8.', 'eb-credito-rural' ) ),
+					'team_2fa_mode'         => array(
+						'select',
+						__( 'Verificação em duas etapas (2FA) da equipe', 'eb-credito-rural' ),
+						__( 'Opcional: cada analista/gestor ativa no próprio perfil (aplicativo autenticador ou código por e-mail). Obrigatório: a equipe só entra no painel depois de ativar. Desligado: ninguém é cobrado. Recomendado: obrigatório.', 'eb-credito-rural' ),
+						array(
+							'off'      => __( 'Desligado', 'eb-credito-rural' ),
+							'optional' => __( 'Opcional (cada usuário decide)', 'eb-credito-rural' ),
+							'required' => __( 'Obrigatório para analistas e gestores', 'eb-credito-rural' ),
+						),
+					),
 					'analyst_only_assigned' => array( 'checkbox', __( 'Analista vê apenas as solicitações atribuídas a ele', 'eb-credito-rural' ), __( 'Gestores e administradores continuam vendo tudo. Útil com equipes maiores.', 'eb-credito-rural' ) ),
 					'password_min_length'   => array( 'number', __( 'Tamanho mínimo da senha do cliente', 'eb-credito-rural' ), __( 'Além do tamanho, exige três tipos de caracteres. Recomendado: 10.', 'eb-credito-rural' ) ),
 					'require_https'         => array( 'checkbox', __( 'Alertar quando o portal não estiver em HTTPS', 'eb-credito-rural' ), __( 'Mostra aviso ao cliente e ao administrador. Mantenha ligado.', 'eb-credito-rural' ) ),
@@ -213,6 +245,45 @@ final class Settings {
 				);
 			case 'status':
 				return array( 'statuses' => array( 'statuses', __( 'Fluxo de status', 'eb-credito-rural' ), __( 'Textos ao cliente não devem expor critérios internos.', 'eb-credito-rural' ) ) );
+			case 'crm':
+				return array(
+					'crm_stages'         => array( 'textarea', __( 'Estágios do funil (Kanban)', 'eb-credito-rural' ), __( 'Um por linha no formato chave|Nome, na ordem das colunas do quadro. Ex.: novo|Novo lead. Não remova um estágio em uso sem antes mover os contatos.', 'eb-credito-rural' ) ),
+					'lead_sources'       => array( 'textarea', __( 'Origens de lead', 'eb-credito-rural' ), __( 'Um por linha no formato chave|Nome (site, indicação, WhatsApp, evento…). Aparece na ficha do cliente e nos filtros.', 'eb-credito-rural' ) ),
+					'crm_task_reminders' => array( 'checkbox', __( 'Lembrar tarefas por e-mail', 'eb-credito-rural' ), __( 'Na rotina diária, envia ao responsável a lista de tarefas que vencem hoje ou já venceram. Recomendado: ligado.', 'eb-credito-rural' ) ),
+				);
+			case 'integracoes':
+				return array(
+					'cep_lookup'             => array( 'checkbox', __( 'Preencher endereço pelo CEP', 'eb-credito-rural' ), __( 'Consulta ViaCEP/BrasilAPI pelo servidor ao digitar o CEP no formulário (com cache). Sem chave. Se a hospedagem bloquear saída HTTP, o campo continua manual.', 'eb-credito-rural' ) ),
+					'cnpj_lookup'            => array( 'checkbox', __( 'Preencher razão social pelo CNPJ', 'eb-credito-rural' ), __( 'Consulta BrasilAPI (dados públicos da Receita) para pessoa jurídica. Sem chave.', 'eb-credito-rural' ) ),
+					'turnstile_site_key'     => array( 'text', __( 'Turnstile — site key', 'eb-credito-rural' ), __( 'Chave pública do widget Cloudflare Turnstile. Só é usada se o provedor de captcha (Segurança) for Turnstile.', 'eb-credito-rural' ) ),
+					'turnstile_secret_key'   => array( 'text', __( 'Turnstile — secret key', 'eb-credito-rural' ), __( 'Chave secreta para validar a resposta no servidor. Fica gravada no banco; restrinja o acesso a esta tela.', 'eb-credito-rural' ) ),
+					'whatsapp_enabled'       => array( 'checkbox', __( 'Notificações por WhatsApp (Cloud API)', 'eb-credito-rural' ), __( 'Envia pelo WhatsApp Business Cloud API (Meta) uma mensagem em cada evento notificado por e-mail. Exige conta na Meta, número aprovado e template aprovado. Desligado por padrão.', 'eb-credito-rural' ) ),
+					'whatsapp_token'         => array( 'text', __( 'WhatsApp — token de acesso', 'eb-credito-rural' ), __( 'Token permanente do app na Meta for Developers (usuário de sistema). Fica gravado no banco.', 'eb-credito-rural' ) ),
+					'whatsapp_phone_id'      => array( 'text', __( 'WhatsApp — Phone Number ID', 'eb-credito-rural' ), __( 'ID do número remetente (não é o telefone), disponível no painel do WhatsApp na Meta.', 'eb-credito-rural' ) ),
+					'whatsapp_template'      => array( 'text', __( 'WhatsApp — nome do template', 'eb-credito-rural' ), __( 'Template de utilidade aprovado, com uma variável {{1}} para o texto do aviso (ex.: ebcr_aviso). Vazio = mensagem de texto simples (só funciona dentro da janela de 24 h).', 'eb-credito-rural' ) ),
+					'whatsapp_notify_client' => array( 'checkbox', __( 'Avisar o cliente pelo WhatsApp', 'eb-credito-rural' ), __( 'Usa o WhatsApp informado no cadastro/etapa 1. Continua enviando o e-mail.', 'eb-credito-rural' ) ),
+					'whatsapp_notify_team'   => array( 'checkbox', __( 'Avisar a equipe pelo WhatsApp', 'eb-credito-rural' ), __( 'Envia ao número abaixo um resumo de cada nova solicitação e mensagem do cliente.', 'eb-credito-rural' ) ),
+					'whatsapp_team_number'   => array( 'text', __( 'WhatsApp — número da equipe', 'eb-credito-rural' ), __( 'Com DDI e DDD, só dígitos (ex.: 5562999999999).', 'eb-credito-rural' ) ),
+					'esign_enabled'          => array( 'checkbox', __( 'Assinatura eletrônica no portal', 'eb-credito-rural' ), __( 'O cliente assina eletronicamente (nome, CPF, código enviado por e-mail, IP, data/hora e hash) os documentos listados abaixo, gerando um PDF assinado que entra na lista de documentos. Assinatura eletrônica simples (Lei 14.063/2020); para exigir certificado ICP-Brasil, desligue e peça o arquivo assinado.', 'eb-credito-rural' ) ),
+					'esign_doc_types'        => array( 'text', __( 'Documentos assináveis (chaves da matriz)', 'eb-credito-rural' ), __( 'Chaves separadas por vírgula, ex.: autorizacao_scr. Só documentos cujo texto está configurado abaixo.', 'eb-credito-rural' ) ),
+					'esign_scr_text'         => array( 'textarea', __( 'Texto da autorização de consulta ao SCR', 'eb-credito-rural' ), __( 'Texto apresentado e assinado pelo cliente. Aceita {protocolo}, {nome}, {cpf}, {data}. Revise com o jurídico.', 'eb-credito-rural' ) ),
+					'simulator_enabled'      => array( 'checkbox', __( 'Simulador de crédito ([ebcr_simulador])', 'eb-credito-rural' ), __( 'Shortcode para a página de captação: valor, prazo, carência e sistema de amortização, com tabela de parcelas e botão para a área do produtor. Cálculo ilustrativo, não é proposta.', 'eb-credito-rural' ) ),
+					'simulator_rate'         => array( 'number', __( 'Simulador — taxa de referência (% ao ano)', 'eb-credito-rural' ), __( 'Taxa usada apenas para ilustrar. Ex.: 12 para 12% a.a.', 'eb-credito-rural' ) ),
+					'simulator_system'       => array(
+						'select',
+						__( 'Simulador — sistema de amortização', 'eb-credito-rural' ),
+						__( 'Price: parcelas iguais. SAC: amortização constante, parcelas decrescentes. O visitante pode alternar.', 'eb-credito-rural' ),
+						array(
+							'price' => __( 'Price (parcelas iguais)', 'eb-credito-rural' ),
+							'sac'   => __( 'SAC (parcelas decrescentes)', 'eb-credito-rural' ),
+						),
+					),
+					'simulator_min_amount'   => array( 'number', __( 'Simulador — valor mínimo (R$)', 'eb-credito-rural' ), __( 'Limite inferior do controle de valor.', 'eb-credito-rural' ) ),
+					'simulator_max_amount'   => array( 'number', __( 'Simulador — valor máximo (R$)', 'eb-credito-rural' ), __( 'Limite superior do controle de valor.', 'eb-credito-rural' ) ),
+					'simulator_max_term'     => array( 'number', __( 'Simulador — prazo máximo (meses)', 'eb-credito-rural' ), __( 'Ex.: 180.', 'eb-credito-rural' ) ),
+					'simulator_grace_months' => array( 'number', __( 'Simulador — carência padrão (meses)', 'eb-credito-rural' ), __( 'Meses sem amortização no início (juros capitalizados). 0 = sem carência.', 'eb-credito-rural' ) ),
+					'simulator_cta_url'      => array( 'url', __( 'Simulador — link do botão', 'eb-credito-rural' ), __( 'Para onde o botão "Solicitar" leva. Vazio = página do portal.', 'eb-credito-rural' ) ),
+				);
 			case 'desinstalar':
 				return array( 'keep_data_on_uninstall' => array( 'checkbox', __( 'Manter dados ao desinstalar', 'eb-credito-rural' ), __( 'LIGADO (recomendado): tabelas, documentos e configurações permanecem se o plugin for excluído. DESLIGADO: tudo é apagado definitivamente, inclusive documentos dentro de uploads. Não há como desfazer.', 'eb-credito-rural' ) ) );
 			default:

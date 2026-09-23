@@ -56,6 +56,8 @@ final class Admin {
 		add_submenu_page( 'ebcr', __( 'Painel', 'eb-credito-rural' ), __( 'Painel', 'eb-credito-rural' ), Capabilities::CAP_VIEW, 'ebcr', array( new Dashboard(), 'render' ) );
 		$hook = add_submenu_page( 'ebcr', __( 'Solicitações', 'eb-credito-rural' ), __( 'Solicitações', 'eb-credito-rural' ), Capabilities::CAP_VIEW, 'ebcr-submissions', array( $this, 'submissions' ) );
 		add_action( 'load-' . $hook, array( $this, 'screen_options' ) );
+		add_submenu_page( 'ebcr', __( 'CRM', 'eb-credito-rural' ), __( 'CRM', 'eb-credito-rural' ), Capabilities::CAP_CRM, 'ebcr-crm', array( new Crm(), 'render' ) );
+		add_submenu_page( 'ebcr', __( 'Relatórios', 'eb-credito-rural' ), __( 'Relatórios', 'eb-credito-rural' ), Capabilities::CAP_DASHBOARD, 'ebcr-reports', array( new Reports(), 'render' ) );
 		add_submenu_page( 'ebcr', __( 'Configurações', 'eb-credito-rural' ), __( 'Configurações', 'eb-credito-rural' ), Capabilities::CAP_SETTINGS, 'ebcr-settings', array( new Settings(), 'render' ) );
 		add_submenu_page( 'ebcr', __( 'Log de auditoria', 'eb-credito-rural' ), __( 'Log de auditoria', 'eb-credito-rural' ), Capabilities::CAP_AUDIT, 'ebcr-audit', array( new AuditLogView(), 'render' ) );
 		add_submenu_page( 'ebcr', __( 'Ajuda', 'eb-credito-rural' ), __( 'Ajuda', 'eb-credito-rural' ), Capabilities::CAP_VIEW, 'ebcr-help', array( new Help(), 'render' ) );

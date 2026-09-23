@@ -41,6 +41,7 @@ final class Schema {
   purpose varchar(40) DEFAULT NULL,
   term_months int(11) DEFAULT NULL,
   current_step tinyint(4) NOT NULL DEFAULT 1,
+  fund varchar(40) NOT NULL DEFAULT '',
   duplicated_from bigint(20) unsigned DEFAULT NULL,
   submitted_at datetime DEFAULT NULL,
   created_at datetime NOT NULL,
@@ -53,7 +54,8 @@ final class Schema {
   KEY user_id (user_id),
   KEY status (status),
   KEY assigned_to (assigned_to),
-  KEY submitted_at (submitted_at)
+  KEY submitted_at (submitted_at),
+  KEY fund (fund)
 ) $c;";
 
 		$sql[] = "CREATE TABLE {$t('submission_data')} (
@@ -271,7 +273,54 @@ final class Schema {
   KEY status_scheduled (status,scheduled_at)
 ) $c;";
 
+		$sql[] = "CREATE TABLE {$t('signatures')} (
+  id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  public_id char(36) NOT NULL,
+  submission_id bigint(20) unsigned NOT NULL,
+  document_id bigint(20) unsigned DEFAULT NULL,
+  user_id bigint(20) unsigned NOT NULL,
+  doc_type varchar(60) NOT NULL DEFAULT '',
+  signer_name varchar(190) NOT NULL DEFAULT '',
+  signer_document varchar(20) NOT NULL DEFAULT '',
+  signer_email varchar(190) NOT NULL DEFAULT '',
+  text_hash char(64) NOT NULL DEFAULT '',
+  evidence_hash char(64) NOT NULL DEFAULT '',
+  ip varchar(45) NOT NULL DEFAULT '',
+  user_agent varchar(255) NOT NULL DEFAULT '',
+  method varchar(20) NOT NULL DEFAULT 'email_otp',
+  status varchar(12) NOT NULL DEFAULT 'pending',
+  signed_at datetime DEFAULT NULL,
+  created_at datetime NOT NULL,
+  PRIMARY KEY  (id),
+  UNIQUE KEY public_id (public_id),
+  KEY submission_id (submission_id),
+  KEY user_id (user_id)
+) $c;";
 		return $sql;
+	}
+
+	/**
+	 * Garante colunas adicionadas em versões posteriores (dbDelta nem sempre altera tabelas existentes, ex.: SQLite).
+	 *
+	 * @return void
+	 */
+	public static function ensure_columns() {
+		global $wpdb;
+		$add = array(
+			'submissions' => array( 'fund' => "varchar(40) NOT NULL DEFAULT ''" ),
+		);
+		foreach ( $add as $table => $cols ) {
+			$t = Db::table( $table );
+			foreach ( $cols as $col => $def ) {
+				$suppress = $wpdb->suppress_errors( true );
+				$exists   = $wpdb->query( "SELECT `{$col}` FROM `{$t}` LIMIT 1" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- nomes internos.
+				if ( false === $exists ) {
+					$wpdb->query( "ALTER TABLE `{$t}` ADD COLUMN `{$col}` {$def}" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- nomes internos.
+					$wpdb->query( "CREATE INDEX `{$t}_{$col}` ON `{$t}` (`{$col}`)" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- nomes internos.
+				}
+				$wpdb->suppress_errors( $suppress );
+			}
+		}
 	}
 
 	/**
@@ -280,7 +329,7 @@ final class Schema {
 	 * @return string[]
 	 */
 	public static function tables() {
-		return array( 'submissions', 'submission_data', 'properties', 'guarantees', 'documents', 'document_requests', 'status_history', 'messages', 'crm_contacts', 'crm_activities', 'consents', 'audit_log', 'checks', 'mail_queue' );
+		return array( 'submissions', 'submission_data', 'properties', 'guarantees', 'documents', 'document_requests', 'status_history', 'messages', 'crm_contacts', 'crm_activities', 'consents', 'audit_log', 'checks', 'mail_queue', 'signatures' );
 	}
 
 	/**
@@ -293,5 +342,6 @@ final class Schema {
 		foreach ( self::statements() as $statement ) {
 			dbDelta( $statement );
 		}
+		self::ensure_columns();
 	}
 }

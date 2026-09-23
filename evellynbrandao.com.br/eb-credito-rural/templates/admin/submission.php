@@ -402,6 +402,24 @@ $ebcr_post  = esc_url( admin_url( 'admin-post.php' ) );
 				</form>
 			</div>
 			<div class="ebcr-box">
+				<h3><?php esc_html_e( 'Fundo / carteira', 'eb-credito-rural' ); ?></h3>
+				<form method="post" action="<?php echo $ebcr_post; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
+					<input type="hidden" name="action" value="ebcr_admin_fund"><input type="hidden" name="id" value="<?php echo esc_attr( $s['public_id'] ); ?>">
+					<?php echo ebcr_nonce_field( 'admin_fund' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+					<p><select name="fund" class="widefat"><option value=""><?php esc_html_e( '— Sem carteira —', 'eb-credito-rural' ); ?></option>
+					<?php
+					foreach ( \EBCR\Support\Options::pairs( 'funds' ) as $ebcr_fk => $ebcr_fl ) :
+						?>
+						<option value="<?php echo esc_attr( $ebcr_fk ); ?>" <?php selected( (string) ( $s['fund'] ?? '' ), $ebcr_fk ); ?>><?php echo esc_html( $ebcr_fl ); ?></option><?php endforeach; ?></select></p>
+					<p><button class="button"><?php esc_html_e( 'Salvar carteira', 'eb-credito-rural' ); ?></button></p>
+				</form>
+				<form method="post" action="<?php echo $ebcr_post; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
+					<input type="hidden" name="action" value="ebcr_admin_dossier"><input type="hidden" name="id" value="<?php echo esc_attr( $s['public_id'] ); ?>">
+					<?php echo ebcr_nonce_field( 'admin_dossier' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+					<p><button class="button button-primary"><?php esc_html_e( 'Gerar dossiê em PDF para o comitê', 'eb-credito-rural' ); ?></button></p>
+				</form>
+			</div>
+			<div class="ebcr-box">
 				<h3><?php esc_html_e( 'Solicitar documento', 'eb-credito-rural' ); ?></h3>
 				<form method="post" action="<?php echo $ebcr_post; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
 					<input type="hidden" name="action" value="ebcr_admin_request_document"><input type="hidden" name="id" value="<?php echo esc_attr( $s['public_id'] ); ?>">

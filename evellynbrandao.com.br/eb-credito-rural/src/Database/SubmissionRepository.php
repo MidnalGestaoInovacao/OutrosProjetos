@@ -162,6 +162,10 @@ class SubmissionRepository extends Db {
 		if ( ! empty( $args['include_drafts'] ) ) {
 			$where = array( 's.deleted_at IS NULL' );
 		}
+		if ( ! empty( $args['fund'] ) ) {
+			$where[] = 's.fund = %s';
+			$vals[]  = sanitize_key( $args['fund'] );
+		}
 		if ( ! empty( $args['status'] ) ) {
 			$where[] = 's.status = %s';
 			$vals[]  = $args['status'];
