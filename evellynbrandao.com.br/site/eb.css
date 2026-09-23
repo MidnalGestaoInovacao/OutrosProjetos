@@ -142,6 +142,11 @@ html.eb-anim .eb-rev--d1{transition-delay:.12s}html.eb-anim .eb-rev--d2{transiti
 .eb-tl-it p{margin:0;color:var(--eb-mut);font-size:.96rem}
 .eb-portal-shell{background:#f4f5f7;color:#111827;border:1px solid var(--eb-line2);border-radius:var(--eb-r-lg);padding:28px;box-shadow:var(--eb-shadow)}
 @media (max-width:720px){.eb-portal-shell{padding:16px}}
+/* dentro da concha clara, neutraliza as cores globais do tema escuro (títulos cor creme e hover branco dos links); as classes .ebcr-* do plugin continuam valendo */
+:where(.eb-portal-shell) :is(h1,h2,h3,h4){color:inherit}
+:where(.eb-portal-shell) a{color:#8a6a1c}
+:where(.eb-portal-shell) a:hover{color:inherit}
+:where(.eb-portal-shell) :focus-visible{outline-color:#8a6a1c}
 
 /* processo (como trabalhamos) */
 .eb-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;counter-reset:st}
