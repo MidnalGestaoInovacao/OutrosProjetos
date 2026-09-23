@@ -26,6 +26,13 @@ if ( ! class_exists( '\WP_List_Table' ) ) {
 final class SubmissionsList extends \WP_List_Table {
 
 	/**
+	 * Carteiras configuradas (chave => nome), carregadas uma vez por página.
+	 *
+	 * @var array|null
+	 */
+	private $funds = null;
+
+	/**
 	 * Construtor.
 	 */
 	public function __construct() {
@@ -69,6 +76,7 @@ final class SubmissionsList extends \WP_List_Table {
 			'protocol'         => __( 'Protocolo', 'eb-credito-rural' ),
 			'user'             => __( 'Cliente', 'eb-credito-rural' ),
 			'status'           => __( 'Status', 'eb-credito-rural' ),
+			'fund'             => __( 'Carteira', 'eb-credito-rural' ),
 			'requested_amount' => __( 'Valor', 'eb-credito-rural' ),
 			'assigned'         => __( 'Analista', 'eb-credito-rural' ),
 			'submitted_at'     => __( 'Enviada em', 'eb-credito-rural' ),
@@ -126,6 +134,11 @@ final class SubmissionsList extends \WP_List_Table {
 			printf( '<option value="%s"%s>%s</option>', esc_attr( $k ), selected( $g( 'status' ), $k, false ), esc_html( $def['label'] ) );
 		}
 		echo '</select>';
+		echo '<select name="fund"><option value="">' . esc_html__( 'Todas as carteiras', 'eb-credito-rural' ) . '</option>';
+		foreach ( $this->funds() as $k => $label ) {
+			printf( '<option value="%s"%s>%s</option>', esc_attr( $k ), selected( $g( 'fund' ), $k, false ), esc_html( $label ) );
+		}
+		echo '</select>';
 		$analysts = get_users(
 			array(
 				'capability' => Capabilities::CAP_VIEW,
@@ -164,6 +177,7 @@ final class SubmissionsList extends \WP_List_Table {
 		}; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- filtros de listagem.
 		$args     = array(
 			'status'      => sanitize_key( $g( 'status' ) ),
+			'fund'        => sanitize_key( $g( 'fund' ) ),
 			'assigned_to' => (int) $g( 'assigned_to' ),
 			'search'      => $g( 's' ),
 			'date_from'   => preg_match( '/^\d{4}-\d{2}-\d{2}$/', $g( 'date_from' ) ) ? $g( 'date_from' ) : '',
@@ -252,6 +266,10 @@ final class SubmissionsList extends \WP_List_Table {
 				return esc_html( $item['user_name'] ) . '<br><span class="description">' . esc_html( $item['user_email'] ) . '</span>';
 			case 'status':
 				return Status::badge( $item['status'] );
+			case 'fund':
+				$funds = $this->funds();
+				$fund  = isset( $item['fund'] ) ? (string) $item['fund'] : '';
+				return esc_html( '' === $fund ? '—' : ( isset( $funds[ $fund ] ) ? $funds[ $fund ] : $fund ) );
 			case 'requested_amount':
 				return esc_html( Helpers::money( $item['requested_amount'] ) );
 			case 'assigned':
@@ -263,6 +281,18 @@ final class SubmissionsList extends \WP_List_Table {
 			default:
 				return '';
 		}
+	}
+
+	/**
+	 * Carteiras configuradas (Configurações → Fundos/carteiras).
+	 *
+	 * @return array chave => nome.
+	 */
+	private function funds() {
+		if ( null === $this->funds ) {
+			$this->funds = Options::pairs( 'funds' );
+		}
+		return $this->funds;
 	}
 
 	/**
