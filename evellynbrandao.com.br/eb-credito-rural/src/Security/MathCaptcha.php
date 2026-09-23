@@ -122,8 +122,13 @@ final class MathCaptcha implements CaptchaProvider {
 	 * @return bool
 	 */
 	public static function verify_request( array $input ) {
+		$provider = self::provider();
+		// Provedores que leem o request completo (ex.: Turnstile, campo cf-turnstile-response).
+		if ( method_exists( $provider, 'verify_input' ) ) {
+			return (bool) $provider->verify_input( $input );
+		}
 		$token  = isset( $input['ebcr_captcha_token'] ) ? sanitize_text_field( (string) $input['ebcr_captcha_token'] ) : '';
 		$answer = isset( $input['ebcr_captcha_answer'] ) ? sanitize_text_field( (string) $input['ebcr_captcha_answer'] ) : '';
-		return self::provider()->verify( $token, $answer );
+		return $provider->verify( $token, $answer );
 	}
 }

@@ -58,6 +58,61 @@
     var ul = document.createElement('ul'); keys.forEach(function (k) { var li = document.createElement('li'); li.textContent = errors[k]; ul.appendChild(li); var name = k.replace(/\.(\d+)\./g, '[$1][').replace(/\.([^.\[]+)$/, '[$1]'); if (/\[/.test(name)) { name = name.replace(/\[([^\]]+)$/, '[$1]'); } var el = form.querySelector('[name="' + name + '"]') || form.querySelector('[name="' + k + '"]') || form.querySelector('[name="' + k + '[]"]'); if (el && el.closest('.ebcr-field')) { window.EBCR_setFieldError(el, errors[k]); } });
     box.innerHTML = '<strong>Corrija os itens abaixo:</strong>'; box.appendChild(ul); form.insertBefore(box, form.firstChild); box.focus();
   }
+  // Consulta de CEP/CNPJ (etapa 1): preenche endereço e razão social sem sobrescrever o que o usuário digitou; falhas silenciosas.
+  var lookupFlags = window.EBCR_LOOKUP || { cep: true, cnpj: true };
+  function digitsOf(v) { return (v || '').replace(/\D+/g, ''); }
+  function getJson(path) {
+    return fetch(cfg.rest + path, { credentials: 'same-origin', headers: { 'X-WP-Nonce': cfg.nonce } }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
+  }
+  function fillField(form, name, value) {
+    var el = form.querySelector('[name="' + name + '"]'); if (!el || value === undefined || value === null || String(value).trim() === '') { return false; }
+    if (el.value && el.value.trim() !== '' && el.getAttribute('data-autofilled') !== '1') { return false; } // não sobrescreve digitação manual
+    value = String(value);
+    if (el.tagName === 'SELECT') { value = value.toUpperCase(); if (!Array.prototype.some.call(el.options, function (o) { return o.value === value; })) { return false; } }
+    el.value = value; el.setAttribute('data-autofilled', '1');
+    el.dispatchEvent(new Event('input', { bubbles: true })); el.dispatchEvent(new Event('change', { bubbles: true }));
+    return true;
+  }
+  function autofillNote(el, text) {
+    var wrap = el.closest('.ebcr-field'); if (!wrap) { return; }
+    var note = wrap.querySelector('.ebcr-autofill');
+    if (!text) { if (note) { note.remove(); } return; }
+    if (!note) { note = document.createElement('span'); note.className = 'ebcr-help ebcr-autofill'; note.setAttribute('role', 'status'); wrap.appendChild(note); }
+    note.textContent = text;
+  }
+  function bindLookups(form) {
+    if (!cfg.rest) { return; }
+    var cepEl = form.querySelector('[name="cep"]'); var cnpjEl = form.querySelector('[name="cnpj"]'); var lastCep = ''; var lastCnpj = '';
+    if (cepEl && lookupFlags.cep) {
+      cepEl.addEventListener('blur', function () {
+        var d = digitsOf(cepEl.value); if (d.length !== 8 || d === lastCep) { return; } lastCep = d;
+        getJson('lookup/cep/' + d).then(function (r) {
+          if (!r || !r.cidade) { autofillNote(cepEl, ''); return; }
+          var n = 0; ['logradouro', 'bairro', 'cidade', 'uf'].forEach(function (k) { if (fillField(form, k, r[k])) { n++; } });
+          autofillNote(cepEl, n ? 'Endereço preenchido automaticamente pelo CEP — confira e ajuste se necessário.' : '');
+        });
+      });
+    }
+    if (cnpjEl && lookupFlags.cnpj) {
+      cnpjEl.addEventListener('blur', function () {
+        var d = digitsOf(cnpjEl.value); if (d.length !== 14 || d === lastCnpj) { return; } lastCnpj = d;
+        getJson('lookup/cnpj/' + d).then(function (r) {
+          if (!r || !r.razao_social) { autofillNote(cnpjEl, ''); return; }
+          var n = 0; if (fillField(form, 'razao_social', r.razao_social)) { n++; }
+          if (r.cep && digitsOf(r.cep).length === 8 && fillField(form, 'cep', digitsOf(r.cep).replace(/^(\d{5})(\d{3})$/, '$1-$2'))) { lastCep = digitsOf(r.cep); n++; }
+          ['logradouro', 'numero', 'complemento', 'bairro', 'cidade', 'uf'].forEach(function (k) { if (fillField(form, k, r[k])) { n++; } });
+          autofillNote(cnpjEl, n ? 'Dados preenchidos automaticamente pela Receita Federal' + (r.situacao ? ' (situação: ' + r.situacao + ')' : '') + ' — confira e ajuste se necessário.' : '');
+        });
+      });
+    }
+  }
+  // Renova o captcha após erro no envio: matemático via REST (uso único) ou Turnstile via reset(); tolera a ausência dos elementos.
+  function renewCaptcha(form) {
+    if (window.turnstile && typeof window.turnstile.reset === 'function') { try { var widget = form.querySelector('.cf-turnstile'); if (widget) { window.turnstile.reset(widget); } } catch (e) {} }
+    var q = form.querySelector('.ebcr-captcha-q'); var t = form.querySelector('[name=ebcr_captcha_token]'); var a = form.querySelector('[name=ebcr_captcha_answer]');
+    if (!q || !t || !a || !cfg.rest) { return; }
+    fetch(cfg.rest + 'captcha', { method: 'POST', headers: { 'X-WP-Nonce': cfg.nonce } }).then(function (x) { return x.json(); }).then(function (c) { if (c && c.token) { q.textContent = c.question + ' = ?'; t.value = c.token; a.value = ''; a.setAttribute('aria-label', c.aria); } }).catch(function () {});
+  }
   function sumAreas() {
     var form = root.querySelector('[data-usable-area]'); if (!form) { return; }
     var usable = parseFloat(form.getAttribute('data-usable-area')) || 0; var sum = 0;
@@ -70,6 +125,7 @@
     form.addEventListener('change', function () { applyConditions(form); sumAreas(); }); form.addEventListener('input', sumAreas);
     applyConditions(form); sumAreas();
     form.querySelectorAll('[data-repeat]').forEach(bindRepeat);
+    if (step === 1) { bindLookups(form); }
     var dirty = false; form.addEventListener('input', function () { dirty = true; });
     if (cfg.rest && W.id) {
       setInterval(function () { if (!dirty) { return; } dirty = false; if (statusEl) { statusEl.textContent = i18n.saving || 'Salvando…'; } post('submissions/' + W.id + '/step/' + step, Object.assign(serialize(form), { draft: 1 })).then(function () { if (statusEl) { statusEl.textContent = i18n.saved || 'Rascunho salvo.'; } }).catch(function () { if (statusEl) { statusEl.textContent = ''; } }); }, (W.autosave || 40) * 1000);
@@ -118,8 +174,7 @@
         btn.disabled = false;
         var errors = {}; if (r.json && r.json.data && r.json.data.steps) { Object.keys(r.json.data.steps).forEach(function (st) { errors['step_' + st] = 'Etapa ' + st + ': ' + Object.values(r.json.data.steps[st]).join(' '); }); }
         errors._ = (r.json && r.json.message) || i18n.error; showErrors(submitForm, errors);
-        // renova o captcha (uso único)
-        fetch(cfg.rest + 'captcha', { method: 'POST', headers: { 'X-WP-Nonce': cfg.nonce } }).then(function (x) { return x.json(); }).then(function (c) { var q = submitForm.querySelector('.ebcr-captcha-q'); var t = submitForm.querySelector('[name=ebcr_captcha_token]'); var a = submitForm.querySelector('[name=ebcr_captcha_answer]'); if (q && t && a) { q.textContent = c.question + ' = ?'; t.value = c.token; a.value = ''; a.setAttribute('aria-label', c.aria); } });
+        renewCaptcha(submitForm);
       }).catch(function () { submitForm.submit(); });
     });
   }

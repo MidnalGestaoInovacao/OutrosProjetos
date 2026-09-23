@@ -192,7 +192,7 @@ final class Settings {
 					'captcha_provider'      => array(
 						'select',
 						__( 'Provedor de captcha', 'eb-credito-rural' ),
-						__( 'Matemático: gerado no servidor, sem serviços externos. Outros provedores podem ser adicionados por extensão (filtro ebcr_captcha_provider).', 'eb-credito-rural' ),
+						__( 'Matemático: gerado no servidor, sem serviços externos. Turnstile: preencha site key e secret key em Integrações; sem as chaves o plugin volta ao matemático.', 'eb-credito-rural' ),
 						array(
 							'math'      => __( 'Matemático (nativo)', 'eb-credito-rural' ),
 							'turnstile' => __( 'Cloudflare Turnstile (chaves em Integrações)', 'eb-credito-rural' ),
