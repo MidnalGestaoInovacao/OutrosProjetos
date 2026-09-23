@@ -98,6 +98,31 @@ defined( 'ABSPATH' ) || exit;
 		</ul>
 		<p class="description"><?php esc_html_e( 'Os dados sensíveis (CPF/CNPJ, documentos) chegam mascarados ao agente e os arquivos nunca são expostos por esse caminho. Se as ferramentas não aparecerem no agente, abra o Easy MCP AI → Abilities, marque as do grupo "EB Crédito Rural" e reconecte o agente.', 'eb-credito-rural' ); ?></p>
 	</div>
+	<div class="ebcr-box" id="operacao">
+		<h2><?php esc_html_e( 'Operação: painel, CRM, relatórios, dossiê e painel da equipe no site', 'eb-credito-rural' ); ?></h2>
+		<ul>
+			<li><?php esc_html_e( 'Painel: cartões, gráficos (funil, mês, UF, atividade, garantia) e listas de pendências; analistas com "vê só as atribuídas" veem apenas as suas.', 'eb-credito-rural' ); ?></li>
+			<li><?php esc_html_e( 'Relatórios: filtros por período, carteira/fundo, status e analista, com exportação CSV. Configure as carteiras em Geral → Fundos/carteiras e vincule cada solicitação na tela de detalhe.', 'eb-credito-rural' ); ?></li>
+			<li><?php esc_html_e( 'CRM: ficha por cliente, atividades e tarefas (lembrete diário por e-mail ao responsável), lista com filtros e quadro Kanban. Estágios e origens em Configurações → CRM.', 'eb-credito-rural' ); ?></li>
+			<li><?php esc_html_e( 'Dossiê: na solicitação, "Gerar dossiê em PDF para o comitê" reúne dados, indicadores, garantias, documentos, conferência, histórico e aceites.', 'eb-credito-rural' ); ?></li>
+			<li><?php esc_html_e( 'Painel da equipe no site: analistas e gestores podem operar tudo dentro da página do portal. Em Geral → "Painel da equipe" = "Só no site", eles não entram no wp-admin (administradores nunca são bloqueados).', 'eb-credito-rural' ); ?></li>
+		</ul>
+	</div>
+	<div class="ebcr-box" id="2fa">
+		<h2><?php esc_html_e( 'Verificação em duas etapas (2FA) da equipe', 'eb-credito-rural' ); ?></h2>
+		<p><?php esc_html_e( 'Em Configurações → Segurança escolha Opcional ou Obrigatório. Cada analista/gestor ativa em Usuários → Perfil: aplicativo autenticador (QR ou segredo) ou código por e-mail; guarde os 10 códigos de backup. No login, a verificação acontece em /?ebcr_2fa=1 (front-end) e é possível confiar no dispositivo por 30 dias.', 'eb-credito-rural' ); ?></p>
+		<p><?php esc_html_e( 'Recuperação: se alguém perder o celular e os códigos de backup, um administrador desativa o 2FA dele em Usuários → editar usuário. Em último caso, adicione define( \'EBCR_DISABLE_2FA\', true ); ao wp-config.php temporariamente.', 'eb-credito-rural' ); ?></p>
+	</div>
+	<div class="ebcr-box" id="integracoes">
+		<h2><?php esc_html_e( 'Integrações e assinatura eletrônica', 'eb-credito-rural' ); ?></h2>
+		<ul>
+			<li><?php esc_html_e( 'CEP/CNPJ: ligados por padrão (ViaCEP/BrasilAPI, sem chave). Se a hospedagem bloquear saída HTTP, os campos continuam manuais.', 'eb-credito-rural' ); ?></li>
+			<li><?php esc_html_e( 'Turnstile: crie o widget no painel da Cloudflare, cole site key e secret key em Integrações e escolha o provedor em Segurança. Sem chaves, o plugin volta ao captcha matemático.', 'eb-credito-rural' ); ?></li>
+			<li><?php esc_html_e( 'WhatsApp: app Business na Meta com o produto WhatsApp, número aprovado (Phone Number ID), token permanente de usuário de sistema e template de utilidade aprovado com uma variável {{1}}. Falhas de envio ficam no log de auditoria.', 'eb-credito-rural' ); ?></li>
+			<li><?php esc_html_e( 'Assinatura eletrônica: o cliente assina a autorização de consulta ao SCR na própria área (texto, nome, código por e-mail). O PDF assinado, com IP, data/hora e hashes, entra nos documentos com o selo "Assinado eletronicamente". Revise o texto em Integrações com o jurídico.', 'eb-credito-rural' ); ?></li>
+			<li><?php esc_html_e( 'Simulador: coloque [ebcr_simulador] na página de captação; taxa, limites e sistema em Integrações.', 'eb-credito-rural' ); ?></li>
+		</ul>
+	</div>
 	<div class="ebcr-box">
 		<h2><?php esc_html_e( 'Perguntas frequentes', 'eb-credito-rural' ); ?></h2>
 		<p><strong><?php esc_html_e( 'O cliente diz que não recebeu o e-mail de confirmação.', 'eb-credito-rural' ); ?></strong><br><?php esc_html_e( 'Verifique Ferramentas → fila de e-mails (falhas), o plugin SMTP e o SPF/DKIM do domínio. O cliente pode reenviar o link pela própria área.', 'eb-credito-rural' ); ?></p>

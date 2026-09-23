@@ -109,7 +109,6 @@ Os arquivos estão em `logos/out/` e também na biblioteca de mídia do WordPres
 
 ## Plugin EB Crédito Rural (captação de solicitações de crédito)
 
-A pasta `eb-credito-rural/` contém o plugin WordPress especificado em `eb-credito-rural/SPEC.md` (Fase 1 — MVP seguro): cadastro do produtor com confirmação de e-mail,
-formulário em sete etapas com validação no servidor, documentos em pasta privada com download autenticado, e-mails com fila, área do cliente, painel da equipe,
-auditoria e configurações. Instalação, configuração inicial, testes (PHPUnit + PHPCS) e checklist de publicação estão em `eb-credito-rural/README.md`.
-O plugin não é instalado pelo MCP (o Easy MCP AI não instala plugins): envie o ZIP em Plugins → Adicionar novo.
+A pasta `eb-credito-rural/` contém o plugin WordPress especificado em `eb-credito-rural/SPEC.md`, hoje na versão 1.2.0 (Fases 1, 2 e 3): cadastro do produtor com confirmação de e-mail, formulário em 7 etapas com validação no servidor, documentos em pasta privada com download autenticado, fila de e-mails, área do cliente com linha do tempo, painel com gráficos, relatórios por carteira, CRM com Kanban e lembretes, dossiê em PDF, 2FA da equipe, assinatura eletrônica simples, consultas de CEP/CNPJ, captcha Turnstile, WhatsApp, simulador de crédito, painel de operações da equipe dentro do site e 18 abilities para o Easy MCP AI. Instalação, configuração, testes (PHPUnit + PHPCS) e checklist de publicação estão em `eb-credito-rural/README.md`.
+
+No site, o plugin está ativo e configurado: a landing explicativa fica em `/propostas/` (apartada, `noindex`, sem link no menu) e a área do produtor em `/minha-area/` (página leve só com o portal). Ambas são publicadas por `site/deploy.py pages` a partir de `site/propostas.html` e `site/minha_area.html` (`{{PORTAL}}` vira o bloco do shortcode `[ebcr_portal]`). Os formulários do portal enviam para a própria página (não para `wp-admin/admin-post.php`, bloqueado pelo firewall da hospedagem).
