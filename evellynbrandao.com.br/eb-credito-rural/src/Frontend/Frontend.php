@@ -73,7 +73,7 @@ final class Frontend {
 	 * @return string
 	 */
 	public function logout_redirect( $redirect, $requested, $user ) {
-		if ( $user instanceof \WP_User && user_can( $user, \EBCR\Roles\Capabilities::CAP_CLIENT ) && ! $requested ) {
+		if ( $user instanceof \WP_User && ( user_can( $user, \EBCR\Roles\Capabilities::CAP_CLIENT ) || user_can( $user, \EBCR\Roles\Capabilities::CAP_VIEW ) ) && ! $requested ) {
 			return Helpers::portal_url( array( 'ebcr_msg' => 'logged_out' ) );
 		}
 		return $redirect;

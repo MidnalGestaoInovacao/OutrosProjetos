@@ -314,6 +314,9 @@ final class TwoFactor {
 	 * @return string
 	 */
 	public static function default_destination() {
+		if ( \EBCR\Frontend\Team\Access::is_restricted( get_current_user_id(), \EBCR\Frontend\Team\Access::mode() ) ) {
+			return \EBCR\Frontend\Team\Panel::url();
+		}
 		return admin_url( 'admin.php?page=ebcr-submissions' );
 	}
 

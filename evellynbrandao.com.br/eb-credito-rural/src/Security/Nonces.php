@@ -31,7 +31,7 @@ final class Nonces {
 	 * @param array  $input  Dados (padrão $_POST).
 	 * @return bool
 	 */
-	public static function verify( $action, array $input = null ) {
+	public static function verify( $action, ?array $input = null ) {
 		if ( null === $input ) {
 			$input = $_POST; // phpcs:ignore WordPress.Security.NonceVerification.Missing -- é exatamente a verificação do nonce.
 		}

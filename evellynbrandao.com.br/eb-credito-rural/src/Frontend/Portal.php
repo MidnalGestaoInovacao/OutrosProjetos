@@ -153,7 +153,8 @@ final class Portal {
 		}
 		$user = wp_get_current_user();
 		if ( user_can( $user, Capabilities::CAP_VIEW ) ) {
-			$out .= View::render( 'portal/team', array( 'user' => $user ) );
+			// Equipe (analistas, gestores, administradores): painel de operações dentro do portal.
+			$out .= \EBCR\Frontend\Team\Panel::render( $user );
 			return $out . '</div>';
 		}
 		if ( ! user_can( $user, Capabilities::CAP_CLIENT ) ) {
