@@ -117,6 +117,24 @@ final class Events {
 				'subject'  => 'Redefinição de senha — {site}',
 				'body'     => "Olá, {nome}.\n\nRecebemos um pedido para redefinir a senha da sua conta. Para criar uma nova senha, acesse:\n\n{link_confirmacao}\n\nSe você não fez este pedido, ignore esta mensagem; sua senha continuará a mesma.",
 			),
+			'esign_code'              => array(
+				'label'    => __( 'Assinatura eletrônica — código de confirmação (cliente); use {codigo}', 'eb-credito-rural' ),
+				'audience' => 'cliente',
+				'subject'  => 'Seu código para assinar: {documento} — {protocolo}',
+				'body'     => "Olá, {nome}.\n\nPara concluir a assinatura eletrônica do documento \"{documento}\" da solicitação {protocolo}, informe o código abaixo na sua área do produtor:\n\n{codigo}\n\nO código vale por 10 minutos e só pode ser usado uma vez. Se você não pediu esta assinatura, ignore esta mensagem e, se preferir, altere sua senha.",
+			),
+			'crm_task_reminder'       => array(
+				'label'    => __( 'Lembrete de tarefas do CRM (equipe)', 'eb-credito-rural' ),
+				'audience' => 'admin',
+				'subject'  => 'Suas tarefas do CRM para hoje — {site}',
+				'body'     => "Olá, {nome}.\n\nEstas tarefas do CRM vencem hoje ou já venceram e ainda não foram concluídas:\n\n{pendencias}\n\nAbra o CRM para concluir ou reagendar:\n{link_portal}",
+			),
+			'two_factor_code'         => array(
+				'label'    => __( 'Verificação em duas etapas — código de acesso (equipe); use {codigo}', 'eb-credito-rural' ),
+				'audience' => 'admin',
+				'subject'  => 'Seu código de verificação — {site}',
+				'body'     => "Olá, {nome}.\n\nSeu código para confirmar o acesso ao painel é:\n\n{codigo}\n\nEle vale por 10 minutos e só pode ser usado uma vez. Se você não tentou entrar agora, troque sua senha e avise o administrador do site.",
+			),
 		);
 	}
 

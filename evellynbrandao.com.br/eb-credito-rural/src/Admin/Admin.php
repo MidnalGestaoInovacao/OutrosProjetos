@@ -28,6 +28,7 @@ final class Admin {
 	 */
 	public function register() {
 		add_action( 'admin_menu', array( $this, 'menu' ) );
+		add_action( 'current_screen', array( $this, 'early_bulk' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'assets' ) );
 		add_action( 'admin_notices', array( $this, 'notices' ) );
 		( new Actions() )->register();
@@ -44,6 +45,22 @@ final class Admin {
 	public function plugin_links( $links ) {
 		array_unshift( $links, '<a href="' . esc_url( admin_url( 'admin.php?page=ebcr-settings' ) ) . '">' . esc_html__( 'Configurações', 'eb-credito-rural' ) . '</a>', '<a href="' . esc_url( admin_url( 'admin.php?page=ebcr-help' ) ) . '">' . esc_html__( 'Ajuda', 'eb-credito-rural' ) . '</a>' );
 		return $links;
+	}
+
+	/**
+	 * Processa ações em massa da lista de solicitações antes de qualquer saída (redirecionamentos e CSV precisam de cabeçalhos livres).
+	 *
+	 * @param \WP_Screen $screen Tela atual.
+	 * @return void
+	 */
+	public function early_bulk( $screen ) {
+		if ( ! $screen || false === strpos( (string) $screen->id, 'ebcr-submissions' ) || empty( $_REQUEST['ebcr_submission'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- nonce verificado em process_bulk().
+			return;
+		}
+		if ( ! current_user_can( Capabilities::CAP_VIEW ) ) {
+			return;
+		}
+		( new SubmissionsList() )->process_bulk();
 	}
 
 	/**

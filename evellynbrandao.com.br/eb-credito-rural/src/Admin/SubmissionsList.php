@@ -26,6 +26,13 @@ if ( ! class_exists( '\WP_List_Table' ) ) {
 final class SubmissionsList extends \WP_List_Table {
 
 	/**
+	 * Ação em massa já processada nesta requisição (em current_screen, antes dos cabeçalhos).
+	 *
+	 * @var bool
+	 */
+	private static $bulk_done = false;
+
+	/**
 	 * Carteiras configuradas (chave => nome), carregadas uma vez por página.
 	 *
 	 * @var array|null
@@ -169,7 +176,9 @@ final class SubmissionsList extends \WP_List_Table {
 	 * @return void
 	 */
 	public function prepare_items() {
-		$this->process_bulk();
+		if ( ! self::$bulk_done ) {
+			$this->process_bulk();
+		}
 		$per_page = (int) get_user_option( 'ebcr_per_page' );
 		$per_page = $per_page > 0 ? $per_page : 20;
 		$g        = static function ( $k ) {
@@ -208,8 +217,9 @@ final class SubmissionsList extends \WP_List_Table {
 	 *
 	 * @return void
 	 */
-	private function process_bulk() {
-		$action = $this->current_action();
+	public function process_bulk() {
+		self::$bulk_done = true;
+		$action          = $this->current_action();
 		if ( ! $action || empty( $_REQUEST['ebcr_submission'] ) ) {
 			return;
 		}

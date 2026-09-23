@@ -43,6 +43,20 @@ $ebcr_post  = esc_url( admin_url( 'admin-post.php' ) );
 <div class="wrap ebcr-admin">
 	<h1 class="wp-heading-inline"><?php echo esc_html( $s['protocol'] ? $s['protocol'] : __( 'Rascunho', 'eb-credito-rural' ) ); ?> <?php echo ebcr_status_badge( $s['status'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></h1>
 	<a href="<?php echo esc_url( admin_url( 'admin.php?page=ebcr-submissions' ) ); ?>" class="page-title-action"><?php esc_html_e( '← Lista', 'eb-credito-rural' ); ?></a>
+	<?php if ( current_user_can( \EBCR\Roles\Capabilities::CAP_CRM ) ) : ?>
+	<a href="
+		<?php
+		echo esc_url(
+			\EBCR\Admin\Crm::url(
+				array(
+					'view' => 'contato',
+					'user' => (int) $s['user_id'],
+				)
+			)
+		);
+		?>
+				" class="page-title-action"><?php esc_html_e( 'Ficha no CRM', 'eb-credito-rural' ); ?></a>
+	<?php endif; ?>
 	<?php
 	if ( $notice ) :
 		?>
