@@ -489,4 +489,13 @@ PROPOSTAS = {
   "html": open(_PROPOSTAS_FILE, encoding="utf-8").read() if _os.path.exists(_PROPOSTAS_FILE) else "",
 }
 
+_MINHA_AREA_FILE = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "minha_area.html")
+MINHA_AREA = {
+  "slug": "minha-area", "title": "Minha área", "template": "page-no-title",
+  "excerpt": "Entre ou crie sua conta para enviar sua proposta de crédito rural, acompanhar a análise e responder pendências.",
+  "robots": "noindex,nofollow",
+  "html": open(_MINHA_AREA_FILE, encoding="utf-8").read() if _os.path.exists(_MINHA_AREA_FILE) else "",
+}
+PORTAL_PAGES = [PROPOSTAS, MINHA_AREA]  # páginas apartadas (sem menu, noindex); {{PORTAL}} vira o shortcode [ebcr_portal]
+
 LANDING_PAGES = [SOBRE, SOLUCOES, BS, CONTATO]
