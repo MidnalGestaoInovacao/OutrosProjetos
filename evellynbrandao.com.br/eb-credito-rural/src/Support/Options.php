@@ -96,6 +96,8 @@ final class Options {
 			'statuses'                   => \EBCR\Domain\Status::defaults(),
 			// Desinstalação.
 			'keep_data_on_uninstall'     => true,
+			// Painel da equipe no site.
+			'team_portal_mode'           => 'both',
 			// Fundos / carteiras (relatórios).
 			'funds'                      => 'geral|Carteira geral',
 			// CRM.

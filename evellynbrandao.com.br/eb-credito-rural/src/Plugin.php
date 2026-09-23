@@ -97,6 +97,7 @@ final class Plugin {
 		( new Frontend() )->register();
 		( new \EBCR\Frontend\FormRouter() )->register();
 		( new \EBCR\Frontend\Simulator() )->register();
+		( new \EBCR\Frontend\Team\Panel() )->register();
 		( new \EBCR\Integrations\Lookup() )->register();
 		( new \EBCR\Integrations\WhatsApp() )->register();
 		( new \EBCR\Security\Turnstile() )->register();

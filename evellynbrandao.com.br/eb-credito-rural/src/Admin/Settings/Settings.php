@@ -150,6 +150,15 @@ final class Settings {
 					'portal_page_id'          => array( 'page', __( 'Página do portal do cliente', 'eb-credito-rural' ), __( 'Página que contém o shortcode [ebcr_portal]. Todos os links dos e-mails apontam para ela. Obrigatório.', 'eb-credito-rural' ) ),
 					'protocol_prefix'         => array( 'text', __( 'Prefixo do protocolo', 'eb-credito-rural' ), __( 'Ex.: EB gera EB-2026-000123. Só letras e números. Impacto: apenas exibição; os links usam identificadores não sequenciais.', 'eb-credito-rural' ) ),
 					'email_logo_url'          => array( 'url', __( 'URL do logotipo para e-mails', 'eb-credito-rural' ), __( 'Imagem PNG/JPG (largura recomendada 280 px). Deixe em branco para usar o nome do site.', 'eb-credito-rural' ) ),
+					'team_portal_mode'        => array(
+						'select',
+						__( 'Painel da equipe', 'eb-credito-rural' ),
+						__( 'Onde analistas e gestores trabalham. "Site e wp-admin": os dois painéis. "Só no site": a equipe usa o painel de operações dentro da página do portal (visão geral, solicitações, CRM, relatórios) e não entra no wp-admin (redirecionada; barra de administração oculta). Administradores do WordPress nunca são bloqueados; as Configurações continuam no wp-admin.', 'eb-credito-rural' ),
+						array(
+							'both'        => __( 'Site e wp-admin', 'eb-credito-rural' ),
+							'portal_only' => __( 'Só no site (painel de operações)', 'eb-credito-rural' ),
+						),
+					),
 					'funds'                   => array( 'textarea', __( 'Fundos / carteiras', 'eb-credito-rural' ), __( 'Uma por linha no formato chave|Nome (ex.: fiagro|FIAGRO Safra). Cada solicitação pode ser vinculada a uma carteira na tela de detalhe; os Relatórios agrupam por carteira.', 'eb-credito-rural' ) ),
 				);
 			case 'formulario':
