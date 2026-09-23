@@ -189,15 +189,22 @@ class CrmContactRepository extends Db {
 			$vals[]  = '%,' . $tag . ',%';
 		}
 		if ( ! empty( $args['search'] ) ) {
-			$term    = trim( (string) $args['search'] );
-			$like    = '%' . $wpdb->esc_like( $term ) . '%';
-			$digits  = preg_replace( '/\D+/', '', $term );
-			$phone   = $digits ? '%' . $wpdb->esc_like( $digits ) . '%' : $like;
-			$where[] = '(u.display_name LIKE %s OR u.user_email LIKE %s OR c.phone LIKE %s OR c.whatsapp LIKE %s)';
-			$vals[]  = $like;
-			$vals[]  = $like;
-			$vals[]  = $phone;
-			$vals[]  = $phone;
+			$term   = trim( (string) $args['search'] );
+			$like   = '%' . $wpdb->esc_like( $term ) . '%';
+			$digits = preg_replace( '/\D+/', '', $term );
+			// Só busca por telefone quando o termo é numérico (evita casar dígitos de um e-mail com telefones).
+			if ( '' !== $digits && ! preg_match( '/[a-z@]/i', $term ) ) {
+				$phone   = '%' . $wpdb->esc_like( $digits ) . '%';
+				$where[] = '(u.display_name LIKE %s OR u.user_email LIKE %s OR c.phone LIKE %s OR c.whatsapp LIKE %s)';
+				$vals[]  = $like;
+				$vals[]  = $like;
+				$vals[]  = $phone;
+				$vals[]  = $phone;
+			} else {
+				$where[] = '(u.display_name LIKE %s OR u.user_email LIKE %s)';
+				$vals[]  = $like;
+				$vals[]  = $like;
+			}
 		}
 
 		$allowed_order = array(

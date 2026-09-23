@@ -54,7 +54,7 @@ final class AbilitiesTest extends EBCR_TestCase {
 			$this->assertTrue( (bool) $ability->get_meta_item( 'show_in_rest' ) );
 			$this->assertSame( 'object', $ability->get_input_schema()['type'] );
 		}
-		$this->assertCount( 14, Abilities::slugs() );
+		$this->assertCount( 18, Abilities::slugs() );
 		$this->assertTrue( wp_has_ability_category( 'ebcr' ) );
 	}
 
@@ -135,14 +135,14 @@ final class AbilitiesTest extends EBCR_TestCase {
 		update_option( Abilities::EMCP_OPT, array( 'core/get-site-info' ), false );
 		$r = Abilities::enable_in_easy_mcp();
 		$this->assertTrue( $r['enabled'] );
-		$this->assertSame( 14, $r['added'] );
+		$this->assertSame( 18, $r['added'] );
 		$opt = get_option( Abilities::EMCP_OPT );
 		$this->assertContains( 'core/get-site-info', $opt );
 		$this->assertContains( 'ebcr/update-settings', $opt );
 		$this->assertSame( 'already', Abilities::enable_in_easy_mcp()['reason'] );
 		$st = Abilities::mcp_status();
 		$this->assertSame( array(), $st['missing'] );
-		$this->assertCount( 14, $st['enabled'] );
+		$this->assertCount( 18, $st['enabled'] );
 
 		delete_option( Abilities::EMCP_OPT );
 		$this->assertSame( 'easy_mcp_ai_missing', Abilities::enable_in_easy_mcp()['reason'] );
@@ -220,5 +220,45 @@ final class AbilitiesTest extends EBCR_TestCase {
 
 		$this->assertInstanceOf( WP_Error::class, $this->ability( 'set-team-member', array( 'email' => 'x', 'role' => 'ebcr_analista' ) ) );
 		$this->assertInstanceOf( WP_Error::class, $this->ability( 'set-team-member', array( 'email' => $email, 'role' => 'administrator' ) ), 'não promove a administrador' );
+	}
+	public function test_report_and_crm_abilities(): void {
+		$manager = $this->make_user( Capabilities::ROLE_MANAGER );
+		$client  = $this->make_user( Capabilities::ROLE_CLIENT );
+		$this->make_submission( $client, 'enviada' );
+		wp_set_current_user( $this->make_user( Capabilities::ROLE_CLIENT ) );
+		$this->assertInstanceOf( WP_Error::class, $this->ability( 'get-report' ), 'cliente não vê relatórios' );
+		$this->assertInstanceOf( WP_Error::class, $this->ability( 'list-contacts' ) );
+
+		wp_set_current_user( $manager );
+		$r = $this->ability( 'get-report', array( 'date_from' => '2000-01-01' ) );
+		$this->assertIsArray( $r, is_wp_error( $r ) ? $r->get_error_message() : '' );
+		foreach ( array( 'totals', 'by_fund', 'by_status', 'by_month', 'by_analyst', 'stage_durations' ) as $k ) {
+			$this->assertArrayHasKey( $k, $r );
+		}
+
+		$list = $this->ability( 'list-contacts', array( 'search' => get_userdata( $client )->user_email ) );
+		$this->assertIsArray( $list, is_wp_error( $list ) ? $list->get_error_message() : '' );
+		$this->assertSame( 1, $list['total'] );
+		$this->assertSame( 1, $list['items'][0]['open_submissions'] );
+		$cid = $list['items'][0]['contact_id'];
+
+		$stages = array_keys( \EBCR\Crm\Service::stages() );
+		$u      = $this->ability( 'update-contact', array( 'contact_id' => $cid, 'stage' => $stages[1], 'tags' => 'soja, goiás', 'owner_id' => $manager, 'next_action' => 'Ligar' ) );
+		$this->assertIsArray( $u, is_wp_error( $u ) ? $u->get_error_message() : '' );
+		$this->assertSame( $stages[1], $u['stage'] );
+		$this->assertSame( $manager, $u['owner_id'] );
+		$this->assertInstanceOf( WP_Error::class, $this->ability( 'update-contact', array( 'contact_id' => $cid, 'stage' => 'inexistente' ) ) );
+		$this->assertInstanceOf( WP_Error::class, $this->ability( 'update-contact', array( 'user_id' => 999999, 'stage' => $stages[0] ) ) );
+
+		$a = $this->ability( 'add-activity', array( 'user_id' => $client, 'type' => 'tarefa', 'description' => 'Enviar proposta', 'due_at' => '2030-01-10 09:00' ) );
+		$this->assertIsArray( $a, is_wp_error( $a ) ? $a->get_error_message() : '' );
+		$this->assertInstanceOf( WP_Error::class, $this->ability( 'add-activity', array( 'contact_id' => $cid, 'type' => 'xyz', 'description' => 'x' ) ) );
+
+		wp_set_current_user( $this->make_user( 'administrator' ) );
+		$st = $this->ability( 'get-status' );
+		$this->assertArrayHasKey( 'modules', $st );
+		$this->assertArrayHasKey( 'team_2fa_mode', $st['modules'] );
+		$r = $this->ability( 'run-tool', array( 'tool' => 'send_crm_reminders' ) );
+		$this->assertFalse( is_wp_error( $r ), is_wp_error( $r ) ? $r->get_error_message() : '' );
 	}
 }

@@ -177,13 +177,13 @@ final class Abilities {
 			),
 			'run-tool'          => array(
 				'label'       => __( 'Executar ferramenta do EB Crédito Rural', 'eb-credito-rural' ),
-				'description' => 'Executa uma ferramenta: test_protection (testa se a pasta de documentos está exposta por URL), test_email (envia e-mail de teste para "to"), process_mail (processa a fila de e-mails), retry_mail (reenfileira falhas), run_daily (rotina diária: lembretes, certidões, retenção, limpezas), run_retention (anonimiza solicitações finalizadas fora do prazo de retenção) ou enable_mcp (habilita estas abilities no Easy MCP AI).',
+				'description' => 'Executa uma ferramenta: test_protection (testa se a pasta de documentos está exposta por URL), test_email (envia e-mail de teste para "to"), process_mail (processa a fila de e-mails), retry_mail (reenfileira falhas), run_daily (rotina diária: lembretes, certidões, retenção, limpezas), run_retention (anonimiza solicitações finalizadas fora do prazo de retenção) ou enable_mcp (habilita estas abilities no Easy MCP AI), send_crm_reminders (envia os lembretes de tarefas do CRM agora).',
 				'input'       => array(
 					'type'       => 'object',
 					'properties' => array(
 						'tool' => array(
 							'type' => 'string',
-							'enum' => array( 'test_protection', 'test_email', 'process_mail', 'retry_mail', 'run_daily', 'run_retention', 'enable_mcp' ),
+							'enum' => array( 'test_protection', 'test_email', 'process_mail', 'retry_mail', 'run_daily', 'run_retention', 'enable_mcp', 'send_crm_reminders' ),
 						),
 						'to'   => array(
 							'type'        => 'string',
@@ -410,6 +410,101 @@ final class Abilities {
 					'readonly'    => false,
 					'destructive' => false,
 					'idempotent'  => true,
+				),
+			),
+			'get-report'        => array(
+				'label'       => __( 'Relatório de solicitações', 'eb-credito-rural' ),
+				'description' => 'Totais e quebras (por carteira/fundo, status, mês, analista e tempo médio por etapa) com filtros de período (date_from/date_to AAAA-MM-DD), fund (chave da carteira), status e assigned_to (ID do analista). Respeita "analista vê só as atribuídas".',
+				'input'       => array(
+					'type'       => 'object',
+					'properties' => array(
+						'date_from'   => array( 'type' => 'string' ),
+						'date_to'     => array( 'type' => 'string' ),
+						'fund'        => array( 'type' => 'string' ),
+						'status'      => array( 'type' => 'string' ),
+						'assigned_to' => array( 'type' => 'integer' ),
+					),
+				),
+				'execute'     => array( __CLASS__, 'get_report' ),
+				'cap'         => Capabilities::CAP_DASHBOARD,
+				'annotations' => array(
+					'readonly'    => true,
+					'destructive' => false,
+					'idempotent'  => true,
+				),
+			),
+			'list-contacts'     => array(
+				'label'       => __( 'Listar contatos do CRM', 'eb-credito-rural' ),
+				'description' => 'Lista fichas do CRM (clientes) com estágio, responsável, próxima ação, tags, nº de solicitações abertas e última atividade. Filtros: search (nome/e-mail/telefone), stage, owner_id, lead_source, tag, page, per_page.',
+				'input'       => array(
+					'type'       => 'object',
+					'properties' => array(
+						'search'      => array( 'type' => 'string' ),
+						'stage'       => array( 'type' => 'string' ),
+						'owner_id'    => array( 'type' => 'integer' ),
+						'lead_source' => array( 'type' => 'string' ),
+						'tag'         => array( 'type' => 'string' ),
+						'page'        => array( 'type' => 'integer' ),
+						'per_page'    => array( 'type' => 'integer' ),
+					),
+				),
+				'execute'     => array( __CLASS__, 'list_contacts' ),
+				'cap'         => Capabilities::CAP_CRM,
+				'annotations' => array(
+					'readonly'    => true,
+					'destructive' => false,
+					'idempotent'  => true,
+				),
+			),
+			'update-contact'    => array(
+				'label'       => __( 'Atualizar ficha do CRM', 'eb-credito-rural' ),
+				'description' => 'Atualiza a ficha de um cliente no CRM (por contact_id ou user_id): stage (chave do estágio), owner_id (0 = ninguém), lead_source, tags (separadas por vírgula), next_action, next_action_at (AAAA-MM-DD HH:MM, hora do site), notes, phone, whatsapp. Só os campos informados mudam.',
+				'input'       => array(
+					'type'       => 'object',
+					'properties' => array(
+						'contact_id'     => array( 'type' => 'integer' ),
+						'user_id'        => array( 'type' => 'integer' ),
+						'stage'          => array( 'type' => 'string' ),
+						'owner_id'       => array( 'type' => 'integer' ),
+						'lead_source'    => array( 'type' => 'string' ),
+						'tags'           => array( 'type' => 'string' ),
+						'next_action'    => array( 'type' => 'string' ),
+						'next_action_at' => array( 'type' => 'string' ),
+						'notes'          => array( 'type' => 'string' ),
+						'phone'          => array( 'type' => 'string' ),
+						'whatsapp'       => array( 'type' => 'string' ),
+					),
+				),
+				'execute'     => array( __CLASS__, 'update_contact' ),
+				'cap'         => Capabilities::CAP_CRM,
+				'annotations' => array(
+					'readonly'    => false,
+					'destructive' => false,
+					'idempotent'  => true,
+				),
+			),
+			'add-activity'      => array(
+				'label'       => __( 'Registrar atividade ou tarefa no CRM', 'eb-credito-rural' ),
+				'description' => 'Registra na ficha do cliente (contact_id ou user_id) uma atividade: type = ligacao | reuniao | visita | email | nota | tarefa; description; para tarefas, due_at (AAAA-MM-DD HH:MM) e assignee_id (responsável; padrão: quem registra); opcionalmente id da solicitação (UUID ou protocolo).',
+				'input'       => array(
+					'type'       => 'object',
+					'properties' => array(
+						'contact_id'  => array( 'type' => 'integer' ),
+						'user_id'     => array( 'type' => 'integer' ),
+						'type'        => array( 'type' => 'string' ),
+						'description' => array( 'type' => 'string' ),
+						'due_at'      => array( 'type' => 'string' ),
+						'assignee_id' => array( 'type' => 'integer' ),
+						'id'          => $id_prop,
+					),
+					'required'   => array( 'type', 'description' ),
+				),
+				'execute'     => array( __CLASS__, 'add_activity' ),
+				'cap'         => Capabilities::CAP_CRM,
+				'annotations' => array(
+					'readonly'    => false,
+					'destructive' => false,
+					'idempotent'  => false,
 				),
 			),
 		);
@@ -716,6 +811,20 @@ final class Abilities {
 				)
 			),
 			'cron_daily_next' => wp_next_scheduled( 'ebcr_daily' ) ? gmdate( 'c', wp_next_scheduled( 'ebcr_daily' ) ) : null,
+			'modules'         => array(
+				'team_portal_mode'   => Options::get( 'team_portal_mode', 'both' ),
+				'team_2fa_mode'      => Options::get( 'team_2fa_mode', 'optional' ),
+				'cep_lookup'         => Options::bool( 'cep_lookup' ),
+				'cnpj_lookup'        => Options::bool( 'cnpj_lookup' ),
+				'captcha_provider'   => Options::get( 'captcha_provider', 'math' ),
+				'turnstile_ready'    => '' !== (string) Options::get( 'turnstile_site_key' ) && '' !== (string) Options::get( 'turnstile_secret_key' ),
+				'whatsapp_enabled'   => Options::bool( 'whatsapp_enabled' ),
+				'whatsapp_ready'     => '' !== (string) Options::get( 'whatsapp_token' ) && '' !== (string) Options::get( 'whatsapp_phone_id' ),
+				'esign_enabled'      => Options::bool( 'esign_enabled' ),
+				'simulator_enabled'  => Options::bool( 'simulator_enabled' ),
+				'crm_task_reminders' => Options::bool( 'crm_task_reminders' ),
+				'funds'              => Options::pairs( 'funds' ),
+			),
 			'mcp'             => self::mcp_status(),
 			'todo'            => $todo,
 		);
@@ -754,6 +863,8 @@ final class Abilities {
 				return Scheduler::daily();
 			case 'run_retention':
 				return array( 'anonymized' => Retention::run() );
+			case 'send_crm_reminders':
+				return \EBCR\Crm\Service::send_reminders();
 			case 'enable_mcp':
 				return self::enable_in_easy_mcp();
 			default:
@@ -1119,5 +1230,158 @@ final class Abilities {
 		}
 		unset( $r['stored_name'], $r['storage_dir'] );
 		return $r;
+	}
+	/**
+	 * get-report.
+	 *
+	 * @param array $in Entrada.
+	 * @return array
+	 */
+	public static function get_report( array $in ) {
+		$f = \EBCR\Reports\Metrics::normalize( $in, get_current_user_id() );
+		return array(
+			'filters'         => $f,
+			'totals'          => \EBCR\Reports\Metrics::totals( $f ),
+			'by_fund'         => \EBCR\Reports\Metrics::by_fund( $f ),
+			'by_status'       => \EBCR\Reports\Metrics::by_status( $f ),
+			'by_month'        => \EBCR\Reports\Metrics::by_month( $f ),
+			'by_analyst'      => \EBCR\Reports\Metrics::by_analyst( $f ),
+			'stage_durations' => \EBCR\Reports\Metrics::stage_durations( $f ),
+		);
+	}
+
+	/**
+	 * Localiza a ficha do CRM por contact_id ou user_id.
+	 *
+	 * @param array $in Entrada.
+	 * @return array|\WP_Error
+	 */
+	private static function find_contact( array $in ) {
+		if ( ! empty( $in['contact_id'] ) ) {
+			$c = ( new \EBCR\Database\CrmContactRepository() )->find( (int) $in['contact_id'] );
+		} elseif ( ! empty( $in['user_id'] ) ) {
+			$c = \EBCR\Crm\Service::contact_for_user( (int) $in['user_id'] );
+		} else {
+			return new \WP_Error( 'bad_input', __( 'Informe contact_id ou user_id.', 'eb-credito-rural' ) );
+		}
+		return $c ? $c : new \WP_Error( 'not_found', __( 'Ficha não encontrada.', 'eb-credito-rural' ) );
+	}
+
+	/**
+	 * Resumo de uma ficha.
+	 *
+	 * @param array $c Linha.
+	 * @return array
+	 */
+	private static function contact_summary( array $c ) {
+		$u = get_userdata( (int) $c['user_id'] );
+		return array(
+			'contact_id'       => (int) $c['id'],
+			'user_id'          => (int) $c['user_id'],
+			'name'             => $u ? $u->display_name : '',
+			'email'            => $u ? $u->user_email : '',
+			'phone'            => $c['phone'],
+			'whatsapp'         => $c['whatsapp'],
+			'lead_source'      => $c['lead_source'],
+			'tags'             => $c['tags'],
+			'stage'            => $c['stage'],
+			'owner_id'         => $c['owner_id'] ? (int) $c['owner_id'] : null,
+			'owner_name'       => $c['owner_id'] ? Helpers::user_name( (int) $c['owner_id'] ) : null,
+			'next_action'      => $c['next_action'],
+			'next_action_at'   => $c['next_action_at'],
+			'notes'            => $c['notes'],
+			'open_submissions' => isset( $c['open_submissions'] ) ? (int) $c['open_submissions'] : null,
+			'last_activity_at' => isset( $c['last_activity_at'] ) ? $c['last_activity_at'] : null,
+			'updated_at'       => $c['updated_at'],
+		);
+	}
+
+	/**
+	 * list-contacts.
+	 *
+	 * @param array $in Entrada.
+	 * @return array
+	 */
+	public static function list_contacts( array $in ) {
+		\EBCR\Crm\Service::sync_clients();
+		$args = array(
+			'open_statuses' => \EBCR\Crm\Service::open_statuses(),
+			'per_page'      => isset( $in['per_page'] ) ? max( 1, min( 200, (int) $in['per_page'] ) ) : 50,
+			'page'          => isset( $in['page'] ) ? max( 1, (int) $in['page'] ) : 1,
+		);
+		foreach ( array( 'search', 'stage', 'lead_source', 'tag' ) as $k ) {
+			if ( isset( $in[ $k ] ) && '' !== (string) $in[ $k ] ) {
+				$args[ $k ] = sanitize_text_field( (string) $in[ $k ] );
+			}
+		}
+		if ( isset( $in['owner_id'] ) ) {
+			$args['owner_id'] = (int) $in['owner_id'];
+		}
+		list( $items, $total ) = ( new \EBCR\Database\CrmContactRepository() )->query( $args );
+		return array(
+			'total'  => (int) $total,
+			'page'   => $args['page'],
+			'stages' => \EBCR\Crm\Service::stages(),
+			'items'  => array_map( array( __CLASS__, 'contact_summary' ), $items ),
+		);
+	}
+
+	/**
+	 * update-contact.
+	 *
+	 * @param array $in Entrada.
+	 * @return array|\WP_Error
+	 */
+	public static function update_contact( array $in ) {
+		$c = self::find_contact( $in );
+		if ( is_wp_error( $c ) ) {
+			return $c;
+		}
+		$input = array();
+		foreach ( array( 'stage', 'owner_id', 'lead_source', 'tags', 'next_action', 'next_action_at', 'notes', 'phone', 'whatsapp' ) as $k ) {
+			if ( array_key_exists( $k, $in ) ) {
+				$input[ $k ] = $in[ $k ];
+			}
+		}
+		if ( ! $input ) {
+			return new \WP_Error( 'empty', __( 'Informe pelo menos um campo para atualizar.', 'eb-credito-rural' ) );
+		}
+		$r = \EBCR\Crm\Service::update_contact( get_current_user_id(), (int) $c['id'], $input );
+		if ( is_wp_error( $r ) ) {
+			return $r;
+		}
+		$fresh = ( new \EBCR\Database\CrmContactRepository() )->find( (int) $c['id'] );
+		return self::contact_summary( $fresh ? $fresh : $c );
+	}
+
+	/**
+	 * add-activity.
+	 *
+	 * @param array $in Entrada.
+	 * @return array|\WP_Error
+	 */
+	public static function add_activity( array $in ) {
+		$c = self::find_contact( $in );
+		if ( is_wp_error( $c ) ) {
+			return $c;
+		}
+		$input = array(
+			'type'        => isset( $in['type'] ) ? $in['type'] : '',
+			'description' => isset( $in['description'] ) ? $in['description'] : '',
+		);
+		if ( ! empty( $in['due_at'] ) ) {
+			$input['due_at'] = $in['due_at'];
+		}
+		if ( ! empty( $in['assignee_id'] ) ) {
+			$input['assignee_id'] = (int) $in['assignee_id'];
+		}
+		if ( ! empty( $in['id'] ) ) {
+			$s = self::find_submission( $in['id'] );
+			if ( is_wp_error( $s ) ) {
+				return $s;
+			}
+			$input['submission_id'] = (int) $s['id'];
+		}
+		return \EBCR\Crm\Service::add_activity( get_current_user_id(), (int) $c['id'], $input );
 	}
 }
