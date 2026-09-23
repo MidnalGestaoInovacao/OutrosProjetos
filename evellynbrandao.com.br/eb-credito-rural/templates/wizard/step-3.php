@@ -27,7 +27,7 @@ foreach ( $saved['imoveis']['imoveis'] as $ebcr_p ) {
 	$ebcr_usable += (float) $ebcr_p['usable_area'];
 }
 ?>
-<form class="ebcr-form" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" novalidate data-ebcr-step="3" data-usable-area="<?php echo esc_attr( (string) $ebcr_usable ); ?>">
+<form class="ebcr-form" method="post" action="<?php echo esc_url( ebcr_form_action() ); ?>" novalidate data-ebcr-step="3" data-usable-area="<?php echo esc_attr( (string) $ebcr_usable ); ?>">
 	<?php echo ebcr_error_summary( $errors ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 	<input type="hidden" name="action" value="ebcr_wizard_step"><input type="hidden" name="id" value="<?php echo esc_attr( $s['public_id'] ); ?>"><input type="hidden" name="etapa" value="3">
 	<?php echo ebcr_nonce_field( 'wizard' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>

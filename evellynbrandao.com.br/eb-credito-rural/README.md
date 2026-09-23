@@ -118,6 +118,7 @@ Os testes de autorização cobrem os critérios de aceite do SPEC: cliente A nã
 
 ## Versões
 
+- **1.1.1** — Correções de bloqueio no fluxo do cliente: os formulários do portal passam a enviar para a própria página do portal (não mais para `wp-admin/admin-post.php`, que firewalls de hospedagem bloqueiam para visitantes/clientes) e os grupos de opções (rádios/caixas) fechavam o formulário antes da hora, impedindo "Salvar e continuar" no navegador.
 - **1.1.0** — Abilities API / Easy MCP AI (14 ferramentas `wp_ability_ebcr_*`, auto-habilitadas no conector), limites de segurança aplicados na sanitização dos campos numéricos, e-mails padrão `contato@dominio`, detecção automática da página do portal, bloco de estado do MCP em Ferramentas e Ajuda.
 - **1.0.0** — Fase 1 completa (segurança de arquivos, autorização, wizard de 7 etapas, matriz de documentos, fila de e-mails, CRM básico, LGPD, auditoria).
 

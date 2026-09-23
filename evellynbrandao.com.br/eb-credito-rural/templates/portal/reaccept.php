@@ -8,7 +8,7 @@
 
 defined( 'ABSPATH' ) || exit;
 ?>
-<form class="ebcr-form ebcr-card" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+<form class="ebcr-form ebcr-card" method="post" action="<?php echo esc_url( ebcr_form_action() ); ?>">
 	<h2><?php esc_html_e( 'Políticas atualizadas', 'eb-credito-rural' ); ?></h2>
 	<p><?php esc_html_e( 'Atualizamos documentos que você precisa aceitar para continuar usando a plataforma.', 'eb-credito-rural' ); ?></p>
 	<input type="hidden" name="action" value="ebcr_reaccept">

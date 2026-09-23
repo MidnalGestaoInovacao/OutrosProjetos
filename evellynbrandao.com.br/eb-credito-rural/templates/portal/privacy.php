@@ -12,12 +12,12 @@ defined( 'ABSPATH' ) || exit;
 	<section class="ebcr-card ebcr-col-main">
 		<h2><?php esc_html_e( 'Privacidade e seus direitos', 'eb-credito-rural' ); ?></h2>
 		<p><?php esc_html_e( 'Você pode baixar uma cópia dos dados que temos sobre você, pedir correção ou solicitar a exclusão. Solicitações de exclusão viram uma tarefa para a equipe, porque parte dos dados pode ter retenção obrigatória por lei.', 'eb-credito-rural' ); ?></p>
-		<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="ebcr-inline-form">
+		<form method="post" action="<?php echo esc_url( ebcr_form_action() ); ?>" class="ebcr-inline-form">
 			<input type="hidden" name="action" value="ebcr_lgpd_export">
 			<?php echo ebcr_nonce_field( 'lgpd' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 			<button type="submit" class="ebcr-btn"><?php esc_html_e( 'Baixar meus dados (JSON)', 'eb-credito-rural' ); ?></button>
 		</form>
-		<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="ebcr-form">
+		<form method="post" action="<?php echo esc_url( ebcr_form_action() ); ?>" class="ebcr-form">
 			<h3><?php esc_html_e( 'Solicitar correção ou exclusão', 'eb-credito-rural' ); ?></h3>
 			<?php echo ebcr_error_summary( $flash['errors'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 			<input type="hidden" name="action" value="ebcr_lgpd_request">

@@ -103,7 +103,7 @@ $ebcr_flash = \EBCR\Frontend\Portal::unflash( 'dashboard' );
 				<?php endif; ?>
 				<button class="ebcr-btn ebcr-btn--block" type="button" disabled><?php esc_html_e( 'Nova solicitação', 'eb-credito-rural' ); ?></button>
 			<?php else : ?>
-				<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+				<form method="post" action="<?php echo esc_url( ebcr_form_action() ); ?>">
 					<input type="hidden" name="action" value="ebcr_new_submission">
 					<?php echo ebcr_nonce_field( 'new_submission' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					<?php if ( $can_duplicate ) : ?>

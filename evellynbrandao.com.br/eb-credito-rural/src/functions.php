@@ -145,3 +145,13 @@ function ebcr_status_badge( $status ) {
 function ebcr_captcha_field( \EBCR\Security\CaptchaProvider $provider ) {
 	return $provider->field();
 }
+
+/**
+ * URL de destino dos formulários do portal (página do portal; não usa wp-admin/admin-post.php).
+ *
+ * @param array $args Parâmetros extras.
+ * @return string
+ */
+function ebcr_form_action( array $args = array() ) {
+	return \EBCR\Frontend\FormRouter::url( $args );
+}

@@ -95,6 +95,7 @@ final class Plugin {
 
 		// Front-end (shortcodes, portal, autenticação).
 		( new Frontend() )->register();
+		( new \EBCR\Frontend\FormRouter() )->register();
 
 		// Admin.
 		if ( is_admin() ) {

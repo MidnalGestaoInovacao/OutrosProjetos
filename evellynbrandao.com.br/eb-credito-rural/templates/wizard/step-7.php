@@ -52,7 +52,7 @@ $ebcr_rules = \EBCR\Forms\SubmissionRules::can_submit( get_current_user_id(), (i
 			?>
 			<div class="ebcr-alert ebcr-alert--warning" role="alert"><?php echo esc_html( $ebcr_rules['message'] ); ?></div><?php endif; ?>
 	</section>
-	<form class="ebcr-form" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" data-ebcr-submit>
+	<form class="ebcr-form" method="post" action="<?php echo esc_url( ebcr_form_action() ); ?>" data-ebcr-submit>
 		<input type="hidden" name="action" value="ebcr_wizard_submit"><input type="hidden" name="id" value="<?php echo esc_attr( $s['public_id'] ); ?>">
 		<?php echo ebcr_nonce_field( 'wizard' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 		<?php echo ebcr_honeypot_fields(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>

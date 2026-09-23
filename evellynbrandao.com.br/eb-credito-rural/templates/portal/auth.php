@@ -17,7 +17,7 @@ $ebcr_login_tab = 'login' === $tab;
 	</div>
 
 	<?php if ( $ebcr_login_tab ) : ?>
-	<form class="ebcr-form ebcr-card" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" novalidate>
+	<form class="ebcr-form ebcr-card" method="post" action="<?php echo esc_url( ebcr_form_action() ); ?>" novalidate>
 		<h2><?php esc_html_e( 'Acesse sua área', 'eb-credito-rural' ); ?></h2>
 		<?php echo ebcr_error_summary( $login['errors'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escapado no helper. ?>
 		<input type="hidden" name="action" value="ebcr_login">
@@ -59,7 +59,7 @@ $ebcr_login_tab = 'login' === $tab;
 		</div>
 	</form>
 	<?php else : ?>
-	<form class="ebcr-form ebcr-card" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" novalidate data-ebcr-register>
+	<form class="ebcr-form ebcr-card" method="post" action="<?php echo esc_url( ebcr_form_action() ); ?>" novalidate data-ebcr-register>
 		<h2><?php esc_html_e( 'Crie sua conta', 'eb-credito-rural' ); ?></h2>
 		<p class="ebcr-muted"><?php esc_html_e( 'Após o cadastro, enviaremos um link para confirmar seu e-mail. A confirmação é obrigatória antes de enviar uma solicitação.', 'eb-credito-rural' ); ?></p>
 		<?php echo ebcr_error_summary( $register['errors'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>

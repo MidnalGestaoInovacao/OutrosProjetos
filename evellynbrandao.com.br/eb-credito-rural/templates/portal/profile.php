@@ -11,7 +11,7 @@ $ebcr_v = $flash['values'];
 $ebcr_e = $flash['errors'];
 ?>
 <div class="ebcr-grid">
-	<form class="ebcr-form ebcr-card ebcr-col-main" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+	<form class="ebcr-form ebcr-card ebcr-col-main" method="post" action="<?php echo esc_url( ebcr_form_action() ); ?>">
 		<h2><?php esc_html_e( 'Meus dados de contato', 'eb-credito-rural' ); ?></h2>
 		<?php echo ebcr_error_summary( $ebcr_e ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 		<input type="hidden" name="action" value="ebcr_profile">
@@ -68,7 +68,7 @@ $ebcr_e = $flash['errors'];
 		?>
 		<button type="submit" class="ebcr-btn ebcr-btn--primary"><?php esc_html_e( 'Salvar', 'eb-credito-rural' ); ?></button>
 	</form>
-	<form class="ebcr-form ebcr-card ebcr-col-side" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+	<form class="ebcr-form ebcr-card ebcr-col-side" method="post" action="<?php echo esc_url( ebcr_form_action() ); ?>">
 		<h3><?php esc_html_e( 'Alterar senha', 'eb-credito-rural' ); ?></h3>
 		<?php echo ebcr_error_summary( $flash_pw['errors'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 		<input type="hidden" name="action" value="ebcr_password">

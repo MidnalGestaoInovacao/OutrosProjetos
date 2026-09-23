@@ -28,7 +28,7 @@ $ebcr_nav = array(
 <?php if ( ! $verified ) : ?>
 <div class="ebcr-alert ebcr-alert--warning" role="status">
 	<p><?php esc_html_e( 'Seu e-mail ainda não foi confirmado. Verifique sua caixa de entrada (e o spam). Sem a confirmação não é possível enviar solicitações.', 'eb-credito-rural' ); ?></p>
-	<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="ebcr-inline-form">
+	<form method="post" action="<?php echo esc_url( ebcr_form_action() ); ?>" class="ebcr-inline-form">
 		<input type="hidden" name="action" value="ebcr_resend_confirm">
 		<?php echo ebcr_nonce_field( 'resend' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 		<button type="submit" class="ebcr-btn ebcr-btn--small"><?php esc_html_e( 'Reenviar link de confirmação', 'eb-credito-rural' ); ?></button>

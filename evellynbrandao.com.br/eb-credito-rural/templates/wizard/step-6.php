@@ -23,7 +23,7 @@ $ebcr_doc_item = static function ( array $d ) use ( $s, $ebcr_labels ) {
 		$html .= '<br><span class="ebcr-error ebcr-small">' . esc_html( $d['review_note'] ) . '</span>';
 	}
 	if ( 'aceito' !== $d['review_status'] ) {
-		$html .= ' <form method="post" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '" class="ebcr-inline-form" data-ebcr-delete="' . esc_attr( $d['public_id'] ) . '"><input type="hidden" name="action" value="ebcr_delete_document"><input type="hidden" name="doc" value="' . esc_attr( $d['public_id'] ) . '">' . ebcr_nonce_field( 'wizard' ) . '<button type="submit" class="ebcr-btn ebcr-btn--ghost ebcr-btn--small">' . esc_html__( 'Remover', 'eb-credito-rural' ) . '</button></form>';
+		$html .= ' <form method="post" action="' . esc_url( ebcr_form_action() ) . '" class="ebcr-inline-form" data-ebcr-delete="' . esc_attr( $d['public_id'] ) . '"><input type="hidden" name="action" value="ebcr_delete_document"><input type="hidden" name="doc" value="' . esc_attr( $d['public_id'] ) . '">' . ebcr_nonce_field( 'wizard' ) . '<button type="submit" class="ebcr-btn ebcr-btn--ghost ebcr-btn--small">' . esc_html__( 'Remover', 'eb-credito-rural' ) . '</button></form>';
 	}
 	return $html . '</li>';
 };
@@ -63,7 +63,7 @@ $ebcr_doc_item = static function ( array $d ) use ( $s, $ebcr_labels ) {
 					?>
 					<?php echo $ebcr_doc_item( $ebcr_d ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><?php endforeach; ?>
 			</ul>
-			<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" enctype="multipart/form-data" class="ebcr-upload" data-ebcr-upload data-doc-type="<?php echo esc_attr( $ebcr_slot['type'] ); ?>" data-ref-key="<?php echo esc_attr( $ebcr_slot['ref_key'] ); ?>">
+			<form method="post" action="<?php echo esc_url( ebcr_form_action() ); ?>" enctype="multipart/form-data" class="ebcr-upload" data-ebcr-upload data-doc-type="<?php echo esc_attr( $ebcr_slot['type'] ); ?>" data-ref-key="<?php echo esc_attr( $ebcr_slot['ref_key'] ); ?>">
 				<input type="hidden" name="action" value="ebcr_wizard_upload"><input type="hidden" name="id" value="<?php echo esc_attr( $s['public_id'] ); ?>"><input type="hidden" name="doc_type" value="<?php echo esc_attr( $ebcr_slot['type'] ); ?>"><input type="hidden" name="ref_key" value="<?php echo esc_attr( $ebcr_slot['ref_key'] ); ?>">
 				<?php echo ebcr_nonce_field( 'wizard' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 				<label class="ebcr-sr" for="<?php echo esc_attr( 'ebcr-file-' . sanitize_key( $ebcr_slot['type'] . '-' . $ebcr_slot['ref_key'] ) ); ?>"><?php esc_html_e( 'Arquivo', 'eb-credito-rural' ); ?></label>
@@ -82,7 +82,7 @@ $ebcr_doc_item = static function ( array $d ) use ( $s, $ebcr_labels ) {
 			?>
 			<?php echo $ebcr_doc_item( $ebcr_d ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><?php endforeach; ?></ul>
 	<?php endif; ?>
-	<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" enctype="multipart/form-data" class="ebcr-upload ebcr-upload--other" data-ebcr-upload data-doc-type="outro" data-ref-key="">
+	<form method="post" action="<?php echo esc_url( ebcr_form_action() ); ?>" enctype="multipart/form-data" class="ebcr-upload ebcr-upload--other" data-ebcr-upload data-doc-type="outro" data-ref-key="">
 		<h4><?php esc_html_e( 'Enviar outro documento (opcional)', 'eb-credito-rural' ); ?></h4>
 		<input type="hidden" name="action" value="ebcr_wizard_upload"><input type="hidden" name="id" value="<?php echo esc_attr( $s['public_id'] ); ?>"><input type="hidden" name="doc_type" value="outro"><input type="hidden" name="ref_key" value="">
 		<?php echo ebcr_nonce_field( 'wizard' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>

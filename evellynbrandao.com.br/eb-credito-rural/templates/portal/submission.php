@@ -52,7 +52,7 @@ $ebcr_open = array_filter(
 <section class="ebcr-card ebcr-card--warn">
 	<h3><?php esc_html_e( 'Pendências solicitadas pela equipe', 'eb-credito-rural' ); ?></h3>
 	<?php foreach ( $ebcr_open as $ebcr_r ) : ?>
-		<form class="ebcr-pending" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" enctype="multipart/form-data" data-ebcr-upload data-doc-type="<?php echo esc_attr( $ebcr_r['doc_type'] ); ?>" data-request-id="<?php echo esc_attr( (string) $ebcr_r['id'] ); ?>">
+		<form class="ebcr-pending" method="post" action="<?php echo esc_url( ebcr_form_action() ); ?>" enctype="multipart/form-data" data-ebcr-upload data-doc-type="<?php echo esc_attr( $ebcr_r['doc_type'] ); ?>" data-request-id="<?php echo esc_attr( (string) $ebcr_r['id'] ); ?>">
 			<div><strong><?php echo esc_html( $ebcr_r['label'] ); ?></strong>
 			<?php
 			if ( $ebcr_r['note'] ) :
@@ -141,7 +141,7 @@ $ebcr_open = array_filter(
 				<p class="ebcr-muted"><?php esc_html_e( 'Nenhuma mensagem ainda.', 'eb-credito-rural' ); ?></p><?php endif; ?>
 			</div>
 			<?php if ( $can_message ) : ?>
-			<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="ebcr-form">
+			<form method="post" action="<?php echo esc_url( ebcr_form_action() ); ?>" class="ebcr-form">
 				<input type="hidden" name="action" value="ebcr_client_message">
 				<input type="hidden" name="id" value="<?php echo esc_attr( $s['public_id'] ); ?>">
 				<?php echo ebcr_nonce_field( 'message' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
@@ -183,7 +183,7 @@ $ebcr_open = array_filter(
 		<?php if ( $can_cancel && Status::DRAFT !== $s['status'] ) : ?>
 		<div class="ebcr-card">
 			<h3><?php esc_html_e( 'Cancelar solicitação', 'eb-credito-rural' ); ?></h3>
-			<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" onsubmit="return confirm('<?php echo esc_js( __( 'Tem certeza? Esta ação não pode ser desfeita.', 'eb-credito-rural' ) ); ?>');">
+			<form method="post" action="<?php echo esc_url( ebcr_form_action() ); ?>" onsubmit="return confirm('<?php echo esc_js( __( 'Tem certeza? Esta ação não pode ser desfeita.', 'eb-credito-rural' ) ); ?>');">
 				<input type="hidden" name="action" value="ebcr_cancel_submission">
 				<input type="hidden" name="id" value="<?php echo esc_attr( $s['public_id'] ); ?>">
 				<?php echo ebcr_nonce_field( 'cancel' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>

@@ -81,9 +81,10 @@ final class Fields {
 	 * @param string $id    ID.
 	 * @param string $error Erro.
 	 * @param string $help  Ajuda.
+	 * @param string $closing Tag de fechamento do invólucro.
 	 * @return string
 	 */
-	private static function close( $id, $error, $help ) {
+	private static function close( $id, $error, $help, $closing = '</div>' ) {
 		$out = '';
 		if ( $help ) {
 			$out .= sprintf( '<span id="%s-help" class="ebcr-help">%s</span>', esc_attr( $id ), esc_html( $help ) );
@@ -91,7 +92,7 @@ final class Fields {
 		if ( $error ) {
 			$out .= sprintf( '<span id="%s-error" class="ebcr-error" role="alert">%s</span>', esc_attr( $id ), esc_html( $error ) );
 		}
-		return $out . '</div>';
+		return $out . $closing;
 	}
 
 	/**
@@ -196,7 +197,7 @@ final class Fields {
 			$oid   = $id . '-' . sanitize_key( $k );
 			$html .= sprintf( '<label class="ebcr-radio" for="%s"><input type="radio" id="%s" name="%s" value="%s"%s%s> %s</label>', esc_attr( $oid ), esc_attr( $oid ), esc_attr( $name ), esc_attr( $k ), (string) $k === (string) $value ? ' checked' : '', $required ? ' required' : '', esc_html( $v ) );
 		}
-		return $html . self::close( $id, $error, $help ) . '</fieldset>';
+		return $html . self::close( $id, $error, $help, '</fieldset>' );
 	}
 
 	/**
@@ -217,7 +218,7 @@ final class Fields {
 			$oid   = $id . '-' . sanitize_key( $k );
 			$html .= sprintf( '<label class="ebcr-check" for="%s"><input type="checkbox" id="%s" name="%s[]" value="%s"%s> %s</label>', esc_attr( $oid ), esc_attr( $oid ), esc_attr( $name ), esc_attr( $k ), in_array( (string) $k, array_map( 'strval', (array) $values ), true ) ? ' checked' : '', esc_html( $v ) );
 		}
-		return $html . self::close( $id, $error, $help ) . '</fieldset>';
+		return $html . self::close( $id, $error, $help, '</fieldset>' );
 	}
 
 	/**
