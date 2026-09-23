@@ -177,10 +177,11 @@ final class TwoFactorTest extends EBCR_TestCase {
 		$this->assertSame( 403, $rest->get_error_data()['status'] );
 		$this->assertStringContainsString( 'ebcr_2fa=1', TwoFactor::login_redirect( admin_url(), admin_url(), get_userdata( $uid ) ) );
 
-		// Código já usado na ativação (mesmo passo) é recusado; o do próximo passo (dentro da janela) é aceito.
-		$replay = TwoFactor::verify_code( $uid, Totp::code( $secret ) );
+		// Código de um passo já consumido é recusado (anti-replay); o de um passo posterior (dentro da janela) é aceito.
+		$last   = (int) get_user_meta( $uid, 'ebcr_2fa_last_step', true );
+		$replay = TwoFactor::verify_code( $uid, Totp::code( $secret, $last * 30 ) );
 		$this->assertInstanceOf( WP_Error::class, $replay, 'reuso do mesmo passo de tempo' );
-		$this->assertTrue( TwoFactor::verify_code( $uid, Totp::code( $secret, time() + 30 ) ) );
+		$this->assertTrue( TwoFactor::verify_code( $uid, Totp::code( $secret, ( $last + 1 ) * 30 ) ) );
 		TwoFactor::complete_verification( $uid, $token, 'totp', false );
 		$this->assertSame( 'verified', TwoFactor::session_flag( $uid, $token ) );
 		$this->assertSame( '', TwoFactor::required_action() );
