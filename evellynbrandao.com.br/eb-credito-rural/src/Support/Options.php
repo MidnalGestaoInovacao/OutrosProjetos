@@ -33,7 +33,7 @@ final class Options {
 		return array(
 			// Geral.
 			'operation_name'             => 'Crédito Rural — Évellyn Brandão',
-			'admin_emails'               => $admin_email,
+			'admin_emails'               => self::default_contact_email( $admin_email ),
 			'notify_assigned_analyst'    => true,
 			'portal_page_id'             => 0,
 			'protocol_prefix'            => 'EB',
@@ -80,8 +80,8 @@ final class Options {
 			'password_min_length'        => 10,
 			'trusted_proxy_header'       => '',
 			// E-mails.
-			'from_name'                  => get_bloginfo( 'name' ),
-			'from_email'                 => $admin_email,
+			'from_name'                  => get_bloginfo( 'name' ) . ' — Crédito Rural',
+			'from_email'                 => self::default_contact_email( $admin_email ),
 			'email_templates'            => array(),
 			'attach_documents_admin'     => false,
 			'notify_admin_status_change' => true,
@@ -103,13 +103,30 @@ final class Options {
 	}
 
 	/**
+	 * E-mail de contato padrão (contato@dominio), com fallback para o e-mail do administrador.
+	 *
+	 * @param string $admin_email E-mail do administrador do WordPress.
+	 * @return string
+	 */
+	private static function default_contact_email( $admin_email ) {
+		$domain = self::site_domain();
+		if ( 'example.com' === $domain || '' === $domain ) {
+			return (string) $admin_email;
+		}
+		return 'contato@' . $domain;
+	}
+
+	/**
 	 * Domínio do site (para e-mails padrão).
 	 *
 	 * @return string
 	 */
 	private static function site_domain() {
-		$host = wp_parse_url( home_url(), PHP_URL_HOST );
-		return $host ? preg_replace( '/^www\./', '', $host ) : 'example.com';
+		$host = (string) wp_parse_url( home_url(), PHP_URL_HOST );
+		if ( '' === $host || 'localhost' === $host || filter_var( $host, FILTER_VALIDATE_IP ) || false === strpos( $host, '.' ) ) {
+			return 'example.com';
+		}
+		return preg_replace( '/^www\./', '', $host );
 	}
 
 	/**

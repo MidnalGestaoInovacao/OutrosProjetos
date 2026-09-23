@@ -105,6 +105,18 @@ $ebcr_field = static function ( $key, array $def, $value ) use ( $values ) {
 				?>
 				<p class="description"><?php /* translators: %s: data */ printf( esc_html__( 'Última rotina diária: %s', 'eb-credito-rural' ), esc_html( Helpers::date( $last_daily['at'] ?? '' ) ) ); ?></p><?php endif; ?>
 			<p class="description"><?php esc_html_e( 'Exportadores/apagadores de dados pessoais: Ferramentas → Exportar/Apagar dados pessoais (integração nativa).', 'eb-credito-rural' ); ?></p>
+			<h2 id="mcp"><?php esc_html_e( 'Configuração por IA (Easy MCP AI)', 'eb-credito-rural' ); ?></h2>
+			<p><?php esc_html_e( 'O plugin registra abilities na Abilities API do WordPress. Com o plugin Easy MCP AI ativo, um agente de IA conectado ao site pode ler e alterar estas configurações, gerir a equipe e operar as solicitações — sempre com as permissões do usuário da chave MCP e com auditoria.', 'eb-credito-rural' ); ?></p>
+			<table class="widefat striped" style="max-width:720px"><tbody>
+				<tr><td><?php esc_html_e( 'Abilities API do WordPress', 'eb-credito-rural' ); ?></td><td><?php echo $mcp['abilities_api'] ? '<span class="ebcr-status-ok">✔ ' . esc_html__( 'disponível', 'eb-credito-rural' ) . '</span>' : '<span class="ebcr-status-warn">⚠ ' . esc_html__( 'indisponível (WordPress 6.9+)', 'eb-credito-rural' ) . '</span>'; ?></td></tr>
+				<tr><td><?php esc_html_e( 'Plugin Easy MCP AI', 'eb-credito-rural' ); ?></td><td><?php echo $mcp['easy_mcp_ai_active'] ? '<span class="ebcr-status-ok">✔ ' . esc_html__( 'detectado', 'eb-credito-rural' ) . '</span>' : '<span class="ebcr-status-warn">⚠ ' . esc_html__( 'não detectado', 'eb-credito-rural' ) . '</span>'; ?></td></tr>
+				<tr><td><?php esc_html_e( 'Abilities habilitadas no conector', 'eb-credito-rural' ); ?></td><td><?php echo esc_html( count( $mcp['enabled'] ) . ' / ' . ( count( $mcp['enabled'] ) + count( $mcp['missing'] ) ) ); ?></td></tr>
+			</tbody></table>
+			<?php if ( $mcp['missing'] ) : ?>
+				<form method="post" action="<?php echo $ebcr_post; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" style="margin:8px 0"><input type="hidden" name="action" value="ebcr_tool"><input type="hidden" name="tool" value="enable_mcp"><?php echo ebcr_nonce_field( 'settings_tool' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><button class="button button-primary"><?php esc_html_e( 'Habilitar as abilities do plugin no Easy MCP AI', 'eb-credito-rural' ); ?></button></form>
+			<?php endif; ?>
+			<p class="description"><?php esc_html_e( 'Ferramentas expostas ao agente (nomes no Easy MCP AI):', 'eb-credito-rural' ); ?> <code><?php echo esc_html( implode( '</code> <code>', $mcp['tool_names'] ) ); ?></code></p>
+			<p class="description"><?php esc_html_e( 'Detalhes, permissões e exemplos de pedidos: Ajuda → Configuração por IA.', 'eb-credito-rural' ); ?></p>
 		<?php else : ?>
 		<form method="post" action="<?php echo $ebcr_post; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
 			<input type="hidden" name="action" value="ebcr_save_settings"><input type="hidden" name="tab" value="<?php echo esc_attr( $ebcr_k ); ?>">

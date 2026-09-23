@@ -30,8 +30,10 @@ final class Help {
 		View::show(
 			'admin/help',
 			array(
-				'guard' => new FileGuard(),
-				'caps'  => Capabilities::map(),
+				'guard'     => new FileGuard(),
+				'caps'      => Capabilities::map(),
+				'abilities' => \EBCR\Abilities\Abilities::definitions(),
+				'mcp'       => \EBCR\Abilities\Abilities::mcp_status(),
 			)
 		);
 	}

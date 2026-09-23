@@ -7,6 +7,7 @@
 
 namespace EBCR;
 
+use EBCR\Abilities\Abilities;
 use EBCR\Admin\Admin;
 use EBCR\Cron\Scheduler;
 use EBCR\Files\DownloadController;
@@ -82,6 +83,9 @@ final class Plugin {
 
 		// REST interno.
 		( new Routes() )->register();
+
+		// Abilities (WordPress Abilities API → Easy MCP AI).
+		( new Abilities() )->register();
 
 		// E-mails (fila).
 		( new Queue() )->register();

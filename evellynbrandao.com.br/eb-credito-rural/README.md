@@ -23,6 +23,7 @@ Esta é a **Fase 1 (MVP seguro)** do `SPEC.md`. Slug `eb-credito-rural`, prefixo
 6. Crie os usuários da equipe (Usuários → Adicionar) com o papel *Analista de crédito* ou *Gestor de crédito*.
 7. Revise com o jurídico as políticas e versões em **Privacidade e compliance** e, com a gestora do fundo, a matriz de documentos e os limites de valor/prazo.
 8. Coloque `[ebcr_cta]` na página de captação.
+9. (Opcional) Com o plugin **Easy MCP AI** ativo, as ferramentas do plugin ficam disponíveis ao agente de IA automaticamente (veja *Configuração por IA*). Se não aparecerem, use **Configurações → Ferramentas → Habilitar as abilities do plugin no Easy MCP AI**.
 
 Se `DISABLE_WP_CRON` estiver definido, configure um cron do sistema chamando `wp-cron.php` a cada 5 minutos (fila de e-mails) — a rotina diária roda às 6h.
 
@@ -34,6 +35,29 @@ Se `DISABLE_WP_CRON` estiver definido, configure um cron do sistema chamando `wp
 | `[ebcr_login]` / `[ebcr_register]` | Apenas login / apenas cadastro |
 | `[ebcr_form]` | Formulário (redireciona ao login se necessário) |
 | `[ebcr_cta titulo="" texto="" botao="" url=""]` | Chamada para ação |
+
+## Configuração e operação por IA (Easy MCP AI / Abilities API)
+
+O plugin registra 14 *abilities* na Abilities API do WordPress (6.9+), categoria `ebcr`, e as habilita sozinho na opção do plugin **Easy MCP AI** na ativação/atualização (sem remover outras). No agente elas aparecem como `wp_ability_ebcr_*`. Cada uma exige a mesma capacidade da tela equivalente e registra auditoria com origem `mcp`; dados sensíveis chegam mascarados e os arquivos nunca saem por esse caminho.
+
+| Ferramenta | Função | Exige |
+| --- | --- | --- |
+| `wp_ability_ebcr_get_settings` | Lê configurações (todas, por aba ou por chave) com rótulo, ajuda e tipo | `ebcr_manage_settings` |
+| `wp_ability_ebcr_update_settings` | Altera configurações (mesma sanitização/limites/avisos da tela) | `ebcr_manage_settings` |
+| `wp_ability_ebcr_reset_settings` | Restaura os padrões de uma aba | `ebcr_manage_settings` |
+| `wp_ability_ebcr_get_status` | Estado do plugin: ambiente, pasta privada, criptografia, fila de e-mails, contagens, pendências de publicação, estado do MCP | `ebcr_manage_settings` |
+| `wp_ability_ebcr_run_tool` | `test_protection`, `test_email`, `process_mail`, `retry_mail`, `run_daily`, `run_retention`, `enable_mcp` | `ebcr_manage_settings` |
+| `wp_ability_ebcr_list_team` | Lista analistas, gestores e administradores | `ebcr_change_final_status` |
+| `wp_ability_ebcr_set_team_member` | Cria/atribui analista ou gestor por e-mail; `remover` tira da equipe | `promote_users` |
+| `wp_ability_ebcr_list_submissions` | Lista solicitações com filtros (status, busca, responsável, paginação) | `ebcr_view_submissions` |
+| `wp_ability_ebcr_get_submission` | Detalhe (dados mascarados, documentos, pendências, mensagens, histórico) | `ebcr_view_submissions` |
+| `wp_ability_ebcr_change_status` | Muda status respeitando transições e papéis (aprovar/reprovar só gestor) | `ebcr_edit_submissions` |
+| `wp_ability_ebcr_assign_submission` | Atribui responsável (ID ou e-mail) | `ebcr_edit_submissions` |
+| `wp_ability_ebcr_request_document` | Abre pendência documental e notifica o cliente | `ebcr_edit_submissions` |
+| `wp_ability_ebcr_send_message` | Mensagem interna ou ao cliente | `ebcr_edit_submissions` |
+| `wp_ability_ebcr_review_document` | Aceita/recusa documento enviado | `ebcr_edit_submissions` |
+
+Exemplos: “Mostre as configurações da aba E-mails”, “Defina os e-mails administrativos como contato@dominio e ligue o aviso ao analista”, “Qual o estado do plugin e o que falta para publicar?”, “Cadastre maria@exemplo.com como analista”, “Atribua a EB-2026-000012 ao João e peça a matrícula atualizada com 30 dias de prazo”. Se as ferramentas não aparecerem no agente: Easy MCP AI → Abilities → marcar o grupo *EB Crédito Rural* (ou **Configurações → Ferramentas → Habilitar**) e reconectar o agente.
 
 ## Como a segurança de arquivos e a autorização funcionam
 
@@ -91,6 +115,11 @@ Os testes de autorização cobrem os critérios de aceite do SPEC: cliente A nã
 - [ ] Usuários da equipe com papéis corretos
 - [ ] Cron do sistema (se `DISABLE_WP_CRON`)
 - [ ] Backup do banco e da pasta privada
+
+## Versões
+
+- **1.1.0** — Abilities API / Easy MCP AI (14 ferramentas `wp_ability_ebcr_*`, auto-habilitadas no conector), limites de segurança aplicados na sanitização dos campos numéricos, e-mails padrão `contato@dominio`, detecção automática da página do portal, bloco de estado do MCP em Ferramentas e Ajuda.
+- **1.0.0** — Fase 1 completa (segurança de arquivos, autorização, wizard de 7 etapas, matriz de documentos, fila de e-mails, CRM básico, LGPD, auditoria).
 
 ## Fora desta fase
 

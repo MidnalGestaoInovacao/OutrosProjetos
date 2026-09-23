@@ -3,7 +3,7 @@
  * Plugin Name:       EB Crédito Rural
  * Plugin URI:        https://evellynbrandao.com.br/
  * Description:       Captação de solicitações de crédito rural: cadastro do produtor, formulário em etapas, documentos protegidos, notificações, área do cliente e painel da equipe.
- * Version:           1.0.0
+ * Version:           1.1.0
  * Requires at least: 6.4
  * Requires PHP:      8.1
  * Author:            Évellyn Brandão
@@ -18,8 +18,8 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'EBCR_VERSION', '1.0.0' );
-define( 'EBCR_DB_VERSION', '1.0.0' );
+define( 'EBCR_VERSION', '1.1.0' );
+define( 'EBCR_DB_VERSION', '1.1.0' );
 define( 'EBCR_FILE', __FILE__ );
 define( 'EBCR_DIR', plugin_dir_path( __FILE__ ) );
 define( 'EBCR_URL', plugin_dir_url( __FILE__ ) );

@@ -7,6 +7,7 @@
 
 namespace EBCR\Admin\Settings;
 
+use EBCR\Abilities\Abilities;
 use EBCR\Database\DocumentRepository;
 use EBCR\Database\MailQueueRepository;
 use EBCR\Database\SubmissionDataRepository;
@@ -44,6 +45,31 @@ final class Settings {
 		add_action( 'admin_post_ebcr_reset_settings', array( $this, 'reset' ) );
 		add_action( 'admin_post_ebcr_tool', array( $this, 'tool' ) );
 	}
+
+	/**
+	 * Limites (mínimo, máximo|null) dos campos numéricos, aplicados na sanitização.
+	 */
+	const LIMITS = array(
+		'min_amount'                => array( 0, null ),
+		'max_amount'                => array( 0, null ),
+		'min_term_months'           => array( 1, 600 ),
+		'max_term_months'           => array( 1, 600 ),
+		'max_area_ha'               => array( 0, null ),
+		'max_file_size_mb'          => array( 1, 100 ),
+		'max_files_per_submission'  => array( 1, 200 ),
+		'user_quota_mb'             => array( 1, 10000 ),
+		'min_interval_days'         => array( 0, 365 ),
+		'pending_reminder_days'     => array( 0, 365 ),
+		'pending_cancel_days'       => array( 0, 365 ),
+		'login_max_attempts'        => array( 1, 50 ),
+		'login_window_minutes'      => array( 1, 1440 ),
+		'min_fill_seconds'          => array( 0, 600 ),
+		'team_session_hours'        => array( 1, 168 ),
+		'password_min_length'       => array( 8, 64 ),
+		'retention_months_rejected' => array( 1, 600 ),
+		'retention_months_approved' => array( 1, 600 ),
+		'audit_retention_days'      => array( 30, 3650 ),
+	);
 
 	/**
 	 * Abas: chave => [rótulo, introdução, campos].
@@ -227,6 +253,7 @@ final class Settings {
 				'mail_failures' => ( new MailQueueRepository() )->failures( 10 ),
 				'env'           => self::environment(),
 				'last_daily'    => get_option( 'ebcr_last_daily', array() ),
+				'mcp'           => Abilities::mcp_status(),
 				'notice'        => isset( $_GET['ebcr_notice'] ) ? sanitize_text_field( wp_unslash( $_GET['ebcr_notice'] ) ) : '', // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- mensagem informativa.
 				'notice_type'   => isset( $_GET['ebcr_type'] ) && 'error' === $_GET['ebcr_type'] ? 'error' : 'success', // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- idem.
 				'tab'           => isset( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : 'geral', // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- navegação.
@@ -282,27 +309,52 @@ final class Settings {
 	}
 
 	/**
-	 * Salva uma aba.
+	 * Todos os campos de todas as abas: chave => definição (+ 'tab').
 	 *
-	 * @return void
+	 * @return array
 	 */
-	public function save() {
-		if ( ! current_user_can( Capabilities::CAP_SETTINGS ) || ! Nonces::verify( 'settings' ) ) {
-			wp_die( esc_html__( 'Sem permissão ou sessão expirada.', 'eb-credito-rural' ), 403 );
+	public static function all_fields() {
+		$out = array();
+		foreach ( array_keys( self::tabs() ) as $tab ) {
+			foreach ( self::fields( $tab ) as $key => $def ) {
+				$def['tab']  = $tab;
+				$out[ $key ] = $def;
+			}
 		}
-		$tab    = isset( $_POST['tab'] ) ? sanitize_key( wp_unslash( $_POST['tab'] ) ) : 'geral';
-		$fields = self::fields( $tab );
-		$in     = wp_unslash( $_POST ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- sanitizado campo a campo abaixo.
+		return $out;
+	}
+
+	/**
+	 * Sanitiza um conjunto de valores (só chaves conhecidas). Retorna [valores, erros].
+	 *
+	 * @param array $input Entrada bruta (chave => valor).
+	 * @return array
+	 */
+	public static function sanitize( array $input ) {
+		$fields = self::all_fields();
 		$values = array();
 		$errors = array();
-		foreach ( $fields as $key => $def ) {
-			$raw = isset( $in[ $key ] ) ? $in[ $key ] : null;
+		foreach ( $input as $key => $raw ) {
+			if ( ! isset( $fields[ $key ] ) ) {
+				$errors[] = sprintf( /* translators: %s: chave */ __( 'Configuração desconhecida: %s.', 'eb-credito-rural' ), $key );
+				continue;
+			}
+			$def = $fields[ $key ];
 			switch ( $def[0] ) {
 				case 'checkbox':
-					$values[ $key ] = ! empty( $raw );
+					$values[ $key ] = is_string( $raw ) ? in_array( strtolower( $raw ), array( '1', 'true', 'on', 'sim', 'yes' ), true ) : ! empty( $raw );
 					break;
 				case 'number':
-					$values[ $key ] = is_numeric( $raw ) ? 0 + $raw : 0;
+					$num = is_numeric( $raw ) ? 0 + $raw : 0;
+					if ( isset( self::LIMITS[ $key ] ) ) {
+						list( $lo, $hi ) = self::LIMITS[ $key ];
+						$clamped         = max( $lo, null === $hi ? $num : min( $hi, $num ) );
+						if ( $clamped !== $num ) {
+							$errors[] = sprintf( /* translators: 1: chave, 2: valor aplicado */ __( '%1$s: valor fora do intervalo permitido; ajustado para %2$s.', 'eb-credito-rural' ), $key, $clamped );
+							$num      = $clamped;
+						}
+					}
+					$values[ $key ] = $num;
 					break;
 				case 'email':
 					$values[ $key ] = sanitize_email( (string) $raw );
@@ -314,7 +366,7 @@ final class Settings {
 					$values[ $key ] = absint( $raw );
 					break;
 				case 'textarea':
-					$values[ $key ] = sanitize_textarea_field( (string) $raw );
+					$values[ $key ] = sanitize_textarea_field( is_array( $raw ) ? implode( "\n", array_map( 'strval', $raw ) ) : (string) $raw );
 					break;
 				case 'select':
 					$values[ $key ] = isset( $def[3][ (string) $raw ] ) ? (string) $raw : key( $def[3] );
@@ -326,13 +378,13 @@ final class Settings {
 					}
 					break;
 				case 'matrix':
-					$values[ $key ] = $this->sanitize_matrix( is_array( $raw ) ? $raw : array() );
+					$values[ $key ] = self::sanitize_matrix( is_array( $raw ) ? $raw : array() );
 					break;
 				case 'templates':
 					$values[ $key ] = array();
 					foreach ( (array) $raw as $ev => $t ) {
 						$ev = sanitize_key( $ev );
-						if ( isset( Events::all()[ $ev ] ) ) {
+						if ( isset( Events::all()[ $ev ] ) && is_array( $t ) ) {
 							$values[ $key ][ $ev ] = array(
 								'subject' => sanitize_text_field( (string) ( $t['subject'] ?? '' ) ),
 								'body'    => wp_kses(
@@ -350,14 +402,14 @@ final class Settings {
 					break;
 				case 'policies':
 					$values[ $key ] = array();
-					foreach ( (array) $raw as $pk => $p ) {
+					foreach ( (array) $raw as $pk => $pol ) {
 						$pk = sanitize_key( $pk );
-						if ( isset( Consent::default_policies()[ $pk ] ) ) {
+						if ( isset( Consent::default_policies()[ $pk ] ) && is_array( $pol ) ) {
 							$values[ $key ][ $pk ] = array(
-								'page_id' => absint( $p['page_id'] ?? 0 ),
-								'version' => sanitize_text_field( (string) ( $p['version'] ?? '1.0' ) ),
-								'text'    => sanitize_textarea_field( (string) ( $p['text'] ?? '' ) ),
-								'title'   => sanitize_text_field( (string) ( $p['title'] ?? '' ) ),
+								'page_id' => absint( $pol['page_id'] ?? 0 ),
+								'version' => sanitize_text_field( (string) ( $pol['version'] ?? '1.0' ) ),
+								'text'    => sanitize_textarea_field( (string) ( $pol['text'] ?? '' ) ),
+								'title'   => sanitize_text_field( (string) ( $pol['title'] ?? '' ) ),
 							);
 						}
 					}
@@ -366,10 +418,11 @@ final class Settings {
 					$values[ $key ] = array();
 					foreach ( (array) $raw as $sk => $st ) {
 						$sk = sanitize_key( $sk );
-						if ( Status::exists( $sk ) ) {
+						if ( Status::exists( $sk ) && is_array( $st ) ) {
+							$color                 = sanitize_hex_color( (string) ( $st['color'] ?? '' ) );
 							$values[ $key ][ $sk ] = array(
 								'label'          => sanitize_text_field( (string) ( $st['label'] ?? '' ) ),
-								'color'          => sanitize_hex_color( (string) ( $st['color'] ?? '' ) ) ? sanitize_hex_color( (string) ( $st['color'] ?? '' ) ) : '#6b7280',
+								'color'          => $color ? $color : '#6b7280',
 								'client_visible' => ! empty( $st['client_visible'] ),
 								'client_text'    => sanitize_textarea_field( (string) ( $st['client_text'] ?? '' ) ),
 							);
@@ -380,30 +433,79 @@ final class Settings {
 					$values[ $key ] = sanitize_text_field( (string) $raw );
 			}
 		}
-		// Regras especiais.
-		if ( 'seguranca' === $tab ) {
+		return array( $values, $errors );
+	}
+
+	/**
+	 * Regras especiais (criptografia não pode ser desligada com dados cifrados; chave ausente; pasta inválida; página sem shortcode).
+	 * Ajusta $values quando necessário e devolve avisos.
+	 *
+	 * @param array $values Valores sanitizados (por referência).
+	 * @return string[] Avisos.
+	 */
+	public static function guard( array &$values ) {
+		$warnings = array();
+		if ( array_key_exists( 'encrypt_files', $values ) || array_key_exists( 'encrypt_fields', $values ) ) {
 			$has_enc = ( new DocumentRepository() )->has_encrypted() || ( new SubmissionDataRepository() )->has_encrypted();
-			if ( $has_enc && ( ( Options::bool( 'encrypt_files' ) && empty( $values['encrypt_files'] ) ) || ( Options::bool( 'encrypt_fields' ) && empty( $values['encrypt_fields'] ) ) ) ) {
-				$errors[]                 = __( 'Não é possível desligar a criptografia: já existem dados criptografados. Seria necessária uma rotina de migração.', 'eb-credito-rural' );
+			if ( $has_enc && ( ( Options::bool( 'encrypt_files' ) && array_key_exists( 'encrypt_files', $values ) && empty( $values['encrypt_files'] ) ) || ( Options::bool( 'encrypt_fields' ) && array_key_exists( 'encrypt_fields', $values ) && empty( $values['encrypt_fields'] ) ) ) ) {
+				$warnings[]               = __( 'Não é possível desligar a criptografia: já existem dados criptografados. Seria necessária uma rotina de migração.', 'eb-credito-rural' );
 				$values['encrypt_files']  = Options::bool( 'encrypt_files' );
 				$values['encrypt_fields'] = Options::bool( 'encrypt_fields' );
 			}
 			if ( ( ! empty( $values['encrypt_files'] ) || ! empty( $values['encrypt_fields'] ) ) && ! Crypto::is_available() ) {
-				$errors[] = __( 'Criptografia ligada sem chave válida: defina EBCR_ENCRYPTION_KEY no wp-config.php (veja instruções na aba). Até lá, os dados NÃO serão criptografados.', 'eb-credito-rural' );
-			}
-			if ( ! empty( $values['storage_path'] ) && ( ! is_dir( $values['storage_path'] ) || ! wp_is_writable( $values['storage_path'] ) ) ) {
-				$errors[] = __( 'A pasta informada não existe ou não é gravável; o plugin continuará usando a pasta de fallback dentro de uploads.', 'eb-credito-rural' );
+				$warnings[] = __( 'Criptografia ligada sem chave válida: defina EBCR_ENCRYPTION_KEY no wp-config.php. Até lá, os dados NÃO serão criptografados.', 'eb-credito-rural' );
 			}
 		}
-		if ( 'geral' === $tab && $values['portal_page_id'] && ! has_shortcode( (string) get_post_field( 'post_content', $values['portal_page_id'] ), 'ebcr_portal' ) ) {
-			$errors[] = __( 'A página escolhida não contém o shortcode [ebcr_portal].', 'eb-credito-rural' );
+		if ( ! empty( $values['storage_path'] ) && ( ! is_dir( $values['storage_path'] ) || ! wp_is_writable( $values['storage_path'] ) ) ) {
+			$warnings[] = __( 'A pasta informada não existe ou não é gravável; o plugin continuará usando a pasta de fallback dentro de uploads.', 'eb-credito-rural' );
 		}
+		if ( ! empty( $values['portal_page_id'] ) && ! has_shortcode( (string) get_post_field( 'post_content', $values['portal_page_id'] ), 'ebcr_portal' ) ) {
+			$warnings[] = __( 'A página escolhida não contém o shortcode [ebcr_portal].', 'eb-credito-rural' );
+		}
+		return $warnings;
+	}
+
+	/**
+	 * Grava valores já sanitizados e registra auditoria.
+	 *
+	 * @param array  $values  Valores.
+	 * @param string $context Origem (aba ou "mcp").
+	 * @return void
+	 */
+	public static function persist( array $values, $context ) {
 		Options::update( $values );
-		if ( 'seguranca' === $tab ) {
+		if ( array_key_exists( 'storage_path', $values ) ) {
 			( new FileGuard() )->ensure_base_dir();
 		}
-		AuditLog::log( 'settings_updated', 'settings', $tab, array( 'keys' => array_keys( $values ) ) );
-		$this->back( $tab, $errors ? implode( ' ', $errors ) : __( 'Configurações salvas.', 'eb-credito-rural' ), $errors ? 'error' : 'success' );
+		if ( array_key_exists( 'portal_page_id', $values ) ) {
+			delete_transient( 'ebcr_portal_page_auto' );
+		}
+		AuditLog::log( 'settings_updated', 'settings', $context, array( 'keys' => array_keys( $values ) ) );
+	}
+
+	/**
+	 * Salva uma aba (admin-post).
+	 *
+	 * @return void
+	 */
+	public function save() {
+		if ( ! current_user_can( Capabilities::CAP_SETTINGS ) || ! Nonces::verify( 'settings' ) ) {
+			wp_die( esc_html__( 'Sem permissão ou sessão expirada.', 'eb-credito-rural' ), 403 );
+		}
+		$tab   = isset( $_POST['tab'] ) ? sanitize_key( wp_unslash( $_POST['tab'] ) ) : 'geral';
+		$in    = wp_unslash( $_POST ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- sanitizado por sanitize().
+		$input = array();
+		foreach ( self::fields( $tab ) as $key => $def ) {
+			$input[ $key ] = isset( $in[ $key ] ) ? $in[ $key ] : ( 'checkbox' === $def[0] ? '' : null );
+			if ( null === $input[ $key ] ) {
+				unset( $input[ $key ] );
+			}
+		}
+		list( $values, $errors ) = self::sanitize( $input );
+		$warnings                = self::guard( $values );
+		self::persist( $values, $tab );
+		$msgs = array_merge( $errors, $warnings );
+		$this->back( $tab, $msgs ? implode( ' ', $msgs ) : __( 'Configurações salvas.', 'eb-credito-rural' ), $msgs ? 'error' : 'success' );
 	}
 
 	/**
@@ -485,6 +587,13 @@ final class Settings {
 			case 'run_daily':
 				$r = \EBCR\Cron\Scheduler::daily();
 				$this->back( 'ferramentas', sprintf( /* translators: 1: lembretes, 2: certidões, 3: anonimizadas */ __( 'Rotina diária executada: %1$d lembrete(s), %2$d certidão(ões) a vencer, %3$d anonimizada(s).', 'eb-credito-rural' ), $r['reminders'], $r['certificates'], $r['anonymized'] ) );
+				break;
+			case 'enable_mcp':
+				$r = Abilities::enable_in_easy_mcp();
+				if ( ! $r['enabled'] ) {
+					$this->back( 'ferramentas', 'abilities_api_missing' === $r['reason'] ? __( 'Este WordPress não tem a Abilities API (atualize para a versão 6.9 ou superior).', 'eb-credito-rural' ) : __( 'O plugin Easy MCP AI não foi detectado. Instale e ative-o e tente novamente.', 'eb-credito-rural' ), 'error' );
+				}
+				$this->back( 'ferramentas', $r['added'] ? sprintf( /* translators: %d: quantidade */ __( '%d ability(ies) do plugin habilitada(s) no Easy MCP AI. Reconecte o agente para carregar as novas ferramentas.', 'eb-credito-rural' ), $r['added'] ) : __( 'Todas as abilities do plugin já estão habilitadas no Easy MCP AI.', 'eb-credito-rural' ) );
 				break;
 			case 'export_settings':
 				$all = Options::all();

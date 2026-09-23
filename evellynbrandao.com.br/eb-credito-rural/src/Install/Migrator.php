@@ -42,6 +42,8 @@ final class Migrator {
 		Schema::install();
 		Capabilities::ensure_admin_caps();
 		update_option( self::OPTION, EBCR_DB_VERSION, false );
+		// 1.1.0: abilities do plugin habilitadas no Easy MCP AI (se instalado).
+		\EBCR\Abilities\Abilities::enable_in_easy_mcp();
 		/**
 		 * Após migração.
 		 *

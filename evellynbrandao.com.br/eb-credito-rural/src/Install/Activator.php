@@ -40,6 +40,7 @@ final class Activator {
 		$guard->ensure_base_dir();
 		set_transient( 'ebcr_activation_notice', 1, 300 );
 		Scheduler::schedule();
+		\EBCR\Abilities\Abilities::enable_in_easy_mcp();
 		flush_rewrite_rules();
 	}
 }

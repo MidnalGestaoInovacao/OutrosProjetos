@@ -1,6 +1,6 @@
 <?php
 /**
- * Ajuda. Variáveis: $guard, $caps.
+ * Ajuda. Variáveis: $guard, $caps, $abilities, $mcp.
  *
  * @package EBCR
  */
@@ -68,6 +68,35 @@ defined( 'ABSPATH' ) || exit;
 		<pre class="ebcr-code"><?php echo esc_html( $guard->nginx_snippet() ); ?></pre>
 		<p><?php esc_html_e( 'Alternativa preferível: configurar um caminho fora da raiz pública em Configurações → Segurança (ex.: /home/usuario/ebcr-private), o que elimina qualquer URL direta.', 'eb-credito-rural' ); ?></p>
 		<p><?php /* translators: %s: caminho */ printf( esc_html__( 'Pasta em uso atualmente: %s', 'eb-credito-rural' ), '<code>' . esc_html( $guard->base_dir() ) . '</code>' ); ?></p>
+	</div>
+	<div class="ebcr-box" id="mcp">
+		<h2><?php esc_html_e( 'Configuração por IA (Easy MCP AI)', 'eb-credito-rural' ); ?></h2>
+		<p><?php esc_html_e( 'Tudo o que se faz nas telas de Configurações e na lista de solicitações também pode ser feito por um agente de IA conectado ao site pelo plugin Easy MCP AI. O plugin EB Crédito Rural registra as abilities abaixo na Abilities API do WordPress e as habilita automaticamente no Easy MCP AI ao ser ativado ou atualizado. Cada ability exige a mesma capacidade da tela equivalente (a chave MCP herda as permissões do usuário que a criou) e tudo fica registrado no log de auditoria com origem "mcp".', 'eb-credito-rural' ); ?></p>
+		<p><strong><?php esc_html_e( 'Estado:', 'eb-credito-rural' ); ?></strong>
+			<?php echo $mcp['abilities_api'] ? esc_html__( 'Abilities API disponível', 'eb-credito-rural' ) : esc_html__( 'Abilities API indisponível (WordPress 6.9+)', 'eb-credito-rural' ); ?> ·
+			<?php echo $mcp['easy_mcp_ai_active'] ? esc_html__( 'Easy MCP AI detectado', 'eb-credito-rural' ) : esc_html__( 'Easy MCP AI não detectado', 'eb-credito-rural' ); ?> ·
+			<?php /* translators: 1: habilitadas, 2: total */ printf( esc_html__( '%1$d de %2$d abilities habilitadas no conector', 'eb-credito-rural' ), count( $mcp['enabled'] ), count( $mcp['enabled'] ) + count( $mcp['missing'] ) ); ?>
+			<?php if ( $mcp['missing'] && current_user_can( \EBCR\Roles\Capabilities::CAP_SETTINGS ) ) : ?>
+				— <a href="<?php echo esc_url( admin_url( 'admin.php?page=ebcr-settings&tab=ferramentas#mcp' ) ); ?>"><?php esc_html_e( 'habilitar em Configurações → Ferramentas', 'eb-credito-rural' ); ?></a>
+			<?php endif; ?>
+		</p>
+		<table class="widefat striped"><thead><tr><th><?php esc_html_e( 'Ferramenta (nome no Easy MCP AI)', 'eb-credito-rural' ); ?></th><th><?php esc_html_e( 'O que faz', 'eb-credito-rural' ); ?></th><th><?php esc_html_e( 'Exige', 'eb-credito-rural' ); ?></th></tr></thead><tbody>
+		<?php
+		foreach ( $abilities as $ebcr_slug => $ebcr_def ) :
+			?>
+			<tr><td><code><?php echo esc_html( 'wp_ability_ebcr_' . str_replace( '-', '_', $ebcr_slug ) ); ?></code><br><small><?php echo esc_html( $ebcr_def['label'] ); ?></small></td><td><?php echo esc_html( $ebcr_def['description'] ); ?></td><td><code><?php echo esc_html( $ebcr_def['cap'] ); ?></code></td></tr><?php endforeach; ?>
+		</tbody></table>
+		<h3><?php esc_html_e( 'Exemplos de pedidos ao agente', 'eb-credito-rural' ); ?></h3>
+		<ul>
+			<li>“<?php esc_html_e( 'Mostre as configurações da aba E-mails do EB Crédito Rural.', 'eb-credito-rural' ); ?>”</li>
+			<li>“<?php esc_html_e( 'Defina os e-mails administrativos como contato@meudominio.com.br e ligue o aviso ao analista responsável.', 'eb-credito-rural' ); ?>”</li>
+			<li>“<?php esc_html_e( 'Qual é o estado do plugin? Há algo pendente para a publicação?', 'eb-credito-rural' ); ?>”</li>
+			<li>“<?php esc_html_e( 'Rode o teste de proteção da pasta de documentos e me diga o resultado.', 'eb-credito-rural' ); ?>”</li>
+			<li>“<?php esc_html_e( 'Cadastre maria@exemplo.com como analista de crédito.', 'eb-credito-rural' ); ?>”</li>
+			<li>“<?php esc_html_e( 'Liste as solicitações em pré-análise e atribua a EB-2026-000012 ao analista João.', 'eb-credito-rural' ); ?>”</li>
+			<li>“<?php esc_html_e( 'Na solicitação EB-2026-000012, peça a matrícula atualizada do imóvel com prazo de 30 dias.', 'eb-credito-rural' ); ?>”</li>
+		</ul>
+		<p class="description"><?php esc_html_e( 'Os dados sensíveis (CPF/CNPJ, documentos) chegam mascarados ao agente e os arquivos nunca são expostos por esse caminho. Se as ferramentas não aparecerem no agente, abra o Easy MCP AI → Abilities, marque as do grupo "EB Crédito Rural" e reconecte o agente.', 'eb-credito-rural' ); ?></p>
 	</div>
 	<div class="ebcr-box">
 		<h2><?php esc_html_e( 'Perguntas frequentes', 'eb-credito-rural' ); ?></h2>
