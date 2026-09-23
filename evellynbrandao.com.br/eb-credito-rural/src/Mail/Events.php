@@ -145,6 +145,7 @@ final class Events {
 	 */
 	public static function placeholders() {
 		return array(
+			'{codigo}'           => __( 'Código numérico (verificação em duas etapas / assinatura eletrônica)', 'eb-credito-rural' ),
 			'{nome}'             => __( 'Nome do cliente', 'eb-credito-rural' ),
 			'{protocolo}'        => __( 'Protocolo da solicitação', 'eb-credito-rural' ),
 			'{status}'           => __( 'Status atual', 'eb-credito-rural' ),

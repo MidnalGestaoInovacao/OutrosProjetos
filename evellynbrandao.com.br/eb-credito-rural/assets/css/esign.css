@@ -1,0 +1,38 @@
+/* EB Crédito Rural — assinatura eletrônica (portal) e selo/evidências (admin). Sem dependências; complementa portal.css. */
+.ebcr-esign-head{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.ebcr-esign-head h2{margin-bottom:.2em}
+.ebcr-esign-head p{margin:0}
+.ebcr-esign-lock{flex:0 0 auto;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#f3d77c,#d4af37 45%,#8a6a1c);position:relative}
+.ebcr-esign-lock::before{content:"";position:absolute;left:50%;top:50%;width:14px;height:11px;margin:-3px 0 0 -7px;border-radius:2px;background:#111}
+.ebcr-esign-lock::after{content:"";position:absolute;left:50%;top:50%;width:8px;height:8px;margin:-12px 0 0 -6px;border:2px solid #111;border-bottom:0;border-radius:6px 6px 0 0}
+.ebcr-esign-text{max-height:340px;overflow:auto;padding:16px 18px;border:1px solid var(--ebcr-line,#e5e7eb);border-radius:10px;background:var(--ebcr-soft,#f9fafb);font-size:.97rem;line-height:1.6;margin-bottom:12px}
+.ebcr-esign-text p:last-child{margin-bottom:0}
+.ebcr-esign-text:focus-visible{outline:3px solid #2563eb;outline-offset:2px}
+.ebcr-esign-code{font:600 1.6rem/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.35em;text-align:center;max-width:260px}
+.ebcr-esign-secondary{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin-top:14px;padding-top:14px;border-top:1px dashed var(--ebcr-line,#e5e7eb)}
+.ebcr-esign-secondary .ebcr-inline-form{display:inline-flex;align-items:center;gap:8px;margin:0}
+.ebcr-esign-kv{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 14px;margin:0 0 12px}
+.ebcr-esign-kv dt{font-weight:600;color:var(--ebcr-mut,#4b5563)}
+.ebcr-esign-kv dd{margin:0;overflow-wrap:anywhere}
+.ebcr-esign-hash{font-size:.8rem;overflow-wrap:anywhere}
+.ebcr-esign-steps{margin:0 0 12px 1.2em;padding:0}
+.ebcr-esign-steps li{margin-bottom:6px}
+.ebcr-esign-done{border-color:#86efac;background:#f0fdf4}
+.ebcr-esign-done h3{color:#14532d}
+.ebcr-esign-cta{margin:6px 0 10px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
+.ebcr-esign-btn{border-color:#8a6a1c;color:#5a4410;background:#fffbeb}
+.ebcr-esign-btn:hover{background:#fef3c7}
+.ebcr-esign-btn::before{content:"";display:inline-block;width:12px;height:12px;border-radius:2px;background:linear-gradient(135deg,#f3d77c,#8a6a1c)}
+.ebcr-upload-status.is-ok{color:#15803d}
+.ebcr-upload-status.is-error{color:#b91c1c}
+@media (max-width:600px){.ebcr-esign-text{max-height:260px}.ebcr-esign-kv{grid-template-columns:minmax(0,1fr)}.ebcr-esign-kv dt{margin-top:6px}}
+/* admin: selo e evidências */
+.ebcr-esign-badge{display:inline-flex;align-items:center;gap:5px;padding:2px 9px;border-radius:999px;background:#fef3c7;border:1px solid #d4af37;color:#5a4410;font-size:12px;font-weight:600;line-height:1.6;white-space:nowrap}
+.ebcr-esign-badge::before{content:"";width:9px;height:9px;border-radius:50%;background:linear-gradient(135deg,#f3d77c,#8a6a1c)}
+.ebcr-esign-badge-link{font-size:12px}
+.ebcr-esign-evidence{margin:16px 0;padding:14px 16px;border:1px solid #d4af37;border-radius:8px;background:#fffdf5}
+.ebcr-esign-evidence:target{box-shadow:0 0 0 3px #f3d77c}
+.ebcr-esign-evidence h4{margin:0 0 10px}
+.ebcr-esign-evidence-table{border-collapse:collapse;width:100%;font-size:13px}
+.ebcr-esign-evidence-table th{text-align:left;width:220px;padding:4px 10px 4px 0;vertical-align:top;color:#4b5563;font-weight:600}
+.ebcr-esign-evidence-table td{padding:4px 0;vertical-align:top;overflow-wrap:anywhere}

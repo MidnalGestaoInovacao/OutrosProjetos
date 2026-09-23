@@ -80,6 +80,12 @@ final class AuditLog {
 	 */
 	public static function labels() {
 		return array(
+			'esign_code_sent'         => __( 'Assinatura eletrônica: código enviado', 'eb-credito-rural' ),
+			'esign_code_failed'       => __( 'Assinatura eletrônica: código incorreto', 'eb-credito-rural' ),
+			'esign_locked'            => __( 'Assinatura eletrônica: bloqueada por tentativas', 'eb-credito-rural' ),
+			'esign_signed'            => __( 'Documento assinado eletronicamente', 'eb-credito-rural' ),
+			'esign_cancelled'         => __( 'Assinatura eletrônica cancelada', 'eb-credito-rural' ),
+			'esign_send_limited'      => __( 'Assinatura eletrônica: limite de reenvio', 'eb-credito-rural' ),
 			'whatsapp_failed'         => __( 'WhatsApp: falha no envio', 'eb-credito-rural' ),
 			'turnstile_misconfigured' => __( 'Turnstile: configuração incompleta', 'eb-credito-rural' ),
 			'captcha_failed'          => __( 'Captcha: falha na verificação externa', 'eb-credito-rural' ),

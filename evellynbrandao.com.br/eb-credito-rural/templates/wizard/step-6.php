@@ -63,6 +63,7 @@ $ebcr_doc_item = static function ( array $d ) use ( $s, $ebcr_labels ) {
 					?>
 					<?php echo $ebcr_doc_item( $ebcr_d ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><?php endforeach; ?>
 			</ul>
+			<?php echo \EBCR\Esign\Esign::sign_link( $s, $ebcr_slot['type'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- HTML escapado pelo helper; vazio se o tipo não é assinável. ?>
 			<form method="post" action="<?php echo esc_url( ebcr_form_action() ); ?>" enctype="multipart/form-data" class="ebcr-upload" data-ebcr-upload data-doc-type="<?php echo esc_attr( $ebcr_slot['type'] ); ?>" data-ref-key="<?php echo esc_attr( $ebcr_slot['ref_key'] ); ?>">
 				<input type="hidden" name="action" value="ebcr_wizard_upload"><input type="hidden" name="id" value="<?php echo esc_attr( $s['public_id'] ); ?>"><input type="hidden" name="doc_type" value="<?php echo esc_attr( $ebcr_slot['type'] ); ?>"><input type="hidden" name="ref_key" value="<?php echo esc_attr( $ebcr_slot['ref_key'] ); ?>">
 				<?php echo ebcr_nonce_field( 'wizard' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>

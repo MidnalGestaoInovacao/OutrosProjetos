@@ -57,7 +57,8 @@ $ebcr_open = array_filter(
 			<?php
 			if ( $ebcr_r['note'] ) :
 				?>
-				<br><span class="ebcr-muted"><?php echo esc_html( $ebcr_r['note'] ); ?></span><?php endif; ?><br><span class="ebcr-muted ebcr-small"><?php /* translators: %s: data */ printf( esc_html__( 'Solicitado em %s', 'eb-credito-rural' ), esc_html( Helpers::date( $ebcr_r['requested_at'] ) ) ); ?></span></div>
+				<br><span class="ebcr-muted"><?php echo esc_html( $ebcr_r['note'] ); ?></span><?php endif; ?><br><span class="ebcr-muted ebcr-small"><?php /* translators: %s: data */ printf( esc_html__( 'Solicitado em %s', 'eb-credito-rural' ), esc_html( Helpers::date( $ebcr_r['requested_at'] ) ) ); ?></span>
+			<?php echo \EBCR\Esign\Esign::sign_link( $s, $ebcr_r['doc_type'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- HTML escapado pelo helper; vazio se o tipo não é assinável. ?></div>
 			<div class="ebcr-upload-controls">
 				<input type="hidden" name="action" value="ebcr_request_upload">
 				<input type="hidden" name="id" value="<?php echo esc_attr( $s['public_id'] ); ?>">

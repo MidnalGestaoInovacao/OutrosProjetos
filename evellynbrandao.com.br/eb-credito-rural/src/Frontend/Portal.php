@@ -181,6 +181,9 @@ final class Portal {
 			case 'formulario':
 				$out .= $this->render_wizard( $user->ID );
 				break;
+			case 'assinar':
+				$out .= \EBCR\Esign\Esign::render( $user->ID );
+				break;
 			case 'perfil':
 				$out .= View::render(
 					'portal/profile',

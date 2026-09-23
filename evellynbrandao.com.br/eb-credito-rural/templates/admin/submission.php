@@ -278,7 +278,7 @@ $ebcr_post  = esc_url( admin_url( 'admin-post.php' ) );
 						<?php
 						if ( in_array( $ebcr_d['mime'], array( 'application/pdf', 'image/jpeg', 'image/png' ), true ) ) :
 							?>
-							· <a href="<?php echo esc_url( DownloadController::url( $ebcr_d, true ) ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'visualizar', 'eb-credito-rural' ); ?></a><?php endif; ?><br><span class="description"><?php echo esc_html( Helpers::date( $ebcr_d['uploaded_at'] ) ); ?> · SHA-256 <?php echo esc_html( substr( $ebcr_d['sha256'], 0, 12 ) ); ?>…<?php echo $ebcr_d['encrypted'] ? ' · 🔒' : ''; ?></span></td>
+							· <a href="<?php echo esc_url( DownloadController::url( $ebcr_d, true ) ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'visualizar', 'eb-credito-rural' ); ?></a><?php endif; ?><br><span class="description"><?php echo esc_html( Helpers::date( $ebcr_d['uploaded_at'] ) ); ?> · SHA-256 <?php echo esc_html( substr( $ebcr_d['sha256'], 0, 12 ) ); ?>…<?php echo $ebcr_d['encrypted'] ? ' · 🔒' : ''; ?></span><?php echo \EBCR\Esign\Esign::badge_for_document( $ebcr_d ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- HTML escapado pelo helper. ?></td>
 						<td><?php echo $ebcr_d['expires_at'] ? esc_html( wp_date( get_option( 'date_format' ), strtotime( $ebcr_d['expires_at'] ) ) ) . ( strtotime( $ebcr_d['expires_at'] ) < time() ? ' <span class="ebcr-status-bad">' . esc_html__( 'vencida', 'eb-credito-rural' ) . '</span>' : '' ) : '—'; ?></td>
 						<td>
 							<strong class="<?php echo 'aceito' === $ebcr_d['review_status'] ? 'ebcr-status-ok' : ( 'recusado' === $ebcr_d['review_status'] ? 'ebcr-status-bad' : '' ); ?>"><?php echo esc_html( ucfirst( $ebcr_d['review_status'] ) ); ?></strong>
@@ -461,4 +461,6 @@ $ebcr_post  = esc_url( admin_url( 'admin-post.php' ) );
 			<?php endif; ?>
 		</aside>
 	</div>
-</div>
+</div><?php foreach ( \EBCR\Esign\Esign::signatures( $s ) as $ebcr_sig ) : ?>
+					<?php echo \EBCR\Esign\Esign::evidence_html( $ebcr_sig ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- HTML escapado pelo helper. ?>
+				<?php endforeach; ?>

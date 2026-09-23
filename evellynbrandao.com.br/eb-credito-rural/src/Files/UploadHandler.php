@@ -236,6 +236,102 @@ final class UploadHandler {
 	}
 
 	/**
+	 * Registra um arquivo gerado pelo próprio plugin (ex.: PDF de assinatura eletrônica) como documento da solicitação.
+	 * O conteúdo já é confiável, então não passa pelas checagens de extensão/MIME do upload; aplica as mesmas regras de
+	 * armazenamento (pasta privada, nome aleatório, criptografia opcional), hash, validade da matriz, auditoria e hooks.
+	 *
+	 * @param int    $user_id       Usuário dono.
+	 * @param array  $submission    Linha da solicitação.
+	 * @param string $tmp_path      Arquivo temporário (será movido/removido).
+	 * @param string $doc_type      Tipo (matriz).
+	 * @param string $original_name Nome exibido ao cliente/equipe.
+	 * @param string $mime          MIME do conteúdo.
+	 * @param string $ref_key       Referência (ex.: p:12) ou ''.
+	 * @param int    $request_id    Pedido da equipe atendido (opcional, já validado pelo chamador).
+	 * @param array  $meta          Dados extras para a auditoria (ex.: source => esign).
+	 * @return array|\WP_Error Linha do documento.
+	 */
+	public function register_generated( $user_id, array $submission, $tmp_path, $doc_type, $original_name, $mime, $ref_key = '', $request_id = 0, array $meta = array() ) {
+		if ( ! Authorization::client_can_upload( $user_id, $submission ) ) {
+			wp_delete_file( $tmp_path );
+			return new \WP_Error( 'forbidden', __( 'Você não pode enviar documentos para esta solicitação.', 'eb-credito-rural' ), array( 'status' => 403 ) );
+		}
+		$doc_type = sanitize_key( $doc_type );
+		if ( ! DocumentMatrix::is_valid_type( $doc_type ) ) {
+			wp_delete_file( $tmp_path );
+			return new \WP_Error( 'bad_type', __( 'Tipo de documento inválido.', 'eb-credito-rural' ), array( 'status' => 400 ) );
+		}
+		if ( ! is_file( $tmp_path ) || filesize( $tmp_path ) <= 0 ) {
+			return new \WP_Error( 'storage', __( 'Não foi possível gerar o arquivo.', 'eb-credito-rural' ), array( 'status' => 500 ) );
+		}
+		$ref_key = preg_replace( '/[^a-z0-9:_-]/', '', strtolower( (string) $ref_key ) );
+		$size    = (int) filesize( $tmp_path );
+		$docs    = new DocumentRepository();
+		if ( $docs->count_for_submission( (int) $submission['id'] ) >= max( 1, Options::int( 'max_files_per_submission' ) ) ) {
+			wp_delete_file( $tmp_path );
+			return new \WP_Error( 'too_many', __( 'Limite de arquivos por solicitação atingido.', 'eb-credito-rural' ), array( 'status' => 422 ) );
+		}
+		$quota = max( 1, Options::int( 'user_quota_mb' ) ) * MB_IN_BYTES;
+		if ( $docs->bytes_for_user( $user_id ) + $size > $quota ) {
+			wp_delete_file( $tmp_path );
+			return new \WP_Error( 'quota', sprintf( /* translators: %s: cota */ __( 'Sua cota de armazenamento (%s) foi atingida. Remova arquivos antigos ou fale com a equipe.', 'eb-credito-rural' ), size_format( $quota ) ), array( 'status' => 422 ) );
+		}
+		$sha = hash_file( 'sha256', $tmp_path );
+		try {
+			list( $dir, $stored, $enc ) = ( new Storage() )->store( $user_id, $tmp_path );
+		} catch ( \RuntimeException $e ) {
+			wp_delete_file( $tmp_path );
+			return new \WP_Error( 'storage', __( 'Não foi possível gravar o arquivo. Tente novamente ou contate o suporte.', 'eb-credito-rural' ), array( 'status' => 500 ) );
+		}
+		$original = sanitize_file_name( (string) $original_name );
+		$original = $original ? mb_substr( $original, 0, 200 ) : 'documento.pdf';
+		$matrix   = DocumentMatrix::all();
+		$expires  = null;
+		if ( isset( $matrix[ $doc_type ] ) && $matrix[ $doc_type ]['validity_days'] > 0 ) {
+			$expires = gmdate( 'Y-m-d', strtotime( '+' . (int) $matrix[ $doc_type ]['validity_days'] . ' days' ) );
+		}
+		$request = $request_id ? ( new DocumentRequestRepository() )->find( (int) $request_id ) : null;
+		$row     = $docs->create(
+			array(
+				'submission_id' => (int) $submission['id'],
+				'user_id'       => (int) $user_id,
+				'doc_type'      => $doc_type,
+				'ref_key'       => $ref_key,
+				'request_id'    => $request ? (int) $request['id'] : null,
+				'original_name' => $original,
+				'stored_name'   => $stored,
+				'storage_dir'   => $dir,
+				'mime'          => sanitize_mime_type( $mime ),
+				'size'          => $size,
+				'sha256'        => $sha,
+				'encrypted'     => $enc,
+				'expires_at'    => $expires,
+			)
+		);
+		if ( $request ) {
+			( new DocumentRequestRepository() )->fulfill( (int) $request['id'], (int) $row['id'] );
+		}
+		AuditLog::log(
+			'document_uploaded',
+			'document',
+			$row['public_id'],
+			array_merge(
+				array(
+					'submission' => $submission['public_id'],
+					'type'       => $doc_type,
+					'size'       => $size,
+					'mime'       => $row['mime'],
+				),
+				$meta
+			),
+			$user_id
+		);
+		/** This action is documented in src/Files/UploadHandler.php */
+		do_action( 'ebcr_document_uploaded', $row, $submission, $request );
+		return $row;
+	}
+
+	/**
 	 * Limites do PHP vs. configuração (para o admin).
 	 *
 	 * @return array{php_upload:int,php_post:int,configured:int,ok:bool}
