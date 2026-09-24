@@ -266,3 +266,17 @@ a.login-identityprovider-btn[title="Microsoft"] {
     background-color: #2f2f2f; /* padrão "Entrar com a Microsoft" */
     color: #ffffff !important;
 }
+
+/* 11) Balão do tour mais compacto (cabe acima/abaixo do alvo em telas de ~900px de altura) */
+[data-role="flexitour-step"] .modal-header {
+    padding: 14px 20px 6px 20px;
+}
+[data-role="flexitour-step"] .modal-body {
+    padding: 8px 20px 4px 20px;
+}
+[data-role="flexitour-step"] .modal-body p {
+    margin-bottom: 0.6rem;
+}
+[data-role="flexitour-step"] .modal-footer {
+    padding: 8px 20px 14px 20px;
+}

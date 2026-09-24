@@ -5,7 +5,7 @@
   "enabled": "1",
   "sortorder": "1",
   "endtourlabel": "Encerrar tour",
-  "configdata": "{\"placement\": \"top\", \"orphan\": \"0\", \"backdrop\": \"1\", \"reflex\": \"0\", \"filtervalues\": {\"accessdate\": {\"filter_accessdate\": \"tool_usertours_accountcreation\", \"filter_accessdate_range\": 0, \"filter_accessdate_enabled\": \"0\"}, \"category\": [], \"course\": [], \"courseformat\": [], \"role\": [], \"theme\": [], \"cssselector\": [\"body.pagelayout-mydashboard\"]}, \"majorupdatetime\": 1790282241}",
+  "configdata": "{\"placement\": \"top\", \"orphan\": \"0\", \"backdrop\": \"1\", \"reflex\": \"0\", \"filtervalues\": {\"accessdate\": {\"filter_accessdate\": \"tool_usertours_accountcreation\", \"filter_accessdate_range\": 0, \"filter_accessdate_enabled\": \"0\"}, \"category\": [], \"course\": [], \"courseformat\": [], \"role\": [], \"theme\": [], \"cssselector\": [\"body.pagelayout-mydashboard\"]}, \"majorupdatetime\": 1790282490}",
   "displaystepnumbers": true,
   "version": "2026042000",
   "steps": [
@@ -31,7 +31,7 @@
     },
     {
       "title": "Linha do tempo",
-      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>A <strong>Linha do tempo</strong> lista as atividades dos seus cursos que têm prazo de entrega, começando pelas mais próximas.</p><p>Quando não houver nada agendado, você verá a mensagem <strong>Não há atividades futuras</strong>.</p>",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>A <strong>Linha do tempo</strong> lista as atividades dos seus cursos que têm prazo de entrega, começando pelas mais próximas. Sem nada agendado, aparece a mensagem <em>Não há atividades futuras</em>.</p>",
       "contentformat": "1",
       "targettype": "0",
       "targetvalue": "#inst7 .block-header-wrapper",
@@ -51,7 +51,7 @@
     },
     {
       "title": "Calendário do mês",
-      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>O Calendário exibe o mês atual com os eventos e prazos dos seus cursos. Use as setas ao lado do nome do mês para navegar e a lista de cursos para filtrar.</p><p>Em <strong>Novo evento</strong> você pode registrar um lembrete pessoal.</p>",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>O <strong>Calendário</strong> mostra os eventos e prazos dos seus cursos no mês atual. Use as setas para mudar de mês, a lista de cursos para filtrar e <strong>Novo evento</strong> para registrar um lembrete pessoal.</p>",
       "contentformat": "1",
       "targettype": "0",
       "targetvalue": "#inst8 .block-header-wrapper",

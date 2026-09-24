@@ -145,7 +145,7 @@
         },
         {
           "title": "Linha do tempo",
-          "content": "<p>A <strong>Linha do tempo</strong> lista as atividades dos seus cursos que têm prazo de entrega, começando pelas mais próximas.</p><p>Quando não houver nada agendado, você verá a mensagem <strong>Não há atividades futuras</strong>.</p>",
+          "content": "<p>A <strong>Linha do tempo</strong> lista as atividades dos seus cursos que têm prazo de entrega, começando pelas mais próximas. Sem nada agendado, aparece a mensagem <em>Não há atividades futuras</em>.</p>",
           "unattached": false,
           "selector": "#inst7 .block-header-wrapper",
           "placement": "bottom",
@@ -163,7 +163,7 @@
         },
         {
           "title": "Calendário do mês",
-          "content": "<p>O Calendário exibe o mês atual com os eventos e prazos dos seus cursos. Use as setas ao lado do nome do mês para navegar e a lista de cursos para filtrar.</p><p>Em <strong>Novo evento</strong> você pode registrar um lembrete pessoal.</p>",
+          "content": "<p>O <strong>Calendário</strong> mostra os eventos e prazos dos seus cursos no mês atual. Use as setas para mudar de mês, a lista de cursos para filtrar e <strong>Novo evento</strong> para registrar um lembrete pessoal.</p>",
           "unattached": false,
           "selector": "#inst8 .block-header-wrapper",
           "placement": "bottom",
