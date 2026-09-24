@@ -1,0 +1,122 @@
+{
+ "images/01.png": {
+  "id": 18,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/trix-logo-rodape.png",
+  "mime": "image/png"
+ },
+ "images/02.jpg": {
+  "id": 19,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/trix-empresa.jpg",
+  "mime": "image/jpeg"
+ },
+ "images/22.png": {
+  "id": 20,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/trix-destaque-fabrica.png",
+  "mime": "image/png"
+ },
+ "images/29.png": {
+  "id": 21,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/trix-destaque-consultoria.png",
+  "mime": "image/png"
+ },
+ "images/30.png": {
+  "id": 22,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/trix-destaque-saw.png",
+  "mime": "image/png"
+ },
+ "images/24.png": {
+  "id": 23,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/trix-rodape-recorte.png",
+  "mime": "image/png"
+ },
+ "images/39.png": {
+  "id": 24,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/trix-logo.png",
+  "mime": "image/png"
+ },
+ "images/21.png": {
+  "id": 25,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/trix-fundo-marca.png",
+  "mime": "image/png"
+ },
+ "images/06.png": {
+  "id": 26,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/icone-email.png",
+  "mime": "image/png"
+ },
+ "images/07.png": {
+  "id": 27,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/icone-endereco.png",
+  "mime": "image/png"
+ },
+ "images/12.png": {
+  "id": 28,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/icone-produtos.png",
+  "mime": "image/png"
+ },
+ "images/13.png": {
+  "id": 29,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/icone-fabrica.png",
+  "mime": "image/png"
+ },
+ "images/14.png": {
+  "id": 30,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/icone-consultoria.png",
+  "mime": "image/png"
+ },
+ "images/15.png": {
+  "id": 31,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/icone-solucoes.png",
+  "mime": "image/png"
+ },
+ "images/16.png": {
+  "id": 32,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/icone-processos.png",
+  "mime": "image/png"
+ },
+ "images/08.png": {
+  "id": 33,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/logo-saw.png",
+  "mime": "image/png"
+ },
+ "images/09.png": {
+  "id": 34,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/logo-gedai.png",
+  "mime": "image/png"
+ },
+ "images/10.png": {
+  "id": 35,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/logo-integrador.png",
+  "mime": "image/png"
+ },
+ "images/11.png": {
+  "id": 36,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/logo-intranet.png",
+  "mime": "image/png"
+ },
+ "images/27.png": {
+  "id": 37,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/logo-portal-unimed.png",
+  "mime": "image/png"
+ },
+ "images/28.png": {
+  "id": 38,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/marcos-soares.png",
+  "mime": "image/png"
+ },
+ "images/31.png": {
+  "id": 39,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/saw-titulo.png",
+  "mime": "image/png"
+ },
+ "images/32.png": {
+  "id": 40,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/gedai-titulo.png",
+  "mime": "image/png"
+ },
+ "images/33.png": {
+  "id": 41,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/integrador-titulo.png",
+  "mime": "image/png"
+ }
+}

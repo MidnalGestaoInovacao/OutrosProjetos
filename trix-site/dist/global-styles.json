@@ -1,0 +1,80 @@
+{
+ "settings": {
+  "color": {
+   "palette": [
+    {
+     "slug": "trix-amarelo",
+     "name": "Amarelo Trix",
+     "color": "#F8CD4B"
+    },
+    {
+     "slug": "trix-grafite",
+     "name": "Grafite Trix",
+     "color": "#424346"
+    },
+    {
+     "slug": "trix-grafite-escuro",
+     "name": "Grafite escuro",
+     "color": "#2B2C2F"
+    },
+    {
+     "slug": "trix-off-white",
+     "name": "Off-white",
+     "color": "#FAF9F7"
+    },
+    {
+     "slug": "trix-areia",
+     "name": "Areia",
+     "color": "#E4E0D6"
+    },
+    {
+     "slug": "trix-dourado",
+     "name": "Dourado",
+     "color": "#A08E5D"
+    },
+    {
+     "slug": "trix-branco",
+     "name": "Branco",
+     "color": "#FFFFFF"
+    }
+   ]
+  },
+  "typography": {
+   "fontFamilies": [
+    {
+     "slug": "open-sans",
+     "name": "Open Sans",
+     "fontFamily": "'Open Sans', system-ui, sans-serif"
+    }
+   ]
+  },
+  "layout": {
+   "contentSize": "1240px",
+   "wideSize": "1400px"
+  }
+ },
+ "styles": {
+  "color": {
+   "background": "#FAF9F7",
+   "text": "#424346"
+  },
+  "typography": {
+   "fontFamily": "var:preset|font-family|open-sans",
+   "fontSize": "17px",
+   "lineHeight": "1.65"
+  },
+  "elements": {
+   "link": {
+    "color": {
+     "text": "#424346"
+    }
+   },
+   "heading": {
+    "typography": {
+     "fontFamily": "var:preset|font-family|open-sans"
+    }
+   }
+  },
+  "css": ".wp-site-blocks{padding:0}"
+ }
+}

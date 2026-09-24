@@ -1,0 +1,5 @@
+trix-site/src/wpmcp.log
+trix-site/*.log
+trix-site/screens/
+__pycache__/
+*.pyc

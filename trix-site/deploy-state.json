@@ -1,0 +1,19 @@
+{
+ "blocks": {
+  "estilos": 43,
+  "cabecalho": 45,
+  "rodape": 46,
+  "widgets": 47
+ },
+ "pages": {},
+ "templates": {
+  "404": true,
+  "archive": true,
+  "home": true,
+  "index": true,
+  "page-no-title": true,
+  "page": true,
+  "search": true,
+  "single": true
+ }
+}
