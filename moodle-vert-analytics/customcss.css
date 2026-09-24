@@ -281,10 +281,12 @@ a.login-identityprovider-btn[title="Microsoft"] {
     padding: 8px 20px 14px 20px;
 }
 
-/* 12) Estatísticas do curso (Alunos matriculados / Concluíram / Em progresso / Ainda não iniciado):
+/* 12) Estatísticas do curso e do Painel (4 blocos: matriculados / concluídos / em progresso / pendentes):
        uma única linha com 4 blocos de largura igual, ocupando 100% do cartão */
 #wdm_course-stats.edw-stats-wrapper,
-body.limitedwidth #wdm_course-stats.edw-stats-wrapper {
+#wdm_dashboard-stats.edw-stats-wrapper,
+body.limitedwidth #wdm_course-stats.edw-stats-wrapper,
+body.limitedwidth #wdm_dashboard-stats.edw-stats-wrapper {
     display: grid !important;
     grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
     gap: 16px !important;
@@ -292,29 +294,38 @@ body.limitedwidth #wdm_course-stats.edw-stats-wrapper {
     justify-content: stretch !important;
 }
 #wdm_course-stats.edw-stats-wrapper > .stat-block,
-body.limitedwidth #wdm_course-stats.edw-stats-wrapper > .stat-block {
+#wdm_dashboard-stats.edw-stats-wrapper > .stat-block,
+body.limitedwidth #wdm_course-stats.edw-stats-wrapper > .stat-block,
+body.limitedwidth #wdm_dashboard-stats.edw-stats-wrapper > .stat-block {
     display: flex !important;
     width: 100% !important;
     max-width: none !important;
     margin: 0 !important;
 }
-#wdm_course-stats.edw-stats-wrapper > .stat-block .inner {
+#wdm_course-stats.edw-stats-wrapper > .stat-block .inner,
+#wdm_dashboard-stats.edw-stats-wrapper > .stat-block .inner {
     width: 100%;
     justify-content: flex-start;
 }
 #wdm_course-stats.edw-stats-wrapper .stats-mb-devices,
-body.limitedwidth #wdm_course-stats.edw-stats-wrapper .stats-mb-devices {
+#wdm_dashboard-stats.edw-stats-wrapper .stats-mb-devices,
+body.limitedwidth #wdm_course-stats.edw-stats-wrapper .stats-mb-devices,
+body.limitedwidth #wdm_dashboard-stats.edw-stats-wrapper .stats-mb-devices {
     display: none !important;
 }
 @media (max-width: 991.98px) {
     #wdm_course-stats.edw-stats-wrapper,
-    body.limitedwidth #wdm_course-stats.edw-stats-wrapper {
+    #wdm_dashboard-stats.edw-stats-wrapper,
+    body.limitedwidth #wdm_course-stats.edw-stats-wrapper,
+    body.limitedwidth #wdm_dashboard-stats.edw-stats-wrapper {
         grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
     }
 }
 @media (max-width: 575.98px) {
     #wdm_course-stats.edw-stats-wrapper,
-    body.limitedwidth #wdm_course-stats.edw-stats-wrapper {
+    #wdm_dashboard-stats.edw-stats-wrapper,
+    body.limitedwidth #wdm_course-stats.edw-stats-wrapper,
+    body.limitedwidth #wdm_dashboard-stats.edw-stats-wrapper {
         grid-template-columns: minmax(0, 1fr) !important;
     }
 }
