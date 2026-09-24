@@ -83,11 +83,22 @@ def deploy_templates():
         except MCPError as e: log("template ERROR", tid, str(e)[:200])
 
 def cleanup():
+    """Remove páginas de teste, padrão do WordPress e duplicatas/órfãs (não geradas por dist/ ou fora do estado)."""
     ex = existing_pages()
+    wanted = {f[:-5] for f in os.listdir(os.path.join(DIST, "pages"))}
+    keep_ids = set(state["pages"].values())
     for slug, p in ex.items():
-        if slug.startswith("teste-") or slug in ("sample-page", "privacy-policy"):
+        dup = (slug not in wanted) or (p["id"] not in keep_ids)
+        if slug.startswith("teste-") or slug in ("sample-page", "privacy-policy") or dup:
             try: call("wp_delete_page", {"page_id": p["id"], "force": True}); log("deleted", slug, p["id"])
-            except MCPError as e: log("delete ERROR", slug, e)
+            except MCPError as e: log("delete ERROR", slug, str(e)[:120])
+    # blocos duplicados (mesmo título, id diferente do estado)
+    try:
+        r = call("wp_list_blocks", {"per_page": 100}); keep = set(state["blocks"].values())
+        for b in r.get("blocks", r.get("items", [])):
+            if b.get("title", "") in BLOCK_TITLES.values() and b["id"] not in keep:
+                call("wp_delete_block", {"block_id": b["id"], "force": True}); log("deleted duplicate block", b["id"], b.get("title"))
+    except MCPError as e: log("block cleanup ERROR", str(e)[:120])
 
 if __name__ == "__main__":
     only = sys.argv[sys.argv.index("--only") + 1] if "--only" in sys.argv else "all"

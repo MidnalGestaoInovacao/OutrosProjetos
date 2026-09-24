@@ -16,9 +16,9 @@
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body.trix{margin:0;font-family:var(--trix-font);color:var(--trix-gray);background:var(--trix-off);line-height:1.65;font-size:17px;overflow-x:hidden}
 body.trix *,body.trix *::before,body.trix *::after{box-sizing:border-box}
-body.trix img{max-width:100%;height:auto}
-body.trix a{color:var(--trix-gray);text-decoration-color:var(--trix-yellow);text-decoration-thickness:2px;text-underline-offset:3px}
-body.trix a:hover{color:var(--trix-gray-900)}
+:where(body.trix) img{max-width:100%;height:auto}
+:where(body.trix) a{color:var(--trix-gray);text-decoration-color:var(--trix-yellow);text-decoration-thickness:2px;text-underline-offset:3px}
+:where(body.trix) a:hover{color:var(--trix-gray-900)}
 /* Neutraliza o espaçamento do tema Twenty Twenty-Five */
 body.trix .wp-site-blocks{padding:0!important;margin:0!important}
 body.trix main.wp-block-group{margin:0!important;padding:0!important}
@@ -29,14 +29,14 @@ body.trix .trix-home-query,body.trix .trix-home-query .wp-block-post-template{li
 body.trix .trix-home-query .wp-block-post-template > li{margin:0;padding:0;list-style:none}
 body.trix .trix-main > .wp-block-group.trix-section{padding-top:calc(var(--trix-header-h) + 48px)}
 /* Tipografia */
-body.trix h1,body.trix h2,body.trix h3,body.trix h4{font-family:var(--trix-font);margin:0 0 .6em;line-height:1.15;color:var(--trix-gray-900);text-wrap:balance}
-body.trix h1{font-size:clamp(2rem,4.2vw,3.4rem);font-weight:300;text-transform:uppercase;letter-spacing:.5px}
-body.trix h1 strong,body.trix h2 strong{font-weight:700}
-body.trix h2{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:300;text-transform:uppercase;letter-spacing:.5px}
-body.trix h3{font-size:clamp(1.15rem,1.8vw,1.4rem);font-weight:700;letter-spacing:.5px;text-transform:uppercase}
-body.trix h4{font-size:1.05rem;font-weight:700;color:var(--trix-gold)}
-body.trix p{margin:0 0 1em}
-body.trix .lead{font-size:clamp(1.1rem,1.6vw,1.3rem);font-weight:300;color:var(--trix-gray-700)}
+:where(body.trix) h1,:where(body.trix) h2,:where(body.trix) h3,:where(body.trix) h4{font-family:var(--trix-font);margin:0 0 .6em;line-height:1.15;color:var(--trix-gray-900);text-wrap:balance}
+:where(body.trix) h1{font-size:clamp(2rem,4.2vw,3.4rem);font-weight:300;text-transform:uppercase;letter-spacing:.5px}
+:where(body.trix) h1 strong,:where(body.trix) h2 strong{font-weight:700}
+:where(body.trix) h2{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:300;text-transform:uppercase;letter-spacing:.5px}
+:where(body.trix) h3{font-size:clamp(1.15rem,1.8vw,1.4rem);font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+:where(body.trix) h4{font-size:1.05rem;font-weight:700;color:var(--trix-gold)}
+:where(body.trix) p{margin:0 0 1em}
+:where(body.trix) .lead{font-size:clamp(1.1rem,1.6vw,1.3rem);font-weight:300;color:var(--trix-gray-700)}
 .trix-kicker{display:inline-block;font-size:.8rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--trix-gold);margin-bottom:.8rem}
 .trix-kicker::before{content:"";display:inline-block;width:26px;height:3px;background:var(--trix-yellow);vertical-align:middle;margin-right:10px}
 .trix-hl{background:linear-gradient(transparent 62%,var(--trix-yellow) 62%);padding:0 .15em}
@@ -210,11 +210,13 @@ body.trix .lead{font-size:clamp(1.1rem,1.6vw,1.3rem);font-weight:300;color:var(-
 .trix-radio input{width:auto}
 /* Endereços / contato */
 .trix-address{display:grid;gap:8px;padding:22px;background:#fff;border-radius:var(--trix-radius-lg);border:1px solid var(--trix-sand)}
-.trix-address strong{font-size:1.05rem}
+.trix-address strong{font-size:1.05rem;display:flex;align-items:center;gap:8px}
+.trix-address strong svg{width:22px;height:22px;flex:none;color:var(--trix-gold)}
 .trix-address a{text-decoration:none;font-weight:600}
 .trix-map{position:relative;border-radius:var(--trix-radius-lg);overflow:hidden;background:var(--trix-gray-900);min-height:340px;display:grid;place-items:center;color:#fff;text-align:center;padding:24px}
 .trix-map iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .trix-map__ph{position:relative;z-index:1;display:grid;gap:14px;justify-items:center}
+.trix-map__ph > svg{width:56px;height:56px;color:var(--trix-yellow)}
 /* Header */
 .trix-header{position:fixed;top:0;left:0;right:0;z-index:900;height:var(--trix-header-h);background:rgba(43,44,47,.72);backdrop-filter:saturate(160%) blur(14px);-webkit-backdrop-filter:saturate(160%) blur(14px);border-bottom:1px solid rgba(255,255,255,.08);transition:background .3s,box-shadow .3s}
 .trix-header.is-scrolled{background:rgba(43,44,47,.96);box-shadow:0 8px 30px rgba(0,0,0,.25)}
@@ -346,8 +348,8 @@ body.trix :focus-visible{outline:3px solid var(--trix-info);outline-offset:2px}
 .trix-top.is-visible{opacity:1;visibility:visible}
 .trix-top svg{width:20px;height:20px}
 /* Reveal on scroll */
-.trix-reveal{opacity:0;transform:translateY(24px);transition:opacity .7s var(--trix-ease),transform .7s var(--trix-ease)}
-.trix-reveal.is-in{opacity:1;transform:none}
+html.trix-js .trix-reveal{opacity:0;transform:translateY(24px);transition:opacity .7s var(--trix-ease),transform .7s var(--trix-ease)}
+html.trix-js .trix-reveal.is-in,html.trix-js.trix-revealed .trix-reveal{opacity:1;transform:none}
 /* ---------- Modos de acessibilidade ---------- */
 html.a11y-contrast body.trix{background:#000!important;color:#fff!important}
 html.a11y-contrast body.trix *:not(svg):not(path):not(img):not(canvas){background-color:#000!important;color:#fff!important;border-color:#fff!important;box-shadow:none!important}
@@ -370,10 +372,12 @@ html.a11y-guide .trix-readguide{display:block}
 .trix-pill{display:inline-block;padding:6px 12px;border-radius:999px;background:var(--trix-sand-soft);font-size:.78rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--trix-gray-700);margin:0 6px 6px 0}
 .trix-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .trix-quote{border-left:6px solid var(--trix-yellow);padding:8px 0 8px 24px;font-size:1.15rem;font-weight:300;font-style:italic;margin:0}
+.trix-quote footer .trix-author{display:inline-flex}
 .trix-quote footer{font-style:normal;font-size:.85rem;margin-top:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--trix-gold)}
 .trix-author{display:flex;gap:16px;align-items:center}
 .trix-author img{width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid var(--trix-yellow)}
 .trix-store{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
 .trix-store img{height:44px;width:auto}
+.trix-tag svg{width:16px;height:16px}
 .trix-tag{display:inline-flex;align-items:center;gap:6px;background:var(--trix-gray-900);color:var(--trix-yellow);font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:6px 12px;border-radius:999px;margin-bottom:10px}
 @media print{.trix-header,.trix-fab,.trix-a11y-btn,.trix-cookie,.trix-top,.trix-cookiebtn,[vw]{display:none!important}.trix-hero{min-height:auto;padding:20px 0}.trix-hero::after,.trix-hero__3d{display:none}}

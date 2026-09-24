@@ -3,3 +3,4 @@ trix-site/*.log
 trix-site/screens/
 __pycache__/
 *.pyc
+preview/

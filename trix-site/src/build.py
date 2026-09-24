@@ -34,7 +34,7 @@ def mega_item(it):
 def header_html():
     out = ['<a class="trix-skip" href="#conteudo">Ir para o conteúdo</a>',
            '<header class="trix-header" role="banner"><div class="trix-container trix-header__in">',
-           '<a class="trix-brand" href="/" aria-label="%s — página inicial"><img src="{{media:images/39.png}}" alt="%s" width="191" height="72" decoding="async"></a>' % (SITE["name"], SITE["name"]),
+           '<a class="trix-brand" href="/" aria-label="%s — página inicial"><img src="{{media:images/01.png}}" alt="%s" width="347" height="130" decoding="async"></a>' % (SITE["name"], SITE["name"]),
            '<nav aria-label="Navegação principal"><ul class="trix-nav">']
     for i, top in enumerate(NAV):
         if top.get("children"):
@@ -60,7 +60,7 @@ def header_html():
     return render("\n".join(out))
 
 def config_script():
-    cfg = {"siteName": SITE["name"], "defaultDescription": SITE["description"], "logo": media("images/01.png"), "defaultImage": media("images/02.jpg"),
+    cfg = {"siteName": SITE["name"], "defaultDescription": SITE["description"], "logo": media("images/39.png"), "defaultImage": media("images/02.jpg"),
            "favicon": SITE.get("favicon"), "phone": SITE["phone_e164"], "email": SITE["email"], "geo": SITE["geo"], "mapsUrl": SITE["maps_url"],
            "social": [SITE["social"][k] for k in ("linkedin", "instagram", "facebook")], "ga4": SITE.get("ga4", ""), "anonEmail": "anonimo@example.com"}
     return '<script>window.TRIX_CONFIG=%s;</script>' % json.dumps(cfg, ensure_ascii=False)
