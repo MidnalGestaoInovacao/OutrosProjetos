@@ -88,7 +88,7 @@ def deploy_pages(only=None, create_only=False):
                 time.sleep(10)
         if pid: state["pages"][p["slug"]] = pid; save()
         if ok: state["hashes"][p["slug"]] = h; save()
-        time.sleep(8)
+        time.sleep(2)
 
 def deploy_templates():
     refs = {"REF_" + k.upper(): v for k, v in state["blocks"].items()}

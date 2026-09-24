@@ -19,7 +19,11 @@
   "lgpd": 67,
   "prontow": 68,
   "conectividade-em-saude": 69,
-  "politica-de-privacidade": 70
+  "politica-de-privacidade": 70,
+  "saw": 74,
+  "compliance": 75,
+  "consultoria": 76,
+  "portal-operadora": 77
  },
  "templates": {
   "404": true,
@@ -31,5 +35,10 @@
   "search": true,
   "single": true
  },
- "hashes": {}
+ "hashes": {
+  "saw": "d26f481d3481b184029338f4591269d486e76bd4",
+  "compliance": "6cdc49423424d851ac034c20bfc4521a9650a286",
+  "consultoria": "685f2660d70801200ef01c25aad264aa67e5c46e",
+  "portal-operadora": "3dfcb8ccd1dac914236b1398f20eabfeec1d0d39"
+ }
 }
