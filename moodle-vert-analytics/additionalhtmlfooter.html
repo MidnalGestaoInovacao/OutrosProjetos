@@ -9,11 +9,16 @@
         var a = document.createElement('a');
         a.href = '#';
         a.className = 'vert-tour-help';
-        a.setAttribute('data-action', 'tool_usertours/resetpagetour');
         a.setAttribute('role', 'button');
         a.title = 'Ver o tour guiado desta página';
         a.setAttribute('aria-label', a.title);
         a.textContent = '?';
+        a.addEventListener('click', function (e) {
+            e.preventDefault();
+            // O Moodle reinicia o tour quando o link #resetpagetour (no rodapé, oculto) é clicado.
+            var link = document.getElementById('resetpagetour');
+            if (link) { link.click(); }
+        });
         title.appendChild(a);
     }
     function pageHasTour() {
