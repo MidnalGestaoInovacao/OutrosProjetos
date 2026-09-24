@@ -137,3 +137,52 @@ botão Continuar, índice, abas, seção de apresentação, fórum de avisos, li
 * Ferramentas usadas para gerar/importar os tours e validar seletores ficaram fora do repositório
   (scripts de sessão); os artefatos versionados aqui são suficientes para reaplicar tudo pela
   interface de administração.
+
+## Rodada 3 (mesmo dia)
+
+### Estatísticas do curso em uma linha
+O cartão de estatísticas da página do curso (`#wdm_course-stats`: Alunos matriculados / Alunos que
+concluíram / Em progresso / Ainda não iniciado) usava, nas páginas "limitedwidth", a variante móvel do
+tema (2 colunas). O CSS passa a exibir os 4 blocos em uma única linha, com larguras iguais
+(`grid-template-columns: repeat(4, 1fr)`), ocupando 100 % do cartão; abaixo de 992 px volta a 2
+colunas e abaixo de 576 px a 1 coluna. (Esse cartão só aparece para professores/administradores.)
+
+### Largura da Administração do site
+As páginas de administração (`pagelayout-admin`) e outras sem a classe `limitedwidth` mantinham o
+`.container` do tema em 1320 px. Regra adicionada para esse `.container` usar `max-width: 90%`, como
+as demais páginas (conteúdo com 1728 px em tela de 1920 px).
+
+### Balão do tour mais compacto
+Cabeçalho, corpo e rodapé do balão com menos preenchimento e logo um pouco menor, para o balão caber
+acima ou abaixo do elemento destacado em telas de ~900 px de altura; textos dos passos "Abas de
+navegação do curso", "Linha do tempo" e "Calendário do mês" encurtados e os dois últimos ancorados no
+cabeçalho do bloco.
+
+### Verificação "Router not configured" (avaliação)
+* O que é: desde o Moodle 4.5 existe um roteador (`r.php`). Sem configuração do servidor web, o
+  Moodle funciona normalmente, mas usa URLs mais longas (`/r.php/api/...`); a verificação fica
+  em "Verificar" (aviso, não erro). Teste feito: `/r.php/api/rest/v2/openapi.json` responde 200 e
+  `/api/rest/v2/openapi.json` responde 404 do Apache — ou seja, não há reescrita configurada.
+* Não é possível configurar pela interface do Moodle: exige editar arquivos no servidor
+  (Apache 2.4 / Ubuntu, conforme o cabeçalho HTTP do site). Passos, com acesso SSH/FTP ao servidor:
+  1. No diretório raiz do Moodle (onde está `config.php`), criar/editar `.htaccess` com:
+     ```
+     <IfModule mod_rewrite.c>
+         RewriteEngine On
+         RewriteBase /
+         RewriteCond %{REQUEST_FILENAME} !-f
+         RewriteCond %{REQUEST_FILENAME} !-d
+         RewriteRule ^(.*)$ r.php/$1 [L]
+     </IfModule>
+     ```
+     O VirtualHost do Apache precisa permitir `.htaccess` (`AllowOverride All` no `<Directory>` do
+     Moodle) e o módulo `mod_rewrite` precisa estar ativo (`sudo a2enmod rewrite && sudo systemctl
+     reload apache2`). Alternativamente, colocar as mesmas regras dentro do `<Directory>` do
+     VirtualHost.
+  2. Em `config.php`, antes de `require_once(__DIR__ . '/lib/setup.php');`, adicionar:
+     `$CFG->routerconfigured = true;`
+  3. Testar `https://ead.vert.com.br/api/rest/v2/openapi.json` (deve responder JSON) e reabrir
+     *Administração do site → Notificações* (ou *Relatórios → Verificações do sistema*): o item deve
+     passar para OK.
+  Se `.htaccess` for ignorado (404 persistindo), o ajuste precisa ser feito no VirtualHost pelo
+  administrador do servidor.

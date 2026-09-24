@@ -280,3 +280,52 @@ a.login-identityprovider-btn[title="Microsoft"] {
 [data-role="flexitour-step"] .modal-footer {
     padding: 8px 20px 14px 20px;
 }
+
+/* 12) Estatísticas do curso (Alunos matriculados / Concluíram / Em progresso / Ainda não iniciado):
+       uma única linha com 4 blocos de largura igual, ocupando 100% do cartão */
+#wdm_course-stats.edw-stats-wrapper,
+body.limitedwidth #wdm_course-stats.edw-stats-wrapper {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 16px !important;
+    width: 100%;
+    justify-content: stretch !important;
+}
+#wdm_course-stats.edw-stats-wrapper > .stat-block,
+body.limitedwidth #wdm_course-stats.edw-stats-wrapper > .stat-block {
+    display: flex !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+}
+#wdm_course-stats.edw-stats-wrapper > .stat-block .inner {
+    width: 100%;
+    justify-content: flex-start;
+}
+#wdm_course-stats.edw-stats-wrapper .stats-mb-devices,
+body.limitedwidth #wdm_course-stats.edw-stats-wrapper .stats-mb-devices {
+    display: none !important;
+}
+@media (max-width: 991.98px) {
+    #wdm_course-stats.edw-stats-wrapper,
+    body.limitedwidth #wdm_course-stats.edw-stats-wrapper {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+}
+@media (max-width: 575.98px) {
+    #wdm_course-stats.edw-stats-wrapper,
+    body.limitedwidth #wdm_course-stats.edw-stats-wrapper {
+        grid-template-columns: minmax(0, 1fr) !important;
+    }
+}
+
+/* 13) Páginas que não são "limitedwidth" (ex.: Administração do site, layout "standard"):
+       o tema limita o conteúdo ao .container (1320px); usar os mesmos 90% das demais páginas */
+body:not(.limitedwidth) #page.drawers .main-inner > .container {
+    max-width: 90% !important;
+}
+@media (max-width: 991.98px) {
+    body:not(.limitedwidth) #page.drawers .main-inner > .container {
+        max-width: 100% !important;
+    }
+}
