@@ -743,7 +743,7 @@
       var GEO = JSON.parse(geoEl.textContent), data = {};
       try { data = JSON.parse(el.getAttribute('data-served') || '{}'); } catch (e) {}
       var S = stage(T, el, { fov: 36 }), scene = S.scene, red = reduced();
-      S.cam.position.set(0, -5.6, 9.2); S.cam.lookAt(0, -0.3, 0);
+      var fitCam = function () { var a = (el.clientWidth || 1) / (el.clientHeight || 1), f = a < 1.15 ? Math.min(1.9, 1.15 / a) : 1; S.cam.position.set(0, -5.6 * f, 9.2 * f); S.cam.lookAt(0, -0.3, 0); }; fitCam(); addEventListener('resize', fitCam);
       scene.add(new T.AmbientLight(0xffffff, 0.75)); var dl = new T.DirectionalLight(0xffffff, 1.3); dl.position.set(-3, -4, 8); scene.add(dl);
       var world = new T.Group(); scene.add(world);
       var cx = -52, cy = -14.5, k = 0.19;
@@ -807,6 +807,14 @@
       });
     });
   }
+  function initTables() {
+    $$('.tx table').forEach(function (t) {
+      var heads = $$('thead th', t).map(function (th) { return th.textContent.trim(); });
+      if (!heads.length) return;
+      t.classList.add('tx-rtable');
+      $$('tbody tr', t).forEach(function (tr) { $$('td,th', tr).forEach(function (td, i) { if (heads[i]) td.setAttribute('data-label', heads[i]); }); });
+    });
+  }
   function initMisc() {
     $$('[data-year]').forEach(function (e) { e.textContent = new Date().getFullYear(); });
     // links externos seguros
@@ -817,7 +825,7 @@
 
   onReady(function () {
     var run = function (f) { try { f(); } catch (e) { if (window.console) console.warn(e); } };
-    [initHeader, initReveal, initCounters, initTilt, initFlip, initRing, initTabs, initToc, initFilter, initFab, initMaps, function () { Consent.init(); }, initA11y, initForms, initSEO, init3D, initMisc].forEach(run);
+    [initHeader, initReveal, initCounters, initTilt, initFlip, initRing, initTabs, initToc, initFilter, initTables, initFab, initMaps, function () { Consent.init(); }, initA11y, initForms, initSEO, init3D, initMisc].forEach(run);
     // VLibras: carrega após o load para não competir com o conteúdo
     var vl = function () { setTimeout(function () { loadVLibras(); }, 1200); };
     if (d.readyState === 'complete') vl(); else addEventListener('load', vl);

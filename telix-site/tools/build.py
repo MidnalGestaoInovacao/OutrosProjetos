@@ -420,6 +420,10 @@ def render_page(meta, body):
     if left:
         raise ValueError(f'tokens não resolvidos em {meta.get("slug")}: {sorted(set(left))}')
     seo_json = json.dumps(seo, ensure_ascii=False).replace('</', '<\\/')
+    for k, v in toks.items():
+        seo_json = seo_json.replace('{{' + k + '}}', str(v).replace('"', '\\"'))
+    if re.search(r'\{\{[A-Z0-9_]+\}\}', seo_json):
+        raise ValueError(f'tokens não resolvidos no SEO de {meta.get("slug")}')
     inner = f'<script type="application/json" id="tx-seo">{seo_json}</script>\n<div class="tx tx-page tx-page--{e(meta["slug"])}">\n{body.strip()}\n</div>'
     return wrap_block(inner)
 
