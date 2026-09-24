@@ -190,7 +190,7 @@ def build_pages():
     by_slug = {p["slug"]: p for p in ALL_PAGES}
     for p in ALL_PAGES:
         parent = by_slug.get(p.get("parent"))
-        p["url"] = (parent["url"] if parent else "") + "/" + p["slug"] + "/" if p["slug"] != "home" else "/"
+        p["url"] = ((parent["url"].rstrip("/") if parent else "") + "/" + p["slug"] + "/") if p["slug"] != "home" else "/"
     out = []
     for p in ALL_PAGES:
         crumbs = breadcrumb(p, by_slug) if p["slug"] != "home" else [{"name": "Home", "url": "/"}]
