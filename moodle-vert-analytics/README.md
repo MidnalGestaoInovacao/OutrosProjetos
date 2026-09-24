@@ -57,17 +57,24 @@ menores.
 Cinco tours em pt-BR, com o logo da Vert Analytics no topo de cada passo (sobre fundo azul-marinho,
 já que o logo é branco/verde) e botão "Próximo" em verde:
 
-| Tour | Página (pathmatch) |
-|---|---|
-| Vert Academy – Página inicial | `FRONTPAGE` (somente a página inicial) |
-| Vert Academy – Painel | `/my/` + filtro CSS `body.pagelayout-mydashboard` |
-| Vert Academy – Meus cursos | `/my/courses.php` |
-| Vert Academy – Página do curso | `/course/view.php` |
-| Vert Academy – Notas | `/grade/report/overview/index.php` |
+| Tour | Passos | Página (pathmatch) |
+|---|---|---|
+| Vert Academy – Página inicial | 12 | `FRONTPAGE` (somente a página inicial) |
+| Vert Academy – Painel | 8 | `/my/%` + filtro CSS `body.pagelayout-mydashboard` (não dispara em Meus cursos) |
+| Vert Academy – Meus cursos | 7 | `/my/courses.php%` |
+| Vert Academy – Página do curso | 9 | `/course/view.php%` (formatos Tiles e Tópicos; passos sem alvo são pulados) |
+| Vert Academy – Notas | 5 | `/grade/report/overview/index.php%` |
 
-O tour aparece automaticamente na primeira visita à página e pode ser reexecutado pelo link
-"Reiniciar tour do usuário nesta página", no rodapé. Para editar textos ou alvos:
-*Administração do site → Aparência → Passeios do usuário*.
+Observações:
+
+* O Moodle compara o *pathmatch* com a URL de forma exata; o `%` é o curinga necessário quando a URL
+  tem `index.php` ou parâmetros.
+* Os tours ficam no topo da ordem (antes dos tours padrão do Moodle, que só valem para o tema Boost
+  ou para professores/administradores) e valem para todos os papéis.
+* O tour aparece automaticamente na primeira visita à página e pode ser reexecutado pelo link
+  "Reiniciar tour do usuário nesta página", no rodapé. O botão de saída em cada passo é
+  "Encerrar tour". Para editar textos ou alvos: *Administração do site → Aparência → Passeios do
+  usuário*.
 
 ## Como reaplicar / reverter
 
