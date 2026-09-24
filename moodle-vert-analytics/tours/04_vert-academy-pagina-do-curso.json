@@ -5,7 +5,7 @@
   "enabled": "1",
   "sortorder": "3",
   "endtourlabel": "Encerrar tour",
-  "configdata": "{\"placement\": \"top\", \"orphan\": \"0\", \"backdrop\": \"1\", \"reflex\": \"0\", \"filtervalues\": {\"accessdate\": {\"filter_accessdate\": \"tool_usertours_accountcreation\", \"filter_accessdate_range\": 0, \"filter_accessdate_enabled\": \"0\"}, \"category\": [], \"course\": [], \"courseformat\": [], \"role\": [], \"theme\": [], \"cssselector\": []}, \"majorupdatetime\": 1790281184}",
+  "configdata": "{\"placement\": \"top\", \"orphan\": \"0\", \"backdrop\": \"1\", \"reflex\": \"0\", \"filtervalues\": {\"accessdate\": {\"filter_accessdate\": \"tool_usertours_accountcreation\", \"filter_accessdate_range\": 0, \"filter_accessdate_enabled\": \"0\"}, \"category\": [], \"course\": [], \"courseformat\": [], \"role\": [], \"theme\": [], \"cssselector\": []}, \"majorupdatetime\": 1790282241}",
   "displaystepnumbers": true,
   "version": "2026042000",
   "steps": [
@@ -51,7 +51,7 @@
     },
     {
       "title": "Abas de navegação do curso",
-      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>Estas abas levam às áreas do curso: <strong>Curso</strong> (conteúdo) e <strong>Atividades</strong> (lista de todas as atividades).</p><p>Dependendo do curso, você pode ver também outras abas, como Participantes e Notas.</p>",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>Estas abas levam às áreas do curso: <strong>Curso</strong> (conteúdo) e <strong>Atividades</strong> (lista de todas as atividades). Em alguns cursos há também Participantes e Notas.</p>",
       "contentformat": "1",
       "targettype": "0",
       "targetvalue": ".secondary-navigation.edw-tabs-navigation",

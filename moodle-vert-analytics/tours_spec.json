@@ -147,15 +147,14 @@
           "title": "Linha do tempo",
           "content": "<p>A <strong>Linha do tempo</strong> lista as atividades dos seus cursos que têm prazo de entrega, começando pelas mais próximas.</p><p>Quando não houver nada agendado, você verá a mensagem <strong>Não há atividades futuras</strong>.</p>",
           "unattached": false,
-          "selector": "#inst7",
-          "placement": "top",
+          "selector": "#inst7 .block-header-wrapper",
+          "placement": "bottom",
           "backdrop": true,
-          "orphan": false,
-          "delay": 1500
+          "orphan": false
         },
         {
           "title": "Filtros da Linha do tempo",
-          "content": "<p>Aqui você ajusta o que aparece na lista:</p><ul><li>O primeiro botão filtra por período (<strong>Próximos 7 dias</strong>, Todos, Atrasado, entre outros).</li><li>O segundo ordena por <strong>data</strong> ou por <strong>curso</strong>.</li><li>O campo de busca localiza uma atividade pelo tipo ou pelo nome.</li></ul>",
+          "content": "<p>Aqui você filtra a lista por período (Próximos 7 dias, Todos, Atrasado...), ordena por data ou por curso e localiza uma atividade pelo nome.</p>",
           "unattached": false,
           "selector": "#inst7 .edw-timeline-filters",
           "placement": "bottom",
@@ -164,10 +163,10 @@
         },
         {
           "title": "Calendário do mês",
-          "content": "<p>O <strong>Calendário</strong> exibe o mês atual com os eventos e prazos dos seus cursos. Use as setas ao lado do nome do mês para navegar.</p><p>Na lista <strong>Todos os cursos</strong> você escolhe ver os eventos de um curso específico, e em <strong>Novo evento</strong> pode registrar um lembrete pessoal.</p>",
+          "content": "<p>O Calendário exibe o mês atual com os eventos e prazos dos seus cursos. Use as setas ao lado do nome do mês para navegar e a lista de cursos para filtrar.</p><p>Em <strong>Novo evento</strong> você pode registrar um lembrete pessoal.</p>",
           "unattached": false,
-          "selector": "#inst8",
-          "placement": "top",
+          "selector": "#inst8 .block-header-wrapper",
+          "placement": "bottom",
           "backdrop": true,
           "orphan": false
         },
@@ -316,7 +315,7 @@
         },
         {
           "title": "Abas de navegação do curso",
-          "content": "<p>Estas abas levam às áreas do curso: <strong>Curso</strong> (conteúdo) e <strong>Atividades</strong> (lista de todas as atividades).</p><p>Dependendo do curso, você pode ver também outras abas, como Participantes e Notas.</p>",
+          "content": "<p>Estas abas levam às áreas do curso: <strong>Curso</strong> (conteúdo) e <strong>Atividades</strong> (lista de todas as atividades). Em alguns cursos há também Participantes e Notas.</p>",
           "unattached": false,
           "selector": ".secondary-navigation.edw-tabs-navigation",
           "placement": "bottom",

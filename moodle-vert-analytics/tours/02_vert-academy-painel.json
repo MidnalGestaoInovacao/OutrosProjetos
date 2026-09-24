@@ -5,7 +5,7 @@
   "enabled": "1",
   "sortorder": "1",
   "endtourlabel": "Encerrar tour",
-  "configdata": "{\"placement\": \"top\", \"orphan\": \"0\", \"backdrop\": \"1\", \"reflex\": \"0\", \"filtervalues\": {\"accessdate\": {\"filter_accessdate\": \"tool_usertours_accountcreation\", \"filter_accessdate_range\": 0, \"filter_accessdate_enabled\": \"0\"}, \"category\": [], \"course\": [], \"courseformat\": [], \"role\": [], \"theme\": [], \"cssselector\": [\"body.pagelayout-mydashboard\"]}, \"majorupdatetime\": 1790281184}",
+  "configdata": "{\"placement\": \"top\", \"orphan\": \"0\", \"backdrop\": \"1\", \"reflex\": \"0\", \"filtervalues\": {\"accessdate\": {\"filter_accessdate\": \"tool_usertours_accountcreation\", \"filter_accessdate_range\": 0, \"filter_accessdate_enabled\": \"0\"}, \"category\": [], \"course\": [], \"courseformat\": [], \"role\": [], \"theme\": [], \"cssselector\": [\"body.pagelayout-mydashboard\"]}, \"majorupdatetime\": 1790282241}",
   "displaystepnumbers": true,
   "version": "2026042000",
   "steps": [
@@ -34,14 +34,14 @@
       "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>A <strong>Linha do tempo</strong> lista as atividades dos seus cursos que têm prazo de entrega, começando pelas mais próximas.</p><p>Quando não houver nada agendado, você verá a mensagem <strong>Não há atividades futuras</strong>.</p>",
       "contentformat": "1",
       "targettype": "0",
-      "targetvalue": "#inst7",
+      "targetvalue": "#inst7 .block-header-wrapper",
       "sortorder": "2",
-      "configdata": "{\"placement\": \"top\", \"orphan\": \"0\", \"backdrop\": \"1\", \"delay\": \"1500\"}",
+      "configdata": "{\"placement\": \"bottom\", \"orphan\": \"0\", \"backdrop\": \"1\"}",
       "files": []
     },
     {
       "title": "Filtros da Linha do tempo",
-      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>Aqui você ajusta o que aparece na lista:</p><ul><li>O primeiro botão filtra por período (<strong>Próximos 7 dias</strong>, Todos, Atrasado, entre outros).</li><li>O segundo ordena por <strong>data</strong> ou por <strong>curso</strong>.</li><li>O campo de busca localiza uma atividade pelo tipo ou pelo nome.</li></ul>",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>Aqui você filtra a lista por período (Próximos 7 dias, Todos, Atrasado...), ordena por data ou por curso e localiza uma atividade pelo nome.</p>",
       "contentformat": "1",
       "targettype": "0",
       "targetvalue": "#inst7 .edw-timeline-filters",
@@ -51,12 +51,12 @@
     },
     {
       "title": "Calendário do mês",
-      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>O <strong>Calendário</strong> exibe o mês atual com os eventos e prazos dos seus cursos. Use as setas ao lado do nome do mês para navegar.</p><p>Na lista <strong>Todos os cursos</strong> você escolhe ver os eventos de um curso específico, e em <strong>Novo evento</strong> pode registrar um lembrete pessoal.</p>",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>O Calendário exibe o mês atual com os eventos e prazos dos seus cursos. Use as setas ao lado do nome do mês para navegar e a lista de cursos para filtrar.</p><p>Em <strong>Novo evento</strong> você pode registrar um lembrete pessoal.</p>",
       "contentformat": "1",
       "targettype": "0",
-      "targetvalue": "#inst8",
+      "targetvalue": "#inst8 .block-header-wrapper",
       "sortorder": "4",
-      "configdata": "{\"placement\": \"top\", \"orphan\": \"0\", \"backdrop\": \"1\"}",
+      "configdata": "{\"placement\": \"bottom\", \"orphan\": \"0\", \"backdrop\": \"1\"}",
       "files": []
     },
     {
