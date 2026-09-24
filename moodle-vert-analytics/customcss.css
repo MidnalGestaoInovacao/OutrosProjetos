@@ -69,21 +69,20 @@ body.pagelayout-frontpage #topofscroll {
 body.limitedwidth #page.drawers .main-inner,
 body.limitedwidth #page.drawers .footer-popover,
 body.limitedwidth.uses-drawers .stickyfooter .sticky-footer-content,
-.pagelayout-standard .stickyfooter .sticky-footer-content,
-body.limitedwidth .header-maxwidth,
-body.limitedwidth .edw-tabs-navigation.secondary-navigation {
+.pagelayout-standard .stickyfooter .sticky-footer-content {
     max-width: 90% !important;
 }
-/* o tema envolve o conteúdo em um .container (máx. 1320px); liberar para acompanhar os 90% */
-body.limitedwidth #page.drawers .main-inner > .container {
+/* o tema envolve o conteúdo em um .container (máx. 1320px) e limita cabeçalho e abas a 830px;
+   liberar para acompanharem os 90% do .main-inner */
+body.limitedwidth #page.drawers .main-inner > .container,
+body.limitedwidth .header-maxwidth,
+body.limitedwidth .edw-tabs-navigation.secondary-navigation {
     max-width: 100% !important;
 }
 @media (max-width: 991.98px) {
     body.limitedwidth #page.drawers .main-inner,
     body.limitedwidth #page.drawers .footer-popover,
-    body.limitedwidth.uses-drawers .stickyfooter .sticky-footer-content,
-    body.limitedwidth .header-maxwidth,
-    body.limitedwidth .edw-tabs-navigation.secondary-navigation {
+    body.limitedwidth.uses-drawers .stickyfooter .sticky-footer-content {
         max-width: 100% !important;
     }
 }
