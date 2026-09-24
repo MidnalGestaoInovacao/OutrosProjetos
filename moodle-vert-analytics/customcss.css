@@ -1,0 +1,117 @@
+body.pagelayout-frontpage #topofscroll {
+    display: none !important;
+}
+/* Ocultar a área de rodapé padrão */
+#page-footer {
+    display: none !important;
+}
+
+/* Opcional: Ocultar o link de login/política no rodapé */
+.logininfo, .tool_dataprivacy {
+    display: none !important;
+}
+
+/* =====================================================================
+   Vert Analytics – ajustes de identidade visual (setembro/2026)
+   Verde da marca: #00DE8F (mesmo tom do botão "Explorar Treinamentos")
+   Azul-marinho da marca: #101B3B
+   ===================================================================== */
+
+/* 1) Botão "Cursos e Formações" (seletor de categorias) em verde */
+.primary-navigation .navigation .catselector-menu.nav-link,
+.navbar .primary-navigation .catselector-menu.nav-link {
+    background-color: #00de8f !important;
+    color: #101b3b !important;
+    border-color: #00de8f !important;
+}
+.primary-navigation .navigation .catselector-menu.nav-link:hover,
+.primary-navigation .navigation .catselector-menu.nav-link:focus,
+.primary-navigation .navigation .catselector-menu.nav-link:active,
+.primary-navigation .navigation .catselector-menu.nav-link[aria-expanded="true"] {
+    background-color: #00c67f !important;
+    color: #101b3b !important;
+}
+.primary-navigation .navigation .catselector-menu.nav-link::after,
+.primary-navigation .navigation .catselector-menu.nav-link .edw-icon {
+    color: #101b3b !important;
+}
+
+/* 1b) Seletor "Modo de edição" (switch) da barra superior em verde */
+.navbar .custom-switch .custom-control-label::before,
+.navbar .editmode-switch-form .custom-switch .custom-control-label::before {
+    background-color: rgba(0, 222, 143, 0.45) !important; /* desligado */
+    border: 1px solid #00de8f !important;
+}
+.navbar .custom-switch .custom-control-input:checked ~ .custom-control-label::before,
+.navbar .editmode-switch-form .custom-switch .custom-control-input:checked ~ .custom-control-label::before {
+    background-color: #00de8f !important; /* ligado */
+    border-color: #00de8f !important;
+}
+.navbar .custom-switch .custom-control-label::after {
+    background-color: #ffffff !important;
+    border-color: #00de8f !important;
+}
+.navbar .custom-switch .custom-control-input:focus ~ .custom-control-label::before {
+    box-shadow: 0 0 0 0.2rem rgba(0, 222, 143, 0.35) !important;
+}
+
+/* 2) Ícones do menu do usuário (Perfil, Notas, Calendário, ...) em verde
+      (o tema aplica cor branca a todo .edw-icon dentro da navbar) */
+.navbar #user-action-menu .edw-icon,
+.navbar .usermenu .dropdown-menu .edw-icon,
+.navbar .usermenu .dropdown-menu .dropdown-item .edw-icon,
+.navbar .usermenu .dropdown-menu .submenu .header .icon {
+    color: #00de8f !important;
+}
+
+/* 4) Páginas principais (Painel, Meus cursos, Perfil, página do curso etc.)
+      ocupando 90% da largura horizontal em vez dos 830px padrão */
+body.limitedwidth #page.drawers .main-inner,
+body.limitedwidth #page.drawers .footer-popover,
+body.limitedwidth.uses-drawers .stickyfooter .sticky-footer-content,
+.pagelayout-standard .stickyfooter .sticky-footer-content,
+body.limitedwidth .header-maxwidth,
+body.limitedwidth .edw-tabs-navigation.secondary-navigation {
+    max-width: 90% !important;
+}
+/* o tema envolve o conteúdo em um .container (máx. 1320px); liberar para acompanhar os 90% */
+body.limitedwidth #page.drawers .main-inner > .container {
+    max-width: 100% !important;
+}
+@media (max-width: 991.98px) {
+    body.limitedwidth #page.drawers .main-inner,
+    body.limitedwidth #page.drawers .footer-popover,
+    body.limitedwidth.uses-drawers .stickyfooter .sticky-footer-content,
+    body.limitedwidth .header-maxwidth,
+    body.limitedwidth .edw-tabs-navigation.secondary-navigation {
+        max-width: 100% !important;
+    }
+}
+
+/* 5) Tour guiado (Passeios do usuário) com identidade Vert Analytics */
+.tour-step .vert-tour-logo,
+[data-role="flexitour-step"] .vert-tour-logo {
+    display: block;
+    width: 160px;
+    background: #101b3b;
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin: 0 0 12px 0;
+}
+.tour-step .vert-tour-logo img,
+[data-role="flexitour-step"] .vert-tour-logo img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+.tour-step .modal-content,
+[data-role="flexitour-step"] .modal-content {
+    border-top: 4px solid #00de8f;
+}
+.tour-step .modal-footer .btn-primary,
+.tour-step .modal-footer [data-role="next"],
+[data-role="flexitour-step"] .modal-footer [data-role="next"] {
+    background-color: #00de8f !important;
+    border-color: #00de8f !important;
+    color: #101b3b !important;
+}
