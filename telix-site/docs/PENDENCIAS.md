@@ -29,3 +29,16 @@ Brasil Center Shopping, ANS/DOU, perfis sociais). Os itens abaixo não puderam s
 3. **Configurações → Geral → E-mail de administração**: usar a caixa do Compliance/DPO (recebe os avisos de novos relatos).
 4. **Usuários → Perfil**: definir um "Apelido/Nome de exibição" diferente do login (o slug do autor aparece no sitemap de usuários).
 5. **Plugins**: instalar um plugin de SEO (Yoast ou Rank Math) para meta tags no HTML servido e desativar o sitemap de usuários.
+
+## Confirmações levantadas pelos revisores de conteúdo
+
+- O que significa exatamente "larga experiência junto à ANS" (texto do site antigo).
+- Horários de SAC e agendamento (o site só afirma 24/7 para regulação e remoção).
+- Conteúdo padrão do relatório mensal de indicadores e se ele vale para todos os serviços (o site antigo só o prometia para remoção).
+- Se o protocolo é emitido também no WhatsApp; qual plataforma de WhatsApp/chatbot é usada; se há chat web.
+- Se a Télix responde às demandas ou apenas encaminha; se opera o aviso de reanálise na negativa (RN 623, art. 16) e se apoia respostas a NIP.
+- Se a operação segue a NR-17 Anexo II, se há CIPA e o número de empregados.
+- Se o Código de Conduta Ética do Colaborador existe como documento publicável; composição atual dos comitês; aprovação das políticas pela Alta Direção.
+- Quais ferramentas de IA estão em uso hoje.
+- Se a Resolução CONSU 13/1998 segue vigente (confirmar com assessoria regulatória).
+- Exportar as perguntas do antigo formulário de denúncia do Google Forms (exige login) e desativá-lo.

@@ -619,3 +619,5 @@ html.tx-a11y-noanim .tx-js [data-reveal]{opacity:1 !important;transform:none !im
 .tx-sitemap li:last-child{border-bottom:0}
 .tx-sitemap a{text-decoration:none;color:var(--tx-graphite-800);font-weight:500}
 .tx-sitemap a:hover{color:var(--tx-gold-800);text-decoration:underline}
+.tx-toc ol{list-style:none;padding-left:0}
+@media (max-width:640px){.tx-ring{height:auto;perspective:none}.tx-ring__stage{position:static;transform:none !important;width:auto;height:auto;margin:0;display:grid;gap:10px}.tx-ring__item{position:relative;inset:auto;transform:none;backface-visibility:visible}.tx-ring + .tx-ring__ctrl{display:none}}
