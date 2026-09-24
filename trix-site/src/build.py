@@ -198,9 +198,10 @@ def build_pages():
         if p.get("canonical"): seo["canonical"] = p["canonical"]
         for k in ("faq", "productName", "category", "serviceName", "serviceType"):
             if p.get(k): seo[k] = p[k]
-        body = (hero(p, crumbs) if not p.get("no_hero") else "") + p["body"]
-        content = wp_html('<script type="application/json" id="trix-seo">%s</script>\n%s' % (json.dumps(seo, ensure_ascii=False), render(body)))
-        out.append({"slug": p["slug"], "parent": p.get("parent"), "url": p["url"], "title": p["title"], "wp_title": p.get("wp_title") or p.get("short") or re.sub("<[^>]+>", "", p["h1"]),
+        body = render((hero(p, crumbs) if not p.get("no_hero") else "") + p["body"])
+        seo["build"] = hashlib.sha1((body + json.dumps(seo, sort_keys=True, ensure_ascii=False)).encode("utf-8")).hexdigest()[:12]
+        content = wp_html('<script type="application/json" id="trix-seo">%s</script>\n%s' % (json.dumps(seo, ensure_ascii=False), body))
+        out.append({"slug": p["slug"], "parent": p.get("parent"), "url": p["url"], "title": p["title"], "build": seo["build"], "wp_title": p.get("wp_title") or p.get("short") or re.sub("<[^>]+>", "", p["h1"]),
                     "content": content, "excerpt": p["description"], "menu_order": p.get("order", 10), "comments": p.get("comments", False), "template": p.get("template", "")})
     return out
 

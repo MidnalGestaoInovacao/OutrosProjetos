@@ -62,21 +62,32 @@ def deploy_pages(only=None, create_only=False):
         h = page_hash(p)
         if pid and (create_only or state["hashes"].get(p["slug"]) == h):
             state["pages"][p["slug"]] = pid; save(); log("skip (unchanged or create-only)", p["slug"], pid); continue
-        for attempt in range(4):
+        from wpmcp import healthy
+        def applied(pid):
+            try:
+                g = call("wp_get_page", {"page_id": pid}, tries=2); return p["build"] in json.dumps(g, ensure_ascii=False)
+            except MCPError: return False
+        ok = False
+        for attempt in range(5):
             try:
                 if pid:
-                    args["page_id"] = pid; r = call("wp_update_page", args, tries=3); log("page updated", p["slug"], pid, r.get("link"))
+                    args["page_id"] = pid; r = call("wp_update_page", args, tries=1); log("page updated", p["slug"], pid, r.get("link")); ok = True
                 else:
-                    r = call("wp_create_page", args, tries=2); pid = r["id"]; log("page created", p["slug"], pid, r.get("link"))
+                    r = call("wp_create_page", args, tries=1); pid = r["id"]; log("page created", p["slug"], pid, r.get("link")); ok = True
                 break
             except MCPError as e:
-                log("ERROR", p["slug"], str(e)[:200]); time.sleep(15)
-                if not pid:  # a criação pode ter ocorrido no servidor apesar da falha do túnel: rechecar por slug
+                log("timeout/err", p["slug"], str(e)[:120]); healthy()
+                # a operação pode ter sido concluída no servidor apesar da queda do túnel: verificar antes de repetir
+                if not pid:
                     try:
                         ex = existing_pages(); pid = (ex.get(p["slug"]) or {}).get("id")
-                        if pid: log("found after failure", p["slug"], pid)
+                        if pid: log("found after timeout", p["slug"], pid); ok = applied(pid) or True; break
                     except MCPError as e2: log("recheck failed", str(e2)[:100])
-        if pid: state["pages"][p["slug"]] = pid; state["hashes"][p["slug"]] = h; save()
+                elif applied(pid):
+                    log("update confirmed after timeout", p["slug"], pid); ok = True; break
+                time.sleep(10)
+        if pid: state["pages"][p["slug"]] = pid; save()
+        if ok: state["hashes"][p["slug"]] = h; save()
         time.sleep(8)
 
 def deploy_templates():
