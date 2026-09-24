@@ -129,3 +129,11 @@ botão Continuar, índice, abas, seção de apresentação, fórum de avisos, li
   Serviços OAuth 2), o clique nos botões leva a um erro do provedor (cliente inválido). No console
   do Google/Microsoft, a URL de redirecionamento a cadastrar é
   `https://ead.vert.com.br/admin/oauth2callback.php`.
+
+### Observações finais
+* Durante os testes automatizados, os tours foram executados com a conta `vertanalyticsadmin`; por
+  isso, nessa conta eles não abrem sozinhos nas páginas já visitadas — basta clicar no botão "?".
+  Para os demais usuários os tours abrem automaticamente na primeira visita a cada página.
+* Ferramentas usadas para gerar/importar os tours e validar seletores ficaram fora do repositório
+  (scripts de sessão); os artefatos versionados aqui são suficientes para reaplicar tudo pela
+  interface de administração.
