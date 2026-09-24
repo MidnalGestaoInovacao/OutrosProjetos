@@ -5,7 +5,7 @@
   "enabled": "1",
   "sortorder": "0",
   "endtourlabel": "Encerrar tour",
-  "configdata": "{\"placement\": \"bottom\", \"orphan\": \"0\", \"backdrop\": \"1\", \"reflex\": \"0\", \"filtervalues\": {\"accessdate\": {\"filter_accessdate\": \"tool_usertours_accountcreation\", \"filter_accessdate_range\": 0, \"filter_accessdate_enabled\": \"0\"}, \"category\": [], \"course\": [], \"courseformat\": [], \"role\": [], \"theme\": [], \"cssselector\": []}, \"majorupdatetime\": 1790279979}",
+  "configdata": "{\"placement\": \"bottom\", \"orphan\": \"0\", \"backdrop\": \"1\", \"reflex\": \"0\", \"filtervalues\": {\"accessdate\": {\"filter_accessdate\": \"tool_usertours_accountcreation\", \"filter_accessdate_range\": 0, \"filter_accessdate_enabled\": \"0\"}, \"category\": [], \"course\": [], \"courseformat\": [], \"role\": [], \"theme\": [], \"cssselector\": []}, \"majorupdatetime\": 1790281184}",
   "displaystepnumbers": true,
   "version": "2026042000",
   "steps": [
@@ -121,7 +121,7 @@
     },
     {
       "title": "Pronto para começar",
-      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>Você concluiu o tour da Página inicial. Para revê-lo a qualquer momento, use o link <strong>Reiniciar tour do usuário nesta página</strong>, no final da página.</p><p>Próximo passo: clique em <strong>Explorar Treinamentos</strong> ou em <strong>Minhas Inscrições</strong> para acessar seus cursos.</p>",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>Você concluiu o tour da Página inicial. Para revê-lo a qualquer momento, clique no ícone <strong>?</strong> ao lado do título <strong>Academy Vert Analytics</strong>.</p><p>Próximo passo: clique em <strong>Explorar Treinamentos</strong> ou em <strong>Minhas Inscrições</strong> para acessar seus cursos.</p>",
       "contentformat": "1",
       "targettype": "2",
       "targetvalue": "",

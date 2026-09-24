@@ -5,7 +5,7 @@
   "enabled": "1",
   "sortorder": "1",
   "endtourlabel": "Encerrar tour",
-  "configdata": "{\"placement\": \"top\", \"orphan\": \"0\", \"backdrop\": \"1\", \"reflex\": \"0\", \"filtervalues\": {\"accessdate\": {\"filter_accessdate\": \"tool_usertours_accountcreation\", \"filter_accessdate_range\": 0, \"filter_accessdate_enabled\": \"0\"}, \"category\": [], \"course\": [], \"courseformat\": [], \"role\": [], \"theme\": [], \"cssselector\": [\"body.pagelayout-mydashboard\"]}, \"majorupdatetime\": 1790279979}",
+  "configdata": "{\"placement\": \"top\", \"orphan\": \"0\", \"backdrop\": \"1\", \"reflex\": \"0\", \"filtervalues\": {\"accessdate\": {\"filter_accessdate\": \"tool_usertours_accountcreation\", \"filter_accessdate_range\": 0, \"filter_accessdate_enabled\": \"0\"}, \"category\": [], \"course\": [], \"courseformat\": [], \"role\": [], \"theme\": [], \"cssselector\": [\"body.pagelayout-mydashboard\"]}, \"majorupdatetime\": 1790281184}",
   "displaystepnumbers": true,
   "version": "2026042000",
   "steps": [
@@ -81,7 +81,7 @@
     },
     {
       "title": "Tour concluído",
-      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>Pronto! Você já conhece o seu Painel.</p><p>Para rever este tour a qualquer momento, use o link <strong>Reiniciar tour do usuário nesta página</strong> no rodapé. Para acessar seus treinamentos, abra <strong>Minhas Inscrições</strong> na barra superior.</p>",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>Pronto! Você já conhece o seu Painel.</p><p>Para rever este tour a qualquer momento, clique no ícone <strong>?</strong> ao lado do título <strong>Painel</strong>. Para acessar seus treinamentos, abra <strong>Minhas Inscrições</strong> na barra superior.</p>",
       "contentformat": "1",
       "targettype": "2",
       "targetvalue": "",

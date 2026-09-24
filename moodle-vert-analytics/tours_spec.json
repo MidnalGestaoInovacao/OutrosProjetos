@@ -109,7 +109,7 @@
         },
         {
           "title": "Pronto para começar",
-          "content": "<p>Você concluiu o tour da Página inicial. Para revê-lo a qualquer momento, use o link <strong>Reiniciar tour do usuário nesta página</strong>, no final da página.</p><p>Próximo passo: clique em <strong>Explorar Treinamentos</strong> ou em <strong>Minhas Inscrições</strong> para acessar seus cursos.</p>",
+          "content": "<p>Você concluiu o tour da Página inicial. Para revê-lo a qualquer momento, clique no ícone <strong>?</strong> ao lado do título <strong>Academy Vert Analytics</strong>.</p><p>Próximo passo: clique em <strong>Explorar Treinamentos</strong> ou em <strong>Minhas Inscrições</strong> para acessar seus cursos.</p>",
           "unattached": true,
           "placement": "bottom",
           "backdrop": true
@@ -191,7 +191,7 @@
         },
         {
           "title": "Tour concluído",
-          "content": "<p>Pronto! Você já conhece o seu Painel.</p><p>Para rever este tour a qualquer momento, use o link <strong>Reiniciar tour do usuário nesta página</strong> no rodapé. Para acessar seus treinamentos, abra <strong>Minhas Inscrições</strong> na barra superior.</p>",
+          "content": "<p>Pronto! Você já conhece o seu Painel.</p><p>Para rever este tour a qualquer momento, clique no ícone <strong>?</strong> ao lado do título <strong>Painel</strong>. Para acessar seus treinamentos, abra <strong>Minhas Inscrições</strong> na barra superior.</p>",
           "unattached": true,
           "placement": "top",
           "backdrop": true
@@ -263,7 +263,7 @@
         },
         {
           "title": "Bons estudos",
-          "content": "<p>Pronto! Agora você já sabe como encontrar e abrir os seus treinamentos.</p><p>Para rever este guia a qualquer momento, use o link <strong>Reiniciar tour do usuário nesta página</strong> no rodapé.</p>",
+          "content": "<p>Pronto! Agora você já sabe como encontrar e abrir os seus treinamentos.</p><p>Para rever este guia a qualquer momento, clique no ícone <strong>?</strong> ao lado do título <strong>Meus cursos</strong>.</p>",
           "unattached": true,
           "placement": "bottom",
           "backdrop": true
@@ -273,7 +273,7 @@
     {
       "key": "course",
       "name": "Vert Academy – Página do curso",
-      "description": "Conheça os elementos da página de um curso: cabeçalho, índice, abas, seções, unidades e o acompanhamento do seu progresso.",
+      "description": "Conheça os elementos da página de um curso: cabeçalho com progresso, índice, abas, seção de apresentação, fórum de avisos e a lista de seções.",
       "pathmatch": "/course/view.php%",
       "cssselector": "",
       "placement": "top",
@@ -282,23 +282,32 @@
       "steps": [
         {
           "title": "Bem-vindo à página do curso",
-          "content": "<p>Esta é a página principal de um curso da <strong>Academy Vert Analytics</strong>. Aqui você encontra as unidades, as atividades, a prova e o certificado do treinamento.</p><p>Vamos apresentar cada elemento da tela em poucos passos.</p>",
+          "content": "<p>Esta é a página principal de um curso da Academy Vert Analytics. Aqui você encontra a apresentação, as seções (unidades) e as atividades do treinamento, além do seu progresso.</p><p>Vamos apresentar cada elemento da tela em poucos passos.</p>",
           "unattached": true,
-          "placement": "top",
-          "backdrop": true
+          "backdrop": true,
+          "placement": "top"
         },
         {
           "title": "Cabeçalho do curso",
-          "content": "<p>No topo você vê a imagem do curso, a categoria a que ele pertence (por exemplo, <em>Integração</em>) e o nome completo do treinamento.</p><p>Use este cabeçalho para confirmar em qual curso você está.</p>",
+          "content": "<p>No topo você vê a imagem do curso, a categoria a que ele pertence e o nome completo do treinamento.</p><p>Use este cabeçalho para confirmar em qual curso você está.</p>",
           "unattached": false,
           "selector": "#page-header",
-          "placement": "top",
+          "placement": "bottom",
+          "backdrop": true,
+          "orphan": false
+        },
+        {
+          "title": "Seu progresso no curso",
+          "content": "<p>A barra mostra a porcentagem do curso que você já concluiu, calculada a partir das atividades marcadas como concluídas.</p><p>O botão logo abaixo dela leva você direto à próxima atividade pendente.</p>",
+          "unattached": false,
+          "selector": "#page-header .progress-resume-wrapper",
+          "placement": "left",
           "backdrop": true,
           "orphan": false
         },
         {
           "title": "Índice do curso",
-          "content": "<p>Este botão abre o <strong>índice do curso</strong>, um painel lateral com a lista de todas as seções e atividades.</p><p>Use-o para pular direto para a unidade ou atividade que você quer acessar.</p>",
+          "content": "<p>Este botão abre o índice do curso, um painel lateral com a lista de todas as seções e atividades.</p><p>Use-o para pular direto para a unidade ou atividade que você quer acessar.</p>",
           "unattached": false,
           "selector": "button[data-action=\"toggle\"][data-target=\"theme_remui-drawers-courseindex\"]",
           "placement": "right",
@@ -307,7 +316,7 @@
         },
         {
           "title": "Abas de navegação do curso",
-          "content": "<p>Estas abas levam às áreas do curso: <strong>Curso</strong> (conteúdo), <strong>Participantes</strong> (colegas inscritos) e <strong>Notas</strong> (suas avaliações).</p><p>Você pode ver mais ou menos abas dependendo do curso.</p>",
+          "content": "<p>Estas abas levam às áreas do curso: <strong>Curso</strong> (conteúdo) e <strong>Atividades</strong> (lista de todas as atividades).</p><p>Dependendo do curso, você pode ver também outras abas, como Participantes e Notas.</p>",
           "unattached": false,
           "selector": ".secondary-navigation.edw-tabs-navigation",
           "placement": "bottom",
@@ -316,46 +325,46 @@
         },
         {
           "title": "Seção de apresentação",
-          "content": "<p>A primeira seção apresenta o curso e traz as orientações iniciais. Leia o texto de introdução antes de começar.</p><p>Nos cursos em formato de lista, as demais seções aparecem logo abaixo, uma após a outra.</p>",
+          "content": "<p>A primeira seção apresenta o curso e traz as orientações iniciais e o fórum de avisos.</p><p>Leia o texto de introdução antes de começar.</p>",
           "unattached": false,
-          "selector": "#section-0",
+          "selector": "#section-0 .general-section",
           "placement": "top",
           "backdrop": true,
           "orphan": false
         },
         {
           "title": "Fórum de avisos",
-          "content": "<p>Aqui fica o fórum <strong>Avisos e comunicados importantes</strong>. Clique no nome da atividade para abrir e ler as mensagens publicadas.</p><p>Fique atento: é por este canal que a equipe divulga informações importantes do treinamento.</p>",
+          "content": "<p>É por este fórum que a equipe publica os avisos e comunicados do treinamento.</p><p>Clique no nome da atividade para abrir e ler as mensagens publicadas.</p>",
           "unattached": false,
-          "selector": "#module-2",
+          "selector": "#section-0 .general-section-activities li.activity.modtype_forum",
           "placement": "top",
           "backdrop": true,
           "orphan": false
         },
         {
-          "title": "Progresso global",
-          "content": "<p>Este indicador mostra a porcentagem do curso que você já concluiu, calculada a partir das atividades marcadas como concluídas.</p><p>Quando chegar a 100%, o curso estará completo.</p>",
+          "title": "Seções do curso",
+          "content": "<p>Aqui ficam as unidades do curso, em lista. Cada cartão mostra o nome da seção, um resumo do que ela contém e a sua barra de progresso.</p>",
           "unattached": false,
-          "selector": "#tiles-overall-progress-outer",
-          "placement": "left",
+          "selector": "#list-container",
+          "placement": "top",
           "backdrop": true,
           "orphan": false
         },
         {
-          "title": "Unidades do curso",
-          "content": "<p>Cada bloco é uma unidade ou etapa do curso: conteúdo, prova, pesquisa de satisfação e certificado. <strong>Clique em um bloco</strong> para abrir o seu conteúdo.</p><p>Ao concluir as atividades, a conclusão é registrada automaticamente e o bloco recebe a marca verde de concluído.</p>",
+          "title": "Abrir uma seção",
+          "content": "<p>Clique no título da seção ou na seta à direita para abrir o conteúdo e as atividades.</p><p>Ao concluir as atividades, a conclusão é registrada automaticamente e a barra de progresso da seção é atualizada.</p>",
           "unattached": false,
-          "selector": "ul.tiles",
+          "selector": "#list-container li.section:first-child",
           "placement": "top",
           "backdrop": true,
           "orphan": false
         },
         {
           "title": "Bons estudos",
-          "content": "<p>Pronto! Agora você já conhece a página do curso. Para rever este tour, use o link <strong>Reiniciar tour do usuário nesta página</strong> no rodapé.</p><p>Comece pela primeira unidade e avance na ordem sugerida.</p>",
+          "content": "<p>Pronto! Agora você já conhece a página do curso. Para rever este tour, clique no ícone <strong>?</strong> ao lado do nome do curso, no cabeçalho.</p><p>Comece pela primeira seção e avance na ordem sugerida.</p>",
           "unattached": true,
-          "placement": "top",
-          "backdrop": true
+          "backdrop": true,
+          "placement": "top"
         }
       ]
     },
@@ -404,7 +413,7 @@
         },
         {
           "title": "Tour concluído",
-          "content": "<p>Pronto! Para consultar suas notas novamente, abra o <strong>menu do usuário</strong> (seu avatar, no canto superior direito) e escolha <strong>Notas</strong>.</p><p>Para rever este tour, use o link <strong>Reiniciar tour do usuário nesta página</strong> no rodapé.</p>",
+          "content": "<p>Pronto! Para consultar suas notas novamente, abra o menu do usuário (seu avatar, no canto superior direito) e escolha <strong>Notas</strong>.</p><p>Para rever este tour, clique no ícone <strong>?</strong> ao lado do seu nome, no topo da página.</p>",
           "unattached": true,
           "backdrop": true
         }
