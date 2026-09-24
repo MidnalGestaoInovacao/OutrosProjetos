@@ -33,12 +33,15 @@
     function run() {
         fixMarkAllRead();
         if (pageHasTour()) {
-            var tries = 0;
-            var timer = setInterval(function () {
-                tries++;
+            // O tema pode re-renderizar o cabeçalho depois do carregamento (ex.: página do curso),
+            // removendo o botão; por isso a verificação continua por um tempo.
+            addHelpButton();
+            var ticks = 0;
+            var fast = setInterval(function () {
+                ticks++;
                 addHelpButton();
-                if (document.querySelector('.vert-tour-help') || tries > 20) { clearInterval(timer); }
-            }, 400);
+                if (ticks >= 60) { clearInterval(fast); setInterval(addHelpButton, 5000); }
+            }, 1000);
         }
     }
     if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', run); } else { run(); }
