@@ -25,6 +25,9 @@ body.trix main.wp-block-group{margin:0!important;padding:0!important}
 body.trix .trix-main{min-height:40vh}
 body.trix .trix-main > .wp-block-post-content,body.trix .entry-content{margin:0;padding:0}
 body.trix .wp-block-post-content > *{max-width:none;margin-left:0;margin-right:0}
+body.trix .trix-home-query,body.trix .trix-home-query .wp-block-post-template{list-style:none;margin:0;padding:0;max-width:none}
+body.trix .trix-home-query .wp-block-post-template > li{margin:0;padding:0;list-style:none}
+body.trix .trix-main > .wp-block-group.trix-section{padding-top:calc(var(--trix-header-h) + 48px)}
 /* Tipografia */
 body.trix h1,body.trix h2,body.trix h3,body.trix h4{font-family:var(--trix-font);margin:0 0 .6em;line-height:1.15;color:var(--trix-gray-900);text-wrap:balance}
 body.trix h1{font-size:clamp(2rem,4.2vw,3.4rem);font-weight:300;text-transform:uppercase;letter-spacing:.5px}

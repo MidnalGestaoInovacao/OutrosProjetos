@@ -8,7 +8,7 @@ PAGES = ["/", "/empresa/", "/servicos/", "/produtos/prontow/", "/produtos/saw/",
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
 report = {}
 with sync_playwright() as p:
-    b = p.chromium.launch()
+    b = p.chromium.launch(executable_path=os.environ.get('CHROME_PATH', '/opt/pw-browsers/chromium-1194/chrome-linux/chrome'))
     for vp, name in (({"width": 1440, "height": 900}, "desktop"), ({"width": 390, "height": 844}, "mobile")):
         ctx = b.new_context(viewport=vp, user_agent=UA, locale="pt-BR", ignore_https_errors=True)
         for path in PAGES:

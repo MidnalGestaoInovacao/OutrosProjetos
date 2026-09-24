@@ -53,7 +53,7 @@ EVENTOS = {
  "slug": "eventos", "parent": "empresa", "order": 5, "short": "Eventos e Academy",
  "title": "Eventos e Trix Academy | Webinário de Conectividade em Saúde Suplementar",
  "description": "Webinários, treinamentos e capacitação da Trix TI: 1º Webinário de Conectividade em Saúde Suplementar (nova TISS, censo hospitalar, app de beneficiários, autorização e elegibilidade) e plataforma Trix Academy.",
- "image": "images/02.jpg", "hero": "light",
+ "image": "images/02.jpg", "hero": "dark", "three": "cubes",
  "kicker": "Conhecimento compartilhado", "h1": "Eventos e <strong>Trix Academy</strong>",
  "lead": "Acreditamos que tecnologia só gera valor quando as pessoas sabem usá-la. Por isso promovemos webinários, treinamentos e programas de capacitação para operadoras, prestadores, parceiros e colaboradores.",
  "actions": [("Acessar a Trix Academy", "http://academy.trixti.com.br/"), ("Quero participar do próximo evento", "/contato/?assunto=Treinamento%20e%20Capacita%C3%A7%C3%A3o", "trix-btn--ghost")],
@@ -76,7 +76,7 @@ EVENTOS = {
 }
 UNIMED = ["70.png","40.png","41.png","42.png","43.png","45.png","46.png","47.png","49.png","unimed-curitiba.jpg","50.png","51.png","52.png","53.png","55.png","56.png","57.png","58.png","59.png","61.png","62.png","unimed-sao-joao.jpg","unimed-serra-minas.jpg","65.png","66.png","67.png","unimed-uba.jpg","69.png","71.png"]
 CLIENTES = {
- "slug": "clientes", "order": 4,
+ "slug": "clientes", "order": 4, "short": "Clientes",
  "title": "Clientes | Operadoras de saúde, Unimeds, RHs, clínicas e laboratórios atendidos pela Trix",
  "description": "Mais de 35 operadoras de saúde, Unimeds, RHs e autogestões em todo o Brasil confiam na Trix TI. Também atendemos profissionais médicos, consultórios, clínicas, CTMs e laboratórios com software especializado.",
  "image": "images/desenvolvimento.jpg", "hero": "dark", "three": "globe",

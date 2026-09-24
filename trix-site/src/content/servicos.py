@@ -1,6 +1,6 @@
 from .helpers import *
 def svc(slug, title, desc, kicker, h1, lead, body, meta=None, image=None, stype=None, faq_items=None, order=10):
-    p = {"slug": slug, "parent": "servicos", "order": order, "title": title, "description": desc, "type": "service", "serviceType": stype or kicker, "hero": "dark",
+    p = {"slug": slug, "parent": "servicos", "order": order, "title": title, "description": desc, "type": "service", "serviceType": stype or kicker, "hero": "dark", "short": kicker,
          "kicker": kicker, "h1": h1, "lead": lead, "actions": [("Falar com um consultor", "/contato/"), ("Ver todos os serviços", "/servicos/", "trix-btn--ghost")], "body": body}
     if meta: p["meta"] = meta
     if image: p["image"] = image

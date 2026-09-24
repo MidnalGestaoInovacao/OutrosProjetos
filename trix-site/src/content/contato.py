@@ -20,7 +20,7 @@ CONTATO_FORM = ('<form class="trix-form" data-form="contato" data-mail="%s" nova
   + textarea("c", "mensagem", "Mensagem", "Conte-nos sobre o seu desafio, produto de interesse ou dúvida.") + HP.format(f="c") + captcha_block().format(id="c_captcha") + consent("c")
   + '<div class="trix-form__msg" role="status" aria-live="polite"></div><div><button type="submit" class="trix-btn trix-btn--primary">Enviar mensagem</button></div></form>')
 CONTATO = {
- "slug": "contato", "order": 7, "comments": True, "type": "contact",
+ "slug": "contato", "order": 7, "comments": True, "type": "contact", "short": "Contato",
  "title": "Contato | Fale com a Trix TI — Brasília (61) 3403-5353 e São Paulo (11) 3014-3220",
  "description": "Fale com a Trix Tecnologia Inteligente: formulário, WhatsApp, e-mail falecom@trixti.com.br, telefone (61) 3403-5353 (Brasília) e (11) 3014-3220 (São Paulo). Endereços, mapa e como chegar ao Edifício Capital Financial Center, SIG Quadra 4.",
  "image": "images/02.jpg", "hero": "dark", "three": "network",
@@ -51,7 +51,7 @@ LGPD_FORM = ('<form class="trix-form" data-form="lgpd" data-mail="%s" novalidate
   + textarea("l", "descricao", "Descreva sua solicitação", "Informe o que deseja e, se possível, quais dados estão envolvidos.") + HP.format(f="l") + captcha_block().format(id="l_captcha") + consent("l")
   + '<div class="trix-form__msg" role="status" aria-live="polite"></div><div><button type="submit" class="trix-btn trix-btn--primary">Enviar ao DPO</button></div></form>')
 CANAL_LGPD = {
- "slug": "canal-lgpd", "order": 8, "comments": True, "type": "contact",
+ "slug": "canal-lgpd", "order": 8, "comments": True, "type": "contact", "short": "Canal LGPD",
  "title": "Canal LGPD | Exerça seus direitos de titular de dados — DPO da Trix TI",
  "description": "Canal do titular de dados da Trix Tecnologia Inteligente: solicite acesso, correção, eliminação, portabilidade, revogação de consentimento ou informe um incidente. Atendimento pelo Encarregado (DPO) Sanclé Landim Albuquerque — dpo@trixti.com.br.",
  "image": "images/02.jpg", "hero": "dark",
@@ -81,7 +81,7 @@ COMPLIANCE_FORM = ('<form class="trix-form" data-form="compliance" data-mail="%s
   + HP.format(f="k") + captcha_block().format(id="k_captcha") + consent("k")
   + '<div class="trix-form__msg" role="status" aria-live="polite"></div><div><button type="submit" class="trix-btn trix-btn--primary">Enviar relato</button></div></form>')
 CANAL_COMP = {
- "slug": "canal-de-compliance", "order": 9, "comments": True, "type": "contact",
+ "slug": "canal-de-compliance", "order": 9, "comments": True, "type": "contact", "short": "Canal de Compliance",
  "title": "Canal de Compliance e Ouvidoria | Denúncias, dúvidas, sugestões e elogios — Trix TI",
  "description": "Canal confidencial de compliance da Trix Tecnologia Inteligente: denúncias (inclusive anônimas) de corrupção, fraude, assédio, conflito de interesses e violações ao Código de Conduta; críticas, elogios e sugestões. Ouvidoria 0800 941 1190 e ouvidoria@trixti.com.br.",
  "image": "images/02.jpg", "hero": "dark",

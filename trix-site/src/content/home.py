@@ -1,6 +1,6 @@
 from .helpers import *
 PAGES = [{
- "slug": "home", "order": -1000, "wp_title": "Home",
+ "slug": "home", "order": -1000, "wp_title": "Home", "canonical": "/",
  "title": "Trix Tecnologia Inteligente | Software sob medida, conectividade em saúde e IA",
  "description": "Desde 2009, a Trix TI cria software sob medida, conecta operadoras e prestadores de saúde (TISS) e entrega produtos com inteligência artificial como o Prontow, o SAW e o Aspect Face. Brasília e São Paulo, atendimento em todo o Brasil.",
  "image": "images/02.jpg", "type": "about", "hero": "dark", "hero_short": False, "three": "network",

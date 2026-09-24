@@ -15,7 +15,7 @@ SITE = {
  "social": {"linkedin": "https://www.linkedin.com/company/trix-tecnologia-inteligente", "instagram": "https://www.instagram.com/trix_tecnologia/", "facebook": "https://www.facebook.com/trixti/",
             "whatsapp": "https://wa.me/5561992324516?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Trix%20e%20gostaria%20de%20falar%20com%20um%20consultor.",
             "whatsapp_prontow": "https://wa.me/556132461800?text=Ol%C3%A1!%20Quero%20uma%20demonstra%C3%A7%C3%A3o%20do%20Prontow."},
- "favicon": "{{media:favicon}}", "ga4": "",
+ "favicon": "{{media:favicon.ico}}", "ga4": "",
  "cnpj": "11.010.095/0001-40", "founded": "10/07/2009",
 }
 NAV = [

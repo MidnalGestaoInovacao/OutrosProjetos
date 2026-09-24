@@ -1,6 +1,6 @@
 from .helpers import *
 def prod(slug, title, desc, kicker, h1, lead, body, name, category="BusinessApplication", meta=None, image=None, faq_items=None, order=10, actions=None, three=None, hero_img=None):
-    p = {"slug": slug, "parent": "produtos", "order": order, "title": title, "description": desc, "type": "product", "productName": name, "category": category, "hero": "dark",
+    p = {"slug": slug, "parent": "produtos", "order": order, "title": title, "description": desc, "type": "product", "productName": name, "category": category, "hero": "dark", "short": name.split(" - ")[0],
          "kicker": kicker, "h1": h1, "lead": lead, "actions": actions or [("Solicitar demonstração", "/contato/?assunto=" + name), ("Todos os produtos", "/produtos/", "trix-btn--ghost")], "body": body}
     if meta: p["meta"] = meta
     if image: p["image"] = image
@@ -63,7 +63,7 @@ PRONTOW = prod("prontow",
   sec(faq([("O Prontow precisa de instalação?", "Não. É 100% na nuvem: acesse de qualquer lugar, por navegador, sem instalação."), ("O Prontow atende laboratórios?", "Sim. Pedidos médicos, laudos com ciclo de status e resultados online para o paciente consultar pela web, além de faturamento TISS."), ("A IA substitui o médico?", "Não. A sugestão diagnóstica e o preenchimento assistido são ferramentas de apoio; a decisão é sempre do profissional de saúde."), ("Como funciona a assinatura digital?", "Documentos assinados com certificado ICP-Brasil (A1/A3, BirdID/Valid) e validação por QR Code/token.")]), "trix-section--sand"),
   contact_band(),
  ]), "Prontow", "MedicalApplication", meta=["Agenda, prontuário e financeiro", "WhatsApp com IA 24h", "TISS/ANS e telemedicina", "100% na nuvem"], image="images/prontow/agenda.png", order=1,
- actions=[("Solicitar demonstração", "https://wa.me/556132461800?text=Ol%C3%A1!%20Quero%20uma%20demonstra%C3%A7%C3%A3o%20do%20prontow."), ("Ver módulos", "#conteudo-modulos", "trix-btn--ghost")],
+ actions=[("Solicitar demonstração", "https://wa.me/556132461800?text=Ol%C3%A1!%20Quero%20uma%20demonstra%C3%A7%C3%A3o%20do%20prontow."), ("Ver módulos", "#conteudo", "trix-btn--ghost")],
  faq_items=[("O Prontow precisa de instalação?", "Não. É 100% na nuvem, acessível por navegador."), ("O Prontow atende laboratórios?", "Sim, com pedidos, laudos, resultados online e TISS."), ("A IA substitui o médico?", "Não. É uma ferramenta de apoio; a decisão é sempre do profissional.")],
  hero_img=("{{media:images/prontow/prontow_logo.png}}", "Prontow"))
 SAW_BODY = lambda name: "".join([

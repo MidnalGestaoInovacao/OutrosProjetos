@@ -195,11 +195,12 @@ def build_pages():
     for p in ALL_PAGES:
         crumbs = breadcrumb(p, by_slug) if p["slug"] != "home" else [{"name": "Home", "url": "/"}]
         seo = {"title": p["title"], "description": p["description"], "type": p.get("type", "page"), "breadcrumb": crumbs[1:] and crumbs or [], "image": media(p["image"]) if p.get("image") else None}
+        if p.get("canonical"): seo["canonical"] = p["canonical"]
         for k in ("faq", "productName", "category", "serviceName", "serviceType"):
             if p.get(k): seo[k] = p[k]
         body = (hero(p, crumbs) if not p.get("no_hero") else "") + p["body"]
         content = wp_html('<script type="application/json" id="trix-seo">%s</script>\n%s' % (json.dumps(seo, ensure_ascii=False), render(body)))
-        out.append({"slug": p["slug"], "parent": p.get("parent"), "url": p["url"], "title": p["title"], "wp_title": p.get("wp_title", re.sub("<[^>]+>", "", p["h1"])),
+        out.append({"slug": p["slug"], "parent": p.get("parent"), "url": p["url"], "title": p["title"], "wp_title": p.get("wp_title") or p.get("short") or re.sub("<[^>]+>", "", p["h1"]),
                     "content": content, "excerpt": p["description"], "menu_order": p.get("order", 10), "comments": p.get("comments", False), "template": p.get("template", "")})
     return out
 
@@ -209,7 +210,7 @@ def main():
     load_media(media_path)
     for sub in ("blocks", "templates", "pages"): os.makedirs(os.path.join(DIST, sub), exist_ok=True)
     blocks = {"estilos": styles_html(), "cabecalho": header_html(), "rodape": footer_html(), "widgets": widgets_html()}
-    for k, v in blocks.items(): open(os.path.join(DIST, "blocks", k + ".html"), "w", encoding="utf-8").write(wp_html(v))
+    for k, v in blocks.items(): open(os.path.join(DIST, "blocks", k + ".html"), "w", encoding="utf-8").write(wp_html(render(v)))
     for k, v in TEMPLATES.items(): open(os.path.join(DIST, "templates", k + ".html"), "w", encoding="utf-8").write(v)
     json.dump(GLOBAL_STYLES, open(os.path.join(DIST, "global-styles.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     pages = build_pages()

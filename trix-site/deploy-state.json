@@ -5,7 +5,18 @@
   "rodape": 46,
   "widgets": 47
  },
- "pages": {},
+ "pages": {
+  "home": 57,
+  "empresa": 58,
+  "servicos": 59,
+  "produtos": 60,
+  "clientes": 61,
+  "conformidade": 62,
+  "contato": 63,
+  "canal-lgpd": 64,
+  "canal-de-compliance": 65,
+  "fabrica-de-software": 66
+ },
  "templates": {
   "404": true,
   "archive": true,

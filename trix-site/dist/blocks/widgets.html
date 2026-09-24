@@ -28,7 +28,7 @@
   function seo() {
     var node = $('#trix-seo'); var data = {};
     try { data = node ? JSON.parse(node.textContent) : {}; } catch (e) { data = {}; }
-    var head = d.head, origin = location.origin, url = origin + location.pathname;
+    var head = d.head, origin = location.origin, url = origin + (data.canonical || location.pathname);
     var site = CFG.siteName || 'Trix Tecnologia Inteligente';
     function meta(attr, key, val) {
       if (!val) return; var m = head.querySelector('meta[' + attr + '="' + key + '"]');
@@ -55,7 +55,7 @@
     meta('name', 'theme-color', '#F8CD4B');
     meta('name', 'geo.region', 'BR-DF'); meta('name', 'geo.placename', 'Brasília');
     if (CFG.geo) meta('name', 'geo.position', CFG.geo.lat + ';' + CFG.geo.lng);
-    if (!head.querySelector('link[rel="canonical"]')) { var c = d.createElement('link'); c.rel = 'canonical'; c.href = url; head.appendChild(c); }
+    var can = head.querySelector('link[rel="canonical"]'); if (!can) { can = d.createElement('link'); can.rel = 'canonical'; head.appendChild(can); } can.href = url;
     if (CFG.favicon && !head.querySelector('link[rel="icon"]')) { var f = d.createElement('link'); f.rel = 'icon'; f.href = CFG.favicon; head.appendChild(f); var a = d.createElement('link'); a.rel = 'apple-touch-icon'; a.href = CFG.favicon; head.appendChild(a); }
     /* JSON-LD gerado em tempo de execução: sobrevive à migração de domínio */
     var org = {
@@ -288,7 +288,7 @@
     sc.add(new T.AmbientLight(0xffffff, .6)); var pl = new T.PointLight(YEL, 1.2, 120); pl.position.set(10, 12, 20); sc.add(pl);
     var mats = [];
     if (kind === 'network' || kind === 'globe') {
-      var N = kind === 'globe' ? 420 : 260, pos = new Float32Array(N * 3), vel = [], radius = kind === 'globe' ? 9 : 14;
+      var N = kind === 'globe' ? 300 : 240, pos = new Float32Array(N * 3), vel = [], radius = kind === 'globe' ? 9 : 14;
       for (var i = 0; i < N; i++) { var v; if (kind === 'globe') { var u = Math.random(), t = Math.random(), th = 2 * Math.PI * u, ph = Math.acos(2 * t - 1); v = new T.Vector3(radius * Math.sin(ph) * Math.cos(th), radius * Math.sin(ph) * Math.sin(th), radius * Math.cos(ph)); } else v = new T.Vector3((Math.random() - .5) * 2 * radius * 1.6, (Math.random() - .5) * 2 * radius * .9, (Math.random() - .5) * 2 * radius * .6); pos[i * 3] = v.x; pos[i * 3 + 1] = v.y; pos[i * 3 + 2] = v.z; vel.push(new T.Vector3((Math.random() - .5) * .02, (Math.random() - .5) * .02, (Math.random() - .5) * .02)); }
       var geo = new T.BufferGeometry(); geo.setAttribute('position', new T.BufferAttribute(pos, 3));
       var pts = new T.Points(geo, new T.PointsMaterial({ color: YEL, size: kind === 'globe' ? .16 : .22, transparent: true, opacity: .95 })); group.add(pts);
@@ -319,7 +319,7 @@
   /* ---------------- init ---------------- */
   function init() {
     seo(); header(); cookies(); a11y(); fab(); forms(); maps(); effects();
-    if (!reduced) three(); else three();
+    three();
     var idle = w.requestIdleCallback || function (f) { setTimeout(f, 1200); }; idle(function () { vlibras(false); });
   }
   if (d.readyState === 'loading') on(d, 'DOMContentLoaded', init); else init();
