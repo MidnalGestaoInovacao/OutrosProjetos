@@ -164,7 +164,9 @@ body.trix .trix-main > .wp-block-group.trix-section{padding-top:calc(var(--trix-
 .trix-table th{background:var(--trix-gray-900);color:var(--trix-yellow);font-size:.78rem;letter-spacing:1px;text-transform:uppercase}
 .trix-table-wrap{overflow-x:auto}
 /* Prose (políticas) */
-.trix-prose{max-width:860px}
+.trix-prose{max-width:860px;overflow-wrap:anywhere}
+.trix-prose table{display:block;overflow-x:auto;max-width:100%}
+.trix-prose a{word-break:break-all}
 .trix-prose h2{font-size:1.5rem;margin-top:2.2em}
 .trix-prose h3{font-size:1.1rem;margin-top:1.8em;text-transform:none;letter-spacing:0}
 .trix-prose ul,.trix-prose ol{padding-left:1.3em}
