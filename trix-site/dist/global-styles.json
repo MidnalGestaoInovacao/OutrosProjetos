@@ -60,8 +60,11 @@
   },
   "typography": {
    "fontFamily": "var:preset|font-family|open-sans",
-   "fontSize": "17px",
+   "fontSize": "1.0625rem",
    "lineHeight": "1.65"
+  },
+  "spacing": {
+   "blockGap": "0"
   },
   "elements": {
    "link": {

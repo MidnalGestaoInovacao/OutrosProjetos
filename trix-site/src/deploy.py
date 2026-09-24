@@ -10,6 +10,13 @@ from wpmcp import call, MCPError
 STATE_F = os.path.join(ROOT, "deploy-state.json")
 state = json.load(open(STATE_F)) if os.path.exists(STATE_F) else {"blocks": {}, "pages": {}, "templates": {}}
 state.setdefault("hashes", {})
+# o estado é específico de um site: abortar se WPMCP_URL apontar para outro host
+import urllib.parse
+from wpmcp import URL as _URL
+_host = urllib.parse.urlsplit(_URL).hostname
+if state.get("site") and state["site"] != _host:
+    sys.exit("deploy-state.json pertence a %s, mas WPMCP_URL aponta para %s. Use outro arquivo de estado (apague/renomeie deploy-state.json)." % (state["site"], _host))
+state["site"] = _host
 def save(): json.dump(state, open(STATE_F, "w"), indent=1, ensure_ascii=False)
 def log(*a): print(time.strftime("%H:%M:%S"), *a, flush=True)
 BLOCK_TITLES = {"estilos": "Trix • Estilos (CSS e configuração)", "cabecalho": "Trix • Cabeçalho (megamenu)", "rodape": "Trix • Rodapé", "widgets": "Trix • Widgets (cookies, acessibilidade, contatos, scripts)"}
@@ -100,22 +107,23 @@ def deploy_templates():
             r = call("wp_update_template", {"template_id": tid, "content": content}); log("template updated", tid); state["templates"][slug] = True; save()
         except MCPError as e: log("template ERROR", tid, str(e)[:200])
 
-def cleanup():
-    """Remove páginas de teste, padrão do WordPress e duplicatas/órfãs (não geradas por dist/ ou fora do estado)."""
+def cleanup(force_delete=False):
+    """Remove páginas de teste, as páginas padrão do WordPress e DUPLICATAS reais (slug gerado com sufixo -2, -3… de uma página de dist/).
+    Páginas criadas manualmente no painel são preservadas. Sem --force, as remoções vão para a lixeira."""
     ex = existing_pages()
     wanted = {f[:-5] for f in os.listdir(os.path.join(DIST, "pages"))}
     keep_ids = set(state["pages"].values())
     for slug, p in ex.items():
-        dup = (slug not in wanted) or (p["id"] not in keep_ids)
+        base = re.sub(r"-\d+$", "", slug)
+        dup = base in wanted and slug != base and p["id"] not in keep_ids
         if slug.startswith("teste-") or slug in ("sample-page", "privacy-policy") or dup:
-            try: call("wp_delete_page", {"page_id": p["id"], "force": True}); log("deleted", slug, p["id"])
+            try: call("wp_delete_page", {"page_id": p["id"], "force": force_delete}); log("removed", slug, p["id"], "(permanente)" if force_delete else "(lixeira)")
             except MCPError as e: log("delete ERROR", slug, str(e)[:120])
-    # blocos duplicados (mesmo título, id diferente do estado)
     try:
         r = call("wp_list_blocks", {"per_page": 100}); keep = set(state["blocks"].values())
         for b in r.get("blocks", r.get("items", [])):
             if b.get("title", "") in BLOCK_TITLES.values() and b["id"] not in keep:
-                call("wp_delete_block", {"block_id": b["id"], "force": True}); log("deleted duplicate block", b["id"], b.get("title"))
+                call("wp_delete_block", {"block_id": b["id"], "force": force_delete}); log("removed duplicate block", b["id"], b.get("title"))
     except MCPError as e: log("block cleanup ERROR", str(e)[:120])
 
 if __name__ == "__main__":
@@ -125,5 +133,5 @@ if __name__ == "__main__":
     if only in ("all", "styles"): deploy_styles()
     if only in ("all", "pages"): deploy_pages(pages_only, create_only="--create-only" in sys.argv)
     if only in ("all", "templates"): deploy_templates()
-    if only in ("cleanup",): cleanup()
+    if only in ("cleanup",): cleanup(force_delete="--force" in sys.argv)
     log("done")

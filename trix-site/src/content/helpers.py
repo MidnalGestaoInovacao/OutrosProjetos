@@ -20,7 +20,10 @@ def feature(title, text, img, alt, rev=False, kicker="", extra="", plain=False):
     return ('<div class="trix-feature%s trix-reveal"><div class="trix-feature__media%s"><img src="%s" alt="%s" loading="lazy" decoding="async"></div><div>%s<h3>%s</h3>%s%s</div></div>'
             % (" trix-feature--rev" if rev else "", " trix-feature__media--plain" if plain else "", img, _h.escape(alt), ('<span class="trix-kicker">%s</span>' % kicker) if kicker else "", title, text, extra))
 def stats(items):
-    return '<div class="trix-stats trix-reveal">' + "".join('<div class="trix-stat"><span class="trix-stat__n"><strong data-count="%s" data-suffix="%s">%s%s</strong></span><span class="trix-stat__l">%s</span></div>' % (n, s, n, s, l) for n, s, l in items) + '</div>'
+    def one(n, s, l):
+        anim = ' data-count="%s" data-suffix="%s"' % (n, s) if str(n).replace(".", "", 1).isdigit() else ""
+        return '<div class="trix-stat"><span class="trix-stat__n"><strong%s>%s%s</strong></span><span class="trix-stat__l">%s</span></div>' % (anim, n, s, l)
+    return '<div class="trix-stats trix-reveal">' + "".join(one(n, s, l) for n, s, l in items) + '</div>'
 def cta(title, text, primary=("Fale com um consultor", "/contato/"), secondary=None):
     btns = '<a class="trix-btn trix-btn--primary" href="%s">%s</a>' % (primary[1], primary[0])
     if secondary: btns += '<a class="trix-btn trix-btn--ghost" href="%s">%s</a>' % (secondary[1], secondary[0])

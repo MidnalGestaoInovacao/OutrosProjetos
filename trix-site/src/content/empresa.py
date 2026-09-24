@@ -1,8 +1,8 @@
 from .helpers import *
 EMPRESA = {
  "slug": "empresa", "order": 1, "short": "A Trix",
- "title": "A Trix | Empresa de tecnologia em Brasília desde 2009 — história, missão e valores",
- "description": "Conheça a Trix Tecnologia Inteligente: empresa de Brasília fundada em 2009, especialista em software sob medida, conectividade em saúde suplementar, consultoria, IA e governança com LGPD e compliance. Missão, visão, valores, comitês e diferenciais.",
+ "title": "A Trix: tecnologia inteligente em Brasília desde 2009",
+ "description": "Conheça a Trix TI: fundada em 2009, especialista em software sob medida, conectividade em saúde suplementar, consultoria e IA, com governança, LGPD e compliance.",
  "image": "images/02.jpg", "type": "about", "hero": "dark", "three": "cubes",
  "kicker": "Sobre a Trix", "h1": "Uma empresa dinâmica, <strong>focada em resultado</strong>",
  "lead": "Desde 10 de julho de 2009, a Trix Tecnologia Inteligente cria produtos e serviços para os diversos segmentos do mercado. De uma maneira diferenciada, provemos soluções adaptáveis e escaláveis, de acordo com as tendências da atual indústria tecnológica.",
@@ -22,17 +22,17 @@ EMPRESA = {
    + steps([
      ("2009", "Fundação em Brasília", "A Trix Tecnologia Inteligente nasce em 10 de julho de 2009 com foco em desenvolvimento de software e serviços de TI. No mesmo ano, a Intranet Trix vence o Prêmio Unimed de Comunicação na categoria até 30 mil beneficiários."),
      ("2010", "Bicampeã do Prêmio Unimed de Comunicação", "Pelo segundo ano consecutivo, a Intranet Trix recebe o troféu “Alberto Urquiza Wanderley” (6º Prêmio Unimed de Comunicação), agora na categoria de cooperativas com 40 a 100 mil beneficiários, durante a 40ª Convenção Nacional Unimed, em Goiânia."),
-     ("2010–2019", "Conectividade em saúde suplementar", "SAW, Portal Operadora, Integrador e GEDAI consolidam a Trix como parceira de operadoras, Unimeds, RHs e autogestões em saúde em todo o país, com certificação PTU para intercâmbio e faturamento eletrônico TISS."),
-     ("2020", "Programa de conformidade e LGPD", "Publicação da Política de Privacidade (28/09/2020), nomeação do Encarregado (DPO), criação dos comitês de Compliance, Proteção de Dados e Segurança e Qualidade, e lançamento da Trix Academy."),
-     ("2022", "1º Webinário de Conectividade em Saúde Suplementar", "Novidades da plataforma de conectividade: nova TISS, censo hospitalar, novo app de beneficiários, autorização e elegibilidade e racionalização do Rol Unimed/Intercâmbio."),
-     ("2024", "Nova estrutura societária", "Ingresso da Trix Participações e Investimentos S.A. no quadro societário, reforçando a capacidade de investimento em produtos e inovação."),
-     ("2025–2026", "Inteligência artificial e novos produtos", "Prontow com agendamento por WhatsApp e sugestão diagnóstica por IA, Aspect Face com serviço antifraude, Xield para controle de acesso e automação, e adesão ao Oracle PartnerNetwork."),
+     ("Década de 2010", "Conectividade em saúde suplementar", "SAW, Portal Operadora, Integrador e GEDAI consolidam a Trix como parceira de operadoras, Unimeds, RHs e autogestões em saúde em todo o país, com certificação PTU para intercâmbio e faturamento eletrônico TISS."),
+     ("2020", "Política de Privacidade e programa de proteção de dados", "Publicação da Política de Privacidade (28/09/2020). O Portal de Proteção de Dados apresenta o Encarregado (DPO), os comitês de Compliance, Proteção de Dados e Segurança e Qualidade e a plataforma Trix Academy."),
+     ("2022", "1º Webinário de Conectividade em Saúde Suplementar", "Em março de 2022: nova TISS, censo hospitalar, novo app de beneficiários, autorização e elegibilidade e racionalização do Rol Unimed/Intercâmbio."),
+     ("2024", "Nova estrutura societária", "Em janeiro de 2024, ingresso da Trix Participações e Investimentos S.A. no quadro societário da empresa."),
+     ("Hoje", "Inteligência artificial e novos produtos", "Prontow com agendamento por WhatsApp e sugestão diagnóstica por IA, Aspect Face com serviço antifraude, Xield para controle de acesso e automação, e participação no Oracle PartnerNetwork."),
    ])),
   sec(head("Diferenciais", "Por que empresas escolhem a <strong>Trix</strong>", "", True)
    + cards([
      {"icon": "code", "title": "Metodologia própria (PROTRIX e MTRIX)", "text": "Processo de software maduro, com responsabilidades, atividades e interações definidas, e escritório de processos que aplica BPM e governança aos produtos."},
      {"icon": "stethoscope", "title": "Especialistas em saúde suplementar", "text": "Domínio profundo de TISS, PTU, auditoria médica, intercâmbio, elegibilidade e faturamento. Falamos a língua das operadoras e dos prestadores."},
-     {"icon": "brain", "title": "IA aplicada a problemas reais", "text": "Antifraude facial, sugestão diagnóstica, agendamento conversacional e gestão de saúde populacional — sempre com o humano no controle."},
+     {"icon": "brain", "title": "IA aplicada a problemas reais", "text": "Antifraude facial, sugestão diagnóstica e agendamento conversacional por WhatsApp — sempre com o humano no controle."},
      {"icon": "shield", "title": "Governança e conformidade", "text": "Comitês ativos, DPO nomeado, código de conduta, políticas públicas e canais de denúncia. Segurança e privacidade por padrão em tudo que entregamos."},
      {"icon": "cloud", "title": "Ecossistema Oracle", "text": "Membro do Oracle PartnerNetwork (OPN), unindo expertise em conectividade e saúde à solidez das soluções Oracle em nuvem, banco de dados e integração."},
      {"icon": "clock", "title": "Atendimento ágil", "text": "Suporte de segunda a sexta das 07h30 às 19h30, call-back gratuito, central de atendimento e treinamento contínuo. Atendimento ágil também é uma marca da Trix."},
@@ -44,15 +44,15 @@ EMPRESA = {
      {"icon": "cpu", "title": "Comitê de Segurança e Qualidade", "text": "Security Officer: Sanclé Landim Albuquerque. Patrocinadores: Marcos Soares de Sousa, Daniel Rodrigo da Silva e Nádia Regina. Canal: seguranca@trixti.com.br.", "url": "/conformidade/seguranca-da-informacao/", "cta": "Política de segurança"},
    ], 3, dark=True)),
   sec('<div class="trix-split"><div class="trix-reveal"><span class="trix-kicker">Dados institucionais</span><h2>Transparência <strong>em primeiro lugar</strong></h2>'
-      + table(["Item", "Informação"], [["Razão social", "Trix Tecnologia Inteligente Ltda"], ["Nome fantasia", "Trix TI"], ["CNPJ", "11.010.095/0001-40"], ["Fundação", "10 de julho de 2009"], ["Natureza jurídica", "Sociedade Empresária Limitada"], ["Atividade principal", "Desenvolvimento e licenciamento de programas de computador (CNAE 62.03-1-00)"], ["Atividades secundárias", "Suporte técnico e manutenção em TI (62.09-1-00) · Atividades de apoio à gestão de saúde (86.60-7-00)"], ["Administração", "Marcos Soares de Souza (administrador) · Trix Participações e Investimentos S.A. (sócia)"], ["Matriz", "Edifício Capital Financial Center, SIG Quadra 4, Lote 75, Bloco A, Sala 15 — Brasília/DF, CEP 70610-440"], ["Escritório", "Alameda Santos, 1165 — Cerqueira César, São Paulo/SP, CEP 01419-002"]])
+      + table(["Item", "Informação"], [["Razão social", "Trix Tecnologia Inteligente Ltda"], ["Nome fantasia", "Trix TI"], ["CNPJ", "11.010.095/0001-40"], ["Fundação", "10 de julho de 2009"], ["Natureza jurídica", "Sociedade Empresária Limitada"], ["Atividade principal", "Desenvolvimento e licenciamento de programas de computador (CNAE 62.03-1-00)"], ["Atividades secundárias", "Suporte técnico e manutenção em TI (62.09-1-00) · Atividades de apoio à gestão de saúde (86.60-7-00)"], ["Administração", "Marcos Soares de Sousa (administrador; grafia no cadastro da Receita Federal: Souza) · Trix Participações e Investimentos S.A. (sócia desde 31/01/2024)"], ["Matriz", "Edifício Capital Financial Center, SIG Quadra 4, Lote 75, Bloco A, Sala 15 — Brasília/DF, CEP 70610-440"], ["Escritório", "Alameda Santos, 1165 — Cerqueira César, São Paulo/SP, CEP 01419-002"]])
       + '</div><div class="trix-reveal"><div class="trix-card trix-card--yellow"><div class="trix-card__icon">{{icon:graduation}}</div><h3>Trix Academy</h3><p>Plataforma de treinamentos para clientes, parceiros e fornecedores: integração, LGPD, código de conduta, políticas e uso dos sistemas. Parceiros, fornecedores e clientes devem estar preparados para a LGPD.</p><a class="trix-card__link" href="http://academy.trixti.com.br/" target="_blank" rel="noopener">Acessar a Trix Academy</a></div><div style="height:18px"></div><div class="trix-card trix-card--dark"><div class="trix-card__icon">{{icon:map}}</div><h3>Como chegar</h3><p>Estamos no Setor de Indústrias Gráficas (SIG), a poucos minutos do centro de Brasília. Veja o mapa, rotas e horários na página de contato.</p><a class="trix-card__link" href="/contato/#como-chegar">Ver mapa e rotas</a></div></div></div>', "trix-section--sand"),
   contact_band(),
  ]),
 }
 EVENTOS = {
  "slug": "eventos", "parent": "empresa", "order": 5, "short": "Eventos e Academy",
- "title": "Eventos e Trix Academy | Webinário de Conectividade em Saúde Suplementar",
- "description": "Webinários, treinamentos e capacitação da Trix TI: 1º Webinário de Conectividade em Saúde Suplementar (nova TISS, censo hospitalar, app de beneficiários, autorização e elegibilidade) e plataforma Trix Academy.",
+ "title": "Eventos e Trix Academy | Trix TI",
+ "description": "Webinário de Conectividade em Saúde Suplementar (nova TISS, censo hospitalar, app de beneficiários) e a plataforma de treinamentos Trix Academy.",
  "image": "images/02.jpg", "hero": "dark", "three": "cubes",
  "kicker": "Conhecimento compartilhado", "h1": "Eventos e <strong>Trix Academy</strong>",
  "lead": "Acreditamos que tecnologia só gera valor quando as pessoas sabem usá-la. Por isso promovemos webinários, treinamentos e programas de capacitação para operadoras, prestadores, parceiros e colaboradores.",
@@ -77,8 +77,8 @@ EVENTOS = {
 UNIMED = ["70.png","40.png","41.png","42.png","43.png","45.png","46.png","47.png","49.png","unimed-curitiba.jpg","50.png","51.png","52.png","53.png","55.png","56.png","57.png","58.png","59.png","61.png","62.png","unimed-sao-joao.jpg","unimed-serra-minas.jpg","65.png","66.png","67.png","unimed-uba.jpg","69.png","71.png"]
 CLIENTES = {
  "slug": "clientes", "order": 4, "short": "Clientes",
- "title": "Clientes | Operadoras de saúde, Unimeds, RHs, clínicas e laboratórios atendidos pela Trix",
- "description": "Mais de 35 operadoras de saúde, Unimeds, RHs e autogestões em todo o Brasil confiam na Trix TI. Também atendemos profissionais médicos, consultórios, clínicas, CTMs e laboratórios com software especializado.",
+ "title": "Clientes: operadoras, Unimeds, clínicas e laboratórios | Trix TI",
+ "description": "Mais de 35 operadoras de saúde, Unimeds, RHs e autogestões confiam na Trix TI, que também atende médicos, clínicas e laboratórios em todo o Brasil.",
  "image": "images/desenvolvimento.jpg", "hero": "dark", "three": "globe",
  "kicker": "Clientes", "h1": "Desenvolver software é a <strong>nossa maior força</strong>",
  "lead": "Para você que quer ser cliente, saiba: entre em contato e nos conheça melhor. Descubra o nível de satisfação dos nossos clientes e por que operadoras de saúde de todo o Brasil escolheram a Trix como parceira tecnológica.",

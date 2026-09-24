@@ -3,238 +3,238 @@
   "slug": "home",
   "parent": null,
   "url": "/",
-  "title": "Trix Tecnologia Inteligente | Software sob medida, conectividade em saúde e IA",
+  "title": "Trix TI: software sob medida, conectividade em saúde e IA",
   "menu_order": -1000
  },
  {
   "slug": "empresa",
   "parent": null,
   "url": "/empresa/",
-  "title": "A Trix | Empresa de tecnologia em Brasília desde 2009 — história, missão e valores",
+  "title": "A Trix: tecnologia inteligente em Brasília desde 2009",
   "menu_order": 1
  },
  {
   "slug": "eventos",
   "parent": "empresa",
   "url": "/empresa/eventos/",
-  "title": "Eventos e Trix Academy | Webinário de Conectividade em Saúde Suplementar",
+  "title": "Eventos e Trix Academy | Trix TI",
   "menu_order": 5
  },
  {
   "slug": "clientes",
   "parent": null,
   "url": "/clientes/",
-  "title": "Clientes | Operadoras de saúde, Unimeds, RHs, clínicas e laboratórios atendidos pela Trix",
+  "title": "Clientes: operadoras, Unimeds, clínicas e laboratórios | Trix TI",
   "menu_order": 4
  },
  {
   "slug": "servicos",
   "parent": null,
   "url": "/servicos/",
-  "title": "Serviços de TI | Fábrica de software, conectividade em saúde, consultoria e processos",
+  "title": "Serviços de TI: software, conectividade e consultoria | Trix TI",
   "menu_order": 2
  },
  {
   "slug": "fabrica-de-software",
   "parent": "servicos",
   "url": "/servicos/fabrica-de-software/",
-  "title": "Fábrica de Software em Brasília | Metodologia PROTRIX — desenvolvimento sob medida",
+  "title": "Fábrica de software com metodologia PROTRIX | Trix TI",
   "menu_order": 1
  },
  {
   "slug": "conectividade-em-saude",
   "parent": "servicos",
   "url": "/servicos/conectividade-em-saude/",
-  "title": "Conectividade em Saúde Suplementar | Elegibilidade, TISS, faturamento e suporte a prestadores",
+  "title": "Conectividade em saúde suplementar | Trix TI",
   "menu_order": 2
  },
  {
   "slug": "consultoria",
   "parent": "servicos",
   "url": "/servicos/consultoria/",
-  "title": "Consultoria em TI | Outsourcing, segurança da informação, APF e processos de negócio",
+  "title": "Consultoria em TI: outsourcing, segurança e APF | Trix TI",
   "menu_order": 3
  },
  {
   "slug": "escritorio-de-processos",
   "parent": "servicos",
   "url": "/servicos/escritorio-de-processos/",
-  "title": "Escritório de Processos | BPM, governança e metodologia MTRIX",
+  "title": "Escritório de Processos: BPM e metodologia MTRIX | Trix TI",
   "menu_order": 4
  },
  {
   "slug": "solucoes-e-automacao",
   "parent": "servicos",
   "url": "/servicos/solucoes-e-automacao/",
-  "title": "Soluções e Automação | Gestão de demandas, projetos, qualidade, e-commerce e monitoramento",
+  "title": "Soluções e automação de processos | Trix TI",
   "menu_order": 5
  },
  {
   "slug": "agenda-medica",
   "parent": "servicos",
   "url": "/servicos/agenda-medica/",
-  "title": "Agenda Médica | Central de atendimento para consultórios e clínicas — Trix TI",
+  "title": "Agenda Médica: central de atendimento para clínicas | Trix TI",
   "menu_order": 6
  },
  {
   "slug": "oracle-partner",
   "parent": "servicos",
   "url": "/servicos/oracle-partner/",
-  "title": "Oracle Partner | Trix TI é membro do Oracle PartnerNetwork (OPN) — cloud, banco de dados e integração",
+  "title": "Oracle Partner: cloud, banco de dados e integração | Trix TI",
   "menu_order": 7
  },
  {
   "slug": "produtos",
   "parent": null,
   "url": "/produtos/",
-  "title": "Produtos | Prontow, SAW, Portal Operadora, Aspect Face, Xield, GEDAI, Integrador e Intranet",
+  "title": "Produtos: Prontow, SAW, Aspect Face, Xield e mais | Trix TI",
   "menu_order": 3
  },
  {
   "slug": "prontow",
   "parent": "produtos",
   "url": "/produtos/prontow/",
-  "title": "Prontow — Software com IA para Clínicas, Consultórios e Laboratórios | Trix",
+  "title": "Prontow: software com IA para clínicas e laboratórios",
   "menu_order": 1
  },
  {
   "slug": "saw",
   "parent": "produtos",
   "url": "/produtos/saw/",
-  "title": "SAW — Sistema de Atendimento Web para operadoras de saúde | Auditoria, intercâmbio PTU e TISS",
+  "title": "SAW: Sistema de Atendimento Web para operadoras | Trix TI",
   "menu_order": 2
  },
  {
   "slug": "portal-operadora",
   "parent": "produtos",
   "url": "/produtos/portal-operadora/",
-  "title": "Portal Operadora | Atendimento integrado para cooperativas e operadoras de saúde",
+  "title": "Portal Operadora: atendimento integrado para cooperativas | Trix TI",
   "menu_order": 3
  },
  {
   "slug": "aspect-face",
   "parent": "produtos",
   "url": "/produtos/aspect-face/",
-  "title": "Aspect Face — API de reconhecimento facial com antifraude e prova de vida | Trix",
+  "title": "Aspect Face: reconhecimento facial com antifraude | Trix TI",
   "menu_order": 4
  },
  {
   "slug": "xield",
   "parent": "produtos",
   "url": "/produtos/xield/",
-  "title": "Xield — Segurança e automação inteligente com reconhecimento facial | Trix",
+  "title": "Xield: controle de acesso e automação com biometria facial",
   "menu_order": 5
  },
  {
   "slug": "gedai",
   "parent": "produtos",
   "url": "/produtos/gedai/",
-  "title": "GEDAI — Gerenciador Eletrônico de Documentos e Arquivo Inteligente (GED/ECM) | Trix",
+  "title": "GEDAI: gestão eletrônica de documentos (GED/ECM) | Trix TI",
   "menu_order": 6
  },
  {
   "slug": "integrador",
   "parent": "produtos",
   "url": "/produtos/integrador/",
-  "title": "Integrador — Integração de sistemas e bases de dados heterogêneas em tempo real | Trix",
+  "title": "Integrador: integração de sistemas em tempo real | Trix TI",
   "menu_order": 7
  },
  {
   "slug": "intranet",
   "parent": "produtos",
   "url": "/produtos/intranet/",
-  "title": "Intranet Trix — Comunicação interna premiada (Prêmio Unimed de Comunicação) | Trix",
+  "title": "Intranet Trix: comunicação interna premiada | Trix TI",
   "menu_order": 8
  },
  {
   "slug": "conformidade",
   "parent": null,
   "url": "/conformidade/",
-  "title": "Central de Conformidade | Missão, valores, política integrada, LGPD, compliance, segurança, ESG e IA",
+  "title": "Central de Conformidade: LGPD, compliance, ESG e IA | Trix TI",
   "menu_order": 6
  },
  {
   "slug": "lgpd",
   "parent": "conformidade",
   "url": "/conformidade/lgpd/",
-  "title": "Portal de Proteção de Dados | Como a Trix trata dados de usuários, colaboradores e fornecedores (LGPD)",
+  "title": "Portal de Proteção de Dados (LGPD) | Trix TI",
   "menu_order": 1
  },
  {
   "slug": "politica-de-privacidade",
   "parent": "conformidade",
   "url": "/conformidade/politica-de-privacidade/",
-  "title": "Política de Privacidade e Proteção de Dados | Trix Tecnologia Inteligente (versão 28/09/2020)",
+  "title": "Política de Privacidade | Trix Tecnologia Inteligente",
   "menu_order": 2
  },
  {
   "slug": "compliance",
   "parent": "conformidade",
   "url": "/conformidade/compliance/",
-  "title": "Programa de Compliance | Integridade, anticorrupção e Código de Conduta da Trix TI",
+  "title": "Programa de Compliance e integridade | Trix TI",
   "menu_order": 3
  },
  {
   "slug": "codigo-de-conduta",
   "parent": "conformidade",
   "url": "/conformidade/codigo-de-conduta/",
-  "title": "Código de Conduta da Empresa | Trix Tecnologia Inteligente — texto integral",
+  "title": "Código de Conduta da Empresa | Trix TI",
   "menu_order": 4
  },
  {
   "slug": "seguranca-da-informacao",
   "parent": "conformidade",
   "url": "/conformidade/seguranca-da-informacao/",
-  "title": "Política de Segurança da Informação | Trix Tecnologia Inteligente",
+  "title": "Política de Segurança da Informação | Trix TI",
   "menu_order": 5
  },
  {
   "slug": "cookies",
   "parent": "conformidade",
   "url": "/conformidade/cookies/",
-  "title": "Política de Cookies | Cookies e armazenamento local utilizados no portal Trix",
+  "title": "Política de Cookies | Trix TI",
   "menu_order": 6
  },
  {
   "slug": "glossario-lgpd",
   "parent": "conformidade",
   "url": "/conformidade/glossario-lgpd/",
-  "title": "Glossário LGPD | Termos de proteção de dados e dos sistemas Trix (SAW, telemedicina, usuários)",
+  "title": "Glossário LGPD e dos sistemas Trix | Trix TI",
   "menu_order": 7
  },
  {
   "slug": "esg",
   "parent": "conformidade",
   "url": "/conformidade/esg/",
-  "title": "Política ESG | Compromissos ambientais, sociais e de governança da Trix TI",
+  "title": "Política ESG | Trix TI",
   "menu_order": 8
  },
  {
   "slug": "inteligencia-artificial",
   "parent": "conformidade",
   "url": "/conformidade/inteligencia-artificial/",
-  "title": "Política de Inteligência Artificial Responsável | Trix Tecnologia Inteligente",
+  "title": "Política de IA responsável | Trix TI",
   "menu_order": 9
  },
  {
   "slug": "contato",
   "parent": null,
   "url": "/contato/",
-  "title": "Contato | Fale com a Trix TI — Brasília (61) 3403-5353 e São Paulo (11) 3014-3220",
+  "title": "Contato: fale com a Trix TI em Brasília e São Paulo",
   "menu_order": 7
  },
  {
   "slug": "canal-lgpd",
   "parent": null,
   "url": "/canal-lgpd/",
-  "title": "Canal LGPD | Exerça seus direitos de titular de dados — DPO da Trix TI",
+  "title": "Canal LGPD: direitos do titular de dados | Trix TI",
   "menu_order": 8
  },
  {
   "slug": "canal-de-compliance",
   "parent": null,
   "url": "/canal-de-compliance/",
-  "title": "Canal de Compliance e Ouvidoria | Denúncias, dúvidas, sugestões e elogios — Trix TI",
+  "title": "Canal de Compliance e Ouvidoria | Trix TI",
   "menu_order": 9
  }
 ]

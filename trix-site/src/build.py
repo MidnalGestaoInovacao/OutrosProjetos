@@ -18,9 +18,13 @@ def load_media(path):
     global MEDIA_MAP
     if path and os.path.exists(path): MEDIA_MAP = json.load(open(path))
 IMG_DIR = os.environ.get("TRIX_IMG_DIR", "/tmp/claude-0/-home-user-OutrosProjetos/c6c5b86e-91b8-57fd-9cce-9e053bdb5efc/scratchpad/trix/images")
+MISSING_MEDIA = set()
 def media(key):
+    """URL da mídia na biblioteca do WordPress, sem domínio (sobrevive à migração). Sem mapeamento: usa a URL do site antigo e registra aviso."""
     m = MEDIA_MAP.get(key)
-    return m["url"] if m else "https://trixti.com.br/" + key
+    if m:
+        u = m["url"]; return re.sub(r"^https?://[^/]+", "", u) if "/wp-content/" in u else u
+    MISSING_MEDIA.add(key); return "https://trixti.com.br/" + key
 def data_uri(key):
     """Logo embutida como data URI (sem requisição extra; independente de domínio). Cai para a URL da mídia se o arquivo não existir."""
     path = os.path.join(IMG_DIR, key.split("images/", 1)[1]) if key.startswith("images/") else None
@@ -109,14 +113,14 @@ def widgets_html():
     js = open(os.path.join(HERE, "assets", "trix.js"), encoding="utf-8").read()
     out = [
      # contatos flutuantes
-     '<div class="trix-fab"><ul class="trix-fab__list">'
+     '<div class="trix-fab"><button type="button" class="trix-fab__main" aria-label="Abrir canais de contato" aria-expanded="false">%s</button><ul class="trix-fab__list">' % ICONS["chat"] +
      '<li><a href="%s" target="_blank" rel="noopener"><span>WhatsApp</span><span class="ic ic--wa">%s</span></a></li>' % (s["social"]["whatsapp"], ICONS["whatsapp"]) +
      '<li><a href="mailto:%s"><span>E-mail</span><span class="ic ic--mail">%s</span></a></li>' % (s["email"], ICONS["mail"]) +
      '<li><a href="tel:%s"><span>%s</span><span class="ic ic--tel">%s</span></a></li>' % (s["phone_e164"], s["phone"], ICONS["phone"]) +
      '<li><a href="%s" target="_blank" rel="noopener"><span>Instagram</span><span class="ic ic--ig">%s</span></a></li>' % (s["social"]["instagram"], ICONS["instagram"]) +
      '<li><a href="%s" target="_blank" rel="noopener"><span>LinkedIn</span><span class="ic ic--in">%s</span></a></li>' % (s["social"]["linkedin"], ICONS["linkedin"]) +
      '<li><a href="%s" target="_blank" rel="noopener"><span>Facebook</span><span class="ic ic--fb">%s</span></a></li>' % (s["social"]["facebook"], ICONS["facebook"]) +
-     '</ul><button type="button" class="trix-fab__main" aria-label="Abrir canais de contato" aria-expanded="false">%s</button></div>' % ICONS["chat"],
+     '</ul></div>',
      '<button type="button" class="trix-top" aria-label="Voltar ao topo">%s</button>' % ICONS["arrow-up"],
      # acessibilidade
      '<button type="button" class="trix-a11y-btn" aria-label="Abrir recursos de acessibilidade" aria-expanded="false" aria-controls="trix-a11y">%s</button>' % ICONS["a11y"],
@@ -139,10 +143,10 @@ def widgets_html():
      '<div class="trix-cookie" role="region" aria-label="Aviso de cookies"><div><h3>🍪 Trix e os cookies</h3><p>Utilizamos cookies para oferecer melhor experiência, melhorar o desempenho, analisar como você interage com o site e personalizar conteúdo. Você pode aceitar todos, rejeitar os não essenciais ou personalizar suas preferências. Saiba mais na nossa <a href="/conformidade/politica-de-privacidade/">Política de Privacidade</a> e na <a href="/conformidade/cookies/">Política de Cookies</a>.</p></div>'
      '<div class="trix-cookie__btns"><button type="button" class="trix-btn trix-btn--primary" data-cookie="accept">Aceitar todos</button><button type="button" class="trix-btn trix-btn--ghost" data-cookie="reject">Rejeitar não essenciais</button><button type="button" class="trix-btn trix-btn--dark" data-cookie="custom">Personalizar</button></div></div>',
      '<div class="trix-modal" id="trix-cookie-modal" role="dialog" aria-modal="true" aria-label="Preferências de cookies"><div class="trix-modal__box"><h3>Preferências de cookies <button type="button" data-cookie="close" aria-label="Fechar">×</button></h3><p class="trix-muted" style="font-size:.9rem">Escolha quais categorias de cookies deseja permitir. Cookies estritamente necessários não podem ser desativados, pois garantem o funcionamento do site.</p>'
-     '<div class="trix-cookie-cat"><div><b>Estritamente necessários</b><p>Segurança, preferências de consentimento e de acessibilidade. Sempre ativos.</p></div><label class="trix-switch"><input type="checkbox" checked disabled name="necessary"><span></span></label></div>'
-     '<div class="trix-cookie-cat"><div><b>Funcionais</b><p>Recursos como mapa interativo, vídeos incorporados e tradução em Libras.</p></div><label class="trix-switch"><input type="checkbox" name="functional"><span></span></label></div>'
-     '<div class="trix-cookie-cat"><div><b>Analíticos</b><p>Estatísticas anônimas de navegação (Google Analytics 4) para melhorar o site.</p></div><label class="trix-switch"><input type="checkbox" name="analytics"><span></span></label></div>'
-     '<div class="trix-cookie-cat"><div><b>Marketing</b><p>Medição de campanhas e conteúdo relevante em outras plataformas.</p></div><label class="trix-switch"><input type="checkbox" name="marketing"><span></span></label></div>'
+     '<div class="trix-cookie-cat"><div><b id="cc-necessary">Estritamente necessários</b><p>Segurança, preferências de consentimento e de acessibilidade, fontes (Google Fonts) e biblioteca 3D (cdnjs) — sem cookies de rastreamento. Sempre ativos.</p></div><label class="trix-switch"><input type="checkbox" checked disabled name="necessary" aria-labelledby="cc-necessary"><span></span></label></div>'
+     '<div class="trix-cookie-cat"><div><b id="cc-functional">Funcionais</b><p>Recursos como mapa interativo (Google Maps) e tradução em Libras (VLibras, gov.br), carregados de terceiros.</p></div><label class="trix-switch"><input type="checkbox" name="functional" aria-labelledby="cc-functional"><span></span></label></div>'
+     '<div class="trix-cookie-cat"><div><b id="cc-analytics">Analíticos</b><p>Estatísticas anônimas de navegação (Google Analytics 4) para melhorar o site.</p></div><label class="trix-switch"><input type="checkbox" name="analytics" aria-labelledby="cc-analytics"><span></span></label></div>'
+     '<div class="trix-cookie-cat"><div><b id="cc-marketing">Marketing</b><p>Medição de campanhas e conteúdo relevante em outras plataformas.</p></div><label class="trix-switch"><input type="checkbox" name="marketing" aria-labelledby="cc-marketing"><span></span></label></div>'
      '<div class="trix-actions"><button type="button" class="trix-btn trix-btn--primary" data-cookie="save">Salvar preferências</button><button type="button" class="trix-btn trix-btn--ghost" data-cookie="accept">Aceitar todos</button></div></div></div>',
      # O WordPress converte '&' em '&#038;' ao renderizar o template (mesmo dentro de <script>), o que quebraria o JS.
      # Por isso o script é embutido em base64 e decodificado em tempo de execução (UTF-8).
@@ -173,7 +177,7 @@ GLOBAL_STYLES = {
       {"slug": "trix-areia", "name": "Areia", "color": "#E4E0D6"}, {"slug": "trix-dourado", "name": "Dourado", "color": "#A08E5D"}, {"slug": "trix-branco", "name": "Branco", "color": "#FFFFFF"}]},
     "typography": {"fontFamilies": [{"slug": "open-sans", "name": "Open Sans", "fontFamily": "'Open Sans', system-ui, sans-serif"}]},
     "layout": {"contentSize": "1240px", "wideSize": "1400px"}},
-  "styles": {"color": {"background": "#FAF9F7", "text": "#424346"}, "typography": {"fontFamily": "var:preset|font-family|open-sans", "fontSize": "17px", "lineHeight": "1.65"},
+  "styles": {"color": {"background": "#FAF9F7", "text": "#424346"}, "typography": {"fontFamily": "var:preset|font-family|open-sans", "fontSize": "1.0625rem", "lineHeight": "1.65"}, "spacing": {"blockGap": "0"},
              "elements": {"link": {"color": {"text": "#424346"}}, "heading": {"typography": {"fontFamily": "var:preset|font-family|open-sans"}}},
              "css": ".wp-site-blocks{padding:0}"}
 }
@@ -207,7 +211,11 @@ def build_pages():
         if p.get("canonical"): seo["canonical"] = p["canonical"]
         for k in ("faq", "productName", "category", "serviceName", "serviceType"):
             if p.get(k): seo[k] = p[k]
-        body = render((hero(p, crumbs) if not p.get("no_hero") else "") + p["body"])
+        extra = ""
+        if p.get("faq") and 'class="trix-acc' not in p["body"]:
+            from content.helpers import sec, head, faq as faq_html
+            extra = sec(head("Perguntas frequentes", "Dúvidas <strong>comuns</strong>", "", True) + faq_html([(q["q"], q["a"]) for q in p["faq"]]), "trix-section--sand")
+        body = render((hero(p, crumbs) if not p.get("no_hero") else "") + p["body"] + extra)
         seo["build"] = hashlib.sha1((body + json.dumps(seo, sort_keys=True, ensure_ascii=False)).encode("utf-8")).hexdigest()[:12]
         content = wp_html('<script type="application/json" id="trix-seo">%s</script>\n%s' % (json.dumps(seo, ensure_ascii=False), body))
         out.append({"slug": p["slug"], "parent": p.get("parent"), "url": p["url"], "title": p["title"], "build": seo["build"], "wp_title": p.get("wp_title") or p.get("short") or re.sub("<[^>]+>", "", p["h1"]),
@@ -226,6 +234,7 @@ def main():
     pages = build_pages()
     for p in pages: json.dump(p, open(os.path.join(DIST, "pages", p["slug"] + ".json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     json.dump([{k: p[k] for k in ("slug", "parent", "url", "title", "menu_order")} for p in pages], open(os.path.join(DIST, "pages-index.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    if MISSING_MEDIA: print("AVISO: mídias sem mapeamento (usando URL do site antigo):", sorted(MISSING_MEDIA))
     sizes = {k: len(v) for k, v in blocks.items()}
     print("blocks:", sizes); print("pages:", len(pages), "max page bytes:", max(len(p["content"]) for p in pages))
 if __name__ == "__main__": main()

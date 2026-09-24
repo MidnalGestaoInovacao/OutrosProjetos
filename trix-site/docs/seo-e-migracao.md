@@ -7,6 +7,11 @@
 - Links internos relativos (`/produtos/saw/`), slugs semânticos em português, hierarquia de páginas (`/servicos/…`, `/produtos/…`, `/conformidade/…`), H1 único, headings hierárquicos, alt em imagens, lazy loading, fontes com `display=swap`.
 - Idioma `pt_BR`, título do site e tagline definidos.
 
+## Antes de liberar para indexação (staging)
+- Instalar `wordpress/mu-plugins/trix-site-helpers.php` (tags de SEO no servidor).
+- Manter **"Desencorajar os mecanismos de busca"** ligado em trix.ebaem.com.br até o go-live no domínio definitivo; desligar após a migração.
+- Definir a **página inicial estática = Home** (obrigatório): remove a duplicidade `/` × `/home/` e gera canonical/redirecionamento nativos.
+
 ## Ao migrar para trixti.com.br
 1. **Trocar o endereço do site** em Configurações → Geral (WordPress e URL do site) ou via `wp search-replace` (as páginas usam links relativos; só a biblioteca de mídia tem URLs absolutas do domínio antigo, que o search-replace corrige).
 2. Publicar os **redirecionamentos 301** abaixo no servidor antigo/novo (Apache `.htaccess` ou plugin *Redirection*).

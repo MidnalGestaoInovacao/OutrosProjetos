@@ -1,8 +1,8 @@
 from .helpers import *
 PAGES = [{
  "slug": "home", "order": -1000, "wp_title": "Home", "canonical": "/",
- "title": "Trix Tecnologia Inteligente | Software sob medida, conectividade em saúde e IA",
- "description": "Desde 2009, a Trix TI cria software sob medida, conecta operadoras e prestadores de saúde (TISS) e entrega produtos com inteligência artificial como o Prontow, o SAW e o Aspect Face. Brasília e São Paulo, atendimento em todo o Brasil.",
+ "title": "Trix TI: software sob medida, conectividade em saúde e IA",
+ "description": "Desde 2009 a Trix TI cria software sob medida, conecta operadoras e prestadores de saúde (TISS) e entrega produtos com IA como Prontow e Aspect Face, além do SAW.",
  "image": "images/02.jpg", "type": "about", "hero": "dark", "hero_short": False, "three": "network",
  "kicker": "Tecnologia inteligente desde 2009",
  "h1": "Software sob medida <strong>para o seu negócio</strong>",
@@ -38,7 +38,7 @@ PAGES = [{
    + '<div class="trix-actions" style="justify-content:center"><a class="trix-btn trix-btn--dark" href="/produtos/">Ver todos os produtos</a></div>', "", "produtos"),
   sec('<div class="trix-split">'
       + '<div class="trix-reveal"><span class="trix-kicker">Saúde suplementar</span><h2>Conectando <strong>operadoras e prestadores</strong> com segurança</h2><p class="lead">Nossos sistemas operam no coração do atendimento a beneficiários: elegibilidade com biometria, autorização, auditoria, intercâmbio e faturamento no padrão TISS da ANS.</p>'
-      + checks(["SAW certificado no PTU 3.5 para intercâmbio nacional", "Faturamento eletrônico para prestadores com ou sem sistema próprio", "Suporte de segunda a sexta, das 07h30 às 19h30, com call-back gratuito", "Central de atendimento, treinamento e reciclagem contínua"])
+      + checks(["SAW certificado no PTU 3.5 (Protocolo de Transações Unimed) para intercâmbio nacional", "Faturamento eletrônico para prestadores com ou sem sistema próprio", "Suporte de segunda a sexta, das 07h30 às 19h30, com call-back gratuito", "Central de atendimento, treinamento e reciclagem contínua"])
       + '<div class="trix-actions"><a class="trix-btn trix-btn--primary" href="/servicos/conectividade-em-saude/">Conectividade em saúde</a><a class="trix-btn trix-btn--ghost" href="/produtos/saw/">Conhecer o SAW</a></div></div>'
       + '<div class="trix-feature__media trix-feature__media--plain trix-reveal"><img src="{{media:images/30.png}}" alt="Sistema de Atendimento Web (SAW)" loading="lazy"></div></div>', "trix-section--dark"),
   sec(head("Empresa", "Missão, <strong>visão</strong> e valores", "", True)

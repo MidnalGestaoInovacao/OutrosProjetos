@@ -22,16 +22,18 @@
     var head = d.head, origin = location.origin, url = origin + (data.canonical || location.pathname);
     var site = CFG.siteName || 'Trix Tecnologia Inteligente';
     function meta(attr, key, val) {
-      if (!val) return; var m = head.querySelector('meta[' + attr + '="' + key + '"]');
+      if (!val || serverSeo) return; var m = head.querySelector('meta[' + attr + '="' + key + '"]');
       if (!m) { m = d.createElement('meta'); m.setAttribute(attr, key); head.appendChild(m); }
       m.setAttribute('content', val);
     }
+    var serverSeo = !!w.TRIX_SERVER_SEO; /* mu-plugin já emitiu title/meta/canonical no servidor */
     var title = data.title || d.title;
-    if (data.title) d.title = data.title;
+    if (data.title && !serverSeo) d.title = data.title;
     var desc = data.description || CFG.defaultDescription || '';
-    var img = data.image || CFG.defaultImage || '';
+    var abs = function (u) { return u && u.charAt(0) === '/' ? origin + u : u; };
+    var img = abs(data.image || CFG.defaultImage || ''), logo = abs(CFG.logo);
     meta('name', 'description', desc);
-    meta('name', 'robots', data.robots || 'index, follow, max-image-preview:large');
+    if (data.robots) meta('name', 'robots', data.robots);
     meta('property', 'og:site_name', site);
     meta('property', 'og:type', data.type === 'product' ? 'product' : 'website');
     meta('property', 'og:title', title);
@@ -46,12 +48,12 @@
     meta('name', 'theme-color', '#F8CD4B');
     meta('name', 'geo.region', 'BR-DF'); meta('name', 'geo.placename', 'Brasília');
     if (CFG.geo) meta('name', 'geo.position', CFG.geo.lat + ';' + CFG.geo.lng);
-    var can = head.querySelector('link[rel="canonical"]'); if (!can) { can = d.createElement('link'); can.rel = 'canonical'; head.appendChild(can); } can.href = url;
+    if (!serverSeo) { var can = head.querySelector('link[rel="canonical"]'); if (!can) { can = d.createElement('link'); can.rel = 'canonical'; head.appendChild(can); } can.href = url; }
     if (CFG.favicon && !head.querySelector('link[rel="icon"]')) { var f = d.createElement('link'); f.rel = 'icon'; f.href = CFG.favicon; head.appendChild(f); var a = d.createElement('link'); a.rel = 'apple-touch-icon'; a.href = CFG.favicon; head.appendChild(a); }
     /* JSON-LD gerado em tempo de execução: sobrevive à migração de domínio */
     var org = {
       '@type': ['Organization', 'LocalBusiness', 'ProfessionalService'], '@id': origin + '/#organization', name: site, legalName: 'Trix Tecnologia Inteligente Ltda', alternateName: 'Trix TI',
-      url: origin + '/', logo: CFG.logo, image: img || CFG.logo, foundingDate: '2009-07-10', taxID: '11.010.095/0001-40', vatID: '11.010.095/0001-40',
+      url: origin + '/', logo: logo, image: img || logo, foundingDate: '2009-07-10', taxID: '11.010.095/0001-40', vatID: '11.010.095/0001-40',
       telephone: CFG.phone, email: CFG.email, priceRange: '$$',
       address: { '@type': 'PostalAddress', streetAddress: 'SIG Quadra 4, Lote 75, Bloco A, Sala 15 – Edifício Capital Financial Center', addressLocality: 'Brasília', addressRegion: 'DF', postalCode: '70610-440', addressCountry: 'BR' },
       geo: CFG.geo ? { '@type': 'GeoCoordinates', latitude: CFG.geo.lat, longitude: CFG.geo.lng } : undefined,
@@ -70,7 +72,7 @@
       graph.push({ '@type': 'BreadcrumbList', itemListElement: data.breadcrumb.map(function (b, i) { return { '@type': 'ListItem', position: i + 1, name: b.name, item: origin + b.url }; }) });
     }
     if (data.type === 'product') {
-      graph.push({ '@type': 'SoftwareApplication', name: data.productName || title, applicationCategory: data.category || 'BusinessApplication', operatingSystem: data.os || 'Web', description: desc, image: img || undefined, url: url, provider: { '@id': origin + '/#organization' }, offers: { '@type': 'Offer', price: '0', priceCurrency: 'BRL', availability: 'https://schema.org/InStock', description: 'Demonstração e proposta sob consulta' } });
+      graph.push({ '@type': 'SoftwareApplication', name: data.productName || title, applicationCategory: data.category || 'BusinessApplication', operatingSystem: data.os || 'Web', description: desc, image: img || undefined, url: url, provider: { '@id': origin + '/#organization' } });
     }
     if (data.type === 'service') {
       graph.push({ '@type': 'Service', name: data.serviceName || title, serviceType: data.serviceType || title, description: desc, url: url, areaServed: 'BR', provider: { '@id': origin + '/#organization' } });
@@ -97,7 +99,7 @@
       on(li, 'mouseleave', function () { timer = setTimeout(close, 180); });
       on(li, 'focusout', function (e) { if (!li.contains(e.relatedTarget)) close(); });
     });
-    on(d, 'keydown', function (e) { if (e.key === 'Escape') { closeAll(); drawerClose(); } });
+    on(d, 'keydown', function (e) { if (e.key === 'Escape') { var openLi = $('.trix-nav > li.is-open'); closeAll(); if (openLi) { var ob = $('button.trix-nav__link', openLi); if (ob) ob.focus(); } if (drawer && drawer.classList.contains('is-open')) { drawerClose(); burger.focus(); } } });
     on(d, 'click', function (e) { if (!e.target.closest('.trix-nav')) closeAll(); });
     /* marca item atual */
     var path = location.pathname.replace(/\/+$/, '') || '/';
@@ -130,19 +132,22 @@
     var banner = $('.trix-cookie'), modal = $('#trix-cookie-modal'); if (!banner) return;
     var saved = readConsent();
     if (saved) applyConsent(saved); else setTimeout(function () { banner.classList.add('is-visible'); }, 900);
-    function hide() { banner.classList.remove('is-visible'); if (modal) modal.classList.remove('is-open'); }
+    function hide() { banner.classList.remove('is-visible'); closeModal(); }
     function all(v) { return { necessary: true, functional: v, analytics: v, marketing: v }; }
     on($('[data-cookie="accept"]', banner), 'click', function () { writeConsent(all(true)); hide(); });
     on($('[data-cookie="reject"]', banner), 'click', function () { writeConsent(all(false)); hide(); });
-    function openModal() { if (!modal) return; var c = readConsent() || all(false); ['functional', 'analytics', 'marketing'].forEach(function (k) { var i = $('input[name="' + k + '"]', modal); if (i) i.checked = !!c[k]; }); modal.classList.add('is-open'); var f = $('input:not([disabled])', modal); if (f) f.focus(); }
+    var opener = null;
+    function closeModal() { if (!modal) return; modal.classList.remove('is-open'); if (opener && opener.focus) opener.focus(); }
+    function openModal() { if (!modal) return; opener = d.activeElement; var c = readConsent() || all(false); ['functional', 'analytics', 'marketing'].forEach(function (k) { var i = $('input[name="' + k + '"]', modal); if (i) i.checked = !!c[k]; }); modal.classList.add('is-open'); var f = $('input:not([disabled])', modal); if (f) f.focus(); }
+    on(d, 'keydown', function (e) { if (!modal || !modal.classList.contains('is-open')) return; if (e.key === 'Escape') { closeModal(); return; } if (e.key === 'Tab') { var f = $$('button, input:not([disabled]), a[href]', modal).filter(function (x) { return x.offsetParent !== null; }); if (!f.length) return; var first = f[0], last = f[f.length - 1]; if (e.shiftKey && d.activeElement === first) { e.preventDefault(); last.focus(); } else if (!e.shiftKey && d.activeElement === last) { e.preventDefault(); first.focus(); } } });
     on($('[data-cookie="custom"]', banner), 'click', openModal);
     on($('.trix-cookiebtn'), 'click', openModal);
     $$('[data-cookie="open"]').forEach(function (b) { on(b, 'click', function (e) { e.preventDefault(); openModal(); }); });
     if (modal) {
       on($('[data-cookie="save"]', modal), 'click', function () { var c = { necessary: true }; ['functional', 'analytics', 'marketing'].forEach(function (k) { var i = $('input[name="' + k + '"]', modal); c[k] = !!(i && i.checked); }); writeConsent(c); hide(); });
       on($('[data-cookie="accept"]', modal), 'click', function () { writeConsent(all(true)); hide(); });
-      on($('[data-cookie="close"]', modal), 'click', function () { modal.classList.remove('is-open'); });
-      on(modal, 'click', function (e) { if (e.target === modal) modal.classList.remove('is-open'); });
+      on($('[data-cookie="close"]', modal), 'click', closeModal);
+      on(modal, 'click', function (e) { if (e.target === modal) closeModal(); });
     }
   }
 
@@ -171,7 +176,7 @@
         apply();
       });
     });
-    on(d, 'keydown', function (e) { if (e.key === 'Escape' && panel.classList.contains('is-open')) { panel.classList.remove('is-open'); btn.setAttribute('aria-expanded', 'false'); } });
+    on(d, 'keydown', function (e) { if (e.key === 'Escape' && panel.classList.contains('is-open')) { panel.classList.remove('is-open'); btn.setAttribute('aria-expanded', 'false'); btn.focus(); } });
   }
 
   /* ---------------- VLibras (tradução para Libras) ---------------- */
@@ -196,35 +201,35 @@
   function forms() {
     $$('form.trix-form').forEach(function (form) {
       var cap = $('.trix-captcha', form), q = $('.trix-captcha__q', form), inp = $('input[name="trix_captcha"]', form), answer = 0;
-      function newCaptcha() { var a = Math.floor(Math.random() * 9) + 1, b = Math.floor(Math.random() * 9) + 1, op = Math.random() < .5 ? '+' : '×'; answer = op === '+' ? a + b : a * b; if (q) q.innerHTML = 'Quanto é <span>' + a + '</span> ' + op + ' <span>' + b + '</span> ?'; if (inp) inp.value = ''; }
+      function newCaptcha() { var a = Math.floor(Math.random() * 9) + 1, b = Math.floor(Math.random() * 9) + 1, plus = Math.random() < .5; answer = plus ? a + b : a * b; if (q) q.innerHTML = 'Quanto é <span>' + a + '</span> <span aria-label="' + (plus ? 'mais' : 'vezes') + '">' + (plus ? '+' : '×') + '</span> <span>' + b + '</span> ?'; if (inp) inp.value = ''; }
       newCaptcha(); on($('button', cap), 'click', function (e) { e.preventDefault(); newCaptcha(); });
       var started = Date.now();
       on(form, 'submit', function (e) {
         e.preventDefault();
         var msg = $('.trix-form__msg', form), btn = $('button[type="submit"]', form);
-        function show(ok, html) { msg.className = 'trix-form__msg ' + (ok ? 'is-ok' : 'is-err'); msg.innerHTML = html; msg.scrollIntoView({ block: 'nearest', behavior: reduced ? 'auto' : 'smooth' }); }
+        function show(ok, html) { msg.className = 'trix-form__msg ' + (ok ? 'is-ok' : 'is-err'); msg.textContent = ''; requestAnimationFrame(function () { msg.innerHTML = html; msg.scrollIntoView({ block: 'nearest', behavior: reduced ? 'auto' : 'smooth' }); }); }
         if (!form.checkValidity()) { form.reportValidity(); return; }
         var hp = $('input[name="website_url"]', form); if ((hp && hp.value) || Date.now() - started < 2500) { show(false, 'Não foi possível validar o envio. Tente novamente.'); return; }
         if (parseInt(inp.value, 10) !== answer) { show(false, 'A resposta da verificação anti-spam está incorreta. Tente novamente.'); newCaptcha(); inp.focus(); return; }
         var consent = $('input[name="consent"]', form); if (consent && !consent.checked) { show(false, 'É necessário concordar com a Política de Privacidade para enviar.'); return; }
-        var kind = form.getAttribute('data-form') || 'contato', fd = new FormData(form), lines = [], name = '', email = '';
+        var kind = form.getAttribute('data-form') || 'contato', lines = [], name = '', email = '';
+        var anon = !!$('input[name="identificacao"][value="anonima"]:checked', form);
         var proto = 'TRIX-' + new Date().toISOString().slice(0, 10).replace(/-/g, '') + '-' + Math.random().toString(36).slice(2, 6).toUpperCase();
         lines.push('[' + kind.toUpperCase() + '] Protocolo ' + proto);
         $$('[name]', form).forEach(function (el) {
-          var n = el.name; if (['trix_captcha', 'website_url', 'consent'].indexOf(n) >= 0) return; if ((el.type === 'radio' || el.type === 'checkbox') && !el.checked) return;
+          var n = el.name; if (['trix_captcha', 'website_url', 'consent'].indexOf(n) >= 0) return; if (anon && ['nome', 'email', 'telefone'].indexOf(n) >= 0) return; if ((el.type === 'radio' || el.type === 'checkbox') && !el.checked) return;
           var label = (form.querySelector('label[for="' + el.id + '"]') || {}).textContent || n; label = label.replace('*', '').trim();
           var v = el.value.trim(); if (!v) return; if (n === 'nome') name = v; if (n === 'email') email = v; lines.push(label + ': ' + v);
         });
-        lines.push('Página: ' + location.href); lines.push('Enviado em: ' + new Date().toLocaleString('pt-BR'));
-        var anon = $('input[name="identificacao"][value="anonima"]:checked', form);
+        lines.push('Página: ' + location.pathname); lines.push('Enviado em: ' + new Date().toLocaleString('pt-BR'));
+        var mailto = 'mailto:' + (form.getAttribute('data-mail') || CFG.email) + '?subject=' + encodeURIComponent('[' + kind + '] ' + proto) + '&body=' + encodeURIComponent(lines.join('\n'));
         var body = new URLSearchParams();
         body.set('comment', lines.join('\n')); body.set('author', anon ? 'Relato anônimo' : (name || 'Visitante')); body.set('email', (!anon && email) ? email : (CFG.anonEmail || 'anonimo@example.com')); body.set('url', '');
-        var pid = (d.body.className.match(/page-id-(\d+)/) || [])[1] || form.getAttribute('data-post'); body.set('comment_post_ID', pid || ''); body.set('comment_parent', '0');
+        var pid = (d.body.className.match(/page-id-(\d+)/) || [])[1] || form.getAttribute('data-post'); if (!pid) { show(false, 'Não foi possível identificar o destino do formulário. <a href="' + mailto + '">Envie por e-mail</a>.'); return; } body.set('comment_post_ID', pid); body.set('comment_parent', '0');
         btn.disabled = true; btn.dataset.label = btn.textContent; btn.textContent = 'Enviando…';
-        var mailto = 'mailto:' + (form.getAttribute('data-mail') || CFG.email) + '?subject=' + encodeURIComponent('[' + kind + '] ' + proto) + '&body=' + encodeURIComponent(lines.join('\n'));
-        fetch((CFG.formEndpoint || '/wp-comments-post.php'), { method: 'POST', body: body, credentials: 'same-origin', redirect: 'follow', headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' } })
-          .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); })
-          .then(function () { show(true, '<strong>Mensagem enviada com sucesso!</strong> Seu protocolo é <strong>' + proto + '</strong>. Guarde este número para acompanhamento. ' + (kind === 'contato' ? 'Nossa equipe responderá em até 1 dia útil.' : 'Sua manifestação será analisada com confidencialidade pelo comitê responsável.')); form.reset(); newCaptcha(); })
+        fetch((CFG.formEndpoint || '/wp-comments-post.php'), { method: 'POST', body: body, credentials: 'omit', redirect: 'follow', headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' } })
+          .then(function (r) { if (!r.ok || (!CFG.formEndpoint && !r.redirected)) throw new Error('HTTP ' + r.status); return r.text(); })
+          .then(function () { show(true, '<strong>Mensagem enviada com sucesso!</strong> Seu protocolo é <strong>' + proto + '</strong>. Guarde este número para acompanhamento. ' + (kind === 'contato' ? 'Nossa equipe retornará o mais breve possível, em dias úteis.' : 'Sua manifestação será analisada com confidencialidade pelo comitê responsável.')); form.reset(); newCaptcha(); })
           .catch(function () { show(false, 'Não conseguimos registrar sua mensagem automaticamente. <a href="' + mailto + '">Clique aqui para enviar por e-mail</a> com o protocolo ' + proto + ' ou tente novamente em instantes.'); })
           .then(function () { btn.disabled = false; btn.textContent = btn.dataset.label; });
       });
@@ -262,7 +267,7 @@
     }
     /* contadores */
     $$('[data-count]').forEach(function (el) {
-      var target = parseFloat(el.getAttribute('data-count')), suffix = el.getAttribute('data-suffix') || '', dur = 1400, run = function () { if (reduced) { el.textContent = target + suffix; return; } var t0 = null; function step(t) { if (!t0) t0 = t; var p = Math.min(1, (t - t0) / dur), v = Math.round(target * (1 - Math.pow(1 - p, 3))); el.textContent = v + suffix; if (p < 1) requestAnimationFrame(step); } requestAnimationFrame(step); };
+      var raw = el.getAttribute('data-count'), target = parseFloat(raw), dec = (raw.split('.')[1] || '').length, suffix = el.getAttribute('data-suffix') || '', dur = 1400, fmt = function (v) { return v.toFixed(dec).replace('.', ',') + suffix; }, run = function () { if (reduced) { el.textContent = fmt(target); return; } var t0 = null; function step(t) { if (!t0) t0 = t; var p = Math.min(1, (t - t0) / dur); el.textContent = fmt(target * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(step); } requestAnimationFrame(step); };
       if ('IntersectionObserver' in w) { var o = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { run(); o.disconnect(); } }); o.observe(el); } else run();
     });
   }
@@ -314,7 +319,8 @@
   function init() {
     seo(); header(); cookies(); a11y(); fab(); forms(); maps(); effects();
     three();
-    var idle = w.requestIdleCallback || function (f) { setTimeout(f, 1200); }; idle(function () { vlibras(false); });
+    var c0 = readConsent(); if (c0 && c0.functional) vlibras(false);
+    on(d, 'trix:consent', function (e) { if (e.detail.functional) vlibras(false); });
   }
   if (d.readyState === 'loading') on(d, 'DOMContentLoaded', init); else init();
 })();

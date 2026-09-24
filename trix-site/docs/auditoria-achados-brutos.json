@@ -1,0 +1,1172 @@
+[
+ {
+  "title": "Âncoras sem href do HTML original publicadas como texto morto nas páginas Política de Privacidade e Cookies",
+  "file": "/home/user/OutrosProjetos/trix-site/src/content/original/politica.html",
+  "line": 227,
+  "severity": "medium",
+  "description": "Os arquivos verbatim src/content/original/politica.html (linha 227: `<a>\\nCookies </a>`) e src/content/original/cookies.html (linha 250: `<a>\\nVoltar políticas de privacidade</a>`) trazem as âncoras do site antigo sem o atributo href. No original elas apontavam para /lgpd/cookies.html e /lgpd/politicas.html. Esses fragmentos são injetados sem tratamento por conformidade.py:84 (orig(\"politica\")) e conformidade.py:96 (orig(\"cookies\")) e chegam ao dist/pages/politica-de-privacidade.json e dist/pages/cookies.json como texto solto e não clicável ao final de duas páginas legais.",
+  "suggested_fix": "Em politica.html:227 trocar `<a>` por `<a href=\"/conformidade/cookies/\">` e em cookies.html:250 por `<a href=\"/conformidade/politica-de-privacidade/\">` (ou remover as duas âncoras, já que o sumário e os botões da página novos cobrem a navegação).",
+  "dim": "review:conteudo-completude"
+ },
+ {
+  "title": "Link \"Atribuições completas\" do Portal de Proteção de Dados aponta para a seção errada (#politicas) — atribuições dos comitês ficam inalcançáveis",
+  "file": "/home/user/OutrosProjetos/trix-site/src/content/conformidade.py",
+  "line": 71,
+  "severity": "medium",
+  "description": "No site antigo a página LGPD exibia inline a lista completa de atribuições dos três comitês. No novo /conformidade/lgpd/ o card do Comitê de Compliance (conformidade.py:71) substitui a lista por um link para /conformidade/#politicas, mas o id \"politicas\" pertence à seção \"Políticas integrais\" (cards de políticas); a seção \"Governança / Nossos comitês\", onde as atribuições realmente estão (conformidade.py:48), não tem id (o preview de /conformidade/ só possui ids \"politicas\" e \"canais\"). O visitante cai nos cards de políticas e não encontra as atribuições. Os cards de Proteção de Dados e Segurança na mesma página nem sequer têm link para as atribuições.",
+  "suggested_fix": "Adicionar id à seção de comitês do hub (`sec(head(\"Governança\", ...), \"trix-section--sand\", \"comites\")` em conformidade.py:48) e apontar o link da linha 71 para /conformidade/#comites (ou reintroduzir as listas de atribuições em <details> na própria página LGPD, como no original).",
+  "dim": "review:conteudo-completude"
+ },
+ {
+  "title": "Linha do tempo da página Empresa atribui datas não documentadas a fatos institucionais",
+  "file": "/home/user/OutrosProjetos/trix-site/src/content/empresa.py",
+  "line": 26,
+  "severity": "medium",
+  "description": "A timeline apresenta como fato histórico: (a) 2020 — \"nomeação do Encarregado (DPO), criação dos comitês de Compliance, Proteção de Dados e Segurança e Qualidade, e lançamento da Trix Academy\" (linha 26); (b) 2025–2026 — Prontow com WhatsApp/IA, Aspect Face antifraude, Xield e \"adesão ao Oracle PartnerNetwork\" (linha 29). Nenhuma dessas datas consta no inventário do site antigo nem em docs/dados-empresa.md; as únicas datas documentadas são a versão da Política de Privacidade (28/09/2020), o webinário (março/2022) e a alteração societária (31/01/2024). O mesmo pressuposto reaparece em conformidade.py:32 (\"Adequada à LGPD desde 2020\") e conformidade.py:76 (FAQ: \"Desde 2020 mantemos ... comitês permanentes, relatórios de impacto e programa de treinamento\").",
+  "suggested_fix": "Confirmar as datas com a Trix ou reescrever sem anos específicos (ex.: \"Programa de conformidade e LGPD — Política de Privacidade publicada em 28/09/2020; DPO, comitês e Trix Academy\" e \"Hoje — IA e novos produtos: Prontow, Aspect Face, Xield e Oracle PartnerNetwork\"). Em conformidade.py:32/76, limitar a afirmação ao que é documentado: \"Política de Privacidade publicada desde 2020\".",
+  "dim": "review:conteudo-completude"
+ },
+ {
+  "title": "Código de Conduta anunciado como \"texto integral\" contém inserção não presente no PDF original (Lei nº 14.133/2021)",
+  "file": "/home/user/OutrosProjetos/trix-site/src/content/conformidade.py",
+  "line": 130,
+  "severity": "low",
+  "description": "O título (linha 150: \"— texto integral\") e a description (linha 151: \"na íntegra\") prometem o texto original do PDF, mas a linha 130 acrescenta \"(como a Lei nº 14.133/2021)\" ao parágrafo sobre a Lei 8.666/93, trecho inexistente em docs/codigo-de-conduta-original.txt. As demais alterações (\"recursar-se\"→\"recusar-se\", ouvidoria@Trix.com.br→ouvidoria@trixti.com.br, quebra do parágrafo \"inserida na Todos os colaboradores\") são correções de erros evidentes e não mudam o sentido.",
+  "suggested_fix": "Remover o parêntese inserido na linha 130 ou movê-lo para a nota editorial `trix-note` ao final da seção (fora do texto citado), preservando a fidelidade do documento anunciado como integral.",
+  "dim": "review:conteudo-completude"
+ },
+ {
+  "title": "Expansão incorreta da sigla PTU nas páginas SAW e Portal Operadora",
+  "file": "/home/user/OutrosProjetos/trix-site/src/content/produtos.py",
+  "line": 72,
+  "severity": "low",
+  "description": "O texto compartilhado SAW_BODY diz \"certificado na versão 3.5 do PTU (Protocolo de Transações da Operadora)\". O original trazia o erro de digitação \"PTO(Protocolo de Transações da Operadora)\" e, mais adiante, \"padrão PTU\". A sigla foi corrigida para PTU, mas a expansão manteve o erro: PTU é o Protocolo de Transações Unimed (padrão de intercâmbio do Sistema Unimed). A frase é exibida nas páginas /produtos/saw/ e /produtos/portal-operadora/ e no JSON-LD/descrição.",
+  "suggested_fix": "Trocar por \"PTU (Protocolo de Transações Unimed)\" em produtos.py:72.",
+  "dim": "review:conteudo-completude"
+ },
+ {
+  "title": "Fotos dos palestrantes e slides do webinário não foram migrados",
+  "file": "/home/user/OutrosProjetos/trix-site/src/content/empresa.py",
+  "line": 62,
+  "severity": "low",
+  "description": "A página original /webinario/ exibia as fotos dos quatro palestrantes (assets/img/juliana.png, arlindo.png, michel.png, clessio.png) e quatro imagens de programação (assets/img/s-1.png a s-4.png). A nova página Eventos (empresa.py:61-67) reduz o evento a uma tabela textual e o manifesto de mídia (src/media/media_manifest.py:63) só inclui webinario/assets/img/trixti.png. Nenhuma foto/slide do evento aparece no novo site.",
+  "suggested_fix": "Adicionar as oito imagens ao MEDIA em media_manifest.py (chaves webinario/assets/img/juliana.png etc.) e exibir um grid de palestrantes com foto na seção \"Registro\" de empresa.py, ou decidir explicitamente que o registro será apenas textual.",
+  "dim": "review:conteudo-completude"
+ },
+ {
+  "title": "Nota de rodapé inventada explica os asteriscos da Agenda Médica",
+  "file": "/home/user/OutrosProjetos/trix-site/src/content/servicos.py",
+  "line": 127,
+  "severity": "low",
+  "description": "O original lista \"Avisos de marcações e cancelamentos por SMS* e email\" e \"Contact Center para pacientes especiais e casos de urgência/emergência*\" sem explicar o asterisco. A nova página acrescenta \"* Conforme plano contratado.\", uma condição comercial que não consta em nenhuma fonte e pode não corresponder ao significado real (ex.: custo adicional, disponibilidade regional).",
+  "suggested_fix": "Confirmar com a Trix o significado do asterisco e ajustar o texto, ou remover a nota mantendo os asteriscos como no original.",
+  "dim": "review:conteudo-completude"
+ },
+ {
+  "title": "Página de Contato afirma compromissos e fatos sem fonte (prazo de resposta e estacionamento)",
+  "file": "/home/user/OutrosProjetos/trix-site/src/content/contato.py",
+  "line": 16,
+  "severity": "low",
+  "description": "\"Respondemos em até 1 dia útil\" (linha 16, no formulário) e \"Resposta em até 1 dia útil\" (linha 30, meta do hero) criam um SLA público inexistente no site antigo e em docs/dados-empresa.md. \"com estacionamento no edifício\" (linha 38, seção Como chegar) é um fato sobre o Edifício Capital Financial Center que não consta em nenhuma fonte.",
+  "suggested_fix": "Validar os dois pontos com a empresa; caso não confirmados, trocar por \"Retornamos o mais breve possível\" e remover a menção a estacionamento (ou substituir por orientação neutra: \"consulte opções de estacionamento na região\").",
+  "dim": "review:conteudo-completude"
+ },
+ {
+  "title": "Políticas de Segurança, ESG e Política Integrada declaradas como \"aprovadas pela Diretoria Executiva\" sem qualquer fonte",
+  "file": "trix-site/src/content/conformidade.py",
+  "line": 183,
+  "severity": "high",
+  "description": "A Política de Segurança da Informação (linhas 171-184), a Política ESG (185-197) e a \"Política Integrada de Gestão...\" (36-46) foram redigidas para o novo site — não existem em docs/inventario-conteudo-original.md, docs/dados-empresa.md nem no PDF do Código de Conduta. Mesmo assim o texto afirma: \"Esta política é aprovada pela Diretoria Executiva, mantida pelo Comitê de Segurança e Qualidade... e revisada anualmente\" (l.183), \"Esta política é aprovada pela Diretoria Executiva e pelos comitês de governança\" (l.196) e \"Aprovação: Diretoria Executiva e Comitês de Compliance, Proteção de Dados e Segurança e Qualidade\" (l.46). Publicar atos de aprovação corporativa que não ocorreram é afirmação factual falsa em nome da empresa e será cobrada em due diligence de operadoras/Unimeds.",
+  "suggested_fix": "Antes de publicar, submeter os três textos à diretoria/comitês para aprovação formal e inserir data e versão reais; enquanto isso, remover as frases de aprovação ou trocar por \"Minuta em revisão pelos comitês\" e retirar o card correspondente de POLICY_LINKS (linhas 19-21).",
+  "dim": "review:copy-e-fatos"
+ },
+ {
+  "title": "Política de Segurança afirma controles técnicos específicos (MFA, ambientes segregados, backups testados, RTO/RPO, notificação à ANPD) sem respaldo",
+  "file": "trix-site/src/content/conformidade.py",
+  "line": 176,
+  "severity": "high",
+  "description": "As seções 4 a 8 declaram como fatos: \"autenticação multifator para acessos administrativos e remotos\", \"Ambientes segregados (desenvolvimento, homologação e produção)\" (l.176), \"criptografia... em repouso para dados sensíveis e backups\", \"Backups periódicos, testados\" (l.177), \"revisão de código, testes de segurança e gestão de vulnerabilidades\" (l.178), \"comunicados aos controladores, titulares e à ANPD nos prazos legais\" (l.179) e \"Planos de continuidade... com objetivos de tempo e ponto de recuperação definidos... testes periódicos\" (l.180). Nada disso consta nas fontes (o site antigo cita apenas SSL, esquemas redundantes, backups e autenticação). Operadoras auditam esses itens contratualmente; afirmar controles inexistentes gera risco jurídico e reputacional.",
+  "suggested_fix": "Validar cada controle com o Security Officer e manter somente os efetivamente implantados; para os demais, reescrever como diretriz (\"deve-se adotar...\") ou excluir. Alternativamente, reduzir a página aos princípios e canais já publicados no portal LGPD original.",
+  "dim": "review:copy-e-fatos"
+ },
+ {
+  "title": "Política de IA assume compromissos verificáveis (vieses por etnia, responsável nomeado por solução, avaliação de impacto, CFM) não documentados",
+  "file": "trix-site/src/content/conformidade.py",
+  "line": 205,
+  "severity": "medium",
+  "description": "A página é inteiramente nova e afirma práticas concretas: \"proibição de uso de dados de clientes para treinar modelos sem autorização contratual\", \"Avaliação de vieses por idade, gênero e etnia em reconhecimento facial e modelos clínicos\", \"Cada solução com IA tem responsável nomeado, avaliação de impacto..., registro de decisões e canal para contestação\" (l.205), \"Usuários sabem quando interagem com um assistente de IA\" e \"Conformidade com... normas da ANS e do CFM (telemedicina)\" (l.207). Nenhuma fonte sustenta esses compromissos; alguns (p.ex. \"decisão sempre do médico\") vêm do Prontow, mas o restante é invenção apresentada como prática vigente.",
+  "suggested_fix": "Reduzir a página aos princípios e aos fatos comprovados (supervisão humana no Prontow, revisão de falsos positivos no Aspect Face, liveness) e marcar o restante como compromissos a implementar, após validação com o Comitê de Proteção de Dados.",
+  "dim": "review:copy-e-fatos"
+ },
+ {
+  "title": "Política ESG lista indicadores e metas fictícios, incluindo \"Nenhuma sanção por corrupção ou violação de dados\"",
+  "file": "trix-site/src/content/conformidade.py",
+  "line": 196,
+  "severity": "medium",
+  "description": "A tabela \"Como acompanhamos\" cria compromissos e indicadores sem qualquer origem nas fontes: \"100% dos colaboradores treinados em Código de Conduta e LGPD — Conclusões na Trix Academy\", \"Descarte responsável de resíduos eletrônicos — Registros de logística reversa\", \"Comitês reunidos periodicamente e políticas revisadas anualmente — Atas\" e \"Nenhuma sanção por corrupção ou violação de dados — Registros de incidentes e processos\". O último item, lido como fato, é uma afirmação sobre o histórico jurídico da empresa que ninguém verificou. Os únicos elementos ESG documentados são os parágrafos do Código de Conduta sobre meio ambiente, ambiente de trabalho e doações.",
+  "suggested_fix": "Manter apenas os compromissos derivados do Código de Conduta (recursos naturais, local de trabalho seguro, doações/patrocínios) e remover a tabela de indicadores até que a empresa defina metas reais.",
+  "dim": "review:copy-e-fatos"
+ },
+ {
+  "title": "\"Milhares de pessoas Brasil afora\" não consta em nenhuma fonte",
+  "file": "trix-site/src/content/home.py",
+  "line": 9,
+  "severity": "medium",
+  "description": "O lead da Home (\"soluções com inteligência artificial usadas por milhares de pessoas Brasil afora\"), o título da seção Produtos (l.29), o lead do hub de produtos (produtos.py l.18), o megamenu (nav.py l.43 \"Produtos que facilitam a vida de milhares de pessoas\") e a página Empresa (empresa.py l.12 \"milhares de pessoas... passam todos os dias por sistemas desenvolvidos pela Trix\") repetem um número de alcance que não aparece no site antigo nem em dados-empresa.md. A única ocorrência de \"milhares\" no inventário é \"milhares [de faces] já cadastradas\" do Aspect Face — contexto distinto. É uma prova social inventada, não uma inferência derivada.",
+  "suggested_fix": "Usar apenas os dados documentados (\"mais de 35 operadoras\", \"clientes em todo o Brasil\") ou obter da empresa um número real de beneficiários/usuários e citá-lo com fonte.",
+  "dim": "review:copy-e-fatos"
+ },
+ {
+  "title": "Promessa de \"Resposta em até 1 dia útil\" sem base nas fontes",
+  "file": "trix-site/src/content/contato.py",
+  "line": 16,
+  "severity": "medium",
+  "description": "O formulário afirma \"Respondemos em até 1 dia útil\" e o hero repete \"Resposta em até 1 dia útil\" (l.30). Nenhuma fonte estabelece SLA de resposta comercial. Como as mensagens caem em Comentários → Pendentes do WordPress e dependem de moderação manual (docs/formularios-e-caixa-de-entrada.md), o prazo é uma promessa arriscada que a empresa pode não cumprir, com impacto na credibilidade e potencial alegação de propaganda enganosa (CDC art. 37).",
+  "suggested_fix": "Trocar por \"Retornamos o mais breve possível em dias úteis\" ou confirmar o SLA com a Trix antes de publicar; alinhar as duas ocorrências (l.16 e l.30).",
+  "dim": "review:copy-e-fatos"
+ },
+ {
+  "title": "Modelos comerciais inventados: \"implantação, treinamento e suporte incluídos\", \"licença perpétua\", \"atualizações contínuas\"",
+  "file": "trix-site/src/content/produtos.py",
+  "line": 31,
+  "severity": "medium",
+  "description": "O hub de produtos afirma que os produtos são contratados \"com implantação, treinamento e suporte incluídos\" e detalha \"Direito de acesso (SaaS): Assinatura na nuvem, sem instalação, com atualizações contínuas e suporte\" e \"Aquisição da solução: Licença perpétua com implantação on-premises ou em nuvem própria\" (l.32). As fontes dizem apenas \"Comercialização: Direito de Acesso, Aquisição da solução\", sem nada sobre inclusão de serviços, perpetuidade ou atualizações. São condições contratuais que vinculam a empresa comercialmente.",
+  "suggested_fix": "Reduzir a \"Direito de acesso\" e \"Aquisição da solução\" com descrições neutras (\"consulte as condições com um consultor\") ou validar os termos com a área comercial.",
+  "dim": "review:copy-e-fatos"
+ },
+ {
+  "title": "Página Portal Operadora reutiliza o corpo do SAW e passa a afirmar que o Portal é certificado PTU 3.5 e possui todos os módulos do SAW",
+  "file": "trix-site/src/content/produtos.py",
+  "line": 102,
+  "severity": "medium",
+  "description": "PORTAL usa SAW_BODY(\"Portal Operadora\"), gerando frases como \"O Portal Operadora é certificado na versão 3.5 do PTU\", \"Operadoras que utilizam o Portal Operadora requisitam ou respondem solicitações de intercâmbio\" e \"O ranking de intercâmbio... influenciados pelo uso do Portal Operadora\" (l.72-73). No site antigo, a página portal.php é um copy-paste em que todas as afirmações se referem literalmente ao SAW (\"o SAW é certificado\"); nada atesta que o Portal Operadora seja um produto certificado. Além disso, as duas páginas ficam quase idênticas (conteúdo duplicado), confundindo o leitor sobre a diferença entre os produtos.",
+  "suggested_fix": "Confirmar com a Trix se Portal Operadora é o mesmo produto que o SAW (então redirecionar/fundir as páginas) ou um produto distinto (então escrever texto próprio e retirar a certificação PTU). No mínimo, manter no Portal a menção \"baseado na plataforma SAW, certificada PTU 3.5\".",
+  "dim": "review:copy-e-fatos"
+ },
+ {
+  "title": "Expansão incorreta da sigla PTU (\"Protocolo de Transações da Operadora\")",
+  "file": "trix-site/src/content/produtos.py",
+  "line": 72,
+  "severity": "medium",
+  "description": "O texto diz \"certificado na versão 3.5 do PTU (Protocolo de Transações da Operadora)\". A sigla correta do padrão de intercâmbio do Sistema Unimed é PTU = Protocolo de Transações Unimed. O site antigo já trazia o erro (\"PTO (Protocolo de Transações da Operadora)\"); a reescrita corrigiu a sigla, mas manteve a expansão errada. Para o público-alvo (operadoras e Unimeds), o erro compromete a credibilidade técnica, e aparece nas páginas SAW e Portal Operadora.",
+  "suggested_fix": "Substituir por \"PTU (Protocolo de Transações Unimed)\" ou simplesmente \"PTU 3.5\".",
+  "dim": "review:copy-e-fatos"
+ },
+ {
+  "title": "Estatística \"3.5\" (versão PTU) é animada com Math.round e exibe \"4\"",
+  "file": "trix-site/src/content/servicos.py",
+  "line": 63,
+  "severity": "medium",
+  "description": "stats() gera <strong data-count=\"3.5\">3.5</strong>. Em trix.js (l.265) o contador calcula v = Math.round(target * (...)) e escreve el.textContent = v + suffix; ao final da animação o valor exibido é Math.round(3.5) = 4, ou seja, a página de Conectividade mostra \"4 — versão PTU certificada para intercâmbio\" (exceto com prefers-reduced-motion). Informação factual incorreta gerada pelo próprio site.",
+  "suggested_fix": "Não usar o contador para números de versão: trocar por um card/label estático (\"PTU 3.5\") ou passar o texto sem data-count; alternativa técnica é o JS preservar decimais (toFixed) quando o alvo não for inteiro.",
+  "dim": "review:copy-e-fatos"
+ },
+ {
+  "title": "Linha do tempo atribui datas e motivos não documentados (2010–2019, 2024 \"capacidade de investimento\", 2025–2026 e adesão ao OPN)",
+  "file": "trix-site/src/content/empresa.py",
+  "line": 29,
+  "severity": "medium",
+  "description": "\"2010–2019: SAW, Portal Operadora, Integrador e GEDAI consolidam...\" (l.25), \"2024: ...reforçando a capacidade de investimento em produtos e inovação\" (l.28) e \"2025–2026: Prontow com WhatsApp..., Aspect Face..., Xield... e adesão ao Oracle PartnerNetwork\" (l.29) não têm base: nenhuma fonte data o lançamento desses produtos nem a entrada na OPN; a única data societária documentada é 31/01/2024 (ingresso da Trix Participações), e o motivo do ingresso é especulação. Datas erradas em uma linha do tempo institucional são facilmente contestáveis por clientes antigos.",
+  "suggested_fix": "Manter apenas marcos datados nas fontes (2009 fundação, 2009/2010 prêmio, 28/09/2020 política, 03/2022 webinário, 01/2024 nova sócia); para produtos e OPN, usar \"Hoje\" sem ano ou obter as datas com a empresa. Remover a oração sobre capacidade de investimento.",
+  "dim": "review:copy-e-fatos"
+ },
+ {
+  "title": "Marco \"2020\" estende à nomeação do DPO, criação dos comitês, Trix Academy e relatórios de impacto uma data que só vale para a Política de Privacidade",
+  "file": "trix-site/src/content/empresa.py",
+  "line": 26,
+  "severity": "medium",
+  "description": "O item \"2020 — Programa de conformidade e LGPD\" afirma nomeação do DPO, criação dos três comitês e \"lançamento da Trix Academy\" nesse ano; a FAQ do portal LGPD (conformidade.py l.76) diz \"Desde 2020 mantemos Política de Privacidade publicada, DPO nomeado, comitês permanentes, relatórios de impacto e programa de treinamento\" e o hero de Conformidade traz \"Adequada à LGPD desde 2020\" (l.32). A única data nas fontes é a versão da política (28/09/2020). A existência de relatórios de impacto também não é atestada: o portal original diz apenas que o comitê deve \"promover a elaboração\" de PIA/DPIA/RIPD.",
+  "suggested_fix": "Restringir o marco de 2020 à publicação da Política de Privacidade; nas FAQs, retirar \"desde 2020\" para DPO/comitês/Academy e trocar \"relatórios de impacto\" por \"comitê responsável por promover os relatórios de impacto\", salvo confirmação da empresa.",
+  "dim": "review:copy-e-fatos"
+ },
+ {
+  "title": "Código de Conduta apresentado como \"texto integral\" contém trecho inserido pelo redator (\"como a Lei nº 14.133/2021\")",
+  "file": "trix-site/src/content/conformidade.py",
+  "line": 130,
+  "severity": "medium",
+  "description": "A página é vendida como \"Código de Conduta da Empresa — texto integral\" e \"na íntegra\" (l.150-151), mas o parágrafo sobre licitações foi alterado para \"a Lei 8.666/93 ou qualquer outra que a suceda (como a Lei nº 14.133/2021)\". O PDF original (docs/codigo-de-conduta-original.txt l.134-135) não menciona a Lei 14.133. Alterar o conteúdo normativo de um documento formalmente aprovado, mantendo a alegação de integralidade, é um problema de veracidade documental (a nota final nas l.147 é claramente editorial, o que é o modelo correto).",
+  "suggested_fix": "Restaurar o texto original e, se desejado, acrescentar a menção à Lei 14.133/2021 em uma nota editorial destacada (class trix-note) ou em rodapé \"Nota da publicação web\".",
+  "dim": "review:copy-e-fatos"
+ },
+ {
+  "title": "SAW e gestão de saúde populacional apresentados como produtos com inteligência artificial",
+  "file": "trix-site/src/content/home.py",
+  "line": 5,
+  "severity": "medium",
+  "description": "A meta description da Home diz que a Trix \"entrega produtos com inteligência artificial como o Prontow, o SAW e o Aspect Face\"; a Política de IA (conformidade.py l.206) lista \"SAW / Portal Operadora — Auditoria inteligente e regras de autorização automática\" como uso de IA; e Empresa (l.35) inclui \"gestão de saúde populacional\" entre as aplicações de IA. Nas fontes, a \"auditoria inteligente\" do SAW é descrita como uniformização de conhecimento e antecipação da auditoria (regras), e a gestão populacional do Prontow é analítica (estratificação, indicadores) — nada indica modelos de IA. Rotular funcionalidades baseadas em regras como IA é afirmação técnica não sustentada.",
+  "suggested_fix": "Na Home citar apenas \"Prontow e Aspect Face\"; na tabela da Política de IA, remover a linha SAW/Portal ou reescrever como \"regras parametrizadas (sem IA)\"; em Empresa, retirar \"gestão de saúde populacional\" da lista de IA.",
+  "dim": "review:copy-e-fatos"
+ },
+ {
+  "title": "Superlativo absoluto \"A única API de reconhecimento facial com serviço antifraude\" como H1",
+  "file": "trix-site/src/content/produtos.py",
+  "line": 106,
+  "severity": "medium",
+  "description": "O H1 do Aspect Face e os cards (l.25, l.110 \"Única com IA e serviço antifraude\") repetem a afirmação do site antigo (\"ÚNICA do mercado com IA e serviço ANTIFRAUDE\"). Embora venha da fonte, é uma alegação de exclusividade de mercado sem comprovação e facilmente refutável (diversas APIs de biometria facial oferecem antifraude e liveness), o que a torna publicidade passível de contestação (CDC art. 37; CONAR) — especialmente ao ser promovida a título principal e a meta description.",
+  "suggested_fix": "Reformular para um diferencial verificável: \"API de reconhecimento facial com serviço antifraude por IA e revisão por analistas\", mantendo a exclusividade apenas se a empresa puder comprová-la.",
+  "dim": "review:copy-e-fatos"
+ },
+ {
+  "title": "Nome do administrador grafado \"Sousa\" e \"Souza\" na mesma página",
+  "file": "trix-site/src/content/empresa.py",
+  "line": 47,
+  "severity": "medium",
+  "description": "A tabela de dados institucionais traz \"Marcos Soares de Souza (administrador)\" (l.47), enquanto os cards de comitês da mesma página (l.42-44), a Central de Conformidade e o Canal de Compliance usam \"Marcos Soares de Sousa\" (11 ocorrências). As duas grafias vêm de fontes diferentes (Receita Federal: Souza; portal LGPD da própria empresa: Sousa), mas para o visitante parece erro ou duas pessoas distintas.",
+  "suggested_fix": "Confirmar a grafia oficial com a empresa e padronizar todas as 12 ocorrências (src/content/empresa.py, conformidade.py, contato.py).",
+  "dim": "review:copy-e-fatos"
+ },
+ {
+  "title": "FAQ do Xield promete funcionamento \"sem internet\"",
+  "file": "trix-site/src/content/produtos.py",
+  "line": 146,
+  "severity": "medium",
+  "description": "\"O Xield funciona sem internet? Sim, na modalidade on-premises, com operação local e via navegador.\" A fonte (xield.php) fala apenas em implantação \"em nuvem (SaaS) ou em infraestrutura local (on premises)\"; não afirma que o reconhecimento facial, o Home Assistant ou as integrações operem sem conectividade. É uma promessa técnica criada na reescrita, que pode gerar expectativa incorreta em condomínios/hospitais.",
+  "suggested_fix": "Reescrever: \"O Xield pode ser implantado em infraestrutura local (on-premises); consulte os requisitos de conectividade com nosso time\".",
+  "dim": "review:copy-e-fatos"
+ },
+ {
+  "title": "\"Integre em minutos\" — prazo inventado para a integração do Aspect Face",
+  "file": "trix-site/src/content/produtos.py",
+  "line": 107,
+  "severity": "low",
+  "description": "O lead diz \"Integre em minutos e ofereça uma jornada personalizada, segura e sem fraudes\". A fonte fala em \"Fácil Integração (Swagger)\" e \"veja como é fácil integrar\", sem prazo. \"Sem fraudes\" também é absoluto (a própria fonte fala em base \"99% confirmada\").",
+  "suggested_fix": "Usar \"Integração simples via Swagger\" e \"jornada mais segura contra fraudes\".",
+  "dim": "review:copy-e-fatos"
+ },
+ {
+  "title": "Endereço da matriz com \"(Guará)\" — SIG não fica no Guará",
+  "file": "trix-site/src/nav.py",
+  "line": 8,
+  "severity": "low",
+  "description": "address_line2 = \"Zona Industrial (Guará) · Brasília – DF\" (repetido em contato.py l.34). A Receita Federal registra apenas bairro \"Zona Industrial\" para o SIG Quadra 4 (dados-empresa.md l.19); \"Guará\" aparece só no endereço antigo (SIA Trecho 17), explicitamente marcado como não utilizado. O Setor de Indústrias Gráficas fica junto ao Eixo Monumental/Parque da Cidade, como a própria página de contato descreve (l.38) — informar Guará confunde quem vai visitar.",
+  "suggested_fix": "Remover \"(Guará)\": \"SIG Quadra 4... · Zona Industrial · Brasília – DF · CEP 70610-440\".",
+  "dim": "review:copy-e-fatos"
+ },
+ {
+  "title": "\"Com estacionamento no edifício\" não consta nas fontes",
+  "file": "trix-site/src/content/contato.py",
+  "line": 38,
+  "severity": "low",
+  "description": "A seção \"Como chegar\" afirma \"com estacionamento no edifício\". Nenhuma fonte menciona estacionamento; se o prédio não oferecer vagas a visitantes, a informação prejudica diretamente quem se desloca até a empresa.",
+  "suggested_fix": "Confirmar com a Trix ou remover a oração.",
+  "dim": "review:copy-e-fatos"
+ },
+ {
+  "title": "\"Diagnóstico gratuito e sem compromisso\" é oferta comercial não documentada",
+  "file": "trix-site/src/nav.py",
+  "line": 32,
+  "severity": "low",
+  "description": "O megamenu promete \"Diagnóstico gratuito e sem compromisso\"; servicos.py l.29 diz que a reunião de entendimento é \"Sem custo e sem compromisso\" e helpers.py l.39 oferece \"um diagnóstico sem compromisso\" em todas as páginas. O site antigo só tem \"contate um consultor\". Uma consultoria gratuita anunciada em todo o site vincula a empresa (CDC art. 30) e pode conflitar com a prática comercial real.",
+  "suggested_fix": "Validar com a área comercial; se não houver diagnóstico gratuito, trocar por \"Conversa inicial sem compromisso\".",
+  "dim": "review:copy-e-fatos"
+ },
+ {
+  "title": "Garantia de \"não retaliação\" e \"Anonimato garantido\" não constam no Código de Conduta",
+  "file": "trix-site/src/content/contato.py",
+  "line": 74,
+  "severity": "low",
+  "description": "O formulário afirma \"Nenhuma retaliação será tolerada contra quem relata de boa-fé\"; o lead (l.89) fala em \"garantia de não retaliação\" e o hero (l.91) em \"Anonimato garantido · Não retaliação\". O Código de Conduta original prevê denúncia anônima e acesso ao Compliance Officer, mas não contém cláusula de não retaliação. É um compromisso desejável, porém ainda não formalizado pela empresa; publicá-lo como garantia sem política interna correspondente é arriscado.",
+  "suggested_fix": "Confirmar com o Compliance Officer e, idealmente, incluir a cláusula no Código de Conduta; até lá, usar \"Relatos de boa-fé são tratados com confidencialidade\".",
+  "dim": "review:copy-e-fatos"
+ },
+ {
+  "title": "Promessa de \"protocolo para acompanhamento\" sem mecanismo de acompanhamento",
+  "file": "trix-site/src/content/contato.py",
+  "line": 92,
+  "severity": "low",
+  "description": "As FAQs do Canal de Compliance dizem \"Você receberá um protocolo para acompanhamento\" (l.92 e l.101) e o Canal LGPD lista \"1. Registro com número de protocolo\" (l.68). O protocolo TRIX-AAAAMMDD-XXXX é gerado no navegador e a mensagem cai como comentário pendente no WordPress (docs/formularios-e-caixa-de-entrada.md); não existe página, e-mail automático ou consulta por protocolo. Para relatos anônimos, sem e-mail de retorno, o \"acompanhamento\" é impossível.",
+  "suggested_fix": "Reescrever: \"Você receberá um número de protocolo; guarde-o e informe-o ao entrar em contato por ouvidoria@trixti.com.br ou 0800 941 1190 para saber o andamento\".",
+  "dim": "review:copy-e-fatos"
+ },
+ {
+  "title": "Prazo \"até 15 dias\" generalizado para todos os tipos de solicitação LGPD",
+  "file": "trix-site/src/content/contato.py",
+  "line": 59,
+  "severity": "low",
+  "description": "O lead, o hero (l.61), a FAQ (l.62) e o passo 4 (l.68) prometem \"resposta em até 15 dias\" para qualquer solicitação. O prazo de 15 dias da LGPD (art. 19, II) refere-se à declaração completa de confirmação/acesso; para correção, eliminação, portabilidade etc. a lei não fixa 15 dias. Nenhuma fonte da empresa assume esse SLA. Ao prometê-lo para tudo, o site cria obrigação além da legal.",
+  "suggested_fix": "\"Respondemos nos prazos previstos na LGPD (até 15 dias para confirmação e acesso aos dados)\" ou confirmar o compromisso com o DPO.",
+  "dim": "review:copy-e-fatos"
+ },
+ {
+  "title": "Alt text \"Disponível na App Store / Google Play\" contradiz \"disponível em breve nas lojas\"",
+  "file": "trix-site/src/content/produtos.py",
+  "line": 61,
+  "severity": "low",
+  "description": "O card do app do paciente diz \"Aplicativo para iOS e Android — disponível em breve nas lojas\" (fonte confirma), mas logo abaixo os selos têm alt=\"Disponível na App Store\" e alt=\"Disponível no Google Play\", lidos por leitores de tela e por buscadores como afirmação de disponibilidade atual.",
+  "suggested_fix": "Trocar os alts por \"App Store (em breve)\" e \"Google Play (em breve)\" ou remover os selos até a publicação dos apps.",
+  "dim": "review:copy-e-fatos"
+ },
+ {
+  "title": "Tabela do webinário funde duas programações conflitantes da fonte (15-17/03 vs 09-11/03)",
+  "file": "trix-site/src/content/empresa.py",
+  "line": 62,
+  "severity": "low",
+  "description": "A página original do webinário traz duas grades incompatíveis: uma com 15/03/22 e 17/03/22 (14h-14h30 / 15h-16h) e outra com 09/03/22 e 11/03/22 (\"14 às 17hs\"), e temas distribuídos de forma diferente (\"Nova Auditoria Técnica\" e \"Autorização e Elegibilidade\" só aparecem na segunda). A tabela nova usa as datas da primeira grade e os temas da segunda, produzindo um registro histórico que não corresponde a nenhuma das versões. Também mantém palestrantes só pelo primeiro nome (\"Juliana\", \"Arlindo\").",
+  "suggested_fix": "Confirmar com a Trix as datas reais ou simplificar para \"março de 2022\" sem horários, listando palestrantes e temas sem atribuir data/hora; completar os nomes se possível.",
+  "dim": "review:copy-e-fatos"
+ },
+ {
+  "title": "Aviso \"Prometemos não utilizar suas informações de contato...\" ficou órfão sem formulário",
+  "file": "trix-site/src/content/empresa.py",
+  "line": 67,
+  "severity": "low",
+  "description": "A frase era o disclaimer do formulário de inscrição do webinário de 2022. Na nova página não há formulário nem coleta de dados, então \"suas informações de contato\" não se refere a nada e confunde o leitor.",
+  "suggested_fix": "Manter apenas \"Contato da organização: webinario@trixti.com.br\" e remover o aviso de SPAM.",
+  "dim": "review:copy-e-fatos"
+ },
+ {
+  "title": "Lead de Clientes convida a \"descobrir o nível de satisfação\", mas a página não apresenta nenhum dado ou depoimento",
+  "file": "trix-site/src/content/empresa.py",
+  "line": 84,
+  "severity": "low",
+  "description": "\"Descubra o nível de satisfação dos nossos clientes e por que operadoras... escolheram a Trix\" promete conteúdo (índices, depoimentos, cases) que não existe na página — só logotipos e cards genéricos. A frase original (\"Saiba qual é o nível de satisfação\") tinha o mesmo problema, mas a reescrita a reforçou. Trecho objetivamente pouco persuasivo por criar expectativa não atendida.",
+  "suggested_fix": "Remover a promessa ou incluir prova social real (depoimento autorizado, NPS, case) fornecida pela empresa.",
+  "dim": "review:copy-e-fatos"
+ },
+ {
+  "title": "Sigla \"CTMs\" sem expansão",
+  "file": "trix-site/src/content/empresa.py",
+  "line": 91,
+  "severity": "low",
+  "description": "\"Consultórios, clínicas e CTMs\" (também na meta description, l.81) reproduz a sigla do site antigo sem explicá-la. Fora do ecossistema Unimed, o leitor não sabe se é Cooperativa de Trabalho Médico, Centro de Tratamento Médico etc.",
+  "suggested_fix": "Expandir na primeira ocorrência (ex.: \"cooperativas de trabalho médico (CTMs)\") após confirmar o significado com a empresa.",
+  "dim": "review:copy-e-fatos"
+ },
+ {
+  "title": "FAQ LGPD ambígua: \"a operadora é a controladora e a Trix atua como operadora\"",
+  "file": "trix-site/src/content/contato.py",
+  "line": 71,
+  "severity": "low",
+  "description": "Na resposta \"Sou beneficiário de uma operadora que usa o SAW...\", a palavra \"operadora\" é usada em dois sentidos (operadora de plano de saúde e operador de dados da LGPD) na mesma frase, tornando a explicação confusa justamente para o titular leigo.",
+  "suggested_fix": "\"Na maioria dos casos, a operadora de saúde é a controladora dos dados e a Trix atua como operadora de dados (art. 5º, VII, da LGPD), tratando-os em nome dela.\"",
+  "dim": "review:copy-e-fatos"
+ },
+ {
+  "title": "Marca grafada \"PRONTOW\", \"Prontow\" e \"prontow\" e \"Trix Tecnologia\" sem \"Inteligente\"",
+  "file": "trix-site/src/content/produtos.py",
+  "line": 40,
+  "severity": "low",
+  "description": "O lead e o CTA da página do produto usam \"PRONTOW\" em caixa alta (l.40, l.62) enquanto títulos, menu, Home e demais páginas usam \"Prontow\"; a mensagem pré-preenchida do WhatsApp diz \"demonstração do prontow\" em minúsculas (l.62 e l.66), diferente de nav.py l.17 (\"do Prontow\"). Em conformidade.py l.64 e l.66 a empresa aparece como \"Trix Tecnologia\" (herdado do portal antigo), enquanto o restante do site usa \"Trix TI\" ou \"Trix Tecnologia Inteligente\".",
+  "suggested_fix": "Padronizar \"Prontow\" em todo texto visível e nas mensagens de WhatsApp; substituir \"Trix Tecnologia\" por \"Trix TI\" nas duas ocorrências.",
+  "dim": "review:copy-e-fatos"
+ },
+ {
+  "title": "Regência inconsistente no mesmo parágrafo: \"atende a realidade\" vs \"atender às necessidades\"",
+  "file": "trix-site/src/content/produtos.py",
+  "line": 93,
+  "severity": "low",
+  "description": "O lead do SAW traz \"Criado para atender às necessidades das operadoras... o SAW atende a realidade de cooperativas\". A forma sem crase foi herdada do site antigo; dentro da mesma frase a regência muda, o que soa como erro de acentuação.",
+  "suggested_fix": "Usar \"atende à realidade de cooperativas de todos os portes\".",
+  "dim": "review:copy-e-fatos"
+ },
+ {
+  "title": "\"Estatisticas\" sem acento repetido 19 vezes na tabela de cookies",
+  "file": "trix-site/src/content/original/cookies.html",
+  "line": 15,
+  "severity": "low",
+  "description": "A tabela de cookies do JivoChat, exibida na página /conformidade/cookies/, mantém a categoria \"Estatisticas\" (sem acento) em 19 linhas, além de descrições em português mal traduzido (\"vez que o convite proativo apareceu\", \"dinheiro da resposta do script\"). A página a apresenta como \"registro histórico... conforme documentado originalmente\", mas o erro ortográfico é visível e o próprio site já não usa JivoChat.",
+  "suggested_fix": "Corrigir para \"Estatísticas\" (e revisar as descrições) ou remover a seção histórica, mantendo apenas a tabela de categorias atual.",
+  "dim": "review:copy-e-fatos"
+ },
+ {
+  "title": "Horário 07h30–19h30 e call-back, documentados só para suporte a prestadores, são generalizados a todos os serviços",
+  "file": "trix-site/src/content/servicos.py",
+  "line": 29,
+  "severity": "low",
+  "description": "O passo \"Operação assistida\" do hub de serviços (válido para fábrica de software, consultoria, Oracle etc.) promete \"suporte de segunda a sexta das 07h30 às 19h30\"; Empresa (l.38) apresenta o mesmo horário e call-back como diferencial geral. Na fonte, o horário e o call-back pertencem exclusivamente ao suporte a prestadores do serviço de conectividade (conectividade.php).",
+  "suggested_fix": "Qualificar: \"suporte aos prestadores de segunda a sexta, das 07h30 às 19h30\" e restringir o call-back ao contexto de conectividade.",
+  "dim": "review:copy-e-fatos"
+ },
+ {
+  "title": "Nota \"* Conforme plano contratado\" atribui significado aos asteriscos da fonte sem base",
+  "file": "trix-site/src/content/servicos.py",
+  "line": 127,
+  "severity": "low",
+  "description": "Na Agenda Médica, os itens \"Avisos... por SMS*\" e \"Contact center... urgência/emergência*\" trazem asteriscos no site antigo sem nenhuma nota explicativa. A reescrita criou a nota \"* Conforme plano contratado.\", que pode não corresponder ao real motivo (custo adicional, disponibilidade regional etc.).",
+  "suggested_fix": "Confirmar com a Trix o significado dos asteriscos ou removê-los junto com a nota.",
+  "dim": "review:copy-e-fatos"
+ },
+ {
+  "title": "Etapas da metodologia PROTRIX descritas com práticas não documentadas (revisão de código, integração contínua, testes automatizados, SLAs)",
+  "file": "trix-site/src/content/servicos.py",
+  "line": 51,
+  "severity": "low",
+  "description": "A seção \"Como funciona a PROTRIX\" detalha cinco etapas com \"prototipação e modelagem (UML/BPMN)\", \"revisão de código, integração contínua e testes automatizados e manuais\" e \"Manutenção evolutiva e corretiva com SLAs\". A fonte descreve a PROTRIX apenas em termos gerais (desenvolvimento iterativo, gestão de demandas, gerência de projetos). Detalhar uma metodologia proprietária com práticas que a empresa talvez não adote pode ser contestado em propostas técnicas.",
+  "suggested_fix": "Validar as etapas com a Trix ou reduzir ao que a fonte sustenta (requisitos, análise e design, codificação, testes, documentação; iterativo com gestão de demandas).",
+  "dim": "review:copy-e-fatos"
+ },
+ {
+  "title": "Programa de Compliance dito \"estruturado conforme... o Decreto nº 11.129/2022\"",
+  "file": "trix-site/src/content/conformidade.py",
+  "line": 161,
+  "severity": "low",
+  "description": "O Código de Conduta original é anterior ao decreto e cita a Lei 8.666/93; nenhuma fonte indica que o programa foi estruturado segundo os parâmetros do Decreto 11.129/2022 (art. 57). Os oito pilares listados foram mapeados pelo redator a partir do Código. A alegação de aderência a norma específica é verificável em auditoria.",
+  "suggested_fix": "Reescrever como \"pilares alinhados às diretrizes da Lei nº 12.846/2013\" ou remover a referência ao decreto até validação com o Compliance Officer.",
+  "dim": "review:copy-e-fatos"
+ },
+ {
+  "title": "Política de Cookies declara uso de Google Analytics 4, mas o site não tem GA4 configurado",
+  "file": "trix-site/src/content/conformidade.py",
+  "line": 94,
+  "severity": "low",
+  "description": "A tabela \"Categorias utilizadas neste portal\" afirma \"Google Analytics 4 com anonimização de IP e Consent Mode v2\" com cookies \"_ga, _ga_*\", enquanto nav.py l.18 define \"ga4\": \"\" (vazio). A política descreve cookies que o site não define; se o GA4 nunca for configurado, a informação ao titular fica incorreta.",
+  "suggested_fix": "Condicionar a linha \"Analíticos\" à presença de SITE[\"ga4\"] no build ou reescrever como \"podem ser utilizados, se ativados\".",
+  "dim": "review:copy-e-fatos"
+ },
+ {
+  "title": "Title, meta description, Open Graph, canonical e JSON-LD existem só via JavaScript (HTML bruto não tem nada)",
+  "file": "src/assets/trix.js",
+  "line": 19,
+  "severity": "high",
+  "description": "Toda a camada SEO é injetada em tempo de execução por seo() (trix.js:19-82) a partir do JSON #trix-seo. Confirmado no HTML bruto de https://trix.ebaem.com.br/produtos/prontow/: nenhuma <meta name=description>, 0 tags og:*, nenhum <script type=application/ld+json>, e o <title> é o padrão do WordPress ('<título WP> – Trix Tecnologia Inteligente'). Consequências: WhatsApp, LinkedIn, Facebook, Slack, Teams não executam JS, logo nenhum link compartilhado terá título/descrição/imagem corretos (grave para um site cujo CTA principal é o WhatsApp); Bing e demais buscadores indexam sem descrição; o Google só vê as metas na segunda onda (renderização), com fila e risco de usar trechos do banner de cookies ('🍪 Trix e os cookies' é o primeiro <h3> após o conteúdo) como snippet. O docs/seo-e-migracao.md descreve isso como 'implementado', o que é enganoso.",
+  "suggested_fix": "Emitir as metas no servidor. Opção A (sem plugin): um mu-plugin/Code Snippet em PHP que, em is_singular(), lê o JSON #trix-seo de post_content (preg_match '#<script type=\"application/json\" id=\"trix-seo\">(.*?)</script>#s'), e usa add_filter('document_title_parts'), add_filter('pre_get_document_title'), add_action('wp_head') para description, og:*, twitter:* e o JSON-LD (portando o @graph de trix.js para PHP com home_url()). Opção B: instalar Yoast/Rank Math e gravar _yoast_wpseo_title/_yoast_wpseo_metadesc via o campo meta do wp_update_page (se o Easy MCP AI expuser). Em ambos os casos manter seo() apenas como fallback e impedir duplicidade: em trix.js:81 só adicionar o ld+json se não existir um script[type=\"application/ld+json\"] no head.",
+  "dim": "review:seo"
+ },
+ {
+  "title": "Mais de 60 imagens e o og:image de /clientes/ e /produtos/ são hotlinks para o domínio antigo trixti.com.br e quebrarão na migração",
+  "file": "src/build.py",
+  "line": 22,
+  "severity": "high",
+  "description": "media() devolve 'https://trixti.com.br/' + key para qualquer chave ausente em media_map.json. 32 chaves usadas no conteúdo não foram enviadas à biblioteca de mídia: todas as capturas do Prontow (produtos.py:42-68), Xield (135-145), Aspect Face (117-128), Portal Operadora (102, inclusive hero_img), logo Oracle (servicos.py:138,149), 30 logos de clientes (home.py:52, empresa.py:96), ícones dos comitês (conformidade.py:50-52,71-74), favicon (nav.py:18) e as imagens de compartilhamento images/desenvolvimento.jpg (clientes) e images/monitor.png (produtos), que viram og:image/JSON-LD image. Hoje o site carrega esses arquivos do servidor antigo; quando trixti.com.br passar a apontar para o WordPress novo, todos retornam 404: páginas de produto sem imagens, og:image quebrado, hero de 7 produtos vazio, e o build gera isso silenciosamente.",
+  "suggested_fix": "1) Rodar src/compute_media_todo.py + src/media/upload_media.py até media_map.json cobrir todas as chaves. 2) Em build.py:22, em vez do fallback silencioso, registrar aviso e falhar o build (ou exigir --allow-missing-media) quando uma chave não estiver mapeada, e listar as chaves faltantes no final do main(). 3) Para as imagens dos produtos que não existem mais no site antigo, substituir por ativos próprios na mídia.",
+  "dim": "review:seo"
+ },
+ {
+  "title": "Página inicial duplicada em /home/ e /, sem canonical no servidor para / e sitemap apontando para /home/",
+  "file": "src/build.py",
+  "line": 153,
+  "severity": "high",
+  "description": "A página 'home' é criada como página comum (slug home, parent nulo → publicada em https://trix.ebaem.com.br/home/, conforme deploy-pages.log) e o template home (build.py:153) repete o mesmo conteúdo em / por Query Loop, sem depender de 'página inicial estática' (README trata isso como opcional). Enquanto show_on_front = posts: (a) / não é singular, logo o WordPress não emite <link rel=canonical>; (b) /home/ é uma página indexável com canonical https://.../home/ e é ela que entra em wp-sitemap-pages-1.xml; (c) o canonical '/' do home.py:3 só é aplicado pelo JS (trix.js:22,49), sobrescrevendo um canonical divergente do HTML bruto, situação em que o Google costuma ignorar o canonical injetado. Resultado: duas URLs concorrentes para a home, sinais conflitantes e sitemap com a URL errada.",
+  "suggested_fix": "Tornar obrigatório (README e docs/seo-e-migracao.md, item 4) definir Configurações → Leitura → Página estática → Home antes de liberar para indexação: com page_on_front definido, get_permalink() da página vira /, redirect_canonical() faz 301 de /home/ para /, o canonical nativo e o sitemap passam a usar /. Se o Easy MCP AI expuser wp_update_option, automatizar em deploy.py (show_on_front=page, page_on_front=state['pages']['home']). Enquanto isso não for feito, publicar 'home' como rascunho ou com robots noindex no JSON (campo 'robots' já suportado em trix.js:34).",
+  "dim": "review:seo"
+ },
+ {
+  "title": "Staging trix.ebaem.com.br está indexável e o JS sobrescreve incondicionalmente a meta robots do WordPress",
+  "file": "src/assets/trix.js",
+  "line": 34,
+  "severity": "high",
+  "description": "O HTML bruto do staging traz apenas <meta name='robots' content='max-image-preview:large'>, ou seja, 'Desencorajar mecanismos de busca' está desligado e o wp-sitemap.xml está ativo: o domínio de homologação pode ser indexado antes do go-live e depois competir/duplicar o conteúdo de trixti.com.br. Além disso, trix.js:34 faz meta('name','robots', data.robots || 'index, follow, max-image-preview:large'), que localiza a tag existente do WordPress e troca o conteúdo: se a opção de desencorajar for ligada, o DOM renderizado passa a dizer 'index, follow' (o Google respeita o noindex do HTML bruto antes de renderizar, mas outros renderizadores/ferramentas não), e o mesmo acontece com qualquer noindex definido por plugin.",
+  "suggested_fix": "Ligar Configurações → Leitura → 'Desencorajar mecanismos de busca' no staging e incluir 'desligar essa opção' como passo explícito do checklist de migração em docs/seo-e-migracao.md. Em trix.js:34, só emitir a meta robots quando data.robots estiver definido (o WordPress já emite a tag padrão) e nunca substituir um valor existente que contenha 'noindex'.",
+  "dim": "review:seo"
+ },
+ {
+  "title": "FAQPage em JSON-LD com perguntas que não aparecem na página (9 de 12 páginas)",
+  "file": "src/content/produtos.py",
+  "line": 9,
+  "severity": "medium",
+  "description": "prod() (produtos.py:9), svc() (servicos.py:7) e pol() (conformidade.py:13) colocam faq_items apenas no JSON #trix-seo; o corpo só exibe FAQ se o autor chamar faq() (helpers.py:28) manualmente. Comparando o JSON com os <summary> renderizados: agenda-medica (servicos.py:131), conectividade-em-saude (servicos.py:76), aspect-face (produtos.py:127), saw (produtos.py:95), xield (produtos.py:146), lgpd (conformidade.py:76) e contato (contato.py:31) geram FAQPage sem nenhuma pergunta visível; canal-lgpd (contato.py:62) tem 3 perguntas no JSON totalmente diferentes das 3 visíveis (contato.py:71); canal-de-compliance (contato.py:92) inclui 'Quais outros canais existem?' que não está em contato.py:101. As diretrizes de dados estruturados do Google exigem que o conteúdo marcado esteja visível; marcação invisível pode ser ignorada ou gerar ação manual, sem nenhum ganho (rich results de FAQ já não são exibidos para sites comerciais).",
+  "suggested_fix": "Fazer os helpers anexarem automaticamente sec(head('Perguntas frequentes', 'Dúvidas <strong>comuns</strong>', '', True) + faq(faq_items)) ao body quando faq_items for informado (ou, inversamente, derivar seo['faq'] em build.py:199 dos pares realmente renderizados por faq()). Alinhar os JSONs de contato.py:31, 62 e 92 com o que é exibido ou removê-los.",
+  "dim": "review:seo"
+ },
+ {
+  "title": "Todos os 34 <title> excedem ~60 caracteres (61 a 102)",
+  "file": "src/content/conformidade.py",
+  "line": 57,
+  "severity": "medium",
+  "description": "Nenhum título fica dentro do limite prático de exibição (~60 caracteres/600 px); o Google trunca e frequentemente reescreve. Piores casos: lgpd 102 (conformidade.py:57), oracle-partner 101 (servicos.py:133), conformidade 100 (conformidade.py:26), glossario-lgpd 94 (conformidade.py:100), saw 93 (produtos.py:90), politica-de-privacidade 93 (conformidade.py:78), conectividade-em-saude 93 (servicos.py:57), produtos 91 (produtos.py:14), solucoes-e-automacao 90 (servicos.py:106), clientes 89 (empresa.py:80), integrador 86 (produtos.py:164), servicos 85 (servicos.py:11); home 78 (home.py:4). Vários acumulam dois separadores ('| ... — ...') e listas de produtos inteiras.",
+  "suggested_fix": "Reescrever cada título com 50-60 caracteres, palavra-chave principal no início e um único sufixo de marca (ex.: 'Portal de Proteção de Dados (LGPD) | Trix TI'; 'Oracle Partner: cloud, banco e integração | Trix TI'; 'SAW: atendimento web para operadoras | Trix'). Adicionar em build.py:197 uma verificação que imprime aviso quando len(title) > 60.",
+  "dim": "review:seo"
+ },
+ {
+  "title": "Todas as 34 meta descriptions excedem ~160 caracteres (207 a 324)",
+  "file": "src/content/conformidade.py",
+  "line": 168,
+  "severity": "medium",
+  "description": "Nenhuma descrição cabe no snippet; o Google corta em ~155-160 caracteres, perdendo a chamada final. Piores: seguranca-da-informacao 324 (conformidade.py:168), inteligencia-artificial 306 (conformidade.py:200), compliance 304 (conformidade.py:157), portal-operadora 299 (produtos.py:99), saw 288 (produtos.py:91), conformidade 287 (conformidade.py:27), intranet 280 (produtos.py:175), codigo-de-conduta 279 (conformidade.py:151), esg 278 (conformidade.py:187), politica-de-privacidade 277 (conformidade.py:79), oracle-partner 273 (servicos.py:134). A mesma string vira o excerpt da página no WordPress (build.py:205).",
+  "suggested_fix": "Limitar cada description a 120-155 caracteres com proposta de valor + CTA (ex.: 'Política de Segurança da Informação da Trix TI: controles, responsabilidades e como reportar incidentes a seguranca@trixti.com.br.'). Incluir aviso em build.py:197 para len(description) > 160.",
+  "dim": "review:seo"
+ },
+ {
+  "title": "URLs absolutas do domínio de staging gravadas no conteúdo, no og:image e no logo do JSON-LD (docs afirmam o contrário)",
+  "file": "src/build.py",
+  "line": 22,
+  "severity": "medium",
+  "description": "media() devolve m['url'] literal de media_map.json, isto é, 'https://trix.ebaem.com.br/wp-content/uploads/2026/09/...'. Isso é gravado em <img src> de todas as páginas, em seo['image'] (build.py:197 → og:image/twitter:image/ItemPage.image) e em TRIX_CONFIG.logo/defaultImage/favicon (build.py:63 → Organization.logo e image no JSON-LD). docs/seo-e-migracao.md:6 afirma que 'nenhuma URL absoluta do domínio é gravada no conteúdo', o que não é verdade; a migração passa a depender de um wp search-replace em post_content e nos blocos reutilizáveis (wp_block), e um esquecimento deixa imagens, og:image e logo apontando para um staging que pode ser desligado.",
+  "suggested_fix": "Em build.py:22, retornar apenas o caminho (urllib.parse.urlsplit(m['url']).path → '/wp-content/uploads/...'); em trix.js:32 e :54 absolutizar com origin quando o valor começar com '/' (Open Graph e schema.org exigem URL absoluta). Corrigir o texto de docs/seo-e-migracao.md:6 e manter o search-replace só como salvaguarda para a biblioteca de mídia.",
+  "dim": "review:seo"
+ },
+ {
+  "title": "SoftwareApplication declara offers com price '0' BRL para produtos pagos",
+  "file": "src/assets/trix.js",
+  "line": 73,
+  "severity": "medium",
+  "description": "Para type=product o JSON-LD gera offers {price:'0', priceCurrency:'BRL', availability:InStock, description:'Demonstração e proposta sob consulta'}: afirma que Prontow, SAW, GEDAI etc. são gratuitos, o que é dado estruturado impreciso (as diretrizes do Google exigem oferta condizente com a página). Não há aggregateRating/review, então a marcação nem é elegível a rich result de SoftwareApplication; só resta o risco. og:type='product' (trix.js:36) também não é adequado sem as propriedades product:* do Open Graph.",
+  "suggested_fix": "Remover o objeto offers (ou substituir por um ContactPoint/URL de orçamento fora de offers) e usar og:type 'website' para produtos. Se no futuro houver preço público, informá-lo de fato.",
+  "dim": "review:seo"
+ },
+ {
+  "title": "Imagens sem width/height (84), incluindo 7 imagens de hero com loading=eager (candidatas a LCP): CLS evitável",
+  "file": "src/build.py",
+  "line": 185,
+  "severity": "medium",
+  "description": "hero() emite <img src alt loading='eager' decoding='async'> sem width/height nem fetchpriority='high' (7 páginas de produto: prontow, saw, portal-operadora, aspect-face, gedai, integrador, intranet); feature() (helpers.py:20) e os loops de logos (home.py:52, empresa.py:96) também não informam dimensões. O CSS só define max-height/width:auto (trix.css:127,139,145), sem aspect-ratio, então o navegador não reserva espaço: layout shift no hero e nas grades de logos (31 imagens em /clientes/, 14 na home), penalizando Core Web Vitals.",
+  "suggested_fix": "Guardar largura/altura no media_map.json (upload_media.py já lê o arquivo; usar PIL) e fazer media() opcionalmente devolver também w/h para emitir width/height em hero() (build.py:185), feature() (helpers.py:20) e nos loops de logos; adicionar fetchpriority='high' à imagem do hero; como paliativo, definir aspect-ratio nas classes .trix-hero__img img, .trix-feature__media img e .trix-logos figure no trix.css.",
+  "dim": "review:seo"
+ },
+ {
+  "title": "Hierarquia de headings salta de H1 para H3 em 12 páginas",
+  "file": "src/content/helpers.py",
+  "line": 11,
+  "severity": "low",
+  "description": "cards() (helpers.py:11) e feature() (helpers.py:20) emitem <h3> e são usados logo após o hero sem um <h2> de seção: servicos.py:18,83,111; produtos.py:21,42-49,109,117,135,138,169; conformidade.py:191; formulário de contato com <h3>'Envie sua mensagem' (contato.py:16); e politica-de-privacidade herda <h3> do HTML original antes do primeiro <h2>. Páginas afetadas: servicos, consultoria, solucoes-e-automacao, oracle-partner, produtos, prontow, aspect-face, xield, integrador, esg, contato, politica-de-privacidade. Impacto pequeno em ranking, mas prejudica a leitura estrutural por buscadores e leitores de tela.",
+  "suggested_fix": "Nesses trechos, envolver com head(kicker, '<h2>...') antes de cards()/feature(), ou dar a cards()/feature() um parâmetro level (h2 quando for o primeiro bloco após o hero). Trocar o <h3> do formulário (contato.py:16) por <h2>.",
+  "dim": "review:seo"
+ },
+ {
+  "title": "Favicon aponta para https://trixti.com.br/favicon.ico e .ico é usado como apple-touch-icon",
+  "file": "src/nav.py",
+  "line": 18,
+  "severity": "low",
+  "description": "SITE['favicon'] = '{{media:favicon.ico}}' não está em media_map.json, então TRIX_CONFIG.favicon vira 'https://trixti.com.br/favicon.ico' (confirmado em dist/blocks/estilos.html). Após a migração o novo WordPress não servirá esse caminho; o Google usa o favicon nos resultados de busca. trix.js:50 ainda injeta o mesmo .ico como apple-touch-icon (precisa ser PNG) e tudo isso depende de JS.",
+  "suggested_fix": "Enviar um PNG 512x512 para a mídia e definir Aparência → Personalizar → Identidade do site → Ícone (o WordPress emite <link rel=icon> e apple-touch-icon no servidor); remover a injeção de trix.js:50 ou mantê-la só como fallback com URL relativa.",
+  "dim": "review:seo"
+ },
+ {
+  "title": "30 logos de clientes com alt genérico 'Cliente Trix'",
+  "file": "src/content/home.py",
+  "line": 52,
+  "severity": "low",
+  "description": "Os loops em home.py:52 e empresa.py:96 geram <img alt='Cliente Trix'> para todas as Unimeds e demais operadoras; o texto alternativo não identifica o cliente, desperdiçando a única prova social em imagem para busca de imagens e para a relação marca ↔ cliente (Unimed Curitiba, Unimed Ubá etc., que o inventário original nomeia).",
+  "suggested_fix": "Trocar a lista de nomes de arquivo por pares (arquivo, nome do cliente) e usar alt='Logo <cliente>' (ou 'Cliente: <nome>'); manter Economus como exemplo já correto.",
+  "dim": "review:seo"
+ },
+ {
+  "title": "Links de CTA com query string sem URL-encoding e variantes de /contato/",
+  "file": "src/content/produtos.py",
+  "line": 4,
+  "severity": "low",
+  "description": "prod() monta '/contato/?assunto=' + name sem codificar, produzindo href='/contato/?assunto=SAW - Sistema de Atendimento Web' e '?assunto=Integrador Trix' (espaços no href). Outros CTAs usam '?tipo=' (conformidade, lgpd). São 12 variantes rastreáveis de /contato/, /canal-lgpd/ e /canal-de-compliance/; o canonical nativo do WordPress e o location.pathname do JS neutralizam a duplicação, mas os espaços podem ser tratados de forma inconsistente por rastreadores.",
+  "suggested_fix": "Usar urllib.parse.quote(name) em produtos.py:4 (e nos demais links com parâmetros); opcionalmente adicionar rel='nofollow' a esses CTAs para não gastar rastreamento em variantes.",
+  "dim": "review:seo"
+ },
+ {
+  "title": "Dados do JSON-LD divergentes ou nunca preenchidos (ouvidoria, DPO, dateModified, AboutPage na home)",
+  "file": "src/assets/trix.js",
+  "line": 61,
+  "severity": "low",
+  "description": "trix.js:61-62 fixa telephone '+55-800-941-1190' e email dpo@trixti.com.br no código, enquanto nav.py:6-7 define ouvidoria_e164 '+5508009411190' e email_dpo (duas fontes de verdade; o formato do 0800 difere). trix.js:67 usa data.modified, que build.py:197 nunca emite, então dateModified nunca aparece. home.py:6 e conformidade.py:28 declaram type 'about', o que faz a home e a Central de Conformidade virarem AboutPage no JSON-LD (só /empresa/ deveria ser AboutPage).",
+  "suggested_fix": "Passar ouvidoria_e164 e email_dpo em config_script (build.py:63) e lê-los de CFG no JSON-LD; emitir 'modified' em build_pages() (ex.: data do git ou do build) ou remover o campo; usar type 'page' na home e em conformidade.",
+  "dim": "review:seo"
+ },
+ {
+  "title": "Preconnect, stylesheet do Google Fonts e 37 KB de CSS são renderizados dentro do <body>",
+  "file": "src/build.py",
+  "line": 70,
+  "severity": "low",
+  "description": "styles_html() (build.py:70-72) é publicado como bloco reutilizável no início dos templates (build.py:146), portanto <link rel=preconnect>, o <link rel=stylesheet> das fontes e o <style id=trix-css> ficam no <body> (confirmado no HTML bruto do staging: todos após o <body>). Preconnect tardio, stylesheet bloqueando a renderização do meio do documento e FOUT/CLS de fonte afetam LCP/CLS.",
+  "suggested_fix": "Mover fontes e CSS para o <head>: registrar via theme.json (settings.typography.fontFamilies com fontFace) e styles.css em GLOBAL_STYLES, ou enfileirar com wp_enqueue_style em um snippet/mu-plugin; manter no bloco apenas o TRIX_CONFIG.",
+  "dim": "review:seo"
+ },
+ {
+  "title": "Sitemap nativo expõe autores/taxonomias e os templates index/archive não têm H1 nem conteúdo",
+  "file": "src/build.py",
+  "line": 154,
+  "severity": "low",
+  "description": "O sitemap do WordPress inclui wp-sitemap-users-1.xml (arquivo de autor do administrador, revelando o login) e categorias; o template index/archive (build.py:154) renderiza apenas uma lista de posts sem <h1> e, sem posts, 'Nenhum conteúdo encontrado'. cleanup() (deploy.py:103-112) apaga páginas de exemplo, mas não o post 'Hello world!' nem seu comentário, que permanecem indexáveis (não foi possível confirmar o estado ao vivo por instabilidade do servidor).",
+  "suggested_fix": "Apagar o post e o comentário de exemplo em cleanup(); via snippet PHP usar add_filter('wp_sitemaps_add_provider', ...) para remover users e taxonomies; adicionar <!-- wp:query-title {\"type\":\"archive\"} /--> (H1) ao template index e, se não houver blog, redirecionar/noindex os arquivos.",
+  "dim": "review:seo"
+ },
+ {
+  "title": "Páginas publicadas estão defasadas em relação ao dist (título WP ao vivo = frase do H1)",
+  "file": "src/deploy.py",
+  "line": 63,
+  "severity": "low",
+  "description": "O <title> bruto de /produtos/prontow/ no staging é 'Gestão completa para clínicas, com inteligência artificial – Trix Tecnologia Inteligente' (frase do H1), enquanto dist/pages/prontow.json define wp_title 'Prontow'. deploy-state.json guarda hash só de 3 páginas e o último deploy foi com --create-only, que pula qualquer página existente (deploy.py:63); as outras 31 páginas nunca receberam o build atual, então o título sem JS e possivelmente o conteúdo ao vivo não correspondem ao que este código gera.",
+  "suggested_fix": "Executar python3 src/deploy.py --only pages sem --create-only (ou popular state['hashes'] a partir do conteúdo publicado) e, em deploy.py, registrar aviso quando uma página existente for pulada sem hash conhecido.",
+  "dim": "review:seo"
+ },
+ {
+  "title": "Cor dourada #A08E5D usada como texto pequeno reprova contraste AA (3,1:1 em fundo claro, 4,3:1 em fundo escuro)",
+  "file": "/home/user/OutrosProjetos/trix-site/src/assets/trix.css",
+  "line": 40,
+  "severity": "high",
+  "description": "--trix-gold (#A08E5D, definido na L8) é cor de TEXTO em .trix-kicker (L40, .8rem), .trix-timeline time (L152, .85rem), .trix-toc strong (L176, .8rem), .trix-mega__title (L244, .72rem) e .trix-quote footer (L378, .85rem). Razões medidas: 3,06:1 sobre off-white #FAF9F7, 3,22:1 sobre branco, 2,78:1 sobre sand-soft #F1EEE6 e 4,34:1 sobre grafite #2B2C2F (kicker de TODOS os heros, que são escuros nas 13 páginas, e da seção escura da home). Texto de 11–14px em negrito não é 'texto grande', exige 4,5:1 (WCAG 1.4.3). Kickers aparecem em todas as páginas.",
+  "suggested_fix": "Criar um token de texto, ex. --trix-gold-text:#7A6A3C (5,05:1 no off-white, 5,31:1 no branco, 4,58:1 no sand-soft), e usá-lo nas regras L40, L152, L176, L244, L378; em fundos escuros usar amarelo: `.trix-hero .trix-kicker,.trix-section--dark .trix-kicker,.trix-card--dark .trix-kicker{color:var(--trix-yellow)}` (9,19:1). Manter #A08E5D apenas em ícones/traços decorativos (L216, L270).",
+  "dim": "review:acessibilidade"
+ },
+ {
+  "title": "Cinza #8A8B90 (--trix-gray-500) como texto reprova contraste AA (3,4:1 no branco, 2,9:1 no sand)",
+  "file": "/home/user/OutrosProjetos/trix-site/src/assets/trix.css",
+  "line": 373,
+  "severity": "high",
+  "description": "--trix-gray-500 é cor de texto em .trix-muted (L373; usada no aviso 'Campos com * são obrigatórios' dos três formulários em contato.py L16/L46/L74 e no texto explicativo do modal de cookies build.py L134), .trix-mega__item small (L250, .78rem — descrição de todos os itens do megamenu), .trix-cookie-cat p (L335, .82rem), .trix-form .hint (L196) e .trix-hero--light .trix-breadcrumb (L133). Razões: 3,40:1 sobre branco, 3,23:1 sobre off-white, 2,93:1 sobre sand-soft. Todos abaixo de 4,5:1 (WCAG 1.4.3).",
+  "suggested_fix": "Trocar o valor do token na L8 para #6B6C71 (5,24:1 branco / 4,98:1 off-white / 4,52:1 sand-soft) ou apontar essas regras para --trix-gray-700 (#5B5C60, 6,68:1). Manter #8A8B90 só para bordas/decoração.",
+  "dim": "review:acessibilidade"
+ },
+ {
+  "title": "Switches do modal de cookies não têm nome acessível (label vazio)",
+  "file": "/home/user/OutrosProjetos/trix-site/src/build.py",
+  "line": 135,
+  "severity": "high",
+  "description": "Nas L135–138 cada categoria é `<label class=\"trix-switch\"><input type=\"checkbox\" name=\"functional\"><span></span></label>`: o label envolve o input mas não contém texto; o nome da categoria (`<b>Funcionais</b>`) fica num <div> irmão, fora do label. O input tem opacity:0 (trix.css L337) e é o primeiro elemento focado ao abrir o modal (trix.js L137). Leitor de tela anuncia apenas 'caixa de seleção, não marcada' — o usuário não sabe qual categoria está ativando (WCAG 1.3.1, 3.3.2, 4.1.2).",
+  "suggested_fix": "Dar id ao título de cada categoria e referenciá-lo: `<b id=\"cc-functional\">Funcionais</b>` ... `<input type=\"checkbox\" name=\"functional\" aria-labelledby=\"cc-functional\">` (idem necessary/analytics/marketing). Alternativa: `<span class=\"trix-sr\">Permitir cookies funcionais</span>` dentro do label (classe .trix-sr já existe na trix.css L375).",
+  "dim": "review:acessibilidade"
+ },
+ {
+  "title": "Drawer mobile permanece focável e exposto a leitores de tela quando fechado e em desktop",
+  "file": "/home/user/OutrosProjetos/trix-site/src/assets/trix.css",
+  "line": 263,
+  "severity": "high",
+  "description": "`.trix-drawer` fechado é ocultado só com `transform:translateX(100%)` (L263), sem visibility:hidden/display:none, e não existe regra escondendo-o em ≥1100px (a L258 só oculta o burger). O bloco gerado em build.py L51–59 (`<nav aria-label=\"Menu\">` com 4 <summary> e 35 links) fica fora da tela mas na ordem de tabulação em todas as larguras: em desktop, após o header, o Tab passa por 7+ paradas invisíveis (position:fixed não rola para a vista) antes de chegar ao conteúdo; leitores de tela listam dois landmarks de navegação duplicados ('Navegação principal' e 'Menu'). WCAG 2.4.3 / 2.4.7 / 1.3.2.",
+  "suggested_fix": "Em trix.css: `.trix-drawer{visibility:hidden;transition:transform .35s var(--trix-ease),visibility .35s}` e `.trix-drawer.is-open{visibility:visible}`; `@media(min-width:1100px){.trix-drawer,.trix-drawer__backdrop{display:none}}`. Complementarmente, em trix.js L107–108 alternar `drawer.hidden`/`inert` e, ao abrir, focar o primeiro item; ao fechar por Esc devolver foco ao burger.",
+  "dim": "review:acessibilidade"
+ },
+ {
+  "title": "Banner de cookies oculto só por transform: 5 controles invisíveis na ordem de tabulação em todas as páginas",
+  "file": "/home/user/OutrosProjetos/trix-site/src/assets/trix.css",
+  "line": 321,
+  "severity": "medium",
+  "description": "`.trix-cookie` sem `.is-visible` usa `transform:translate(-50%,140%)` (L321) sem visibility:hidden. Os 3 botões e 2 links do banner (build.py L132–133) continuam focáveis fora da viewport — inclusive para quem já consentiu e nunca vê o banner (trix.js L132 só adiciona a classe quando não há consentimento). Usuário de teclado passa por 5 paradas invisíveis ao final de cada página.",
+  "suggested_fix": "`.trix-cookie{visibility:hidden;transition:transform .5s var(--trix-ease),visibility .5s}.trix-cookie.is-visible{visibility:visible}`; ou em trix.js definir `banner.hidden=true` por padrão e `hidden=false` antes de adicionar is-visible.",
+  "dim": "review:acessibilidade"
+ },
+ {
+  "title": "Contatos flutuantes: links invisíveis focáveis e ordem de foco invertida (lista antes do botão)",
+  "file": "/home/user/OutrosProjetos/trix-site/src/build.py",
+  "line": 105,
+  "severity": "medium",
+  "description": "Os 6 links da `.trix-fab__list` (L105–111) ficam com opacity:0 e pointer-events:none quando fechados (trix.css L299) mas continuam na ordem de tabulação — 6 paradas invisíveis. Além disso a lista vem ANTES do botão `.trix-fab__main` no DOM (L112): ao abrir com Enter, os itens ficam atrás do ponto de foco e só são alcançáveis com Shift+Tab. Não há fechamento por Esc (trix.js L189–193). WCAG 2.4.3, 2.4.7.",
+  "suggested_fix": "trix.css: `.trix-fab__list li{visibility:hidden}` e `.trix-fab.is-open .trix-fab__list li{visibility:visible}` (adicionar visibility à transição). build.py: gerar o botão antes da <ul> (com flex-direction:column-reverse no CSS para manter o visual) ou, em trix.js, focar o primeiro link ao abrir; tratar Esc para fechar e devolver foco ao botão.",
+  "dim": "review:acessibilidade"
+ },
+ {
+  "title": "Modal de preferências de cookies (aria-modal=true) sem Esc, sem prisão de foco e sem retorno de foco",
+  "file": "/home/user/OutrosProjetos/trix-site/src/assets/trix.js",
+  "line": 137,
+  "severity": "medium",
+  "description": "`#trix-cookie-modal` é declarado `role=\"dialog\" aria-modal=\"true\"` (build.py L134), mas em trix.js L137–146: (1) não há tratamento de Escape para fechá-lo (os handlers de Esc das L100 e L174 só cobrem megamenu/drawer/painel a11y); (2) o Tab sai do modal para a página atrás dele enquanto a AT informa que o restante está inerte; (3) ao fechar (`close`, clique no backdrop, `save`, `accept`) o foco não volta ao elemento que abriu (botão 'Personalizar', `.trix-cookiebtn` ou link do rodapé) — cai no body. WCAG 2.4.3, 2.1.2 (padrão APG de diálogo modal).",
+  "suggested_fix": "Em openModal guardar `var opener=d.activeElement`; em hide/close chamar `opener.focus()`. Adicionar `on(d,'keydown',e=>{ if(e.key==='Escape'&&modal.classList.contains('is-open')) close(); })` e um loop de foco: no keydown Tab dentro de `.trix-modal__box`, se o foco está no último focável ir para o primeiro (e vice-versa com Shift+Tab).",
+  "dim": "review:acessibilidade"
+ },
+ {
+  "title": "Esc fecha megamenu, drawer e painel de acessibilidade sem devolver o foco ao botão controlador",
+  "file": "/home/user/OutrosProjetos/trix-site/src/assets/trix.js",
+  "line": 100,
+  "severity": "medium",
+  "description": "L100: `Escape` chama closeAll() e drawerClose(); se o foco estava num link do megamenu (que passa a visibility:hidden) ou do drawer, o foco é perdido para o body. L174: mesmo comportamento no painel de acessibilidade (display:none), enquanto o botão 'Fechar' da L163 restaura o foco corretamente. Usuário de teclado/leitor de tela perde a posição na página após Esc (WCAG 2.4.3).",
+  "suggested_fix": "L100: `if(e.key==='Escape'){ var openLi=$('.trix-nav > li.is-open'); closeAll(); if(openLi) $('button.trix-nav__link',openLi).focus(); if(drawer.classList.contains('is-open')){drawerClose(); burger.focus();} }`. L174: após remover is-open, chamar `btn.focus()` (como na L163).",
+  "dim": "review:acessibilidade"
+ },
+ {
+  "title": "Anel de foco #2F5D8A reprova 3:1 sobre fundos escuros (header, hero, rodapé, seções escuras)",
+  "file": "/home/user/OutrosProjetos/trix-site/src/assets/trix.css",
+  "line": 347,
+  "severity": "medium",
+  "description": "`body.trix :focus-visible{outline:3px solid var(--trix-info)}` (L347) e `.trix-btn:focus-visible` (L64) usam #2F5D8A, que tem apenas 2,03:1 contra #2B2C2F. Esse é o fundo do header fixo (links de navegação, burger), dos heros de todas as páginas (botões do hero), do rodapé (links, ícones sociais), de `.trix-section--dark`, `.trix-cta`, `.trix-card--dark`, `.trix-mega__feat` e do botão de acessibilidade. O indicador de foco fica quase invisível para quem navega por teclado (WCAG 1.4.11, 2.4.7).",
+  "suggested_fix": "Usar anel duplo válido em qualquer fundo: `body.trix :focus-visible{outline:3px solid #fff;outline-offset:2px;box-shadow:0 0 0 6px var(--trix-info)}`; ou sobrescrever por contexto: `.trix-header :focus-visible,.trix-hero :focus-visible,.trix-footer :focus-visible,.trix-section--dark :focus-visible,.trix-cta :focus-visible,.trix-card--dark :focus-visible,.trix-a11y-btn:focus-visible{outline-color:var(--trix-yellow)}` (9,19:1).",
+  "dim": "review:acessibilidade"
+ },
+ {
+  "title": "Campos de formulário: foco remove o outline e usa amarelo 1,5:1; borda de repouso 1,3:1 sobre fundo branco",
+  "file": "/home/user/OutrosProjetos/trix-site/src/assets/trix.css",
+  "line": 194,
+  "severity": "medium",
+  "description": "L194: `input:focus{outline:none;border-color:var(--trix-yellow);box-shadow:0 0 0 4px rgba(248,205,75,.3)}` — #F8CD4B sobre o branco do formulário tem 1,52:1 (a sombra a 30% ainda menos), então o campo focado não é identificável (WCAG 1.4.11, 2.4.7). L193: borda de repouso #E4E0D6 sobre `.trix-form{background:#fff}` (L188) = 1,32:1 — inputs brancos em cartão branco sem limite visível. Afeta os três formulários (contato, LGPD, compliance).",
+  "suggested_fix": "L193: `border:2px solid var(--trix-gray-500)` (#8A8B90 = 3,40:1) ou #767676; L194: `outline:3px solid var(--trix-info);outline-offset:2px;border-color:var(--trix-gray-900)` (remover o outline:none).",
+  "dim": "review:acessibilidade"
+ },
+ {
+  "title": "'Aumentar/Diminuir texto' do painel de acessibilidade não altera o corpo do texto (body em px)",
+  "file": "/home/user/OutrosProjetos/trix-site/src/assets/trix.css",
+  "line": 17,
+  "severity": "medium",
+  "description": "trix.js L158 implementa o recurso definindo `html{font-size:112.5%…150%}`, mas `body.trix{font-size:17px}` (L17) e o theme.json gerado em build.py L167 (`\"fontSize\":\"17px\"`) fixam o tamanho em px. Só elementos com font-size em rem escalam (títulos, botões, cards); parágrafos comuns, listas, FAQ (.trix-acc), .trix-prose (políticas, código de conduta), endereços e os campos de formulário (`font:inherit`, L193) ficam em 17px. O recurso anunciado no painel não funciona para o texto principal (eMAG rec. 4.? redimensionamento; WCAG 1.4.4 via recurso próprio).",
+  "suggested_fix": "trix.css L17: `font-size:1.0625rem`; build.py L167: `\"fontSize\":\"1.0625rem\"` (e revisar outros px de texto, ex. .trix-btn `font:700 .85rem` já em rem). Regenerar dist.",
+  "dim": "review:acessibilidade"
+ },
+ {
+  "title": "Pergunta do captcha não está associada ao campo de resposta; operador '×' pode não ser lido",
+  "file": "/home/user/OutrosProjetos/trix-site/src/content/contato.py",
+  "line": 4,
+  "severity": "medium",
+  "description": "O input `trix_captcha` (L5) tem apenas o rótulo 'Verificação anti-spam'; a pergunta ('Quanto é 3 × 4?') está num `<p class=\"trix-captcha__q\">` sem id e sem aria-describedby. Usuário de leitor de tela navegando por Tab/modo de formulários ouve o rótulo e 'campo numérico' mas não a pergunta que precisa responder; o erro 'resposta incorreta' (trix.js L208) o leva de volta ao campo sem contexto. O JS (trix.js L199) usa o sinal '×', que alguns sintetizadores pt-BR omitem. O captcha ainda é um teste cognitivo (WCAG 1.1.1 exige alternativa; eMAG rec. 6.3 pede evitar/oferecer alternativa) embora já existam honeypot e verificação de tempo (trix.js L207).",
+  "suggested_fix": "L4: `<p id=\"{id}_q\" class=\"trix-captcha__q\" aria-live=\"polite\">`; L5: `aria-describedby=\"{id}_q\"` no input. trix.js L199: gerar 'Quanto é <span>3</span> vezes <span>4</span>?' / 'mais' (ou `<span aria-label=\"vezes\">×</span>`). Avaliar remover o captcha mantendo honeypot + tempo, ou oferecer alternativa (ex. envio por e-mail já existe no fallback).",
+  "dim": "review:acessibilidade"
+ },
+ {
+  "title": "Mensagens de sucesso/erro dos formulários numa live region com display:none — anúncio não confiável",
+  "file": "/home/user/OutrosProjetos/trix-site/src/assets/trix.css",
+  "line": 205,
+  "severity": "medium",
+  "description": "`.trix-form__msg{display:none}` (L205) e as classes is-ok/is-err a exibem (L206–207). Em trix.js L205 `show()` troca a classe e o innerHTML no mesmo instante: a região `role=\"status\" aria-live=\"polite\"` (contato.py L21/L52/L82) não está na árvore de acessibilidade no momento da inserção, e NVDA/JAWS/VoiceOver frequentemente não anunciam conteúdo inserido junto com a exibição da região. Além disso, erros de captcha/consentimento não marcam o campo com aria-invalid nem, no caso do consentimento (L209), movem o foco.",
+  "suggested_fix": "Manter a região sempre renderizada: trocar display:none por `.trix-form__msg:empty{display:none}` e nunca esvaziá-la ao mesmo tempo que insere (ou inserir o texto em `requestAnimationFrame`/setTimeout após tornar visível). Para erros, usar `role=\"alert\"` (ou aria-live=\"assertive\"), definir `aria-invalid=\"true\"` no campo e focá-lo (já feito para o captcha; fazer também para o consentimento).",
+  "dim": "review:acessibilidade"
+ },
+ {
+  "title": "Emoji no título do banner de cookies é lido pelo leitor de tela",
+  "file": "/home/user/OutrosProjetos/trix-site/src/build.py",
+  "line": 132,
+  "severity": "low",
+  "description": "`<h3>🍪 Trix e os cookies</h3>` — o emoji faz parte do nome do título e é anunciado ('biscoito Trix e os cookies'), poluindo a navegação por cabeçalhos.",
+  "suggested_fix": "Remover o emoji ou envolvê-lo: `<h3><span aria-hidden=\"true\">🍪</span> Trix e os cookies</h3>`.",
+  "dim": "review:acessibilidade"
+ },
+ {
+  "title": "Emojis nos kickers das seções do Xield são anunciados como texto",
+  "file": "/home/user/OutrosProjetos/trix-site/src/content/produtos.py",
+  "line": 135,
+  "severity": "low",
+  "description": "L135–143 passam `kicker=\"🧠 Plataforma\"`, `\"🔐 Acesso\"`, `\"🗺 Presença\"`, `\"💡 Automação\"`, `\"🔗 Integração\"`, `\"🧩 Recursos\"`, `\"🚀 Diferenciais\"`; o helper feature() (helpers.py L21) os renderiza em `<span class=\"trix-kicker\">`, lidos como 'cérebro Plataforma', 'cadeado fechado com chave Acesso' etc. Nenhuma outra página usa emojis; os ícones SVG do projeto já têm aria-hidden.",
+  "suggested_fix": "Remover os emojis (usar só o texto, coerente com as demais páginas) ou envolver em `<span aria-hidden=\"true\">…</span>` dentro do kicker.",
+  "dim": "review:acessibilidade"
+ },
+ {
+  "title": "'Preferências de cookies' no rodapé é um link href=\"#\" que funciona como botão",
+  "file": "/home/user/OutrosProjetos/trix-site/src/build.py",
+  "line": 93,
+  "severity": "low",
+  "description": "A entrada `(\"#\", \"Preferências de cookies\", \"open\")` (L79) vira `<a href=\"#\" data-cookie=\"open\">` (L93); o clique é interceptado em trix.js L140 para abrir o modal. Para AT é um link que 'vai para #' — papel incorreto (WCAG 4.1.2) e, sem JS, leva ao topo da página.",
+  "suggested_fix": "Renderizar `<button type=\"button\" data-cookie=\"open\">Preferências de cookies</button>` com estilo de link (`.trix-footer button{all:unset;cursor:pointer;color:#CFCFD2}`).",
+  "dim": "review:acessibilidade"
+ },
+ {
+  "title": "scroll-behavior:smooth não é desativado em prefers-reduced-motion nem no modo 'Pausar animações'",
+  "file": "/home/user/OutrosProjetos/trix-site/src/assets/trix.css",
+  "line": 16,
+  "severity": "low",
+  "description": "`html{scroll-behavior:smooth}` (L16) vale para navegação por âncora não interceptada pelo JS (chegada por URL com #hash, links `href=\"#\"`, âncoras do TOC quando o alvo é resolvido pelo navegador). O media query da L369 zera apenas animation/transition e a regra `html.a11y-motion` (L365) só cobre elementos filhos; o JS respeita `reduced` nos scrollTo (L111/L112), mas o CSS não.",
+  "suggested_fix": "Adicionar na L369: `@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}...}` e `html.a11y-motion{scroll-behavior:auto!important}`.",
+  "dim": "review:acessibilidade"
+ },
+ {
+  "title": "Alvos de toque menores que 24px: botão '×' do painel de acessibilidade e 'Gerar outra pergunta'",
+  "file": "/home/user/OutrosProjetos/trix-site/src/assets/trix.css",
+  "line": 310,
+  "severity": "low",
+  "description": "`.trix-a11y h3 button` (L310) é o '×' de 1.3rem sem padding ≈ 21×21px; `.trix-captcha button` (L204) tem .8rem e padding 0 ≈ 15px de altura, não é texto inline. Ambos ficam abaixo de 24×24 (WCAG 2.2 2.5.8) e muito abaixo dos 44px recomendados (2.5.5/eMAG) — justamente em controles usados por pessoas com limitação motora.",
+  "suggested_fix": "L310 e L332: `min-width:44px;min-height:44px;display:grid;place-items:center;margin:-8px`; L204: `padding:8px 0;min-height:24px`.",
+  "dim": "review:acessibilidade"
+ },
+ {
+  "title": "Logos de clientes com alt genérico repetido ('Cliente Trix') não identificam a empresa",
+  "file": "/home/user/OutrosProjetos/trix-site/src/content/home.py",
+  "line": 52,
+  "severity": "low",
+  "description": "home.py L52 gera 12 imagens e empresa.py L96 gera 30 imagens distintas (unimed/40.png, 41.png…) todas com `alt=\"Cliente Trix\"`. Para usuário de leitor de tela a parede de logos vira 'Cliente Trix' repetido 30 vezes sem informar quais operadoras/Unimeds são clientes — que é o propósito da seção (WCAG 1.1.1).",
+  "suggested_fix": "Manter um dicionário arquivo→nome (ex. `{'unimed-curitiba.jpg':'Unimed Curitiba', ...}`) e usar `alt=\"<nome do cliente>\"`; se os nomes não puderem ser confirmados, usar `alt=\"\"` nas imagens e listar os clientes conhecidos em texto na mesma seção.",
+  "dim": "review:acessibilidade"
+ },
+ {
+  "title": "Modo 'Alto contraste' apaga o estado pressionado dos botões do painel e o estado dos switches",
+  "file": "/home/user/OutrosProjetos/trix-site/src/assets/trix.css",
+  "line": 357,
+  "severity": "low",
+  "description": "`html.a11y-contrast body.trix *:not(svg)…{background-color:#000!important;border-color:#fff!important}` (L357) sobrescreve `.trix-a11y__grid button[aria-pressed=\"true\"]{background:yellow}` (L315) e `.trix-switch input:checked + span{background:yellow}` (L340). Com alto contraste ativado, não há diferença visual entre recursos ligados/desligados no próprio painel de acessibilidade nem entre switches on/off no modal de cookies (só a posição do knob).",
+  "suggested_fix": "Após a L357 adicionar: `html.a11y-contrast .trix-a11y__grid button[aria-pressed=\"true\"]{background-color:#FFE600!important;color:#000!important}` e `html.a11y-contrast .trix-switch input:checked + span{background-color:#FFE600!important}`; opcionalmente exibir texto 'Ativo' via `[aria-pressed=\"true\"]::after{content:\" (ativo)\"}` no modo contraste.",
+  "dim": "review:acessibilidade"
+ },
+ {
+  "title": "Links que abrem em nova aba sem aviso (inclui o link dentro do label de consentimento)",
+  "file": "/home/user/OutrosProjetos/trix-site/src/content/contato.py",
+  "line": 8,
+  "severity": "low",
+  "description": "13 links `target=\"_blank\"` nas páginas de conteúdo (contato.py L8, L34–41, produtos.py, conformidade.py) e os 4 ícones sociais do rodapé (build.py L87, aria-label só com o nome da rede) não informam que abrem nova janela (eMAG rec. 1.9; WCAG G201). Na L8 o link da Política de Privacidade fica dentro do `<label>` do checkbox de consentimento: ativar o link pelo teclado abre nova aba sem aviso e, em alguns navegadores, o clique no label alterna o checkbox.",
+  "suggested_fix": "Acrescentar `<span class=\"trix-sr\"> (abre em nova aba)</span>` ou incluir no aria-label ('LinkedIn (abre em nova aba)'); no consentimento, remover target=_blank ou mover o link para fora do label (ex. `aria-describedby` apontando para um parágrafo com o link).",
+  "dim": "review:acessibilidade"
+ },
+ {
+  "title": "Página de contato pula do h1 para h3 (formulário sem h2)",
+  "file": "/home/user/OutrosProjetos/trix-site/src/content/contato.py",
+  "line": 16,
+  "severity": "low",
+  "description": "Na página /contato/ a primeira seção após o hero (h1) é o formulário, cujo título é `<h3>Envie sua mensagem</h3>` (L16); o primeiro h2 só aparece na seção 'Venha nos visitar'. Nas páginas LGPD e Compliance o formulário vem depois de um h2, então só a página de contato tem o salto de nível (eMAG rec. 3.2; WCAG 1.3.1 – navegação por cabeçalhos).",
+  "suggested_fix": "Na L16 usar `<h2>` (com `.trix-form h2{font-size:1.15rem;text-transform:uppercase}`) ou inserir um h2 na seção do formulário (ex. 'Fale conosco') antes do h3.",
+  "dim": "review:acessibilidade"
+ },
+ {
+  "title": "Políticas novas (Segurança, ESG, IA, Política Integrada) publicadas como formalmente aprovadas sem evidência de aprovação corporativa",
+  "file": "/home/user/OutrosProjetos/trix-site/src/content/conformidade.py",
+  "line": 183,
+  "severity": "high",
+  "description": "As páginas Segurança da Informação (linha 183: \"Esta política é aprovada pela Diretoria Executiva... revisada anualmente\"), ESG (linha 196: \"aprovada pela Diretoria Executiva e pelos comitês\"), IA (linhas 205-207) e a Política Integrada (linha 46: \"Aprovação: Diretoria Executiva e Comitês...\") são documentos NOVOS, criados na construção do site, sem correspondência no inventário original nem em docs/. Mesmo assim afirmam aprovação formal, periodicidade de revisão e compromissos técnicos específicos e verificáveis: MFA para acessos administrativos e remotos, criptografia em repouso de dados sensíveis e backups, backups testados, RTO/RPO definidos, assinatura ICP-Brasil, segregação de ambientes, monitoramento de recursos de TI de colaboradores (linhas 175-180), avaliação de vieses por idade/gênero/etnia, avaliação de impacto antes de cada lançamento (linhas 205-207). Compromissos públicos desse tipo são usados como parâmetro de 'medidas de segurança esperadas' (LGPD art. 44) e como promessa vinculante perante clientes (CDC art. 30); se algum controle não existir, a publicação cria passivo probatório e reputacional. A página Compliance (linha 161) também afirma programa 'estruturado conforme o Decreto nº 11.129/2022' — referência correta, mas afirmação nova, não presente no Código original.",
+  "suggested_fix": "Antes de publicar: (1) submeter cada política nova à aprovação formal da Diretoria e dos comitês, com número de versão e data de aprovação no rodapé; (2) validar item a item com o Security Officer/DPO quais controles existem de fato e remover ou reformular os não implementados (ex.: 'quando aplicável', 'em implantação'); (3) enquanto não aprovadas, marcar as páginas como 'minuta em consulta interna' ou não publicá-las (remover de PAGES e do rodapé em build.py linha 96). Revisão jurídica explícita obrigatória.",
+  "dim": "review:lgpd-legal"
+ },
+ {
+  "title": "Canal de Compliance promete 'anonimato garantido', mas o envio via wp-comments-post.php registra IP/user-agent e o fallback por e-mail expõe o remetente",
+  "file": "/home/user/OutrosProjetos/trix-site/src/content/contato.py",
+  "line": 91,
+  "severity": "high",
+  "description": "A página promete \"Anonimato garantido\" (linha 91), \"Confidencialidade e sigilo da identidade\" (linha 99) e \"Denúncias podem ser feitas de forma anônima\" (linha 74). Porém o formulário é enviado ao endpoint nativo de comentários do WordPress (trix.js linha 225), que grava obrigatoriamente comment_author_IP e comment_agent de todo comentário, além de 'Página: location.href' e data/hora incluídos no corpo (trix.js linha 218). A opção 'Prefiro relato anônimo' apenas troca autor/e-mail (trix.js linha 221); o IP do denunciante fica na base e é visível no painel de comentários e no e-mail de notificação. Além disso, se o POST falhar, o script oferece um link mailto: para ouvidoria@trixti.com.br mesmo para relatos anônimos (trix.js linhas 224 e 228), o que revela o endereço de e-mail pessoal do denunciante. A promessa de anonimato, portanto, não é tecnicamente cumprida — risco de violação do art. 6º, VI (transparência) e de responsabilização se houver retaliação com base em dados retidos.",
+  "suggested_fix": "(1) Reescrever a promessa para 'opção de não se identificar; dados técnicos de conexão podem ser registrados pela plataforma' OU implementar anonimização real: mu-plugin no WordPress com filtro pre_comment_user_ip retornando '' e remoção do user-agent para comentários das páginas canal-de-compliance/canal-lgpd, e retirar 'Página/Enviado em' do corpo para relatos anônimos; (2) no catch do fetch (trix.js linha 228), não oferecer mailto quando anon estiver marcado — orientar a ligar para o 0800; (3) considerar plataforma de denúncias especializada (já sugerida em docs/formularios-e-caixa-de-entrada.md) para atender à Lei 12.846/2013 e ao Decreto 11.129/2022 art. 57, XIV; (4) revisão jurídica do texto de garantias.",
+  "dim": "review:lgpd-legal"
+ },
+ {
+  "title": "Política de Privacidade de 2020 republicada na íntegra contém cláusulas incompatíveis com a LGPD e contraditórias com o novo site",
+  "file": "/home/user/OutrosProjetos/trix-site/src/content/conformidade.py",
+  "line": 84,
+  "severity": "high",
+  "description": "A página politica-de-privacidade (linhas 77-86) reproduz integralmente src/content/original/politica.html (versão 28/09/2020) e o card da Central a apresenta como a política vigente (linha 17). Problemas jurídicos do texto: (a) consentimento genérico 'ao aceitar esta Política' para legítimo interesse, perfilamento e cookies — autorizações genéricas são nulas (LGPD art. 8º, §4º) e visitantes do site não 'aceitam' nada (lead da linha 81 fala em 'USUÁRIO aceita'); (b) cookies 'para publicidade' aceitos por navegação, o que contradiz o banner opt-in do novo site (build.py linhas 132-139) e o modelo do Consent Mode; (c) cita Google ReCaptcha e Google Analytics (UA) — o novo site usa captcha matemático e GA4 desligado; (d) texto-padrão de instituição financeira alheio ao negócio da Trix: 'conheça-o-seu-cliente e prevenção à lavagem de dinheiro', 'sigilo financeiro e bancário', 'número de cartão de débito/crédito', 'anunciantes do Trix TI', 'e-commerce', monitoramento da internet para coletar logins/senhas vazados — descreve tratamentos que provavelmente não ocorrem e promete controles inexistentes; (e) cláusula de exoneração de responsabilidade por 'falhas, vírus ou invasões' conflita com os arts. 42-44 da LGPD; (f) dados sensíveis 'compartilhados exclusivamente mediante consentimento' contradiz as bases 'tutela da saúde' e 'obrigação legal (ANS/TISS)' declaradas no Portal (linha 69); (g) transferência internacional baseada em 'Cláusulas Contratuais Padrão da Comissão Europeia'/Área Econômica Europeia, quando a LGPD exige os instrumentos da Res. CD/ANPD nº 19/2024; (h) retenção 'mediante sua conveniência' conflita com arts. 15-16; (i) não descreve o tratamento de dados dos formulários do próprio site (finalidade, retenção, notificação por e-mail, armazenamento como comentários WordPress) — art. 9º.",
+  "suggested_fix": "Revisão jurídica explícita e nova versão da Política (com data), cobrindo: bases legais por finalidade, prazos de retenção, dados dos formulários do site, cookies conforme o banner, transferência internacional pela Res. 19/2024, direitos do art. 18 completos e ANPD nominalmente. Enquanto isso: (1) inserir no topo da página uma nota visível 'Versão de 2020 em revisão; prevalecem a LGPD e as regras do banner de cookies deste site'; (2) remover ou anotar as menções a reCAPTCHA/Universal Analytics; (3) trocar o lead da linha 81 por descrição neutra (não há 'aceite' do visitante).",
+  "dim": "review:lgpd-legal"
+ },
+ {
+  "title": "Checkbox de consentimento obrigatório para exercer direitos LGPD e para denunciar; falta aviso de privacidade específico dos formulários",
+  "file": "/home/user/OutrosProjetos/trix-site/src/content/contato.py",
+  "line": 8,
+  "severity": "medium",
+  "description": "A função consent() (linha 8) gera um checkbox obrigatório 'Li e concordo com a Política de Privacidade e autorizo o tratamento dos dados informados' e é usada no Canal LGPD (linha 51) e no Canal de Compliance (linha 81); o JS bloqueia o envio sem marcação (trix.js linha 209). Condicionar o exercício dos direitos do titular (art. 18) a um 'consentimento' é juridicamente inadequado: a base legal para atender requisições de titulares e denúncias é cumprimento de obrigação legal/exercício regular de direitos (art. 7º, II e VI), não consentimento — que deve ser livre e não pode ser exigência para o exercício de um direito. Além disso, nenhum dos três formulários traz aviso de privacidade próprio (art. 9º): quais dados são coletados (inclui CPF opcional e descrições com dados de saúde), finalidade, quem acessa (equipe do painel WordPress, e-mail de notificação), prazo de guarda, e o fato de a plataforma registrar IP.",
+  "suggested_fix": "Substituir o checkbox por um aviso informativo sem exigência de aceite, ex.: 'Os dados informados serão tratados pela Trix exclusivamente para atender esta solicitação, com base no cumprimento de obrigação legal (LGPD art. 7º, II), e guardados por [prazo]. Saiba mais na Política de Privacidade.' Manter checkbox de consentimento apenas no formulário de contato comercial se houver finalidade de marketing. Acrescentar parágrafo de aviso de privacidade em cada formulário (dados coletados, acesso, retenção, IP). Revisão jurídica do texto.",
+  "dim": "review:lgpd-legal"
+ },
+ {
+  "title": "Bases legais do Portal listam 'execução de contrato' e 'legítimo interesse' para tratamento que inclui dados sensíveis de saúde e biométricos",
+  "file": "/home/user/OutrosProjetos/trix-site/src/content/conformidade.py",
+  "line": 69,
+  "severity": "medium",
+  "description": "A seção 'Bases legais e princípios' afirma que os sistemas tratam 'dados sensíveis de saúde e biométricos' e, no mesmo item, elenca como bases 'execução de contrato, cumprimento de obrigação legal/regulatória (ANS, TISS), tutela da saúde, legítimo interesse e consentimento, quando cabível'. O art. 11 da LGPD tem rol próprio e fechado para dados sensíveis: execução de contrato e legítimo interesse NÃO são hipóteses válidas para dados sensíveis. Falta ainda a base mais pertinente aos produtos Aspect Face e Xield: art. 11, II, 'g' (prevenção à fraude e segurança do titular em processos de identificação e autenticação de cadastro em sistemas eletrônicos). A mesma imprecisão aparece na tabela da política de IA ('consentimento e bases legais', linha 206). Uma declaração pública de base legal incorreta é evidência contra a empresa em fiscalização da ANPD (art. 6º, I e VI).",
+  "suggested_fix": "Separar em dois blocos: dados pessoais comuns (art. 7º: execução de contrato, obrigação legal, legítimo interesse, consentimento) e dados sensíveis (art. 11: obrigação legal/regulatória — ANS/TISS; tutela da saúde por profissionais/serviços de saúde; prevenção à fraude e segurança do titular em identificação/autenticação — biometria; consentimento específico e destacado quando cabível). Esclarecer que, nos produtos, a definição da base cabe à controladora (operadora/clínica). Revisão jurídica.",
+  "dim": "review:lgpd-legal"
+ },
+ {
+  "title": "Política de IA apresenta 'sem limite de idade' do reconhecimento facial como salvaguarda — risco quanto a dados biométricos de crianças e adolescentes",
+  "file": "/home/user/OutrosProjetos/trix-site/src/content/conformidade.py",
+  "line": 206,
+  "severity": "medium",
+  "description": "Na tabela 'Aplicações' (linha 206) a coluna 'Salvaguardas' do Aspect Face lista 'consentimento e bases legais; sem limite de idade', e o card 'Equidade e não discriminação' (linha 205) repete 'sem limite de idade'. A expressão vem do marketing do produto (produtos.py linhas 105 e 116, capacidade técnica do algoritmo), mas dentro de uma política de conformidade soa como declaração de que biometria facial de menores é tratada sem restrição. A LGPD art. 14 exige tratamento no melhor interesse da criança e do adolescente, com consentimento específico e destacado de um dos pais quando essa for a base (Enunciado CD/ANPD nº 1/2023 admite outras bases do art. 7º/11 se no melhor interesse), além de RIPD. Nenhuma salvaguarda para menores é mencionada.",
+  "suggested_fix": "Remover 'sem limite de idade' das colunas de salvaguardas e do card de equidade. Incluir item específico: 'Dados de crianças e adolescentes: tratamento apenas no seu melhor interesse, com base legal adequada (art. 14 da LGPD), consentimento de um dos responsáveis quando exigido e avaliação de impacto específica'. Manter a menção de desempenho por faixa etária apenas como métrica de vieses. Revisão jurídica.",
+  "dim": "review:lgpd-legal"
+ },
+ {
+  "title": "Política de IA admite treinar modelos com dados de clientes 'com autorização contratual' e cita 'base de fraudes confirmadas' — finalidades secundárias sobre dados sensíveis sem base legal explicitada",
+  "file": "/home/user/OutrosProjetos/trix-site/src/content/conformidade.py",
+  "line": 205,
+  "severity": "medium",
+  "description": "O card 'Privacidade desde a concepção' (linha 205) diz 'proibição de uso de dados de clientes para treinar modelos sem autorização contratual', implicando que, com autorização contratual, dados de clientes (saúde, biometria) são usados para treinar IA. A autorização da controladora em contrato não substitui a base legal do art. 11 para uma nova finalidade (treinamento de modelo) nem a informação ao titular (arts. 6º, I e 9º); a operadora só pode tratar dados nos limites das instruções do controlador (art. 39). A tabela (linha 206) cita como salvaguarda uma 'base de fraudes confirmadas' e produtos.py linha 110 descreve 'base de fraudes técnicas 99% confirmadas' alimentada pelos analistas — se essa base biométrica for compartilhada entre clientes, trata-se de uso compartilhado de dados sensíveis (art. 11, §4º e art. 5º, XVI) que exige base legal própria, RIPD e informação aos titulares.",
+  "suggested_fix": "Reformular: 'Dados de clientes não são utilizados para treinar modelos, salvo com base legal específica, previsão contratual com a controladora e informação aos titulares; dados sensíveis somente anonimizados'. Esclarecer na página (ou remover a menção) se a 'base de fraudes' é por cliente ou compartilhada; se compartilhada, documentar base legal, finalidade e RIPD. Revisão jurídica explícita.",
+  "dim": "review:lgpd-legal"
+ },
+ {
+  "title": "Prazo de resposta do Canal LGPD: 'até 15 dias' incondicional, sem a hipótese de resposta imediata simplificada e sem ressalva quando a Trix é operadora",
+  "file": "/home/user/OutrosProjetos/trix-site/src/content/contato.py",
+  "line": 59,
+  "severity": "medium",
+  "description": "O lead (linha 59), o meta 'Resposta em até 15 dias' (linha 61), a FAQ (linha 62) e o passo 4 do fluxo (linha 68) prometem resposta em até 15 dias para toda e qualquer solicitação. O art. 19 da LGPD prevê, para confirmação e acesso, resposta 'imediata, em formato simplificado' (inciso I) ou 'por declaração clara e completa... em até 15 dias' (inciso II) — a opção simplificada imediata não é oferecida. Mais relevante: a própria FAQ (linha 71) reconhece que 'na maioria dos casos, a operadora é a controladora e a Trix atua como operadora de dados' e que a solicitação será encaminhada à controladora — nesse cenário a Trix não controla o prazo de resposta e a promessa pública de 15 dias pode não ser cumprida. O fluxo prevê ainda 'Análise pelo Comitê de Proteção de Dados' (linha 68) antes da resposta, o que pode inviabilizar o prazo.",
+  "suggested_fix": "Reescrever: 'Quando a Trix é controladora: confirmação e acesso de forma imediata em formato simplificado ou, se solicitado, declaração completa em até 15 dias (art. 19); demais direitos em prazo razoável, informado no protocolo. Quando a Trix é operadora (sistemas contratados por operadoras/clínicas): encaminhamos sua solicitação à controladora em até X dias úteis e informamos o andamento.' Ajustar meta e FAQ. Revisão jurídica.",
+  "dim": "review:lgpd-legal"
+ },
+ {
+  "title": "VLibras é carregado automaticamente em toda página, embora o painel de cookies e a Política de Cookies o classifiquem como categoria 'Funcionais' opcional; Google Fonts e cdnjs não são divulgados",
+  "file": "/home/user/OutrosProjetos/trix-site/src/build.py",
+  "line": 136,
+  "severity": "medium",
+  "description": "O modal de preferências (build.py linha 136) descreve 'Funcionais: Recursos como mapa interativo, vídeos incorporados e tradução em Libras' com opt-in, e a Política de Cookies (conformidade.py linha 94) lista 'tradução em Libras (VLibras)' como 'Opcional'. Contudo trix.js linha 317 chama vlibras(false) em requestIdleCallback em todo carregamento, injetando o script de vlibras.gov.br independentemente do consentimento — contradição direta entre o que o site declara e o que executa (art. 6º, VI). Além disso, todo carregamento envia o IP do visitante a fonts.googleapis.com/fonts.gstatic.com (build.py linhas 70-71) e a cdnjs.cloudflare.com para o Three.js (trix.js linha 274) — terceiros não mencionados na Política de Cookies nem na Política de Privacidade. A categoria 'vídeos incorporados' não corresponde a nenhum embed existente no site.",
+  "suggested_fix": "Escolher um dos caminhos e alinhar texto e código: (a) tratar VLibras como recurso de acessibilidade estritamente necessário (carregado sempre) e movê-lo para a linha 'Estritamente necessários' no modal e na tabela; ou (b) carregar VLibras somente ao clicar no botão do painel de acessibilidade ou com consentimento funcional (ouvir 'trix:consent' como faz maps()). Acrescentar à Política de Cookies uma seção 'Recursos de terceiros' (Google Fonts, cdnjs/Cloudflare, VLibras/gov.br, Google Maps sob demanda) ou auto-hospedar fontes e Three.js. Remover 'vídeos incorporados'.",
+  "dim": "review:lgpd-legal"
+ },
+ {
+  "title": "Código de Conduta apresentado como 'texto integral' contém inserções e correções editoriais não sinalizadas, e ainda cita a Lei 8.666/93 (revogada em 30/12/2023)",
+  "file": "/home/user/OutrosProjetos/trix-site/src/content/conformidade.py",
+  "line": 130,
+  "severity": "medium",
+  "description": "O título e a descrição da página (linhas 150-151) anunciam 'texto integral'/'na íntegra', mas a comparação palavra a palavra com docs/codigo-de-conduta-original.txt mostra alterações dentro do corpo transcrito: (1) linha 130 insere '(como a Lei nº 14.133/2021)' — trecho inexistente no original; (2) linha 145 troca o e-mail original 'ouvidoria@Trix.com.br' por 'ouvidoria@trixti.com.br' (correção provável de erro do PDF, mas silenciosa); (3) linha 141-142 reconstrói a frase truncada do original ('inserida na Todos os colaboradores...') criando dois parágrafos; (4) correções de grafia 'recursar-se'→'recusar-se' (linha 127) e 'adotas'→'adotadas' (linha 143). Em documento normativo interno, alterações não sinalizadas comprometem a fidelidade e podem ser questionadas por colaboradores/terceiros sancionados. Independentemente disso, o Código original remete à 'Lei 8.666/93 ou qualquer outra que a suceda': a Lei 8.666/93 foi revogada em 30/12/2023 (Lei 14.133/2021, art. 193, com redação da Lei 14.770/2023); a referência correta hoje é a Lei 14.133/2021, o que exige atualização formal do próprio Código pela empresa, não apenas no site.",
+  "suggested_fix": "Mover a inserção da linha 130 para uma nota editorial fora do texto citado (ex.: <p class=\"trix-note\">Nota: a Lei 8.666/93 foi revogada em 30/12/2023; aplica-se a Lei nº 14.133/2021.</p>); indicar no início da página 'Transcrição do PDF oficial com correções tipográficas; em caso de divergência prevalece o documento aprovado' e listar as correções (e-mail, frase reconstruída, grafias). Recomendar à Diretoria/Compliance a revisão formal do Código (nova versão datada) atualizando a referência legal e incorporando não retaliação e anonimato hoje só prometidos no site.",
+  "dim": "review:lgpd-legal"
+ },
+ {
+  "title": "Afirmação categórica 'Adequada à LGPD desde 2020' e 'mantemos relatórios de impacto' sem lastro verificável",
+  "file": "/home/user/OutrosProjetos/trix-site/src/content/conformidade.py",
+  "line": 32,
+  "severity": "medium",
+  "description": "O hub afirma no lead 'já estamos adequados à LGPD' (linha 30), no meta 'Adequada à LGPD desde 2020' (linha 32) e na FAQ do Portal 'Sim. Desde 2020 mantemos Política de Privacidade publicada, DPO nomeado, comitês permanentes, relatórios de impacto e programa de treinamento' (linha 76); a FAQ é publicada como FAQPage em JSON-LD (build.py linha 199), ganhando visibilidade em buscadores. O site antigo dizia apenas 'Já estamos adequados com a LGPD' e, quanto aos relatórios, atribuía ao comitê 'promover a elaboração' (inventário linhas 68-70) — o novo texto converte uma atribuição em fato consumado ('mantemos relatórios de impacto'; linha 69 'relatórios ... elaborados e atualizados'). Combinado com a Política de Privacidade de 2020 defasada, uma alegação absoluta de adequação pode configurar informação enganosa (CDC art. 37) e agrava a responsabilidade em eventual incidente (art. 52 — boas práticas alegadas e não comprovadas).",
+  "suggested_fix": "Trocar por linguagem de programa contínuo: 'Programa de adequação à LGPD desde 2020: Política de Privacidade, DPO nomeado, comitês e treinamento'. Só manter 'relatórios de impacto (RIPD)' se o DPO confirmar que existem e estão atualizados; caso contrário, 'em elaboração/atualização'. Validar com o DPO antes da publicação.",
+  "dim": "review:lgpd-legal"
+ },
+ {
+  "title": "Política ESG e páginas de compliance criam compromissos e indicadores não verificados (100% treinados, 'nenhuma sanção', logística reversa, não retaliação)",
+  "file": "/home/user/OutrosProjetos/trix-site/src/content/conformidade.py",
+  "line": 196,
+  "severity": "medium",
+  "description": "A tabela 'Como acompanhamos' (linha 196) promete '100% dos colaboradores treinados em Código de Conduta e LGPD' medido por 'Conclusões na Trix Academy', 'Descarte responsável de resíduos eletrônicos' com 'Registros de logística reversa', 'Nenhuma sanção por corrupção ou violação de dados' e 'Comitês reunidos periodicamente... Atas'. Não há qualquer fonte no inventário original ou em docs/ que sustente esses indicadores; declarações ESG sem evidência configuram risco de greenwashing/publicidade enganosa (CDC art. 37; CONAR, Anexo U) e podem ser cobradas em due diligence de clientes (operadoras). Do mesmo modo, 'Retaliação a quem relata de boa-fé' aparece em 'O que não toleramos' (linha 163) e 'Não retaliação'/'Anonimato garantido' nos canais (contato.py linhas 74, 91, 99), mas o Código de Conduta original não contém cláusula de não retaliação nem de anonimato garantido — são compromissos novos sem norma interna que os sustente.",
+  "suggested_fix": "Reduzir a tabela ESG a compromissos que a empresa possa evidenciar (ou apresentá-los como metas com prazo: 'Meta 2027: ...'); remover 'Nenhuma sanção...' como indicador. Formalizar a política de não retaliação e as regras de anonimato em norma interna (adendo ao Código ou Política do Canal de Denúncias, conforme Decreto 11.129/2022 art. 57, XIV-XV) antes de mantê-las no site. Revisão jurídica e validação pelo Compliance Officer.",
+  "dim": "review:lgpd-legal"
+ },
+ {
+  "title": "Canais LGPD e de Compliance prometem gestão exclusiva pelo DPO/Compliance Officer, mas todas as mensagens caem na fila comum de comentários e no e-mail do administrador; Akismet transferiria relatos a terceiro no exterior",
+  "file": "/home/user/OutrosProjetos/trix-site/src/content/contato.py",
+  "line": 89,
+  "severity": "medium",
+  "description": "O Canal de Compliance afirma ser 'gerido pelo Compliance Officer com total confidencialidade' (linha 89) e o Canal LGPD 'atendido diretamente pelo nosso Encarregado' (linha 59). Tecnicamente, os três formulários (contato comercial, LGPD e denúncias) são gravados como comentários pendentes da mesma instalação WordPress (trix.js linha 225) — acessíveis a qualquer usuário com permissão de moderar comentários — e a notificação vai para o único e-mail de administrador, que o README (linha 85) e docs/formularios-e-caixa-de-entrada.md (linha 16) orientam a configurar como falecom@trixti.com.br (caixa comercial). Denúncias com dados de terceiros e solicitações LGPD com CPF e dados de saúde ficam, assim, misturadas a mensagens comerciais e visíveis a pessoas fora dos comitês, contrariando a confidencialidade prometida e o dever de segurança (art. 46). docs/formularios linha 17 ainda sugere que o Akismet 'pode ser ativado': o Akismet envia o conteúdo integral dos comentários à Automattic (EUA) para análise antispam — transferência internacional de dados sensíveis sem base (Res. CD/ANPD 19/2024).",
+  "suggested_fix": "Antes de divulgar os canais: (1) rotear cada formulário para caixa própria (dpo@, ouvidoria@) — plugin de formulários com destinatário por formulário, ou ao menos filtro comment_moderation_recipients por página; (2) restringir a leitura das mensagens LGPD/Compliance a usuários específicos (DPO/Compliance Officer) ou usar plataforma dedicada; (3) registrar em docs/README que Akismet e qualquer antispam externo NÃO devem ser ativados para essas páginas; (4) definir prazo de eliminação das mensagens no WordPress; (5) alinhar o texto das páginas ao fluxo real.",
+  "dim": "review:lgpd-legal"
+ },
+ {
+  "title": "Política de Segurança afirma que a Trix comunica incidentes 'aos titulares e à ANPD', sem distinguir o papel de operadora nem o prazo regulamentar",
+  "file": "/home/user/OutrosProjetos/trix-site/src/content/conformidade.py",
+  "line": 179,
+  "severity": "low",
+  "description": "O item 7 (linha 179) diz que incidentes com dados pessoais são 'comunicados aos controladores, titulares e à ANPD nos prazos legais'. Como o próprio site reconhece (contato.py linha 71; Portal linha 68), na maioria dos produtos a Trix é operadora: a comunicação à ANPD e aos titulares é dever do controlador (art. 48), cabendo à operadora comunicar o controlador. A Res. CD/ANPD nº 15/2024 fixa 3 dias úteis para a comunicação do controlador à ANPD e aos titulares — a política não menciona prazo nem o registro interno obrigatório de incidentes (art. 9º da Resolução). O Canal LGPD (contato.py linha 69) orienta o titular a relatar incidentes por 'este canal ou seguranca@trixti.com.br', sem indicar que a controladora (operadora do plano) será acionada.",
+  "suggested_fix": "Reescrever o item 7: 'Incidentes com dados pessoais são registrados e avaliados com o Encarregado; quando a Trix atua como operadora, a controladora é comunicada sem demora para que cumpra os deveres do art. 48 da LGPD e da Resolução CD/ANPD nº 15/2024 (3 dias úteis); quando a Trix é controladora, comunica a ANPD e os titulares nesse prazo.' Revisão jurídica.",
+  "dim": "review:lgpd-legal"
+ },
+ {
+  "title": "Política de Cookies não lista cookies reais com prazo e fornecedor, descreve categorias inexistentes e trata dados do GA como 'anônimos'",
+  "file": "/home/user/OutrosProjetos/trix-site/src/content/conformidade.py",
+  "line": 94,
+  "severity": "low",
+  "description": "A tabela (linha 94) traz apenas categorias e exemplos genéricos: não informa prazo de validade nem responsável por cookie (trix_cookie_consent dura 180 dias — trix.js linha 118; _ga/_ga_* até 2 anos, Google Ireland/LLC), lista 'Marketing — Cookies de redes sociais quando ativados' embora não haja pixel ou embed social no site, e 'vídeos incorporados' inexistentes. Chama as estatísticas do GA4 de 'anônimas' quando _ga é identificador pseudônimo (dado pessoal, art. 12 e 13, §4º). A seção 'Registro histórico' (linha 96) reproduz cookies e localStorage do JivoChat, widget que não existe no novo site, sem dizer claramente que não são mais utilizados — o Guia Orientativo de Cookies da ANPD (2022) recomenda listar nome, finalidade, prazo, terceiro e categoria dos cookies efetivamente usados.",
+  "suggested_fix": "Substituir a tabela por inventário real: nome, finalidade, categoria, duração, próprio/terceiro (trix_cookie_consent 180 d; trix_a11y localStorage; _ga/_ga_* 24 m — só se GA4 for ativado; cookies do Google Maps ao carregar mapa). Remover a categoria Marketing do modal (build.py linha 138) enquanto não houver uso, ou marcá-la 'não utilizada atualmente'. Trocar 'anônimas' por 'pseudonimizadas'. Remover ou rotular explicitamente a seção JivoChat como 'histórico do portal anterior — não utilizado neste site'.",
+  "dim": "review:lgpd-legal"
+ },
+ {
+  "title": "Revogar consentimento não remove cookies analíticos já gravados nem interrompe o script do GA4",
+  "file": "/home/user/OutrosProjetos/trix-site/src/assets/trix.js",
+  "line": 142,
+  "severity": "low",
+  "description": "Se o visitante aceitou analíticos e depois usa 'Rejeitar não essenciais' (linha 136) ou desmarca a categoria e salva (linha 142), writeConsent apenas envia gtag('consent','update', ...denied) (linha 122). O script gtag.js já carregado permanece (flag __trixGA, linha 123) e os cookies _ga/_ga_* continuam no navegador até expirar. A Política de Cookies e o banner afirmam que o usuário 'controla suas preferências a qualquer momento' (conformidade.py linha 91): para a revogação ser efetiva (art. 8º, §5º; Guia de Cookies da ANPD), os cookies da categoria revogada devem ser eliminados.",
+  "suggested_fix": "Em writeConsent, quando c.analytics/c.marketing passar a false, apagar cookies _ga, _ga_*, _gid (document.cookie com expires passado, path=/ e domain=.dominio) e, opcionalmente, definir window['ga-disable-' + CFG.ga4] = true ou recarregar a página. Documentar o comportamento na Política de Cookies.",
+  "dim": "review:lgpd-legal"
+ },
+ {
+  "title": "Banner de cookies dá destaque visual desigual a 'Aceitar todos' (primário) frente a 'Rejeitar não essenciais' (ghost)",
+  "file": "/home/user/OutrosProjetos/trix-site/src/build.py",
+  "line": 133,
+  "severity": "low",
+  "description": "Na linha 133 o botão 'Aceitar todos' usa trix-btn--primary (amarelo sólido) e 'Rejeitar não essenciais' usa trix-btn--ghost (contorno), o que caracteriza nudge/dark pattern leve. O Guia Orientativo sobre Cookies da ANPD recomenda que rejeitar seja tão fácil e visível quanto aceitar, e a Resolução CD/ANPD nº 4/2023 considera padrões enganosos na dosimetria de sanções. O mesmo ocorre no modal (linha 139: 'Salvar preferências' primário, 'Aceitar todos' ghost — aqui invertido, o que é aceitável).",
+  "suggested_fix": "Aplicar a mesma classe (ex.: ambos trix-btn--dark ou ambos trix-btn--primary) a 'Aceitar todos' e 'Rejeitar não essenciais' no banner, mantendo 'Personalizar' como terciário.",
+  "dim": "review:lgpd-legal"
+ },
+ {
+  "title": "Link do Comitê de Segurança para o formulário usa ?tipo=Segurança da informação, valor que não existe no select 'tipo' do Canal de Compliance",
+  "file": "/home/user/OutrosProjetos/trix-site/src/content/conformidade.py",
+  "line": 52,
+  "severity": "low",
+  "description": "O card do Comitê de Segurança e Qualidade aponta para /canal-de-compliance/?tipo=Seguran%C3%A7a%20da%20informa%C3%A7%C3%A3o (linha 52). No formulário (contato.py linha 75) 'Segurança da informação' é opção do select 'tema', não do select 'tipo' (Denúncia, Dúvida..., Conflito de interesses, Outro). O pré-preenchimento em trix.js linhas 233-234 só procura select[name=\"assunto\"], select[name=\"tipo\"] e compara com as opções desse select, logo falha silenciosamente: o relato de incidente de segurança chega sem classificação, prejudicando a triagem prometida pela Política de Segurança (item 7, linha 179).",
+  "suggested_fix": "Usar ?tema=Seguran%C3%A7a%20da%20informa%C3%A7%C3%A3o e estender o prefill em trix.js para ler também p.get('tema') e preencher select[name=\"tema\"]; ou acrescentar a opção 'Incidente de segurança da informação' ao select 'tipo'.",
+  "dim": "review:lgpd-legal"
+ },
+ {
+  "title": "Protocolo 'para acompanhamento' é gerado no navegador e não há mecanismo de consulta, sobretudo para relatos anônimos",
+  "file": "/home/user/OutrosProjetos/trix-site/src/content/contato.py",
+  "line": 92,
+  "severity": "low",
+  "description": "As FAQs (linhas 92 e 101) e o passo 1 do fluxo LGPD (linha 68) prometem 'protocolo para acompanhamento'. O número TRIX-AAAAMMDD-XXXX é criado no cliente (trix.js linha 211) e só é incluído no texto da mensagem; não há página de consulta, nem orientação de como usar o número, e o denunciante anônimo não deixa contato para receber retorno. A promessa de acompanhamento fica sem execução prática, o que fragiliza o canal perante o Decreto 11.129/2022 (art. 57, XIV: canais que assegurem acompanhamento) e o art. 18/19 da LGPD (resposta ao titular).",
+  "suggested_fix": "Descrever no site como acompanhar (ex.: 'informe o protocolo pelo 0800 941 1190 ou por ouvidoria@/dpo@ para saber o andamento') e, no back-office, registrar o protocolo e o status; a médio prazo, implementar consulta de status por protocolo (plataforma de denúncias) e prazo-alvo de retorno para relatos anônimos.",
+  "dim": "review:lgpd-legal"
+ },
+ {
+  "title": "Transferência internacional citada apenas como 'Cláusulas Contratuais Padrão', sem indicar o instrumento da ANPD",
+  "file": "/home/user/OutrosProjetos/trix-site/src/content/conformidade.py",
+  "line": 69,
+  "severity": "low",
+  "description": "O Portal afirma 'Transferência internacional: quando ocorrer, com as salvaguardas previstas na LGPD e nas Cláusulas Contratuais Padrão' (linha 69). A Política de 2020 embutida na página vizinha fala em Cláusulas Contratuais Padrão 'da Comissão Europeia' e na Área Econômica Europeia. Para a LGPD (art. 33), os instrumentos válidos são os da Res. CD/ANPD nº 19/2024 (cláusulas-padrão da ANPD, cláusulas específicas aprovadas, normas corporativas globais), com prazo de adequação dos contratos encerrado em agosto de 2025. A Política de Segurança (linha 178) cita homologação da Oracle Cloud Infrastructure, o que sugere que há efetivamente armazenamento em provedor estrangeiro. A ambiguidade pode ser lida como uso de instrumento inválido no Brasil.",
+  "suggested_fix": "Especificar: 'com as salvaguardas do art. 33 da LGPD e da Resolução CD/ANPD nº 19/2024 (cláusulas-padrão contratuais da ANPD)'; indicar se os dados dos produtos ficam em região brasileira do provedor de nuvem. Alinhar o trecho da Política de Privacidade na revisão jurídica.",
+  "dim": "review:lgpd-legal"
+ },
+ {
+  "title": "Mensagens de denúncia/LGPD viram comentários do WordPress e ficam públicas se aprovadas (inclusive por auto-aprovação)",
+  "file": "/home/user/OutrosProjetos/trix-site/src/assets/trix.js",
+  "line": 225,
+  "severity": "high",
+  "description": "Os três formulários (Contato, Canal LGPD com CPF, Canal de Compliance com denúncias) fazem POST em /wp-comments-post.php. Todo comentário com status 'approved' é exposto publicamente por GET /wp-json/wp/v2/comments, /comments/feed/ e ?feed=comments-rss2 (conteúdo integral, author_name e author_avatar_urls com o MD5 do e-mail do remetente), mesmo sem o template renderizar comentários. Três caminhos levam à aprovação sem ninguém clicar em 'Aprovar': (1) o fetch usa credentials:'same-origin', então quando um administrador/editor logado testa o formulário, wp_allow_comment() aprova automaticamente comentários de usuários com moderate_comments, ignorando 'O comentário deve ser aprovado manualmente'; (2) a opção padrão do WP 'O autor deve ter um comentário aprovado anteriormente' está ligada e todos os relatos anônimos compartilham o mesmo par autor/e-mail ('Relato anônimo' / anonimo@example.com, build.py:65 e trix.js:221): uma única aprovação acidental libera automaticamente todas as denúncias anônimas futuras; (3) a proteção depende exclusivamente de passos manuais no painel (README.md:46) que não são verificados pelo deploy.",
+  "suggested_fix": "Curto prazo: trocar credentials:'same-origin' por credentials:'omit' em trix.js:225 (o envio passa a ser sempre anônimo, sem auto-aprovação de staff); instalar um mu-plugin com add_filter('pre_comment_approved', fn($a,$c)=> in_array($c['comment_post_ID'],[63,64,65]) ? 0 : $a, 10, 2) para que esses posts nunca sejam aprovados, e desligar 'comment_previously_approved'. Solução recomendada: usar plugin de formulários (Fluent Forms/WPForms) com entradas privadas e apontar CFG.formEndpoint, em vez do fluxo de comentários, para dados sensíveis (CPF, denúncias).",
+  "dim": "review:seguranca"
+ },
+ {
+  "title": "'Relato anônimo' não é anônimo: IP e user-agent são gravados e enviados por e-mail, e nome/e-mail digitados vão no corpo",
+  "file": "/home/user/OutrosProjetos/trix-site/src/assets/trix.js",
+  "line": 213,
+  "severity": "high",
+  "description": "A página promete 'Anonimato garantido' e 'Confidencialidade e sigilo da identidade' (contato.py:91 e :99). Porém: (a) o WordPress grava comment_author_IP e comment_agent em wp_comments para todo comentário e o e-mail de moderação (wp_notify_moderator) inclui 'IP address' e hostname do remetente, visíveis também na tela Comentários do painel; (b) em trix.js:213-217 o laço monta as linhas com TODOS os campos (Nome, E-mail para retorno) antes de verificar o rádio 'anonima' (linha 219), de modo que se o usuário selecionar 'Prefiro relato anônimo' mas preencher nome/e-mail (os campos continuam visíveis), esses dados entram no texto do comentário; apenas os campos author/email do comentário são substituídos; (c) 'Enviado em' usa o horário local do dispositivo, revelando fuso.",
+  "suggested_fix": "Em trix.js: calcular `anon` antes do laço e, quando verdadeiro, pular os campos nome/email/telefone (`if (anon && ['nome','email','telefone'].indexOf(n) >= 0) return;`) e ocultar/limpar esses inputs ao marcar o rádio. No servidor (mu-plugin): add_filter('pre_comment_user_ip', fn()=>'') e add_filter('pre_comment_user_agent', fn()=>'') para os posts 63/64/65, e remover IP do e-mail de moderação (filtro comment_moderation_text). Em contato.py:91/99, ajustar o texto para não prometer anonimato técnico que a infraestrutura (logs do servidor) não garante, ou informar que registros de acesso do servidor são mantidos.",
+  "dim": "review:seguranca"
+ },
+ {
+  "title": "Anti-spam existe só no cliente; endpoint de comentários aceita POST direto, permitindo flood da fila de denúncias",
+  "file": "/home/user/OutrosProjetos/trix-site/src/assets/trix.js",
+  "line": 207,
+  "severity": "medium",
+  "description": "Captcha matemático, honeypot e tempo mínimo (trix.js:207-208) rodam apenas no navegador. Qualquer cliente pode enviar POST /wp-comments-post.php com comment_post_ID=63|64|65 (páginas com comment_status=open, build.py:205 / deploy.py:57) sem passar por nenhuma verificação; a única defesa do core é o flood check de 15 s por IP e o filtro de duplicados. Sem Akismet/Antispam configurado, a fila de moderação onde chegam denúncias e pedidos LGPD pode ser inundada com spam, levando a exclusão em massa ou perda de relatos reais. O número de 'Protocolo' (trix.js:211) é gerado no cliente e não é registrado nem verificável no servidor, apesar de a mensagem de sucesso mandar 'guardar para acompanhamento'.",
+  "suggested_fix": "Adicionar validação no servidor: Akismet ou Antispam Bee, ou (melhor) plugin de formulários com Cloudflare Turnstile/hCaptcha e usar CFG.formEndpoint. Mínimo aceitável: ativar 'comment_moderation', lista de palavras bloqueadas e rate limiting no servidor/WAF. Se mantiver o protocolo, gerá-lo/persistí-lo no servidor (plugin) ou reescrever a mensagem para não sugerir consulta por número.",
+  "dim": "review:seguranca"
+ },
+ {
+  "title": "Dados sensíveis (CPF, denúncias) chegam à mesma fila visível a todos os Editores e ao e-mail geral do administrador",
+  "file": "/home/user/OutrosProjetos/trix-site/src/content/contato.py",
+  "line": 89,
+  "severity": "medium",
+  "description": "O Canal LGPD coleta CPF (contato.py:49) e promete atendimento direto pelo DPO (linha 59); o Canal de Compliance promete gestão pelo Compliance Officer 'com total confidencialidade' (linha 89). No fluxo atual, tudo cai em Comentários → Pendentes, legível por qualquer usuário com moderate_comments (Editores e Administradores), e a notificação padrão vai em texto claro para admin_email, que o README.md:46 manda apontar para falecom@trixti.com.br (caixa comercial), não para dpo@/ouvidoria@. Não há segregação entre os três canais.",
+  "suggested_fix": "Rotear por post: add_filter('comment_moderation_recipients', fn($emails,$id)=> match(get_comment($id)->comment_post_ID){64=>['dpo@trixti.com.br'],65=>['ouvidoria@trixti.com.br'],default=>$emails}, 10, 2) e restringir quem vê comentários desses posts, ou adotar plugin de formulários com destinatários e permissões por formulário. Documentar retenção/eliminação dos comentários após atendimento.",
+  "dim": "review:seguranca"
+ },
+ {
+  "title": "VLibras é carregado automaticamente para todos os visitantes antes do consentimento, contrariando a própria Política de Cookies",
+  "file": "/home/user/OutrosProjetos/trix-site/src/assets/trix.js",
+  "line": 317,
+  "severity": "medium",
+  "description": "init() agenda vlibras(false) em requestIdleCallback em todas as páginas, injetando https://vlibras.gov.br/app/vlibras-plugin.js (script de terceiro, sem SRI possível, com acesso total ao DOM, inclusive aos formulários confidenciais) e enviando IP/UA de cada visitante ao gov.br sem qualquer interação. A modal de consentimento (build.py:136) e a tabela da Política de Cookies (conformidade.py:94) classificam 'tradução em Libras (VLibras)' como categoria Funcional/opcional. O botão 'Libras (VLibras)' do painel de acessibilidade já carrega sob demanda, tornando o carregamento automático desnecessário.",
+  "suggested_fix": "Remover a linha 317 (idle(vlibras)) ou condicioná-la ao consentimento funcional, como já é feito para o mapa: `var c = readConsent(); if (c && c.functional) vlibras(false); on(d,'trix:consent',function(e){ if (e.detail.functional) vlibras(false); });`. Manter o carregamento pelo botão do painel de acessibilidade.",
+  "dim": "review:seguranca"
+ },
+ {
+  "title": "Estado de deploy (deploy-state.json) não é vinculado ao site de destino; reutilizar em produção sobrescreve/apaga conteúdo errado",
+  "file": "/home/user/OutrosProjetos/trix-site/src/deploy.py",
+  "line": 10,
+  "severity": "medium",
+  "description": "deploy-state.json (versionado no git) guarda IDs de páginas 57-93 e blocos 43-47 do staging trix.ebaem.com.br, mas o arquivo é único independentemente de WPMCP_URL (wpmcp.py:9). Ao apontar WPMCP_URL para trixti.com.br, deploy_pages usará wp_update_page com page_id do staging (atualizando páginas arbitrárias de produção com esses IDs), deploy_blocks preferirá state['blocks'] ao lookup por título (deploy.py:25), deploy_templates gravará refs de blocos inexistentes, e cleanup() apagará com force=True toda página cujo id não esteja em keep_ids (deploy.py:107-111).",
+  "suggested_fix": "Gravar o host de WPMCP_URL no estado (`state['site']`) e abortar com erro se o host atual for diferente; ou usar um arquivo por destino (deploy-state.<host>.json). Não versionar o estado do staging ou documentar que deve ser apagado antes do primeiro deploy em produção.",
+  "dim": "review:seguranca"
+ },
+ {
+  "title": "cleanup() exclui permanentemente qualquer página do site que não esteja em dist/ ou no estado, inclusive páginas criadas manualmente",
+  "file": "/home/user/OutrosProjetos/trix-site/src/deploy.py",
+  "line": 109,
+  "severity": "medium",
+  "description": "A condição `dup = (slug not in wanted) or (p['id'] not in keep_ids)` marca para exclusão toda página do WordPress que não foi gerada por dist/ — por exemplo landing pages ou rascunhos criados pela equipe no painel — e chama wp_delete_page com force=True, pulando a lixeira (irrecuperável). O objetivo declarado (remover páginas de teste, padrão do WP e duplicatas) é muito mais restrito do que o comportamento.",
+  "suggested_fix": "Restringir a exclusão a: slugs 'teste-*', 'sample-page', 'privacy-policy' e duplicatas reais (slug base em `wanted` com id fora de keep_ids, incluindo variantes '-2'); usar force=False (lixeira) por padrão; adicionar --dry-run e exigir --yes para exclusões, listando antes o que será removido.",
+  "dim": "review:seguranca"
+ },
+ {
+  "title": "Three.js carregado do cdnjs sem Subresource Integrity",
+  "file": "/home/user/OutrosProjetos/trix-site/src/assets/trix.js",
+  "line": 274,
+  "severity": "low",
+  "description": "O script https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js é injetado sem `integrity`/`crossOrigin`, executando com acesso total ao DOM em páginas que contêm formulários confidenciais (Contato usa three:'network', contato.py:26). Um comprometimento do CDN ou da rota até ele permitiria injetar código e capturar dados dos formulários. cdnjs suporta SRI e a versão é fixa (r128), então o hash é estável.",
+  "suggested_fix": "Em trix.js:274 adicionar `s.integrity = 'sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu'; s.crossOrigin = 'anonymous';` (hash calculado nesta auditoria a partir do arquivo publicado; reconfirmar com `openssl dgst -sha384 -binary three.min.js | openssl base64 -A`). Alternativa: hospedar three.min.js na biblioteca de mídia do WP e apontar CFG.threeUrl.",
+  "dim": "review:seguranca"
+ },
+ {
+  "title": "JSON embutido em <script> (#trix-seo e TRIX_CONFIG) sem escape de '</script>' e '<!--'",
+  "file": "/home/user/OutrosProjetos/trix-site/src/build.py",
+  "line": 203,
+  "severity": "low",
+  "description": "json.dumps(seo) é inserido diretamente em `<script type=\"application/json\" id=\"trix-seo\">` (build.py:203) e json.dumps(cfg) em `<script>window.TRIX_CONFIG=…</script>` (build.py:66). O parser HTML encerra o script no primeiro '</script' (ou trata '<!--' de forma especial), independentemente de estar dentro de uma string JSON. Hoje nenhum título/descrição/FAQ contém '<' (verificado em dist/pages/*.json), mas qualquer conteúdo futuro em src/content com '</script>' ou '<!--' quebraria a página e permitiria injeção de HTML/JS pelo conteúdo editorial.",
+  "suggested_fix": "Criar um helper `def json_for_script(o): return json.dumps(o, ensure_ascii=False).replace('<', '\\\\u003c').replace('\\u2028','\\\\u2028').replace('\\u2029','\\\\u2029')` e usá-lo nas linhas 66 e 203 (JSON.parse aceita \\u003c normalmente).",
+  "dim": "review:seguranca"
+ },
+ {
+  "title": "Google Fonts carregado antes do consentimento e não declarado na Política de Cookies",
+  "file": "/home/user/OutrosProjetos/trix-site/src/build.py",
+  "line": 71,
+  "severity": "low",
+  "description": "O bloco de estilos inclui preconnect e stylesheet de fonts.googleapis.com/fonts.gstatic.com em todas as páginas, enviando IP e User-Agent de cada visitante ao Google antes de qualquer escolha no banner. A tabela de categorias da Política de Cookies (conformidade.py:94) lista Google Maps, YouTube, VLibras e GA4, mas não menciona Google Fonts nem o cdnjs (Three.js), o que deixa a transparência exigida pela LGPD (art. 9º) incompleta para um site que se apresenta como referência em conformidade.",
+  "suggested_fix": "Preferível: hospedar a Open Sans na biblioteca de mídia/tema (self-host, @font-face) e remover os links externos; ou, se mantiver, declarar Google Fonts e cdnjs (Cloudflare) como terceiros de infraestrutura na tabela de conformidade.py:94 e na Política de Privacidade.",
+  "dim": "review:seguranca"
+ },
+ {
+  "title": "wp_create_block é repetido em falha de transporte, podendo criar blocos duplicados",
+  "file": "/home/user/OutrosProjetos/trix-site/src/deploy.py",
+  "line": 29,
+  "severity": "low",
+  "description": "call('wp_create_block', …) usa o padrão tries=3 de wpmcp.call (wpmcp.py:63-71), que reenvia a requisição inteira em erros de transporte. Como o túnel cai com frequência após a requisição ter sido processada (documentado no README.md:59), o bloco pode ser criado duas ou três vezes com o mesmo título/slug; o estado grava apenas o último id e os anteriores ficam órfãos até um cleanup manual. As páginas já tratam isso corretamente (tries=1 + relistagem, deploy.py:74-87), mas os blocos não.",
+  "suggested_fix": "Usar `call('wp_create_block', {...}, tries=1)` e, em MCPError, relistar wp_list_blocks e recuperar o id pelo título/slug antes de tentar criar de novo, espelhando a lógica de deploy_pages.",
+  "dim": "review:seguranca"
+ },
+ {
+  "title": "Megamenu centrado no <li> ultrapassa a viewport e é cortado (Conformidade / A Trix)",
+  "file": "trix-site/src/assets/trix.css",
+  "line": 239,
+  "severity": "high",
+  "description": ".trix-mega é position:absolute com left:50%/translate(-50%) em relação ao <li> (position:relative, linha 230), com largura min(960px, 100vw-32px). Como os itens ficam alinhados à direita do cabeçalho, o mega de 'Conformidade' (10 filhos, 960px) fica centrado em x≈1117 em 1440px (medido em screens/local-home-megamenu.png, onde 'Produtos' ocupa 387–1347px) e se estende até ≈1596px: ~156px são cortados por body.trix{overflow-x:hidden} (linha 17), inclusive o card 'Fale com o DPO'. Em 1280px o corte é ≈220px; em qualquer viewport <≈1720px o menu Conformidade fica cortado. Na faixa 1100–1240px o mega de 'A Trix' (6 filhos, também 960px) é cortado pela esquerda (~140px em 1100px).",
+  "suggested_fix": "Posicionar o mega em relação ao contêiner do cabeçalho, que sempre tem ≥1020px (≥960px): `.trix-header__in{position:relative}`, `.trix-nav > li{position:static}` e manter `.trix-mega{left:50%;transform:translate(-50%,…)}` (agora centrado no contêiner). Alternativa: em trix.js, ao abrir, medir `mega.getBoundingClientRect()` e aplicar `--shift` para manter o mega dentro de `[16px, innerWidth-16px]`.",
+  "dim": "review:frontend-bugs"
+ },
+ {
+  "title": "blockGap do Twenty Twenty-Five (1.2rem) injeta margens: header fixo desloca 19px, faixas claras entre todas as seções e antes do rodapé",
+  "file": "trix-site/src/assets/trix.css",
+  "line": 27,
+  "severity": "high",
+  "description": "O theme.json do TT5 define styles.spacing.blockGap=1.2rem (verificado no repositório oficial). Com isso o WP emite `:where(.wp-site-blocks) > *{margin-block-start:1.2rem}` e `:root :where(.is-layout-flow) > *{margin-block-start:1.2rem}` (class-wp-theme-json.php). No template, os blocos sincronizados são impressos sem wrapper, então <header class=\"trix-header\"> (position:fixed;top:0), .trix-drawer, .trix-drawer__backdrop, <footer> e .trix-modal (inset:0) são filhos diretos de .wp-site-blocks e recebem 1.2rem de margem superior — o header fixo passa a começar 19px abaixo do topo, o overlay do modal deixa uma faixa sem escurecer, e aparece uma faixa off-white entre a última seção e o rodapé. Além disso, o wrapper do wp:post-content recebe is-layout-flow, e cada <section> (a partir da 2ª, pois a 1ª é o <script id=trix-seo>) ganha 1.2rem de margin-block-start: faixas de 19px na cor do body entre o hero escuro e a seção seguinte, entre seções areia/branco/escuro etc. O reset existente (linhas 23–29) só zera padding/margin de .wp-site-blocks, main e margin-left/right dos filhos do post-content; a prévia (preview.py) não inclui o CSS do tema, por isso o problema não aparece nas screenshots locais.",
+  "suggested_fix": "Adicionar em trix.css (especificidade 0,1,1 vence `:root :where(...)` 0,1,0): `body.trix .wp-site-blocks > *,body.trix .is-layout-flow > *,body.trix .wp-block-post-content > *{margin-block:0}`. Opcionalmente também definir `styles.spacing.blockGap: \"0\"` em GLOBAL_STYLES (build.py, linha 167) para o WP não gerar as regras.",
+  "dim": "review:frontend-bugs"
+ },
+ {
+  "title": "Envio de formulário reporta sucesso mesmo quando o WordPress descarta a mensagem (HTTP 200 sem redirect)",
+  "file": "trix-site/src/assets/trix.js",
+  "line": 226,
+  "severity": "medium",
+  "description": "O fetch para /wp-comments-post.php considera sucesso qualquer resposta `r.ok`. Porém wp-comments-post.php (verificado no core): (1) para erros sem código — `comment_id_not_found` (comment_post_ID vazio/inválido), `comment_on_trash`, `comment_on_draft` — faz `exit` com HTTP 200 e corpo vazio; (2) `require_valid_email`/`require_name_email`/`require_valid_comment` usam wp_die com status 200 (ex.: e-mail aceito pelo type=email do HTML5 mas rejeitado por is_email(), como user@localhost ou domínio IDN). Em todos esses casos o visitante vê 'Mensagem enviada com sucesso' com um protocolo que nunca foi gravado. O comment_post_ID vem exclusivamente da classe page-id-N do body (linha 222); o fallback `data-post` nunca é emitido pelo build (contato.py não gera o atributo), então se a classe não existir (filtro de body_class, página exibida por Query Loop, cache) o envio é silenciosamente perdido.",
+  "suggested_fix": "Só considerar sucesso quando houve o redirect que o WP faz após gravar o comentário: `.then(function(r){ if(!r.ok || !r.redirected) throw new Error('nao-gravado'); })`. Além disso, se `pid` estiver vazio, abortar antes do fetch e cair direto no fallback mailto (`if(!pid) return show(false, ...mailto...)`).",
+  "dim": "review:frontend-bugs"
+ },
+ {
+  "title": "Contador animado arredonda valores decimais: '3.5' (versão PTU) termina exibindo '4'",
+  "file": "trix-site/src/assets/trix.js",
+  "line": 265,
+  "severity": "medium",
+  "description": "`v = Math.round(target * ease)` força inteiro. Em src/content/servicos.py linha 63 o stat é `(\"3.5\", \"\", \"versão PTU certificada…\")`, gerando data-count=\"3.5\"; ao fim da animação `Math.round(3.5)` = 4 e o texto final fica '4' (com prefers-reduced-motion mostra '3.5', ou seja, comportamento inconsistente e dado errado exibido).",
+  "suggested_fix": "Calcular casas decimais a partir do atributo e formatar: `var raw=el.getAttribute('data-count'), dec=(raw.split('.')[1]||'').length; ... el.textContent=(target*e).toFixed(dec).replace('.',',')+suffix;` ou não animar quando `!Number.isInteger(target)` (usar o texto original).",
+  "dim": "review:frontend-bugs"
+ },
+ {
+  "title": "'Aumentar/Diminuir texto' do painel de acessibilidade não afeta o corpo do texto (font-size em px no body)",
+  "file": "trix-site/src/assets/trix.css",
+  "line": 17,
+  "severity": "medium",
+  "description": "O painel altera `documentElement.style.fontSize` em % (trix.js linha 158), o que só escala unidades rem. `body.trix{font-size:17px}` fixa o tamanho herdado por todos os parágrafos comuns (políticas, código de conduta, glossário — justamente as páginas mais longas), inputs (`font:inherit`) e listas. Resultado: o recurso só amplia títulos, botões e cards, não o texto principal.",
+  "suggested_fix": "Trocar por unidade relativa: `body.trix{font-size:1.0625rem}` (=17px) e revisar outros tamanhos em px que devam escalar (ex.: .trix-nav__link, .trix-kicker já usam rem).",
+  "dim": "review:frontend-bugs"
+ },
+ {
+  "title": "VLibras (script de terceiro) é carregado automaticamente para todos os visitantes, contrariando a categoria 'Funcionais' do modal de cookies",
+  "file": "trix-site/src/assets/trix.js",
+  "line": 317,
+  "severity": "medium",
+  "description": "`idle(function(){ vlibras(false); })` injeta https://vlibras.gov.br/app/vlibras-plugin.js em todo carregamento, antes de qualquer consentimento. O modal (build.py linha 136) declara que 'tradução em Libras' pertence aos cookies Funcionais, que por padrão estão negados (consent default 'denied'). Há inconsistência entre a política apresentada ao usuário e o comportamento real, sensível para um site cujo posicionamento é conformidade LGPD.",
+  "suggested_fix": "Carregar automaticamente apenas se `readConsent()` tiver `functional:true` (e no evento `trix:consent`), mantendo o carregamento sob demanda pelo botão 'Libras' do painel (ação explícita do usuário); ou, se a decisão for manter o carregamento sempre, remover 'tradução em Libras' do texto da categoria Funcionais.",
+  "dim": "review:frontend-bugs"
+ },
+ {
+  "title": "Meta description, Open Graph, Twitter Cards e JSON-LD existem apenas via JavaScript; robots é sobrescrito cegamente",
+  "file": "trix-site/src/assets/trix.js",
+  "line": 19,
+  "severity": "medium",
+  "description": "Todo o <head> de SEO é montado em seo() a partir do JSON #trix-seo. Rastreadores de prévia de links (WhatsApp, LinkedIn, Facebook, Slack, Teams) não executam JS: ao compartilhar qualquer página, a prévia usará apenas o <title> genérico do WP, sem descrição nem og:image — relevante num site que incentiva contato por WhatsApp. Além disso `meta('name','robots', data.robots || 'index, follow,…')` (linha 34) substitui o conteúdo de uma meta robots já existente: em staging com 'Desencorajar mecanismos de busca' ou em resultados de busca (wp_robots_noindex_search) o `noindex` do servidor é trocado por `index, follow` no DOM.",
+  "suggested_fix": "Gerar as metas no servidor: instalar Yoast/Rank Math e alimentar título/descrição/imagem no deploy (campos meta via MCP), ou um mu-plugin mínimo que leia o JSON #trix-seo do post_content e imprima as tags em wp_head. No JS, não sobrescrever robots quando a meta existente contiver 'noindex' (`if(existing && /noindex/i.test(existing.content)) skip`).",
+  "dim": "review:frontend-bugs"
+ },
+ {
+  "title": "Cabeçalho fixo cobre o destino de âncoras abertas por URL (#missao, #politicas, #como-chegar) e cliques em âncoras não atualizam o hash",
+  "file": "trix-site/src/assets/trix.css",
+  "line": 16,
+  "severity": "low",
+  "description": "Não há `scroll-padding-top`/`scroll-margin-top`; o handler de clique (trix.js linha 111) compensa 90px apenas para cliques na mesma página. Links entre páginas como /empresa/#missao (megamenu e rodapé), /conformidade/#politicas e /contato/#como-chegar chegam com o alvo sob o header de 76px (no mobile, o padding da seção é 56px, então o kicker/título fica parcialmente escondido). O handler também faz preventDefault sem `history.pushState`, então o hash nunca muda ao navegar pelo sumário das políticas (não dá para copiar link profundo; 'voltar' não funciona).",
+  "suggested_fix": "`html{scroll-padding-top:calc(var(--trix-header-h) + 16px)}` (o offset de 90px do JS pode ser removido) e, no handler, `history.pushState(null,'',a.getAttribute('href'))` após o scrollTo.",
+  "dim": "review:frontend-bugs"
+ },
+ {
+  "title": "Three.js é baixado e renderiza a 60 fps mesmo com prefers-reduced-motion ou 'Pausar animações'",
+  "file": "trix-site/src/assets/trix.js",
+  "line": 273,
+  "severity": "low",
+  "description": "three() não verifica `reduced`; carrega a biblioteca (~600 KB) para todos. Em scene() o loop (linha 309) faz `requestAnimationFrame` continuamente e chama `renderer.render` a cada frame mesmo quando `reduced` ou `a11y-motion` estão ativos (só pula a atualização das malhas), consumindo GPU/bateria para desenhar uma cena estática.",
+  "suggested_fix": "Em three(): `if (reduced) return;`. No loop: quando a animação estiver pausada, renderizar um único frame e não reagendar o rAF (retomar via um MutationObserver na classe a11y-motion ou no clique do botão 'Pausar animações').",
+  "dim": "review:frontend-bugs"
+ },
+ {
+  "title": "Modal de preferências de cookies (aria-modal) não fecha com Escape nem devolve o foco",
+  "file": "trix-site/src/assets/trix.js",
+  "line": 141,
+  "severity": "low",
+  "description": "#trix-cookie-modal tem role=dialog/aria-modal=true, mas os únicos handlers de Escape do documento (linhas 100 e 174) fecham apenas o megamenu/drawer e o painel de acessibilidade. Não há retorno de foco ao botão que abriu o modal nem contenção de foco; usuários de teclado/leitor de tela podem ficar presos ou sair do modal por trás do overlay.",
+  "suggested_fix": "No bloco `if (modal)`: `on(d,'keydown',function(e){ if(e.key==='Escape' && modal.classList.contains('is-open')) close(); })`, guardar `document.activeElement` em openModal() e restaurá-lo ao fechar; opcionalmente um trap simples de Tab entre o primeiro e o último focável de .trix-modal__box.",
+  "dim": "review:frontend-bugs"
+ },
+ {
+  "title": "Contador de tamanho de texto (state.size) cresce sem limite e exige vários cliques inversos para reagir",
+  "file": "trix-site/src/assets/trix.js",
+  "line": 168,
+  "severity": "low",
+  "description": "`state.size` é incrementado/decrementado sem limite; o clamp (-2..4) é aplicado só no cálculo de exibição (linha 158) e o valor bruto é persistido no localStorage. Após 10 cliques em 'Aumentar', são necessários 7 cliques em 'Diminuir' antes de o texto começar a reduzir.",
+  "suggested_fix": "Aplicar o clamp ao armazenar: `state.size = Math.max(-2, Math.min(4, (state.size||0) + 1))` (e -1 para 'smaller').",
+  "dim": "review:frontend-bugs"
+ },
+ {
+  "title": "Banner de cookies (z-index 950) cobre o botão de acessibilidade e o FAB (z-index 850) até que haja resposta",
+  "file": "trix-site/src/assets/trix.css",
+  "line": 321,
+  "severity": "low",
+  "description": ".trix-cookie fica em bottom:16px com z-index 950, acima de .trix-a11y-btn (linha 305, z 850) e .trix-fab (linha 294, z 850). Na primeira visita — em especial no mobile, onde o banner ocupa a metade inferior da tela (screens/local-mobile-home.png) — o painel de acessibilidade (alto contraste, Libras, texto maior) fica inacessível justamente para quem mais precisa dele para ler o próprio banner.",
+  "suggested_fix": "Elevar os widgets de acessibilidade acima do banner (`.trix-a11y-btn,.trix-a11y{z-index:955/965}`) e, no mobile, deslocar o banner para não sobrepor o botão (`@media(max-width:899px){.trix-cookie{bottom:88px}}`), ou reposicionar o banner no topo em telas pequenas.",
+  "dim": "review:frontend-bugs"
+ },
+ {
+  "title": "Header fixo fica escondido sob a barra de administração do WordPress para usuários logados",
+  "file": "trix-site/src/assets/trix.css",
+  "line": 223,
+  "severity": "low",
+  "description": ".trix-header usa position:fixed;top:0. Com a admin bar (32px desktop / 46px mobile, z-index 99999), o WP apenas adiciona margin-top ao html, o que não afeta elementos fixos: logo e menu ficam cobertos para editores/administradores revisando o site; o drawer e o backdrop (top:var(--trix-header-h)) também ficam desalinhados.",
+  "suggested_fix": "`body.admin-bar{--trix-admin:32px}` `@media(max-width:782px){body.admin-bar{--trix-admin:46px}}` e `.trix-header{top:var(--trix-admin,0)}`, `.trix-drawer{top:calc(var(--trix-header-h) + var(--trix-admin,0px))}` (idem para .trix-drawer__backdrop e o offset das âncoras).",
+  "dim": "review:frontend-bugs"
+ }
+]

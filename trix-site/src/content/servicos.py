@@ -8,8 +8,8 @@ def svc(slug, title, desc, kicker, h1, lead, body, meta=None, image=None, stype=
     return p
 HUB = {
  "slug": "servicos", "order": 2, "short": "Serviços",
- "title": "Serviços de TI | Fábrica de software, conectividade em saúde, consultoria e processos",
- "description": "A Trix tem soluções sob medida para o seu negócio: fábrica de software (PROTRIX), conectividade em saúde suplementar, consultoria, escritório de processos (MTRIX), soluções e automação, agenda médica e parceria Oracle.",
+ "title": "Serviços de TI: software, conectividade e consultoria | Trix TI",
+ "description": "Fábrica de software (PROTRIX), conectividade em saúde suplementar, consultoria, escritório de processos, automação, agenda médica e parceria Oracle.",
  "image": "images/22.png", "hero": "dark", "three": "cubes",
  "kicker": "Serviços", "h1": "Soluções sob medida <strong>para o seu negócio</strong>",
  "lead": "Com processos bem estabelecidos, a Trix TI detém a prática necessária para atuar em diferentes formatos de projeto e em qualquer momento do ciclo de vida, sem perder a qualidade. Escolha o serviço e conte com uma equipe altamente qualificada, com experiência em ambientes heterogêneos.",
@@ -31,8 +31,8 @@ HUB = {
  ]),
 }
 FABRICA = svc("fabrica-de-software",
- "Fábrica de Software em Brasília | Metodologia PROTRIX — desenvolvimento sob medida",
- "Fábrica de software da Trix TI com metodologia PROTRIX: projeto completo, requisitos, análise e design, codificação, testes e documentação de sistemas legados. Java, PHP, iOS, Oracle, PostgreSQL, SOA, BPM e métodos ágeis.",
+ "Fábrica de software com metodologia PROTRIX | Trix TI",
+ "Desenvolvimento sob medida em Brasília: requisitos, análise e design, codificação, testes e sistemas legados, com Java, PHP, Oracle, PostgreSQL e métodos ágeis.",
  "Fábrica de software", "Software sob medida com a <strong>metodologia PROTRIX</strong>",
  "A Trix TI utiliza um processo de software que permite a organização e o gerenciamento dos produtos de forma ágil e organizada. A metodologia PROTRIX de desenvolvimento e manutenção de sistemas define, de forma detalhada, as responsabilidades, atividades e interações com outras áreas de conhecimento — refletindo as boas práticas de desenvolvimento iterativo, gestão de demandas e gerência de projetos.",
  "".join([
@@ -54,13 +54,13 @@ FABRICA = svc("fabrica-de-software",
  ]), meta=["Metodologia PROTRIX", "Java, PHP, iOS, Oracle e PostgreSQL", "Projetos completos ou por etapa"], image="images/22.png", stype="Desenvolvimento de software sob medida",
  faq_items=[("A Trix desenvolve aplicativos móveis?", "Sim. Desenvolvemos aplicações web e mobile (iOS e Android)."), ("Vocês trabalham com sistemas legados?", "Sim. Documentação, integração e modernização gradual."), ("Como é feita a medição e o orçamento?", "Escopo fechado, alocação de equipe ou pontos de função (APF/IFPUG).")], order=1)
 CONECT = svc("conectividade-em-saude",
- "Conectividade em Saúde Suplementar | Elegibilidade, TISS, faturamento e suporte a prestadores",
- "Serviço de conectividade em saúde suplementar da Trix TI: elegibilidade de beneficiários com cartão e biometria, faturamento eletrônico TISS, implantação, treinamento, suporte remoto e integração com a central de atendimento. Mais de 35 operadoras atendidas.",
+ "Conectividade em saúde suplementar | Trix TI",
+ "Elegibilidade com cartão e biometria, faturamento eletrônico TISS, implantação, treinamento e suporte remoto a prestadores. Mais de 35 operadoras atendidas.",
  "Conectividade em saúde suplementar", "Tecnologia, recursos e pessoas para <strong>conectar prestadores e operadoras</strong>",
  "O serviço de conectividade em saúde suplementar da Trix TI fornece tecnologias, recursos e mão de obra especializada nos processos que envolvem a troca de informação entre o prestador e a operadora de saúde. Atendimento, faturamento, credenciamento, equipe médica, ouvidoria, cadastro, jurídico, compras, tecnologia e gestão — de ambas as partes — são diretamente beneficiados.",
  "".join([
   sec(head("Objetivo", "Integração de <strong>ambientes, pessoas, ferramentas e processos</strong>", "O principal objetivo do serviço é promover o uso de tecnologia de ponta para a interação e integração de ambientes, pessoas × ferramentas × processos, consolidando uma base de conhecimento de melhores práticas aplicáveis a qualquer prestador ou operadora de saúde, independentemente do porte, segmento ou abrangência.")
-   + stats([("35", "+", "operadoras utilizam nossos produtos e serviços"), ("12", "h", "de suporte por dia útil (07h30–19h30)"), ("3.5", "", "versão PTU certificada para intercâmbio")])),
+   + stats([("35", "+", "operadoras utilizam nossos produtos e serviços"), ("12", "h", "de suporte por dia útil (07h30–19h30)"), ("PTU 3.5", "", "versão certificada para intercâmbio nacional")])),
   sec(head("Atividades", "Principais atividades do <strong>serviço de conectividade</strong>")
    + cards([
      {"icon": "face", "title": "Elegibilidade com cartão e biometria", "text": "Monitoramento e aplicação de políticas de utilização sobre o módulo de biometria e a leitura de cartões durante o registro do atendimento e a realização de procedimentos."},
@@ -75,8 +75,8 @@ CONECT = svc("conectividade-em-saude",
  ]), meta=["+35 operadoras", "Elegibilidade, TISS e intercâmbio", "Suporte com call-back gratuito"], image="images/30.png", order=2,
  faq_items=[("O que é o serviço de conectividade em saúde suplementar?", "É o conjunto de tecnologias, recursos e equipe especializada que garante a troca de informação entre prestadores e operadoras: elegibilidade, autorização, faturamento TISS, treinamento e suporte."), ("Qual o horário do suporte aos prestadores?", "De segunda a sexta-feira, das 07h30 às 19h30, por e-mail, telefone, sistema de chamados e ferramentas de comunicação via internet, com call-back gratuito.")])
 CONSULT = svc("consultoria",
- "Consultoria em TI | Outsourcing, segurança da informação, APF e processos de negócio",
- "Consultoria da Trix TI: outsourcing de infraestrutura com KPIs/SLAs, segurança da informação e backup, análise de pontos de função (APF/IFPUG), mapeamento e modelagem de processos (BPMN, UML, EPC), soluções open source e engenharia de software.",
+ "Consultoria em TI: outsourcing, segurança e APF | Trix TI",
+ "Outsourcing com KPIs/SLAs, segurança da informação, análise de pontos de função (IFPUG), modelagem de processos (BPMN), open source e engenharia de software.",
  "Consultoria", "Eficiência e resolutividade <strong>para o seu segmento</strong>",
  "A Trix TI possui uma equipe de profissionais altamente qualificados, com experiência em ambientes heterogêneos, para oferecer aos nossos clientes a eficiência e a resolutividade necessárias ao seu segmento de negócio.",
  "".join([
@@ -92,8 +92,8 @@ CONSULT = svc("consultoria",
   contact_band(),
  ]), meta=["Outsourcing com KPIs/SLAs", "APF pelo método IFPUG", "BPMN, UML, EPC e SPEM"], image="images/29.png", order=3)
 ESCRIT = svc("escritorio-de-processos",
- "Escritório de Processos | BPM, governança e metodologia MTRIX",
- "Escritório de Processos da Trix TI: BPM, governança, gestão de processos, gestão de TI e gestão estratégica com a metodologia MTRIX, implementada em consultorias com monitoramento assistido durante e após a implantação.",
+ "Escritório de Processos: BPM e metodologia MTRIX | Trix TI",
+ "BPM, governança, gestão de processos, de TI e estratégica com a metodologia MTRIX e monitoramento assistido durante e após a implantação.",
  "Escritório de processos", "Alinhamento com os <strong>objetivos do seu negócio</strong>",
  "A Trix TI conta com uma estrutura de Escritório de Processos que apoia o desenvolvimento e a evolução das soluções, aplicando a cada produto os benefícios propostos pelo BPM e pelas boas práticas de governança, gestão de processos, gestão de TI e gestão estratégica. O principal benefício é o alinhamento com os objetivos, expectativas e necessidades dos nossos clientes.",
  "".join([
@@ -103,8 +103,8 @@ ESCRIT = svc("escritorio-de-processos",
   contact_band(),
  ]), meta=["Metodologia MTRIX", "BPM e governança", "Monitoramento assistido"], order=4)
 SOLUC = svc("solucoes-e-automacao",
- "Soluções e Automação | Gestão de demandas, projetos, qualidade, e-commerce e monitoramento",
- "Automação de processos com a Trix TI: gestão de demandas, gestão de projetos (PMBOK), gestão da qualidade e testes, loja virtual e monitoramento de serviços de TI — ferramentas reconhecidas, implantadas e customizadas para a sua organização.",
+ "Soluções e automação de processos | Trix TI",
+ "Gestão de demandas, projetos (PMBOK), qualidade e testes, loja virtual e monitoramento de serviços de TI, com ferramentas de mercado customizadas.",
  "Soluções e automação", "Automatize processos com ferramentas <strong>reconhecidas pelo mercado</strong>",
  "A Trix TI fornece a automação de processos a partir da implantação e customização de ferramentas de apoio às atividades nas diversas áreas da organização. As ferramentas são reconhecidas e utilizadas por empresas de todos os segmentos e podem ser formatadas para a sua realidade.",
  "".join([
@@ -119,8 +119,8 @@ SOLUC = svc("solucoes-e-automacao",
   contact_band(),
  ]), meta=["Ferramentas de mercado customizadas", "Integração com sistemas legados", "Implantação e treinamento"], order=5)
 AGENDA = svc("agenda-medica",
- "Agenda Médica | Central de atendimento para consultórios e clínicas — Trix TI",
- "Serviço de Agenda Médica da Trix TI: central de atendimento receptiva e ativa para marcação e cancelamento de consultas, avisos por SMS e e-mail, número 4005 para todo o Brasil, gravação de ligações e relatórios mensais, com baixo investimento fixo.",
+ "Agenda Médica: central de atendimento para clínicas | Trix TI",
+ "Central receptiva e ativa para marcações e cancelamentos, avisos por SMS e e-mail, número 4005 nacional e relatórios mensais, com valor mensal fixo.",
  "Agenda médica", "Excelência na gestão do seu tempo. <strong>Perfeito para quem não tem!</strong>",
  "Com a Agenda Médica da Trix TI você tem controle online dos seus compromissos e uma Central de Atendimento para atender o seu paciente, realizar todas as ações necessárias para satisfazê-lo e promover o bom funcionamento do seu estabelecimento — com um pequeno investimento mensal de valor fixo.",
  "".join([
@@ -130,8 +130,8 @@ AGENDA = svc("agenda-medica",
  ]), meta=["Central de atendimento própria", "Número 4005 nacional", "Valor mensal fixo"], order=6,
  faq_items=[("Como o paciente é avisado das marcações?", "Por e-mail e SMS (conforme plano), com confirmação e lembretes gerados pela central."), ("A agenda funciona com convênios?", "Sim. Suporta configurações de agendas de atendimento particular, Unimed e outros convênios.")])
 ORACLE = svc("oracle-partner",
- "Oracle Partner | Trix TI é membro do Oracle PartnerNetwork (OPN) — cloud, banco de dados e integração",
- "A Trix Tecnologia Inteligente é membro do Oracle PartnerNetwork (OPN). Soluções Oracle: Cloud Infrastructure (OCI), banco de dados Oracle, integração de sistemas, aplicações corporativas, analytics e big data, segurança e compliance para saúde suplementar e outros setores.",
+ "Oracle Partner: cloud, banco de dados e integração | Trix TI",
+ "Membro do Oracle PartnerNetwork: OCI, banco de dados Oracle, integração de sistemas, aplicações corporativas, analytics, segurança e compliance.",
  "Oracle PartnerNetwork", "Soluções Oracle com a <strong>expertise da Trix</strong>",
  "A Trix Tecnologia Inteligente é membro do Oracle PartnerNetwork (OPN), fortalecendo sua presença no mercado com soluções baseadas em uma das plataformas mais avançadas e confiáveis do mundo. Com essa frente comercial, unimos nossa expertise em conectividade, saúde e transformação digital à solidez das soluções Oracle.",
  "".join([
