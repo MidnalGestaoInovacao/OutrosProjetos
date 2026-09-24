@@ -47,7 +47,7 @@ def head_links(favicon_url, logo_url):
             '<link rel="shortcut icon" href="%s"><meta name="theme-color" content="#050505"><meta name="msapplication-TileColor" content="#050505">'
             '<meta name="msapplication-TileImage" content="%s">' % (favicon_url, favicon_url, favicon_url, favicon_url))
 
-def seo_block(title, description, path, image, kind="website", article=None, breadcrumbs=None, keywords=None, robots=None):
+def seo_block(title, description, path, image, kind="website", article=None, breadcrumbs=None, keywords=None, robots=None, faq=None):
     """Retorna um bloco wp:html com as tags de SEO. path: caminho absoluto iniciando por '/'. robots: ex. "noindex,nofollow" para páginas apartadas."""
     url = SITE + path
     desc = _clean(description)
@@ -77,5 +77,7 @@ def seo_block(title, description, path, image, kind="website", article=None, bre
     if breadcrumbs:
         graph.append({"@type": "BreadcrumbList", "itemListElement": [
             {"@type": "ListItem", "position": i + 1, "name": n, "item": SITE + p} for i, (n, p) in enumerate(breadcrumbs)]})
+    if faq:
+        graph.append({"@type": "FAQPage", "@id": url + "#faq", "mainEntity": [{"@type": "Question", "name": _clean(q), "acceptedAnswer": {"@type": "Answer", "text": _clean(a)}} for q, a in faq]})
     tags.append('<script type="application/ld+json">%s</script>' % json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False))
     return "<!-- wp:html -->\n" + "\n".join(tags) + "\n<!-- /wp:html -->\n"

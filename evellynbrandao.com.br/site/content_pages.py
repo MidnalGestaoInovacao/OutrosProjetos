@@ -484,16 +484,20 @@ import os as _os
 _PROPOSTAS_FILE = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "propostas.html")
 PROPOSTAS = {
   "slug": "propostas", "title": "Propostas de crédito rural", "template": "page-no-title",
-  "excerpt": "Área do produtor: crie sua conta, envie dados e documentos com segurança e acompanhe a análise da sua proposta de crédito rural.",
-  "robots": "noindex,nofollow",  # apartada do site por enquanto: não indexar
+  "seo_title": "Proposta de crédito rural online: como funciona, etapas e documentos — Évellyn Brandão",
+  "excerpt": "Como solicitar crédito rural online: 7 etapas guiadas, checklist de documentos, status da análise e segurança dos dados. Crie sua conta e envie sua proposta.",
+  "keywords": ["proposta de crédito rural", "solicitar crédito rural", "documentos crédito rural", "análise de crédito rural", "BS Agro Capital"],
+  "robots": None,  # indexável desde 24/09/2026
   "html": open(_PROPOSTAS_FILE, encoding="utf-8").read() if _os.path.exists(_PROPOSTAS_FILE) else "",
 }
 
 _MINHA_AREA_FILE = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "minha_area.html")
 MINHA_AREA = {
   "slug": "minha-area", "title": "Minha área", "template": "page-no-title",
-  "excerpt": "Entre ou crie sua conta para enviar sua proposta de crédito rural, acompanhar a análise e responder pendências.",
-  "robots": "noindex,nofollow",
+  "seo_title": "Área do produtor: solicite e acompanhe sua proposta de crédito rural — Évellyn Brandão",
+  "excerpt": "Entre ou crie sua conta na área do produtor: envie sua proposta de crédito rural em etapas, anexe documentos com segurança e acompanhe a análise em tempo real.",
+  "keywords": ["área do produtor", "solicitar crédito rural", "acompanhar proposta de crédito", "BS Agro Capital"],
+  "robots": None,
   "html": open(_MINHA_AREA_FILE, encoding="utf-8").read() if _os.path.exists(_MINHA_AREA_FILE) else "",
 }
 PORTAL_PAGES = [PROPOSTAS, MINHA_AREA]  # páginas apartadas (sem menu, noindex); {{PORTAL}} vira o shortcode [ebcr_portal]

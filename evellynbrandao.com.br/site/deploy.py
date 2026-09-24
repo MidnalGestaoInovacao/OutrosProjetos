@@ -282,7 +282,8 @@ def step_pages():
     for pg in CP.PORTAL_PAGES:
         if not pg["html"]:
             continue
-        head = seo.seo_block(pg["title"] + " — Évellyn Brandão", pg["excerpt"], "/%s/" % pg["slug"], img("og"), "website", breadcrumbs=crumbs_for(pg["slug"], pg["title"]), robots=pg.get("robots"))
+        faq = [(H.unescape(re.sub(r"<[^>]+>", "", q)), H.unescape(re.sub(r"<[^>]+>", "", a))) for q, a in re.findall(r"<details>\s*<summary>(.*?)</summary>(.*?)</details>", pg["html"], re.S)] or None
+        head = seo.seo_block(pg.get("seo_title") or (pg["title"] + " — Évellyn Brandão"), pg["excerpt"], "/%s/" % pg["slug"], img("og"), "website", breadcrumbs=crumbs_for(pg["slug"], pg["title"]), keywords=pg.get("keywords"), robots=pg.get("robots"), faq=faq)
         parts = fill_imgs(pg["html"]).split("{{PORTAL}}")
         body = html_block(parts[0])
         for extra in parts[1:]:
