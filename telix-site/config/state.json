@@ -1,0 +1,201 @@
+{
+ "media": {
+  "IMG_SARH2": {
+   "id": 8,
+   "url": "https://telix.ebaem.com.br/wp-content/uploads/2026/09/telix-equipe-especializada-atendimento.webp",
+   "path": "/wp-content/uploads/2026/09/telix-equipe-especializada-atendimento.webp"
+  },
+  "IMG_SARH3": {
+   "id": 9,
+   "url": "https://telix.ebaem.com.br/wp-content/uploads/2026/09/telix-whatsapp-central-de-atendimento.webp",
+   "path": "/wp-content/uploads/2026/09/telix-whatsapp-central-de-atendimento.webp"
+  },
+  "IMG_SARH4": {
+   "id": 10,
+   "url": "https://telix.ebaem.com.br/wp-content/uploads/2026/09/telix-servicos-inclusos-regulacao.webp",
+   "path": "/wp-content/uploads/2026/09/telix-servicos-inclusos-regulacao.webp"
+  },
+  "IMG_SARH5": {
+   "id": 11,
+   "url": "https://telix.ebaem.com.br/wp-content/uploads/2026/09/telix-custo-beneficio-saude.webp",
+   "path": "/wp-content/uploads/2026/09/telix-custo-beneficio-saude.webp"
+  },
+  "IMG_SOL1": {
+   "id": 12,
+   "url": "https://telix.ebaem.com.br/wp-content/uploads/2026/09/telix-solucoes-central-de-atendimento.webp",
+   "path": "/wp-content/uploads/2026/09/telix-solucoes-central-de-atendimento.webp"
+  },
+  "IMG_SOL2": {
+   "id": 13,
+   "url": "https://telix.ebaem.com.br/wp-content/uploads/2026/09/telix-solucoes-sistema-de-atendimento.webp",
+   "path": "/wp-content/uploads/2026/09/telix-solucoes-sistema-de-atendimento.webp"
+  },
+  "IMG_SOL3": {
+   "id": 14,
+   "url": "https://telix.ebaem.com.br/wp-content/uploads/2026/09/telix-solucoes-pesquisa-saude.webp",
+   "path": "/wp-content/uploads/2026/09/telix-solucoes-pesquisa-saude.webp"
+  },
+  "IMG_SOL4": {
+   "id": 15,
+   "url": "https://telix.ebaem.com.br/wp-content/uploads/2026/09/telix-solucoes-sac-equipe.webp",
+   "path": "/wp-content/uploads/2026/09/telix-solucoes-sac-equipe.webp"
+  },
+  "IMG_SOL5": {
+   "id": 16,
+   "url": "https://telix.ebaem.com.br/wp-content/uploads/2026/09/telix-equipe-maos-unidas-integridade.webp",
+   "path": "/wp-content/uploads/2026/09/telix-equipe-maos-unidas-integridade.webp"
+  },
+  "IMG_TRABALHE": {
+   "id": 17,
+   "url": "https://telix.ebaem.com.br/wp-content/uploads/2026/09/telix-trabalhe-conosco-atendente.webp",
+   "path": "/wp-content/uploads/2026/09/telix-trabalhe-conosco-atendente.webp"
+  },
+  "IMG_TRABALHE_A": {
+   "id": 18,
+   "url": "https://telix.ebaem.com.br/wp-content/uploads/2026/09/telix-trabalhe-conosco-equipe.webp",
+   "path": "/wp-content/uploads/2026/09/telix-trabalhe-conosco-equipe.webp"
+  },
+  "IMG_COMITE1": {
+   "id": 19,
+   "url": "https://telix.ebaem.com.br/wp-content/uploads/2026/09/telix-comite-compliance.webp",
+   "path": "/wp-content/uploads/2026/09/telix-comite-compliance.webp"
+  },
+  "IMG_COMITE2": {
+   "id": 20,
+   "url": "https://telix.ebaem.com.br/wp-content/uploads/2026/09/telix-comite-protecao-de-dados.webp",
+   "path": "/wp-content/uploads/2026/09/telix-comite-protecao-de-dados.webp"
+  },
+  "IMG_COMITE3": {
+   "id": 21,
+   "url": "https://telix.ebaem.com.br/wp-content/uploads/2026/09/telix-comite-seguranca-e-qualidade.webp",
+   "path": "/wp-content/uploads/2026/09/telix-comite-seguranca-e-qualidade.webp"
+  },
+  "IMG_LOGO_PNG": {
+   "id": 22,
+   "url": "https://telix.ebaem.com.br/wp-content/uploads/2026/09/telix-logo.png",
+   "path": "/wp-content/uploads/2026/09/telix-logo.png"
+  },
+  "LOGO_ARAGUAIA": {
+   "id": 23,
+   "url": "https://telix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-araguaia.png",
+   "path": "/wp-content/uploads/2026/09/cliente-unimed-araguaia.png"
+  },
+  "LOGO_CACERES": {
+   "id": 24,
+   "url": "https://telix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-caceres.png",
+   "path": "/wp-content/uploads/2026/09/cliente-unimed-caceres.png"
+  },
+  "IMG_CENTRAL": {
+   "id": 25,
+   "url": "https://telix.ebaem.com.br/wp-content/uploads/2026/09/telix-central-de-atendimento.webp",
+   "path": "/wp-content/uploads/2026/09/telix-central-de-atendimento.webp"
+  },
+  "IMG_BG01": {
+   "id": 26,
+   "url": "https://telix.ebaem.com.br/wp-content/uploads/2026/09/telix-equipe-medica-regulacao.webp",
+   "path": "/wp-content/uploads/2026/09/telix-equipe-medica-regulacao.webp"
+  },
+  "LOGO_CORUMBA": {
+   "id": 27,
+   "url": "https://telix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-corumba.png",
+   "path": "/wp-content/uploads/2026/09/cliente-unimed-corumba.png"
+  },
+  "LOGO_DOURADOS": {
+   "id": 28,
+   "url": "https://telix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-dourado.png",
+   "path": "/wp-content/uploads/2026/09/cliente-unimed-dourado.png"
+  },
+  "LOGO_MATO_GROSSO": {
+   "id": 29,
+   "url": "https://telix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-mato-grosso.png",
+   "path": "/wp-content/uploads/2026/09/cliente-unimed-mato-grosso.png"
+  },
+  "LOGO_METROPOLITANA_AGRESTE": {
+   "id": 30,
+   "url": "https://telix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-metropolitana.png",
+   "path": "/wp-content/uploads/2026/09/cliente-unimed-metropolitana.png"
+  },
+  "LOGO_NORTE_MT": {
+   "id": 31,
+   "url": "https://telix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-norte-mato-grosso.png",
+   "path": "/wp-content/uploads/2026/09/cliente-unimed-norte-mato-grosso.png"
+  },
+  "LOGO_RONDONOPOLIS": {
+   "id": 32,
+   "url": "https://telix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-rondonopolis.png",
+   "path": "/wp-content/uploads/2026/09/cliente-unimed-rondonopolis.png"
+  },
+  "LOGO_PORTO_VELHO": {
+   "id": 33,
+   "url": "https://telix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-porto-velho.png",
+   "path": "/wp-content/uploads/2026/09/cliente-unimed-porto-velho.png"
+  },
+  "LOGO_TRES_LAGOAS": {
+   "id": 34,
+   "url": "https://telix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-tres-lagoas.png",
+   "path": "/wp-content/uploads/2026/09/cliente-unimed-tres-lagoas.png"
+  },
+  "LOGO_VALE_JAURU": {
+   "id": 35,
+   "url": "https://telix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-vale-do-jauru.png",
+   "path": "/wp-content/uploads/2026/09/cliente-unimed-vale-do-jauru.png"
+  },
+  "LOGO_SUL_PARA": {
+   "id": 36,
+   "url": "https://telix.ebaem.com.br/wp-content/uploads/2026/09/cliente-logos-sul-para.png",
+   "path": "/wp-content/uploads/2026/09/cliente-logos-sul-para.png"
+  },
+  "LOGO_REGIONAL_SUL_GO": {
+   "id": 37,
+   "url": "https://telix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-regional-sul.png",
+   "path": "/wp-content/uploads/2026/09/cliente-unimed-regional-sul.png"
+  },
+  "LOGO_VALE_SEPOTUBA": {
+   "id": 38,
+   "url": "https://telix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-vale-do-sepotuba.png",
+   "path": "/wp-content/uploads/2026/09/cliente-unimed-vale-do-sepotuba.png"
+  },
+  "IMG_OG": {
+   "id": 39,
+   "url": "https://telix.ebaem.com.br/wp-content/uploads/2026/09/telix-compartilhamento.jpg",
+   "path": "/wp-content/uploads/2026/09/telix-compartilhamento.jpg"
+  },
+  "LOGO_MARANHAO_SUL": {
+   "id": 40,
+   "url": "https://telix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-imperatriz.png",
+   "path": "/wp-content/uploads/2026/09/cliente-unimed-imperatriz.png"
+  },
+  "IMG_ICON": {
+   "id": 41,
+   "url": "https://telix.ebaem.com.br/wp-content/uploads/2026/09/telix-icone.png",
+   "path": "/wp-content/uploads/2026/09/telix-icone.png"
+  },
+  "IMG_SARH1": {
+   "id": 42,
+   "url": "https://telix.ebaem.com.br/wp-content/uploads/2026/09/telix-regulacao-profissional-saude-headset.webp",
+   "path": "/wp-content/uploads/2026/09/telix-regulacao-profissional-saude-headset.webp"
+  },
+  "IMG_REG_SUP": {
+   "id": 43,
+   "url": "https://telix.ebaem.com.br/wp-content/uploads/2026/09/telix-saude-suplementar-cartao-beneficiario.webp",
+   "path": "/wp-content/uploads/2026/09/telix-saude-suplementar-cartao-beneficiario.webp"
+  },
+  "IMG_CENTRAL_A": {
+   "id": 44,
+   "url": "https://telix.ebaem.com.br/wp-content/uploads/2026/09/telix-atendente-call-center.webp",
+   "path": "/wp-content/uploads/2026/09/telix-atendente-call-center.webp"
+  }
+ },
+ "blocks": {
+  "header": 46,
+  "footer": 47,
+  "home": 49
+ },
+ "pages": {
+  "trabalhe-conosco": 48,
+  "inicio": 50,
+  "canal-lgpd": 51,
+  "contato": 52,
+  "canal-de-denuncia": 53
+ }
+}

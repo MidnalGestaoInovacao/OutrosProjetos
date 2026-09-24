@@ -1,0 +1,169 @@
+<!--META
+{
+ "title": "Contato",
+ "slug": "contato",
+ "parent": "",
+ "menu_order": 70,
+ "comments": true,
+ "breadcrumb": [["Início", "/"], ["Contato", "/contato/"]],
+ "seo": {
+  "title": "Contato e como chegar | Télix Comunicação",
+  "description": "Fale com a Télix: telefone (61) 3771-1100, WhatsApp, e-mail e formulário. Solicite uma proposta ou veja como chegar ao Brasil Center Shopping, Valparaíso de Goiás.",
+  "keywords": "contato Télix, telefone Télix, proposta central de atendimento, Brasil Center Shopping, Valparaíso de Goiás, como chegar",
+  "image": "{{IMG_OG}}",
+  "pageType": "ContactPage"
+ }
+}
+META-->
+<section class="tx-pagehero" aria-labelledby="ct-title">
+  <div class="tx-container tx-pagehero__grid">
+    <div>
+      <nav aria-label="Trilha de navegação"><ol class="tx-breadcrumb"><li><a href="/">Início</a></li><li aria-current="page">Contato</li></ol></nav>
+      <p class="tx-eyebrow">Fale com a Télix</p>
+      <h1 id="ct-title" class="tx-h1">Pergunte, questione, reclame, elogie. <span class="tx-hl">Este espaço é todo seu!</span></h1>
+      <p class="tx-lead">Fique à vontade para falar com a gente pelo canal que preferir. Se você representa uma operadora, hospital ou clínica, conte o seu desafio e receba uma proposta sob medida.</p>
+      <div class="tx-btns"><a class="tx-btn" href="#proposta">Enviar mensagem [[i:arrow-right]]</a><a class="tx-btn tx-btn--light" href="#como-chegar">[[i:navigation]] Como chegar</a></div>
+    </div>
+    <div class="tx-pagehero__3d"><div class="tx-3d" data-tx-3d="network" data-variant="light" data-labels="Telefone,WhatsApp,E-mail,Formulário" role="img" aria-label="Ilustração 3D dos canais de contato da Télix conectados"><div class="tx-3d-fallback"></div></div></div>
+  </div>
+</section>
+
+<section class="tx-section tx-section--tight tx-section--sand" aria-label="Canais de atendimento">
+  <div class="tx-container tx-grid tx-grid--4">
+    <a class="tx-card tx-tilt" href="{TEL_LINK}" style="text-decoration:none" data-reveal><div class="tx-icon">[[i:phone]]</div><h2 class="tx-h3">Telefone</h2><p><strong>{PHONE}</strong><br>Central de regulação e remoção 24 horas, 7 dias por semana.</p></a>
+    <a class="tx-card tx-tilt" href="{WA_LINK}" target="_blank" rel="noopener" style="text-decoration:none" data-reveal data-delay="60"><div class="tx-icon">[[i:whatsapp]]</div><h2 class="tx-h3">WhatsApp</h2><p>Atendimento pelo WhatsApp com a agilidade do digital.</p><span class="tx-link">Iniciar conversa [[i:arrow-right]]</span></a>
+    <a class="tx-card tx-tilt" href="{MAILTO}" style="text-decoration:none" data-reveal data-delay="120"><div class="tx-icon">[[i:mail]]</div><h2 class="tx-h3">E-mail</h2><p><strong>{EMAIL}</strong><br>Ouvidoria: {{OUVIDORIA_EMAIL}}</p></a>
+    <a class="tx-card tx-tilt" href="#como-chegar" style="text-decoration:none" data-reveal data-delay="180"><div class="tx-icon">[[i:pin]]</div><h2 class="tx-h3">Endereço</h2><p>{{ENDERECO_1}}<br>{{ENDERECO_3}}</p><span class="tx-link">Ver no mapa [[i:arrow-right]]</span></a>
+  </div>
+</section>
+
+<section id="proposta" class="tx-section" aria-labelledby="form-ct-title">
+  <div class="tx-container tx-split" style="align-items:start;grid-template-columns:.8fr 1.2fr">
+    <div>
+      <p class="tx-eyebrow">Formulário de contato</p>
+      <h2 id="form-ct-title" class="tx-h2">Como podemos ajudar?</h2>
+      <p class="tx-lead">Respondemos com agilidade. Você recebe um número de protocolo assim que enviar.</p>
+      <ul class="tx-checks">
+        <li><strong>Operadoras, hospitais e clínicas:</strong> descreva volumes, canais e serviços de interesse para acelerarmos a proposta.</li>
+        <li><strong>Beneficiários:</strong> se o assunto for sobre o seu plano de saúde, informe a operadora — nós direcionamos a demanda corretamente.</li>
+        <li><strong>Relatos de conduta</strong> devem ser feitos no <a href="/canal-de-denuncia/">Canal de Denúncia</a>, com opção de anonimato.</li>
+        <li><strong>Pedidos sobre seus dados pessoais</strong> têm canal próprio: <a href="/canal-lgpd/">Canal LGPD</a>.</li>
+      </ul>
+    </div>
+    <form class="tx-form" data-channel="contato" data-prefix="CONTATO" data-title="Fale Conosco" data-fallback-email="{EMAIL}" data-success="Recebemos sua mensagem! Nossa equipe retornará pelo meio de contato informado." novalidate>
+      <div class="tx-form__status" aria-live="polite"></div>
+      <div class="tx-form__grid">
+        <div class="tx-field"><label for="ct-nome">Nome <span class="tx-req" aria-hidden="true">*</span></label><input id="ct-nome" name="nome" type="text" autocomplete="name" required></div>
+        <div class="tx-field"><label for="ct-email">E-mail <span class="tx-req" aria-hidden="true">*</span></label><input id="ct-email" name="email" type="email" autocomplete="email" required></div>
+        <div class="tx-field"><label for="ct-tel">(DDD) Telefone</label><input id="ct-tel" name="telefone" type="tel" autocomplete="tel" placeholder="(61) 90000-0000"></div>
+        <div class="tx-field"><label for="ct-perfil">Você é</label>
+          <select id="ct-perfil" name="perfil"><option value="">Selecione</option><option>Operadora de plano de saúde</option><option>Hospital, clínica ou consultório</option><option>Beneficiário de plano de saúde</option><option>Candidato a vaga</option><option>Fornecedor ou parceiro</option><option>Imprensa</option><option>Outro</option></select></div>
+        <div class="tx-field tx-form__full"><label for="ct-assunto">Assunto <span class="tx-req" aria-hidden="true">*</span></label>
+          <select id="ct-assunto" name="assunto" required>
+            <option value="">Selecione o assunto</option>
+            <option>Solicitar proposta comercial</option>
+            <option>Dúvida</option>
+            <option>Sugestão</option>
+            <option>Reclamação</option>
+            <option>Elogio</option>
+            <option>Problema</option>
+            <option>Solicitar informações</option>
+            <option>Solicitação de documentos</option>
+            <option>Ouvidoria</option>
+            <option>Denúncia</option>
+            <option>Segurança</option>
+            <option>Proteção de dados</option>
+            <option>Outros</option>
+          </select></div>
+        <div class="tx-field tx-form__full" data-show-if="assunto=Denúncia"><div class="tx-alert tx-alert--warn">[[i:megaphone]]<div>Para garantir sigilo e a opção de anonimato, recomendamos o <a href="/canal-de-denuncia/">Canal de Denúncia</a>.</div></div></div>
+        <div class="tx-field tx-form__full" data-show-if="assunto=Proteção de dados"><div class="tx-alert tx-alert--info">[[i:key]]<div>Solicitações de titulares (acesso, correção, eliminação e outras) são atendidas pelo <a href="/canal-lgpd/">Canal LGPD</a>, com prazos da LGPD.</div></div></div>
+        <div class="tx-field" data-show-if="assunto=Solicitar proposta comercial"><label for="ct-emp">Empresa ou instituição</label><input id="ct-emp" name="empresa" type="text" autocomplete="organization"></div>
+        <div class="tx-field" data-show-if="assunto=Solicitar proposta comercial"><label for="ct-vidas">Porte aproximado</label><select id="ct-vidas" name="porte"><option value="">Selecione</option><option>Até 20 mil beneficiários</option><option>De 20 a 100 mil beneficiários</option><option>Mais de 100 mil beneficiários</option><option>Hospital, clínica ou consultório</option><option>Prefiro informar na conversa</option></select></div>
+        <div class="tx-field tx-form__full" data-show-if="assunto=Solicitar proposta comercial">
+          <fieldset class="tx-fieldset"><legend>Soluções de interesse</legend>
+            <div class="tx-options">
+              <label><input type="checkbox" name="solucoes" value="Central de Atendimento"> Central de Atendimento</label>
+              <label><input type="checkbox" name="solucoes" value="SAC"> SAC</label>
+              <label><input type="checkbox" name="solucoes" value="Sistema de Protocolo (RN 623)"> Protocolo (RN 623)</label>
+              <label><input type="checkbox" name="solucoes" value="Regulação e Remoção 24h"> Regulação e Remoção 24h</label>
+              <label><input type="checkbox" name="solucoes" value="Agendamento (RN 566)"> Agendamento (RN 566)</label>
+              <label><input type="checkbox" name="solucoes" value="Pesquisa de Satisfação"> Pesquisa de Satisfação</label>
+              <label><input type="checkbox" name="solucoes" value="WhatsApp e Chatbots"> WhatsApp e Chatbots</label>
+              <label><input type="checkbox" name="solucoes" value="Qualidade e Monitoria"> Qualidade e Monitoria</label>
+            </div>
+          </fieldset>
+        </div>
+        <div class="tx-field tx-form__full"><label for="ct-msg">Mensagem <span class="tx-req" aria-hidden="true">*</span></label><textarea id="ct-msg" name="mensagem" required minlength="10"></textarea></div>
+        <div class="tx-field"><label for="ct-pref">Prefere retorno por</label><select id="ct-pref" name="preferencia_retorno"><option>E-mail</option><option>Telefone</option><option>WhatsApp</option></select></div>
+        <div class="tx-hp" aria-hidden="true"><label for="ct-site">Não preencha este campo</label><input id="ct-site" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+        <div class="tx-field tx-form__full">
+          <label for="ct-cap">Verificação anti-spam: resolva a conta <span class="tx-req" aria-hidden="true">*</span></label>
+          <div class="tx-captcha"><span class="tx-captcha__q" aria-live="polite"></span><input id="ct-cap" type="text" inputmode="numeric" pattern="[0-9]*" required autocomplete="off" aria-describedby="ct-cap-h"><button type="button">[[i:refresh]] Nova conta</button></div>
+          <div class="tx-help" id="ct-cap-h">Digite o resultado da operação para confirmar que você não é um robô.</div>
+        </div>
+        <div class="tx-field tx-form__full"><label class="tx-consent"><input type="checkbox" name="ciencia" value="Ciente da Política de Privacidade" required> <span>Li e estou ciente da <a href="/conformidade/politica-de-privacidade/">Política de Privacidade</a>. Meus dados serão usados apenas para responder a este contato. <span class="tx-req" aria-hidden="true">*</span></span></label></div>
+        <div class="tx-field tx-form__full"><label class="tx-consent"><input type="checkbox" name="novidades" value="Aceita receber comunicações da Télix"> <span>Quero receber novidades e conteúdos da Télix (opcional; você pode cancelar quando quiser).</span></label></div>
+      </div>
+      <div class="tx-btns" style="margin-top:20px"><button type="submit" class="tx-btn">Enviar [[i:send]]</button></div>
+    </form>
+  </div>
+</section>
+
+<section id="como-chegar" class="tx-section tx-section--sand" aria-labelledby="chegar-title">
+  <div class="tx-container">
+    <div class="tx-center" style="margin-bottom:32px">
+      <p class="tx-eyebrow">Onde estamos</p>
+      <h2 id="chegar-title" class="tx-h2">Como chegar à <span class="tx-hl">Télix</span></h2>
+      <p class="tx-lead">Estamos no Brasil Center Shopping (1º piso), às margens da BR-040, em Valparaíso de Goiás (GO) — a cerca de 30 km do Aeroporto de Brasília e 37 km da Rodoviária do Plano Piloto.</p>
+    </div>
+    <div class="tx-split" style="align-items:stretch">
+      <div class="tx-map" data-src="{{MAP_EMBED}}" data-title="Mapa: Télix no Brasil Center Shopping, Valparaíso de Goiás (GO)" data-tx-consent="functional">
+        <div class="tx-map__gate">
+          <span class="tx-icon">[[i:map]]</span>
+          <strong>Mapa interativo</strong>
+          <p>O Google Maps utiliza cookies de terceiros. Carregue o mapa para visualizar a localização ou use os botões de rota.</p>
+          <div class="tx-btns" style="justify-content:center"><button type="button" class="tx-btn tx-btn--sm" data-tx-map-load>Carregar mapa</button><a class="tx-btn tx-btn--ghost tx-btn--sm" href="{{MAP_ROUTE}}" target="_blank" rel="noopener">Abrir no Google Maps</a></div>
+        </div>
+      </div>
+      <div class="tx-stack">
+        <div class="tx-card">
+          <div class="tx-icon">[[i:building]]</div>
+          <h3>Unidade Valparaíso de Goiás</h3>
+          <p>{{ENDERECO_1}}<br>{{ENDERECO_2}}<br>{{ENDERECO_3}}</p>
+          <div class="tx-btns"><a class="tx-btn tx-btn--sm" href="{{MAP_ROUTE}}" target="_blank" rel="noopener">[[i:navigation]] Traçar rota</a><a class="tx-btn tx-btn--ghost tx-btn--sm" href="{{WAZE}}" target="_blank" rel="noopener">[[i:car]] Abrir no Waze</a></div>
+        </div>
+        <div class="tx-tabs">
+          <div role="tablist" aria-label="Formas de chegar">
+            <button role="tab" id="tab-carro" aria-controls="pn-carro" aria-selected="true">[[i:car]] De carro</button>
+            <button role="tab" id="tab-onibus" aria-controls="pn-onibus" aria-selected="false" tabindex="-1">[[i:bus]] De ônibus</button>
+            <button role="tab" id="tab-aviao" aria-controls="pn-aviao" aria-selected="false" tabindex="-1">[[i:plane]] Do aeroporto</button>
+          </div>
+          <div role="tabpanel" id="pn-carro" aria-labelledby="tab-carro"><p>A partir do Plano Piloto ou do aeroporto, siga pela EPIA Sul (DF-003) até a BR-040, sentido Valparaíso de Goiás. O acesso ao shopping é pela Av. Marginal da BR-040 — siga as indicações do GPS para o Brasil Center Shopping. O shopping conta com estacionamento próprio.</p></div>
+          <div role="tabpanel" id="pn-onibus" aria-labelledby="tab-onibus" hidden><p>Linhas semiurbanas que saem da Rodoviária do Plano Piloto com destino a Valparaíso I e II passam pela BR-040 em frente ao shopping. Consulte linhas e horários atualizados em <a href="https://www.utb.com.br/horarios-linha/valparaiso" target="_blank" rel="noopener">utb.com.br</a>.</p></div>
+          <div role="tabpanel" id="pn-aviao" aria-labelledby="tab-aviao" hidden><p>Do Aeroporto Internacional de Brasília são cerca de 30 km (aproximadamente 30 a 40 minutos sem trânsito) pela EPAR, EPDB e EPIA Sul até a BR-040. Táxi e aplicativos de transporte são as opções mais práticas.</p></div>
+        </div>
+        <div class="tx-card tx-card--gold">
+          <h3 style="display:flex;gap:10px;align-items:center">[[i:clock]] Atendimento</h3>
+          <p style="margin:0">Central de regulação de vaga e remoção hospitalar: <strong>24 horas, 7 dias por semana</strong>, por telefone e WhatsApp.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tx-section" aria-labelledby="dados-title">
+  <div class="tx-container tx-grid tx-grid--3">
+    <article class="tx-card"><div class="tx-icon">[[i:file]]</div><h2 id="dados-title" class="tx-h3">Dados institucionais</h2><p><strong>{{RAZAO_SOCIAL}}</strong><br>Nome fantasia: Télix Comunicação e Relacionamento<br>CNPJ matriz: {{CNPJ}}<br>CNPJ filial Valparaíso: {{CNPJ_FILIAL}}</p></article>
+    <article class="tx-card"><div class="tx-icon">[[i:building]]</div><h3>Matriz</h3><p>{{MATRIZ_ENDERECO}}<br>Telefone: {{MATRIZ_TELEFONE}}</p></article>
+    <article class="tx-card"><div class="tx-icon">[[i:shield]]</div><h3>Canais especiais</h3><p><a href="/canal-lgpd/">Canal LGPD</a> — Encarregado: <a href="mailto:{{DPO_EMAIL}}">{{DPO_EMAIL}}</a><br><a href="/canal-de-denuncia/">Canal de Denúncia</a><br>Ouvidoria: <a href="tel:{{OUVIDORIA_0800_TEL}}">{{OUVIDORIA_0800}}</a></p></article>
+  </div>
+</section>
+
+<section class="tx-section tx-section--tight" aria-label="Trabalhe conosco">
+  <div class="tx-container">
+    <div class="tx-cta">
+      <div><h2>Quer trabalhar na Télix?</h2><p>Cadastre seu currículo no nosso banco de talentos e faça parte desta grande equipe.</p></div>
+      <div class="tx-btns"><a class="tx-btn tx-btn--dark" href="/trabalhe-conosco/">Trabalhe conosco [[i:arrow-right]]</a></div>
+    </div>
+  </div>
+</section>

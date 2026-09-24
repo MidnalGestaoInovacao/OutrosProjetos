@@ -1,0 +1,212 @@
+{
+ "IMG_CENTRAL": {
+  "file": "telix-central-de-atendimento.webp",
+  "alt": "Equipe de atendentes da central de atendimento Télix trabalhando com headsets",
+  "w": 780,
+  "h": 450
+ },
+ "IMG_CENTRAL_A": {
+  "file": "telix-atendente-call-center.webp",
+  "alt": "Atendente sorridente com headset em central de atendimento",
+  "w": 459,
+  "h": 241
+ },
+ "IMG_REG_SUP": {
+  "file": "telix-saude-suplementar-cartao-beneficiario.webp",
+  "alt": "Entrega de cartão de beneficiário de plano de saúde",
+  "w": 306,
+  "h": 241
+ },
+ "IMG_BG01": {
+  "file": "telix-equipe-medica-regulacao.webp",
+  "alt": "Médico e enfermeira consultando informações de paciente em tablet",
+  "w": 600,
+  "h": 400
+ },
+ "IMG_SARH1": {
+  "file": "telix-regulacao-profissional-saude-headset.webp",
+  "alt": "Profissional de saúde com headset atendendo na central de regulação",
+  "w": 1100,
+  "h": 1152
+ },
+ "IMG_SARH2": {
+  "file": "telix-equipe-especializada-atendimento.webp",
+  "alt": "Equipe de atendentes com headsets digitando em computadores",
+  "w": 770,
+  "h": 579
+ },
+ "IMG_SARH3": {
+  "file": "telix-whatsapp-central-de-atendimento.webp",
+  "alt": "Arte com ícone do WhatsApp e o texto WhatsApp Central de Atendimento",
+  "w": 800,
+  "h": 500
+ },
+ "IMG_SARH4": {
+  "file": "telix-servicos-inclusos-regulacao.webp",
+  "alt": "Médico com prancheta sobre mesa com notebook e estetoscópio",
+  "w": 800,
+  "h": 500
+ },
+ "IMG_SARH5": {
+  "file": "telix-custo-beneficio-saude.webp",
+  "alt": "Mão inserindo moeda com cruz médica em cofrinho, simbolizando economia em saúde",
+  "w": 800,
+  "h": 500
+ },
+ "IMG_SOL1": {
+  "file": "telix-solucoes-central-de-atendimento.webp",
+  "alt": "Atendente sorridente com headset e colegas ao fundo",
+  "w": 514,
+  "h": 376
+ },
+ "IMG_SOL2": {
+  "file": "telix-solucoes-sistema-de-atendimento.webp",
+  "alt": "Atendente ajustando o microfone do headset diante do computador",
+  "w": 514,
+  "h": 376
+ },
+ "IMG_SOL3": {
+  "file": "telix-solucoes-pesquisa-saude.webp",
+  "alt": "Profissional de saúde com estetoscópio usando tablet",
+  "w": 514,
+  "h": 376
+ },
+ "IMG_SOL4": {
+  "file": "telix-solucoes-sac-equipe.webp",
+  "alt": "Fileira de atendentes de SAC com headsets em computadores",
+  "w": 514,
+  "h": 376
+ },
+ "IMG_SOL5": {
+  "file": "telix-equipe-maos-unidas-integridade.webp",
+  "alt": "Mãos empilhadas simbolizando união e integridade da equipe",
+  "w": 1600,
+  "h": 758
+ },
+ "IMG_TRABALHE": {
+  "file": "telix-trabalhe-conosco-atendente.webp",
+  "alt": "Atendente sorridente com headset em ambiente corporativo",
+  "w": 1600,
+  "h": 1000
+ },
+ "IMG_TRABALHE_A": {
+  "file": "telix-trabalhe-conosco-equipe.webp",
+  "alt": "Atendentes sorridentes com headsets em estações de trabalho",
+  "w": 1600,
+  "h": 746
+ },
+ "IMG_COMITE1": {
+  "file": "telix-comite-compliance.webp",
+  "alt": "Executivo tocando ícones virtuais de compliance",
+  "w": 340,
+  "h": 242
+ },
+ "IMG_COMITE2": {
+  "file": "telix-comite-protecao-de-dados.webp",
+  "alt": "Tablet com cadeado digital representando proteção de dados",
+  "w": 340,
+  "h": 242
+ },
+ "IMG_COMITE3": {
+  "file": "telix-comite-seguranca-e-qualidade.webp",
+  "alt": "Notebook com cadeado digital e circuitos representando segurança da informação",
+  "w": 340,
+  "h": 242
+ },
+ "IMG_LOGO_PNG": {
+  "file": "telix-logo.png",
+  "alt": "Logotipo Télix Comunicação e Relacionamento",
+  "w": 1200,
+  "h": 381
+ },
+ "LOGO_ARAGUAIA": {
+  "file": "cliente-unimed-araguaia.png",
+  "alt": "",
+  "w": 190,
+  "h": 90
+ },
+ "LOGO_CACERES": {
+  "file": "cliente-unimed-caceres.png",
+  "alt": "",
+  "w": 190,
+  "h": 90
+ },
+ "LOGO_CORUMBA": {
+  "file": "cliente-unimed-corumba.png",
+  "alt": "",
+  "w": 190,
+  "h": 90
+ },
+ "LOGO_DOURADOS": {
+  "file": "cliente-unimed-dourado.png",
+  "alt": "",
+  "w": 190,
+  "h": 90
+ },
+ "LOGO_MARANHAO_SUL": {
+  "file": "cliente-unimed-imperatriz.png",
+  "alt": "",
+  "w": 250,
+  "h": 102
+ },
+ "LOGO_MATO_GROSSO": {
+  "file": "cliente-unimed-mato-grosso.png",
+  "alt": "",
+  "w": 200,
+  "h": 93
+ },
+ "LOGO_METROPOLITANA_AGRESTE": {
+  "file": "cliente-unimed-metropolitana.png",
+  "alt": "",
+  "w": 190,
+  "h": 90
+ },
+ "LOGO_NORTE_MT": {
+  "file": "cliente-unimed-norte-mato-grosso.png",
+  "alt": "",
+  "w": 169,
+  "h": 91
+ },
+ "LOGO_PORTO_VELHO": {
+  "file": "cliente-unimed-porto-velho.png",
+  "alt": "",
+  "w": 200,
+  "h": 93
+ },
+ "LOGO_RONDONOPOLIS": {
+  "file": "cliente-unimed-rondonopolis.png",
+  "alt": "",
+  "w": 190,
+  "h": 90
+ },
+ "LOGO_TRES_LAGOAS": {
+  "file": "cliente-unimed-tres-lagoas.png",
+  "alt": "",
+  "w": 190,
+  "h": 90
+ },
+ "LOGO_VALE_JAURU": {
+  "file": "cliente-unimed-vale-do-jauru.png",
+  "alt": "",
+  "w": 190,
+  "h": 90
+ },
+ "LOGO_SUL_PARA": {
+  "file": "cliente-logos-sul-para.png",
+  "alt": "",
+  "w": 190,
+  "h": 90
+ },
+ "LOGO_REGIONAL_SUL_GO": {
+  "file": "cliente-unimed-regional-sul.png",
+  "alt": "",
+  "w": 200,
+  "h": 93
+ },
+ "LOGO_VALE_SEPOTUBA": {
+  "file": "cliente-unimed-vale-do-sepotuba.png",
+  "alt": "",
+  "w": 190,
+  "h": 90
+ }
+}

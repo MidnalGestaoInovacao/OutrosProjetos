@@ -1,0 +1,76 @@
+<!--META
+{
+ "title": "Acessibilidade",
+ "slug": "acessibilidade",
+ "parent": "",
+ "menu_order": 80,
+ "breadcrumb": [["Início", "/"], ["Acessibilidade", "/acessibilidade/"]],
+ "seo": {
+  "title": "Acessibilidade: recursos e compromisso | Télix",
+  "description": "Conheça os recursos de acessibilidade do site da Télix: Libras (VLibras), alto contraste, ajuste de fonte, guia de leitura, navegação por teclado e mais.",
+  "keywords": "acessibilidade, VLibras, Libras, alto contraste, eMAG, WCAG, Lei Brasileira de Inclusão, Télix",
+  "image": "{{IMG_OG}}",
+  "pageType": "WebPage"
+ }
+}
+META-->
+<section class="tx-pagehero" aria-labelledby="ac-title">
+  <div class="tx-container tx-pagehero__grid">
+    <div>
+      <nav aria-label="Trilha de navegação"><ol class="tx-breadcrumb"><li><a href="/">Início</a></li><li aria-current="page">Acessibilidade</li></ol></nav>
+      <p class="tx-eyebrow">Declaração de acessibilidade</p>
+      <h1 id="ac-title" class="tx-h1">Um site para <span class="tx-hl">todas as pessoas</span></h1>
+      <p class="tx-lead">Atendimento humanizado começa pela inclusão. Este site foi construído para ser usado por pessoas com diferentes necessidades — com recursos de apoio, tradução para Libras e navegação por teclado.</p>
+      <div class="tx-btns"><button type="button" class="tx-btn" onclick="document.querySelector('.tx-a11y-btn').click()">[[i:a11y]] Abrir recursos de acessibilidade</button></div>
+    </div>
+    <div class="tx-pagehero__3d"><div class="tx-3d" data-tx-3d="network" data-variant="light" data-labels="Libras,Contraste,Fonte,Teclado" role="img" aria-label="Ilustração 3D de recursos de acessibilidade conectados"><div class="tx-3d-fallback"></div></div></div>
+  </div>
+</section>
+
+<section class="tx-section tx-section--sand" aria-labelledby="rec-title">
+  <div class="tx-container">
+    <div class="tx-center" style="margin-bottom:36px"><p class="tx-eyebrow">Recursos disponíveis</p><h2 id="rec-title" class="tx-h2">O que você pode ajustar</h2><p class="tx-lead">Clique no ícone de acessibilidade (lado direito da tela) ou use o atalho <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>A</kbd>. Suas preferências ficam salvas neste navegador.</p></div>
+    <div class="tx-grid tx-grid--4">
+      <article class="tx-card"><div class="tx-icon">[[i:hand]]</div><h3>Libras (VLibras)</h3><p>Tradução automática de textos para a Língua Brasileira de Sinais, com o widget oficial do Governo Federal.</p></article>
+      <article class="tx-card"><div class="tx-icon">[[i:type]]</div><h3>Tamanho do texto</h3><p>Aumente ou diminua a fonte de 90% a 160%, sem perder o layout.</p></article>
+      <article class="tx-card"><div class="tx-icon">[[i:contrast]]</div><h3>Alto contraste</h3><p>Fundo escuro e textos claros para quem tem baixa visão ou sensibilidade à luz.</p></article>
+      <article class="tx-card"><div class="tx-icon">[[i:droplet]]</div><h3>Escala de cinza</h3><p>Remove cores para facilitar a leitura por pessoas com daltonismo ou sensibilidade visual.</p></article>
+      <article class="tx-card"><div class="tx-icon">[[i:link]]</div><h3>Destacar links</h3><p>Sublinha e contorna todos os links para localizá-los com facilidade.</p></article>
+      <article class="tx-card"><div class="tx-icon">[[i:lines]]</div><h3>Fonte legível e espaçamento</h3><p>Troca a fonte por uma família de alta legibilidade e amplia espaços entre linhas, letras e palavras.</p></article>
+      <article class="tx-card"><div class="tx-icon">[[i:guide]]</div><h3>Guia de leitura</h3><p>Uma faixa acompanha o cursor para ajudar a manter o foco na linha que você está lendo.</p></article>
+      <article class="tx-card"><div class="tx-icon">[[i:pause]]</div><h3>Pausar animações</h3><p>Interrompe animações e elementos 3D em movimento. Também respeitamos a preferência “reduzir movimento” do seu sistema.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="tx-section" aria-labelledby="pratica-title">
+  <div class="tx-container tx-split" style="align-items:start">
+    <div>
+      <p class="tx-eyebrow">Boas práticas aplicadas</p>
+      <h2 id="pratica-title" class="tx-h2">Acessibilidade desde a construção</h2>
+      <ul class="tx-checks">
+        <li>Link “Pular para o conteúdo” no topo de todas as páginas</li>
+        <li>Navegação completa por teclado, com foco visível em dourado</li>
+        <li>Menus, janelas e abas com atributos ARIA e tecla <kbd>Esc</kbd> para fechar</li>
+        <li>Textos alternativos em imagens e ícones decorativos ocultos de leitores de tela</li>
+        <li>Hierarquia de títulos organizada e marcos de navegação (cabeçalho, conteúdo, rodapé)</li>
+        <li>Formulários com rótulos, mensagens de erro claras e verificação anti-robô sem imagens</li>
+        <li>Contraste de cores pensado para leitura confortável</li>
+        <li>Layout responsivo para celulares, tablets e computadores</li>
+      </ul>
+    </div>
+    <div class="tx-stack">
+      <div class="tx-card tx-card--gold"><div class="tx-icon">[[i:scale]]</div><h3>Referências</h3><p>Seguimos como referência as Diretrizes de Acessibilidade para Conteúdo Web (WCAG 2.2), o Modelo de Acessibilidade em Governo Eletrônico (eMAG) e a Lei Brasileira de Inclusão da Pessoa com Deficiência (Lei nº 13.146/2015, art. 63). A Libras é reconhecida como meio legal de comunicação pela Lei nº 10.436/2002.</p></div>
+      <div class="tx-alert tx-alert--info">[[i:info]]<div>Acessibilidade é um trabalho contínuo. Alguns conteúdos de terceiros (como mapas incorporados) podem não atender a todos os critérios.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="tx-section tx-section--tight" aria-label="Relatar barreira de acessibilidade">
+  <div class="tx-container">
+    <div class="tx-cta tx-cta--dark">
+      <div><h2>Encontrou alguma barreira?</h2><p>Conte para a gente o que dificultou sua navegação. Vamos corrigir o mais rápido possível.</p></div>
+      <div class="tx-btns"><a class="tx-btn" href="/contato/">Relatar pelo Fale Conosco [[i:arrow-right]]</a><a class="tx-btn tx-btn--light" href="{TEL_LINK}">[[i:phone]] {PHONE}</a></div>
+    </div>
+  </div>
+</section>
