@@ -123,5 +123,320 @@
   "id": 42,
   "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/cliente-41.png",
   "mime": "image/png"
+ },
+ "favicon.ico": {
+  "id": 112,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/favicon.png",
+  "mime": "image/png"
+ },
+ "images/prontow/prontow_logo.png": {
+  "id": 113,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/prontow-logo.png",
+  "mime": "image/png"
+ },
+ "images/logo_oracle.png": {
+  "id": 114,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/logo-oracle-partner.png",
+  "mime": "image/png"
+ },
+ "images/logo_aspect_face.png": {
+  "id": 115,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/logo-aspect-face.png",
+  "mime": "image/png"
+ },
+ "images/37.png": {
+  "id": 116,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/intranet-titulo.png",
+  "mime": "image/png"
+ },
+ "images/logo_swagger.png": {
+  "id": 117,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/logo-swagger.png",
+  "mime": "image/png"
+ },
+ "images/monitor.png": {
+  "id": 118,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/monitor-sistemas.png",
+  "mime": "image/png"
+ },
+ "images/img_face.jpg": {
+  "id": 119,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/aspect-face-reconhecimento.jpg",
+  "mime": "image/jpeg"
+ },
+ "images/img_antifraude.jpg": {
+  "id": 120,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/aspect-face-antifraude.jpg",
+  "mime": "image/jpeg"
+ },
+ "images/img_identificador.jpg": {
+  "id": 121,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/aspect-face-identificador.jpg",
+  "mime": "image/jpeg"
+ },
+ "images/img_prova_vida.jpg": {
+  "id": 122,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/aspect-face-prova-de-vida.jpg",
+  "mime": "image/jpeg"
+ },
+ "images/img_swagger.jpg": {
+  "id": 123,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/aspect-face-swagger.jpg",
+  "mime": "image/jpeg"
+ },
+ "images/img_gerenciador_web.jpg": {
+  "id": 124,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/aspect-face-gerenciador.jpg",
+  "mime": "image/jpeg"
+ },
+ "images/img_dashboard.jpg": {
+  "id": 125,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/aspect-face-dashboard.jpg",
+  "mime": "image/jpeg"
+ },
+ "images/img_port_opera.png": {
+  "id": 126,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/portal-operadora.png",
+  "mime": "image/png"
+ },
+ "images/desenvolvimento.jpg": {
+  "id": 127,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/desenvolvimento-software.jpg",
+  "mime": "image/jpeg"
+ },
+ "images/economus.jpg": {
+  "id": 128,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/cliente-economus.jpg",
+  "mime": "image/jpeg"
+ },
+ "images/prontow/agenda.png": {
+  "id": 129,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/prontow-agenda.jpg",
+  "mime": "image/jpeg"
+ },
+ "images/prontow/filas.png": {
+  "id": 130,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/prontow-filas.jpg",
+  "mime": "image/jpeg"
+ },
+ "images/prontow/fluxo-caixa.png": {
+  "id": 131,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/prontow-fluxo-de-caixa.jpg",
+  "mime": "image/jpeg"
+ },
+ "images/prontow/tiss-painel.png": {
+  "id": 132,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/prontow-tiss.jpg",
+  "mime": "image/jpeg"
+ },
+ "images/prontow/appstore.png": {
+  "id": 133,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/app-store.png",
+  "mime": "image/png"
+ },
+ "images/prontow/gplay.png": {
+  "id": 134,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/google-play.png",
+  "mime": "image/png"
+ },
+ "images/xieldimg/xield_01.png": {
+  "id": 135,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/xield-plataforma-web.jpg",
+  "mime": "image/jpeg"
+ },
+ "images/xieldimg/xield_02.png": {
+  "id": 136,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/xield-controle-de-acesso.jpg",
+  "mime": "image/jpeg"
+ },
+ "images/xieldimg/xield_03.png": {
+  "id": 137,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/xield-mapa-de-presenca.jpg",
+  "mime": "image/jpeg"
+ },
+ "images/xieldimg/xield_04.png": {
+  "id": 138,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/xield-automacao.jpg",
+  "mime": "image/jpeg"
+ },
+ "images/xieldimg/xield_05.png": {
+  "id": 139,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/xield-integracoes.jpg",
+  "mime": "image/jpeg"
+ },
+ "images/xieldimg/xield_06.png": {
+  "id": 140,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/xield-recursos.jpg",
+  "mime": "image/jpeg"
+ },
+ "images/xieldimg/xield_08.png": {
+  "id": 141,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/xield-por-que.jpg",
+  "mime": "image/jpeg"
+ },
+ "lgpd/img/comite-01.png": {
+  "id": 142,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/comite-compliance.png",
+  "mime": "image/png"
+ },
+ "lgpd/img/comite-02.png": {
+  "id": 143,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/comite-protecao-de-dados.png",
+  "mime": "image/png"
+ },
+ "lgpd/img/comite-03.png": {
+  "id": 144,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/comite-seguranca.png",
+  "mime": "image/png"
+ },
+ "lgpd/img/treinamento.png": {
+  "id": 145,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/trix-academy.png",
+  "mime": "image/png"
+ },
+ "images/unimed/40.png": {
+  "id": 146,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-40.png",
+  "mime": "image/png"
+ },
+ "images/unimed/41.png": {
+  "id": 147,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-41.png",
+  "mime": "image/png"
+ },
+ "images/unimed/42.png": {
+  "id": 148,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-42.png",
+  "mime": "image/png"
+ },
+ "images/unimed/43.png": {
+  "id": 149,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-43.png",
+  "mime": "image/png"
+ },
+ "images/unimed/45.png": {
+  "id": 150,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-45.png",
+  "mime": "image/png"
+ },
+ "images/unimed/46.png": {
+  "id": 151,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-46.png",
+  "mime": "image/png"
+ },
+ "images/unimed/47.png": {
+  "id": 152,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-47.png",
+  "mime": "image/png"
+ },
+ "images/unimed/49.png": {
+  "id": 153,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-49.png",
+  "mime": "image/png"
+ },
+ "images/unimed/50.png": {
+  "id": 154,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-50.png",
+  "mime": "image/png"
+ },
+ "images/unimed/51.png": {
+  "id": 155,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-51.png",
+  "mime": "image/png"
+ },
+ "images/unimed/52.png": {
+  "id": 156,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-52.png",
+  "mime": "image/png"
+ },
+ "images/unimed/53.png": {
+  "id": 157,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-53.png",
+  "mime": "image/png"
+ },
+ "images/unimed/55.png": {
+  "id": 158,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-55.png",
+  "mime": "image/png"
+ },
+ "images/unimed/56.png": {
+  "id": 159,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-56.png",
+  "mime": "image/png"
+ },
+ "images/unimed/57.png": {
+  "id": 160,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-57.png",
+  "mime": "image/png"
+ },
+ "images/unimed/58.png": {
+  "id": 161,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-58.png",
+  "mime": "image/png"
+ },
+ "images/unimed/59.png": {
+  "id": 162,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-59.png",
+  "mime": "image/png"
+ },
+ "images/unimed/61.png": {
+  "id": 163,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-61.png",
+  "mime": "image/png"
+ },
+ "images/unimed/62.png": {
+  "id": 164,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-62.png",
+  "mime": "image/png"
+ },
+ "images/unimed/65.png": {
+  "id": 165,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-65.png",
+  "mime": "image/png"
+ },
+ "images/unimed/66.png": {
+  "id": 166,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-66.png",
+  "mime": "image/png"
+ },
+ "images/unimed/67.png": {
+  "id": 167,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-67.png",
+  "mime": "image/png"
+ },
+ "images/unimed/69.png": {
+  "id": 168,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-69.png",
+  "mime": "image/png"
+ },
+ "images/unimed/70.png": {
+  "id": 169,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-70.png",
+  "mime": "image/png"
+ },
+ "images/unimed/71.png": {
+  "id": 170,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-71.jpg",
+  "mime": "image/jpeg"
+ },
+ "images/unimed/unimed-curitiba.jpg": {
+  "id": 171,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-curitiba.jpg",
+  "mime": "image/jpeg"
+ },
+ "images/unimed/unimed-sao-joao.jpg": {
+  "id": 172,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-sao-joao.jpg",
+  "mime": "image/jpeg"
+ },
+ "images/unimed/unimed-serra-minas.jpg": {
+  "id": 173,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-serra-minas.jpg",
+  "mime": "image/jpeg"
+ },
+ "images/unimed/unimed-uba.jpg": {
+  "id": 174,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-uba.jpg",
+  "mime": "image/jpeg"
  }
 }
