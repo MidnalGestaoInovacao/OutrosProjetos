@@ -1,0 +1,83 @@
+{
+  "name": "Vert Academy – Meus cursos",
+  "description": "Apresenta ao colaborador a página Meus cursos: filtros, ordenação, busca, modos de exibição e os cartões dos treinamentos em que está inscrito.",
+  "pathmatch": "/my/courses.php",
+  "enabled": "1",
+  "sortorder": "2",
+  "endtourlabel": "Encerrar tour",
+  "configdata": "{\"placement\": \"bottom\", \"orphan\": \"0\", \"backdrop\": \"1\", \"reflex\": \"0\", \"filtervalues\": {\"accessdate\": {\"filter_accessdate\": \"tool_usertours_accountcreation\", \"filter_accessdate_range\": 0, \"filter_accessdate_enabled\": \"0\"}, \"category\": [], \"course\": [], \"courseformat\": [], \"role\": [], \"theme\": [], \"cssselector\": []}, \"majorupdatetime\": 1790279376}",
+  "displaystepnumbers": true,
+  "version": "2026042000",
+  "steps": [
+    {
+      "title": "Bem-vindo à página Meus cursos",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>Esta é a sua central de treinamentos na <strong>Academy Vert Analytics</strong>. Aqui você encontra todos os cursos em que está inscrito, acompanha o seu progresso e volta aos treinamentos sempre que quiser.</p><p>Vamos conhecer cada elemento da tela.</p>",
+      "contentformat": "1",
+      "targettype": "2",
+      "targetvalue": "",
+      "sortorder": "0",
+      "configdata": "{\"placement\": \"bottom\", \"backdrop\": \"1\"}",
+      "files": []
+    },
+    {
+      "title": "Filtros de cursos",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>Estas abas filtram a lista: <strong>Todos</strong>, <strong>Em andamento</strong>, <strong>Não iniciados</strong>, <strong>Encerrados</strong>, <strong>Favoritos</strong> e <strong>Removido da visualização</strong>.</p><p>Clique em uma aba para ver apenas os cursos daquela situação.</p>",
+      "contentformat": "1",
+      "targettype": "0",
+      "targetvalue": "#inst5 .nav-grouping-selector",
+      "sortorder": "1",
+      "configdata": "{\"placement\": \"bottom\", \"orphan\": \"0\", \"backdrop\": \"1\"}",
+      "files": []
+    },
+    {
+      "title": "Ordenar a lista",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>Neste menu você escolhe a ordem dos cursos: <strong>por nome do curso</strong> (ordem alfabética) ou <strong>por último acesso</strong>, que coloca no topo o treinamento que você abriu mais recentemente.</p>",
+      "contentformat": "1",
+      "targettype": "0",
+      "targetvalue": "#sortingdropdown",
+      "sortorder": "2",
+      "configdata": "{\"placement\": \"bottom\", \"orphan\": \"0\", \"backdrop\": \"1\"}",
+      "files": []
+    },
+    {
+      "title": "Buscar um curso",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>Digite parte do nome de um treinamento para encontrá-lo rapidamente. A lista é filtrada enquanto você escreve.</p><p>Depois de digitar, aparece um <strong>X</strong> dentro do campo para limpar a pesquisa.</p>",
+      "contentformat": "1",
+      "targettype": "0",
+      "targetvalue": "#searchinput",
+      "sortorder": "3",
+      "configdata": "{\"placement\": \"bottom\", \"orphan\": \"0\", \"backdrop\": \"1\"}",
+      "files": []
+    },
+    {
+      "title": "Modo de exibição",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>Estes três ícones mudam a forma como os cursos aparecem: <strong>cartões</strong> (com imagem), <strong>lista</strong> (mais compacta) ou <strong>resumo</strong> (com a descrição de cada curso).</p><p>A sua escolha fica salva para as próximas visitas.</p>",
+      "contentformat": "1",
+      "targettype": "0",
+      "targetvalue": "#inst5 .nav-display-selector",
+      "sortorder": "4",
+      "configdata": "{\"placement\": \"bottom\", \"orphan\": \"0\", \"backdrop\": \"1\"}",
+      "files": []
+    },
+    {
+      "title": "Seus cursos",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>Aqui aparecem os treinamentos em que você está inscrito: cada cartão mostra a imagem, a categoria, o nome do curso e, quando o curso acompanha a conclusão, a sua <strong>barra de progresso</strong> com o percentual concluído.</p><p>Clique em <strong>Ver curso</strong> para entrar no treinamento; o menu <strong>...</strong> no canto do cartão permite favoritar o curso ou removê-lo da visualização.</p>",
+      "contentformat": "1",
+      "targettype": "0",
+      "targetvalue": "[data-region=\"courses-view\"]",
+      "sortorder": "5",
+      "configdata": "{\"placement\": \"top\", \"orphan\": \"0\", \"backdrop\": \"1\", \"delay\": \"1500\"}",
+      "files": []
+    },
+    {
+      "title": "Bons estudos",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>Pronto! Agora você já sabe como encontrar e abrir os seus treinamentos.</p><p>Para rever este guia a qualquer momento, use o link <strong>Reiniciar tour do usuário nesta página</strong> no rodapé.</p>",
+      "contentformat": "1",
+      "targettype": "2",
+      "targetvalue": "",
+      "sortorder": "6",
+      "configdata": "{\"placement\": \"bottom\", \"backdrop\": \"1\"}",
+      "files": []
+    }
+  ]
+}

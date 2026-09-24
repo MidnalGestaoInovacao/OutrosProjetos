@@ -1,0 +1,103 @@
+{
+  "name": "Vert Academy – Página do curso",
+  "description": "Conheça os elementos da página de um curso: cabeçalho, índice, abas, seções, unidades e o acompanhamento do seu progresso.",
+  "pathmatch": "/course/view.php",
+  "enabled": "1",
+  "sortorder": "3",
+  "endtourlabel": "Encerrar tour",
+  "configdata": "{\"placement\": \"top\", \"orphan\": \"0\", \"backdrop\": \"1\", \"reflex\": \"0\", \"filtervalues\": {\"accessdate\": {\"filter_accessdate\": \"tool_usertours_accountcreation\", \"filter_accessdate_range\": 0, \"filter_accessdate_enabled\": \"0\"}, \"category\": [], \"course\": [], \"courseformat\": [], \"role\": [], \"theme\": [], \"cssselector\": []}, \"majorupdatetime\": 1790279376}",
+  "displaystepnumbers": true,
+  "version": "2026042000",
+  "steps": [
+    {
+      "title": "Bem-vindo à página do curso",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>Esta é a página principal de um curso da <strong>Academy Vert Analytics</strong>. Aqui você encontra as unidades, as atividades, a prova e o certificado do treinamento.</p><p>Vamos apresentar cada elemento da tela em poucos passos.</p>",
+      "contentformat": "1",
+      "targettype": "2",
+      "targetvalue": "",
+      "sortorder": "0",
+      "configdata": "{\"placement\": \"top\", \"backdrop\": \"1\"}",
+      "files": []
+    },
+    {
+      "title": "Cabeçalho do curso",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>No topo você vê a imagem do curso, a categoria a que ele pertence (por exemplo, <em>Integração</em>) e o nome completo do treinamento.</p><p>Use este cabeçalho para confirmar em qual curso você está.</p>",
+      "contentformat": "1",
+      "targettype": "0",
+      "targetvalue": "#page-header",
+      "sortorder": "1",
+      "configdata": "{\"placement\": \"top\", \"orphan\": \"0\", \"backdrop\": \"1\"}",
+      "files": []
+    },
+    {
+      "title": "Índice do curso",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>Este botão abre o <strong>índice do curso</strong>, um painel lateral com a lista de todas as seções e atividades.</p><p>Use-o para pular direto para a unidade ou atividade que você quer acessar.</p>",
+      "contentformat": "1",
+      "targettype": "0",
+      "targetvalue": "button[data-action=\"toggle\"][data-target=\"theme_remui-drawers-courseindex\"]",
+      "sortorder": "2",
+      "configdata": "{\"placement\": \"right\", \"orphan\": \"0\", \"backdrop\": \"1\"}",
+      "files": []
+    },
+    {
+      "title": "Abas de navegação do curso",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>Estas abas levam às áreas do curso: <strong>Curso</strong> (conteúdo), <strong>Participantes</strong> (colegas inscritos) e <strong>Notas</strong> (suas avaliações).</p><p>Você pode ver mais ou menos abas dependendo do curso.</p>",
+      "contentformat": "1",
+      "targettype": "0",
+      "targetvalue": ".secondary-navigation.edw-tabs-navigation",
+      "sortorder": "3",
+      "configdata": "{\"placement\": \"bottom\", \"orphan\": \"0\", \"backdrop\": \"1\"}",
+      "files": []
+    },
+    {
+      "title": "Seção de apresentação",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>A primeira seção apresenta o curso e traz as orientações iniciais. Leia o texto de introdução antes de começar.</p><p>Nos cursos em formato de lista, as demais seções aparecem logo abaixo, uma após a outra.</p>",
+      "contentformat": "1",
+      "targettype": "0",
+      "targetvalue": "#section-0",
+      "sortorder": "4",
+      "configdata": "{\"placement\": \"top\", \"orphan\": \"0\", \"backdrop\": \"1\"}",
+      "files": []
+    },
+    {
+      "title": "Fórum de avisos",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>Aqui fica o fórum <strong>Avisos e comunicados importantes</strong>. Clique no nome da atividade para abrir e ler as mensagens publicadas.</p><p>Fique atento: é por este canal que a equipe divulga informações importantes do treinamento.</p>",
+      "contentformat": "1",
+      "targettype": "0",
+      "targetvalue": "#module-2",
+      "sortorder": "5",
+      "configdata": "{\"placement\": \"top\", \"orphan\": \"0\", \"backdrop\": \"1\"}",
+      "files": []
+    },
+    {
+      "title": "Progresso global",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>Este indicador mostra a porcentagem do curso que você já concluiu, calculada a partir das atividades marcadas como concluídas.</p><p>Quando chegar a 100%, o curso estará completo.</p>",
+      "contentformat": "1",
+      "targettype": "0",
+      "targetvalue": "#tiles-overall-progress-outer",
+      "sortorder": "6",
+      "configdata": "{\"placement\": \"left\", \"orphan\": \"0\", \"backdrop\": \"1\"}",
+      "files": []
+    },
+    {
+      "title": "Unidades do curso",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>Cada bloco é uma unidade ou etapa do curso: conteúdo, prova, pesquisa de satisfação e certificado. <strong>Clique em um bloco</strong> para abrir o seu conteúdo.</p><p>Ao concluir as atividades, a conclusão é registrada automaticamente e o bloco recebe a marca verde de concluído.</p>",
+      "contentformat": "1",
+      "targettype": "0",
+      "targetvalue": "ul.tiles",
+      "sortorder": "7",
+      "configdata": "{\"placement\": \"top\", \"orphan\": \"0\", \"backdrop\": \"1\"}",
+      "files": []
+    },
+    {
+      "title": "Bons estudos",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>Pronto! Agora você já conhece a página do curso. Para rever este tour, use o link <strong>Reiniciar tour do usuário nesta página</strong> no rodapé.</p><p>Comece pela primeira unidade e avance na ordem sugerida.</p>",
+      "contentformat": "1",
+      "targettype": "2",
+      "targetvalue": "",
+      "sortorder": "8",
+      "configdata": "{\"placement\": \"top\", \"backdrop\": \"1\"}",
+      "files": []
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "name": "Vert Academy – Notas",
+  "description": "Tour guiado da página Notas, onde você acompanha a nota final de cada curso em que está inscrito na Academy Vert Analytics.",
+  "pathmatch": "/grade/report/overview/index.php",
+  "enabled": "1",
+  "sortorder": "4",
+  "endtourlabel": "Encerrar tour",
+  "configdata": "{\"placement\": \"top\", \"orphan\": \"0\", \"backdrop\": \"1\", \"reflex\": \"0\", \"filtervalues\": {\"accessdate\": {\"filter_accessdate\": \"tool_usertours_accountcreation\", \"filter_accessdate_range\": 0, \"filter_accessdate_enabled\": \"0\"}, \"category\": [], \"course\": [], \"courseformat\": [], \"role\": [], \"theme\": [], \"cssselector\": []}, \"majorupdatetime\": 1790279376}",
+  "displaystepnumbers": true,
+  "version": "2026042000",
+  "steps": [
+    {
+      "title": "Boas-vindas à página Notas",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>Esta é a sua <strong>visão geral de notas</strong>. Aqui você vê, em um só lugar, a nota final de cada curso em que está inscrito na Academy Vert Analytics.</p><p>Vamos percorrer rapidamente os elementos desta tela.</p>",
+      "contentformat": "1",
+      "targettype": "2",
+      "targetvalue": "",
+      "sortorder": "0",
+      "configdata": "{\"backdrop\": \"1\"}",
+      "files": []
+    },
+    {
+      "title": "Seu perfil",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>No topo aparecem o seu <strong>avatar</strong> e o seu <strong>nome</strong>. Clicar na foto abre o seu perfil na plataforma.</p>",
+      "contentformat": "1",
+      "targettype": "0",
+      "targetvalue": ".page-context-header",
+      "sortorder": "1",
+      "configdata": "{\"placement\": \"bottom\", \"orphan\": \"0\", \"backdrop\": \"1\"}",
+      "files": []
+    },
+    {
+      "title": "Cursos que estou cursando",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>Este título indica a seção com os <strong>cursos em que você está inscrito como aluno</strong>. Enquanto você não estiver inscrito em nenhum curso, a plataforma mostra o aviso <strong>Nada a ser mostrado</strong> no lugar da tabela.</p>",
+      "contentformat": "1",
+      "targettype": "0",
+      "targetvalue": "#region-main div[role=\"main\"] > h2:first-of-type",
+      "sortorder": "2",
+      "configdata": "{\"placement\": \"bottom\", \"orphan\": \"0\", \"backdrop\": \"1\"}",
+      "files": []
+    },
+    {
+      "title": "Tabela de notas por curso",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>A tabela lista cada curso na coluna <strong>Nome do curso</strong> e a sua <strong>Nota</strong> final ao lado.</p><p>Clique no nome de um curso para abrir o <strong>relatório detalhado</strong>, com a nota de cada atividade daquele curso.</p>",
+      "contentformat": "1",
+      "targettype": "0",
+      "targetvalue": "#region-main table.generaltable",
+      "sortorder": "3",
+      "configdata": "{\"placement\": \"top\", \"orphan\": \"0\", \"backdrop\": \"1\"}",
+      "files": []
+    },
+    {
+      "title": "Tour concluído",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>Pronto! Para consultar suas notas novamente, abra o <strong>menu do usuário</strong> (seu avatar, no canto superior direito) e escolha <strong>Notas</strong>.</p><p>Para rever este tour, use o link <strong>Reiniciar tour do usuário nesta página</strong> no rodapé.</p>",
+      "contentformat": "1",
+      "targettype": "2",
+      "targetvalue": "",
+      "sortorder": "4",
+      "configdata": "{\"backdrop\": \"1\"}",
+      "files": []
+    }
+  ]
+}

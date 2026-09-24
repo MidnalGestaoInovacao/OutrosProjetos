@@ -1,0 +1,133 @@
+{
+  "name": "Vert Academy – Página inicial",
+  "description": "Apresenta ao colaborador os elementos da Página inicial do Academy Vert Analytics: barra superior, botão Explorar Treinamentos, Trilhas de Aprendizagem e rodapé.",
+  "pathmatch": "FRONTPAGE",
+  "enabled": "1",
+  "sortorder": "0",
+  "endtourlabel": "Encerrar tour",
+  "configdata": "{\"placement\": \"bottom\", \"orphan\": \"0\", \"backdrop\": \"1\", \"reflex\": \"0\", \"filtervalues\": {\"accessdate\": {\"filter_accessdate\": \"tool_usertours_accountcreation\", \"filter_accessdate_range\": 0, \"filter_accessdate_enabled\": \"0\"}, \"category\": [], \"course\": [], \"courseformat\": [], \"role\": [], \"theme\": [], \"cssselector\": []}, \"majorupdatetime\": 1790279376}",
+  "displaystepnumbers": true,
+  "version": "2026042000",
+  "steps": [
+    {
+      "title": "Bem-vindo ao Academy Vert Analytics",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>Esta é a <strong>Página inicial</strong> do portal de capacitação da Vert Analytics. Aqui você encontra o acesso rápido aos seus cursos, às trilhas de aprendizagem e aos canais de apoio.</p><p>Nos próximos passos, você vai conhecer cada elemento desta tela.</p>",
+      "contentformat": "1",
+      "targettype": "2",
+      "targetvalue": "",
+      "sortorder": "0",
+      "configdata": "{\"placement\": \"bottom\", \"backdrop\": \"1\"}",
+      "files": []
+    },
+    {
+      "title": "Cursos e Formações",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>O botão verde <strong>Cursos e Formações</strong> abre a lista de categorias de cursos disponíveis na plataforma.</p><p>Clique nele para navegar pelas áreas de conhecimento e chegar ao treinamento que você procura.</p>",
+      "contentformat": "1",
+      "targettype": "0",
+      "targetvalue": ".primary-navigation .catselector-menu",
+      "sortorder": "1",
+      "configdata": "{\"placement\": \"bottom\", \"orphan\": \"0\", \"backdrop\": \"1\"}",
+      "files": []
+    },
+    {
+      "title": "Painel de Recurso",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p><strong>Painel de Recurso</strong> leva você ao seu painel pessoal, com a visão geral das suas atividades e cursos.</p><p>Use esta opção sempre que quiser acompanhar seu progresso em um só lugar.</p>",
+      "contentformat": "1",
+      "targettype": "0",
+      "targetvalue": ".primary-navigation li[title=\"Painel de Recurso\"]",
+      "sortorder": "2",
+      "configdata": "{\"placement\": \"bottom\", \"orphan\": \"0\", \"backdrop\": \"1\"}",
+      "files": []
+    },
+    {
+      "title": "Minhas Inscrições",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>Em <strong>Minhas Inscrições</strong> você vê todos os cursos em que está matriculado.</p><p>É o caminho mais direto para retomar um treinamento em andamento.</p>",
+      "contentformat": "1",
+      "targettype": "0",
+      "targetvalue": ".primary-navigation li[title=\"Minhas Inscrições\"]",
+      "sortorder": "3",
+      "configdata": "{\"placement\": \"bottom\", \"orphan\": \"0\", \"backdrop\": \"1\"}",
+      "files": []
+    },
+    {
+      "title": "Cursos recentes",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>O menu <strong>Recentes</strong> lista os cursos que você acessou por último.</p><p>Assim você volta rapidamente ao ponto em que parou, sem precisar procurar.</p>",
+      "contentformat": "1",
+      "targettype": "0",
+      "targetvalue": ".navbar #drop-down-",
+      "sortorder": "4",
+      "configdata": "{\"placement\": \"bottom\", \"orphan\": \"0\", \"backdrop\": \"1\"}",
+      "files": []
+    },
+    {
+      "title": "Notificações",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>O sino mostra suas <strong>notificações</strong>: avisos de prazos, novas atividades e mensagens do sistema.</p><p>Clique para abrir a lista e marcar as notificações como lidas.</p>",
+      "contentformat": "1",
+      "targettype": "0",
+      "targetvalue": "#nav-notification-popover-container",
+      "sortorder": "5",
+      "configdata": "{\"placement\": \"bottom\", \"orphan\": \"0\", \"backdrop\": \"1\"}",
+      "files": []
+    },
+    {
+      "title": "Mensagens",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>O balão abre o painel de <strong>mensagens</strong>, onde você conversa com colegas, tutores e a equipe do Academy.</p><p>O número ao lado indica quantas conversas ainda não foram lidas.</p>",
+      "contentformat": "1",
+      "targettype": "0",
+      "targetvalue": ".navbar a[id^=\"message-drawer-toggle-\"]",
+      "sortorder": "6",
+      "configdata": "{\"placement\": \"bottom\", \"orphan\": \"0\", \"backdrop\": \"1\"}",
+      "files": []
+    },
+    {
+      "title": "Seu menu de usuário",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>Ao clicar no seu avatar você acessa o <strong>menu do usuário</strong> com as opções <em>Perfil</em>, <em>Notas</em>, <em>Calendário</em>, <em>Arquivos privados</em>, <em>Relatórios</em> e <em>Preferências</em>.</p><p>É também aqui que você encontra a opção <strong>Sair</strong> para encerrar a sessão.</p>",
+      "contentformat": "1",
+      "targettype": "0",
+      "targetvalue": "#user-menu-toggle",
+      "sortorder": "7",
+      "configdata": "{\"placement\": \"bottom\", \"orphan\": \"0\", \"backdrop\": \"1\"}",
+      "files": []
+    },
+    {
+      "title": "Explorar Treinamentos",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>O botão <strong>Explorar Treinamentos</strong> leva você direto para a página <strong>Meus cursos</strong>, com os treinamentos em que já está inscrito.</p><p>Comece por aqui para ver o que está disponível para você.</p>",
+      "contentformat": "1",
+      "targettype": "0",
+      "targetvalue": ".axia-btn-v2",
+      "sortorder": "8",
+      "configdata": "{\"placement\": \"top\", \"orphan\": \"0\", \"backdrop\": \"1\"}",
+      "files": []
+    },
+    {
+      "title": "Trilhas de Aprendizagem",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>Nesta seção você conhece as quatro <strong>Trilhas de Aprendizagem</strong> do Academy: <em>Cloud &amp; Infraestrutura</em>, <em>Analytics &amp; Ciência de Dados</em>, <em>Engenharia de Dados</em> e <em>Governança &amp; Estratégia</em>.</p><p>Cada cartão resume os temas e tecnologias abordados na trilha, para você identificar o caminho mais alinhado à sua evolução.</p>",
+      "contentformat": "1",
+      "targettype": "0",
+      "targetvalue": ".vert-learning-section",
+      "sortorder": "9",
+      "configdata": "{\"placement\": \"top\", \"orphan\": \"0\", \"backdrop\": \"1\"}",
+      "files": []
+    },
+    {
+      "title": "Rodapé e canais de apoio",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>No rodapé você encontra <strong>Sobre o Academy</strong>, a seção <strong>Recursos</strong> com os links <em>Suporte ao Colaborador</em>, <em>Política de Privacidade</em> e <em>Compliance &amp; LGPD</em>, e os <strong>Contatos Oficiais</strong> da Vert Analytics em Brasília.</p><p>Recorra a ele sempre que precisar de ajuda ou consultar as políticas da plataforma.</p>",
+      "contentformat": "1",
+      "targettype": "0",
+      "targetvalue": ".vert-footer-v2",
+      "sortorder": "10",
+      "configdata": "{\"placement\": \"top\", \"orphan\": \"0\", \"backdrop\": \"1\"}",
+      "files": []
+    },
+    {
+      "title": "Pronto para começar",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>Você concluiu o tour da Página inicial. Para revê-lo a qualquer momento, use o link <strong>Reiniciar tour do usuário nesta página</strong>, no final da página.</p><p>Próximo passo: clique em <strong>Explorar Treinamentos</strong> ou em <strong>Minhas Inscrições</strong> para acessar seus cursos.</p>",
+      "contentformat": "1",
+      "targettype": "2",
+      "targetvalue": "",
+      "sortorder": "11",
+      "configdata": "{\"placement\": \"bottom\", \"backdrop\": \"1\"}",
+      "files": []
+    }
+  ]
+}

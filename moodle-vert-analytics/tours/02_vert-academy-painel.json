@@ -1,0 +1,93 @@
+{
+  "name": "Vert Academy – Painel",
+  "description": "Apresenta ao colaborador os elementos do Painel: resumo de progresso, Linha do tempo, Calendário e a gaveta de blocos.",
+  "pathmatch": "/my/",
+  "enabled": "1",
+  "sortorder": "1",
+  "endtourlabel": "Encerrar tour",
+  "configdata": "{\"placement\": \"top\", \"orphan\": \"0\", \"backdrop\": \"1\", \"reflex\": \"0\", \"filtervalues\": {\"accessdate\": {\"filter_accessdate\": \"tool_usertours_accountcreation\", \"filter_accessdate_range\": 0, \"filter_accessdate_enabled\": \"0\"}, \"category\": [], \"course\": [], \"courseformat\": [], \"role\": [], \"theme\": [], \"cssselector\": [\"body.pagelayout-mydashboard\"]}, \"majorupdatetime\": 1790279376}",
+  "displaystepnumbers": true,
+  "version": "2026042000",
+  "steps": [
+    {
+      "title": "Bem-vindo ao seu Painel",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>Esta é a página <strong>Painel</strong> da Academy Vert Analytics, o seu ponto de partida na plataforma.</p><p>Aqui você acompanha seu progresso nos treinamentos, vê as atividades com prazo e o calendário do mês. Vamos conhecer cada parte da tela.</p>",
+      "contentformat": "1",
+      "targettype": "2",
+      "targetvalue": "",
+      "sortorder": "0",
+      "configdata": "{\"placement\": \"top\", \"backdrop\": \"1\"}",
+      "files": []
+    },
+    {
+      "title": "Resumo do seu progresso",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>Este cartão mostra quatro números atualizados automaticamente: <strong>Cursos matriculados</strong>, <strong>Cursos concluídos</strong>, <strong>Atividades concluídas</strong> e <strong>Atividades devidas</strong>.</p><p>Use-o para ter uma visão rápida de quanto você já avançou e do que ainda está pendente.</p>",
+      "contentformat": "1",
+      "targettype": "0",
+      "targetvalue": "#wdm_dashboard-stats",
+      "sortorder": "1",
+      "configdata": "{\"placement\": \"bottom\", \"orphan\": \"0\", \"backdrop\": \"1\", \"delay\": \"1500\"}",
+      "files": []
+    },
+    {
+      "title": "Linha do tempo",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>A <strong>Linha do tempo</strong> lista as atividades dos seus cursos que têm prazo de entrega, começando pelas mais próximas.</p><p>Quando não houver nada agendado, você verá a mensagem <strong>Não há atividades futuras</strong>.</p>",
+      "contentformat": "1",
+      "targettype": "0",
+      "targetvalue": "#inst7",
+      "sortorder": "2",
+      "configdata": "{\"placement\": \"top\", \"orphan\": \"0\", \"backdrop\": \"1\", \"delay\": \"1500\"}",
+      "files": []
+    },
+    {
+      "title": "Filtros da Linha do tempo",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>Aqui você ajusta o que aparece na lista:</p><ul><li>O primeiro botão filtra por período (<strong>Próximos 7 dias</strong>, Todos, Atrasado, entre outros).</li><li>O segundo ordena por <strong>data</strong> ou por <strong>curso</strong>.</li><li>O campo de busca localiza uma atividade pelo tipo ou pelo nome.</li></ul>",
+      "contentformat": "1",
+      "targettype": "0",
+      "targetvalue": "#inst7 .edw-timeline-filters",
+      "sortorder": "3",
+      "configdata": "{\"placement\": \"bottom\", \"orphan\": \"0\", \"backdrop\": \"1\"}",
+      "files": []
+    },
+    {
+      "title": "Calendário do mês",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>O <strong>Calendário</strong> exibe o mês atual com os eventos e prazos dos seus cursos. Use as setas ao lado do nome do mês para navegar.</p><p>Na lista <strong>Todos os cursos</strong> você escolhe ver os eventos de um curso específico, e em <strong>Novo evento</strong> pode registrar um lembrete pessoal.</p>",
+      "contentformat": "1",
+      "targettype": "0",
+      "targetvalue": "#inst8",
+      "sortorder": "4",
+      "configdata": "{\"placement\": \"top\", \"orphan\": \"0\", \"backdrop\": \"1\"}",
+      "files": []
+    },
+    {
+      "title": "Ver o calendário completo",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>Em <strong>Calendário completo</strong> você abre a página do calendário em tela cheia, com mais detalhes de cada evento.</p><p>Em <strong>Gerenciar assinaturas</strong> você pode conectar calendários externos ao seu calendário da plataforma.</p>",
+      "contentformat": "1",
+      "targettype": "0",
+      "targetvalue": "#inst8 .bottom",
+      "sortorder": "5",
+      "configdata": "{\"placement\": \"top\", \"orphan\": \"0\", \"backdrop\": \"1\"}",
+      "files": []
+    },
+    {
+      "title": "Gaveta de blocos",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>Este botão abre uma gaveta lateral à direita com blocos adicionais, como <strong>Itens acessados recentemente</strong>, que lista as últimas atividades e recursos que você abriu.</p><p>Para fechar, use o botão <strong>Fechar gaveta de blocos</strong> (ícone X) no topo da gaveta.</p>",
+      "contentformat": "1",
+      "targettype": "0",
+      "targetvalue": "button[data-action=\"toggle\"][data-target=\"theme_remui-drawers-blocks\"]",
+      "sortorder": "6",
+      "configdata": "{\"placement\": \"left\", \"orphan\": \"0\", \"backdrop\": \"1\"}",
+      "files": []
+    },
+    {
+      "title": "Tour concluído",
+      "content": "<div class=\"vert-tour-logo\"><img src=\"https://ead.vert.com.br/pluginfile.php/1/theme_remui/logo/-1/vert-logo.png\" alt=\"Vert Analytics\" width=\"132\"></div><p>Pronto! Você já conhece o seu Painel.</p><p>Para rever este tour a qualquer momento, use o link <strong>Reiniciar tour do usuário nesta página</strong> no rodapé. Para acessar seus treinamentos, abra <strong>Minhas Inscrições</strong> na barra superior.</p>",
+      "contentformat": "1",
+      "targettype": "2",
+      "targetvalue": "",
+      "sortorder": "7",
+      "configdata": "{\"placement\": \"top\", \"backdrop\": \"1\"}",
+      "files": []
+    }
+  ]
+}

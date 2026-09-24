@@ -1,0 +1,414 @@
+{
+  "tours": [
+    {
+      "key": "home",
+      "name": "Vert Academy – Página inicial",
+      "description": "Apresenta ao colaborador os elementos da Página inicial do Academy Vert Analytics: barra superior, botão Explorar Treinamentos, Trilhas de Aprendizagem e rodapé.",
+      "pathmatch": "FRONTPAGE",
+      "cssselector": "",
+      "placement": "bottom",
+      "backdrop": true,
+      "endtourlabel": "Encerrar tour",
+      "steps": [
+        {
+          "title": "Bem-vindo ao Academy Vert Analytics",
+          "content": "<p>Esta é a <strong>Página inicial</strong> do portal de capacitação da Vert Analytics. Aqui você encontra o acesso rápido aos seus cursos, às trilhas de aprendizagem e aos canais de apoio.</p><p>Nos próximos passos, você vai conhecer cada elemento desta tela.</p>",
+          "unattached": true,
+          "placement": "bottom",
+          "backdrop": true
+        },
+        {
+          "title": "Cursos e Formações",
+          "content": "<p>O botão verde <strong>Cursos e Formações</strong> abre a lista de categorias de cursos disponíveis na plataforma.</p><p>Clique nele para navegar pelas áreas de conhecimento e chegar ao treinamento que você procura.</p>",
+          "unattached": false,
+          "selector": ".primary-navigation .catselector-menu",
+          "placement": "bottom",
+          "backdrop": true,
+          "orphan": false
+        },
+        {
+          "title": "Painel de Recurso",
+          "content": "<p><strong>Painel de Recurso</strong> leva você ao seu painel pessoal, com a visão geral das suas atividades e cursos.</p><p>Use esta opção sempre que quiser acompanhar seu progresso em um só lugar.</p>",
+          "unattached": false,
+          "selector": ".primary-navigation li[title=\"Painel de Recurso\"]",
+          "placement": "bottom",
+          "backdrop": true,
+          "orphan": false
+        },
+        {
+          "title": "Minhas Inscrições",
+          "content": "<p>Em <strong>Minhas Inscrições</strong> você vê todos os cursos em que está matriculado.</p><p>É o caminho mais direto para retomar um treinamento em andamento.</p>",
+          "unattached": false,
+          "selector": ".primary-navigation li[title=\"Minhas Inscrições\"]",
+          "placement": "bottom",
+          "backdrop": true,
+          "orphan": false
+        },
+        {
+          "title": "Cursos recentes",
+          "content": "<p>O menu <strong>Recentes</strong> lista os cursos que você acessou por último.</p><p>Assim você volta rapidamente ao ponto em que parou, sem precisar procurar.</p>",
+          "unattached": false,
+          "selector": ".navbar #drop-down-",
+          "placement": "bottom",
+          "backdrop": true,
+          "orphan": false
+        },
+        {
+          "title": "Notificações",
+          "content": "<p>O sino mostra suas <strong>notificações</strong>: avisos de prazos, novas atividades e mensagens do sistema.</p><p>Clique para abrir a lista e marcar as notificações como lidas.</p>",
+          "unattached": false,
+          "selector": "#nav-notification-popover-container",
+          "placement": "bottom",
+          "backdrop": true,
+          "orphan": false
+        },
+        {
+          "title": "Mensagens",
+          "content": "<p>O balão abre o painel de <strong>mensagens</strong>, onde você conversa com colegas, tutores e a equipe do Academy.</p><p>O número ao lado indica quantas conversas ainda não foram lidas.</p>",
+          "unattached": false,
+          "selector": ".navbar a[id^=\"message-drawer-toggle-\"]",
+          "placement": "bottom",
+          "backdrop": true,
+          "orphan": false
+        },
+        {
+          "title": "Seu menu de usuário",
+          "content": "<p>Ao clicar no seu avatar você acessa o <strong>menu do usuário</strong> com as opções <em>Perfil</em>, <em>Notas</em>, <em>Calendário</em>, <em>Arquivos privados</em>, <em>Relatórios</em> e <em>Preferências</em>.</p><p>É também aqui que você encontra a opção <strong>Sair</strong> para encerrar a sessão.</p>",
+          "unattached": false,
+          "selector": "#user-menu-toggle",
+          "placement": "bottom",
+          "backdrop": true,
+          "orphan": false
+        },
+        {
+          "title": "Explorar Treinamentos",
+          "content": "<p>O botão <strong>Explorar Treinamentos</strong> leva você direto para a página <strong>Meus cursos</strong>, com os treinamentos em que já está inscrito.</p><p>Comece por aqui para ver o que está disponível para você.</p>",
+          "unattached": false,
+          "selector": ".axia-btn-v2",
+          "placement": "top",
+          "backdrop": true,
+          "orphan": false
+        },
+        {
+          "title": "Trilhas de Aprendizagem",
+          "content": "<p>Nesta seção você conhece as quatro <strong>Trilhas de Aprendizagem</strong> do Academy: <em>Cloud &amp; Infraestrutura</em>, <em>Analytics &amp; Ciência de Dados</em>, <em>Engenharia de Dados</em> e <em>Governança &amp; Estratégia</em>.</p><p>Cada cartão resume os temas e tecnologias abordados na trilha, para você identificar o caminho mais alinhado à sua evolução.</p>",
+          "unattached": false,
+          "selector": ".vert-learning-section",
+          "placement": "top",
+          "backdrop": true,
+          "orphan": false
+        },
+        {
+          "title": "Rodapé e canais de apoio",
+          "content": "<p>No rodapé você encontra <strong>Sobre o Academy</strong>, a seção <strong>Recursos</strong> com os links <em>Suporte ao Colaborador</em>, <em>Política de Privacidade</em> e <em>Compliance &amp; LGPD</em>, e os <strong>Contatos Oficiais</strong> da Vert Analytics em Brasília.</p><p>Recorra a ele sempre que precisar de ajuda ou consultar as políticas da plataforma.</p>",
+          "unattached": false,
+          "selector": ".vert-footer-v2",
+          "placement": "top",
+          "backdrop": true,
+          "orphan": false
+        },
+        {
+          "title": "Pronto para começar",
+          "content": "<p>Você concluiu o tour da Página inicial. Para revê-lo a qualquer momento, use o link <strong>Reiniciar tour do usuário nesta página</strong>, no final da página.</p><p>Próximo passo: clique em <strong>Explorar Treinamentos</strong> ou em <strong>Minhas Inscrições</strong> para acessar seus cursos.</p>",
+          "unattached": true,
+          "placement": "bottom",
+          "backdrop": true
+        }
+      ]
+    },
+    {
+      "key": "dashboard",
+      "name": "Vert Academy – Painel",
+      "description": "Apresenta ao colaborador os elementos do Painel: resumo de progresso, Linha do tempo, Calendário e a gaveta de blocos.",
+      "pathmatch": "/my/",
+      "cssselector": "body.pagelayout-mydashboard",
+      "placement": "top",
+      "backdrop": true,
+      "endtourlabel": "Encerrar tour",
+      "steps": [
+        {
+          "title": "Bem-vindo ao seu Painel",
+          "content": "<p>Esta é a página <strong>Painel</strong> da Academy Vert Analytics, o seu ponto de partida na plataforma.</p><p>Aqui você acompanha seu progresso nos treinamentos, vê as atividades com prazo e o calendário do mês. Vamos conhecer cada parte da tela.</p>",
+          "unattached": true,
+          "placement": "top",
+          "backdrop": true
+        },
+        {
+          "title": "Resumo do seu progresso",
+          "content": "<p>Este cartão mostra quatro números atualizados automaticamente: <strong>Cursos matriculados</strong>, <strong>Cursos concluídos</strong>, <strong>Atividades concluídas</strong> e <strong>Atividades devidas</strong>.</p><p>Use-o para ter uma visão rápida de quanto você já avançou e do que ainda está pendente.</p>",
+          "unattached": false,
+          "selector": "#wdm_dashboard-stats",
+          "placement": "bottom",
+          "backdrop": true,
+          "orphan": false,
+          "delay": 1500
+        },
+        {
+          "title": "Linha do tempo",
+          "content": "<p>A <strong>Linha do tempo</strong> lista as atividades dos seus cursos que têm prazo de entrega, começando pelas mais próximas.</p><p>Quando não houver nada agendado, você verá a mensagem <strong>Não há atividades futuras</strong>.</p>",
+          "unattached": false,
+          "selector": "#inst7",
+          "placement": "top",
+          "backdrop": true,
+          "orphan": false,
+          "delay": 1500
+        },
+        {
+          "title": "Filtros da Linha do tempo",
+          "content": "<p>Aqui você ajusta o que aparece na lista:</p><ul><li>O primeiro botão filtra por período (<strong>Próximos 7 dias</strong>, Todos, Atrasado, entre outros).</li><li>O segundo ordena por <strong>data</strong> ou por <strong>curso</strong>.</li><li>O campo de busca localiza uma atividade pelo tipo ou pelo nome.</li></ul>",
+          "unattached": false,
+          "selector": "#inst7 .edw-timeline-filters",
+          "placement": "bottom",
+          "backdrop": true,
+          "orphan": false
+        },
+        {
+          "title": "Calendário do mês",
+          "content": "<p>O <strong>Calendário</strong> exibe o mês atual com os eventos e prazos dos seus cursos. Use as setas ao lado do nome do mês para navegar.</p><p>Na lista <strong>Todos os cursos</strong> você escolhe ver os eventos de um curso específico, e em <strong>Novo evento</strong> pode registrar um lembrete pessoal.</p>",
+          "unattached": false,
+          "selector": "#inst8",
+          "placement": "top",
+          "backdrop": true,
+          "orphan": false
+        },
+        {
+          "title": "Ver o calendário completo",
+          "content": "<p>Em <strong>Calendário completo</strong> você abre a página do calendário em tela cheia, com mais detalhes de cada evento.</p><p>Em <strong>Gerenciar assinaturas</strong> você pode conectar calendários externos ao seu calendário da plataforma.</p>",
+          "unattached": false,
+          "selector": "#inst8 .bottom",
+          "placement": "top",
+          "backdrop": true,
+          "orphan": false
+        },
+        {
+          "title": "Gaveta de blocos",
+          "content": "<p>Este botão abre uma gaveta lateral à direita com blocos adicionais, como <strong>Itens acessados recentemente</strong>, que lista as últimas atividades e recursos que você abriu.</p><p>Para fechar, use o botão <strong>Fechar gaveta de blocos</strong> (ícone X) no topo da gaveta.</p>",
+          "unattached": false,
+          "selector": "button[data-action=\"toggle\"][data-target=\"theme_remui-drawers-blocks\"]",
+          "placement": "left",
+          "backdrop": true,
+          "orphan": false
+        },
+        {
+          "title": "Tour concluído",
+          "content": "<p>Pronto! Você já conhece o seu Painel.</p><p>Para rever este tour a qualquer momento, use o link <strong>Reiniciar tour do usuário nesta página</strong> no rodapé. Para acessar seus treinamentos, abra <strong>Minhas Inscrições</strong> na barra superior.</p>",
+          "unattached": true,
+          "placement": "top",
+          "backdrop": true
+        }
+      ]
+    },
+    {
+      "key": "mycourses",
+      "name": "Vert Academy – Meus cursos",
+      "description": "Apresenta ao colaborador a página Meus cursos: filtros, ordenação, busca, modos de exibição e os cartões dos treinamentos em que está inscrito.",
+      "pathmatch": "/my/courses.php",
+      "cssselector": "",
+      "placement": "bottom",
+      "backdrop": true,
+      "endtourlabel": "Encerrar tour",
+      "steps": [
+        {
+          "title": "Bem-vindo à página Meus cursos",
+          "content": "<p>Esta é a sua central de treinamentos na <strong>Academy Vert Analytics</strong>. Aqui você encontra todos os cursos em que está inscrito, acompanha o seu progresso e volta aos treinamentos sempre que quiser.</p><p>Vamos conhecer cada elemento da tela.</p>",
+          "unattached": true,
+          "placement": "bottom",
+          "backdrop": true
+        },
+        {
+          "title": "Filtros de cursos",
+          "content": "<p>Estas abas filtram a lista: <strong>Todos</strong>, <strong>Em andamento</strong>, <strong>Não iniciados</strong>, <strong>Encerrados</strong>, <strong>Favoritos</strong> e <strong>Removido da visualização</strong>.</p><p>Clique em uma aba para ver apenas os cursos daquela situação.</p>",
+          "unattached": false,
+          "selector": "#inst5 .nav-grouping-selector",
+          "placement": "bottom",
+          "backdrop": true,
+          "orphan": false
+        },
+        {
+          "title": "Ordenar a lista",
+          "content": "<p>Neste menu você escolhe a ordem dos cursos: <strong>por nome do curso</strong> (ordem alfabética) ou <strong>por último acesso</strong>, que coloca no topo o treinamento que você abriu mais recentemente.</p>",
+          "unattached": false,
+          "selector": "#sortingdropdown",
+          "placement": "bottom",
+          "backdrop": true,
+          "orphan": false
+        },
+        {
+          "title": "Buscar um curso",
+          "content": "<p>Digite parte do nome de um treinamento para encontrá-lo rapidamente. A lista é filtrada enquanto você escreve.</p><p>Depois de digitar, aparece um <strong>X</strong> dentro do campo para limpar a pesquisa.</p>",
+          "unattached": false,
+          "selector": "#searchinput",
+          "placement": "bottom",
+          "backdrop": true,
+          "orphan": false
+        },
+        {
+          "title": "Modo de exibição",
+          "content": "<p>Estes três ícones mudam a forma como os cursos aparecem: <strong>cartões</strong> (com imagem), <strong>lista</strong> (mais compacta) ou <strong>resumo</strong> (com a descrição de cada curso).</p><p>A sua escolha fica salva para as próximas visitas.</p>",
+          "unattached": false,
+          "selector": "#inst5 .nav-display-selector",
+          "placement": "bottom",
+          "backdrop": true,
+          "orphan": false
+        },
+        {
+          "title": "Seus cursos",
+          "content": "<p>Aqui aparecem os treinamentos em que você está inscrito: cada cartão mostra a imagem, a categoria, o nome do curso e, quando o curso acompanha a conclusão, a sua <strong>barra de progresso</strong> com o percentual concluído.</p><p>Clique em <strong>Ver curso</strong> para entrar no treinamento; o menu <strong>...</strong> no canto do cartão permite favoritar o curso ou removê-lo da visualização.</p>",
+          "unattached": false,
+          "selector": "[data-region=\"courses-view\"]",
+          "placement": "top",
+          "backdrop": true,
+          "orphan": false,
+          "delay": 1500
+        },
+        {
+          "title": "Bons estudos",
+          "content": "<p>Pronto! Agora você já sabe como encontrar e abrir os seus treinamentos.</p><p>Para rever este guia a qualquer momento, use o link <strong>Reiniciar tour do usuário nesta página</strong> no rodapé.</p>",
+          "unattached": true,
+          "placement": "bottom",
+          "backdrop": true
+        }
+      ]
+    },
+    {
+      "key": "course",
+      "name": "Vert Academy – Página do curso",
+      "description": "Conheça os elementos da página de um curso: cabeçalho, índice, abas, seções, unidades e o acompanhamento do seu progresso.",
+      "pathmatch": "/course/view.php",
+      "cssselector": "",
+      "placement": "top",
+      "backdrop": true,
+      "endtourlabel": "Encerrar tour",
+      "steps": [
+        {
+          "title": "Bem-vindo à página do curso",
+          "content": "<p>Esta é a página principal de um curso da <strong>Academy Vert Analytics</strong>. Aqui você encontra as unidades, as atividades, a prova e o certificado do treinamento.</p><p>Vamos apresentar cada elemento da tela em poucos passos.</p>",
+          "unattached": true,
+          "placement": "top",
+          "backdrop": true
+        },
+        {
+          "title": "Cabeçalho do curso",
+          "content": "<p>No topo você vê a imagem do curso, a categoria a que ele pertence (por exemplo, <em>Integração</em>) e o nome completo do treinamento.</p><p>Use este cabeçalho para confirmar em qual curso você está.</p>",
+          "unattached": false,
+          "selector": "#page-header",
+          "placement": "top",
+          "backdrop": true,
+          "orphan": false
+        },
+        {
+          "title": "Índice do curso",
+          "content": "<p>Este botão abre o <strong>índice do curso</strong>, um painel lateral com a lista de todas as seções e atividades.</p><p>Use-o para pular direto para a unidade ou atividade que você quer acessar.</p>",
+          "unattached": false,
+          "selector": "button[data-action=\"toggle\"][data-target=\"theme_remui-drawers-courseindex\"]",
+          "placement": "right",
+          "backdrop": true,
+          "orphan": false
+        },
+        {
+          "title": "Abas de navegação do curso",
+          "content": "<p>Estas abas levam às áreas do curso: <strong>Curso</strong> (conteúdo), <strong>Participantes</strong> (colegas inscritos) e <strong>Notas</strong> (suas avaliações).</p><p>Você pode ver mais ou menos abas dependendo do curso.</p>",
+          "unattached": false,
+          "selector": ".secondary-navigation.edw-tabs-navigation",
+          "placement": "bottom",
+          "backdrop": true,
+          "orphan": false
+        },
+        {
+          "title": "Seção de apresentação",
+          "content": "<p>A primeira seção apresenta o curso e traz as orientações iniciais. Leia o texto de introdução antes de começar.</p><p>Nos cursos em formato de lista, as demais seções aparecem logo abaixo, uma após a outra.</p>",
+          "unattached": false,
+          "selector": "#section-0",
+          "placement": "top",
+          "backdrop": true,
+          "orphan": false
+        },
+        {
+          "title": "Fórum de avisos",
+          "content": "<p>Aqui fica o fórum <strong>Avisos e comunicados importantes</strong>. Clique no nome da atividade para abrir e ler as mensagens publicadas.</p><p>Fique atento: é por este canal que a equipe divulga informações importantes do treinamento.</p>",
+          "unattached": false,
+          "selector": "#module-2",
+          "placement": "top",
+          "backdrop": true,
+          "orphan": false
+        },
+        {
+          "title": "Progresso global",
+          "content": "<p>Este indicador mostra a porcentagem do curso que você já concluiu, calculada a partir das atividades marcadas como concluídas.</p><p>Quando chegar a 100%, o curso estará completo.</p>",
+          "unattached": false,
+          "selector": "#tiles-overall-progress-outer",
+          "placement": "left",
+          "backdrop": true,
+          "orphan": false
+        },
+        {
+          "title": "Unidades do curso",
+          "content": "<p>Cada bloco é uma unidade ou etapa do curso: conteúdo, prova, pesquisa de satisfação e certificado. <strong>Clique em um bloco</strong> para abrir o seu conteúdo.</p><p>Ao concluir as atividades, a conclusão é registrada automaticamente e o bloco recebe a marca verde de concluído.</p>",
+          "unattached": false,
+          "selector": "ul.tiles",
+          "placement": "top",
+          "backdrop": true,
+          "orphan": false
+        },
+        {
+          "title": "Bons estudos",
+          "content": "<p>Pronto! Agora você já conhece a página do curso. Para rever este tour, use o link <strong>Reiniciar tour do usuário nesta página</strong> no rodapé.</p><p>Comece pela primeira unidade e avance na ordem sugerida.</p>",
+          "unattached": true,
+          "placement": "top",
+          "backdrop": true
+        }
+      ]
+    },
+    {
+      "key": "grades",
+      "name": "Vert Academy – Notas",
+      "description": "Tour guiado da página Notas, onde você acompanha a nota final de cada curso em que está inscrito na Academy Vert Analytics.",
+      "pathmatch": "/grade/report/overview/index.php",
+      "cssselector": "",
+      "placement": "top",
+      "backdrop": true,
+      "endtourlabel": "Encerrar tour",
+      "steps": [
+        {
+          "title": "Boas-vindas à página Notas",
+          "content": "<p>Esta é a sua <strong>visão geral de notas</strong>. Aqui você vê, em um só lugar, a nota final de cada curso em que está inscrito na Academy Vert Analytics.</p><p>Vamos percorrer rapidamente os elementos desta tela.</p>",
+          "unattached": true,
+          "backdrop": true
+        },
+        {
+          "title": "Seu perfil",
+          "content": "<p>No topo aparecem o seu <strong>avatar</strong> e o seu <strong>nome</strong>. Clicar na foto abre o seu perfil na plataforma.</p>",
+          "unattached": false,
+          "selector": ".page-context-header",
+          "placement": "bottom",
+          "backdrop": true,
+          "orphan": false
+        },
+        {
+          "title": "Cursos que estou cursando",
+          "content": "<p>Este título indica a seção com os <strong>cursos em que você está inscrito como aluno</strong>. Enquanto você não estiver inscrito em nenhum curso, a plataforma mostra o aviso <strong>Nada a ser mostrado</strong> no lugar da tabela.</p>",
+          "unattached": false,
+          "selector": "#region-main div[role=\"main\"] > h2:first-of-type",
+          "placement": "bottom",
+          "backdrop": true,
+          "orphan": false
+        },
+        {
+          "title": "Tabela de notas por curso",
+          "content": "<p>A tabela lista cada curso na coluna <strong>Nome do curso</strong> e a sua <strong>Nota</strong> final ao lado.</p><p>Clique no nome de um curso para abrir o <strong>relatório detalhado</strong>, com a nota de cada atividade daquele curso.</p>",
+          "unattached": false,
+          "selector": "#region-main table.generaltable",
+          "placement": "top",
+          "backdrop": true,
+          "orphan": false
+        },
+        {
+          "title": "Tour concluído",
+          "content": "<p>Pronto! Para consultar suas notas novamente, abra o <strong>menu do usuário</strong> (seu avatar, no canto superior direito) e escolha <strong>Notas</strong>.</p><p>Para rever este tour, use o link <strong>Reiniciar tour do usuário nesta página</strong> no rodapé.</p>",
+          "unattached": true,
+          "backdrop": true
+        }
+      ]
+    }
+  ]
+}
