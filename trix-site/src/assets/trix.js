@@ -250,7 +250,7 @@
       var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }); }, { threshold: .12 });
       $$('.trix-reveal').forEach(function (el) { io.observe(el); });
       /* fallback: garante conteúdo visível mesmo sem rolagem (impressão, leitores, renderizadores) */
-      setTimeout(function () { d.documentElement.classList.add('trix-revealed'); }, 2500);
+      setTimeout(function () { d.documentElement.classList.add('trix-revealed'); }, 1800);
       on(w, 'beforeprint', function () { d.documentElement.classList.add('trix-revealed'); });
     } else $$('.trix-reveal').forEach(function (el) { el.classList.add('is-in'); });
     if (!reduced && w.matchMedia('(hover:hover)').matches) {
