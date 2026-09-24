@@ -3,12 +3,13 @@
 Etapas: blocos reutilizáveis -> global styles -> páginas (2 passes: criar, depois pais) -> templates -> limpeza.
 Uso: python3 src/deploy.py [--only blocks|styles|pages|templates|cleanup] [--pages slug1,slug2]
 """
-import json, os, sys, re, time
+import json, os, sys, re, time, hashlib
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(HERE); DIST = os.path.join(ROOT, "dist")
 sys.path.insert(0, HERE)
 from wpmcp import call, MCPError
 STATE_F = os.path.join(ROOT, "deploy-state.json")
 state = json.load(open(STATE_F)) if os.path.exists(STATE_F) else {"blocks": {}, "pages": {}, "templates": {}}
+state.setdefault("hashes", {})
 def save(): json.dump(state, open(STATE_F, "w"), indent=1, ensure_ascii=False)
 def log(*a): print(time.strftime("%H:%M:%S"), *a, flush=True)
 BLOCK_TITLES = {"estilos": "Trix • Estilos (CSS e configuração)", "cabecalho": "Trix • Cabeçalho (megamenu)", "rodape": "Trix • Rodapé", "widgets": "Trix • Widgets (cookies, acessibilidade, contatos, scripts)"}
@@ -41,7 +42,10 @@ def existing_pages():
         page += 1
     return out
 
-def deploy_pages(only=None):
+def page_hash(p):
+    return hashlib.sha1(json.dumps({k: p[k] for k in ("wp_title", "content", "excerpt", "menu_order", "comments", "parent", "slug")}, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
+
+def deploy_pages(only=None, create_only=False):
     pages = [json.load(open(os.path.join(DIST, "pages", f), encoding="utf-8")) for f in sorted(os.listdir(os.path.join(DIST, "pages")))]
     by_slug = {p["slug"]: p for p in pages}
     ex = existing_pages()
@@ -55,6 +59,9 @@ def deploy_pages(only=None):
             pid = state["pages"].get(p["parent"]) or (ex.get(p["parent"]) or {}).get("id")
             if pid: args["parent"] = pid
         pid = state["pages"].get(p["slug"]) or (ex.get(p["slug"]) or {}).get("id")
+        h = page_hash(p)
+        if pid and (create_only or state["hashes"].get(p["slug"]) == h):
+            state["pages"][p["slug"]] = pid; save(); log("skip (unchanged or create-only)", p["slug"], pid); continue
         for attempt in range(4):
             try:
                 if pid:
@@ -69,8 +76,8 @@ def deploy_pages(only=None):
                         ex = existing_pages(); pid = (ex.get(p["slug"]) or {}).get("id")
                         if pid: log("found after failure", p["slug"], pid)
                     except MCPError as e2: log("recheck failed", str(e2)[:100])
-        if pid: state["pages"][p["slug"]] = pid; save()
-        time.sleep(4)
+        if pid: state["pages"][p["slug"]] = pid; state["hashes"][p["slug"]] = h; save()
+        time.sleep(8)
 
 def deploy_templates():
     refs = {"REF_" + k.upper(): v for k, v in state["blocks"].items()}
@@ -105,7 +112,7 @@ if __name__ == "__main__":
     pages_only = sys.argv[sys.argv.index("--pages") + 1].split(",") if "--pages" in sys.argv else None
     if only in ("all", "blocks"): deploy_blocks()
     if only in ("all", "styles"): deploy_styles()
-    if only in ("all", "pages"): deploy_pages(pages_only)
+    if only in ("all", "pages"): deploy_pages(pages_only, create_only="--create-only" in sys.argv)
     if only in ("all", "templates"): deploy_templates()
     if only in ("cleanup",): cleanup()
     log("done")

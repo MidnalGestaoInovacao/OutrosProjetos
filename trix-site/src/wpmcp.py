@@ -7,9 +7,10 @@ URL=os.environ.get("WPMCP_URL","https://trix.ebaem.com.br/wp-json/easy-mcp-ai/v1
 LOG=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),"wpmcp.log"),"a")
 class MCPError(Exception): pass
 def call(name, args=None, tries=8, timeout=240, pause=None):
+    """Retorna o resultado da ferramenta MCP. Retries espaçados: o servidor de destino é lento e o túnel do proxy fecha após ~11 s."""
     body=json.dumps({"jsonrpc":"2.0","id":random.randint(1,10**6),"method":"tools/call","params":{"name":name,"arguments":args or {}}},ensure_ascii=False)
     fd,path=tempfile.mkstemp(suffix=".json"); os.write(fd,body.encode()); os.close(fd)
-    delay=(pause or 6.0); last=""
+    delay=(pause or 20.0); last=""
     try:
         for i in range(tries):
             t0=time.time()
@@ -28,7 +29,7 @@ def call(name, args=None, tries=8, timeout=240, pause=None):
                     except Exception: return {"_text":text}
                 return r
             last=(p.stderr or p.stdout)[:200]; LOG.write(f"{name} try{i} fail {dt:.1f}s {last.strip()}\n"); LOG.flush()
-            time.sleep(delay+random.random()*2); delay=min(delay*1.6,30)
+            time.sleep(delay+random.random()*3); delay=min(delay*1.3,45)
         raise MCPError(f"{name}: gave up after {tries} tries: {last}")
     finally:
         os.unlink(path)
