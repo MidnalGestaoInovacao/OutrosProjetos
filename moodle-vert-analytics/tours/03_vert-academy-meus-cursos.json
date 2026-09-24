@@ -1,11 +1,11 @@
 {
   "name": "Vert Academy – Meus cursos",
   "description": "Apresenta ao colaborador a página Meus cursos: filtros, ordenação, busca, modos de exibição e os cartões dos treinamentos em que está inscrito.",
-  "pathmatch": "/my/courses.php",
+  "pathmatch": "/my/courses.php%",
   "enabled": "1",
   "sortorder": "2",
   "endtourlabel": "Encerrar tour",
-  "configdata": "{\"placement\": \"bottom\", \"orphan\": \"0\", \"backdrop\": \"1\", \"reflex\": \"0\", \"filtervalues\": {\"accessdate\": {\"filter_accessdate\": \"tool_usertours_accountcreation\", \"filter_accessdate_range\": 0, \"filter_accessdate_enabled\": \"0\"}, \"category\": [], \"course\": [], \"courseformat\": [], \"role\": [], \"theme\": [], \"cssselector\": []}, \"majorupdatetime\": 1790279376}",
+  "configdata": "{\"placement\": \"bottom\", \"orphan\": \"0\", \"backdrop\": \"1\", \"reflex\": \"0\", \"filtervalues\": {\"accessdate\": {\"filter_accessdate\": \"tool_usertours_accountcreation\", \"filter_accessdate_range\": 0, \"filter_accessdate_enabled\": \"0\"}, \"category\": [], \"course\": [], \"courseformat\": [], \"role\": [], \"theme\": [], \"cssselector\": []}, \"majorupdatetime\": 1790279979}",
   "displaystepnumbers": true,
   "version": "2026042000",
   "steps": [

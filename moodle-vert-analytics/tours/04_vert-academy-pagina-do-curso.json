@@ -1,11 +1,11 @@
 {
   "name": "Vert Academy – Página do curso",
   "description": "Conheça os elementos da página de um curso: cabeçalho, índice, abas, seções, unidades e o acompanhamento do seu progresso.",
-  "pathmatch": "/course/view.php",
+  "pathmatch": "/course/view.php%",
   "enabled": "1",
   "sortorder": "3",
   "endtourlabel": "Encerrar tour",
-  "configdata": "{\"placement\": \"top\", \"orphan\": \"0\", \"backdrop\": \"1\", \"reflex\": \"0\", \"filtervalues\": {\"accessdate\": {\"filter_accessdate\": \"tool_usertours_accountcreation\", \"filter_accessdate_range\": 0, \"filter_accessdate_enabled\": \"0\"}, \"category\": [], \"course\": [], \"courseformat\": [], \"role\": [], \"theme\": [], \"cssselector\": []}, \"majorupdatetime\": 1790279376}",
+  "configdata": "{\"placement\": \"top\", \"orphan\": \"0\", \"backdrop\": \"1\", \"reflex\": \"0\", \"filtervalues\": {\"accessdate\": {\"filter_accessdate\": \"tool_usertours_accountcreation\", \"filter_accessdate_range\": 0, \"filter_accessdate_enabled\": \"0\"}, \"category\": [], \"course\": [], \"courseformat\": [], \"role\": [], \"theme\": [], \"cssselector\": []}, \"majorupdatetime\": 1790279979}",
   "displaystepnumbers": true,
   "version": "2026042000",
   "steps": [

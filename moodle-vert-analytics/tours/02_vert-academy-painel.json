@@ -1,11 +1,11 @@
 {
   "name": "Vert Academy – Painel",
   "description": "Apresenta ao colaborador os elementos do Painel: resumo de progresso, Linha do tempo, Calendário e a gaveta de blocos.",
-  "pathmatch": "/my/",
+  "pathmatch": "/my/%",
   "enabled": "1",
   "sortorder": "1",
   "endtourlabel": "Encerrar tour",
-  "configdata": "{\"placement\": \"top\", \"orphan\": \"0\", \"backdrop\": \"1\", \"reflex\": \"0\", \"filtervalues\": {\"accessdate\": {\"filter_accessdate\": \"tool_usertours_accountcreation\", \"filter_accessdate_range\": 0, \"filter_accessdate_enabled\": \"0\"}, \"category\": [], \"course\": [], \"courseformat\": [], \"role\": [], \"theme\": [], \"cssselector\": [\"body.pagelayout-mydashboard\"]}, \"majorupdatetime\": 1790279376}",
+  "configdata": "{\"placement\": \"top\", \"orphan\": \"0\", \"backdrop\": \"1\", \"reflex\": \"0\", \"filtervalues\": {\"accessdate\": {\"filter_accessdate\": \"tool_usertours_accountcreation\", \"filter_accessdate_range\": 0, \"filter_accessdate_enabled\": \"0\"}, \"category\": [], \"course\": [], \"courseformat\": [], \"role\": [], \"theme\": [], \"cssselector\": [\"body.pagelayout-mydashboard\"]}, \"majorupdatetime\": 1790279979}",
   "displaystepnumbers": true,
   "version": "2026042000",
   "steps": [

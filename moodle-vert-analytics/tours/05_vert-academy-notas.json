@@ -1,11 +1,11 @@
 {
   "name": "Vert Academy – Notas",
   "description": "Tour guiado da página Notas, onde você acompanha a nota final de cada curso em que está inscrito na Academy Vert Analytics.",
-  "pathmatch": "/grade/report/overview/index.php",
+  "pathmatch": "/grade/report/overview/index.php%",
   "enabled": "1",
   "sortorder": "4",
   "endtourlabel": "Encerrar tour",
-  "configdata": "{\"placement\": \"top\", \"orphan\": \"0\", \"backdrop\": \"1\", \"reflex\": \"0\", \"filtervalues\": {\"accessdate\": {\"filter_accessdate\": \"tool_usertours_accountcreation\", \"filter_accessdate_range\": 0, \"filter_accessdate_enabled\": \"0\"}, \"category\": [], \"course\": [], \"courseformat\": [], \"role\": [], \"theme\": [], \"cssselector\": []}, \"majorupdatetime\": 1790279376}",
+  "configdata": "{\"placement\": \"top\", \"orphan\": \"0\", \"backdrop\": \"1\", \"reflex\": \"0\", \"filtervalues\": {\"accessdate\": {\"filter_accessdate\": \"tool_usertours_accountcreation\", \"filter_accessdate_range\": 0, \"filter_accessdate_enabled\": \"0\"}, \"category\": [], \"course\": [], \"courseformat\": [], \"role\": [], \"theme\": [], \"cssselector\": []}, \"majorupdatetime\": 1790279979}",
   "displaystepnumbers": true,
   "version": "2026042000",
   "steps": [
