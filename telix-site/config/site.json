@@ -74,6 +74,16 @@
     "areaServed": "BR",
     "availableLanguage": [
      "Portuguese"
+    ]
+   },
+   {
+    "@type": "ContactPoint",
+    "telephone": "+55-61-3771-1100",
+    "contactType": "emergency",
+    "name": "Central de regulação de vagas e remoção hospitalar (24 horas)",
+    "areaServed": "BR",
+    "availableLanguage": [
+     "Portuguese"
     ],
     "hoursAvailable": {
      "@type": "OpeningHoursSpecification",

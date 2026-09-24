@@ -82,7 +82,7 @@ def validate(path):
     t, d = seo.get('title', ''), seo.get('description', '')
     if not (25 <= len(t) <= 65):
         warns.append(f'seo.title com {len(t)} caracteres (ideal 30–60)')
-    if not (110 <= len(d) <= 165):
+    if not (110 <= len(d) <= 160):
         warns.append(f'seo.description com {len(d)} caracteres (ideal 140–160)')
     try:
         rendered = build.render_page(meta, body)

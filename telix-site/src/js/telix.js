@@ -448,10 +448,10 @@
             .then(function (r) {
               // 302 (opaqueredirect) = gravado; 409 = já gravado (reenvio idêntico)
               if (r.type === 'opaqueredirect' || r.status === 302 || r.status === 409 || (r.ok && r.redirected)) return { ok: true };
-              if (r.status === 429 && n < 2) { if (status) status.innerHTML = '<div class="tx-alert tx-alert--info" role="status"><div>Aguarde alguns segundos, estamos concluindo o envio…</div></div>'; return new Promise(function (res) { setTimeout(res, 16000); }).then(function () { return attempt(n + 1); }); }
+              if (r.status === 429 && n < 3) { if (status) status.innerHTML = '<div class="tx-alert tx-alert--info" role="status"><div>Aguarde alguns segundos, estamos concluindo o envio…</div></div>'; return new Promise(function (res) { setTimeout(res, 16000); }).then(function () { return attempt(n + 1); }); }
               return r.text().then(function (t) { var m = (t.match(/<div class="wp-die-message">([\s\S]*?)<\/div>/) || t.match(/<p>([\s\S]*?)<\/p>/) || [])[1] || ''; return { ok: false, msg: m.replace(/<[^>]+>/g, '').trim(), status: r.status }; });
             })
-            .catch(function () { if (n < 2) return new Promise(function (res) { setTimeout(res, 2500 * (n + 1)); }).then(function () { return attempt(n + 1); }); return { ok: false, msg: '' }; });
+            .catch(function () { if (n < 4) return new Promise(function (res) { setTimeout(res, 2000 * (n + 1)); }).then(function () { return attempt(n + 1); }); return { ok: false, msg: '' }; });
         };
         attempt(0).then(function (x) {
           if (x.ok) success(form, proto, email, channel);

@@ -8,6 +8,8 @@ const { chromium } = require('/opt/node22/lib/node_modules/playwright');
   const p = await ctx.newPage(); const logs = [];
   p.on('console', m => { if (['error', 'warning'].includes(m.type())) logs.push(m.type() + ': ' + m.text()); });
   p.on('pageerror', e => logs.push('pageerror: ' + e.message));
+  p.on('response', r => { if (r.url().includes('wp-comments-post')) logs.push('POST ' + r.status()); });
+  p.on('requestfailed', r => { if (r.url().includes('wp-comments-post')) logs.push('POSTFAIL ' + (r.failure() || {}).errorText); });
   let ok = false;
   for (let i = 0; i < 10 && !ok; i++) {
     try { await p.goto(url + (url.includes('?') ? '&' : '?') + 'r=' + i, { waitUntil: 'domcontentloaded', timeout: 90000 }); await p.waitForSelector('form.tx-form', { timeout: 20000 }); ok = true; }
