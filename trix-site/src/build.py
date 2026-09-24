@@ -6,7 +6,7 @@
  - global-styles.json -> theme.json (paleta/tipografia)
 Uso: python3 src/build.py [--media media_map.json]
 """
-import json, os, re, sys, html, hashlib
+import json, os, re, sys, html, hashlib, base64
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(HERE); DIST = os.path.join(ROOT, "dist")
 sys.path.insert(0, HERE)
 from icons import ICONS
@@ -137,7 +137,9 @@ def widgets_html():
      '<div class="trix-cookie-cat"><div><b>Analíticos</b><p>Estatísticas anônimas de navegação (Google Analytics 4) para melhorar o site.</p></div><label class="trix-switch"><input type="checkbox" name="analytics"><span></span></label></div>'
      '<div class="trix-cookie-cat"><div><b>Marketing</b><p>Medição de campanhas e conteúdo relevante em outras plataformas.</p></div><label class="trix-switch"><input type="checkbox" name="marketing"><span></span></label></div>'
      '<div class="trix-actions"><button type="button" class="trix-btn trix-btn--primary" data-cookie="save">Salvar preferências</button><button type="button" class="trix-btn trix-btn--ghost" data-cookie="accept">Aceitar todos</button></div></div></div>',
-     '<script id="trix-js">\n' + js + '\n</script>']
+     # O WordPress converte '&' em '&#038;' ao renderizar o template (mesmo dentro de <script>), o que quebraria o JS.
+     # Por isso o script é embutido em base64 e decodificado em tempo de execução (UTF-8).
+     '<script id="trix-js">(function(){var b="' + base64.b64encode(js.encode("utf-8")).decode("ascii") + '";var t=atob(b),u=new Uint8Array(t.length);for(var i=0;i<t.length;i++)u[i]=t.charCodeAt(i);var s=document.createElement("script");s.id="trix-js-src";s.textContent=new TextDecoder("utf-8").decode(u);document.head.appendChild(s);})();</script>']
     return render("\n".join(out))
 
 # ---------------------------------------------------------------- templates
