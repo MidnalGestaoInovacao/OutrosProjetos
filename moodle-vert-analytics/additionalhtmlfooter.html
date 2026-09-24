@@ -1,0 +1,46 @@
+<!-- Vert Analytics: botão "?" para reiniciar o tour da página + ajuste de texto em inglês do tema -->
+<script>
+(function () {
+    function addHelpButton() {
+        if (document.querySelector('.vert-tour-help')) { return; }
+        var title = document.querySelector('#page-header .page-header-headings h1.header-heading') ||
+                    document.querySelector('body#page-site-index .axia-content-v2 h1');
+        if (!title) { return; }
+        var a = document.createElement('a');
+        a.href = '#';
+        a.className = 'vert-tour-help';
+        a.setAttribute('data-action', 'tool_usertours/resetpagetour');
+        a.setAttribute('role', 'button');
+        a.title = 'Ver o tour guiado desta página';
+        a.setAttribute('aria-label', a.title);
+        a.textContent = '?';
+        title.appendChild(a);
+    }
+    function pageHasTour() {
+        var scripts = document.scripts;
+        for (var i = 0; i < scripts.length; i++) {
+            if (/tool_usertours\/usertours/.test(scripts[i].textContent || '')) { return true; }
+        }
+        return false;
+    }
+    function fixMarkAllRead() {
+        var links = document.querySelectorAll('[data-action="mark-all-read"]');
+        for (var i = 0; i < links.length; i++) {
+            var p = links[i].querySelector('p');
+            if (p && links[i].title && /mark all read/i.test(p.textContent)) { p.textContent = links[i].title; }
+        }
+    }
+    function run() {
+        fixMarkAllRead();
+        if (pageHasTour()) {
+            var tries = 0;
+            var timer = setInterval(function () {
+                tries++;
+                addHelpButton();
+                if (document.querySelector('.vert-tour-help') || tries > 20) { clearInterval(timer); }
+            }, 400);
+        }
+    }
+    if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', run); } else { run(); }
+})();
+</script>

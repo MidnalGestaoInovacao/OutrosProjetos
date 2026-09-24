@@ -114,3 +114,155 @@ body.limitedwidth .edw-tabs-navigation.secondary-navigation {
     border-color: #00de8f !important;
     color: #101b3b !important;
 }
+
+/* =====================================================================
+   Vert Analytics – ajustes adicionais (rodada 2)
+   ===================================================================== */
+
+/* 6) Passos do tour sem alvo (boas-vindas/encerramento) sempre centralizados na tela */
+span[data-flexitour="container"].orphan {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    margin: 0 !important;
+}
+
+/* 7) Cartões de curso: 5 por linha em telas grandes (4 / 3 / 2 / 1 nas menores) */
+@media (min-width: 1200px) {
+    .edw-course-card-grid,
+    body.limitedwidth .edw-course-card-grid {
+        grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+        gap: 20px !important;
+    }
+}
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .edw-course-card-grid,
+    body.limitedwidth .edw-course-card-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    }
+}
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .edw-course-card-grid,
+    body.limitedwidth .edw-course-card-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    }
+}
+body.limitedwidth #block-region-side-pre .edw-course-card-grid,
+body:not(.limitedwidth) #block-region-side-pre .edw-course-card-grid {
+    grid-template-columns: 1fr !important;
+}
+
+/* 8) Títulos das páginas principais: ícone antes do título (Font Awesome 6), sem recuo */
+#page-header .page-header-headings h1.header-heading:not(.coursepage) {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+#page-header .page-header-headings h1.header-heading:not(.coursepage)::before {
+    font: var(--fa-font-solid);
+    font-size: 1.35rem;
+    line-height: 1;
+    color: #00de8f;
+}
+body#page-my-index.pagelayout-mydashboard #page-header h1.header-heading::before { content: "\f625"; } /* Painel */
+body#page-my-index.page-mycourses #page-header h1.header-heading::before        { content: "\f19d"; } /* Meus cursos */
+body#page-user-profile #page-header h1.header-heading::before                   { content: "\f007"; } /* Perfil */
+body#page-calendar-view #page-header h1.header-heading::before                  { content: "\f073"; } /* Calendário */
+body#page-user-files #page-header h1.header-heading::before                     { content: "\f07c"; } /* Arquivos privados */
+body#page-user-preferences #page-header h1.header-heading::before               { content: "\f013"; } /* Preferências */
+body#page-reportbuilder-index #page-header h1.header-heading::before            { content: "\f201"; } /* Relatórios */
+body#page-course-index-category #page-header h1.header-heading::before,
+body#page-course-index #page-header h1.header-heading::before                   { content: "\f02d"; } /* Cursos e categorias */
+body#page-message-output-popup-notifications #page-header h1.header-heading::before { content: "\f0f3"; } /* Notificações */
+body#page-badges-mybadges #page-header h1.header-heading::before                { content: "\f559"; } /* Emblemas */
+body#page-grade-report-overview-index #page-header h1.header-heading::before    { content: "\f080"; } /* Notas */
+
+/* 9) Botão "?" ao lado do título (inserido pelo script no rodapé; reinicia o tour da página) */
+.vert-tour-help {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    margin-left: 0.4rem;
+    border: 2px solid #00de8f;
+    border-radius: 50%;
+    color: #00de8f !important;
+    font-size: 0.95rem;
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none !important;
+    vertical-align: middle;
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+.vert-tour-help:hover,
+.vert-tour-help:focus {
+    background-color: #00de8f;
+    color: #101b3b !important;
+}
+#page-header.hasbackground .vert-tour-help {
+    border-color: #ffffff;
+    color: #ffffff !important;
+}
+#page-header.hasbackground .vert-tour-help:hover,
+#page-header.hasbackground .vert-tour-help:focus {
+    background-color: #00de8f;
+    border-color: #00de8f;
+    color: #101b3b !important;
+}
+.axia-content-v2 h1 .vert-tour-help {
+    width: 36px;
+    height: 36px;
+    margin-left: 1rem;
+    font-size: 1.15rem;
+}
+
+/* 10) Página de login: botões "Google" (vermelho Google) e "Microsoft" abaixo de "Acessar" */
+.login-identityproviders .login-identityprovider-btn-wrapper {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+}
+.login-identityproviders .login-heading {
+    text-align: center;
+}
+a.login-identityprovider-btn {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.2;
+    text-decoration: none !important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+    transition: filter 0.15s ease-in-out;
+}
+a.login-identityprovider-btn:hover,
+a.login-identityprovider-btn:focus {
+    filter: brightness(1.08);
+}
+a.login-identityprovider-btn::after {
+    content: attr(title);
+}
+a.login-identityprovider-btn img {
+    width: 24px;
+    height: 24px;
+    padding: 2px;
+    background: #ffffff;
+    border-radius: 4px;
+}
+a.login-identityprovider-btn[title="Google"] {
+    background-color: #db4437; /* vermelho Google */
+    color: #ffffff !important;
+}
+a.login-identityprovider-btn[title="Microsoft"] {
+    background-color: #2f2f2f; /* padrão "Entrar com a Microsoft" */
+    color: #ffffff !important;
+}

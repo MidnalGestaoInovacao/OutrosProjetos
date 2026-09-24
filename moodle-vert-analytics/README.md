@@ -10,6 +10,7 @@ Este diretório guarda, sob controle de versão, o que foi aplicado diretamente 
 | `customcss.css` | *Administração do site → Aparência → Temas → Edwiser RemUI → Custom CSS* (`theme_remui \| customcss`). O conteúdo do arquivo é o valor completo do campo (inclui as regras que já existiam antes). |
 | `tours/*.json` | *Administração do site → Aparência → Passeios do usuário → Importar tour*. Um arquivo por tour. |
 | `tours_spec.json` | Fonte (legível) usada para gerar os arquivos de importação. |
+| `additionalhtmlfooter.html` | *Administração do site → Aparência → HTML adicional → Antes do fechamento do BODY* (`additionalhtmlfooter`). Script do botão "?" que reinicia o tour da página e correção do texto "Mark all read". |
 
 ## 1. Cor verde nos elementos que eram azuis (tela inicial)
 
@@ -71,10 +72,12 @@ Observações:
   tem `index.php` ou parâmetros.
 * Os tours ficam no topo da ordem (antes dos tours padrão do Moodle, que só valem para o tema Boost
   ou para professores/administradores) e valem para todos os papéis.
-* O tour aparece automaticamente na primeira visita à página e pode ser reexecutado pelo link
-  "Reiniciar tour do usuário nesta página", no rodapé. O botão de saída em cada passo é
-  "Encerrar tour". Para editar textos ou alvos: *Administração do site → Aparência → Passeios do
-  usuário*.
+* O tour aparece automaticamente na primeira visita à página e pode ser reexecutado pelo botão
+  **"?"** ao lado do título da página (o rodapé padrão, onde o Moodle mostra o link "Reiniciar tour",
+  está oculto pelo CSS do site). O botão de saída em cada passo é "Encerrar tour". Para editar textos
+  ou alvos: *Administração do site → Aparência → Passeios do usuário*.
+* Passos sem alvo (boas-vindas e encerramento) são fixados no centro da tela (CSS), pois o Moodle os
+  posicionava no topo do documento e eles ficavam fora da área visível após rolar a página.
 
 ## Como reaplicar / reverter
 
@@ -82,3 +85,47 @@ Observações:
   "Vert Analytics – ajustes" para reverter) e salve; o cache do tema é limpo automaticamente.
 * Tours: importe os arquivos de `tours/` (ou desative/exclua os tours na lista de Passeios do usuário).
 * Idioma: reverter as cinco configurações da tabela acima.
+
+## Rodada 2 (mesmo dia)
+
+### Textos em inglês
+Após a mudança de idioma, sessões já abertas continuam com o idioma carregado no login: basta
+**sair e entrar novamente** para ver tudo em português. Verificação feita em todas as páginas
+principais renderizadas em pt_br (inclusive conteúdo carregado por AJAX): nenhum texto em inglês
+visível. Ajustes feitos para os poucos textos fixos do tema Edwiser:
+
+* Rótulos dos cartões de curso do tema: `theme_remui | showlessontextinput` = "Aulas" e
+  `theme_remui | showenrolledtextinput` = "Inscritos" (antes "Lessons"/"Enrolled").
+* "Mark all read" (popover de notificações) é texto fixo no template do tema; o script do rodapé o
+  substitui pelo título já traduzido ("Marcar tudo como lido").
+
+### Cinco cursos por linha
+A grade de cartões de curso (`.edw-course-card-grid`, usada em Meus cursos) passa a ter 5 colunas em
+telas ≥ 1200 px (4 entre 992 e 1199 px, 3 entre 768 e 991 px; abaixo disso o padrão do tema).
+
+### Ícone antes dos títulos + botão "?"
+* Os títulos das páginas principais (`#page-header h1.header-heading`) recebem um ícone Font Awesome
+  em verde antes do texto (Painel, Meus cursos, Perfil, Calendário, Arquivos privados, Preferências,
+  Relatórios, Cursos/categorias, Notificações, Emblemas, Notas) e ficam alinhados à esquerda com o
+  conteúdo. A página do curso mantém o banner (sem ícone).
+* O script do rodapé insere o botão "?" após o título (e após "Academy Vert Analytics" na página
+  inicial) sempre que a página tem um tour; o clique usa a ação nativa do Moodle
+  (`tool_usertours/resetpagetour`), que reinicia o tour imediatamente.
+
+### Formato dos cursos
+Curso "EXEMPLO" (id 3) alterado para **Formatos de curso Edwiser → Layout de lista**
+(`format=remuiformat`, `remuicourseformat=1`); o curso "Integração Corporativa" (id 2) já estava
+nesse formato. O tour "Página do curso" foi reescrito para esse layout (cabeçalho com progresso e
+botão Continuar, índice, abas, seção de apresentação, fórum de avisos, lista de seções).
+
+### Login com Google e Microsoft
+* *Administração do site → Servidor → Serviços OAuth 2*: serviços **Google** (id 1) e **Microsoft**
+  (id 2) criados a partir dos modelos do Moodle, exibidos "Na página de login e em serviços internos".
+* *Administração do site → Plugins → Autenticação*: **OAuth 2** habilitado.
+* CSS: os botões ficam empilhados abaixo de "Acessar", com o ícone de cada provedor; "Google" em
+  vermelho Google (`#DB4437`) e "Microsoft" no cinza-escuro padrão da Microsoft (`#2F2F2F`).
+* **Pendência:** o *Client ID* e o *Client secret* de cada serviço estão com o valor
+  `PENDENTE-...`. Até que as credenciais oficiais sejam informadas (editar o serviço na página de
+  Serviços OAuth 2), o clique nos botões leva a um erro do provedor (cliente inválido). No console
+  do Google/Microsoft, a URL de redirecionamento a cadastrar é
+  `https://ead.vert.com.br/admin/oauth2callback.php`.
