@@ -16,8 +16,20 @@ with sync_playwright() as p:
             page.on("console", lambda m: errors.append(m.text) if m.type == "error" else None)
             page.on("pageerror", lambda e: errors.append(str(e)))
             try:
-                r = page.goto(BASE + path, wait_until="networkidle", timeout=90000)
-                page.wait_for_timeout(1500)
+                r = None
+                for attempt in range(4):
+                    try:
+                        r = page.goto(BASE + path + ("?v=%d" % attempt if attempt else ""), wait_until="domcontentloaded", timeout=60000)
+                        if r and r.status < 500: break
+                    except Exception as e:
+                        print("  retry", path, str(e)[:60], flush=True)
+                    page.wait_for_timeout(8000)
+                page.wait_for_timeout(2500)
+                h = page.evaluate("() => document.body.scrollHeight")
+                for y in range(0, h, 700): page.evaluate("y => window.scrollTo(0, y)", y); page.wait_for_timeout(80)
+                page.evaluate("() => window.scrollTo(0,0)"); page.wait_for_timeout(500)
+                try: page.evaluate("() => { var c = document.querySelector('.trix-cookie'); if (c) c.classList.remove('is-visible'); }")
+                except Exception: pass
                 info = page.evaluate("""() => ({title: document.title, desc: (document.querySelector('meta[name=description]')||{}).content, h1: (document.querySelector('h1')||{}).innerText, ld: document.querySelectorAll('script[type="application/ld+json"]').length, header: !!document.querySelector('.trix-header'), footer: !!document.querySelector('.trix-footer'), cookie: !!document.querySelector('.trix-cookie'), a11y: !!document.querySelector('.trix-a11y-btn'), fab: !!document.querySelector('.trix-fab'), canvas: document.querySelectorAll('canvas').length, forms: document.querySelectorAll('form.trix-form').length, vlibras: !!document.querySelector('[vw]'), bodyClass: document.body.className.slice(0,80)})""")
                 info["status"] = r.status if r else None; info["errors"] = errors[:5]
                 fn = os.path.join(OUT, name + "-" + (path.strip("/").replace("/", "_") or "home") + ".png")
