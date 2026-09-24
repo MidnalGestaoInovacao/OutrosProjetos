@@ -38,6 +38,9 @@ final class Options {
 			'portal_page_id'             => 0,
 			'protocol_prefix'            => 'EB',
 			'email_logo_url'             => '',
+			'admin_branding'             => true,
+			'brand_logo_url'             => '',
+			'brand_icon_url'             => '',
 			// Formulário.
 			'min_amount'                 => 50000,
 			'max_amount'                 => 50000000,

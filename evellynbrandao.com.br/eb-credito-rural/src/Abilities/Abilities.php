@@ -177,13 +177,13 @@ final class Abilities {
 			),
 			'run-tool'          => array(
 				'label'       => __( 'Executar ferramenta do EB Crédito Rural', 'eb-credito-rural' ),
-				'description' => 'Executa uma ferramenta: test_protection (testa se a pasta de documentos está exposta por URL), test_email (envia e-mail de teste para "to"), process_mail (processa a fila de e-mails), retry_mail (reenfileira falhas), run_daily (rotina diária: lembretes, certidões, retenção, limpezas), run_retention (anonimiza solicitações finalizadas fora do prazo de retenção) ou enable_mcp (habilita estas abilities no Easy MCP AI), send_crm_reminders (envia os lembretes de tarefas do CRM agora).',
+				'description' => 'Executa uma ferramenta: test_protection (testa se a pasta de documentos está exposta por URL), test_email (envia e-mail de teste para "to"), process_mail (processa a fila de e-mails), retry_mail (reenfileira falhas), run_daily (rotina diária: lembretes, certidões, retenção, limpezas), run_retention (anonimiza solicitações finalizadas fora do prazo de retenção) ou enable_mcp (habilita estas abilities no Easy MCP AI), send_crm_reminders (envia os lembretes de tarefas do CRM agora), apply_site_icon (define o ícone do site do WordPress a partir do ícone da marca configurado em Geral).',
 				'input'       => array(
 					'type'       => 'object',
 					'properties' => array(
 						'tool' => array(
 							'type' => 'string',
-							'enum' => array( 'test_protection', 'test_email', 'process_mail', 'retry_mail', 'run_daily', 'run_retention', 'enable_mcp', 'send_crm_reminders' ),
+							'enum' => array( 'test_protection', 'test_email', 'process_mail', 'retry_mail', 'run_daily', 'run_retention', 'enable_mcp', 'send_crm_reminders', 'apply_site_icon' ),
 						),
 						'to'   => array(
 							'type'        => 'string',
@@ -813,6 +813,8 @@ final class Abilities {
 			'cron_daily_next' => wp_next_scheduled( 'ebcr_daily' ) ? gmdate( 'c', wp_next_scheduled( 'ebcr_daily' ) ) : null,
 			'modules'         => array(
 				'team_portal_mode'   => Options::get( 'team_portal_mode', 'both' ),
+				'admin_branding'     => Options::bool( 'admin_branding' ),
+				'site_icon_id'       => (int) get_option( 'site_icon', 0 ),
 				'team_2fa_mode'      => Options::get( 'team_2fa_mode', 'optional' ),
 				'cep_lookup'         => Options::bool( 'cep_lookup' ),
 				'cnpj_lookup'        => Options::bool( 'cnpj_lookup' ),
@@ -863,6 +865,8 @@ final class Abilities {
 				return Scheduler::daily();
 			case 'run_retention':
 				return array( 'anonymized' => Retention::run() );
+			case 'apply_site_icon':
+				return \EBCR\Admin\Branding::apply_site_icon();
 			case 'send_crm_reminders':
 				return \EBCR\Crm\Service::send_reminders();
 			case 'enable_mcp':

@@ -8,6 +8,7 @@
 namespace EBCR\Admin\Settings;
 
 use EBCR\Abilities\Abilities;
+use EBCR\Admin\Branding;
 use EBCR\Database\DocumentRepository;
 use EBCR\Database\MailQueueRepository;
 use EBCR\Database\SubmissionDataRepository;
@@ -150,6 +151,9 @@ final class Settings {
 					'portal_page_id'          => array( 'page', __( 'Página do portal do cliente', 'eb-credito-rural' ), __( 'Página que contém o shortcode [ebcr_portal]. Todos os links dos e-mails apontam para ela. Obrigatório.', 'eb-credito-rural' ) ),
 					'protocol_prefix'         => array( 'text', __( 'Prefixo do protocolo', 'eb-credito-rural' ), __( 'Ex.: EB gera EB-2026-000123. Só letras e números. Impacto: apenas exibição; os links usam identificadores não sequenciais.', 'eb-credito-rural' ) ),
 					'email_logo_url'          => array( 'url', __( 'URL do logotipo para e-mails', 'eb-credito-rural' ), __( 'Imagem PNG/JPG (largura recomendada 280 px). Deixe em branco para usar o nome do site.', 'eb-credito-rural' ) ),
+					'admin_branding'          => array( 'checkbox', __( 'Identidade visual no painel e no login', 'eb-credito-rural' ), __( 'Mostra o logotipo da operação na tela de login, no topo do menu lateral e na barra do WordPress, usa o ícone da marca no menu "Crédito Rural" e como ícone do site no wp-admin. Não altera o site público.', 'eb-credito-rural' ) ),
+					'brand_logo_url'          => array( 'url', __( 'URL do logotipo (marca completa)', 'eb-credito-rural' ), __( 'PNG com fundo transparente, largura recomendada 600–800 px (fica bem sobre fundo escuro). Vazio = usa o logotipo dos e-mails.', 'eb-credito-rural' ) ),
+					'brand_icon_url'          => array( 'url', __( 'URL do ícone quadrado (monograma/favicon)', 'eb-credito-rural' ), __( 'PNG quadrado de 512×512 px enviado à biblioteca de mídia deste site. Ao salvar, vira o "ícone do site" do WordPress (aparece na aba do navegador no wp-admin e no login). Também é usado como ícone do menu.', 'eb-credito-rural' ) ),
 					'team_portal_mode'        => array(
 						'select',
 						__( 'Painel da equipe', 'eb-credito-rural' ),
@@ -560,6 +564,9 @@ final class Settings {
 		}
 		if ( array_key_exists( 'portal_page_id', $values ) ) {
 			delete_transient( 'ebcr_portal_page_auto' );
+		}
+		if ( array_key_exists( 'brand_icon_url', $values ) && '' !== (string) $values['brand_icon_url'] ) {
+			Branding::apply_site_icon();
 		}
 		AuditLog::log( 'settings_updated', 'settings', $context, array( 'keys' => array_keys( $values ) ) );
 	}

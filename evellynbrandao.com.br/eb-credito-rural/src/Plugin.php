@@ -105,6 +105,7 @@ final class Plugin {
 		( new \EBCR\Esign\Esign() )->register();
 		( new \EBCR\Admin\Crm() )->register();
 		( new \EBCR\Admin\Reports() )->register();
+		( new \EBCR\Admin\Branding() )->register();
 
 		// Admin.
 		if ( is_admin() ) {

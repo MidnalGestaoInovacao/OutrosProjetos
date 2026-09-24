@@ -70,7 +70,7 @@ final class Admin {
 	 */
 	public function menu() {
 		$dash = new Dashboard();
-		add_menu_page( __( 'Crédito Rural', 'eb-credito-rural' ), __( 'Crédito Rural', 'eb-credito-rural' ), Capabilities::CAP_VIEW, 'ebcr', array( $dash, 'render' ), 'dashicons-carrot', 26 );
+		add_menu_page( __( 'Crédito Rural', 'eb-credito-rural' ), __( 'Crédito Rural', 'eb-credito-rural' ), Capabilities::CAP_VIEW, 'ebcr', array( $dash, 'render' ), Branding::menu_icon(), 26 );
 		add_submenu_page( 'ebcr', __( 'Painel', 'eb-credito-rural' ), __( 'Painel', 'eb-credito-rural' ), Capabilities::CAP_VIEW, 'ebcr', array( $dash, 'render' ) );
 		$hook = add_submenu_page( 'ebcr', __( 'Solicitações', 'eb-credito-rural' ), __( 'Solicitações', 'eb-credito-rural' ), Capabilities::CAP_VIEW, 'ebcr-submissions', array( $this, 'submissions' ) );
 		add_action( 'load-' . $hook, array( $this, 'screen_options' ) );
