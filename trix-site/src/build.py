@@ -17,9 +17,16 @@ MEDIA_MAP = {}
 def load_media(path):
     global MEDIA_MAP
     if path and os.path.exists(path): MEDIA_MAP = json.load(open(path))
+IMG_DIR = os.environ.get("TRIX_IMG_DIR", "/tmp/claude-0/-home-user-OutrosProjetos/c6c5b86e-91b8-57fd-9cce-9e053bdb5efc/scratchpad/trix/images")
 def media(key):
     m = MEDIA_MAP.get(key)
     return m["url"] if m else "https://trixti.com.br/" + key
+def data_uri(key):
+    """Logo embutida como data URI (sem requisição extra; independente de domínio). Cai para a URL da mídia se o arquivo não existir."""
+    path = os.path.join(IMG_DIR, key.split("images/", 1)[1]) if key.startswith("images/") else None
+    if path and os.path.exists(path):
+        return "data:image/png;base64," + base64.b64encode(open(path, "rb").read()).decode("ascii")
+    return media(key)
 def render(s):
     s = re.sub(r"\{\{media:([^}]+)\}\}", lambda m: media(m.group(1)), s)
     s = re.sub(r"\{\{icon:([a-z0-9_-]+)\}\}", lambda m: ICONS.get(m.group(1), ICONS["dot"]), s)
@@ -34,7 +41,7 @@ def mega_item(it):
 def header_html():
     out = ['<a class="trix-skip" href="#conteudo">Ir para o conteúdo</a>',
            '<header class="trix-header" role="banner"><div class="trix-container trix-header__in">',
-           '<a class="trix-brand" href="/" aria-label="%s — página inicial"><img src="{{media:images/01.png}}" alt="%s" width="347" height="130" decoding="async"></a>' % (SITE["name"], SITE["name"]),
+           '<a class="trix-brand" href="/" aria-label="%s — página inicial"><img src="%s" alt="%s" width="347" height="130" decoding="async"></a>' % (data_uri("images/01.png"), SITE["name"], SITE["name"]),
            '<nav aria-label="Navegação principal"><ul class="trix-nav">']
     for i, top in enumerate(NAV):
         if top.get("children"):
@@ -78,7 +85,7 @@ def footer_html():
             ("Soluções", [("/servicos/", "Todos os serviços"), ("/servicos/fabrica-de-software/", "Fábrica de software"), ("/servicos/conectividade-em-saude/", "Conectividade em saúde"), ("/produtos/prontow/", "Prontow"), ("/produtos/saw/", "SAW"), ("/produtos/xield/", "Xield"), ("/produtos/aspect-face/", "Aspect Face")]),
             ("Conformidade", [("/conformidade/", "Central de Conformidade"), ("/conformidade/lgpd/", "Portal de Proteção de Dados"), ("/conformidade/politica-de-privacidade/", "Política de Privacidade"), ("/conformidade/codigo-de-conduta/", "Código de Conduta Ética"), ("/canal-de-compliance/", "Ouvidoria e denúncias"), ("/canal-lgpd/", "Direitos do titular (LGPD)"), ("#", "Preferências de cookies", "open")])]
     out = ['<footer class="trix-footer" role="contentinfo"><div class="trix-container"><div class="trix-footer__grid">',
-           '<div class="trix-footer__brand"><img src="{{media:images/01.png}}" alt="Trix Tecnologia Inteligente" width="347" height="130" loading="lazy">',
+           '<div class="trix-footer__brand"><img src="%s" alt="Trix Tecnologia Inteligente" width="347" height="130" loading="lazy">' % data_uri("images/01.png"),
            '<p>Desde 2009 criando software sob medida, conectividade em saúde suplementar e soluções com inteligência artificial para empresas de todo o Brasil.</p>',
            '<p><strong>Trix Tecnologia Inteligente Ltda</strong><br>CNPJ 11.010.095/0001-40<br>%s<br>%s</p>' % (s["address_line1"], s["address_line2"]),
            '<p><a href="tel:%s">%s</a> · <a href="mailto:%s">%s</a></p>' % (s["phone_e164"], s["phone"], s["email"], s["email"]),

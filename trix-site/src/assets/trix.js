@@ -271,8 +271,8 @@
   function webgl() { try { var c = d.createElement('canvas'); return !!(w.WebGLRenderingContext && (c.getContext('webgl') || c.getContext('experimental-webgl'))); } catch (e) { return false; } }
   function three() {
     var hosts = $$('[data-trix-3d]'); if (!hosts.length || !webgl()) return;
-    var s = d.createElement('script'); s.src = CFG.threeUrl || 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js'; s.async = true;
-    s.onload = function () { hosts.forEach(scene); }; d.head.appendChild(s);
+    var urls = [CFG.threeUrl || 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js', 'https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js'];
+    (function load(i) { if (i >= urls.length) return; var s = d.createElement('script'); s.src = urls[i]; s.async = true; s.onload = function () { if (w.THREE) hosts.forEach(scene); }; s.onerror = function () { load(i + 1); }; d.head.appendChild(s); })(0);
   }
   function scene(host) {
     var T = w.THREE; if (!T) return; var kind = host.getAttribute('data-trix-3d') || 'network';
