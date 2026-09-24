@@ -186,3 +186,7 @@ cabeçalho do bloco.
      passar para OK.
   Se `.htaccess` for ignorado (404 persistindo), o ajuste precisa ser feito no VirtualHost pelo
   administrador do servidor.
+
+### Bloco "Monitor do Site"
+Título renomeado de "Monitor do Site Edwiser" para "Monitor do Site" (script do rodapé) e abas
+"Plugins recomendados" e "Entre em contato" ocultadas (CSS). O bloco só é visível para administradores.

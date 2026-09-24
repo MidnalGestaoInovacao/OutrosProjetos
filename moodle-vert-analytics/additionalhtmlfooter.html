@@ -35,8 +35,14 @@
             if (p && links[i].title && /mark all read/i.test(p.textContent)) { p.textContent = links[i].title; }
         }
     }
+    function renameSiteMonitor() {
+        // Bloco "Monitor do Site Edwiser" -> "Monitor do Site"
+        var h = document.querySelector('.block_edwiser_site_monitor .block-header');
+        if (h && /Edwiser/i.test(h.textContent)) { h.textContent = h.textContent.replace(/\s*Edwiser\s*/i, ' ').trim(); h.title = h.textContent; }
+    }
     function run() {
         fixMarkAllRead();
+        renameSiteMonitor();
         if (pageHasTour()) {
             // O tema pode re-renderizar o cabeçalho depois do carregamento (ex.: página do curso),
             // removendo o botão; por isso a verificação continua por um tempo.

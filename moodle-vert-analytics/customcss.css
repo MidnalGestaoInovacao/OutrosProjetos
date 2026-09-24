@@ -340,3 +340,11 @@ body:not(.limitedwidth) #page.drawers .main-inner > .container {
         max-width: 100% !important;
     }
 }
+
+/* 14) Bloco "Monitor do Site": ocultar as abas "Plugins recomendados" e "Entre em contato" */
+.block_edwiser_site_monitor .nav-item:has(> a[href="#edwiser_site_monitor_recommendation"]),
+.block_edwiser_site_monitor .nav-item:has(> a[href="#edwiser_site_monitor_contactus"]),
+.block_edwiser_site_monitor a[href="#edwiser_site_monitor_recommendation"],
+.block_edwiser_site_monitor a[href="#edwiser_site_monitor_contactus"] {
+    display: none !important;
+}
