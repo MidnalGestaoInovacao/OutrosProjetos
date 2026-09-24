@@ -54,3 +54,8 @@ export WPMCP_KEY=wpmcp_...            # chave Easy MCP AI (não versionada)
 python3 src/build.py --media media_map.json
 python3 src/deploy.py                 # tudo, ou --only blocks|styles|pages|templates|cleanup
 ```
+
+## Observações sobre o ambiente de publicação
+- O servidor de trix.ebaem.com.br responde requisições PHP lentamente (vários segundos) e o túnel de rede desta sessão encerra conexões após ~11 s sem resposta. Por isso `wpmcp.py` reenvia cada chamada com pausas crescentes e só repete quando uma sonda leve (`GET /?trix_health=1`) volta a responder. Envios grandes ou concorrentes derrubam a taxa de sucesso — publique sempre em sequência.
+- `deploy.py` é idempotente: guarda IDs e um hash do conteúdo de cada página em `deploy-state.json` e só reenvia o que mudou (`--create-only` cria apenas as páginas que faltam). `--only cleanup` remove páginas de teste/duplicadas e blocos duplicados.
+- As imagens são enviadas em base64 já otimizadas (`upload_media.py` no diretório de trabalho da sessão; manifesto em `media_manifest.py`); enquanto uma imagem não está na biblioteca, o build usa a URL original em trixti.com.br como reserva.
