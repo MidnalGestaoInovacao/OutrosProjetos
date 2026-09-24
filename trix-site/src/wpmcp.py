@@ -6,6 +6,16 @@ KEY=os.environ.get("WPMCP_KEY","")
 URL=os.environ.get("WPMCP_URL","https://trix.ebaem.com.br/wp-json/easy-mcp-ai/v1/mcp")
 LOG=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),"wpmcp.log"),"a")
 class MCPError(Exception): pass
+HEALTH_URL=os.environ.get("WPMCP_HEALTH","https://trix.ebaem.com.br/?trix_health=1")
+def healthy(max_wait=600):
+    """Sonda leve (GET) até o backend PHP responder em <12 s; evita empilhar chamadas pesadas num servidor saturado."""
+    waited=0
+    while True:
+        p=subprocess.run(["curl","-sS","-m","12","-o","/dev/null","-A",UA,"-w","%{http_code}",HEALTH_URL],capture_output=True,text=True)
+        if p.returncode==0 and p.stdout.strip() not in ("000","502","503","504"): return True
+        LOG.write(f"health fail {p.stdout.strip()} waited={waited}\n"); LOG.flush()
+        if waited>=max_wait: return False
+        time.sleep(30); waited+=30
 def call(name, args=None, tries=8, timeout=240, pause=None):
     """Retorna o resultado da ferramenta MCP. Retries espaçados: o servidor de destino é lento e o túnel do proxy fecha após ~11 s."""
     body=json.dumps({"jsonrpc":"2.0","id":random.randint(1,10**6),"method":"tools/call","params":{"name":name,"arguments":args or {}}},ensure_ascii=False)
@@ -30,6 +40,7 @@ def call(name, args=None, tries=8, timeout=240, pause=None):
                 return r
             last=(p.stderr or p.stdout)[:200]; LOG.write(f"{name} try{i} fail {dt:.1f}s {last.strip()}\n"); LOG.flush()
             time.sleep(delay+random.random()*3); delay=min(delay*1.3,45)
+            healthy()  # só tenta de novo quando o backend voltar a responder
         raise MCPError(f"{name}: gave up after {tries} tries: {last}")
     finally:
         os.unlink(path)
