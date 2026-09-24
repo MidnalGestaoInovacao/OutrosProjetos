@@ -196,6 +196,14 @@
   "inicio": 50,
   "canal-lgpd": 51,
   "contato": 52,
-  "canal-de-denuncia": 53
- }
+  "canal-de-denuncia": 53,
+  "politica-de-privacidade": 3
+ },
+ "cleanup_pages": [
+  2,
+  7
+ ],
+ "cleanup_posts": [
+  1
+ ]
 }

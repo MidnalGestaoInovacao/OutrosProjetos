@@ -197,7 +197,7 @@
   function initFab() {
     var fab = $('.tx-fab'); if (!fab) return;
     var btn = $('.tx-fab__toggle', fab);
-    var set = function (on) { fab.classList.toggle('is-open', on); btn.setAttribute('aria-expanded', on ? 'true' : 'false'); $$('.tx-fab__list a', fab).forEach(function (a) { a.tabIndex = on ? 0 : -1; }); };
+    var set = function (on) { fab.classList.toggle('is-open', on); html.classList.toggle('tx-fab-open', on); btn.setAttribute('aria-expanded', on ? 'true' : 'false'); $$('.tx-fab__list a', fab).forEach(function (a) { a.tabIndex = on ? 0 : -1; }); };
     set(false);
     btn.addEventListener('click', function () { set(!fab.classList.contains('is-open')); });
     fab.addEventListener('keydown', function (e) { if (e.key === 'Escape') { set(false); btn.focus(); } });

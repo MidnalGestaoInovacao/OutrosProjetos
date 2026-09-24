@@ -11,6 +11,7 @@ import requests
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'tools'))
+os.environ['TX_STRICT'] = '1'  # publicar só com todas as páginas válidas
 import build  # noqa: E402
 
 URL = os.environ.get('WPMCP_URL')

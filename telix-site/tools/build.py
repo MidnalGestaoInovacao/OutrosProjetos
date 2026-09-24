@@ -67,6 +67,7 @@ NAV = [
             ('leaf', 'ESG', '/conformidade/politica-esg/', 'Ambiental, social e governança'),
             ('cpu', 'Inteligência Artificial', '/conformidade/politica-de-inteligencia-artificial/', 'Uso ético e responsável de IA'),
             ('cookie', 'Cookies', '/conformidade/politica-de-cookies/', 'Tecnologias de navegação e preferências'),
+            ('file', 'Glossário LGPD', '/conformidade/glossario-lgpd/', 'Termos de proteção de dados explicados'),
         ]},
         {'title': 'Canais', 'links': [
             ('key', 'Canal LGPD', '/canal-lgpd/', 'Exercício de direitos do titular'),
@@ -430,8 +431,14 @@ def build_pages():
     for fn in sorted(os.listdir(pdir)):
         if not fn.endswith('.html'):
             continue
-        meta, body = parse_page(os.path.join(pdir, fn))
-        html_ = render_page(meta, body)
+        try:
+            meta, body = parse_page(os.path.join(pdir, fn))
+            html_ = render_page(meta, body)
+        except Exception as ex:  # página em edição não bloqueia as demais
+            print(f'AVISO: {fn} ignorada no build: {ex}')
+            if os.environ.get('TX_STRICT'):
+                raise
+            continue
         open(os.path.join(DIST, 'pages', fn), 'w', encoding='utf-8').write(html_)
         out[fn] = meta
     json.dump(out, open(os.path.join(DIST, 'pages.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)

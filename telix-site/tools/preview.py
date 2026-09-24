@@ -17,5 +17,6 @@ for fn, meta in pages.items():
 <div class="wp-site-blocks"><header class="wp-block-group tx-site-header">{header}</header>
 <main class="wp-block-group tx-main" id="conteudo"><div class="entry-content wp-block-post-content is-layout-flow">{body}</div></main>
 <footer class="wp-block-group tx-site-footer">{footer}</footer></div></body></html>'''
+    doc = doc.replace('"/wp-content/', '"https://telix.ebaem.com.br/wp-content/')  # mídia publicada
     open(os.path.join(D, 'preview', fn), 'w', encoding='utf-8').write(doc)
 print('preview ok', len(pages))
