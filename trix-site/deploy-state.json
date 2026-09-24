@@ -15,7 +15,11 @@
   "contato": 63,
   "canal-lgpd": 64,
   "canal-de-compliance": 65,
-  "fabrica-de-software": 66
+  "fabrica-de-software": 66,
+  "lgpd": 67,
+  "prontow": 68,
+  "conectividade-em-saude": 69,
+  "politica-de-privacidade": 70
  },
  "templates": {
   "404": true,

@@ -55,16 +55,22 @@ def deploy_pages(only=None):
             pid = state["pages"].get(p["parent"]) or (ex.get(p["parent"]) or {}).get("id")
             if pid: args["parent"] = pid
         pid = state["pages"].get(p["slug"]) or (ex.get(p["slug"]) or {}).get("id")
-        for attempt in range(3):
+        for attempt in range(4):
             try:
                 if pid:
-                    args["page_id"] = pid; r = call("wp_update_page", args); log("page updated", p["slug"], pid, r.get("link"))
+                    args["page_id"] = pid; r = call("wp_update_page", args, tries=3); log("page updated", p["slug"], pid, r.get("link"))
                 else:
-                    r = call("wp_create_page", args); pid = r["id"]; log("page created", p["slug"], pid, r.get("link"))
+                    r = call("wp_create_page", args, tries=2); pid = r["id"]; log("page created", p["slug"], pid, r.get("link"))
                 break
             except MCPError as e:
-                log("ERROR", p["slug"], str(e)[:300]); time.sleep(5)
+                log("ERROR", p["slug"], str(e)[:200]); time.sleep(15)
+                if not pid:  # a criação pode ter ocorrido no servidor apesar da falha do túnel: rechecar por slug
+                    try:
+                        ex = existing_pages(); pid = (ex.get(p["slug"]) or {}).get("id")
+                        if pid: log("found after failure", p["slug"], pid)
+                    except MCPError as e2: log("recheck failed", str(e2)[:100])
         if pid: state["pages"][p["slug"]] = pid; save()
+        time.sleep(4)
 
 def deploy_templates():
     refs = {"REF_" + k.upper(): v for k, v in state["blocks"].items()}

@@ -6,10 +6,10 @@ KEY=os.environ.get("WPMCP_KEY","")
 URL=os.environ.get("WPMCP_URL","https://trix.ebaem.com.br/wp-json/easy-mcp-ai/v1/mcp")
 LOG=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),"wpmcp.log"),"a")
 class MCPError(Exception): pass
-def call(name, args=None, tries=10, timeout=240):
+def call(name, args=None, tries=8, timeout=240, pause=None):
     body=json.dumps({"jsonrpc":"2.0","id":random.randint(1,10**6),"method":"tools/call","params":{"name":name,"arguments":args or {}}},ensure_ascii=False)
     fd,path=tempfile.mkstemp(suffix=".json"); os.write(fd,body.encode()); os.close(fd)
-    delay=1.5; last=""
+    delay=(pause or 6.0); last=""
     try:
         for i in range(tries):
             t0=time.time()
@@ -18,7 +18,7 @@ def call(name, args=None, tries=10, timeout=240):
             if p.returncode==0 and p.stdout.strip():
                 out=p.stdout; j=out.find("{")
                 try: d=json.loads(out[j:])
-                except Exception: last="bad json: "+out[:200]; LOG.write(f"{name} try{i} badjson {dt:.1f}s\n"); time.sleep(delay); delay=min(delay*2,10); continue
+                except Exception: last="bad json: "+out[:200]; LOG.write(f"{name} try{i} badjson {dt:.1f}s\n"); time.sleep(delay); delay=min(delay*1.6,30); continue
                 if "error" in d: raise MCPError(json.dumps(d["error"],ensure_ascii=False)[:800])
                 r=d.get("result",{})
                 if isinstance(r,dict) and "content" in r:
@@ -28,7 +28,7 @@ def call(name, args=None, tries=10, timeout=240):
                     except Exception: return {"_text":text}
                 return r
             last=(p.stderr or p.stdout)[:200]; LOG.write(f"{name} try{i} fail {dt:.1f}s {last.strip()}\n"); LOG.flush()
-            time.sleep(delay+random.random()); delay=min(delay*2,10)
+            time.sleep(delay+random.random()*2); delay=min(delay*1.6,30)
         raise MCPError(f"{name}: gave up after {tries} tries: {last}")
     finally:
         os.unlink(path)
