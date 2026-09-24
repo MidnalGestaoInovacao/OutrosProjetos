@@ -490,6 +490,7 @@ final class Settings {
 								'version' => sanitize_text_field( (string) ( $pol['version'] ?? '1.0' ) ),
 								'text'    => sanitize_textarea_field( (string) ( $pol['text'] ?? '' ) ),
 								'title'   => sanitize_text_field( (string) ( $pol['title'] ?? '' ) ),
+								'moment'  => in_array( $pol['moment'] ?? '', array( 'both', 'register', 'submit' ), true ) ? $pol['moment'] : ( Consent::default_policies()[ $pk ]['moment'] ?? 'both' ),
 							);
 						}
 					}

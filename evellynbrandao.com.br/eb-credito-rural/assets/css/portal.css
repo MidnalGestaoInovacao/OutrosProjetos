@@ -117,8 +117,8 @@ textarea.ebcr-input{min-height:96px;resize:vertical}
 .ebcr-msg p{margin:0}
 /* wizard */
 .ebcr-steps{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin:0 0 18px;padding:0;counter-reset:s}
-.ebcr-steps li{flex:1 1 130px}
-.ebcr-steps li a,.ebcr-steps li>span{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;border:1px solid var(--ebcr-line);background:var(--ebcr-soft);color:var(--ebcr-mut);text-decoration:none;font-size:.82rem;font-weight:600;min-height:44px}
+.ebcr-steps li{flex:1 1 130px;display:flex}
+.ebcr-steps li a,.ebcr-steps li>span{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;border:1px solid var(--ebcr-line);background:var(--ebcr-soft);color:var(--ebcr-mut);text-decoration:none;font-size:.82rem;font-weight:600;min-height:52px;flex:1 1 auto;width:100%;line-height:1.25}
 .ebcr-steps li.is-current>span{background:#111;border-color:#111;color:#f3d77c}
 .ebcr-steps li.is-done a{background:#f0fdf4;border-color:#86efac;color:#14532d}
 .ebcr-step-n{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#fff;color:#111;font-size:.75rem;flex:none;border:1px solid var(--ebcr-line)}

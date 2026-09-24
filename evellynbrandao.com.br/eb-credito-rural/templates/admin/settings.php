@@ -234,7 +234,12 @@ endforeach;
 					<?php elseif ( 'policies' === $ebcr_def[0] ) : ?>
 						<?php foreach ( $policies as $ebcr_pk => $ebcr_p ) : ?>
 							<div class="ebcr-box">
-								<p><strong><?php echo esc_html( $ebcr_p['title'] ); ?></strong> <span class="description">(<?php echo esc_html( $ebcr_pk ); ?> · <?php echo esc_html( 'register' === $ebcr_p['moment'] ? __( 'cadastro', 'eb-credito-rural' ) : ( 'submit' === $ebcr_p['moment'] ? __( 'envio', 'eb-credito-rural' ) : __( 'cadastro e envio', 'eb-credito-rural' ) ) ); ?><?php echo $ebcr_p['required'] ? ' · ' . esc_html__( 'obrigatória', 'eb-credito-rural' ) : ' · ' . esc_html__( 'opcional', 'eb-credito-rural' ); ?>)</span></p>
+								<p><strong><?php echo esc_html( $ebcr_p['title'] ); ?></strong> <span class="description">(<?php echo esc_html( $ebcr_pk ); ?>)</span>
+									&nbsp; <label><?php esc_html_e( 'Momento do aceite', 'eb-credito-rural' ); ?> <select name="policies[<?php echo esc_attr( $ebcr_pk ); ?>][moment]">
+										<option value="both" <?php selected( $ebcr_p['moment'], 'both' ); ?>><?php esc_html_e( 'Cadastro e envio', 'eb-credito-rural' ); ?></option>
+										<option value="register" <?php selected( $ebcr_p['moment'], 'register' ); ?>><?php esc_html_e( 'Só no cadastro', 'eb-credito-rural' ); ?></option>
+										<option value="submit" <?php selected( $ebcr_p['moment'], 'submit' ); ?>><?php esc_html_e( 'Só no envio', 'eb-credito-rural' ); ?></option>
+									</select></label></p>
 								<input type="hidden" name="policies[<?php echo esc_attr( $ebcr_pk ); ?>][title]" value="<?php echo esc_attr( $ebcr_p['title'] ); ?>">
 								<p><label><?php esc_html_e( 'Página com o texto completo', 'eb-credito-rural' ); ?><br>
 								<?php

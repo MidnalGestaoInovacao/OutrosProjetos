@@ -307,7 +307,7 @@ def step_pages():
         head = page_seo(pg["slug"], pg["title"], pg["excerpt"], "/%s/" % pg["slug"], "og", crumbs_for(pg["slug"], pg["title"]))
         upsert_page(pg["slug"], pg["title"], head + to_blocks(intro) + "\n\n" + html_block(htm), pg["excerpt"], pg["template"])
     # políticas
-    for slug in ("politica-de-privacidade", "politica-de-cookies", "politica-de-compliance-anticorrupcao", "politica-de-esg", "acessibilidade"):
+    for slug in ("politica-de-privacidade", "politica-de-cookies", "politica-de-compliance-anticorrupcao", "politica-de-esg", "acessibilidade", "termos-de-uso", "autorizacao-consulta-scr", "declaracao-de-veracidade", "comunicacoes-de-marketing"):
         pd = pol.get(slug)
         if not pd: print("  (sem conteúdo ainda)", slug); continue
         head = page_seo(slug, pd["title"] + " — Évellyn Brandão · BS Agro Capital", pd.get("excerpt", ""), "/%s/" % slug, "og", crumbs_for(slug, pd["title"]))

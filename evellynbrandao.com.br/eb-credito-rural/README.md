@@ -148,6 +148,7 @@ Os testes de autorização cobrem os critérios de aceite do SPEC: cliente A nã
 
 ## Versões
 
+- **1.2.1** — Páginas padrão para todas as políticas (Termos de Uso, Autorização SCR/Bacen, Declaração de veracidade, Comunicações de marketing) vinculadas por slug; todas as políticas aceitas também no cadastro (momento do aceite configurável por política em Privacidade e compliance); blocos das etapas do formulário com a mesma altura.
 - **1.2.0** — Fases 2 e 3: painel com gráficos e tempo por etapa; relatórios por carteira/fundo com CSV; CRM completo (ficha, atividades, tarefas com lembretes, Kanban, CSV); dossiê em PDF (gerador próprio); 2FA da equipe (TOTP/e-mail, backup, dispositivo confiável); assinatura eletrônica simples; consultas de CEP/CNPJ; captcha Turnstile; notificações por WhatsApp; simulador de crédito; painel de operações da equipe no site (modo "só no site"); 4 abilities novas (relatório e CRM).
 - **1.1.1** — Correções de bloqueio no fluxo do cliente: os formulários do portal passam a enviar para a própria página do portal (não mais para `wp-admin/admin-post.php`, que firewalls de hospedagem bloqueiam para visitantes/clientes) e os grupos de opções (rádios/caixas) fechavam o formulário antes da hora, impedindo "Salvar e continuar" no navegador.
 - **1.1.0** — Abilities API / Easy MCP AI (14 ferramentas `wp_ability_ebcr_*`, auto-habilitadas no conector), limites de segurança aplicados na sanitização dos campos numéricos, e-mails padrão `contato@dominio`, detecção automática da página do portal, bloco de estado do MCP em Ferramentas e Ajuda.
