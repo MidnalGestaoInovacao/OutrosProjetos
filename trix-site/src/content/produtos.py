@@ -1,7 +1,8 @@
 from .helpers import *
+from urllib.parse import quote
 def prod(slug, title, desc, kicker, h1, lead, body, name, category="BusinessApplication", meta=None, image=None, faq_items=None, order=10, actions=None, hero_img=None):
     p = {"slug": slug, "parent": "produtos", "order": order, "title": title, "description": desc, "type": "product", "productName": name, "category": category, "hero": "dark", "short": name.split(" - ")[0],
-         "kicker": kicker, "h1": h1, "lead": lead, "actions": actions or [("Solicitar demonstração", "/contato/?assunto=" + name), ("Todos os produtos", "/produtos/", "trix-btn--ghost")], "body": body}
+         "kicker": kicker, "h1": h1, "lead": lead, "actions": actions or [("Solicitar demonstração", "/contato/?assunto=" + quote(name)), ("Todos os produtos", "/produtos/", "trix-btn--ghost")], "body": body}
     if meta: p["meta"] = meta
     if image: p["image"] = image
     if hero_img: p["hero_img"] = hero_img[0]; p["hero_img_alt"] = hero_img[1]
@@ -35,7 +36,7 @@ HUB = {
 PRONTOW = prod("prontow",
  "Prontow: software com IA para clínicas e laboratórios",
  "Prontuário eletrônico, agenda, WhatsApp com IA, telemedicina, financeiro, TISS e app do paciente em um só sistema na nuvem. Solicite uma demonstração.",
- "Prontow · Novo: WhatsApp com IA", "Gestão completa para clínicas, <strong>com inteligência artificial</strong>",
+ "Prontow · Novo: WhatsApp com IA", "Prontow: gestão completa para clínicas, <strong>com inteligência artificial</strong>",
  "O PRONTOW é o sistema de gestão para clínicas, consultórios e laboratórios da Trix TI. Em um só lugar e na nuvem, ele reúne agenda, prontuário eletrônico, financeiro, faturamento TISS, atendimento por WhatsApp com IA e apoio ao diagnóstico por inteligência artificial — conduzindo o paciente do agendamento à cobrança, em fluxos conectados.",
  "".join([
   sec(feature("Agenda", "<p>A agenda do estabelecimento: a recepção marca consultas, retornos e exames e acompanha o status de cada marcação em tempo real.</p>" + checks(["Calendário por dia, semana ou mês, por profissional", "Consultas, retornos e exames com status em tempo real", "Filtros por agenda, tipo e forma de cobrança (particular/convênio)", "Busca rápida de paciente e marcação em segundos"]), "{{media:images/prontow/agenda.png}}", "Agenda do Prontow", kicker="Módulo")
@@ -61,7 +62,7 @@ PRONTOW = prod("prontow",
   sec(cta("Solicite uma demonstração", "Fale com a Trix TI e veja o PRONTOW em uma demonstração sem compromisso — por WhatsApp (61) 3246-1800 ou pelo formulário de contato.", ("WhatsApp (61) 3246-1800", "https://wa.me/556132461800?text=Ol%C3%A1!%20Quero%20uma%20demonstra%C3%A7%C3%A3o%20do%20prontow."), ("Formulário de contato", "/contato/?assunto=Prontow"))),
   sec(head("Perguntas frequentes", "Dúvidas <strong>comuns</strong>", "", True) + faq([("O Prontow precisa de instalação?", "Não. É 100% na nuvem: acesse de qualquer lugar, por navegador, sem instalação."), ("O Prontow atende laboratórios?", "Sim. Pedidos médicos, laudos com ciclo de status e resultados online para o paciente consultar pela web, além de faturamento TISS."), ("A IA substitui o médico?", "Não. A sugestão diagnóstica e o preenchimento assistido são ferramentas de apoio; a decisão é sempre do profissional de saúde."), ("Como funciona a assinatura digital?", "Documentos assinados com certificado ICP-Brasil (A1/A3, BirdID/Valid) e validação por QR Code/token.")]), "trix-section--sand"),
   contact_band(),
- ]), "Prontow", "MedicalApplication", meta=["Agenda, prontuário e financeiro", "WhatsApp com IA 24h", "TISS/ANS e telemedicina", "100% na nuvem"], image="images/prontow/agenda.png", order=1,
+ ]), "Prontow", "HealthApplication", meta=["Agenda, prontuário e financeiro", "WhatsApp com IA 24h", "TISS/ANS e telemedicina", "100% na nuvem"], image="images/prontow/agenda.png", order=1,
  actions=[("Solicitar demonstração", "https://wa.me/556132461800?text=Ol%C3%A1!%20Quero%20uma%20demonstra%C3%A7%C3%A3o%20do%20prontow."), ("Ver módulos", "#visao-geral", "trix-btn--ghost")],
  faq_items=[("O Prontow precisa de instalação?", "Não. É 100% na nuvem, acessível por navegador."), ("O Prontow atende laboratórios?", "Sim, com pedidos, laudos, resultados online e TISS."), ("A IA substitui o médico?", "Não. É uma ferramenta de apoio; a decisão é sempre do profissional.")],
  hero_img=("{{media:images/prontow/prontow_logo.png}}", "Prontow"))
@@ -88,7 +89,7 @@ SAW_BODY = lambda name: "".join([
 SAW = prod("saw",
  "SAW: Sistema de Atendimento Web para operadoras | Trix TI",
  "Auditoria médica inteligente, intercâmbio PTU 3.5, elegibilidade em tempo real, padrão TISS e faturamento eletrônico para operadoras de saúde.",
- "SAW · Sistema de Atendimento Web", "Todos os envolvidos no atendimento, <strong>em uma única interface</strong>",
+ "SAW · Sistema de Atendimento Web", "SAW: todos os envolvidos no atendimento, <strong>em uma única interface</strong>",
  "O SAW é uma ferramenta que integra todos os envolvidos no processo de atendimento a beneficiários de plano de saúde da operadora. De maneira eficiente, com uma única interface comum a todos e por meio da mobilidade da internet, possibilita a escalabilidade do atendimento com qualidade, garantindo a satisfação de atendentes, analistas de contas, cooperados/prestadores, empresas contratantes e, principalmente, beneficiários. Criado para atender às necessidades das operadoras de forma exclusiva, abstraindo conceitos, regras e processos, o SAW atende a realidade de cooperativas de todos os portes.",
  SAW_BODY("SAW"), "SAW - Sistema de Atendimento Web", "HealthApplication", meta=["Certificado PTU 3.5", "Auditoria inteligente", "TISS e faturamento eletrônico", "+35 operadoras"], image="images/30.png", order=2,
  faq_items=[("O SAW exige infraestrutura na operadora?", "Não para o intercâmbio: tudo é resolvido no SAW, sem links dedicados. A integração com a base da operadora ocorre pela internet com o Integrador Trix."), ("O SAW atende ao padrão TISS?", "Sim. Interfaces no padrão TISS, validação de dados, WebService para transações XML e faturamento eletrônico.")],
@@ -96,13 +97,15 @@ SAW = prod("saw",
 PORTAL = prod("portal-operadora",
  "Portal Operadora para cooperativas de saúde | Trix TI",
  "Interface única para atendentes, prestadores, contratantes e beneficiários, com auditoria, intercâmbio, TISS e faturamento eletrônico na plataforma SAW.",
- "Portal Operadora", "A solução criada para atender às <strong>necessidades das cooperativas</strong>",
+ "Portal Operadora", "Portal Operadora: a solução para as <strong>necessidades das cooperativas</strong>",
  "O Portal Operadora é uma ferramenta que integra todos os envolvidos no processo de atendimento a beneficiários de plano de saúde. De maneira eficiente, com uma única interface comum a todos e por meio da mobilidade da internet, possibilita a escalabilidade do atendimento com qualidade — para cooperativas de todos os portes.",
  sec(head("Plataforma", "Baseado na plataforma <strong>SAW</strong>", "O Portal Operadora é a solução criada para atender às necessidades das cooperativas e operadoras a partir da plataforma SAW (Sistema de Atendimento Web). Os recursos abaixo descrevem a plataforma SAW que sustenta o portal.")) + SAW_BODY("SAW"), "Portal Operadora", "HealthApplication", meta=["Interface única para todos os perfis", "Plataforma SAW", "TISS e faturamento eletrônico"], image="images/img_port_opera.png", order=3, hero_img=("{{media:images/img_port_opera.png}}", "Portal Operadora"))
+# O site original já descrevia o SAW nesta página: o canonical aponta para o SAW (sem conteúdo duplicado nos buscadores)
+PORTAL["canonical"] = "/produtos/saw/"
 ASPECT = prod("aspect-face",
  "Aspect Face: reconhecimento facial com antifraude | Trix TI",
  "API de reconhecimento facial com serviço antifraude por IA, prova de vida (liveness), identificação 1:1, 1:N e N:N, integração via Swagger e dashboards.",
- "Aspect Face · Biometria facial", "API de reconhecimento facial <strong>com serviço antifraude por IA</strong>",
+ "Aspect Face · Biometria facial", "Aspect Face: reconhecimento facial <strong>com serviço antifraude por IA</strong>",
  "O Aspect Face é uma API de reconhecimento facial baseada no princípio de que cada pessoa tem um padrão característico facial que, com análise profunda de imagem, permite identificar o indivíduo. Integre em minutos e ofereça uma jornada personalizada, segura e sem fraudes aos seus clientes.",
  "".join([
   sec(cards([
@@ -128,7 +131,7 @@ ASPECT = prod("aspect-face",
 XIELD = prod("xield",
  "Xield: controle de acesso e automação com biometria facial",
  "Controle de acesso facial, mapa de presença em tempo real e automação de ambientes com RTSP, Matter, Zigbee e MQTT. 100% web, em nuvem ou on-premises.",
- "Xield · Novo", "Segurança e automação inteligente <strong>com reconhecimento facial</strong>",
+ "Xield · Novo", "Xield: segurança e automação inteligente <strong>com reconhecimento facial</strong>",
  "Transforme o controle de acessos e a automação do seu espaço com o Xield. Seja na nuvem ou localmente (on-premises), o Xield oferece uma solução completa e inteligente para segurança, automação e gestão de ambientes — tudo via navegador, sem instalação de software adicional.",
  "".join([
   sec(feature("Plataforma 100% web, flexível e escalável", checks(["Operação via browser, com interface intuitiva", "Implantação em nuvem (SaaS) ou em infraestrutura local (on-premises)", "Gestão centralizada de múltiplas unidades ou ambientes"]), "{{media:images/xieldimg/xield_01.png}}", "Xield: plataforma web", kicker="🧠 Plataforma")
@@ -146,7 +149,7 @@ XIELD = prod("xield",
 GEDAI = prod("gedai",
  "GEDAI: gestão eletrônica de documentos (GED/ECM) | Trix TI",
  "GED/ECM com workflow, OCR/ICR, indexação, versionamento, ciclo de vida de documentos, controle de correspondências e bureau de digitalização.",
- "GEDAI · GED/ECM", "Gerenciamento Eletrônico de Documentos e <strong>Arquivo Inteligente</strong>",
+ "GEDAI · GED/ECM", "GEDAI: gerenciamento eletrônico de documentos e <strong>arquivo inteligente</strong>",
  "O GEDAI reúne metodologias, processos e tecnologias para a implantação do Gerenciamento Eletrônico de Documentos (GED) e da Gestão de Conteúdo Empresarial (ECM) no ambiente de uma organização. Elaborado para empresas de todos os tipos e portes, contempla o controle (manutenção, tramitação e localização) dos documentos produzidos e consumidos pelos processos internos, o ciclo de vida dos documentos físicos e o controle das correspondências entrantes e saintes.",
  "".join([
   sec('<div class="trix-split"><div class="trix-reveal"><span class="trix-kicker">Composição</span><h2>Bureau de digitalização + <strong>sistema GEDAI</strong></h2><p>No Bureau (birô), os documentos são digitalizados seguindo uma linha de produção, garantindo qualidade, produtividade e segurança da informação, disponibilizada em tempo hábil para processos mais eficientes e desburocratização do acesso à informação. O sistema GEDAI reúne tecnologias correlacionadas para garantir a aplicabilidade dos processos necessários à correta implantação do GED.</p><p>O GEDAI abstrai o ambiente organizacional conforme a hierarquia da empresa: permissões de acesso e escrita são definidas antes da implantação, de modo que qualquer documento inserido já possua definição exata de quem precisa acessá-lo. A tramitação física é registrada para manter o histórico da movimentação interna, e todo o ciclo de vida (criação, revisão, reprodução, distribuição, arquivamento, recuperação) é controlado.</p></div><div class="trix-reveal">'
@@ -162,7 +165,7 @@ GEDAI = prod("gedai",
 INTEG = prod("integrador",
  "Integrador: integração de sistemas em tempo real | Trix TI",
  "Integra sistemas e bases de dados heterogêneas com comunicação em tempo real, em qualquer tecnologia e independente do provedor. Java e PostgreSQL.",
- "Integrador", "Sistemas e bases heterogêneas conversando <strong>em tempo real</strong>",
+ "Integrador", "Integrador: sistemas e bases heterogêneas conversando <strong>em tempo real</strong>",
  "O Integrador permite a integração de sistemas e bases de dados heterogêneas, realizando a comunicação em tempo real das operações executadas. Utilizando tecnologia específica e adaptando-se às necessidades do seu negócio, o Integrador atua em qualquer tecnologia, independentemente do provedor da solução.",
  "".join([
   sec(cards([{"icon": "plug", "title": "Qualquer tecnologia", "text": "Conecta ERPs, sistemas de gestão de operadoras, bases legadas e novos serviços digitais, independente de fornecedor ou banco de dados."}, {"icon": "clock", "title": "Tempo real", "text": "Operações refletidas imediatamente entre os sistemas, com logs de transações para acompanhamento e auditoria pela operadora."}, {"icon": "shield", "title": "Segurança e rastreabilidade", "text": "Comunicação de alto nível com a base de dados do cliente, monitoramento de consultas e alterações realizadas, e conformidade com a LGPD."}, {"icon": "monitor", "title": "Base do SAW e do Portal Operadora", "text": "É o Integrador que garante a integração personalizada dos sistemas Trix com a base de dados das operadoras, pela internet."}], 4)
@@ -172,7 +175,7 @@ INTEG = prod("integrador",
 INTRA = prod("intranet",
  "Intranet Trix: comunicação interna premiada | Trix TI",
  "Ferramenta web de administração e comunicação interna com chat, gestão de pessoas, notícias e documentos. Bicampeã do Prêmio Unimed de Comunicação.",
- "Intranet Trix · Premiada", "Mais que um site, <strong>uma ferramenta de comunicação</strong>",
+ "Intranet Trix · Premiada", "Intranet Trix: mais que um site, <strong>uma ferramenta de comunicação</strong>",
  "A Intranet Trix é uma solução para empresas que buscam uma ferramenta web que auxilie na administração, comunicação e relacionamento interno entre as diversas áreas e membros da organização. Aplica conceitos de conteúdo colaborativo, mídia organizacional e gestão tecnológica e virtual de recursos, com tecnologia aberta que permite robustez e adaptação contínua sem ônus de softwares terceiros.",
  "".join([
   sec('<div class="trix-split"><div class="trix-reveal"><span class="trix-kicker">Um sistema premiado</span><h2>Bicampeã do <strong>Prêmio Unimed de Comunicação</strong></h2><p>Pelo segundo ano consecutivo, a Intranet Trix foi premiada com o troféu “Alberto Urquiza Wanderley”, concedido aos vencedores do 6º Prêmio Unimed de Comunicação. Na edição de 2010, venceu na categoria para cooperativas com número de beneficiários entre 40 e 100 mil; na edição de 2009, foi a vencedora da categoria até 30 mil beneficiários. Os vencedores foram revelados durante a 40ª Convenção Nacional Unimed, realizada em Goiânia (GO), de 21 a 24 de setembro.</p></div><div class="trix-reveal">'

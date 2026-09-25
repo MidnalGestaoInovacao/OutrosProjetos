@@ -4,6 +4,13 @@ def sec(inner, cls="", id=""):
     return '<section class="trix-section %s"%s><div class="trix-container">%s</div></section>' % (cls, (' id="%s"' % id) if id else "", inner)
 def head(kicker, title, lead="", center=False):
     return '<div class="trix-section__head%s trix-reveal">%s<h2>%s</h2>%s</div>' % (" trix-section__head--center" if center else "", ('<span class="trix-kicker">%s</span>' % kicker) if kicker else "", title, ('<p class="lead">%s</p>' % lead) if lead else "")
+def _cta(it):
+    """Texto do link do cartão; o genérico "Saiba mais" ganha o destino para leitores de tela e buscadores."""
+    cta = it.get("cta", "Saiba mais")
+    if cta == "Saiba mais":
+        import re as _re
+        cta += '<span class="trix-sr"> sobre %s</span>' % _h.unescape(_re.sub(r"<[^>]+>", "", it["title"]))
+    return cta
 def cards(items, cols=3, tilt=True, dark=False):
     out = ['<div class="trix-grid trix-grid--%d">' % cols]
     for it in items:
@@ -12,7 +19,7 @@ def cards(items, cols=3, tilt=True, dark=False):
             " trix-tilt" if tilt else "", " trix-card--dark" if dark else "",
             ('<span class="trix-card__badge">%s</span>' % badge) if badge else "",
             ('<div class="trix-card__icon">{{icon:%s}}</div>' % icon) if icon else "",
-            it["title"], it["text"], ('<a class="trix-card__link" href="%s">%s</a>' % (url, it.get("cta", "Saiba mais"))) if url else ""))
+            it["title"], it["text"], ('<a class="trix-card__link" href="%s">%s</a>' % (url, _cta(it))) if url else ""))
     out.append('</div>'); return "".join(out)
 def checks(items):
     return '<ul class="trix-check">' + "".join("<li>%s</li>" % i for i in items) + "</ul>"

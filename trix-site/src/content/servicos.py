@@ -33,7 +33,7 @@ HUB = {
 FABRICA = svc("fabrica-de-software",
  "Fábrica de software com metodologia PROTRIX | Trix TI",
  "Software sob medida em Brasília: requisitos, design, codificação, testes e sistemas legados com Java, PHP, Oracle, PostgreSQL e métodos ágeis.",
- "Fábrica de software", "Software sob medida com a <strong>metodologia PROTRIX</strong>",
+ "Fábrica de software", "Fábrica de software sob medida, com a <strong>metodologia PROTRIX</strong>",
  "A Trix TI utiliza um processo de software que permite a organização e o gerenciamento dos produtos de forma ágil e organizada. A metodologia PROTRIX de desenvolvimento e manutenção de sistemas define, de forma detalhada, as responsabilidades, atividades e interações com outras áreas de conhecimento — refletindo as boas práticas de desenvolvimento iterativo, gestão de demandas e gerência de projetos.",
  "".join([
   sec('<div class="trix-split"><div class="trix-reveal"><span class="trix-kicker">Soluções customizadas</span><h2>Você escolhe o formato. <strong>Nós garantimos a qualidade.</strong></h2><p>Com processos bem estabelecidos, a Trix TI detém a prática necessária para atuar em diferentes formatos de projetos e em momentos distintos do ciclo de vida, sem perder a qualidade. A flexibilidade decorrente da maturidade da Trix permite que o cliente contrate o formato que melhor se adequa às características da sua empresa.</p>'
@@ -56,7 +56,7 @@ FABRICA = svc("fabrica-de-software",
 CONECT = svc("conectividade-em-saude",
  "Conectividade em saúde suplementar | Trix TI",
  "Elegibilidade com cartão e biometria, faturamento eletrônico TISS, implantação, treinamento e suporte remoto a prestadores. Mais de 35 operadoras atendidas.",
- "Conectividade em saúde suplementar", "Tecnologia, recursos e pessoas para <strong>conectar prestadores e operadoras</strong>",
+ "Conectividade em saúde suplementar", "Conectividade em saúde: tecnologia e pessoas <strong>unindo prestadores e operadoras</strong>",
  "O serviço de conectividade em saúde suplementar da Trix TI fornece tecnologias, recursos e mão de obra especializada nos processos que envolvem a troca de informação entre o prestador e a operadora de saúde. Atendimento, faturamento, credenciamento, equipe médica, ouvidoria, cadastro, jurídico, compras, tecnologia e gestão — de ambas as partes — são diretamente beneficiados.",
  "".join([
   sec(head("Objetivo", "Integração de <strong>ambientes, pessoas, ferramentas e processos</strong>", "O principal objetivo do serviço é promover o uso de tecnologia de ponta para a interação e integração de ambientes, pessoas × ferramentas × processos, consolidando uma base de conhecimento de melhores práticas aplicáveis a qualquer prestador ou operadora de saúde, independentemente do porte, segmento ou abrangência.")
@@ -77,7 +77,7 @@ CONECT = svc("conectividade-em-saude",
 CONSULT = svc("consultoria",
  "Consultoria em TI: outsourcing, segurança e APF | Trix TI",
  "Outsourcing com KPIs/SLAs, segurança da informação, análise de pontos de função (IFPUG), modelagem de processos (BPMN), open source e engenharia de software.",
- "Consultoria", "Eficiência e resolutividade <strong>para o seu segmento</strong>",
+ "Consultoria", "Consultoria com eficiência e resolutividade <strong>para o seu segmento</strong>",
  "A Trix TI possui uma equipe de profissionais altamente qualificados, com experiência em ambientes heterogêneos, para oferecer aos nossos clientes a eficiência e a resolutividade necessárias ao seu segmento de negócio.",
  "".join([
   sec(cards([
@@ -94,7 +94,7 @@ CONSULT = svc("consultoria",
 ESCRIT = svc("escritorio-de-processos",
  "Escritório de Processos: BPM e metodologia MTRIX | Trix TI",
  "BPM, governança, gestão de processos, de TI e estratégica com a metodologia MTRIX e monitoramento assistido durante e após a implantação.",
- "Escritório de processos", "Alinhamento com os <strong>objetivos do seu negócio</strong>",
+ "Escritório de processos", "Escritório de processos alinhado <strong>aos objetivos do seu negócio</strong>",
  "A Trix TI conta com uma estrutura de Escritório de Processos que apoia o desenvolvimento e a evolução das soluções, aplicando a cada produto os benefícios propostos pelo BPM e pelas boas práticas de governança, gestão de processos, gestão de TI e gestão estratégica. O principal benefício é o alinhamento com os objetivos, expectativas e necessidades dos nossos clientes.",
  "".join([
   sec('<div class="trix-split"><div class="trix-reveal"><span class="trix-kicker">Metodologia de gestão</span><h2>MTRIX: do <strong>estratégico ao operacional</strong></h2><p>A Metodologia de Gestão do Escritório de Processos MTRIX, adotada pela Trix TI, também é implementada como fruto de consultoria nas empresas. Abrange aspectos do âmbito estratégico, tático, operacional e de controle, e é apoiada pelo serviço de monitoramento assistido durante e após a implantação.</p><p>Uma das premissas deste serviço é assegurar que as boas práticas de gestão de processos sejam implementadas no ambiente do cliente e entre os profissionais, garantindo a qualidade e o foco na melhoria contínua dos processos da empresa.</p></div><div class="trix-reveal">'
@@ -105,7 +105,7 @@ ESCRIT = svc("escritorio-de-processos",
 SOLUC = svc("solucoes-e-automacao",
  "Soluções e automação de processos | Trix TI",
  "Gestão de demandas, projetos (PMBOK), qualidade e testes, loja virtual e monitoramento de serviços de TI, com ferramentas de mercado customizadas.",
- "Soluções e automação", "Automatize processos com ferramentas <strong>reconhecidas pelo mercado</strong>",
+ "Soluções e automação", "Soluções e automação com ferramentas <strong>reconhecidas pelo mercado</strong>",
  "A Trix TI fornece a automação de processos a partir da implantação e customização de ferramentas de apoio às atividades nas diversas áreas da organização. As ferramentas são reconhecidas e utilizadas por empresas de todos os segmentos e podem ser formatadas para a sua realidade.",
  "".join([
   sec(cards([
@@ -121,8 +121,8 @@ SOLUC = svc("solucoes-e-automacao",
 AGENDA = svc("agenda-medica",
  "Agenda Médica: central de atendimento para clínicas | Trix TI",
  "Central receptiva e ativa para marcações e cancelamentos, avisos por SMS e e-mail, número 4005 nacional e relatórios mensais, com valor mensal fixo.",
- "Agenda médica", "Excelência na gestão do seu tempo. <strong>Perfeito para quem não tem!</strong>",
- "Com a Agenda Médica da Trix TI você tem controle online dos seus compromissos e uma Central de Atendimento para atender o seu paciente, realizar todas as ações necessárias para satisfazê-lo e promover o bom funcionamento do seu estabelecimento — com um pequeno investimento mensal de valor fixo.",
+ "Agenda médica", "Agenda médica: excelência <strong>na gestão do seu tempo</strong>",
+ "Perfeita para quem não tem tempo: com a Agenda Médica da Trix TI você tem controle online dos seus compromissos e uma Central de Atendimento para atender o seu paciente, realizar todas as ações necessárias para satisfazê-lo e promover o bom funcionamento do seu estabelecimento — com um pequeno investimento mensal de valor fixo.",
  "".join([
   sec('<div class="trix-split"><div class="trix-reveal"><span class="trix-kicker">Benefícios</span><h2>Menos custo, <strong>mais atendimento</strong></h2>' + checks(["Redução de custos de infraestrutura e telefonia", "Gravação de todas as ligações telefônicas", "Acesso ininterrupto pela internet: mobilidade e praticidade", "Mão de obra especializada, com conhecimento da área médica e das legislações", "Baixo investimento mensal com valor fixo", "Marcação e cancelamento de horários pela Central de Atendimento Trix TI", "Suporte ao paciente para esclarecimento de dúvidas e marcação de consultas"]) + '</div><div class="trix-reveal"><span class="trix-kicker">Características</span><h2>Tudo que sua agenda <strong>precisa</strong></h2>' + checks(["Call center receptivo e ativo", "Avisos de marcações e cancelamentos por SMS* e e-mail", "Número de telefone 4005 para atendimento em todo o Brasil", "Contact center para pacientes especiais e casos de urgência/emergência*", "Controle e relatórios de pacientes", "Encaixe, fila de espera e remarcações", "Interface web intuitiva, compatível com todos os navegadores", "Configurações de agendas particular, Unimed e outros convênios", "Relatórios mensais de estatísticas de atendimento e utilização de recursos"]) + '<p class="trix-muted" style="font-size:.85rem">* Conforme plano contratado.</p></div></div>'),
   sec(cta("Quer ir além da agenda?", "Conheça o Prontow: agenda, prontuário eletrônico, financeiro, TISS e agendamento por WhatsApp com IA, tudo na nuvem.", ("Conhecer o Prontow", "/produtos/prontow/"), ("Contratar a Agenda Médica", "/contato/?assunto=Agenda%20M%C3%A9dica")), "trix-section--sand"),

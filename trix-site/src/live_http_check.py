@@ -28,10 +28,11 @@ pages = []
 for f in sorted(glob.glob(os.path.join(ROOT, "dist", "pages", "*.json"))):
     d = json.load(open(f))
     m = re.search(r'data-trix-3d="([a-z]+)"', d["content"])
-    pages.append((d["url"], d["slug"], d["build"], m.group(1) if m else None))
+    cm = re.search(r'"canonical": "([^"]+)"', d["content"])
+    pages.append((d["url"], d["slug"], d["build"], m.group(1) if m else None, cm.group(1) if cm else None))
 
 problems, rows = [], []
-for url, slug, build, scene in pages:
+for url, slug, build, scene, canon in pages:
     code, html = get(BASE + url)
     issues = []
     if code != 200: issues.append("status %s" % code)
@@ -46,7 +47,7 @@ for url, slug, build, scene in pages:
         can = re.search(r'<link rel="canonical" href="([^"]+)"', html)
         if not can and url == "/":
             print("   nota: o WordPress não imprime canonical na home servida pelo template; o JS aplica e o mu-plugin passa a imprimir no servidor", flush=True)
-        elif not can or can.group(1).rstrip("/") != (BASE + url).rstrip("/"): issues.append("canonical %s" % (can.group(1) if can else None))
+        elif not can or can.group(1).rstrip("/") not in ((BASE + url).rstrip("/"), (BASE + (canon or url)).rstrip("/")): issues.append("canonical %s" % (can.group(1) if can else None))
         if 'class="trix-a11y-hbtn"' not in html: issues.append("botão de acessibilidade do cabeçalho")
     rows.append((url, code, scene, issues))
     print("%-48s %s %-8s %s" % (url, code, scene, "OK" if not issues else issues), flush=True)
@@ -62,7 +63,7 @@ print("%-48s %s %s" % ("/robots.txt", code, "OK" if okr else "PROBLEMA"))
 if not okr: problems.append(("/robots.txt", ["robots"]))
 code, sm = get(BASE + "/wp-sitemap-posts-page-1.xml")
 locs = set(re.findall(r"<loc>([^<]+)</loc>", sm))
-missing = [u for u, *_ in pages if (BASE + u) not in locs]
+missing = [u for u, s_, b_, sc_, canon in pages if (BASE + u) not in locs and not canon]
 print("%-48s %s %d URLs, faltando: %s" % ("/wp-sitemap-posts-page-1.xml", code, len(locs), missing or "nenhuma"))
 if missing: problems.append(("sitemap", missing))
 print("\nPÁGINAS: %d | COM PROBLEMA: %d" % (len(pages), len(problems)))

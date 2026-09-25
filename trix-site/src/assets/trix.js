@@ -56,7 +56,7 @@
     /* JSON-LD gerado em tempo de execução: sobrevive à migração de domínio */
     var org = {
       '@type': ['Organization', 'LocalBusiness', 'ProfessionalService'], '@id': origin + '/#organization', name: site, legalName: 'Trix Tecnologia Inteligente Ltda', alternateName: 'Trix TI',
-      url: origin + '/', logo: logo, image: img || logo, foundingDate: '2009-07-10', taxID: '11.010.095/0001-40', vatID: '11.010.095/0001-40',
+      url: origin + '/', logo: logo, image: abs(CFG.defaultImage) || logo, foundingDate: '2009-07-10', taxID: '11.010.095/0001-40', vatID: '11.010.095/0001-40',
       telephone: CFG.phone, email: CFG.email, priceRange: '$$',
       address: { '@type': 'PostalAddress', streetAddress: 'SIG Quadra 4, Lote 75, Bloco A, Sala 15 – Edifício Capital Financial Center', addressLocality: 'Brasília', addressRegion: 'DF', postalCode: '70610-440', addressCountry: 'BR' },
       geo: CFG.geo ? { '@type': 'GeoCoordinates', latitude: CFG.geo.lat, longitude: CFG.geo.lng } : undefined,
@@ -71,16 +71,18 @@
     var web = { '@type': 'WebSite', '@id': origin + '/#website', url: origin + '/', name: site, inLanguage: 'pt-BR', publisher: { '@id': origin + '/#organization' } };
     var page = { '@type': data.type === 'product' ? 'ItemPage' : (data.type === 'contact' ? 'ContactPage' : (data.type === 'about' ? 'AboutPage' : 'WebPage')), '@id': url + '#webpage', url: url, name: title, description: desc, inLanguage: 'pt-BR', isPartOf: { '@id': origin + '/#website' }, about: { '@id': origin + '/#organization' }, dateModified: data.modified || undefined };
     var graph = [org, web, page];
-    if (data.breadcrumb && data.breadcrumb.length) {
+    /* trilha e FAQ já saem no servidor quando o mu-plugin está ativo: não duplicar */
+    if (!serverSeo && data.breadcrumb && data.breadcrumb.length) {
       graph.push({ '@type': 'BreadcrumbList', itemListElement: data.breadcrumb.map(function (b, i) { return { '@type': 'ListItem', position: i + 1, name: b.name, item: origin + b.url }; }) });
     }
     if (data.type === 'product') {
-      graph.push({ '@type': 'SoftwareApplication', name: data.productName || title, applicationCategory: data.category || 'BusinessApplication', operatingSystem: data.os || 'Web', description: desc, image: img || undefined, url: url, provider: { '@id': origin + '/#organization' } });
+      /* produto de software sem preço público: Service (SoftwareApplication exige offers/avaliações reais no Google) */
+      graph.push({ '@type': 'Service', '@id': url + '#produto', name: data.productName || title, serviceType: 'Software como serviço (SaaS)', category: data.category || 'BusinessApplication', brand: { '@type': 'Brand', name: data.productName || title }, description: desc, image: img || undefined, url: url, areaServed: 'BR', provider: { '@id': origin + '/#organization' } });
     }
     if (data.type === 'service') {
       graph.push({ '@type': 'Service', name: data.serviceName || title, serviceType: data.serviceType || title, description: desc, url: url, areaServed: 'BR', provider: { '@id': origin + '/#organization' } });
     }
-    if (data.faq && data.faq.length) {
+    if (!serverSeo && data.faq && data.faq.length) {
       graph.push({ '@type': 'FAQPage', mainEntity: data.faq.map(function (q) { return { '@type': 'Question', name: q.q, acceptedAnswer: { '@type': 'Answer', text: q.a } }; }) });
     }
     var ld = d.createElement('script'); ld.type = 'application/ld+json'; ld.textContent = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }); head.appendChild(ld);

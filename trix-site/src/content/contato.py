@@ -26,7 +26,7 @@ CONTATO = {
  "title": "Contato: fale com a Trix TI em Brasília e São Paulo",
  "description": "Formulário, WhatsApp, e-mail e telefones da Trix TI: (61) 3403-5353 em Brasília e (11) 3014-3220 em São Paulo. Endereços, mapa e como chegar.",
  "image": "images/02.jpg", "hero": "dark",
- "kicker": "Contato", "h1": "Atendimento ágil também é uma <strong>marca da Trix</strong>",
+ "kicker": "Contato", "h1": "Contato: atendimento ágil também é <strong>uma marca da Trix</strong>",
  "lead": "Nós estamos prontos para atendê-lo. Escolha o canal de sua preferência: formulário, WhatsApp, e-mail ou telefone. Para solicitações de titulares de dados (LGPD) e denúncias, utilize os canais confidenciais específicos.",
  "actions": [("WhatsApp", S["social"]["whatsapp"]), ("Enviar mensagem", "#formulario", "trix-btn--ghost")],
  "meta": ["Retorno em dias úteis", "Suporte seg. a sex. 07h30–19h30", "Brasília e São Paulo"],

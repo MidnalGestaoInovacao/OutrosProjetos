@@ -438,5 +438,10 @@
   "id": 174,
   "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/cliente-unimed-uba.jpg",
   "mime": "image/jpeg"
+ },
+ "images/trix-logo-512.png": {
+  "id": 350,
+  "url": "https://trix.ebaem.com.br/wp-content/uploads/2026/09/trix-logo-512.png",
+  "mime": "image/png"
  }
 }

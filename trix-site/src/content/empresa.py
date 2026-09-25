@@ -46,7 +46,7 @@ EMPRESA = {
    ], 3, dark=True)),
   sec('<div class="trix-split"><div class="trix-reveal"><span class="trix-kicker">Dados institucionais</span><h2>Transparência <strong>em primeiro lugar</strong></h2>'
       + table(["Item", "Informação"], [["Razão social", "Trix Tecnologia Inteligente Ltda"], ["Nome fantasia", "Trix TI"], ["CNPJ", "11.010.095/0001-40"], ["Fundação", "10 de julho de 2009"], ["Natureza jurídica", "Sociedade Empresária Limitada"], ["Atividade principal", "Desenvolvimento e licenciamento de programas de computador (CNAE 62.03-1-00)"], ["Atividades secundárias", "Suporte técnico e manutenção em TI (62.09-1-00) · Atividades de apoio à gestão de saúde (86.60-7-00)"], ["Administração", "Marcos Soares de Sousa (administrador; grafia no cadastro da Receita Federal: Souza) · Trix Participações e Investimentos S.A. (sócia desde 31/01/2024)"], ["Matriz", "Edifício Capital Financial Center, SIG Quadra 4, Lote 75, Bloco A, Sala 15 — Brasília/DF, CEP 70610-440"], ["Escritório", "Alameda Santos, 1165 — Cerqueira César, São Paulo/SP, CEP 01419-002"]])
-      + '</div><div class="trix-reveal"><div class="trix-card trix-card--yellow"><div class="trix-card__icon">{{icon:graduation}}</div><h3>Trix Academy</h3><p>Plataforma de treinamentos para clientes, parceiros e fornecedores: integração, LGPD, código de conduta, políticas e uso dos sistemas. Parceiros, fornecedores e clientes devem estar preparados para a LGPD.</p><a class="trix-card__link" href="http://academy.trixti.com.br/" target="_blank" rel="noopener">Acessar a Trix Academy</a></div><div style="height:18px"></div><div class="trix-card trix-card--dark"><div class="trix-card__icon">{{icon:map}}</div><h3>Como chegar</h3><p>Estamos no Setor de Indústrias Gráficas (SIG), a poucos minutos do centro de Brasília. Veja o mapa, rotas e horários na página de contato.</p><a class="trix-card__link" href="/contato/#como-chegar">Ver mapa e rotas</a></div></div></div>', "trix-section--sand"),
+      + '</div><div class="trix-reveal"><div class="trix-card trix-card--yellow"><div class="trix-card__icon">{{icon:graduation}}</div><h3>Trix Academy</h3><p>Plataforma de treinamentos para clientes, parceiros e fornecedores: integração, LGPD, código de conduta, políticas e uso dos sistemas. Parceiros, fornecedores e clientes devem estar preparados para a LGPD.</p><a class="trix-card__link" href="https://academy.trixti.com.br/" target="_blank" rel="noopener">Acessar a Trix Academy</a></div><div style="height:18px"></div><div class="trix-card trix-card--dark"><div class="trix-card__icon">{{icon:map}}</div><h3>Como chegar</h3><p>Estamos no Setor de Indústrias Gráficas (SIG), a poucos minutos do centro de Brasília. Veja o mapa, rotas e horários na página de contato.</p><a class="trix-card__link" href="/contato/#como-chegar">Ver mapa e rotas</a></div></div></div>', "trix-section--sand"),
   contact_band(),
  ]),
 }
@@ -57,7 +57,7 @@ EVENTOS = {
  "image": "images/02.jpg", "hero": "dark",
  "kicker": "Conhecimento compartilhado", "h1": "Eventos e <strong>Trix Academy</strong>",
  "lead": "Acreditamos que tecnologia só gera valor quando as pessoas sabem usá-la. Por isso promovemos webinários, treinamentos e programas de capacitação para operadoras, prestadores, parceiros e colaboradores.",
- "actions": [("Acessar a Trix Academy", "http://academy.trixti.com.br/"), ("Quero participar do próximo evento", "/contato/?assunto=Treinamento%20e%20Capacita%C3%A7%C3%A3o", "trix-btn--ghost")],
+ "actions": [("Acessar a Trix Academy", "https://academy.trixti.com.br/"), ("Quero participar do próximo evento", "/contato/?assunto=Treinamento%20e%20Capacita%C3%A7%C3%A3o", "trix-btn--ghost")],
  "body": "".join([
   sec(head("Registro", "1º Webinário de Conectividade em <strong>Saúde Suplementar</strong>", "Evento online realizado em março de 2022, destinado a operadoras de saúde — clientes Trix ou não — para apresentar as principais novidades da plataforma de conectividade da Trix TI.")
    + table(["Palestrante", "Função", "Tema", "Data"], [
@@ -81,7 +81,7 @@ CLIENTES = {
  "title": "Clientes: operadoras, Unimeds e clínicas | Trix TI",
  "description": "Mais de 35 operadoras de saúde, Unimeds, RHs e autogestões confiam na Trix TI, que também atende médicos, clínicas e laboratórios em todo o Brasil.",
  "image": "images/desenvolvimento.jpg", "hero": "dark",
- "kicker": "Clientes", "h1": "Desenvolver software é a <strong>nossa maior força</strong>",
+ "kicker": "Clientes", "h1": "Clientes da Trix: desenvolver software é <strong>a nossa maior força</strong>",
  "lead": "Para você que quer ser cliente, saiba: entre em contato e nos conheça melhor. Descubra o nível de satisfação dos nossos clientes e por que operadoras de saúde de todo o Brasil escolheram a Trix como parceira tecnológica.",
  "actions": [("Quero ser cliente", "/contato/"), ("Ver produtos", "/produtos/", "trix-btn--ghost")],
  "meta": ["+35 operadoras de saúde", "Unimeds, RHs e autogestões", "Clínicas, consultórios e laboratórios"],

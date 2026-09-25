@@ -48,7 +48,7 @@ add_action( 'wp_head', function () {
 	$d = trix_seo_data(); if ( ! $d ) { return; }
 	$title = $d['title'] ?? wp_get_document_title();
 	$desc  = $d['description'] ?? '';
-	$img   = trix_seo_abs( $d['image'] ?? '' );
+	$img   = trix_seo_abs( ! empty( $d['image'] ) ? $d['image'] : '/wp-content/uploads/2026/09/trix-empresa.jpg' );
 	$url   = ! empty( $d['canonical'] ) ? home_url( $d['canonical'] ) : ( ( is_front_page() || is_home() ) ? home_url( '/' ) : get_permalink() );
 	echo "\n<!-- Trix SEO -->\n";
 	if ( $desc ) { printf( '<meta name="description" content="%s">' . "\n", esc_attr( $desc ) ); }
@@ -57,10 +57,11 @@ add_action( 'wp_head', function () {
 	printf( '<meta property="og:type" content="website"><meta property="og:locale" content="pt_BR">' . "\n" );
 	printf( '<meta property="og:title" content="%s"><meta property="og:description" content="%s"><meta property="og:url" content="%s">' . "\n", esc_attr( $title ), esc_attr( $desc ), esc_url( $url ) );
 	if ( $img ) { printf( '<meta property="og:image" content="%s"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="%s">' . "\n", esc_url( $img ), esc_url( $img ) ); }
+	else { echo '<meta name="twitter:card" content="summary">' . "\n"; }
 	printf( '<meta name="twitter:title" content="%s"><meta name="twitter:description" content="%s">' . "\n", esc_attr( $title ), esc_attr( $desc ) );
 	// JSON-LD mínimo no servidor (o script do site complementa com o grafo completo)
 	$graph = array(
-		array( '@type' => 'Organization', '@id' => home_url( '/#organization' ), 'name' => get_bloginfo( 'name' ), 'url' => home_url( '/' ), 'logo' => trix_seo_abs( '/wp-content/uploads/2026/09/trix-logo.png' ) ),
+		array( '@type' => 'Organization', '@id' => home_url( '/#organization' ), 'name' => get_bloginfo( 'name' ), 'url' => home_url( '/' ), 'logo' => trix_seo_abs( '/wp-content/uploads/2026/09/trix-logo-512.png' ) ),
 		array( '@type' => 'WebPage', '@id' => $url . '#webpage', 'url' => $url, 'name' => $title, 'description' => $desc, 'inLanguage' => 'pt-BR', 'isPartOf' => array( '@id' => home_url( '/#website' ) ) ),
 	);
 	if ( ! empty( $d['breadcrumb'] ) ) {
@@ -116,8 +117,18 @@ add_filter( 'comments_open', function ( $open, $post_id ) { return isset( trix_f
 
 /* ------------------------------------------------ Privacidade do login */
 // Não publicar o sitemap de autores (exporia o nome de usuário do administrador).
+// Páginas com canonical apontando para outra URL (ex.: Portal Operadora -> SAW) ficam fora do sitemap.
+add_filter( 'wp_sitemaps_posts_query_args', function ( $args, $post_type ) {
+	if ( 'page' !== $post_type ) { return $args; }
+	$p = get_page_by_path( 'produtos/portal-operadora' );
+	if ( $p ) { $args['post__not_in'] = array_merge( (array) ( $args['post__not_in'] ?? array() ), array( $p->ID ) ); }
+	return $args;
+}, 10, 2 );
 add_filter( 'wp_sitemaps_add_provider', function ( $provider, $name ) { return 'users' === $name ? false : $provider; }, 10, 2 );
 // Arquivos de autor redirecionam para a página inicial (sem enumeração de usuários).
-add_action( 'template_redirect', function () { if ( is_author() ) { wp_safe_redirect( home_url( '/' ), 301 ); exit; } } );
+// ?author=N e /author/<login>/ revelariam o login do administrador: redireciona antes do core (prioridade 1).
+add_action( 'template_redirect', function () { if ( is_author() || isset( $_GET['author'] ) ) { wp_safe_redirect( home_url( '/' ), 301 ); exit; } }, 1 );
+add_filter( 'redirect_canonical', function ( $redirect, $requested ) { return ( isset( $_GET['author'] ) ) ? false : $redirect; }, 10, 2 );
+add_filter( 'oembed_response_data', function ( $data ) { unset( $data['author_name'], $data['author_url'] ); return $data; } );
 // Usuários fora da API REST pública.
 add_filter( 'rest_endpoints', function ( $e ) { if ( ! is_user_logged_in() ) { unset( $e['/wp/v2/users'], $e['/wp/v2/users/(?P<id>[\d]+)'] ); } return $e; } );

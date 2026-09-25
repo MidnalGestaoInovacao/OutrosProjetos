@@ -72,7 +72,7 @@ def header_html():
     return render("\n".join(out))
 
 def config_script():
-    cfg = {"siteName": SITE["name"], "defaultDescription": SITE["description"], "logo": media("images/39.png"), "defaultImage": media("images/02.jpg"),
+    cfg = {"siteName": SITE["name"], "defaultDescription": SITE["description"], "logo": media("images/trix-logo-512.png"), "defaultImage": media("images/02.jpg"),
            "favicon": SITE.get("favicon"), "phone": SITE["phone_e164"], "email": SITE["email"], "geo": SITE["geo"], "mapsUrl": SITE["maps_url"],
            "social": [SITE["social"][k] for k in ("linkedin", "instagram", "facebook")], "ga4": SITE.get("ga4", ""), "anonEmail": "anonimo@example.com"}
     return '<script>window.TRIX_CONFIG=%s;</script>' % json.dumps(cfg, ensure_ascii=False)
@@ -258,10 +258,12 @@ def build_pages():
     out = []
     for p in ALL_PAGES:
         crumbs = breadcrumb(p, by_slug) if p["slug"] != "home" else [{"name": "Home", "url": "/"}]
-        seo = {"title": p["title"], "description": p["description"], "type": p.get("type", "page"), "breadcrumb": crumbs[1:] and crumbs or [], "image": media(p["image"]) if p.get("image") else None}
+        seo = {"title": p["title"], "description": p["description"], "type": p.get("type", "page"), "breadcrumb": crumbs[1:] and crumbs or [], "image": media(p.get("image") or "images/02.jpg")}
         if p.get("canonical"): seo["canonical"] = p["canonical"]
         for k in ("faq", "productName", "category", "serviceName", "serviceType"):
             if p.get(k): seo[k] = p[k]
+        if p.get("type") == "service" and not p.get("serviceName"):
+            seo["serviceName"] = re.sub(r"\s*\|\s*Trix TI\s*$", "", p.get("short") or p["title"])
         extra = ""
         if p.get("faq") and 'class="trix-acc' not in p["body"]:
             from content.helpers import sec, head, faq as faq_html
@@ -278,6 +280,13 @@ def build_pages():
             i = body.index("</section>", body.index("</h1>")) + len("</section>")
             j = body.index('<div class="trix-container">', i) + len('<div class="trix-container">')
             body = body[:j] + '<h2 class="trix-sr">%s</h2>' % html.escape(label) + body[j:]
+        # FAQPage do JSON-LD sempre igual ao FAQ visível da página (diretriz do Google)
+        vis = re.findall(r'<details><summary>(.*?)</summary><div>(.*?)</div></details>', body, re.S)
+        if vis:
+            plain = lambda t: re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", t))).strip()
+            seo["faq"] = [{"q": plain(q), "a": plain(a)} for q, a in vis]
+        else:
+            seo.pop("faq", None)
         seo["build"] = hashlib.sha1((body + json.dumps(seo, sort_keys=True, ensure_ascii=False)).encode("utf-8")).hexdigest()[:12]
         content = wp_html('<script type="application/json" id="trix-seo">%s</script>\n%s' % (json.dumps(seo, ensure_ascii=False), body))
         out.append({"slug": p["slug"], "parent": p.get("parent"), "url": p["url"], "title": p["title"], "build": seo["build"], "wp_title": p.get("wp_title") or p.get("short") or re.sub("<[^>]+>", "", p["h1"]),
