@@ -9,14 +9,15 @@
 
 ## Antes de liberar para indexação (staging)
 - Instalar `wordpress/mu-plugins/trix-site-helpers.php` (tags de SEO no servidor).
-- Manter **"Desencorajar os mecanismos de busca"** ligado em trix.ebaem.com.br até o go-live no domínio definitivo; desligar após a migração.
-- Definir a **página inicial estática = Home** (obrigatório): remove a duplicidade `/` × `/home/` e gera canonical/redirecionamento nativos.
+- Se trix.ebaem.com.br for só homologação, ligar **"Desencorajar os mecanismos de busca"** até o go-live no domínio definitivo; se já for o endereço público, manter indexável.
+- A home é servida pelo template `home` (sem página `/home/` duplicada); **não** definir página inicial estática.
+- O post de exemplo "Hello world!" foi para a lixeira (remove os sitemaps de posts e de categoria vazios). O mu-plugin também remove o sitemap de autores e redireciona `/author/…` (evita expor o login do administrador).
 
 ## Ao migrar para trixti.com.br
 1. **Trocar o endereço do site** em Configurações → Geral (WordPress e URL do site) ou via `wp search-replace` (as páginas usam links relativos; só a biblioteca de mídia tem URLs absolutas do domínio antigo, que o search-replace corrige).
 2. Publicar os **redirecionamentos 301** abaixo no servidor antigo/novo (Apache `.htaccess` ou plugin *Redirection*).
 3. Reenviar o sitemap no Google Search Console (`https://www.trixti.com.br/wp-sitemap.xml`) e usar a ferramenta "Alteração de endereço".
-4. Definir a página inicial estática (Configurações → Leitura → "Página estática" → *Home*). O template `home` já exibe a página *Home* automaticamente, mas a configuração explícita é a forma canônica.
+4. Manter a home no template `home` (não definir página inicial estática).
 5. Definir o ícone do site (Aparência → Personalizar → Identidade do site) com `favicon`/logo já na biblioteca de mídia.
 6. Opcional: instalar Yoast SEO ou Rank Math para gerenciar metas pelo painel; os títulos/descrições atuais servem de base.
 

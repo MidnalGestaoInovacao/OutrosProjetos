@@ -1,7 +1,7 @@
 # Dados institucionais e estrutura de navegação (megamenu, drawer, rodapé)
 SITE = {
  "name": "Trix Tecnologia Inteligente",
- "description": "Fábrica de software, conectividade em saúde suplementar, consultoria e produtos com inteligência artificial. Desde 2009 em Brasília, atendendo operadoras, clínicas e empresas de todo o Brasil.",
+ "description": "Software sob medida, conectividade em saúde suplementar, consultoria e produtos com IA. Desde 2009 em Brasília, atendendo empresas de todo o Brasil.",
  "phone": "(61) 3403-5353", "phone_e164": "+556134035353", "phone_sp": "(11) 3014-3220", "phone_sp_e164": "+551130143220",
  "phone_prontow": "(61) 3246-1800", "ouvidoria": "0800 941 1190", "ouvidoria_e164": "+5508009411190",
  "email": "falecom@trixti.com.br", "email_dpo": "dpo@trixti.com.br", "email_ouvidoria": "ouvidoria@trixti.com.br", "email_seguranca": "seguranca@trixti.com.br",

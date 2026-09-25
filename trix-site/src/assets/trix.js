@@ -48,7 +48,9 @@
     meta('name', 'theme-color', '#F8CD4B');
     meta('name', 'geo.region', 'BR-DF'); meta('name', 'geo.placename', 'Brasília');
     if (CFG.geo) meta('name', 'geo.position', CFG.geo.lat + ';' + CFG.geo.lng);
-    if (!serverSeo) { var can = head.querySelector('link[rel="canonical"]'); if (!can) { can = d.createElement('link'); can.rel = 'canonical'; head.appendChild(can); } can.href = url; }
+    var is404 = d.body.classList.contains('error404');
+    if (is404) meta('name', 'robots', 'noindex, follow');
+    if (!serverSeo && !is404) { var can = head.querySelector('link[rel="canonical"]'); if (!can) { can = d.createElement('link'); can.rel = 'canonical'; head.appendChild(can); } can.href = url; }
     if (CFG.favicon && !head.querySelector('link[rel="icon"]')) { var f = d.createElement('link'); f.rel = 'icon'; f.href = CFG.favicon; head.appendChild(f); var a = d.createElement('link'); a.rel = 'apple-touch-icon'; a.href = CFG.favicon; head.appendChild(a); }
     /* JSON-LD gerado em tempo de execução: sobrevive à migração de domínio */
     var org = {
@@ -86,7 +88,7 @@
   /* ---------------- Header / megamenu ---------------- */
   function header() {
     var hd = $('.trix-header'); if (!hd) return;
-    var onScroll = function () { hd.classList.toggle('is-scrolled', w.scrollY > 24); var t = $('.trix-top'); if (t) t.classList.toggle('is-visible', w.scrollY > 600); };
+    var onScroll = function () { hd.classList.toggle('is-scrolled', w.scrollY > 24); d.documentElement.classList.toggle('trix-scrolled', w.scrollY > Math.min(280, w.innerHeight * 0.35)); var t = $('.trix-top'); if (t) t.classList.toggle('is-visible', w.scrollY > 600); };
     on(w, 'scroll', onScroll, { passive: true }); onScroll();
     var items = $$('.trix-nav > li');
     function closeAll(except) { items.forEach(function (li) { if (li !== except) { li.classList.remove('is-open'); var b = $('.trix-nav__link[aria-expanded]', li); if (b) b.setAttribute('aria-expanded', 'false'); } }); }
@@ -131,8 +133,8 @@
     w.gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', functionality_storage: 'denied', personalization_storage: 'denied', security_storage: 'granted', wait_for_update: 500 });
     var banner = $('.trix-cookie'), modal = $('#trix-cookie-modal'); if (!banner) return;
     var saved = readConsent();
-    if (saved) applyConsent(saved); else setTimeout(function () { banner.classList.add('is-visible'); }, 900);
-    function hide() { banner.classList.remove('is-visible'); closeModal(); }
+    if (saved) applyConsent(saved); else setTimeout(function () { banner.classList.add('is-visible'); d.documentElement.classList.add('trix-cookie-open'); }, 900);
+    function hide() { banner.classList.remove('is-visible'); d.documentElement.classList.remove('trix-cookie-open'); closeModal(); }
     function all(v) { return { necessary: true, functional: v, analytics: v, marketing: v }; }
     on($('[data-cookie="accept"]', banner), 'click', function () { writeConsent(all(true)); hide(); });
     on($('[data-cookie="reject"]', banner), 'click', function () { writeConsent(all(false)); hide(); });
@@ -153,7 +155,10 @@
 
   /* ---------------- Acessibilidade ---------------- */
   function a11y() {
-    var btn = $('.trix-a11y-btn'), panel = $('.trix-a11y'); if (!btn || !panel) return;
+    var btns = $$('.trix-a11y-btn, .trix-a11y-hbtn'), panel = $('.trix-a11y'); if (!btns.length || !panel) return;
+    var btn = btns[0];
+    function expand(o) { btns.forEach(function (b) { b.setAttribute('aria-expanded', o ? 'true' : 'false'); }); }
+    function closePanel() { panel.classList.remove('is-open'); expand(false); btn.focus(); }
     var KEY = 'trix_a11y', root = d.documentElement, state = {};
     try { state = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { state = {}; }
     var guide = d.createElement('div'); guide.className = 'trix-readguide'; d.body.appendChild(guide);
@@ -164,8 +169,8 @@
       try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { }
     }
     apply();
-    on(btn, 'click', function () { var o = panel.classList.toggle('is-open'); btn.setAttribute('aria-expanded', o ? 'true' : 'false'); if (o) { var f = $('button', panel); if (f) f.focus(); } });
-    on($('[data-a11y="close"]', panel), 'click', function () { panel.classList.remove('is-open'); btn.setAttribute('aria-expanded', 'false'); btn.focus(); });
+    btns.forEach(function (b) { on(b, 'click', function () { btn = b; var o = panel.classList.toggle('is-open'); expand(o); if (o) { var f = $('button', panel); if (f) f.focus(); } }); });
+    on($('[data-a11y="close"]', panel), 'click', closePanel);
     $$('[data-a11y]', panel).forEach(function (b) {
       var k = b.getAttribute('data-a11y');
       on(b, 'click', function () {
@@ -176,7 +181,8 @@
         apply();
       });
     });
-    on(d, 'keydown', function (e) { if (e.key === 'Escape' && panel.classList.contains('is-open')) { panel.classList.remove('is-open'); btn.setAttribute('aria-expanded', 'false'); btn.focus(); } });
+    on(d, 'keydown', function (e) { if (e.key === 'Escape' && panel.classList.contains('is-open')) closePanel(); });
+    on(d, 'click', function (e) { if (panel.classList.contains('is-open') && !panel.contains(e.target) && !e.target.closest('.trix-a11y-btn, .trix-a11y-hbtn')) { panel.classList.remove('is-open'); expand(false); } });
   }
 
   /* ---------------- VLibras (tradução para Libras) ---------------- */

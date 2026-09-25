@@ -34,6 +34,8 @@ body.trix .trix-home-query .wp-block-post-template > li{margin:0;padding:0;list-
 body.trix .trix-main > .wp-block-group.trix-section{padding-top:calc(var(--trix-header-h) + 48px)}
 /* Tipografia */
 :where(body.trix) h1,:where(body.trix) h2,:where(body.trix) h3,:where(body.trix) h4{font-family:var(--trix-font);margin:0 0 .6em;line-height:1.15;color:var(--trix-gray-900);text-wrap:balance}
+:where(body.trix) h1,:where(body.trix) h2{line-height:1.25}
+.trix-card h3{line-height:1.3}
 :where(body.trix) h1{font-size:clamp(2rem,4.2vw,3.4rem);font-weight:300;text-transform:uppercase;letter-spacing:.5px}
 :where(body.trix) h1 strong,:where(body.trix) h2 strong{font-weight:700}
 :where(body.trix) h2{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:300;text-transform:uppercase;letter-spacing:.5px}
@@ -41,9 +43,9 @@ body.trix .trix-main > .wp-block-group.trix-section{padding-top:calc(var(--trix-
 :where(body.trix) h4{font-size:1.05rem;font-weight:700;color:var(--trix-gold-text)}
 :where(body.trix) p{margin:0 0 1em}
 :where(body.trix) .lead{font-size:clamp(1.1rem,1.6vw,1.3rem);font-weight:300;color:var(--trix-gray-700)}
-.trix-kicker{display:inline-block;font-size:.8rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--trix-gold-text);margin-bottom:.8rem}
+.trix-kicker{display:inline-flex;align-items:flex-start;gap:10px;text-wrap:balance;font-size:.8rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--trix-gold-text);margin-bottom:.8rem}
 .trix-hero .trix-kicker,.trix-section--dark .trix-kicker,.trix-card--dark .trix-kicker,.trix-cta .trix-kicker{color:var(--trix-yellow)}
-.trix-kicker::before{content:"";display:inline-block;width:26px;height:3px;background:var(--trix-yellow);vertical-align:middle;margin-right:10px}
+.trix-kicker::before{content:"";display:inline-block;width:26px;height:3px;background:var(--trix-yellow);flex:none;margin-top:.5em}
 .trix-hl{background:linear-gradient(transparent 62%,var(--trix-yellow) 62%);padding:0 .15em}
 /* Layout */
 .trix-container{width:min(100% - 2*var(--trix-gutter),var(--trix-max));margin-inline:auto}
@@ -53,18 +55,20 @@ body.trix .trix-main > .wp-block-group.trix-section{padding-top:calc(var(--trix-
 .trix-section--dark{background:var(--trix-gray-900);color:#E9E9EA}
 .trix-section--dark h1,.trix-section--dark h2,.trix-section--dark h3{color:#fff}
 .trix-section--dark .lead{color:#CFCFD2}
-.trix-section--dark a{color:#fff}
+.trix-section--dark a:not(.trix-btn){color:#fff}
 .trix-section--yellow{background:var(--trix-yellow);color:var(--trix-gray-900)}
 .trix-section__head{max-width:760px;margin-bottom:clamp(28px,4vw,48px)}
 .trix-section__head--center{margin-inline:auto;text-align:center}
 .trix-grid{display:grid;gap:clamp(18px,2.5vw,32px)}
 .trix-grid--2{grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr))}
 .trix-grid--3{grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr))}
+/* grades com exatamente 3 cartões não deixam um cartão órfão em larguras intermediárias */
+.trix-grid--3:has(> :nth-child(3):last-child){grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr))}
 .trix-grid--4{grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))}
 .trix-split{display:grid;grid-template-columns:1fr;gap:clamp(24px,4vw,56px);align-items:center}
 @media(min-width:900px){.trix-split{grid-template-columns:1.05fr .95fr}.trix-split--rev>*:first-child{order:2}}
 /* Botões (quadrados, caixa alta — padrão da marca) */
-.trix-btn{display:inline-flex;align-items:center;justify-content:center;gap:.6em;padding:14px 32px;border:2px solid transparent;border-radius:var(--trix-radius);font:700 .85rem/1 var(--trix-font);letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:transform .25s var(--trix-ease),box-shadow .25s,background .25s,color .25s;min-height:48px}
+.trix-btn{display:inline-flex;align-items:center;justify-content:center;gap:.6em;padding:14px 32px;border:2px solid transparent;border-radius:var(--trix-radius);font:700 .85rem/1.25 var(--trix-font);text-align:center;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:transform .25s var(--trix-ease),box-shadow .25s,background .25s,color .25s;min-height:48px}
 .trix-btn:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(43,44,47,.18)}
 .trix-btn:focus-visible{outline:3px solid var(--trix-info);outline-offset:3px;box-shadow:0 0 0 7px #fff}
 .trix-btn--primary{background:var(--trix-yellow);color:var(--trix-gray-900);border-color:var(--trix-yellow)}
@@ -91,7 +95,8 @@ body.trix .trix-main > .wp-block-group.trix-section{padding-top:calc(var(--trix-
 .trix-card--dark{background:var(--trix-gray-900);border-color:var(--trix-gray-900);color:#E9E9EA}
 .trix-card--dark h3{color:#fff}.trix-card--dark p{color:#CFCFD2}.trix-card--dark .trix-card__link{color:var(--trix-yellow)}
 .trix-card--yellow{background:var(--trix-yellow);border-color:var(--trix-yellow)}
-.trix-card__badge{position:absolute;top:16px;right:16px;background:var(--trix-gray-900);color:var(--trix-yellow);font-size:.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:6px 10px;border-radius:999px}
+.trix-card--yellow p{color:var(--trix-gray)}
+.trix-card__badge{position:absolute;top:16px;right:16px;background:var(--trix-gray-900);color:var(--trix-yellow);font-size:.75rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:6px 12px;border-radius:999px}
 /* Cartões com efeito 3D (tilt) */
 .trix-tilt{transform-style:preserve-3d;will-change:transform}
 .trix-tilt .trix-tilt__glare{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at var(--gx,50%) var(--gy,50%),rgba(255,255,255,.35),transparent 55%);opacity:0;transition:opacity .3s;border-radius:inherit}
@@ -103,7 +108,7 @@ body.trix .trix-main > .wp-block-group.trix-section{padding-top:calc(var(--trix-
 .trix-check li::after{content:"";position:absolute;left:8px;top:8px;width:6px;height:11px;border:solid var(--trix-gray-900);border-width:0 3px 3px 0;transform:rotate(45deg)}
 .trix-section--dark .trix-check li::after{border-color:var(--trix-gray-900)}
 /* Stats / números */
-.trix-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:20px}
+.trix-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:20px}
 .trix-stat{background:#fff;border-left:6px solid var(--trix-yellow);padding:22px 24px;border-radius:var(--trix-radius);box-shadow:0 2px 8px rgba(43,44,47,.05)}
 .trix-stat__n{display:block;font-size:clamp(2rem,4vw,2.8rem);font-weight:300;line-height:1;color:var(--trix-gray-900)}
 .trix-stat__n strong{font-weight:700}
@@ -116,12 +121,16 @@ body.trix .trix-main > .wp-block-group.trix-section{padding-top:calc(var(--trix-
 .trix-hero::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.35;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:44px 44px;-webkit-mask-image:radial-gradient(ellipse 70% 80% at 70% 50%,#000 30%,transparent 80%);mask-image:radial-gradient(ellipse 70% 80% at 70% 50%,#000 30%,transparent 80%)}
 .trix-hero--tall{min-height:min(82vh,760px)}
 .trix-hero .trix-container{position:relative;z-index:2}
-.trix-hero__grid{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(20px,4vw,48px);align-items:center}
-@media(min-width:900px){.trix-hero__grid{grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr)}}
-.trix-hero h1{color:#fff;margin-bottom:.5em}
+.trix-hero__grid{display:grid;grid-template-columns:minmax(0,1fr);grid-template-areas:"head" "visual" "body";align-items:center}
+.trix-hero__head{grid-area:head;min-width:0;max-width:720px}
+.trix-hero__body{grid-area:body;min-width:0;max-width:720px}
+.trix-hero__visual{grid-area:visual}
+.trix-hero .trix-hero__head h1{margin-bottom:0}
+.trix-hero__body .lead{margin-top:0}
+@media(min-width:900px){.trix-hero__grid{grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);grid-template-rows:1fr auto auto 1fr;grid-template-areas:". visual" "head visual" "body visual" ". visual";column-gap:clamp(20px,4vw,48px)}.trix-hero__head{padding-bottom:clamp(14px,1.8vw,26px)}}
+.trix-hero h1{color:#fff;margin-bottom:.5em;line-height:1.22}
 .trix-hero h1 strong{color:var(--trix-yellow);font-weight:700}
 .trix-hero .lead{color:#E3E3E5;max-width:640px}
-.trix-hero__content{max-width:720px;min-width:0}
 .trix-hero__meta{display:flex;flex-wrap:wrap;gap:10px 26px;margin-top:28px;font-size:.85rem;color:#CFCFD2}
 .trix-hero__meta span::before{content:"✓";color:var(--trix-yellow);font-weight:700;margin-right:6px}
 /* Coluna visual (lado oposto ao texto): cena 3D interativa + imagem opcional */
@@ -140,7 +149,7 @@ body.trix .trix-main > .wp-block-group.trix-section{padding-top:calc(var(--trix-
 .trix-hero__float--card{background:rgba(255,255,255,.97);border-radius:16px;padding:14px 18px;box-shadow:0 20px 40px rgba(0,0,0,.35);max-width:62%}
 .trix-hero__float--card img{max-height:72px;filter:none}
 @keyframes trix-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-@media(max-width:899px){.trix-hero__visual{height:clamp(200px,58vw,300px)}.trix-hero__float{max-width:58%}.trix-hero__float img{max-height:150px}.trix-hero__hint{display:none}}
+@media(max-width:899px){.trix-hero__visual{height:clamp(190px,52vw,300px);margin:14px 0 18px}.trix-hero__float{max-width:58%}.trix-hero__float img{max-height:150px}.trix-hero__hint{display:none}}
 .trix-hero--light{background:var(--trix-off);color:var(--trix-gray)}
 .trix-hero--light::before{display:none}
 .trix-hero--light h1{color:var(--trix-gray-900)}
@@ -187,7 +196,7 @@ body.trix .trix-main > .wp-block-group.trix-section{padding-top:calc(var(--trix-
 /* Prose (políticas) */
 .trix-prose{max-width:860px;overflow-wrap:anywhere}
 .trix-prose table{display:block;overflow-x:auto;max-width:100%}
-.trix-prose a{word-break:break-all}
+.trix-prose a{word-break:normal;overflow-wrap:anywhere}
 .trix-prose h2{font-size:1.5rem;margin-top:2.2em}
 .trix-prose h3{font-size:1.1rem;margin-top:1.8em;text-transform:none;letter-spacing:0}
 .trix-prose ul,.trix-prose ol{padding-left:1.3em}
@@ -205,6 +214,7 @@ body.trix .trix-main > .wp-block-group.trix-section{padding-top:calc(var(--trix-
 .trix-cta h2{color:#fff;margin-bottom:.3em}
 .trix-cta p{color:#D9D9DC;margin:0}
 .trix-cta .trix-actions{margin:0;justify-content:flex-end}
+@media(max-width:899px){.trix-cta .trix-actions{justify-content:flex-start}}
 /* Formulários */
 .trix-form{display:grid;gap:18px;background:#fff;border:1px solid var(--trix-sand);border-radius:var(--trix-radius-lg);padding:clamp(22px,3vw,36px);box-shadow:var(--trix-shadow)}
 .trix-form__row{display:grid;gap:18px;grid-template-columns:1fr}
@@ -222,7 +232,7 @@ body.trix .trix-main > .wp-block-group.trix-section{padding-top:calc(var(--trix-
 .trix-captcha__q{font-weight:700;font-size:1.05rem}
 .trix-captcha__q span{display:inline-block;background:var(--trix-gray-900);color:var(--trix-yellow);padding:2px 10px;border-radius:4px;margin:0 4px;font-family:'Courier New',monospace;letter-spacing:2px}
 .trix-captcha input{max-width:140px}
-.trix-captcha button{background:none;border:0;color:var(--trix-info);cursor:pointer;font-size:.8rem;text-decoration:underline;padding:0;justify-self:start}
+.trix-captcha button{background:none;border:0;font:600 .85rem/1.3 var(--trix-font);color:var(--trix-gray-900);cursor:pointer;text-decoration:underline;text-decoration-color:var(--trix-yellow);text-decoration-thickness:2px;text-underline-offset:3px;padding:0;justify-self:start}
 .trix-form__msg{padding:14px 16px;border-radius:var(--trix-radius);font-size:.95rem}
 .trix-form__msg:empty{display:none}
 .trix-form__msg.is-ok{display:block;background:#E6F4EC;color:var(--trix-success);border:1px solid #B9E0C8}
@@ -237,6 +247,11 @@ body.trix .trix-main > .wp-block-group.trix-section{padding-top:calc(var(--trix-
 .trix-address strong{font-size:1.05rem;display:flex;align-items:center;gap:8px}
 .trix-address strong svg{width:22px;height:22px;flex:none;color:var(--trix-gold-text)}
 .trix-address a{text-decoration:none;font-weight:600}
+.trix-address .trix-check{margin:4px 0 0;gap:8px;font-size:.95rem}
+.trix-address .trix-check li{padding-left:30px}
+.trix-address .trix-check li::before{width:18px;height:18px;top:3px}
+.trix-contact-info{display:grid;gap:16px;align-content:start}
+@media(min-width:640px) and (max-width:899px){.trix-contact-info{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}}
 .trix-map{position:relative;border-radius:var(--trix-radius-lg);overflow:hidden;background:var(--trix-gray-900);min-height:340px;display:grid;place-items:center;color:#fff;text-align:center;padding:24px}
 .trix-map iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .trix-map__ph{position:relative;z-index:1;display:grid;gap:14px;justify-items:center}
@@ -279,6 +294,22 @@ body.admin-bar .trix-drawer,body.admin-bar .trix-drawer__backdrop{top:calc(var(-
 .trix-mega__feat p{font-size:.85rem;color:#CFCFD2;margin:0;position:relative}
 .trix-mega__feat a{position:relative;color:var(--trix-yellow);font-weight:700;font-size:.8rem;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none}
 /* Mobile toggle + drawer */
+.trix-a11y-hbtn{display:none}
+@media(max-width:1099px){
+  .trix-a11y-hbtn{display:inline-grid;place-items:center;flex:none;width:44px;height:44px;margin:0 -8px 0 auto;padding:0;border-radius:50%;background:transparent;color:var(--trix-yellow);border:2px solid rgba(248,205,75,.85);cursor:pointer}
+  .trix-a11y-hbtn svg{width:24px;height:24px}
+  .trix-a11y-hbtn:focus-visible{outline:3px solid #fff;outline-offset:2px}
+  .trix-a11y-btn{display:none!important}
+  .trix-cookiebtn{bottom:18px}
+  body.trix .trix-a11y{top:calc(var(--trix-header-h) + 10px);bottom:auto;left:auto;right:12px;z-index:895;max-height:calc(100vh - var(--trix-header-h) - 24px);max-height:calc(100dvh - var(--trix-header-h) - 24px)}
+  body.trix.admin-bar .trix-a11y{top:calc(var(--trix-header-h) + 42px)}
+}
+@media(max-width:782px){body.trix.admin-bar .trix-a11y{top:calc(var(--trix-header-h) + 56px)}}
+@media(max-width:899px){
+  .trix-fab{opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .3s,transform .3s,visibility .3s}
+  html.trix-scrolled .trix-fab{opacity:1;visibility:visible;transform:none}
+  html:not(.trix-scrolled) .trix-cookiebtn{visibility:hidden;opacity:0}
+}
 .trix-burger{display:inline-flex;flex-direction:column;justify-content:center;gap:5px;width:48px;height:48px;padding:10px;border:0;background:transparent;cursor:pointer;border-radius:var(--trix-radius)}
 @media(min-width:1100px){.trix-burger{display:none}}
 .trix-burger span{display:block;height:3px;background:#fff;border-radius:3px;transition:transform .3s,opacity .3s}
@@ -292,8 +323,10 @@ body.admin-bar .trix-drawer,body.admin-bar .trix-drawer__backdrop{top:calc(var(-
 .trix-drawer__backdrop.is-open{opacity:1;visibility:visible}
 .trix-drawer details{border-bottom:1px solid var(--trix-sand)}
 .trix-drawer summary,.trix-drawer > a{display:flex;align-items:center;justify-content:space-between;padding:16px 8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-size:.9rem;text-decoration:none;color:var(--trix-gray-900);cursor:pointer;list-style:none;border-bottom:1px solid var(--trix-sand)}
+.trix-drawer details > summary{border-bottom:0}
+.trix-drawer details[open] > summary{border-bottom:1px solid var(--trix-sand)}
 .trix-drawer summary::-webkit-details-marker{display:none}
-.trix-drawer summary::after{content:"+";font-size:1.3rem;color:var(--trix-gold-text)}
+.trix-drawer summary::after{content:"+";font-size:1.3rem;line-height:1;color:var(--trix-gold-text)}
 .trix-drawer details[open] summary::after{content:"–"}
 .trix-drawer details div{padding:4px 0 12px}
 .trix-drawer details a{display:flex;gap:10px;align-items:center;padding:10px 8px;text-decoration:none;color:var(--trix-gray-700);font-size:.95rem;border-radius:var(--trix-radius)}
@@ -301,7 +334,7 @@ body.admin-bar .trix-drawer,body.admin-bar .trix-drawer__backdrop{top:calc(var(-
 .trix-drawer details a svg{width:18px;height:18px;flex:none;color:var(--trix-gold-text)}
 .trix-drawer .trix-btn{width:100%;margin-top:18px}
 /* Footer */
-.trix-footer{background:var(--trix-gray-900);color:#CFCFD2;padding:64px 0 0;position:relative;font-size:.93rem}
+.trix-footer{background:var(--trix-gray-900);color:#CFCFD2;padding:64px 0 80px;position:relative;font-size:.93rem}
 .trix-footer::before{content:"";position:absolute;left:0;right:0;top:0;height:6px;background:linear-gradient(90deg,var(--trix-yellow) 0 60%,transparent 60%)}
 .trix-footer__grid{display:grid;gap:36px;grid-template-columns:1fr}
 @media(min-width:760px){.trix-footer__grid{grid-template-columns:1.4fr 1fr 1fr 1fr}}
@@ -343,12 +376,20 @@ body.admin-bar .trix-drawer,body.admin-bar .trix-drawer__backdrop{top:calc(var(-
 .trix-cookiebtn{position:fixed;left:18px;bottom:84px;z-index:840;width:40px;height:40px;border-radius:50%;background:#fff;border:2px solid var(--trix-yellow);display:none;place-items:center;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.2)}
 .trix-cookiebtn.is-visible{display:grid}
 .trix-cookiebtn svg{width:22px;height:22px}
+/* desktop: acessibilidade e cookies viram abas finas na borda esquerda, fora da área de conteúdo (o conteúdo começa a >= 40px) */
+@media(min-width:1100px){
+  .trix-a11y-btn{left:0;bottom:104px;width:36px;height:52px;border-radius:0 14px 14px 0;border-left:0}
+  .trix-a11y-btn svg{width:22px;height:22px}
+  .trix-cookiebtn{left:0;bottom:44px;width:36px;height:44px;border-radius:0 12px 12px 0;border-left:0}
+  .trix-a11y{left:52px;bottom:44px}
+}
 /* Cookie banner (estilo CookieYes, cores Trix) */
 .trix-cookie{position:fixed;left:50%;bottom:16px;transform:translate(-50%,140%);visibility:hidden;width:min(1100px,calc(100vw - 24px));background:#fff;color:var(--trix-gray);border-radius:var(--trix-radius-lg);box-shadow:var(--trix-shadow-lg);z-index:950;padding:22px 24px;display:grid;gap:16px;grid-template-columns:1fr;border-left:8px solid var(--trix-yellow);transition:transform .5s var(--trix-ease),visibility .5s}
 .trix-cookie.is-visible{transform:translate(-50%,0);visibility:visible}
 @media(min-width:900px){.trix-cookie{grid-template-columns:1fr auto;align-items:center}}
 .trix-cookie h3{font-size:1rem;margin:0 0 6px;text-transform:none;letter-spacing:0}
 .trix-cookie p{margin:0;font-size:.9rem;color:var(--trix-gray-700)}
+.trix-cookie .trix-cookie__more{margin-top:6px}
 .trix-cookie__btns{display:flex;flex-wrap:wrap;gap:10px}
 .trix-cookie__btns .trix-btn{padding:12px 20px;min-height:44px;font-size:.75rem}
 .trix-modal{position:fixed;inset:0;z-index:960;background:rgba(43,44,47,.6);display:none;align-items:center;justify-content:center;padding:16px}
@@ -370,11 +411,65 @@ body.admin-bar .trix-drawer,body.admin-bar .trix-drawer__backdrop{top:calc(var(-
 @media(max-width:599px){
   .trix-fab{right:12px;bottom:12px}.trix-fab__main{width:50px;height:50px}.trix-fab__main svg{width:24px;height:24px}
   .trix-a11y-btn{left:12px;bottom:12px;width:46px;height:46px}.trix-a11y-btn svg{width:24px;height:24px}
-  .trix-a11y{left:12px;bottom:66px}
   .trix-cookiebtn{display:none!important}
   .trix-top{right:12px;bottom:70px;width:40px;height:40px}
   .trix-footer{padding-bottom:64px}
+  .trix-hero .trix-actions .trix-btn,.trix-cta .trix-actions .trix-btn{flex:1 1 100%}
+  .trix-hero__meta{flex-direction:column;gap:8px;margin-top:22px}
+  .trix-kicker{letter-spacing:1.4px}
+  .trix-form{padding:18px 14px}
+  .trix-form input,.trix-form select,.trix-form textarea{padding:12px}
+  .trix-stats{grid-template-columns:1fr 1fr;gap:12px}
+  .trix-stat{padding:16px 14px}
+  .trix-stat__l{font-size:.75rem;letter-spacing:.6px}
+  .trix-footer__grid{grid-template-columns:1fr 1fr;column-gap:20px;row-gap:28px}
+  .trix-footer__grid > :first-child,.trix-footer__grid > :last-child:nth-child(odd){grid-column:1/-1}
+  .trix-drawer{width:100%;box-shadow:none}
 }
+@media(max-width:599px){
+  .trix-cookie{bottom:10px;width:calc(100vw - 20px);padding:14px 16px;gap:10px;border-left-width:6px}
+  .trix-cookie h3{font-size:.95rem;margin-bottom:4px}
+  .trix-cookie p{font-size:.8rem;line-height:1.45}
+  .trix-cookie__btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .trix-cookie__btns .trix-btn{padding:10px 8px;min-height:44px;font-size:.68rem;letter-spacing:.8px}
+  .trix-cookie__btns [data-cookie="custom"]{grid-column:1/-1;background:transparent;border-color:transparent;color:var(--trix-gray-900);text-decoration:underline;min-height:36px;padding:4px}
+  html.trix-cookie-open .trix-fab,html.trix-cookie-open .trix-a11y-btn,html.trix-cookie-open .trix-top{visibility:hidden}
+}
+@media(max-height:480px) and (orientation:landscape){
+  .trix-cookie{bottom:8px;padding:10px 14px;grid-template-columns:1fr auto;gap:12px}
+  .trix-cookie p{font-size:.75rem;line-height:1.4}
+  .trix-cookie h3{font-size:.9rem;margin:0}
+  .trix-cookie__btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-content:center}
+  .trix-cookie__btns .trix-btn{padding:8px 14px;min-height:40px;font-size:.75rem;letter-spacing:.8px}
+  .trix-cookie__btns [data-cookie="custom"]{grid-column:1/-1}
+}
+@media (orientation:landscape) and (min-width:640px) and (max-width:899px){
+  .trix-hero__grid{grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);grid-template-rows:auto 1fr;grid-template-areas:"head visual" "body visual";column-gap:24px;align-items:start}
+  .trix-hero__visual{height:clamp(200px,calc(100svh - var(--trix-header-h) - 40px),300px);margin:0}
+  .trix-hero__float{max-width:80%}.trix-hero__float img{max-height:90px}
+  .trix-hero__head{padding-bottom:12px}
+}
+@media (orientation:landscape) and (max-height:500px){
+  :root{--trix-header-h:60px}
+  .trix-brand img{height:36px}
+  .trix-hero{padding:calc(var(--trix-header-h) + 14px) 0 32px}
+  .trix-hero .trix-breadcrumb{margin-bottom:6px}
+  .trix-hero h1{font-size:clamp(1.55rem,3.6vw,2rem)}
+  .trix-hero .lead{font-size:1rem}
+  .trix-hero__meta{display:none}
+  .trix-drawer{width:min(480px,100%)}
+  .trix-drawer summary,.trix-drawer > a{padding:11px 8px}
+}
+/* Áreas de toque confortáveis (≥44px) para links de texto em cards, rodapé, trilha e formulários */
+.trix-card__link{display:inline-flex;align-items:center;min-height:44px;align-self:flex-start}
+.trix-footer ul a{display:inline-block;padding:6px 0}
+.trix-footer__bottom a{display:inline-block;padding:10px 2px}
+.trix-breadcrumb a{display:inline-block;padding:10px 2px}
+.trix-captcha button{min-height:40px;padding:8px 0}
+.trix-form input[type=checkbox],.trix-form input[type=radio]{width:22px;height:22px;accent-color:var(--trix-gray-900);flex:none}
+.trix-radio label,.trix-consent{min-height:44px;align-items:center}
+.trix-address a{display:inline-block;padding:8px 0}
+.trix-card details summary{padding:10px 0}
 /* Skip link e foco */
 .trix-skip{position:absolute;left:-9999px;top:8px;z-index:1000;background:var(--trix-yellow);color:var(--trix-gray-900);padding:12px 18px;font-weight:700;border-radius:var(--trix-radius)}
 .trix-skip:focus{left:8px}
@@ -415,9 +510,9 @@ html.a11y-guide .trix-readguide{display:block}
 .trix-store{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
 .trix-store img{height:44px;width:auto}
 .trix-tag svg{width:16px;height:16px}
-.trix-tag{display:inline-flex;align-items:center;gap:6px;background:var(--trix-gray-900);color:var(--trix-yellow);font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:6px 12px;border-radius:999px;margin-bottom:10px}
+.trix-tag{display:inline-flex;align-items:center;gap:6px;background:var(--trix-gray-900);color:var(--trix-yellow);font-size:.75rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:6px 12px;border-radius:999px;margin-bottom:10px}
 @media print{.trix-header,.trix-fab,.trix-a11y-btn,.trix-cookie,.trix-top,.trix-cookiebtn,[vw]{display:none!important}.trix-hero{min-height:auto;padding:20px 0}.trix-hero__visual{display:none}}
 
 </style>
-<script>window.TRIX_CONFIG={"siteName": "Trix Tecnologia Inteligente", "defaultDescription": "Fábrica de software, conectividade em saúde suplementar, consultoria e produtos com inteligência artificial. Desde 2009 em Brasília, atendendo operadoras, clínicas e empresas de todo o Brasil.", "logo": "/wp-content/uploads/2026/09/trix-logo.png", "defaultImage": "/wp-content/uploads/2026/09/trix-empresa.jpg", "favicon": "/wp-content/uploads/2026/09/favicon.png", "phone": "+556134035353", "email": "falecom@trixti.com.br", "geo": {"lat": -15.787418, "lng": -47.913077}, "mapsUrl": "https://www.google.com/maps/search/?api=1&query=SIG+Quadra+4+Lote+75+Bloco+A+Sala+15+Bras%C3%ADlia+DF+70610-440", "social": ["https://www.linkedin.com/company/trix-tecnologia-inteligente", "https://www.instagram.com/trix_tecnologia/", "https://www.facebook.com/trixti/"], "ga4": "", "anonEmail": "anonimo@example.com"};</script>
+<script>window.TRIX_CONFIG={"siteName": "Trix Tecnologia Inteligente", "defaultDescription": "Software sob medida, conectividade em saúde suplementar, consultoria e produtos com IA. Desde 2009 em Brasília, atendendo empresas de todo o Brasil.", "logo": "/wp-content/uploads/2026/09/trix-logo.png", "defaultImage": "/wp-content/uploads/2026/09/trix-empresa.jpg", "favicon": "/wp-content/uploads/2026/09/favicon.png", "phone": "+556134035353", "email": "falecom@trixti.com.br", "geo": {"lat": -15.787418, "lng": -47.913077}, "mapsUrl": "https://www.google.com/maps/search/?api=1&query=SIG+Quadra+4+Lote+75+Bloco+A+Sala+15+Bras%C3%ADlia+DF+70610-440", "social": ["https://www.linkedin.com/company/trix-tecnologia-inteligente", "https://www.instagram.com/trix_tecnologia/", "https://www.facebook.com/trixti/"], "ga4": "", "anonEmail": "anonimo@example.com"};</script>
 <!-- /wp:html -->

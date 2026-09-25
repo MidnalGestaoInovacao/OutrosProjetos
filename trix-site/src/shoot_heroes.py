@@ -22,7 +22,7 @@ with sync_playwright() as p:
             try: page.wait_for_selector(".trix-hero__visual.is-3d canvas", timeout=10000)
             except Exception: pass
             page.wait_for_timeout(1800)
-            info = page.evaluate("""() => { const v=document.querySelector('.trix-hero__visual'), c=v&&v.querySelector('canvas'), logo=document.querySelector('.trix-brand img'), r=v?v.getBoundingClientRect():null, t=document.querySelector('.trix-hero__content').getBoundingClientRect();
+            info = page.evaluate("""() => { const v=document.querySelector('.trix-hero__visual'), c=v&&v.querySelector('canvas'), logo=document.querySelector('.trix-brand img'), r=v?v.getBoundingClientRect():null, t=document.querySelector(".trix-hero__head").getBoundingClientRect();
               return {is3d: !!(v&&v.classList.contains('is-3d')), canvas: !!c, scene: v&&v.querySelector('[data-trix-3d]').getAttribute('data-trix-3d'), logoOk: !!(logo&&logo.complete&&logo.naturalWidth>0), visual: r?[Math.round(r.left),Math.round(r.top),Math.round(r.width),Math.round(r.height)]:null, text: [Math.round(t.left),Math.round(t.top),Math.round(t.width),Math.round(t.height)], overflowX: document.documentElement.scrollWidth>document.documentElement.clientWidth+1} }""")
             info["errors"] = list(errs); report["%s %s" % (name, s)] = info
             page.screenshot(path=os.path.join(OUT, "%s-%s.png" % (name, s)), full_page=False)

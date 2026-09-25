@@ -4,6 +4,13 @@ ORIG = os.path.join(os.path.dirname(os.path.abspath(__file__)), "original")
 def orig(name):
     t = open(os.path.join(ORIG, name + ".html"), encoding="utf-8").read()
     t = t.replace('<table>', '<table class="trix-table">')
+    # texto herdado: espaços inquebráveis colavam palavras e deixavam linhas curtas no celular
+    t = re.sub(r'[ \t]{2,}', ' ', t.replace('\xa0', ' '))
+    # <br> soltos antes/depois de blocos geravam vãos grandes
+    t = re.sub(r'\s*<br\s*/?>\s*(?=<(?:h[23]|ul|/ul|ol|/ol|li|p|/p)\b)', '\n', t)
+    t = re.sub(r'(</(?:h[23]|p|ul|ol)>)\s*<br\s*/?>', r'\1', t)
+    # texto solto no início de uma lista vira parágrafo (sem o recuo da lista)
+    t = re.sub(r'<ul>\s*([^<]+?)\s*<li>', r'<p>\1</p>\n<ul>\n<li>', t)
     t = t.replace('<a>\nCookies', '<a href="/conformidade/cookies/">\nCookies').replace('<a>\nVoltar políticas de privacidade', '<a href="/conformidade/politica-de-privacidade/">\nVoltar políticas de privacidade')
     return t
 PROSE = lambda inner: '<div class="trix-prose">%s</div>' % inner

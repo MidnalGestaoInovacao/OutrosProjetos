@@ -57,9 +57,16 @@ with sync_playwright() as p:
                 except Exception: pass
                 page.wait_for_timeout(1200)
                 m = page.evaluate(METRICS); m["status"] = r.status if r else None
-                page.screenshot(path=os.path.join(OUT, "%s--%s--fold.png" % (name, slug)))
                 if slug == "home": page.screenshot(path=os.path.join(OUT, "%s--cookie.png" % name))
-                page.evaluate("() => { const c=document.querySelector('.trix-cookie'); if (c) c.classList.remove('is-visible'); }"); page.wait_for_timeout(600)
+                # a primeira tela é capturada já sem o aviso de cookies (como o visitante vê depois de escolher)
+                page.evaluate("() => { const c=document.querySelector('.trix-cookie'); if (c) c.classList.remove('is-visible'); document.documentElement.classList.remove('trix-cookie-open'); }"); page.wait_for_timeout(600)
+                page.screenshot(path=os.path.join(OUT, "%s--%s--fold.png" % (name, slug)))
+                # botões flutuantes visíveis sobre título, texto ou botões do banner na primeira tela
+                m["floatOverlap"] = page.evaluate("""() => { const vis = e => { const s = getComputedStyle(e); return s.display !== 'none' && s.visibility !== 'hidden'; };
+                  const fl = [...document.querySelectorAll('.trix-a11y-btn,.trix-fab__main,.trix-top,.trix-cookiebtn')].filter(vis).map(e => e.getBoundingClientRect()).filter(r => r.width);
+                  const tg = [...document.querySelectorAll('.trix-hero .trix-btn,.trix-hero h1,.trix-hero .lead')].map(e => e.getBoundingClientRect());
+                  const hit = (a, b) => a.left < b.right && b.left < a.right && a.top < b.bottom && b.top < a.bottom && a.top < innerHeight;
+                  let n = 0; fl.forEach(a => tg.forEach(b => { if (hit(a, b)) n++; })); return n; }""")
                 # menu: drawer (< 1100px) ou megamenu (>= 1100px)
                 if m["burgerVisible"]:
                     page.click(".trix-burger"); page.wait_for_timeout(450)
