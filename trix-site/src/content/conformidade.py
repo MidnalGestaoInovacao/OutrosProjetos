@@ -6,12 +6,69 @@ def orig(name):
     t = t.replace('<table>', '<table class="trix-table">')
     # texto herdado: espaços inquebráveis colavam palavras e deixavam linhas curtas no celular
     t = re.sub(r'[ \t]{2,}', ' ', t.replace('\xa0', ' '))
-    # <br> soltos antes/depois de blocos geravam vãos grandes
-    t = re.sub(r'\s*<br\s*/?>\s*(?=<(?:h[23]|ul|/ul|ol|/ol|li|p|/p)\b)', '\n', t)
-    t = re.sub(r'(</(?:h[23]|p|ul|ol)>)\s*<br\s*/?>', r'\1', t)
-    # texto solto no início de uma lista vira parágrafo (sem o recuo da lista)
-    t = re.sub(r'<ul>\s*([^<]+?)\s*<li>', r'<p>\1</p>\n<ul>\n<li>', t)
+    if name == "politica":
+        t = legacy_blocks(t)
     t = t.replace('<a>\nCookies', '<a href="/conformidade/cookies/">\nCookies').replace('<a>\nVoltar políticas de privacidade', '<a href="/conformidade/politica-de-privacidade/">\nVoltar políticas de privacidade')
+    return t
+_BLOCK = ("li", "p", "h2", "h3", "h4", "td", "th", "table", "thead", "tbody", "tr")
+def legacy_blocks(t):
+    """Reestrutura o HTML herdado da Política de 2020: texto solto dentro de <ul> e parágrafos
+    separados só por quebra de linha viram <p> de verdade; <br> soltos deixam de gerar vãos.
+    O texto é preservado integralmente (só muda a marcação)."""
+    # a primeira frase era um <h3> antes do primeiro <h2>: vira parágrafo de abertura em destaque
+    t = re.sub(r'^\s*<h3>(.*?)\s*</h3>', lambda m: '<p><strong>%s.</strong></p>' % m.group(1).strip().rstrip('.'), t, count=1, flags=re.S)
+    # a cauda repete o bloco do Encarregado, que a página já mostra em destaque logo abaixo
+    t = re.sub(r'\s*Versão desta Política:.*$', '', t, flags=re.S)
+    out, loose, stack, in_list = [], [], [], [False]
+    def close_list():
+        if in_list[0]:
+            out.append('</ul>'); in_list[0] = False
+    def flush():
+        txt = "".join(loose).strip(); loose.clear()
+        if not re.sub(r'<[^>]+>', '', txt).strip():
+            return
+        close_list()
+        for part in re.split(r'(?<=[.:;])\s*\n\s*(?=[A-ZÀ-Ý(])', txt):
+            part = re.sub(r'\s*\n\s*', ' ', part).strip()
+            if part:
+                out.append('<p>%s</p>' % part)
+    for tok in re.split(r'(<[^>]+>)', t):
+        if not tok:
+            continue
+        m = re.match(r'<(/?)([a-zA-Z0-9]+)', tok)
+        if not m:                                   # texto
+            (out if stack else loose).append(tok); continue
+        closing, tag = m.group(1) == '/', m.group(2).lower()
+        if tag in ('ul', 'ol'):
+            flush()
+            if closing: close_list()
+        elif tag == 'li':
+            if closing:
+                if stack and stack[-1] == 'li': stack.pop()
+                out.append(tok)
+            else:
+                flush()
+                if not in_list[0]:
+                    out.append('<ul>'); in_list[0] = True
+                stack.append('li'); out.append(tok)
+        elif tag == 'br':
+            if stack: out.append(tok)
+            else: flush()
+        elif tag in _BLOCK:
+            if closing:
+                if tag in stack:
+                    while stack and stack.pop() != tag: pass
+                out.append(tok)
+            else:
+                flush()
+                if tag not in ('td', 'th', 'tr', 'thead', 'tbody'): close_list()
+                stack.append(tag); out.append(tok)
+        else:                                       # marcação em linha (b, strong, a, span…)
+            (out if stack else loose).append(tok)
+    flush(); close_list()
+    t = "".join(out)
+    t = re.sub(r'<p>\s*</p>', '', t)
+    t = re.sub(r'(<(?:li|p)>)\s+', r'\1', t)
     return t
 PROSE = lambda inner: '<div class="trix-prose">%s</div>' % inner
 DRAFT_NOTE = '<p class="trix-note"><strong>Versão 1.0 (minuta, setembro de 2026).</strong> Documento elaborado na construção deste site para consolidar práticas já publicadas pela Trix (Portal de Proteção de Dados, Código de Conduta e Política de Privacidade). Está sujeito à aprovação formal da Diretoria Executiva e dos comitês e a revisão jurídica; os itens redigidos como diretrizes indicam o padrão a ser mantido e evidenciado pela empresa.</p>'
@@ -86,7 +143,7 @@ POLITICA = pol("politica-de-privacidade",
  "Política de Privacidade | Trix Tecnologia Inteligente",
  "Texto integral da Política de Privacidade da Trix TI (28/09/2020): coleta, uso, cookies, armazenamento, direitos dos titulares e contato do DPO.",
  "Política de Privacidade", "Política de <strong>Privacidade</strong>",
- "Quando o USUÁRIO aceita esta Política de Privacidade, confere sua livre e expressa concordância com os termos aqui estipulados. Este documento estabelece as regras para o tratamento de dados coletados dos USUÁRIOS, além do registro de suas atividades, de acordo com as leis aplicáveis. Texto integral, versão de 28 de setembro de 2020.",
+ "Como a Trix TI coleta, usa, armazena e protege os dados pessoais de quem utiliza seus sites, aplicativos e serviços, e como você exerce seus direitos de titular. Texto integral da versão de 28 de setembro de 2020, com o contato do Encarregado (DPO) e um adendo sobre este site.",
  "".join([
   sec('<div class="trix-toc"><strong>Sumário</strong><ol><li><a href="#definicoes">Definições</a></li><li><a href="#coleta">Coleta de dados</a></li><li><a href="#uso">Uso de dados</a></li><li><a href="#armazenamento">Armazenamento de dados</a></li><li><a href="#gerais">Disposições gerais</a></li><li><a href="#lei">Lei aplicável e jurisdição</a></li><li><a href="#especificas">Condições específicas</a></li><li><a href="/conformidade/cookies/">Cookies</a></li></ol></div>'
       + PROSE(orig("politica").replace('<h2>Definições</h2>', '<h2 id="definicoes">Definições</h2>').replace('<h2>\nColeta de dados\n</h2>', '<h2 id="coleta">Coleta de dados</h2>').replace('<h2>\nUso de dados\n</h2>', '<h2 id="uso">Uso de dados</h2>').replace('<h2>\nArmazenamento de dados\n</h2>', '<h2 id="armazenamento">Armazenamento de dados</h2>').replace('<h2>Disposições Gerais</h2>', '<h2 id="gerais">Disposições Gerais</h2>').replace('<h2>Lei aplicável e jurisdição</h2>', '<h2 id="lei">Lei aplicável e jurisdição</h2>').replace('<h2>Condições específicas</h2>', '<h2 id="especificas">Condições específicas</h2>')

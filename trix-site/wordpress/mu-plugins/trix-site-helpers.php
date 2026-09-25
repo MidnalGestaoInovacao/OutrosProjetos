@@ -40,6 +40,10 @@ add_filter( 'wp_robots', function ( $robots ) {
 add_filter( 'get_canonical_url', function ( $url, $post ) {
 	$d = trix_seo_data( $post ); return ( $d && ! empty( $d['canonical'] ) ) ? home_url( $d['canonical'] ) : $url;
 }, 10, 2 );
+// Classe usada pelos estilos do site já no HTML do servidor (sem depender do JavaScript) e esquema de cores claro
+// (impede o modo escuro forçado do Samsung Internet/Chrome Android de recolorir a identidade visual).
+add_filter( 'body_class', function ( $c ) { $c[] = 'trix'; return $c; } );
+add_action( 'wp_head', function () { echo '<meta name="color-scheme" content="only light">' . "\n"; }, 1 );
 add_action( 'wp_head', function () {
 	$d = trix_seo_data(); if ( ! $d ) { return; }
 	$title = $d['title'] ?? wp_get_document_title();

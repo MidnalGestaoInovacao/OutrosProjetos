@@ -7,7 +7,7 @@ def preview(slug, page_id=100):
     p = json.load(open(os.path.join(DIST, "pages", slug + ".json"), encoding="utf-8"))
     blocks = {k: strip_block(open(os.path.join(DIST, "blocks", k + ".html"), encoding="utf-8").read()) for k in ("estilos", "cabecalho", "rodape", "widgets")}
     html = ('<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>%s – Trix Tecnologia Inteligente</title>%s</head>'
-            '<body class="page page-id-%d"><div class="wp-site-blocks">%s<main class="wp-block-group trix-main" id="conteudo"><div class="wp-block-post-content">%s</div></main>%s%s</div></body></html>'
+            '<body class="page page-id-%d trix"><div class="wp-site-blocks">%s<main class="wp-block-group trix-main" id="conteudo"><div class="wp-block-post-content">%s</div></main>%s%s</div></body></html>'
             % (p["wp_title"], blocks["estilos"], page_id, blocks["cabecalho"], strip_block(p["content"]), blocks["rodape"], blocks["widgets"]))
     # mídias com caminho relativo ao domínio: na prévia local, buscar no site publicado
     origin = os.environ.get("PREVIEW_ORIGIN", "https://trix.ebaem.com.br")

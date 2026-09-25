@@ -92,7 +92,7 @@ def footer_html():
     out = ['<footer class="trix-footer" role="contentinfo"><div class="trix-container"><div class="trix-footer__grid">',
            '<div class="trix-footer__brand"><img src="%s" alt="Trix Tecnologia Inteligente" width="347" height="130" loading="lazy">' % data_uri("images/01.png"),
            '<p>Desde 2009 criando software sob medida, conectividade em saúde suplementar e soluções com inteligência artificial para empresas de todo o Brasil.</p>',
-           '<p><strong>Trix Tecnologia Inteligente Ltda</strong><br>CNPJ 11.010.095/0001-40<br>%s<br>%s</p>' % (s["address_line1"], s["address_line2"]),
+           '<p><strong>Trix Tecnologia Inteligente Ltda</strong><br>CNPJ 11.010.095/0001-40<br>%s<br>%s</p>' % (s["address_line1"], re.sub(r'(CEP \d{5}-\d{3}|Brasília – DF|Zona Industrial \(Guará\))', r'<span class="trix-nowrap">\1</span>', s["address_line2"])),
            '<p><a href="tel:%s">%s</a> · <a href="mailto:%s">%s</a></p>' % (s["phone_e164"], s["phone"], s["email"], s["email"]),
            '<div class="trix-footer__social">']
     for key, icon, label in (("linkedin", "linkedin", "LinkedIn"), ("instagram", "instagram", "Instagram"), ("facebook", "facebook", "Facebook"), ("whatsapp", "whatsapp", "WhatsApp")):
@@ -105,7 +105,7 @@ def footer_html():
             out.append('<li><a href="%s"%s>%s</a></li>' % (l[0], attr, l[1]))
         out.append('</ul></div>')
     out.append('</div><div class="trix-footer__bottom"><span>© <span id="trix-year">2026</span> Trix Tecnologia Inteligente. Todos os direitos reservados.</span>'
-               '<span><a href="/conformidade/politica-de-privacidade/">Privacidade</a> · <a href="/conformidade/cookies/">Cookies</a> · <a href="/conformidade/codigo-de-conduta/">Código de Conduta</a> · <a href="/conformidade/seguranca-da-informacao/">Segurança</a> · <a href="/conformidade/inteligencia-artificial/">IA responsável</a> · <a href="/conformidade/esg/">ESG</a></span></div></div></footer>')
+               '<nav class="trix-footer__legal" aria-label="Links legais"><a href="/conformidade/politica-de-privacidade/">Privacidade</a><a href="/conformidade/cookies/">Cookies</a><a href="/conformidade/codigo-de-conduta/">Código de Conduta</a><a href="/conformidade/seguranca-da-informacao/">Segurança</a><a href="/conformidade/inteligencia-artificial/">IA responsável</a><a href="/conformidade/esg/">ESG</a></nav></div></div></footer>')
     return render("\n".join(out))
 
 # ---------------------------------------------------------------- widgets
@@ -141,7 +141,7 @@ def widgets_html():
      '</div></div>',
      '<button type="button" class="trix-cookiebtn" aria-label="Preferências de cookies">%s</button>' % ICONS["cookie"],
      # cookie banner
-     '<div class="trix-cookie" role="region" aria-label="Aviso de cookies"><div><h3>🍪 Trix e os cookies</h3><p>Utilizamos cookies para oferecer melhor experiência, melhorar o desempenho, analisar como você interage com o site e personalizar conteúdo. Você pode aceitar todos, rejeitar os não essenciais ou personalizar suas preferências.</p><p class="trix-cookie__more">Saiba mais: <a href="/conformidade/politica-de-privacidade/">Política de Privacidade</a> · <a href="/conformidade/cookies/">Política de Cookies</a></p></div>'
+     '<div class="trix-cookie" role="region" aria-label="Aviso de cookies"><div><h3>🍪 Trix e os cookies</h3><p>Utilizamos cookies para oferecer melhor experiência, melhorar o desempenho, analisar como você interage com o site e personalizar conteúdo. <span class="trix-cookie__opt">Você pode aceitar todos, rejeitar os não essenciais ou personalizar suas preferências.</span></p><p class="trix-cookie__more">Saiba mais: <a href="/conformidade/politica-de-privacidade/">Política de Privacidade</a> · <a href="/conformidade/cookies/">Política de Cookies</a></p></div>'
      '<div class="trix-cookie__btns"><button type="button" class="trix-btn trix-btn--primary" data-cookie="accept">Aceitar todos</button><button type="button" class="trix-btn trix-btn--ghost" data-cookie="reject">Rejeitar não essenciais</button><button type="button" class="trix-btn trix-btn--dark" data-cookie="custom">Personalizar</button></div></div>',
      '<div class="trix-modal" id="trix-cookie-modal" role="dialog" aria-modal="true" aria-label="Preferências de cookies"><div class="trix-modal__box"><h3>Preferências de cookies <button type="button" data-cookie="close" aria-label="Fechar">×</button></h3><p class="trix-muted" style="font-size:.9rem">Escolha quais categorias de cookies deseja permitir. Cookies estritamente necessários não podem ser desativados, pois garantem o funcionamento do site.</p>'
      '<div class="trix-cookie-cat"><div><b id="cc-necessary">Estritamente necessários</b><p>Segurança, preferências de consentimento e de acessibilidade, fontes (Google Fonts) e biblioteca 3D (cdnjs) — sem cookies de rastreamento. Sempre ativos.</p></div><label class="trix-switch"><input type="checkbox" checked disabled name="necessary" aria-labelledby="cc-necessary"><span></span></label></div>'
@@ -208,6 +208,23 @@ def img_dims(key):
             with Image.open(path) as im: return im.size
     except Exception: pass
     return None
+def img_contrast(key, bg=(0x27, 0x28, 0x2B)):
+    """Contraste (WCAG) entre a cor média dos pixels opacos da imagem e o fundo escuro do banner."""
+    try:
+        from PIL import Image
+        path = os.path.join(IMG_DIR, key.split("images/", 1)[1]) if key.startswith("images/") else None
+        if not path or not os.path.exists(path): return None
+        with Image.open(path) as im:
+            im = im.convert("RGBA"); im.thumbnail((200, 200))
+            px = [q for q in im.getdata() if q[3] > 200]
+        if not px: return None
+        def lum(c):
+            f = lambda v: (v / 255) / 12.92 if v / 255 <= 0.03928 else (((v / 255) + 0.055) / 1.055) ** 2.4
+            return 0.2126 * f(c[0]) + 0.7152 * f(c[1]) + 0.0722 * f(c[2])
+        a = lum(tuple(sum(q[i] for q in px) / len(px) for i in range(3))); b = lum(bg)
+        return (max(a, b) + 0.05) / (min(a, b) + 0.05)
+    except Exception:
+        return None
 def hero(page, crumbs):
     kind = page.get("hero", "dark")
     cls = "trix-hero" + (" trix-hero--light" if kind == "light" else "") + (" trix-hero--tall" if page.get("hero_short") is False else "")
@@ -223,7 +240,9 @@ def hero(page, crumbs):
     if page.get("hero_img"):
         m = re.match(r"\{\{media:([^}]+)\}\}", page["hero_img"]); key = m.group(1) if m else None
         dims = img_dims(key) if key else None
-        card = bool(dims and dims[0] <= 420 and dims[1] <= 200)  # logotipos pequenos ganham um cartão branco
+        # logotipos pequenos ou escuros demais para o fundo do banner ganham um cartão branco
+        cr = img_contrast(key) if key else None
+        card = page.get("hero_img_card", bool(dims and dims[0] <= 420 and dims[1] <= 200) or (cr is not None and cr < 3))
         wh = (' width="%d" height="%d"' % dims) if dims else ""
         floatimg = '<div class="trix-hero__float%s"><img src="%s" alt="%s"%s loading="eager" decoding="async"></div>' % (" trix-hero__float--card" if card else "", page["hero_img"], html.escape(page.get("hero_img_alt", "")), wh)
     visual = ('<div class="trix-hero__visual">'
@@ -248,6 +267,10 @@ def build_pages():
             from content.helpers import sec, head, faq as faq_html
             extra = sec(head("Perguntas frequentes", "Dúvidas <strong>comuns</strong>", "", True) + faq_html([(q["q"], q["a"]) for q in p["faq"]]), "trix-section--sand")
         body = render((hero(p, crumbs) if not p.get("no_hero") else "") + p["body"] + extra)
+        # âncora estável para a primeira seção de conteúdo (usada por botões como "Ver módulos")
+        if not p.get("no_hero"):
+            m = re.compile(r'<section class="([^"]*)"(?![^>]*\bid=)').search(body, body.find("</section>"))
+            if m: body = body[:m.start()] + '<section class="%s" id="visao-geral"' % m.group(1) + body[m.end():]
         after = body.split("</h1>", 1)[1] if "</h1>" in body else ""
         first = re.search(r"<h([23])[\s>]", after)
         if first and first.group(1) == "3":

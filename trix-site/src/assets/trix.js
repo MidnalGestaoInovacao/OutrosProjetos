@@ -12,6 +12,7 @@
   var $$ = function (s, c) { return Array.prototype.slice.call((c || d).querySelectorAll(s)); };
   var on = function (el, ev, fn, o) { if (el) el.addEventListener(ev, fn, o || false); };
   var reduced = w.matchMedia && w.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function calm() { return reduced || d.documentElement.classList.contains('a11y-motion'); }
   d.documentElement.classList.add('trix-js');
   d.body.classList.add('trix');
 
@@ -96,24 +97,25 @@
       var btn = $('button.trix-nav__link', li), mega = $('.trix-mega', li); if (!btn || !mega) return;
       var open = function () { closeAll(li); li.classList.add('is-open'); btn.setAttribute('aria-expanded', 'true'); };
       var close = function () { li.classList.remove('is-open'); btn.setAttribute('aria-expanded', 'false'); };
-      on(btn, 'click', function (e) { e.preventDefault(); li.classList.contains('is-open') ? close() : open(); });
-      var timer; on(li, 'mouseenter', function () { clearTimeout(timer); if (w.matchMedia('(hover:hover)').matches) open(); });
-      on(li, 'mouseleave', function () { timer = setTimeout(close, 180); });
+      var viaHover = false, timer;
+      on(btn, 'click', function (e) { e.preventDefault(); if (viaHover && li.classList.contains('is-open')) { viaHover = false; return; } viaHover = false; li.classList.contains('is-open') ? close() : open(); });
+      on(li, 'pointerenter', function (e) { if (e.pointerType !== 'mouse') return; clearTimeout(timer); if (!li.classList.contains('is-open')) { open(); viaHover = true; } });
+      on(li, 'pointerleave', function (e) { if (e.pointerType !== 'mouse') return; timer = setTimeout(function () { close(); viaHover = false; }, 180); });
       on(li, 'focusout', function (e) { if (!li.contains(e.relatedTarget)) close(); });
     });
     on(d, 'keydown', function (e) { if (e.key === 'Escape') { var openLi = $('.trix-nav > li.is-open'); closeAll(); if (openLi) { var ob = $('button.trix-nav__link', openLi); if (ob) ob.focus(); } if (drawer && drawer.classList.contains('is-open')) { drawerClose(); burger.focus(); } } });
-    on(d, 'click', function (e) { if (!e.target.closest('.trix-nav')) closeAll(); });
+    ['click', 'pointerdown'].forEach(function (t) { on(d, t, function (e) { if (!e.target.closest('.trix-nav')) closeAll(); }); });
     /* marca item atual */
     var path = location.pathname.replace(/\/+$/, '') || '/';
     $$('.trix-nav a, .trix-drawer a').forEach(function (a) { var p = (a.getAttribute('href') || '').replace(/\/+$/, '') || '/'; if (p === path) { a.setAttribute('aria-current', 'page'); var li = a.closest('.trix-nav > li'); if (li) li.classList.add('is-current'); } });
     /* drawer mobile */
     var burger = $('.trix-burger'), drawer = $('.trix-drawer'), back = $('.trix-drawer__backdrop');
-    function drawerClose() { if (!drawer) return; drawer.classList.remove('is-open'); back.classList.remove('is-open'); burger.setAttribute('aria-expanded', 'false'); d.body.style.overflow = ''; }
-    on(burger, 'click', function () { var o = drawer.classList.toggle('is-open'); back.classList.toggle('is-open', o); burger.setAttribute('aria-expanded', o ? 'true' : 'false'); d.body.style.overflow = o ? 'hidden' : ''; });
+    function drawerClose() { if (!drawer) return; drawer.classList.remove('is-open'); back.classList.remove('is-open'); burger.setAttribute('aria-expanded', 'false'); d.body.style.overflow = ''; d.documentElement.style.overflow = ''; }
+    on(burger, 'click', function () { var o = drawer.classList.toggle('is-open'); back.classList.toggle('is-open', o); burger.setAttribute('aria-expanded', o ? 'true' : 'false'); d.body.style.overflow = o ? 'hidden' : ''; d.documentElement.style.overflow = o ? 'hidden' : ''; });
     on(back, 'click', drawerClose);
     /* âncoras com offset do header fixo */
-    on(d, 'click', function (e) { var a = e.target.closest('a[href^="#"]'); if (!a || a.getAttribute('href') === '#') return; var t = $(a.getAttribute('href')); if (!t) return; e.preventDefault(); var y = t.getBoundingClientRect().top + w.scrollY - 90; w.scrollTo({ top: y, behavior: reduced ? 'auto' : 'smooth' }); t.setAttribute('tabindex', '-1'); t.focus({ preventScroll: true }); });
-    on($('.trix-top'), 'click', function () { w.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' }); });
+    on(d, 'click', function (e) { var a = e.target.closest('a[href^="#"]'); if (!a || a.getAttribute('href') === '#') return; var t = $(a.getAttribute('href')); if (!t) return; e.preventDefault(); var y = t.getBoundingClientRect().top + w.scrollY - 90; w.scrollTo({ top: y, behavior: calm() ? 'auto' : 'smooth' }); t.setAttribute('tabindex', '-1'); t.focus({ preventScroll: true }); });
+    on($('.trix-top'), 'click', function () { w.scrollTo({ top: 0, behavior: calm() ? 'auto' : 'smooth' }); });
   }
 
   /* ---------------- Consentimento de cookies (estilo CookieYes) ---------------- */
@@ -139,8 +141,8 @@
     on($('[data-cookie="accept"]', banner), 'click', function () { writeConsent(all(true)); hide(); });
     on($('[data-cookie="reject"]', banner), 'click', function () { writeConsent(all(false)); hide(); });
     var opener = null;
-    function closeModal() { if (!modal) return; modal.classList.remove('is-open'); if (opener && opener.focus) opener.focus(); }
-    function openModal() { if (!modal) return; opener = d.activeElement; var c = readConsent() || all(false); ['functional', 'analytics', 'marketing'].forEach(function (k) { var i = $('input[name="' + k + '"]', modal); if (i) i.checked = !!c[k]; }); modal.classList.add('is-open'); var f = $('input:not([disabled])', modal); if (f) f.focus(); }
+    function closeModal() { if (!modal) return; modal.classList.remove('is-open'); d.documentElement.style.overflow = ''; if (opener && opener.focus) opener.focus(); }
+    function openModal() { if (!modal) return; opener = d.activeElement; d.documentElement.style.overflow = 'hidden'; var c = readConsent() || all(false); ['functional', 'analytics', 'marketing'].forEach(function (k) { var i = $('input[name="' + k + '"]', modal); if (i) i.checked = !!c[k]; }); modal.classList.add('is-open'); var f = $('input:not([disabled])', modal); if (f) f.focus(); }
     on(d, 'keydown', function (e) { if (!modal || !modal.classList.contains('is-open')) return; if (e.key === 'Escape') { closeModal(); return; } if (e.key === 'Tab') { var f = $$('button, input:not([disabled]), a[href]', modal).filter(function (x) { return x.offsetParent !== null; }); if (!f.length) return; var first = f[0], last = f[f.length - 1]; if (e.shiftKey && d.activeElement === first) { e.preventDefault(); last.focus(); } else if (!e.shiftKey && d.activeElement === last) { e.preventDefault(); first.focus(); } } });
     on($('[data-cookie="custom"]', banner), 'click', openModal);
     on($('.trix-cookiebtn'), 'click', openModal);
@@ -162,7 +164,8 @@
     var KEY = 'trix_a11y', root = d.documentElement, state = {};
     try { state = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { state = {}; }
     var guide = d.createElement('div'); guide.className = 'trix-readguide'; d.body.appendChild(guide);
-    on(d, 'mousemove', function (e) { if (root.classList.contains('a11y-guide')) guide.style.top = (e.clientY - 7) + 'px'; });
+    function moveGuide(e) { if (root.classList.contains('a11y-guide')) guide.style.top = (e.clientY - 7) + 'px'; }
+    on(d, 'pointermove', function (e) { if (e.pointerType === 'mouse') moveGuide(e); }); on(d, 'pointerdown', moveGuide);
     function apply() {
       ['contrast', 'gray', 'font', 'space', 'links', 'cursor', 'motion', 'guide'].forEach(function (k) { root.classList.toggle('a11y-' + k, !!state[k]); var b = $('[data-a11y="' + k + '"]', panel); if (b) b.setAttribute('aria-pressed', state[k] ? 'true' : 'false'); });
       var size = Math.max(-2, Math.min(4, state.size || 0)); root.style.fontSize = size ? (100 + size * 12.5) + '%' : ''; var lbl = $('[data-a11y-size]', panel); if (lbl) lbl.textContent = size ? (size > 0 ? '+' : '') + size : 'A';
@@ -182,7 +185,7 @@
       });
     });
     on(d, 'keydown', function (e) { if (e.key === 'Escape' && panel.classList.contains('is-open')) closePanel(); });
-    on(d, 'click', function (e) { if (panel.classList.contains('is-open') && !panel.contains(e.target) && !e.target.closest('.trix-a11y-btn, .trix-a11y-hbtn')) { panel.classList.remove('is-open'); expand(false); } });
+    ['click', 'pointerdown'].forEach(function (t) { on(d, t, function (e) { if (panel.classList.contains('is-open') && !panel.contains(e.target) && !e.target.closest('.trix-a11y-btn, .trix-a11y-hbtn')) { panel.classList.remove('is-open'); expand(false); } }); });
   }
 
   /* ---------------- VLibras (tradução para Libras) ---------------- */
@@ -200,7 +203,7 @@
   function fab() {
     var f = $('.trix-fab'); if (!f) return; var b = $('.trix-fab__main', f);
     on(b, 'click', function () { var o = f.classList.toggle('is-open'); b.setAttribute('aria-expanded', o ? 'true' : 'false'); });
-    on(d, 'click', function (e) { if (!f.contains(e.target)) { f.classList.remove('is-open'); b.setAttribute('aria-expanded', 'false'); } });
+    ['click', 'pointerdown'].forEach(function (t) { on(d, t, function (e) { if (!f.contains(e.target)) { f.classList.remove('is-open'); b.setAttribute('aria-expanded', 'false'); } }); });
   }
 
   /* ---------------- Formulários (captcha matemático + honeypot + envio) ---------------- */
@@ -213,7 +216,7 @@
       on(form, 'submit', function (e) {
         e.preventDefault();
         var msg = $('.trix-form__msg', form), btn = $('button[type="submit"]', form);
-        function show(ok, html) { msg.className = 'trix-form__msg ' + (ok ? 'is-ok' : 'is-err'); msg.textContent = ''; requestAnimationFrame(function () { msg.innerHTML = html; msg.scrollIntoView({ block: 'nearest', behavior: reduced ? 'auto' : 'smooth' }); }); }
+        function show(ok, html) { msg.className = 'trix-form__msg ' + (ok ? 'is-ok' : 'is-err'); msg.textContent = ''; requestAnimationFrame(function () { msg.innerHTML = html; msg.scrollIntoView({ block: 'nearest', behavior: calm() ? 'auto' : 'smooth' }); }); }
         if (!form.checkValidity()) { form.reportValidity(); return; }
         var hp = $('input[name="website_url"]', form); if ((hp && hp.value) || Date.now() - started < 2500) { show(false, 'Não foi possível validar o envio. Tente novamente.'); return; }
         if (parseInt(inp.value, 10) !== answer) { show(false, 'A resposta da verificação anti-spam está incorreta. Tente novamente.'); newCaptcha(); inp.focus(); return; }
@@ -433,7 +436,15 @@
     var update = build(T, g, q);
     /* enquadramento automático: cabe a cena na coluna qualquer que seja a proporção */
     var box = new T.Box3().setFromObject(g), size = box.getSize(new T.Vector3()), radius = Math.max(size.x, size.y, size.z) * .62 || 8;
-    function fit() { var r = host.getBoundingClientRect(), wd = Math.max(1, r.width), ht = Math.max(1, r.height); renderer.setSize(wd, ht, false); cam.aspect = wd / ht; var fov = cam.fov * Math.PI / 180, dist = radius / Math.sin(fov / 2); if (cam.aspect < 1) dist /= cam.aspect; cam.position.z = dist * 1.05; cam.updateProjectionMatrix(); }
+    /* extensões por eixo: altura (com folga para a inclinação do arraste) e largura (com folga para o giro em Y) */
+    var hy = Math.max(size.y, size.z * .6) / 2 || 4, hx = Math.sqrt(size.x * size.x + size.z * size.z) / 2 * .9 || 4, hz = size.z / 2;
+    function fit() {
+      var r = host.getBoundingClientRect(), wd = Math.max(1, r.width), ht = Math.max(1, r.height); renderer.setSize(wd, ht, false); cam.aspect = wd / ht;
+      var fov = cam.fov * Math.PI / 180, tv = Math.tan(fov / 2), th = tv * cam.aspect;
+      var dSphere = radius / Math.sin(fov / 2); if (cam.aspect < 1) dSphere /= cam.aspect; dSphere *= 1.05;   /* cabe em qualquer rotação */
+      var dAxis = Math.max(hy / tv, hx / th) * 1.2 + hz * .35;                                                 /* aproveita caixas largas (celular) */
+      cam.position.z = Math.min(dSphere, dAxis); cam.updateProjectionMatrix();
+    }
     fit(); on(w, 'resize', fit);
     if ('ResizeObserver' in w) new ResizeObserver(fit).observe(host);
     /* interação: arrastar para girar (mouse e toque), inércia e parallax */
