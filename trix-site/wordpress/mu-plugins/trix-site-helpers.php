@@ -10,19 +10,23 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 /* ------------------------------------------------------------------ SEO */
+function trix_seo_parse( $html ) {
+	if ( $html && preg_match( '#<script type="application/json" id="trix-seo">(.*?)</script>#s', $html, $m ) ) {
+		$d = json_decode( html_entity_decode( $m[1], ENT_QUOTES, 'UTF-8' ), true ); return is_array( $d ) ? $d : null;
+	}
+	return null;
+}
 function trix_seo_data( $post = null ) {
 	static $cache = array();
+	if ( ! $post && ( is_front_page() || is_home() ) && 'posts' === get_option( 'show_on_front' ) ) {
+		// A home do site vive no template "home" do tema.
+		if ( ! isset( $cache['home'] ) ) { $t = function_exists( 'get_block_template' ) ? get_block_template( get_stylesheet() . '//home' ) : null; $cache['home'] = trix_seo_parse( $t ? $t->content : '' ); }
+		return $cache['home'];
+	}
 	$post = $post ? get_post( $post ) : get_queried_object();
-	if ( ! $post instanceof WP_Post ) {
-		if ( is_front_page() || is_home() ) { $home = get_page_by_path( 'home' ); if ( $home ) { $post = $home; } }
-		if ( ! $post instanceof WP_Post ) { return null; }
-	}
-	if ( isset( $cache[ $post->ID ] ) ) { return $cache[ $post->ID ]; }
-	$data = null;
-	if ( preg_match( '#<script type="application/json" id="trix-seo">(.*?)</script>#s', $post->post_content, $m ) ) {
-		$data = json_decode( html_entity_decode( $m[1], ENT_QUOTES, 'UTF-8' ), true );
-	}
-	return $cache[ $post->ID ] = is_array( $data ) ? $data : null;
+	if ( ! $post instanceof WP_Post ) { return null; }
+	if ( ! isset( $cache[ $post->ID ] ) ) { $cache[ $post->ID ] = trix_seo_parse( $post->post_content ); }
+	return $cache[ $post->ID ];
 }
 function trix_seo_abs( $u ) { return ( $u && $u[0] === '/' ) ? home_url( $u ) : $u; }
 add_filter( 'pre_get_document_title', function ( $title ) {
@@ -105,3 +109,11 @@ add_filter( 'comment_notification_recipients', function ( $emails, $comment_id )
 add_filter( 'rest_comment_query', function ( $args ) { $ids = array_keys( trix_form_pages() ); if ( $ids ) { $args['post__not_in'] = array_merge( (array) ( $args['post__not_in'] ?? array() ), $ids ); } return $args; } );
 add_filter( 'comment_feed_where', function ( $where ) { $ids = array_keys( trix_form_pages() ); return $ids ? $where . ' AND comment_post_ID NOT IN (' . implode( ',', array_map( 'intval', $ids ) ) . ')' : $where; } );
 add_filter( 'comments_open', function ( $open, $post_id ) { return isset( trix_form_pages()[ (int) $post_id ] ) ? true : $open; }, 10, 2 );
+
+/* ------------------------------------------------ Privacidade do login */
+// Não publicar o sitemap de autores (exporia o nome de usuário do administrador).
+add_filter( 'wp_sitemaps_add_provider', function ( $provider, $name ) { return 'users' === $name ? false : $provider; }, 10, 2 );
+// Arquivos de autor redirecionam para a página inicial (sem enumeração de usuários).
+add_action( 'template_redirect', function () { if ( is_author() ) { wp_safe_redirect( home_url( '/' ), 301 ); exit; } } );
+// Usuários fora da API REST pública.
+add_filter( 'rest_endpoints', function ( $e ) { if ( ! is_user_logged_in() ) { unset( $e['/wp/v2/users'], $e['/wp/v2/users/(?P<id>[\d]+)'] ); } return $e; } );

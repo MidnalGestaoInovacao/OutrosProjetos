@@ -8,9 +8,9 @@ def svc(slug, title, desc, kicker, h1, lead, body, meta=None, image=None, stype=
     return p
 HUB = {
  "slug": "servicos", "order": 2, "short": "Serviços",
- "title": "Serviços de TI: software, conectividade e consultoria | Trix TI",
+ "title": "Serviços de TI: software, saúde e consultoria | Trix TI",
  "description": "Fábrica de software (PROTRIX), conectividade em saúde suplementar, consultoria, escritório de processos, automação, agenda médica e parceria Oracle.",
- "image": "images/22.png", "hero": "dark", "three": "cubes",
+ "image": "images/22.png", "hero": "dark",
  "kicker": "Serviços", "h1": "Soluções sob medida <strong>para o seu negócio</strong>",
  "lead": "Com processos bem estabelecidos, a Trix TI detém a prática necessária para atuar em diferentes formatos de projeto e em qualquer momento do ciclo de vida, sem perder a qualidade. Escolha o serviço e conte com uma equipe altamente qualificada, com experiência em ambientes heterogêneos.",
  "actions": [("Falar com um consultor", "/contato/")],
@@ -32,7 +32,7 @@ HUB = {
 }
 FABRICA = svc("fabrica-de-software",
  "Fábrica de software com metodologia PROTRIX | Trix TI",
- "Desenvolvimento sob medida em Brasília: requisitos, análise e design, codificação, testes e sistemas legados, com Java, PHP, Oracle, PostgreSQL e métodos ágeis.",
+ "Software sob medida em Brasília: requisitos, design, codificação, testes e sistemas legados com Java, PHP, Oracle, PostgreSQL e métodos ágeis.",
  "Fábrica de software", "Software sob medida com a <strong>metodologia PROTRIX</strong>",
  "A Trix TI utiliza um processo de software que permite a organização e o gerenciamento dos produtos de forma ágil e organizada. A metodologia PROTRIX de desenvolvimento e manutenção de sistemas define, de forma detalhada, as responsabilidades, atividades e interações com outras áreas de conhecimento — refletindo as boas práticas de desenvolvimento iterativo, gestão de demandas e gerência de projetos.",
  "".join([
@@ -147,4 +147,6 @@ ORACLE = svc("oracle-partner",
   sec(head("Nossa essência", "Conectividade, saúde e <strong>transformação digital</strong>", "Garantimos resultados consistentes e sustentáveis para operadoras, hospitais, clínicas e empresas de diferentes setores — combinando o conhecimento de negócio da Trix com a robustez da plataforma Oracle.", True), "trix-section--dark"),
   contact_band(),
  ]), meta=["Membro do Oracle PartnerNetwork", "OCI, Database e integração", "Saúde suplementar e outros setores"], image="images/logo_oracle.png", order=7)
+for _p, _k, _a in ((FABRICA, "images/22.png", "Software sob medida"), (CONECT, "images/30.png", "Sistema de Atendimento Web"), (CONSULT, "images/29.png", "Consultoria especializada"), (ORACLE, "images/logo_oracle.png", "Oracle PartnerNetwork")):
+    _p["hero_img"] = "{{media:%s}}" % _k; _p["hero_img_alt"] = _a
 PAGES = [HUB, FABRICA, CONECT, CONSULT, ESCRIT, SOLUC, AGENDA, ORACLE]

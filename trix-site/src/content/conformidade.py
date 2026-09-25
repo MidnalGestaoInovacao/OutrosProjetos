@@ -8,12 +8,11 @@ def orig(name):
     return t
 PROSE = lambda inner: '<div class="trix-prose">%s</div>' % inner
 DRAFT_NOTE = '<p class="trix-note"><strong>Versão 1.0 (minuta, setembro de 2026).</strong> Documento elaborado na construção deste site para consolidar práticas já publicadas pela Trix (Portal de Proteção de Dados, Código de Conduta e Política de Privacidade). Está sujeito à aprovação formal da Diretoria Executiva e dos comitês e a revisão jurídica; os itens redigidos como diretrizes indicam o padrão a ser mantido e evidenciado pela empresa.</p>'
-def pol(slug, title, desc, kicker, h1, lead, body, short=None, order=10, image="images/02.jpg", faq_items=None, three=None):
+def pol(slug, title, desc, kicker, h1, lead, body, short=None, order=10, image="images/02.jpg", faq_items=None):
     p = {"slug": slug, "parent": "conformidade", "order": order, "title": title, "description": desc, "hero": "dark", "kicker": kicker, "h1": h1, "lead": lead, "body": body, "image": image,
          "actions": [("Canal LGPD", "/canal-lgpd/", "trix-btn--primary"), ("Canal de Compliance", "/canal-de-compliance/", "trix-btn--ghost")]}
     if short: p["short"] = short
     if faq_items: p["faq"] = [{"q": q, "a": a} for q, a in faq_items]
-    if three: p["three"] = three
     return p
 POLICY_LINKS = [
  {"icon": "lock", "title": "Política de Privacidade e Proteção de Dados (LGPD)", "text": "Como coletamos, usamos, armazenamos e compartilhamos dados pessoais; direitos dos titulares; cookies; contato do DPO. Versão de 28/09/2020.", "url": "/conformidade/politica-de-privacidade/", "cta": "Ler a política integral"},
@@ -26,8 +25,8 @@ POLICY_LINKS = [
 HUB = {
  "slug": "conformidade", "order": 6, "short": "Conformidade",
  "title": "Central de Conformidade: LGPD, compliance, ESG e IA | Trix TI",
- "description": "Missão, visão, valores, política integrada e acesso às políticas de privacidade, compliance, segurança da informação, ESG e IA da Trix TI, com canais de denúncia e DPO.",
- "image": "images/02.jpg", "hero": "dark", "three": "network", "type": "about",
+ "description": "Missão, valores, política integrada e políticas de privacidade, compliance, segurança, ESG e IA da Trix TI, com canais de denúncia e DPO.",
+ "image": "images/02.jpg", "hero": "dark", "type": "about",
  "kicker": "Central de Conformidade", "h1": "Integridade, privacidade e segurança <strong>por princípio</strong>",
  "lead": "Afirmamos nosso compromisso com a qualidade e a segurança da informação. Como fornecedores de serviços e soluções de conectividade para operadoras de planos de saúde, estamos totalmente comprometidos com a proteção dos dados dos nossos clientes, parceiros e colaboradores — e já estamos adequados à LGPD, a Lei Geral de Proteção de Dados.",
  "actions": [("Ver políticas", "#politicas"), ("Canais de denúncia e LGPD", "#canais", "trix-btn--ghost")],
@@ -70,11 +69,11 @@ LGPD = pol("lgpd",
   sec(head("Bases legais e princípios", "Como a LGPD é aplicada <strong>nos produtos Trix</strong>", "Nossos sistemas (SAW, Portal Operadora, Prontow, Aspect Face, Xield e demais) tratam dados pessoais — inclusive dados sensíveis de saúde e biométricos — em nome das operadoras, clínicas e empresas contratantes (controladoras). Aplicamos:")
    + PROSE(checks(["<strong>Finalidade, adequação e necessidade:</strong> apenas os dados indispensáveis ao serviço contratado.", "<strong>Bases legais — dados pessoais comuns (art. 7º):</strong> execução de contrato, cumprimento de obrigação legal ou regulatória (ANS, TISS), legítimo interesse e consentimento, quando cabível.", "<strong>Bases legais — dados sensíveis de saúde e biométricos (art. 11):</strong> cumprimento de obrigação legal ou regulatória, tutela da saúde em procedimento realizado por profissionais e serviços de saúde, garantia da prevenção à fraude e à segurança do titular (biometria) e consentimento específico e destacado, quando exigido — sempre sob as instruções da controladora.", "<strong>Transparência:</strong> políticas públicas, termos de uso apresentados no primeiro acesso e canais de atendimento ao titular.", "<strong>Segurança:</strong> criptografia em trânsito (SSL/TLS), controle de acesso por perfil, trilhas de auditoria, backups e esquemas redundantes.", "<strong>Prevenção e responsabilização:</strong> relatórios de impacto (PIA/DPIA/RIPD) elaborados e atualizados pelo Comitê de Proteção de Dados; contratos com operadores e fornecedores com cláusulas de proteção de dados.", "<strong>Transferência internacional:</strong> quando ocorrer, com as salvaguardas previstas na LGPD e nas Cláusulas Contratuais Padrão."])), "trix-section--sand"),
   sec(head("Comitês", "Nossos <strong>comitês</strong>") + '<div class="trix-grid trix-grid--3">'
-   + '<div class="trix-card trix-reveal"><img src="{{media:lgpd/img/comite-01.png}}" alt="" style="width:64px" loading="lazy"><h3>Compliance</h3><p>Compliance Officer: Sanclé Landim Albuquerque. Patrocinadores: Marcos Soares de Sousa, Nádia Regina Siqueira Alves, Herbert Oliveira.</p><p><strong>Canais:</strong> (61) 3403-5353 · formulário web · ouvidoria@trixti.com.br</p><a class="trix-card__link" href="/conformidade/#comites">Atribuições completas</a></div>'
-   + '<div class="trix-card trix-reveal"><img src="{{media:lgpd/img/comite-02.png}}" alt="" style="width:64px" loading="lazy"><h3>Proteção de Dados</h3><p>Data Protection Officer (DPO): Sanclé Landim Albuquerque. Patrocinadores: Marcos Soares de Sousa, Daniel Rodrigo da Silva, Herbert Oliveira.</p><p><strong>Canais:</strong> (61) 3403-5353 · formulário web · dpo@trixti.com.br</p><a class="trix-card__link" href="/canal-lgpd/">Falar com o DPO</a></div>'
-   + '<div class="trix-card trix-reveal"><img src="{{media:lgpd/img/comite-03.png}}" alt="" style="width:64px" loading="lazy"><h3>Segurança e Qualidade</h3><p>Security Officer: Sanclé Landim Albuquerque. Patrocinadores: Marcos Soares de Sousa, Daniel Rodrigo da Silva, Nádia Regina.</p><p><strong>Canais:</strong> (61) 3403-5353 · formulário web · seguranca@trixti.com.br</p><a class="trix-card__link" href="/conformidade/seguranca-da-informacao/">Política de segurança</a></div></div>'),
+   + '<div class="trix-card trix-reveal"><img src="{{media:lgpd/img/comite-01.png}}" alt="Ícone do Comitê de Compliance" style="width:64px" loading="lazy"><h3>Compliance</h3><p>Compliance Officer: Sanclé Landim Albuquerque. Patrocinadores: Marcos Soares de Sousa, Nádia Regina Siqueira Alves, Herbert Oliveira.</p><p><strong>Canais:</strong> (61) 3403-5353 · formulário web · ouvidoria@trixti.com.br</p><a class="trix-card__link" href="/conformidade/#comites">Atribuições completas</a></div>'
+   + '<div class="trix-card trix-reveal"><img src="{{media:lgpd/img/comite-02.png}}" alt="Ícone do Comitê de Proteção de Dados" style="width:64px" loading="lazy"><h3>Proteção de Dados</h3><p>Data Protection Officer (DPO): Sanclé Landim Albuquerque. Patrocinadores: Marcos Soares de Sousa, Daniel Rodrigo da Silva, Herbert Oliveira.</p><p><strong>Canais:</strong> (61) 3403-5353 · formulário web · dpo@trixti.com.br</p><a class="trix-card__link" href="/canal-lgpd/">Falar com o DPO</a></div>'
+   + '<div class="trix-card trix-reveal"><img src="{{media:lgpd/img/comite-03.png}}" alt="Ícone do Comitê de Segurança e Qualidade" style="width:64px" loading="lazy"><h3>Segurança e Qualidade</h3><p>Security Officer: Sanclé Landim Albuquerque. Patrocinadores: Marcos Soares de Sousa, Daniel Rodrigo da Silva, Nádia Regina.</p><p><strong>Canais:</strong> (61) 3403-5353 · formulário web · seguranca@trixti.com.br</p><a class="trix-card__link" href="/conformidade/seguranca-da-informacao/">Política de segurança</a></div></div>'),
   sec('<div class="trix-split"><div class="trix-reveal"><img src="{{media:lgpd/img/treinamento.png}}" alt="Trix Academy" style="max-width:120px" loading="lazy"><h2>Treinamento e <strong>capacitação</strong></h2><p>Parceiros, fornecedores e clientes devem estar preparados para a LGPD. Acesse nossa plataforma de treinamentos Trix Academy e participe dos programas.</p><a class="trix-btn trix-btn--primary" href="http://academy.trixti.com.br/" target="_blank" rel="noopener">Acessar a Trix Academy</a></div><div class="trix-reveal"><h2>Ouvidoria</h2><p>Críticas, elogios, denúncias e sugestões: entre em contato.</p><p style="font-size:1.6rem;font-weight:300"><a href="tel:+5508009411190">0800 941 1190</a></p><div class="trix-actions"><a class="trix-btn trix-btn--dark" href="/canal-lgpd/?tipo=Solicita%C3%A7%C3%A3o%20de%20documentos">Solicitação de informação ou documentos</a><a class="trix-btn trix-btn--ghost" href="/canal-de-compliance/">Ouvidoria</a><a class="trix-btn trix-btn--ghost" href="/canal-lgpd/">Proteção de dados</a></div><p class="trix-muted" style="margin-top:14px">falecom@trixti.com.br ou ouvidoria@trixti.com.br</p></div></div>', "trix-section--sand"),
- ]), short="Portal de Proteção de Dados", order=1, three="network",
+ ]), short="Portal de Proteção de Dados", order=1,
  faq_items=[("A Trix está adequada à LGPD?", "A Trix mantém um programa contínuo de adequação à LGPD: Política de Privacidade publicada em 2020, Encarregado (DPO) nomeado, comitês permanentes responsáveis por promover os relatórios de impacto e programa de treinamento na Trix Academy."), ("Quem é o DPO da Trix?", "Sanclé Landim Albuquerque — dpo@trixti.com.br.")])
 POLITICA = pol("politica-de-privacidade",
  "Política de Privacidade | Trix Tecnologia Inteligente",
@@ -151,13 +150,13 @@ CODIGO_TEXT = """
 """
 CODIGO = pol("codigo-de-conduta",
  "Código de Conduta da Empresa | Trix TI",
- "Transcrição do Código de Conduta da Trix TI: atuação de colaboradores, combate à corrupção, benefícios, contratações, doações, meio ambiente e canal de denúncias.",
+ "Código de Conduta da Trix TI: atuação de colaboradores, combate à corrupção, benefícios, contratações, doações, meio ambiente e denúncias.",
  "Código de Conduta da Empresa", "Código de <strong>Conduta</strong>",
  "Transcrição do documento “Código de Conduta da Empresa” (PDF publicado no Portal de Proteção de Dados), que orienta contratantes, fornecedores, diretores, gerentes e colaboradores sobre a conduta ilibada praticada pela Trix. Pequenas correções ortográficas foram feitas na transcrição; notas da publicação web aparecem destacadas.",
  sec('<div class="trix-toc"><strong>Índice</strong><ol><li><a href="#atuacao">Atuação dos colaboradores e diretores</a></li><li><a href="#corrupcao">Combate à corrupção</a></li><li><a href="#beneficios">Proibição de aceitar benefícios</a></li><li><a href="#contratacoes">Contratações públicas e privadas</a></li><li><a href="#doacoes">Doações e patrocínios</a></li><li><a href="#criminosa">Combate à prática criminosa</a></li><li><a href="#saude">Saúde, segurança e meio ambiente</a></li><li><a href="#denuncias">Canal de denúncias</a></li></ol></div>' + PROSE(CODIGO_TEXT)), short="Código de Conduta", order=4)
 COMPLI = pol("compliance",
  "Programa de Compliance e integridade | Trix TI",
- "Pilares do programa de integridade da Trix TI: alta direção, riscos, Código de Conduta, treinamento, canal de denúncias, terceiros e controles, conforme a Lei 12.846/2013.",
+ "Pilares do programa de integridade da Trix TI: alta direção, riscos, Código de Conduta, treinamento, denúncias e terceiros (Lei 12.846/2013).",
  "Programa de Compliance", "Integridade que <strong>se pratica</strong>",
  "Compliance é estar absolutamente em linha com normas, controles internos e externos e com todas as políticas e diretrizes estabelecidas para o negócio — nas esferas trabalhista, fiscal, contábil, financeira, ambiental, jurídica, previdenciária e ética. Nosso programa é patrocinado pela alta direção e conduzido pelo Compliance Officer.",
  "".join([
@@ -168,7 +167,7 @@ COMPLI = pol("compliance",
  ]), short="Compliance", order=3)
 SEGURANCA = pol("seguranca-da-informacao",
  "Política de Segurança da Informação | Trix TI",
- "Princípios, diretrizes de acesso, criptografia, backup, desenvolvimento seguro, incidentes e responsabilidades da Trix TI. Reporte incidentes a seguranca@trixti.com.br.",
+ "Princípios, acesso, criptografia, backup, desenvolvimento seguro e incidentes na Trix TI. Reporte incidentes a seguranca@trixti.com.br.",
  "Política de Segurança da Informação", "Segurança da <strong>Informação</strong>",
  "A informação é o bem mais precioso de qualquer empresa. A privacidade e a integridade das informações mantidas pelas organizações estão no topo da importância para a continuidade do negócio. Esta política estabelece as diretrizes que protegem as informações da Trix, de seus clientes, parceiros e colaboradores.",
  sec('<div class="trix-toc"><strong>Sumário</strong><ol><li><a href="#s1">Objetivo e escopo</a></li><li><a href="#s2">Princípios</a></li><li><a href="#s3">Diretrizes gerais</a></li><li><a href="#s4">Controle de acesso e identidades</a></li><li><a href="#s5">Proteção de dados e criptografia</a></li><li><a href="#s6">Desenvolvimento seguro e operações</a></li><li><a href="#s7">Gestão de incidentes</a></li><li><a href="#s8">Continuidade de negócios</a></li><li><a href="#s9">Fornecedores e terceiros</a></li><li><a href="#s10">Responsabilidades e sanções</a></li><li><a href="#s11">Governança e revisão</a></li></ol></div>'
@@ -184,10 +183,10 @@ SEGURANCA = pol("seguranca-da-informacao",
 <h2 id="s9">9. Fornecedores e terceiros</h2><p>Fornecedores e parceiros assumem a responsabilidade de operadores de dados e devem aceitar os termos e condições da Trix, participar do programa de capacitação (Trix Academy), mapear o inventário de dados e cumprir esta política e o Código de Conduta. Contratos preveem cláusulas de confidencialidade, segurança, auditoria e sanções.</p>
 <h2 id="s10">10. Responsabilidades e sanções</h2><ul><li><strong>Alta direção:</strong> patrocinar o programa e prover recursos.</li><li><strong>Comitê de Segurança e Qualidade / Security Officer:</strong> manter a política, analisar riscos, definir procedimentos, tratar incidentes e garantir treinamentos.</li><li><strong>Gestores:</strong> aplicar a política em suas áreas e aprovar acessos.</li><li><strong>Colaboradores e terceiros:</strong> cumprir a política, proteger credenciais e informações e reportar incidentes.</li></ul><p>O descumprimento sujeita o infrator a medidas disciplinares, rescisão contratual, multas e responsabilização civil e criminal, conforme o caso.</p>
 <h2 id="s11">11. Governança e revisão</h2><p>Esta política deve ser aprovada pela Diretoria Executiva, mantida pelo Comitê de Segurança e Qualidade (Security Officer: Sanclé Landim Albuquerque; patrocinadores: Marcos Soares de Sousa, Daniel Rodrigo da Silva e Nádia Regina) e revisada anualmente ou sempre que mudanças relevantes ocorrerem. Documentos complementares: Política de Privacidade, Código de Conduta, Política de IA e normas internas de acesso, backup e incidentes.</p>
-<p class="trix-note"><strong>Canal:</strong> seguranca@trixti.com.br · (61) 3403-5353 · <a href="/canal-de-compliance/">formulário web</a>.</p>""")), short="Segurança da Informação", order=5, three=None)
+<p class="trix-note"><strong>Canal:</strong> seguranca@trixti.com.br · (61) 3403-5353 · <a href="/canal-de-compliance/">formulário web</a>.</p>""")), short="Segurança da Informação", order=5)
 ESG = pol("esg",
  "Política ESG | Trix TI",
- "Compromissos ambientais, sociais e de governança da Trix TI: recursos naturais, digitalização, saúde e segurança, capacitação, comunidade, comitês e transparência.",
+ "Compromissos ambientais, sociais e de governança da Trix TI: recursos naturais, digitalização, segurança, capacitação e transparência.",
  "Política ESG", "Ambiental, social e <strong>governança</strong>",
  "A Trix envida todos os esforços para conservar os recursos naturais, garantir um ambiente de trabalho seguro e saudável e atuar com integridade e transparência. Esta política consolida nossos compromissos ESG e como eles se conectam ao propósito de criar tecnologia que melhora a vida das pessoas.",
  "".join([
@@ -200,7 +199,7 @@ ESG = pol("esg",
  ]), short="ESG", order=8)
 IA = pol("inteligencia-artificial",
  "Política de IA responsável | Trix TI",
- "Princípios de IA da Trix TI (supervisão humana, transparência, privacidade, segurança, equidade) aplicados ao Prontow, Aspect Face e Xield, com governança e direitos dos usuários.",
+ "Princípios de IA da Trix TI: supervisão humana, transparência, privacidade, segurança e equidade no Prontow, Aspect Face e Xield.",
  "Política de IA responsável", "Inteligência artificial <strong>com o humano no controle</strong>",
  "Usamos inteligência artificial para tornar o atendimento mais rápido, seguro e humano: agendamento conversacional, apoio ao diagnóstico, antifraude facial e automação de ambientes. Esta política define como desenvolvemos e operamos IA com ética, transparência e conformidade com a LGPD.",
  "".join([

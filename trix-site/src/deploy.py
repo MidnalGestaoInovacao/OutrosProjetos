@@ -66,6 +66,12 @@ def deploy_pages(only=None, create_only=False):
             pid = state["pages"].get(p["parent"]) or (ex.get(p["parent"]) or {}).get("id")
             if pid: args["parent"] = pid
         pid = state["pages"].get(p["slug"]) or (ex.get(p["slug"]) or {}).get("id")
+        if p.get("in_template"):
+            # conteúdo publicado pelo template; a página duplicada (ex.: /home/) vai para a lixeira (reversível)
+            if pid and (ex.get(p["slug"]) or {}).get("status") != "trash":
+                try: call("wp_delete_page", {"page_id": pid, "force": False}); log("page moved to trash (served by template)", p["slug"], pid)
+                except MCPError as e: log("trash ERROR", p["slug"], str(e)[:120])
+            state["pages"].pop(p["slug"], None); save(); continue
         h = page_hash(p)
         if pid and (create_only or state["hashes"].get(p["slug"]) == h):
             state["pages"][p["slug"]] = pid; save(); log("skip (unchanged or create-only)", p["slug"], pid); continue

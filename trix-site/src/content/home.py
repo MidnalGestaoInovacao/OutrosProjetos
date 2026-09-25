@@ -1,9 +1,10 @@
 from .helpers import *
+from .clientes_data import CLIENTS, logo_wall
 PAGES = [{
  "slug": "home", "order": -1000, "wp_title": "Home", "canonical": "/",
  "title": "Trix TI: software sob medida, conectividade em saúde e IA",
- "description": "Desde 2009 a Trix TI cria software sob medida, conecta operadoras e prestadores de saúde (TISS) e entrega produtos com IA como Prontow e Aspect Face, além do SAW.",
- "image": "images/02.jpg", "type": "about", "hero": "dark", "hero_short": False, "three": "network",
+ "description": "Desde 2009 a Trix TI cria software sob medida, conecta operadoras e prestadores de saúde (TISS) e oferece produtos com IA como Prontow e Aspect Face.",
+ "image": "images/02.jpg", "type": "about", "hero": "dark", "hero_short": False,
  "kicker": "Tecnologia inteligente desde 2009",
  "h1": "Software sob medida <strong>para o seu negócio</strong>",
  "lead": "A Trix TI transforma paixão por tecnologia em produtos e serviços que entregam resultado: fábrica de software com metodologia própria, conectividade em saúde suplementar, consultoria especializada e soluções com inteligência artificial usadas por milhares de pessoas Brasil afora.",
@@ -49,7 +50,7 @@ PAGES = [{
    ], 3)
    + '<div class="trix-actions" style="justify-content:center"><a class="trix-btn trix-btn--ghost" href="/empresa/">Conheça a Trix</a><a class="trix-btn trix-btn--ghost" href="/conformidade/">Central de Conformidade</a></div>', "trix-section--sand", "empresa"),
   sec(head("Confiança", "Quem <strong>confia</strong> na Trix", "Na área de saúde e conectividade em saúde, atendemos pequenas, médias e grandes operadoras, Unimeds, RHs e autogestões em saúde em todo o Brasil — além de prestadores de serviços médicos, consultórios, clínicas e laboratórios.", True)
-   + '<div class="trix-logos trix-reveal">' + "".join('<figure><img src="{{media:images/unimed/%s}}" alt="Cliente Trix" loading="lazy"></figure>' % n for n in ["70.png", "40.png", "41.png", "42.png", "43.png", "45.png", "46.png", "47.png", "49.png", "50.png", "51.png", "52.png"]) + '<figure><img src="{{media:images/economus.jpg}}" alt="Economus" loading="lazy"></figure></div>'
+   + logo_wall(CLIENTS[:12] + [CLIENTS[-2]])
    + '<div class="trix-actions" style="justify-content:center"><a class="trix-btn trix-btn--dark" href="/clientes/">Ver todos os clientes</a></div>'),
   sec('<div class="trix-split"><div class="trix-reveal"><span class="trix-kicker">Governança</span><h2>Compliance, LGPD e segurança <strong>não são discurso</strong></h2><p class="lead">Comitês de Compliance, Proteção de Dados e Segurança e Qualidade atuam de forma permanente, com DPO nomeado, código de conduta, políticas publicadas, treinamentos na Trix Academy e canais de denúncia confidenciais.</p>'
       + checks(["Portal de Proteção de Dados e Política de Privacidade públicas", "Canal LGPD para titulares exercerem seus direitos", "Ouvidoria 0800 941 1190 e canal de denúncias anônimo", "Políticas de Segurança da Informação, ESG e IA responsável"])

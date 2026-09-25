@@ -45,7 +45,7 @@ def mega_item(it):
 def header_html():
     out = ['<a class="trix-skip" href="#conteudo">Ir para o conteúdo</a>',
            '<header class="trix-header" role="banner"><div class="trix-container trix-header__in">',
-           '<a class="trix-brand" href="/" aria-label="%s — página inicial"><img src="%s" alt="%s" width="347" height="130" decoding="async"></a>' % (data_uri("images/01.png"), SITE["name"], SITE["name"]),
+           '<a class="trix-brand" href="/" aria-label="%s — página inicial"><img src="%s" alt="%s" width="347" height="130" decoding="async" fetchpriority="high"></a>' % (SITE["name"], data_uri("images/01.png"), SITE["name"]),
            '<nav aria-label="Navegação principal"><ul class="trix-nav">']
     for i, top in enumerate(NAV):
         if top.get("children"):
@@ -166,7 +166,7 @@ TEMPLATES = {
   "home": template('<!-- wp:query {"queryId":1,"query":{"perPage":1,"pages":0,"offset":0,"postType":"page","order":"asc","orderBy":"menu_order","author":"","search":"","exclude":[],"sticky":"","inherit":false},"className":"trix-home-query"} -->\n<div class="wp-block-query trix-home-query"><!-- wp:post-template {"layout":{"type":"default"}} -->\n<!-- wp:post-content {"layout":{"type":"default"}} /-->\n<!-- /wp:post-template --></div>\n<!-- /wp:query -->'),
   "index": template('<!-- wp:group {"layout":{"type":"constrained"},"className":"trix-section"} --><div class="wp-block-group trix-section"><!-- wp:query {"queryId":2,"query":{"perPage":10,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","inherit":true}} --><div class="wp-block-query"><!-- wp:post-template --><!-- wp:post-title {"isLink":true} /--><!-- wp:post-excerpt /--><!-- /wp:post-template --><!-- wp:query-pagination --><!-- wp:query-pagination-previous /--><!-- wp:query-pagination-numbers /--><!-- wp:query-pagination-next /--><!-- /wp:query-pagination --><!-- wp:query-no-results --><!-- wp:paragraph --><p>Nenhum conteúdo encontrado.</p><!-- /wp:paragraph --><!-- /wp:query-no-results --></div><!-- /wp:query --></div><!-- /wp:group -->'),
   "single": template('<!-- wp:group {"layout":{"type":"constrained"},"className":"trix-section"} --><div class="wp-block-group trix-section"><!-- wp:post-title {"level":1} /--><!-- wp:post-content /--></div><!-- /wp:group -->'),
-  "404": template(wp_html('<section class="trix-hero trix-hero--short"><div class="trix-hero__3d" data-trix-3d="cubes"></div><div class="trix-container"><span class="trix-kicker">Erro 404</span><h1>Página <strong>não encontrada</strong></h1><p class="lead">O endereço pode ter mudado ou o link está incorreto. Use o menu ou os atalhos abaixo para continuar navegando.</p><div class="trix-actions"><a class="trix-btn trix-btn--primary" href="/">Ir para a página inicial</a><a class="trix-btn trix-btn--ghost" href="/produtos/">Ver produtos</a><a class="trix-btn trix-btn--ghost" href="/contato/">Falar com a Trix</a></div></div></section>')),
+  "404": template(wp_html('<section class="trix-hero"><div class="trix-container trix-hero__grid"><div class="trix-hero__content"><span class="trix-kicker">Erro 404</span><h1>Página <strong>não encontrada</strong></h1><p class="lead">O endereço pode ter mudado ou o link está incorreto. Use o menu ou os atalhos abaixo para continuar navegando.</p><div class="trix-actions"><a class="trix-btn trix-btn--primary" href="/">Ir para a página inicial</a><a class="trix-btn trix-btn--ghost" href="/produtos/">Ver produtos</a><a class="trix-btn trix-btn--ghost" href="/contato/">Falar com a Trix</a></div></div><div class="trix-hero__visual"><div class="trix-hero__fallback" aria-hidden="true"><i>{{icon:search}}</i></div><div class="trix-hero__stage" data-trix-3d="cubes" aria-hidden="true"></div><span class="trix-hero__hint" aria-hidden="true">arraste para girar</span></div></div></section>')),
 }
 TEMPLATES["archive"] = TEMPLATES["index"]; TEMPLATES["search"] = TEMPLATES["index"]
 
@@ -188,17 +188,46 @@ def breadcrumb(page, by_slug):
     while p:
         chain.append({"name": p.get("short", re.sub("<[^>]+>", "", p["h1"])), "url": p["url"]}); p = by_slug.get(p.get("parent"))
     chain.append({"name": "Home", "url": "/"}); return list(reversed(chain))
+# Cena 3D (e ícone de reserva) do banner de cada página: sempre no lado oposto ao texto
+SCENES = {
+ "home": ("network", "network"), "empresa": ("cubes", "building"), "eventos": ("orbit", "graduation"), "clientes": ("globe", "globe"),
+ "servicos": ("cubes", "grid"), "fabrica-de-software": ("layers", "code"), "conectividade-em-saude": ("pulse", "activity"), "consultoria": ("orbit", "briefcase"),
+ "escritorio-de-processos": ("gears", "flow"), "solucoes-e-automacao": ("gears", "gear"), "agenda-medica": ("pulse", "calendar"), "oracle-partner": ("cloud", "cloud"),
+ "produtos": ("cubes", "layers"), "prontow": ("pulse", "stethoscope"), "saw": ("network", "monitor"), "portal-operadora": ("globe", "globe"),
+ "aspect-face": ("face", "face"), "xield": ("face", "lock"), "gedai": ("docs", "file"), "integrador": ("network", "plug"), "intranet": ("orbit", "intranet"),
+ "conformidade": ("shield", "shield"), "lgpd": ("shield", "lock"), "politica-de-privacidade": ("shield", "eye"), "compliance": ("shield", "scale"),
+ "codigo-de-conduta": ("docs", "book"), "seguranca-da-informacao": ("shield", "cpu"), "cookies": ("orbit", "cookie"), "glossario-lgpd": ("docs", "book"),
+ "esg": ("globe", "leaf"), "inteligencia-artificial": ("neural", "brain"), "contato": ("network", "chat"), "canal-lgpd": ("shield", "lock"), "canal-de-compliance": ("shield", "megaphone"),
+}
+def img_dims(key):
+    try:
+        from PIL import Image
+        path = os.path.join(IMG_DIR, key.split("images/", 1)[1]) if key.startswith("images/") else None
+        if path and os.path.exists(path):
+            with Image.open(path) as im: return im.size
+    except Exception: pass
+    return None
 def hero(page, crumbs):
     kind = page.get("hero", "dark")
-    cls = "trix-hero" + (" trix-hero--light" if kind == "light" else "") + (" trix-hero--short" if page.get("hero_short", True) else "")
+    cls = "trix-hero" + (" trix-hero--light" if kind == "light" else "") + (" trix-hero--tall" if page.get("hero_short") is False else "")
     bc = '<nav class="trix-breadcrumb" aria-label="Você está em">' + ' <span aria-hidden="true">›</span> '.join(('<a href="%s">%s</a>' % (c["url"], html.escape(c["name"]))) if i < len(crumbs) - 1 else '<span aria-current="page">%s</span>' % html.escape(c["name"]) for i, c in enumerate(crumbs)) + '</nav>' if len(crumbs) > 1 else ''
-    three = '<div class="trix-hero__3d" data-trix-3d="%s" aria-hidden="true"></div>' % page["three"] if page.get("three") else ''
     meta = ('<div class="trix-hero__meta">' + "".join("<span>%s</span>" % m for m in page["meta"]) + "</div>") if page.get("meta") else ""
     acts = ('<div class="trix-actions">' + "".join('<a class="trix-btn %s" href="%s">%s</a>' % (a[2] if len(a) > 2 else "trix-btn--primary", a[1], a[0]) for a in page["actions"]) + "</div>") if page.get("actions") else ""
-    img = ('<div class="trix-hero__img"><img src="%s" alt="%s" loading="eager" decoding="async"></div>' % (page["hero_img"], html.escape(page.get("hero_img_alt", "")))) if page.get("hero_img") else ""
     inner = '<div class="trix-hero__content">%s%s<h1>%s</h1><p class="lead">%s</p>%s%s</div>' % (bc, ('<span class="trix-kicker">%s</span>' % page["kicker"]) if page.get("kicker") else "", page["h1"], page["lead"], acts, meta)
-    layout = ('<div class="trix-container trix-split">%s%s</div>' % (inner, img)) if img else ('<div class="trix-container">%s</div>' % inner)
-    return '<section class="%s">%s%s</section>' % (cls, three, layout)
+    scene, icon = SCENES.get(page["slug"], ("network", "dot"))
+    scene = page.get("three") or scene
+    floatimg = ""
+    if page.get("hero_img"):
+        m = re.match(r"\{\{media:([^}]+)\}\}", page["hero_img"]); key = m.group(1) if m else None
+        dims = img_dims(key) if key else None
+        card = bool(dims and dims[0] <= 420 and dims[1] <= 200)  # logotipos pequenos ganham um cartão branco
+        wh = (' width="%d" height="%d"' % dims) if dims else ""
+        floatimg = '<div class="trix-hero__float%s"><img src="%s" alt="%s"%s loading="eager" decoding="async"></div>' % (" trix-hero__float--card" if card else "", page["hero_img"], html.escape(page.get("hero_img_alt", "")), wh)
+    visual = ('<div class="trix-hero__visual">'
+              '<div class="trix-hero__fallback" aria-hidden="true"><i>{{icon:%s}}</i></div>'
+              '<div class="trix-hero__stage" data-trix-3d="%s" aria-hidden="true"></div>'
+              '%s<span class="trix-hero__hint" aria-hidden="true">arraste para girar</span></div>') % (icon, scene, floatimg)
+    return '<section class="%s"><div class="trix-container trix-hero__grid">%s%s</div></section>' % (cls, inner, visual)
 def build_pages():
     by_slug = {p["slug"]: p for p in ALL_PAGES}
     for p in ALL_PAGES:
@@ -216,6 +245,13 @@ def build_pages():
             from content.helpers import sec, head, faq as faq_html
             extra = sec(head("Perguntas frequentes", "Dúvidas <strong>comuns</strong>", "", True) + faq_html([(q["q"], q["a"]) for q in p["faq"]]), "trix-section--sand")
         body = render((hero(p, crumbs) if not p.get("no_hero") else "") + p["body"] + extra)
+        after = body.split("</h1>", 1)[1] if "</h1>" in body else ""
+        first = re.search(r"<h([23])[\s>]", after)
+        if first and first.group(1) == "3":
+            label = p.get("sr_h2") or {"product": "Recursos e benefícios: %s", "service": "O que oferecemos em %s", "contact": "Formulário e canais: %s"}.get(p.get("type"), "Conteúdo: %s") % p.get("short", re.sub("<[^>]+>", "", p["h1"]))
+            i = body.index("</section>", body.index("</h1>")) + len("</section>")
+            j = body.index('<div class="trix-container">', i) + len('<div class="trix-container">')
+            body = body[:j] + '<h2 class="trix-sr">%s</h2>' % html.escape(label) + body[j:]
         seo["build"] = hashlib.sha1((body + json.dumps(seo, sort_keys=True, ensure_ascii=False)).encode("utf-8")).hexdigest()[:12]
         content = wp_html('<script type="application/json" id="trix-seo">%s</script>\n%s' % (json.dumps(seo, ensure_ascii=False), body))
         out.append({"slug": p["slug"], "parent": p.get("parent"), "url": p["url"], "title": p["title"], "build": seo["build"], "wp_title": p.get("wp_title") or p.get("short") or re.sub("<[^>]+>", "", p["h1"]),
@@ -229,12 +265,23 @@ def main():
     for sub in ("blocks", "templates", "pages"): os.makedirs(os.path.join(DIST, sub), exist_ok=True)
     blocks = {"estilos": styles_html(), "cabecalho": header_html(), "rodape": footer_html(), "widgets": widgets_html()}
     for k, v in blocks.items(): open(os.path.join(DIST, "blocks", k + ".html"), "w", encoding="utf-8").write(wp_html(render(v)))
-    for k, v in TEMPLATES.items(): open(os.path.join(DIST, "templates", k + ".html"), "w", encoding="utf-8").write(v)
-    json.dump(GLOBAL_STYLES, open(os.path.join(DIST, "global-styles.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     pages = build_pages()
+    # A home vive no template "home" (página inicial do blog): evita a URL duplicada /home/ e dispensa configurar página estática.
+    home = next((p for p in pages if p["slug"] == "home"), None)
+    if home:
+        TEMPLATES["home"] = template(home["content"]); home["in_template"] = True
+    for k, v in TEMPLATES.items(): open(os.path.join(DIST, "templates", k + ".html"), "w", encoding="utf-8").write(render(v))
+    json.dump(GLOBAL_STYLES, open(os.path.join(DIST, "global-styles.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     for p in pages: json.dump(p, open(os.path.join(DIST, "pages", p["slug"] + ".json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     json.dump([{k: p[k] for k in ("slug", "parent", "url", "title", "menu_order")} for p in pages], open(os.path.join(DIST, "pages-index.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     if MISSING_MEDIA: print("AVISO: mídias sem mapeamento (usando URL do site antigo):", sorted(MISSING_MEDIA))
+    # sanidade: toda <img> precisa de src de imagem (data:, /, http) e nenhum aria-label pode conter data URI
+    bad = []
+    for name, html_ in list(blocks.items()) + [(p["slug"], p["content"]) for p in pages]:
+        for src in re.findall(r'<img[^>]*\ssrc="([^"]*)"', html_):
+            if not re.match(r"^(data:image/|/|https?://)", src): bad.append((name, src[:60]))
+        if re.search(r'aria-label="data:', html_): bad.append((name, "aria-label com data URI"))
+    if bad: sys.exit("ERRO de marcação de imagem: %s" % bad[:10])
     sizes = {k: len(v) for k, v in blocks.items()}
     print("blocks:", sizes); print("pages:", len(pages), "max page bytes:", max(len(p["content"]) for p in pages))
 if __name__ == "__main__": main()

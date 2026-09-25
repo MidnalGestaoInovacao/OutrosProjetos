@@ -272,46 +272,182 @@
     });
   }
 
-  /* ---------------- 3D (Three.js) ---------------- */
+  /* ---------------- 3D (Three.js): cenas temáticas na coluna visual do banner ---------------- */
   function webgl() { try { var c = d.createElement('canvas'); return !!(w.WebGLRenderingContext && (c.getContext('webgl') || c.getContext('experimental-webgl'))); } catch (e) { return false; } }
   function three() {
     var hosts = $$('[data-trix-3d]'); if (!hosts.length || !webgl()) return;
     var urls = [CFG.threeUrl || 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js', 'https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js'];
-    (function load(i) { if (i >= urls.length) return; var s = d.createElement('script'); s.src = urls[i]; s.async = true; s.onload = function () { if (w.THREE) hosts.forEach(scene); }; s.onerror = function () { load(i + 1); }; d.head.appendChild(s); })(0);
+    function go() { hosts.forEach(function (h) { try { scene(h); } catch (e) { if (w.console) console.warn('trix 3d', e); } }); }
+    if (w.THREE) return go();
+    (function load(i) { if (i >= urls.length) return; var s = d.createElement('script'); s.src = urls[i]; s.async = true; s.crossOrigin = 'anonymous'; s.onload = function () { if (w.THREE) go(); }; s.onerror = function () { load(i + 1); }; d.head.appendChild(s); })(0);
   }
-  function scene(host) {
-    var T = w.THREE; if (!T) return; var kind = host.getAttribute('data-trix-3d') || 'network';
-    var renderer = new T.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'low-power' }); renderer.setPixelRatio(Math.min(w.devicePixelRatio || 1, 1.75)); host.appendChild(renderer.domElement);
-    var sc = new T.Scene(), cam = new T.PerspectiveCamera(55, 1, .1, 200); cam.position.set(0, 0, 26);
-    var YEL = 0xF8CD4B, GRAY = 0x8A8B90, group = new T.Group(); sc.add(group);
-    sc.add(new T.AmbientLight(0xffffff, .6)); var pl = new T.PointLight(YEL, 1.2, 120); pl.position.set(10, 12, 20); sc.add(pl);
-    var mats = [];
-    if (kind === 'network' || kind === 'globe') {
-      var N = kind === 'globe' ? 300 : 240, pos = new Float32Array(N * 3), vel = [], radius = kind === 'globe' ? 9 : 14;
-      for (var i = 0; i < N; i++) { var v; if (kind === 'globe') { var u = Math.random(), t = Math.random(), th = 2 * Math.PI * u, ph = Math.acos(2 * t - 1); v = new T.Vector3(radius * Math.sin(ph) * Math.cos(th), radius * Math.sin(ph) * Math.sin(th), radius * Math.cos(ph)); } else v = new T.Vector3((Math.random() - .5) * 2 * radius * 1.6, (Math.random() - .5) * 2 * radius * .9, (Math.random() - .5) * 2 * radius * .6); pos[i * 3] = v.x; pos[i * 3 + 1] = v.y; pos[i * 3 + 2] = v.z; vel.push(new T.Vector3((Math.random() - .5) * .02, (Math.random() - .5) * .02, (Math.random() - .5) * .02)); }
+  var YEL = 0xF8CD4B, GOLD = 0xA08E5D, GRAY = 0x424346, DARK = 0x2B2C2F, WHITE = 0xFFFFFF;
+  var SCENES = {
+    network: function (T, g, q) {
+      var N = Math.round(170 * q), R = 8.5, pos = new Float32Array(N * 3), vel = [];
+      for (var i = 0; i < N; i++) { var v = new T.Vector3().randomDirection ? new T.Vector3().randomDirection() : new T.Vector3(Math.random() - .5, Math.random() - .5, Math.random() - .5).normalize(); v.multiplyScalar(R * Math.cbrt(Math.random())); pos.set([v.x, v.y, v.z], i * 3); vel.push(new T.Vector3((Math.random() - .5) * .02, (Math.random() - .5) * .02, (Math.random() - .5) * .02)); }
       var geo = new T.BufferGeometry(); geo.setAttribute('position', new T.BufferAttribute(pos, 3));
-      var pts = new T.Points(geo, new T.PointsMaterial({ color: YEL, size: kind === 'globe' ? .16 : .22, transparent: true, opacity: .95 })); group.add(pts);
-      var lineGeo = new T.BufferGeometry(), maxL = N * 6, lpos = new Float32Array(maxL * 3 * 2); lineGeo.setAttribute('position', new T.BufferAttribute(lpos, 3)); var lines = new T.LineSegments(lineGeo, new T.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: .16 })); group.add(lines);
-      var ico = new T.Mesh(new T.IcosahedronGeometry(kind === 'globe' ? 9.2 : 6, 1), new T.MeshBasicMaterial({ color: YEL, wireframe: true, transparent: true, opacity: kind === 'globe' ? .10 : .35 })); group.add(ico);
-      if (kind !== 'globe') { var core = new T.Mesh(new T.IcosahedronGeometry(3.2, 2), new T.MeshStandardMaterial({ color: 0x424346, emissive: YEL, emissiveIntensity: .25, metalness: .6, roughness: .35, flatShading: true })); group.add(core); }
-      var thresh = kind === 'globe' ? 2.6 : 4.2;
-      mats.push(function (dt) {
-        var p = geo.attributes.position.array, k = 0;
-        for (var i = 0; i < N; i++) { if (kind !== 'globe') { p[i * 3] += vel[i].x; p[i * 3 + 1] += vel[i].y; p[i * 3 + 2] += vel[i].z; if (Math.abs(p[i * 3]) > radius * 1.6) vel[i].x *= -1; if (Math.abs(p[i * 3 + 1]) > radius * .9) vel[i].y *= -1; if (Math.abs(p[i * 3 + 2]) > radius * .6) vel[i].z *= -1; } }
-        for (var a = 0; a < N && k < maxL; a++) { var ax = p[a * 3], ay = p[a * 3 + 1], az = p[a * 3 + 2]; for (var b = a + 1; b < N && k < maxL; b += (kind === 'globe' ? 1 : 1)) { var dx = ax - p[b * 3], dy = ay - p[b * 3 + 1], dz = az - p[b * 3 + 2]; if (dx * dx + dy * dy + dz * dz < thresh * thresh) { lpos[k * 6] = ax; lpos[k * 6 + 1] = ay; lpos[k * 6 + 2] = az; lpos[k * 6 + 3] = p[b * 3]; lpos[k * 6 + 4] = p[b * 3 + 1]; lpos[k * 6 + 5] = p[b * 3 + 2]; k++; } } }
-        lineGeo.setDrawRange(0, k * 2); lineGeo.attributes.position.needsUpdate = true; if (kind !== 'globe') geo.attributes.position.needsUpdate = true;
-        group.rotation.y += dt * (kind === 'globe' ? .12 : .05); ico.rotation.x += dt * .08; ico.rotation.z -= dt * .05; if (core) { core.rotation.y -= dt * .3; core.rotation.x += dt * .12; }
-      });
-    } else { /* cubes */
-      var cubes = [], cg = new T.BoxGeometry(2.4, 2.4, 2.4), eg = new T.EdgesGeometry(cg);
-      for (var c = 0; c < 26; c++) { var m = new T.Mesh(cg, new T.MeshStandardMaterial({ color: c % 3 === 0 ? YEL : 0x424346, metalness: .5, roughness: .4, transparent: true, opacity: .92 })); m.position.set((Math.random() - .5) * 36, (Math.random() - .5) * 18, (Math.random() - .5) * 14); m.rotation.set(Math.random() * 3, Math.random() * 3, 0); m.userData.s = .2 + Math.random() * .5; var e = new T.LineSegments(eg, new T.LineBasicMaterial({ color: c % 3 === 0 ? 0x424346 : YEL, transparent: true, opacity: .6 })); m.add(e); group.add(m); cubes.push(m); }
-      mats.push(function (dt, t) { cubes.forEach(function (m, i) { m.rotation.x += dt * m.userData.s; m.rotation.y += dt * m.userData.s * .7; m.position.y += Math.sin(t * .6 + i) * .004; }); group.rotation.y += dt * .04; });
+      g.add(new T.Points(geo, new T.PointsMaterial({ color: YEL, size: .28, transparent: true, opacity: 1 })));
+      var maxL = N * 5, lp = new Float32Array(maxL * 6), lg = new T.BufferGeometry(); lg.setAttribute('position', new T.BufferAttribute(lp, 3));
+      g.add(new T.LineSegments(lg, new T.LineBasicMaterial({ color: WHITE, transparent: true, opacity: .32 })));
+      var core = new T.Mesh(new T.SphereGeometry(1.9, 40, 30), new T.MeshStandardMaterial({ color: YEL, emissive: YEL, emissiveIntensity: .35, metalness: .3, roughness: .3 })); g.add(core);
+      var coreRing = new T.Mesh(new T.TorusGeometry(2.7, .05, 8, 90), new T.MeshBasicMaterial({ color: WHITE, transparent: true, opacity: .45 })); g.add(coreRing);
+      var shell = new T.Mesh(new T.IcosahedronGeometry(4.2, 1), new T.MeshBasicMaterial({ color: YEL, wireframe: true, transparent: true, opacity: .28 })); g.add(shell);
+      return function (dt) {
+        var p = geo.attributes.position.array, k = 0, i, j;
+        for (i = 0; i < N; i++) { p[i * 3] += vel[i].x; p[i * 3 + 1] += vel[i].y; p[i * 3 + 2] += vel[i].z; var l = Math.hypot(p[i * 3], p[i * 3 + 1], p[i * 3 + 2]); if (l > R) { vel[i].multiplyScalar(-1); } }
+        for (i = 0; i < N && k < maxL; i++) for (j = i + 1; j < N && k < maxL; j++) { var dx = p[i * 3] - p[j * 3], dy = p[i * 3 + 1] - p[j * 3 + 1], dz = p[i * 3 + 2] - p[j * 3 + 2]; if (dx * dx + dy * dy + dz * dz < 6.5) { lp.set([p[i * 3], p[i * 3 + 1], p[i * 3 + 2], p[j * 3], p[j * 3 + 1], p[j * 3 + 2]], k * 6); k++; } }
+        lg.setDrawRange(0, k * 2); lg.attributes.position.needsUpdate = true; geo.attributes.position.needsUpdate = true;
+        coreRing.rotation.x += dt * .5; coreRing.rotation.y += dt * .3; shell.rotation.y += dt * .1; shell.rotation.z -= dt * .06;
+      };
+    },
+    globe: function (T, g, q) {
+      var R = 5.6, N = Math.round(900 * q), pos = new Float32Array(N * 3);
+      for (var i = 0; i < N; i++) { var y = 1 - (i / (N - 1)) * 2, r = Math.sqrt(1 - y * y), th = i * 2.399963; pos.set([Math.cos(th) * r * R, y * R, Math.sin(th) * r * R], i * 3); }
+      var geo = new T.BufferGeometry(); geo.setAttribute('position', new T.BufferAttribute(pos, 3));
+      g.add(new T.Points(geo, new T.PointsMaterial({ color: YEL, size: .13, transparent: true, opacity: 1 })));
+      g.add(new T.Mesh(new T.SphereGeometry(R * .985, 32, 24), new T.MeshStandardMaterial({ color: 0x3A3B3F, emissive: 0x1A1A1C, metalness: .3, roughness: .7, transparent: true, opacity: .9 })));
+      g.add(new T.Mesh(new T.SphereGeometry(R * 1.002, 24, 16), new T.MeshBasicMaterial({ color: WHITE, wireframe: true, transparent: true, opacity: .07 })));
+      var arcs = new T.Group(); g.add(arcs);
+      function pt() { var u = Math.random() * 2 - 1, t = Math.random() * Math.PI * 2, r = Math.sqrt(1 - u * u); return new T.Vector3(Math.cos(t) * r * R, u * R, Math.sin(t) * r * R); }
+      for (var a = 0; a < Math.round(14 * q + 4); a++) { var p1 = pt(), p2 = pt(), mid = p1.clone().add(p2).multiplyScalar(.5).normalize().multiplyScalar(R * 1.45); var c = new T.QuadraticBezierCurve3(p1, mid, p2); arcs.add(new T.Line(new T.BufferGeometry().setFromPoints(c.getPoints(40)), new T.LineBasicMaterial({ color: a % 3 ? WHITE : YEL, transparent: true, opacity: a % 3 ? .25 : .7 }))); }
+      var ring = new T.Mesh(new T.TorusGeometry(R * 1.35, .03, 8, 120), new T.MeshBasicMaterial({ color: YEL, transparent: true, opacity: .5 })); ring.rotation.x = Math.PI / 2.4; g.add(ring);
+      var sat = new T.Mesh(new T.SphereGeometry(.22, 16, 12), new T.MeshBasicMaterial({ color: YEL })); g.add(sat); var t0 = 0;
+      g.rotation.z = .35;
+      return function (dt) { t0 += dt; g.children[0].rotation.y += dt * .08; g.children[1].rotation.y += dt * .08; g.children[2].rotation.y += dt * .08; arcs.rotation.y += dt * .08; var a = t0 * .6; sat.position.set(Math.cos(a) * R * 1.35, Math.sin(a) * R * 1.35 * Math.cos(Math.PI / 2.4), Math.sin(a) * R * 1.35 * Math.sin(Math.PI / 2.4) * -1); };
+    },
+    cubes: function (T, g) {
+      var cubes = [], geo = new T.BoxGeometry(1.7, 1.7, 1.7), eg = new T.EdgesGeometry(geo);
+      for (var x = -1; x <= 1; x++) for (var y = -1; y <= 1; y++) for (var z = -1; z <= 1; z++) {
+        var hl = Math.random() < .28, m = new T.Mesh(geo, new T.MeshStandardMaterial({ color: hl ? YEL : GRAY, metalness: .45, roughness: .35 }));
+        m.add(new T.LineSegments(eg, new T.LineBasicMaterial({ color: hl ? DARK : YEL, transparent: true, opacity: .55 })));
+        m.userData.base = new T.Vector3(x, y, z).multiplyScalar(2.05); m.userData.ph = Math.random() * 6.28; m.position.copy(m.userData.base); g.add(m); cubes.push(m);
+      }
+      g.rotation.set(.5, .6, 0); var t = 0;
+      return function (dt) { t += dt; var e = (Math.sin(t * .9) + 1) * .5; cubes.forEach(function (m) { m.position.copy(m.userData.base).multiplyScalar(1 + e * .22 + Math.sin(t * 1.4 + m.userData.ph) * .02); m.rotation.x += dt * .15; }); g.rotation.y += dt * .25; };
+    },
+    shield: function (T, g, q) {
+      var s = new T.Shape(); s.moveTo(0, 4.2); s.bezierCurveTo(1.8, 3.3, 3.2, 3.4, 3.8, 3.2); s.bezierCurveTo(3.8, .2, 3, -2.8, 0, -4.4); s.bezierCurveTo(-3, -2.8, -3.8, .2, -3.8, 3.2); s.bezierCurveTo(-3.2, 3.4, -1.8, 3.3, 0, 4.2);
+      var body = new T.Mesh(new T.ExtrudeGeometry(s, { depth: .9, bevelEnabled: true, bevelThickness: .25, bevelSize: .22, bevelSegments: 3, curveSegments: 24 }), new T.MeshStandardMaterial({ color: GRAY, metalness: .7, roughness: .28 }));
+      body.geometry.center(); g.add(body);
+      var edge = new T.LineSegments(new T.EdgesGeometry(body.geometry, 30), new T.LineBasicMaterial({ color: YEL, transparent: true, opacity: .9 })); g.add(edge);
+      var ck = new T.Shape(); ck.moveTo(-1.6, .1); ck.lineTo(-.5, -1); ck.lineTo(1.8, 1.4); ck.lineTo(1.3, 1.9); ck.lineTo(-.5, .05); ck.lineTo(-1.1, .65); ck.lineTo(-1.6, .1);
+      var check = new T.Mesh(new T.ExtrudeGeometry(ck, { depth: .35, bevelEnabled: true, bevelThickness: .08, bevelSize: .06, bevelSegments: 2 }), new T.MeshStandardMaterial({ color: YEL, emissive: YEL, emissiveIntensity: .35, metalness: .3, roughness: .4 }));
+      check.position.z = .75; check.position.y = .15; g.add(check);
+      var N = Math.round(260 * q), pos = new Float32Array(N * 3);
+      for (var i = 0; i < N; i++) { var a = Math.random() * 6.283, r = 5.8 + Math.random() * 1.6; pos.set([Math.cos(a) * r, (Math.random() - .5) * 1.4, Math.sin(a) * r], i * 3); }
+      var ring = new T.Points(new T.BufferGeometry().setAttribute('position', new T.BufferAttribute(pos, 3)), new T.PointsMaterial({ color: YEL, size: .09, transparent: true, opacity: .8 })); ring.rotation.x = .35; g.add(ring);
+      var halo = new T.Mesh(new T.TorusGeometry(6.2, .025, 8, 140), new T.MeshBasicMaterial({ color: WHITE, transparent: true, opacity: .25 })); halo.rotation.x = Math.PI / 2 + .35; g.add(halo);
+      var t = 0;
+      return function (dt) { t += dt; body.rotation.y = edge.rotation.y = check.rotation.y = Math.sin(t * .6) * .45; ring.rotation.y += dt * .25; check.material.emissiveIntensity = .3 + Math.sin(t * 2.2) * .15; };
+    },
+    pulse: function (T, g, q) {
+      var heart = new T.Mesh(new T.SphereGeometry(2.2, 48, 36), new T.MeshStandardMaterial({ color: YEL, emissive: YEL, emissiveIntensity: .3, metalness: .25, roughness: .35 })); g.add(heart);
+      var wire = new T.Mesh(new T.IcosahedronGeometry(3.3, 1), new T.MeshBasicMaterial({ color: YEL, wireframe: true, transparent: true, opacity: .3 })); g.add(wire);
+      var M = 220, lp = new Float32Array(M * 3), line = new T.Line(new T.BufferGeometry().setAttribute('position', new T.BufferAttribute(lp, 3)), new T.LineBasicMaterial({ color: WHITE })); line.position.z = 3.8; g.add(line);
+      function ecg(x) { var u = ((x % 1) + 1) % 1; if (u < .40) return 0; if (u < .44) return (u - .40) * 12; if (u < .47) return .48 - (u - .44) * 50; if (u < .50) return -1.02 + (u - .47) * 60; if (u < .54) return .78 - (u - .50) * 19.5; if (u < .64) return Math.sin((u - .54) * 31.4) * .25; return 0; }
+      var orb = new T.Group(); g.add(orb);
+      for (var i = 0; i < Math.round(40 * q + 10); i++) { var dot = new T.Mesh(new T.SphereGeometry(.07 + Math.random() * .08, 8, 6), new T.MeshBasicMaterial({ color: i % 4 ? WHITE : YEL, transparent: true, opacity: .8 })); var a = Math.random() * 6.28, r = 4.6 + Math.random() * 2; dot.position.set(Math.cos(a) * r, (Math.random() - .5) * 5, Math.sin(a) * r); orb.add(dot); }
+      var t = 0;
+      return function (dt) { t += dt; for (var i = 0; i < M; i++) { var x = i / M; lp.set([-7 + x * 14, ecg(x * 1.2 - t * .45) * 2.6, 0], i * 3); } line.geometry.attributes.position.needsUpdate = true; var b = 1 + Math.max(0, Math.sin(t * 5.6)) * .08; heart.scale.set(b, b, b); heart.rotation.y += dt * .3; wire.rotation.y -= dt * .15; orb.rotation.y += dt * .2; };
+    },
+    face: function (T, g, q) {
+      var N = Math.round(2600 * q), pos = new Float32Array(N * 3), col = new Float32Array(N * 3), c1 = new T.Color(YEL), c2 = new T.Color(0xD9D9DC);
+      for (var i = 0; i < N; i++) { var y = 1 - (i / (N - 1)) * 2, r = Math.sqrt(1 - y * y), th = i * 2.399963, x = Math.cos(th) * r, z = Math.sin(th) * r; var px = x * 3.1, py = y * 4.1, pz = z * 3.3; if (z > .55 && Math.abs(x) < .18 && y > -.35 && y < .25) pz += .8 * (1 - Math.abs(x) / .18); if (z > .5 && Math.abs(Math.abs(x) - .38) < .12 && y > .12 && y < .3) pz -= .25; pos.set([px, py, pz], i * 3); col.set([c2.r, c2.g, c2.b], i * 3); }
+      var geo = new T.BufferGeometry(); geo.setAttribute('position', new T.BufferAttribute(pos, 3)); geo.setAttribute('color', new T.BufferAttribute(col, 3));
+      var head = new T.Points(geo, new T.PointsMaterial({ size: .13, vertexColors: true })); g.add(head);
+      var scan = new T.Mesh(new T.PlaneGeometry(9, .06), new T.MeshBasicMaterial({ color: YEL, transparent: true, opacity: .85, side: T.DoubleSide })); g.add(scan);
+      var frame = new T.Group(); g.add(frame);
+      [[-1, 1], [1, 1], [-1, -1], [1, -1]].forEach(function (s) { var pts = [new T.Vector3(s[0] * 4.6, s[1] * 3.6, 3.4), new T.Vector3(s[0] * 4.6, s[1] * 5.2, 3.4), new T.Vector3(s[0] * 3, s[1] * 5.2, 3.4)]; frame.add(new T.Line(new T.BufferGeometry().setFromPoints(pts), new T.LineBasicMaterial({ color: YEL }))); });
+      var t = 0;
+      return function (dt) { t += dt; var sy = Math.sin(t * 1.1) * 4.1; scan.position.set(0, sy, 0); var p = geo.attributes.position.array, c = geo.attributes.color.array; for (var i = 0; i < N; i++) { var dd = Math.abs(p[i * 3 + 1] - sy), k = Math.max(0, 1 - dd / .7); c[i * 3] = c2.r + (c1.r - c2.r) * k; c[i * 3 + 1] = c2.g + (c1.g - c2.g) * k; c[i * 3 + 2] = c2.b + (c1.b - c2.b) * k; } geo.attributes.color.needsUpdate = true; head.rotation.y = Math.sin(t * .4) * .6; };
+    },
+    docs: function (T, g) {
+      var docs = [], geo = new T.BoxGeometry(4.2, 5.6, .08);
+      for (var i = 0; i < 6; i++) { var m = new T.Mesh(geo, new T.MeshStandardMaterial({ color: i === 5 ? WHITE : (i % 2 ? 0xE4E0D6 : 0xF1EEE6), metalness: .05, roughness: .7 })); m.add(new T.LineSegments(new T.EdgesGeometry(geo), new T.LineBasicMaterial({ color: i === 5 ? YEL : GOLD, transparent: true, opacity: .8 })));
+        for (var l = 0; l < 7; l++) { var bar = new T.Mesh(new T.BoxGeometry(l === 0 ? 2.2 : 3.2 - Math.random() * 1.2, .16, .02), new T.MeshBasicMaterial({ color: l === 0 ? YEL : 0x8A8B90 })); bar.position.set(l === 0 ? -.8 : -0.3, 2.1 - l * .6, .06); m.add(bar); }
+        m.userData.i = i; g.add(m); docs.push(m); }
+      var t = 0;
+      return function (dt) { t += dt; var spread = (Math.sin(t * .8) + 1) * .5; docs.forEach(function (m) { var k = m.userData.i - 2.5; m.position.set(k * .35 * spread, k * .1, k * (.25 + spread * .35)); m.rotation.set(-.15, .4 + k * .12 * spread, k * .05 * spread); }); g.rotation.y = Math.sin(t * .35) * .3; };
+    },
+    gears: function (T, g) {
+      function gear(r, teeth, color) { var s = new T.Shape(), n = teeth * 2; for (var i = 0; i <= n; i++) { var a = i / n * Math.PI * 2, rr = i % 2 ? r * .82 : r; var a1 = a - Math.PI / n * .45, a2 = a + Math.PI / n * .45; if (i === 0) s.moveTo(Math.cos(a1) * rr, Math.sin(a1) * rr); else s.lineTo(Math.cos(a1) * rr, Math.sin(a1) * rr); s.lineTo(Math.cos(a2) * rr, Math.sin(a2) * rr); } var h = new T.Path(); h.absarc(0, 0, r * .3, 0, Math.PI * 2, true); s.holes.push(h);
+        var m = new T.Mesh(new T.ExtrudeGeometry(s, { depth: .7, bevelEnabled: true, bevelThickness: .1, bevelSize: .08, bevelSegments: 2 }), new T.MeshStandardMaterial({ color: color, metalness: .65, roughness: .3 })); m.geometry.center(); return m; }
+      var a = gear(3, 14, GRAY), b = gear(1.9, 9, YEL), c = gear(1.4, 7, 0x6B6C71);
+      a.position.set(-1.4, .6, 0); b.position.set(2.75, -.95, .2); c.position.set(-.3, -3.4, -.2); g.add(a); g.add(b); g.add(c);
+      g.rotation.set(-.35, .45, 0);
+      return function (dt) { a.rotation.z += dt * .35; b.rotation.z -= dt * .35 * 14 / 9; c.rotation.z -= dt * .35 * 14 / 7; };
+    },
+    layers: function (T, g, q) {
+      var planes = [];
+      for (var i = 0; i < 5; i++) { var m = new T.Mesh(new T.BoxGeometry(6.4, .12, 6.4), new T.MeshStandardMaterial({ color: i === 2 ? YEL : GRAY, metalness: .4, roughness: .45, transparent: true, opacity: i === 2 ? .92 : .8 })); m.add(new T.LineSegments(new T.EdgesGeometry(m.geometry), new T.LineBasicMaterial({ color: i === 2 ? DARK : YEL, transparent: true, opacity: .6 }))); m.userData.i = i; g.add(m); planes.push(m);
+        for (var k = 0; k < Math.round(10 * q + 4); k++) { var b = new T.Mesh(new T.BoxGeometry(.5, .35 + Math.random() * .6, .5), new T.MeshStandardMaterial({ color: (k + i) % 3 ? 0xE4E0D6 : YEL, metalness: .2, roughness: .6 })); b.position.set((Math.random() - .5) * 5.2, .3, (Math.random() - .5) * 5.2); m.add(b); } }
+      var t = 0; g.rotation.set(.55, .6, 0);
+      return function (dt) { t += dt; var gap = 1.3 + (Math.sin(t * .9) + 1) * .45; planes.forEach(function (m) { m.position.y = (m.userData.i - 2) * gap; }); g.rotation.y += dt * .2; };
+    },
+    orbit: function (T, g) {
+      var core = new T.Mesh(new T.SphereGeometry(2.3, 40, 30), new T.MeshStandardMaterial({ color: YEL, emissive: YEL, emissiveIntensity: .3, metalness: .35, roughness: .35 })); g.add(core);
+      var halo = new T.Mesh(new T.SphereGeometry(3, 24, 16), new T.MeshBasicMaterial({ color: YEL, wireframe: true, transparent: true, opacity: .15 })); g.add(halo);
+      var rings = [];
+      [[5, .2, 0], [4, 1.2, .8], [6.2, -.9, 1.6]].forEach(function (cfg, i) { var grp = new T.Group(); grp.rotation.set(cfg[1] + Math.PI / 2, cfg[2], 0); var torus = new T.Mesh(new T.TorusGeometry(cfg[0], .06, 8, 160), new T.MeshBasicMaterial({ color: i === 1 ? YEL : WHITE, transparent: true, opacity: i === 1 ? .8 : .5 })); grp.add(torus); var sat = new T.Mesh(new T.SphereGeometry(.6 - i * .08, 24, 16), new T.MeshStandardMaterial({ color: i === 1 ? YEL : 0xE4E0D6, metalness: .4, roughness: .4 })); sat.userData.r = cfg[0]; sat.userData.s = .8 - i * .18; grp.add(sat); g.add(grp); rings.push(sat); });
+      var t = 0;
+      return function (dt) { t += dt; rings.forEach(function (s, i) { var a = t * s.userData.s + i * 2; s.position.set(Math.cos(a) * s.userData.r, Math.sin(a) * s.userData.r, 0); }); core.rotation.y += dt * .3; };
+    },
+    cloud: function (T, g, q) {
+      var mat = new T.MeshStandardMaterial({ color: 0xE9E7E1, metalness: .1, roughness: .55 }), cl = new T.Group();
+      [[0, 0, 0, 2.3], [-2.2, -.5, .2, 1.7], [2.2, -.4, 0, 1.8], [-1, 1.2, -.2, 1.6], [1.2, 1, .3, 1.5], [3.6, -.9, -.3, 1.1], [-3.6, -1, -.2, 1.1]].forEach(function (b) { var m = new T.Mesh(new T.SphereGeometry(b[3], 32, 24), mat); m.position.set(b[0], b[1], b[2]); cl.add(m); });
+      cl.position.y = 1.4; g.add(cl);
+      var N = Math.round(120 * q + 30), pos = new Float32Array(N * 3), sp = []; for (var i = 0; i < N; i++) { pos.set([(Math.random() - .5) * 8, -6 + Math.random() * 6, (Math.random() - .5) * 3], i * 3); sp.push(.6 + Math.random() * 1.4); }
+      var pts = new T.Points(new T.BufferGeometry().setAttribute('position', new T.BufferAttribute(pos, 3)), new T.PointsMaterial({ color: YEL, size: .14, transparent: true, opacity: .9 })); g.add(pts);
+      var base = new T.Mesh(new T.CylinderGeometry(3.6, 3.6, .3, 48), new T.MeshStandardMaterial({ color: GRAY, metalness: .6, roughness: .35 })); base.position.y = -6.2; g.add(base);
+      var t = 0;
+      return function (dt) { t += dt; var p = pts.geometry.attributes.position.array; for (var i = 0; i < N; i++) { p[i * 3 + 1] += dt * sp[i]; if (p[i * 3 + 1] > 1) p[i * 3 + 1] = -6; } pts.geometry.attributes.position.needsUpdate = true; cl.position.y = 1.4 + Math.sin(t) * .15; g.rotation.y = Math.sin(t * .3) * .5; };
+    },
+    neural: function (T, g, q) {
+      var layers = [4, 7, 7, 3], nodes = [], mat = new T.MeshStandardMaterial({ color: GRAY, emissive: YEL, emissiveIntensity: .15, metalness: .5, roughness: .35 }), matO = new T.MeshStandardMaterial({ color: YEL, emissive: YEL, emissiveIntensity: .4 });
+      layers.forEach(function (n, li) { var arr = []; for (var i = 0; i < n; i++) { var m = new T.Mesh(new T.SphereGeometry(.34, 18, 14), li === layers.length - 1 ? matO : mat); m.position.set((li - 1.5) * 3.1, (i - (n - 1) / 2) * 1.35, 0); g.add(m); arr.push(m); } nodes.push(arr); });
+      var edges = [];
+      for (var li = 0; li < layers.length - 1; li++) nodes[li].forEach(function (a) { nodes[li + 1].forEach(function (b) { var ln = new T.Line(new T.BufferGeometry().setFromPoints([a.position, b.position]), new T.LineBasicMaterial({ color: WHITE, transparent: true, opacity: .12 })); g.add(ln); edges.push([a.position, b.position]); }); });
+      var P = Math.round(26 * q + 8), sparks = [];
+      for (var s = 0; s < P; s++) { var sp = new T.Mesh(new T.SphereGeometry(.1, 8, 6), new T.MeshBasicMaterial({ color: YEL })); sp.userData.e = edges[Math.floor(Math.random() * edges.length)]; sp.userData.t = Math.random(); sp.userData.v = .4 + Math.random() * .6; g.add(sp); sparks.push(sp); }
+      var t = 0;
+      return function (dt) { t += dt; sparks.forEach(function (sp) { sp.userData.t += dt * sp.userData.v; if (sp.userData.t > 1) { sp.userData.t = 0; sp.userData.e = edges[Math.floor(Math.random() * edges.length)]; } sp.position.lerpVectors(sp.userData.e[0], sp.userData.e[1], sp.userData.t); }); g.rotation.y = Math.sin(t * .4) * .5; mat.emissiveIntensity = .12 + Math.sin(t * 2) * .06; };
     }
-    var mx = 0, my = 0; on(w, 'mousemove', function (e) { mx = (e.clientX / w.innerWidth - .5); my = (e.clientY / w.innerHeight - .5); }, { passive: true });
-    function resize() { var r = host.getBoundingClientRect(); renderer.setSize(r.width, r.height, false); cam.aspect = r.width / Math.max(1, r.height); cam.updateProjectionMatrix(); } resize(); on(w, 'resize', resize);
+  };
+  function scene(host) {
+    var T = w.THREE; if (!T) return;
+    var kind = host.getAttribute('data-trix-3d') || 'network', build = SCENES[kind] || SCENES.network;
+    var small = w.innerWidth < 768, q = small ? .55 : 1;
+    var renderer = new T.WebGLRenderer({ antialias: !small, alpha: true, powerPreference: 'low-power' });
+    renderer.setPixelRatio(Math.min(w.devicePixelRatio || 1, small ? 1.5 : 2)); host.appendChild(renderer.domElement);
+    var sc = new T.Scene(), cam = new T.PerspectiveCamera(40, 1, .1, 200); cam.position.set(0, 0, 24);
+    sc.add(new T.AmbientLight(0xffffff, .55)); var key = new T.DirectionalLight(0xffffff, .9); key.position.set(6, 10, 12); sc.add(key);
+    var warm = new T.PointLight(YEL, 1.1, 60); warm.position.set(-8, -4, 10); sc.add(warm);
+    var root = new T.Group(), g = new T.Group(); root.add(g); sc.add(root);
+    var update = build(T, g, q);
+    /* enquadramento automático: cabe a cena na coluna qualquer que seja a proporção */
+    var box = new T.Box3().setFromObject(g), size = box.getSize(new T.Vector3()), radius = Math.max(size.x, size.y, size.z) * .62 || 8;
+    function fit() { var r = host.getBoundingClientRect(), wd = Math.max(1, r.width), ht = Math.max(1, r.height); renderer.setSize(wd, ht, false); cam.aspect = wd / ht; var fov = cam.fov * Math.PI / 180, dist = radius / Math.sin(fov / 2); if (cam.aspect < 1) dist /= cam.aspect; cam.position.z = dist * 1.05; cam.updateProjectionMatrix(); }
+    fit(); on(w, 'resize', fit);
+    if ('ResizeObserver' in w) new ResizeObserver(fit).observe(host);
+    /* interação: arrastar para girar (mouse e toque), inércia e parallax */
+    var rx = 0, ry = 0, vx = 0, vy = 0, drag = false, lx = 0, ly = 0, mx = 0, my = 0;
+    on(host, 'pointerdown', function (e) { drag = true; lx = e.clientX; ly = e.clientY; if (host.setPointerCapture) host.setPointerCapture(e.pointerId); });
+    on(host, 'pointermove', function (e) { if (!drag) return; var dx = e.clientX - lx, dy = e.clientY - ly; lx = e.clientX; ly = e.clientY; vy = dx * .006; vx = dy * .004; ry += vy; rx = Math.max(-.9, Math.min(.9, rx + vx)); });
+    on(host, 'pointerup', function () { drag = false; }); on(host, 'pointercancel', function () { drag = false; });
+    on(w, 'mousemove', function (e) { mx = (e.clientX / w.innerWidth - .5); my = (e.clientY / w.innerHeight - .5); }, { passive: true });
     var visible = true; if ('IntersectionObserver' in w) new IntersectionObserver(function (es) { visible = es[0].isIntersecting; }).observe(host);
-    var last = performance.now(), t = 0;
-    function loop(now) { requestAnimationFrame(loop); if (!visible || d.hidden) return; var dt = Math.min(.05, (now - last) / 1000); last = now; t += dt; if (!reduced && !d.documentElement.classList.contains('a11y-motion')) { mats.forEach(function (f) { f(dt, t); }); cam.position.x += (mx * 6 - cam.position.x) * .04; cam.position.y += (-my * 4 - cam.position.y) * .04; cam.lookAt(0, 0, 0); } renderer.render(sc, cam); }
+    var vis = host.closest('.trix-hero__visual'); if (vis) vis.classList.add('is-3d');
+    var last = performance.now();
+    function still() { return reduced || d.documentElement.classList.contains('a11y-motion'); }
+    function loop(now) {
+      requestAnimationFrame(loop); if (!visible || d.hidden) { last = now; return; }
+      var dt = Math.min(.05, (now - last) / 1000); last = now;
+      if (!still()) { update(dt); if (!drag) { vy *= .95; vx *= .9; ry += vy; rx *= .98; } }
+      root.rotation.y = ry + mx * .5; root.rotation.x = rx + my * .3;
+      renderer.render(sc, cam);
+    }
+    if (still()) update(0);
     requestAnimationFrame(loop);
   }
 

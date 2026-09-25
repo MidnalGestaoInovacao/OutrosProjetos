@@ -1,10 +1,9 @@
 from .helpers import *
-def prod(slug, title, desc, kicker, h1, lead, body, name, category="BusinessApplication", meta=None, image=None, faq_items=None, order=10, actions=None, three=None, hero_img=None):
+def prod(slug, title, desc, kicker, h1, lead, body, name, category="BusinessApplication", meta=None, image=None, faq_items=None, order=10, actions=None, hero_img=None):
     p = {"slug": slug, "parent": "produtos", "order": order, "title": title, "description": desc, "type": "product", "productName": name, "category": category, "hero": "dark", "short": name.split(" - ")[0],
          "kicker": kicker, "h1": h1, "lead": lead, "actions": actions or [("Solicitar demonstração", "/contato/?assunto=" + name), ("Todos os produtos", "/produtos/", "trix-btn--ghost")], "body": body}
     if meta: p["meta"] = meta
     if image: p["image"] = image
-    if three: p["three"] = three
     if hero_img: p["hero_img"] = hero_img[0]; p["hero_img_alt"] = hero_img[1]
     if faq_items: p["faq"] = [{"q": q, "a": a} for q, a in faq_items]
     return p
@@ -13,7 +12,7 @@ HUB = {
  "slug": "produtos", "order": 3, "short": "Produtos",
  "title": "Produtos: Prontow, SAW, Aspect Face, Xield e mais | Trix TI",
  "description": "Prontow (clínicas com IA), SAW e Portal Operadora (operadoras), Aspect Face (biometria antifraude), Xield (acesso e automação), GEDAI, Integrador e Intranet.",
- "image": "images/monitor.png", "hero": "dark", "three": "cubes",
+ "image": "images/monitor.png", "hero": "dark",
  "kicker": "Produtos", "h1": "Produtos que <strong>entregam resultados</strong>",
  "lead": "Nós transformamos a nossa paixão por tecnologia em produtos que agregam valor e entregam resultados. Nossos produtos facilitam a vida de milhares de pessoas Brasil afora — em operadoras de saúde, clínicas, hospitais, laboratórios, empresas e condomínios.",
  "actions": [("Solicitar demonstração", "/contato/")],
@@ -88,14 +87,14 @@ SAW_BODY = lambda name: "".join([
  ])
 SAW = prod("saw",
  "SAW: Sistema de Atendimento Web para operadoras | Trix TI",
- "Auditoria médica inteligente, intercâmbio certificado PTU 3.5, elegibilidade em tempo real, padrão TISS e faturamento eletrônico para operadoras de todos os portes.",
+ "Auditoria médica inteligente, intercâmbio PTU 3.5, elegibilidade em tempo real, padrão TISS e faturamento eletrônico para operadoras de saúde.",
  "SAW · Sistema de Atendimento Web", "Todos os envolvidos no atendimento, <strong>em uma única interface</strong>",
  "O SAW é uma ferramenta que integra todos os envolvidos no processo de atendimento a beneficiários de plano de saúde da operadora. De maneira eficiente, com uma única interface comum a todos e por meio da mobilidade da internet, possibilita a escalabilidade do atendimento com qualidade, garantindo a satisfação de atendentes, analistas de contas, cooperados/prestadores, empresas contratantes e, principalmente, beneficiários. Criado para atender às necessidades das operadoras de forma exclusiva, abstraindo conceitos, regras e processos, o SAW atende a realidade de cooperativas de todos os portes.",
  SAW_BODY("SAW"), "SAW - Sistema de Atendimento Web", "HealthApplication", meta=["Certificado PTU 3.5", "Auditoria inteligente", "TISS e faturamento eletrônico", "+35 operadoras"], image="images/30.png", order=2,
  faq_items=[("O SAW exige infraestrutura na operadora?", "Não para o intercâmbio: tudo é resolvido no SAW, sem links dedicados. A integração com a base da operadora ocorre pela internet com o Integrador Trix."), ("O SAW atende ao padrão TISS?", "Sim. Interfaces no padrão TISS, validação de dados, WebService para transações XML e faturamento eletrônico.")],
  hero_img=("{{media:images/30.png}}", "SAW - Sistema de Atendimento Web"))
 PORTAL = prod("portal-operadora",
- "Portal Operadora: atendimento integrado para cooperativas | Trix TI",
+ "Portal Operadora para cooperativas de saúde | Trix TI",
  "Interface única para atendentes, prestadores, contratantes e beneficiários, com auditoria, intercâmbio, TISS e faturamento eletrônico na plataforma SAW.",
  "Portal Operadora", "A solução criada para atender às <strong>necessidades das cooperativas</strong>",
  "O Portal Operadora é uma ferramenta que integra todos os envolvidos no processo de atendimento a beneficiários de plano de saúde. De maneira eficiente, com uma única interface comum a todos e por meio da mobilidade da internet, possibilita a escalabilidade do atendimento com qualidade — para cooperativas de todos os portes.",
@@ -184,4 +183,5 @@ INTRA = prod("intranet",
    + ARQ("Java", "MVC", "Direito de acesso · Aquisição da solução"), "trix-section--sand"),
   contact_band(),
  ]), "Intranet Trix", "BusinessApplication", meta=["Prêmio Unimed de Comunicação 2009 e 2010", "Chat e conteúdo colaborativo", "Integração com sistemas legados"], image="images/11.png", order=8, hero_img=("{{media:images/37.png}}", "Intranet Trix"))
+XIELD["hero_img"] = "{{media:images/xieldimg/xield_02.png}}"; XIELD["hero_img_alt"] = "Xield: controle de acesso com biometria facial"
 PAGES = [HUB, PRONTOW, SAW, PORTAL, ASPECT, XIELD, GEDAI, INTEG, INTRA]

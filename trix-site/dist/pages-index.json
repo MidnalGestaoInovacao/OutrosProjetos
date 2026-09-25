@@ -24,14 +24,14 @@
   "slug": "clientes",
   "parent": null,
   "url": "/clientes/",
-  "title": "Clientes: operadoras, Unimeds, clínicas e laboratórios | Trix TI",
+  "title": "Clientes: operadoras, Unimeds e clínicas | Trix TI",
   "menu_order": 4
  },
  {
   "slug": "servicos",
   "parent": null,
   "url": "/servicos/",
-  "title": "Serviços de TI: software, conectividade e consultoria | Trix TI",
+  "title": "Serviços de TI: software, saúde e consultoria | Trix TI",
   "menu_order": 2
  },
  {
@@ -108,7 +108,7 @@
   "slug": "portal-operadora",
   "parent": "produtos",
   "url": "/produtos/portal-operadora/",
-  "title": "Portal Operadora: atendimento integrado para cooperativas | Trix TI",
+  "title": "Portal Operadora para cooperativas de saúde | Trix TI",
   "menu_order": 3
  },
  {

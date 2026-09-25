@@ -1,9 +1,10 @@
 from .helpers import *
+from .clientes_data import CLIENTS, logo_wall
 EMPRESA = {
  "slug": "empresa", "order": 1, "short": "A Trix",
  "title": "A Trix: tecnologia inteligente em Brasília desde 2009",
- "description": "Conheça a Trix TI: fundada em 2009, especialista em software sob medida, conectividade em saúde suplementar, consultoria e IA, com governança, LGPD e compliance.",
- "image": "images/02.jpg", "type": "about", "hero": "dark", "three": "cubes",
+ "description": "Conheça a Trix TI: desde 2009 em software sob medida, conectividade em saúde suplementar, consultoria e IA, com governança e LGPD.",
+ "image": "images/02.jpg", "type": "about", "hero": "dark",
  "kicker": "Sobre a Trix", "h1": "Uma empresa dinâmica, <strong>focada em resultado</strong>",
  "lead": "Desde 10 de julho de 2009, a Trix Tecnologia Inteligente cria produtos e serviços para os diversos segmentos do mercado. De uma maneira diferenciada, provemos soluções adaptáveis e escaláveis, de acordo com as tendências da atual indústria tecnológica.",
  "actions": [("Nossos produtos", "/produtos/"), ("Fale conosco", "/contato/", "trix-btn--ghost")],
@@ -53,7 +54,7 @@ EVENTOS = {
  "slug": "eventos", "parent": "empresa", "order": 5, "short": "Eventos e Academy",
  "title": "Eventos e Trix Academy | Trix TI",
  "description": "Webinário de Conectividade em Saúde Suplementar (nova TISS, censo hospitalar, app de beneficiários) e a plataforma de treinamentos Trix Academy.",
- "image": "images/02.jpg", "hero": "dark", "three": "cubes",
+ "image": "images/02.jpg", "hero": "dark",
  "kicker": "Conhecimento compartilhado", "h1": "Eventos e <strong>Trix Academy</strong>",
  "lead": "Acreditamos que tecnologia só gera valor quando as pessoas sabem usá-la. Por isso promovemos webinários, treinamentos e programas de capacitação para operadoras, prestadores, parceiros e colaboradores.",
  "actions": [("Acessar a Trix Academy", "http://academy.trixti.com.br/"), ("Quero participar do próximo evento", "/contato/?assunto=Treinamento%20e%20Capacita%C3%A7%C3%A3o", "trix-btn--ghost")],
@@ -77,9 +78,9 @@ EVENTOS = {
 UNIMED = ["70.png","40.png","41.png","42.png","43.png","45.png","46.png","47.png","49.png","unimed-curitiba.jpg","50.png","51.png","52.png","53.png","55.png","56.png","57.png","58.png","59.png","61.png","62.png","unimed-sao-joao.jpg","unimed-serra-minas.jpg","65.png","66.png","67.png","unimed-uba.jpg","69.png","71.png"]
 CLIENTES = {
  "slug": "clientes", "order": 4, "short": "Clientes",
- "title": "Clientes: operadoras, Unimeds, clínicas e laboratórios | Trix TI",
+ "title": "Clientes: operadoras, Unimeds e clínicas | Trix TI",
  "description": "Mais de 35 operadoras de saúde, Unimeds, RHs e autogestões confiam na Trix TI, que também atende médicos, clínicas e laboratórios em todo o Brasil.",
- "image": "images/desenvolvimento.jpg", "hero": "dark", "three": "globe",
+ "image": "images/desenvolvimento.jpg", "hero": "dark",
  "kicker": "Clientes", "h1": "Desenvolver software é a <strong>nossa maior força</strong>",
  "lead": "Para você que quer ser cliente, saiba: entre em contato e nos conheça melhor. Descubra o nível de satisfação dos nossos clientes e por que operadoras de saúde de todo o Brasil escolheram a Trix como parceira tecnológica.",
  "actions": [("Quero ser cliente", "/contato/"), ("Ver produtos", "/produtos/", "trix-btn--ghost")],
@@ -93,7 +94,8 @@ CLIENTES = {
      {"icon": "building", "title": "Hospitais, empresas e condomínios", "text": "Xield para controle de acesso e automação com biometria facial; GEDAI para gestão documental; intranet corporativa."},
    ], 4)),
   sec(head("Portfólio de clientes", "Operadoras que <strong>confiam</strong> na Trix", "", True)
-   + '<div class="trix-logos trix-reveal">' + "".join('<figure><img src="{{media:images/unimed/%s}}" alt="Cliente Trix" loading="lazy"></figure>' % n for n in UNIMED) + '<figure><img src="{{media:images/economus.jpg}}" alt="Economus" loading="lazy"></figure><figure><img src="{{media:images/41.png}}" alt="Cliente Trix" loading="lazy"></figure></div>', "trix-section--sand"),
+   + logo_wall(CLIENTS)
+   + '<p class="trix-center trix-muted" style="margin-top:22px;font-size:.92rem">' + " · ".join(n for _, n in CLIENTS) + '</p>', "trix-section--sand"),
   sec(head("Resultados", "O que nossos clientes <strong>ganham</strong>")
    + cards([
      {"icon": "trending", "title": "Escalabilidade do atendimento", "text": "Uma única interface comum a atendentes, analistas de contas, cooperados/prestadores, empresas contratantes e beneficiários — via internet, sem infraestrutura adicional."},
