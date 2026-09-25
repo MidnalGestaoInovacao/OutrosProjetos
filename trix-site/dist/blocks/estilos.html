@@ -562,6 +562,14 @@ html.a11y-guide .trix-readguide{display:block}
 .trix-store img{height:44px;width:auto}
 .trix-tag svg{width:16px;height:16px}
 .trix-tag{display:inline-flex;align-items:center;gap:6px;background:var(--trix-gray-900);color:var(--trix-yellow);font-size:.75rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:6px 12px;border-radius:999px;margin-bottom:10px}
+/* celulares em pé com tela baixa (iPhone SE, Galaxy S8): banner mais compacto, 3D mantido entre título e texto */
+@media (max-width:599px) and (max-height:760px){
+  .trix-hero{padding-top:calc(var(--trix-header-h) + 12px)}
+  .trix-hero .trix-breadcrumb{margin-bottom:4px}
+  .trix-hero .trix-kicker{margin-bottom:.5rem}
+  .trix-hero__visual{height:130px;margin:4px 0 8px}
+  .trix-hero .lead{font-size:1rem;line-height:1.5}
+}
 @media print{.trix-header,.trix-fab,.trix-a11y-btn,.trix-cookie,.trix-top,.trix-cookiebtn,[vw]{display:none!important}.trix-hero{min-height:auto;padding:20px 0}.trix-hero__visual{display:none}}
 
 </style>

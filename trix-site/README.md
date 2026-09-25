@@ -48,13 +48,13 @@ trix-site/
 8. **SEO**: ver `docs/seo-e-migracao.md`.
 
 ## Passos manuais OBRIGATÓRIOS no painel/servidor (não são possíveis pela chave MCP)
-1. **Instalar o mu-plugin** `wordpress/mu-plugins/trix-site-helpers.php` em `wp-content/mu-plugins/` (via FTP/cPanel). Ele emite no servidor `<title>`, meta description, Open Graph, canonical e JSON-LD (essencial para prévias no WhatsApp/LinkedIn e para rastreadores sem JavaScript) e protege os formulários: mensagens dos canais nunca são aprovadas/publicadas, IP e user-agent não são gravados nos relatos, notificações vão para dpo@ / ouvidoria@ / falecom@ e as mensagens ficam fora da API pública e dos feeds.
+1. **Instalar o mu-plugin** `wordpress/mu-plugins/trix-site-helpers.php` em `wp-content/mu-plugins/` (via FTP/cPanel; sem acesso a arquivos, o mesmo código pode ir num plugin de snippets, executando em todo o site). A chave MCP não tem ferramenta para instalar plugins ou gravar arquivos. Ele emite no servidor `<title>`, meta description, Open Graph, canonical e JSON-LD (essencial para prévias no WhatsApp/LinkedIn e para rastreadores sem JavaScript) e protege os formulários: mensagens dos canais nunca são aprovadas/publicadas, IP e user-agent não são gravados nos relatos, notificações vão para dpo@ / ouvidoria@ / falecom@ e as mensagens ficam fora da API pública e dos feeds.
 2. **Indexação de trix.ebaem.com.br**: se este endereço for apenas homologação, marque *Configurações → Leitura → "Desencorajar os mecanismos de busca"* até a migração; se ele já for o endereço público do site, mantenha indexável e, na migração, use os redirecionamentos 301 e a ferramenta "Alteração de endereço" do Search Console.
 3. **Não** definir página inicial estática: a home é servida pelo template **"Página inicial do blog"** (`home`), com o mesmo conteúdo gerado pelo build. A antiga página `/home/` foi para a lixeira para não haver conteúdo duplicado.
 
 ## Passos manuais recomendados no painel
 - *Configurações → Discussão*: marcar **"O comentário deve ser aprovado manualmente"** e desmarcar **"O autor deve ter um comentário aprovado anteriormente"**, para que nenhuma mensagem de formulário seja publicada automaticamente. Nunca aprovar os comentários-mensagens (apenas ler/responder e depois marcar como lido/lixeira). Trocar o e-mail do administrador para `falecom@trixti.com.br`.
-- *Aparência → Personalizar → Identidade do site*: ícone do site (favicon já na mídia).
+- *Aparência → Personalizar → Identidade do site*: ícone do site com `trix-logo-512.png` (512×512, já na biblioteca de mídia, id 350). Assim o WordPress emite `<link rel="icon">` e `/favicon.ico` no servidor; o mesmo arquivo é o logo da Organization no JSON-LD.
 - Opcional: instalar um plugin de formulários (Fluent Forms/WPForms) e apontar `formEndpoint` em `TRIX_CONFIG`; instalar Yoast/Rank Math; configurar GA4 (`ga4` em `nav.py` → rebuild → deploy).
 
 ## Reprocessar
