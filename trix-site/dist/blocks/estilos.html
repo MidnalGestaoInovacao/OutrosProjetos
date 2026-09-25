@@ -411,7 +411,8 @@ body.admin-bar .trix-drawer,body.admin-bar .trix-drawer__backdrop{top:calc(var(-
 .trix-cookie{position:fixed;left:50%;bottom:16px;transform:translate(-50%,140%);visibility:hidden;width:min(1100px,calc(100vw - 24px));background:#fff;color:var(--trix-gray);border-radius:var(--trix-radius-lg);box-shadow:var(--trix-shadow-lg);z-index:950;padding:22px 24px;display:grid;gap:16px;grid-template-columns:1fr;border-left:8px solid var(--trix-yellow);transition:transform .5s var(--trix-ease),visibility .5s}
 .trix-cookie.is-visible{transform:translate(-50%,0);visibility:visible}
 @media(min-width:900px){.trix-cookie{grid-template-columns:1fr auto;align-items:center}}
-.trix-cookie h3{font-size:1rem;margin:0 0 6px;text-transform:none;letter-spacing:0}
+.trix-cookie h3{font-size:1rem;margin:0 0 6px;text-transform:none;letter-spacing:0;display:flex;align-items:center;gap:8px}
+.trix-cookie__ic{display:inline-grid;color:var(--trix-gold-text)}.trix-cookie__ic svg{width:20px;height:20px}
 .trix-cookie p{margin:0;font-size:.9rem;color:var(--trix-gray-700)}
 .trix-cookie .trix-cookie__more{margin-top:6px}
 .trix-cookie__more a{white-space:nowrap}

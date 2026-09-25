@@ -43,6 +43,15 @@ add_filter( 'get_canonical_url', function ( $url, $post ) {
 // Classe usada pelos estilos do site já no HTML do servidor (sem depender do JavaScript) e esquema de cores claro
 // (impede o modo escuro forçado do Samsung Internet/Chrome Android de recolorir a identidade visual).
 add_filter( 'body_class', function ( $c ) { $c[] = 'trix'; return $c; } );
+// Emojis do WordPress: o script e as imagens vêm de s.w.org (terceiro recebe o IP do visitante, sem consentimento) e o site não precisa deles.
+remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+remove_action( 'wp_print_styles', 'print_emoji_styles' );
+remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+remove_action( 'admin_print_styles', 'print_emoji_styles' );
+remove_filter( 'the_content_feed', 'wp_staticize_emoji' );
+remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
+remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
+add_filter( 'emoji_svg_url', '__return_false' );
 add_action( 'wp_head', function () { echo '<meta name="color-scheme" content="only light">' . "\n"; }, 1 );
 add_action( 'wp_head', function () {
 	$d = trix_seo_data(); if ( ! $d ) { return; }
