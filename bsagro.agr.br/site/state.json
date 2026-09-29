@@ -1,7 +1,9 @@
 {
  "blocks": {},
  "cats": {},
- "links": {},
+ "links": {
+  "contato": "https://bsagro.agr.br/?page_id=47"
+ },
  "media": {
   "abc-brasil": {
    "file": "abc-brasil.png",
@@ -244,7 +246,9 @@
    "url": "https://bsagro.agr.br/wp-content/uploads/2026/09/whatsapp.webp"
   }
  },
- "pages": {},
+ "pages": {
+  "contato": 47
+ },
  "post_links": {},
  "posts": {},
  "tags": {}

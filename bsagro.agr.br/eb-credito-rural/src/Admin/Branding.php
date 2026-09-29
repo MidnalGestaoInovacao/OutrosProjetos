@@ -333,81 +333,95 @@ body.login .language-switcher{display:none}';
 	}
 
 	/**
+	 * Valores das predefinições (sem textos traduzíveis: também é lido por Options::defaults() antes do init).
+	 *
+	 * @return array chave => valores
+	 */
+	public static function preset_data() {
+		return array(
+			'evellyn' => array(
+				'brand_primary'          => '#d4af37',
+				'brand_primary_hover'    => '#b8860b',
+				'brand_primary_contrast' => '#111111',
+				'brand_accent'           => '#d4af37',
+				'brand_accent_strong'    => '#b8860b',
+				'brand_bg'               => '',
+				'brand_surface'          => '#ffffff',
+				'brand_text'             => '#111827',
+				'brand_muted'            => '#4b5563',
+				'brand_border'           => '#e5e7eb',
+				'brand_radius'           => 12,
+				'brand_btn_radius'       => 999,
+				'brand_button_style'     => 'gradient',
+				'brand_font_heading'     => '',
+				'brand_heading_weight'   => '',
+				'brand_font_body'        => '',
+				'brand_font_urls'        => '',
+			),
+			'bsagro'  => array(
+				'brand_primary'          => '#0d3527',
+				'brand_primary_hover'    => '#124a35',
+				'brand_primary_contrast' => '#fbf9f4',
+				'brand_accent'           => '#d4af37',
+				'brand_accent_strong'    => '#b8860b',
+				'brand_bg'               => '#fbf9f4',
+				'brand_surface'          => '#ffffff',
+				'brand_text'             => '#171b24',
+				'brand_muted'            => '#4b5262',
+				'brand_border'           => 'rgba(23,27,36,0.15)',
+				'brand_radius'           => 20,
+				'brand_btn_radius'       => 999,
+				'brand_button_style'     => 'solid',
+				'brand_font_heading'     => '"Raleway", ui-sans-serif, system-ui, sans-serif',
+				'brand_heading_weight'   => '600',
+				'brand_font_body'        => '"Roboto", ui-sans-serif, system-ui, sans-serif',
+				'brand_font_urls'        => "https://cdn.jsdelivr.net/npm/@fontsource/raleway@5/latin-600.css\nhttps://cdn.jsdelivr.net/npm/@fontsource/roboto@5/latin-400.css",
+			),
+			'neutro'  => array(
+				'brand_primary'          => '#1f2937',
+				'brand_primary_hover'    => '#111827',
+				'brand_primary_contrast' => '#ffffff',
+				'brand_accent'           => '#2563eb',
+				'brand_accent_strong'    => '#1d4ed8',
+				'brand_bg'               => '',
+				'brand_surface'          => '#ffffff',
+				'brand_text'             => '#111827',
+				'brand_muted'            => '#4b5563',
+				'brand_border'           => '#e5e7eb',
+				'brand_radius'           => 10,
+				'brand_btn_radius'       => 8,
+				'brand_button_style'     => 'solid',
+				'brand_font_heading'     => '',
+				'brand_heading_weight'   => '',
+				'brand_font_body'        => 'ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+				'brand_font_urls'        => '',
+			),
+		);
+	}
+
+	/**
 	 * Predefinições de identidade (aplicadas pelo botão "Aplicar" na tela, por update-settings com brand_preset ou por
 	 * run-tool apply_brand_preset).
 	 *
 	 * @return array chave => [label, description, values]
 	 */
 	public static function presets() {
+		$data = self::preset_data();
 		return array(
 			'evellyn' => array(
 				'label'       => 'Évellyn Brandão',
 				'description' => __( 'Dourado e preto (visual original do plugin).', 'eb-credito-rural' ),
-				'values'      => array(
-					'brand_primary'          => '#d4af37',
-					'brand_primary_hover'    => '#b8860b',
-					'brand_primary_contrast' => '#111111',
-					'brand_accent'           => '#d4af37',
-					'brand_accent_strong'    => '#b8860b',
-					'brand_bg'               => '',
-					'brand_surface'          => '#ffffff',
-					'brand_text'             => '#111827',
-					'brand_muted'            => '#4b5563',
-					'brand_border'           => '#e5e7eb',
-					'brand_radius'           => 12,
-					'brand_btn_radius'       => 999,
-					'brand_button_style'     => 'gradient',
-					'brand_font_heading'     => '',
-					'brand_heading_weight'   => '',
-					'brand_font_body'        => '',
-					'brand_font_urls'        => '',
-				),
+				'values'      => $data['evellyn'],
 			),
 			'bsagro'  => array(
 				'label'       => 'BS Agro Capital',
 				'description' => __( 'Verde-oliva, dourado e papel; Raleway nos títulos e Roboto no texto; botões em pílula.', 'eb-credito-rural' ),
-				'values'      => array(
-					'brand_primary'          => '#0d3527',
-					'brand_primary_hover'    => '#124a35',
-					'brand_primary_contrast' => '#fbf9f4',
-					'brand_accent'           => '#d4af37',
-					'brand_accent_strong'    => '#b8860b',
-					'brand_bg'               => '#fbf9f4',
-					'brand_surface'          => '#ffffff',
-					'brand_text'             => '#171b24',
-					'brand_muted'            => '#4b5262',
-					'brand_border'           => 'rgba(23,27,36,0.15)',
-					'brand_radius'           => 20,
-					'brand_btn_radius'       => 999,
-					'brand_button_style'     => 'solid',
-					'brand_font_heading'     => '"Raleway", ui-sans-serif, system-ui, sans-serif',
-					'brand_heading_weight'   => '600',
-					'brand_font_body'        => '"Roboto", ui-sans-serif, system-ui, sans-serif',
-					'brand_font_urls'        => "https://cdn.jsdelivr.net/npm/@fontsource/raleway@5/latin-600.css\nhttps://cdn.jsdelivr.net/npm/@fontsource/roboto@5/latin-400.css",
-				),
+				'values'      => $data['bsagro'],
 			),
 			'neutro'  => array(
 				'label'       => __( 'Neutro', 'eb-credito-rural' ),
 				'description' => __( 'Grafite e azul, cantos discretos e fontes do sistema.', 'eb-credito-rural' ),
-				'values'      => array(
-					'brand_primary'          => '#1f2937',
-					'brand_primary_hover'    => '#111827',
-					'brand_primary_contrast' => '#ffffff',
-					'brand_accent'           => '#2563eb',
-					'brand_accent_strong'    => '#1d4ed8',
-					'brand_bg'               => '',
-					'brand_surface'          => '#ffffff',
-					'brand_text'             => '#111827',
-					'brand_muted'            => '#4b5563',
-					'brand_border'           => '#e5e7eb',
-					'brand_radius'           => 10,
-					'brand_btn_radius'       => 8,
-					'brand_button_style'     => 'solid',
-					'brand_font_heading'     => '',
-					'brand_heading_weight'   => '',
-					'brand_font_body'        => 'ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-					'brand_font_urls'        => '',
-				),
+				'values'      => $data['neutro'],
 			),
 		);
 	}
@@ -419,8 +433,8 @@ body.login .language-switcher{display:none}';
 	 * @return array
 	 */
 	public static function preset_values( $key ) {
-		$p = self::presets();
-		return isset( $p[ $key ] ) ? $p[ $key ]['values'] : array();
+		$p = self::preset_data();
+		return isset( $p[ $key ] ) ? $p[ $key ] : array();
 	}
 
 	/**
