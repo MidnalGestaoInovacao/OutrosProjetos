@@ -1,0 +1,30 @@
+/* EB Crédito Rural — botão "Área do Cliente" (shortcode, bloco, barra fixa e menus). Lê a identidade visual (--ebcr-*),
+   com os valores originais como reserva; contorno/discreto/link herdam a cor do texto do tema (currentColor). */
+.ebcr-ca{margin:0}
+.ebcr-ca.aligncenter{text-align:center}.ebcr-ca.alignright{text-align:right}
+.ebcr-ca-btn{box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;gap:.5em;min-height:40px;padding:.55em 1.15em;border:1px solid transparent;border-radius:var(--ebcr-btn-radius,999px);font-size:.9375rem;font-weight:600;line-height:1.2;letter-spacing:.01em;text-decoration:none;white-space:nowrap;cursor:pointer;transition:background-color .2s,color .2s,border-color .2s,filter .2s,box-shadow .2s;vertical-align:middle}
+.ebcr-ca-btn:hover,.ebcr-ca-btn:focus{text-decoration:none}
+.ebcr-ca-btn:focus-visible{outline:3px solid var(--ebcr-focus,#2563eb);outline-offset:2px}
+.ebcr-ca-icon{width:1.15em;height:1.15em;flex:none}
+.ebcr-ca-sep{opacity:.6}
+.ebcr-ca-btn--primary{background:var(--ebcr-primary-bg,linear-gradient(135deg,#f3d77c,#d4af37 45%,#8a6a1c));border-color:var(--ebcr-primary-border,#8a6a1c);color:var(--ebcr-primary-contrast,#111)}
+.ebcr-ca-btn--primary:hover,.ebcr-ca-btn--primary:focus{background:var(--ebcr-primary-bg-hover,var(--ebcr-primary-bg,linear-gradient(135deg,#f3d77c,#d4af37 45%,#8a6a1c)));color:var(--ebcr-primary-contrast,#111);filter:var(--ebcr-primary-hover-filter,brightness(1.05))}
+.ebcr-ca-btn--outline{background:transparent;border-color:currentColor;color:inherit}
+.ebcr-ca-btn--outline:hover,.ebcr-ca-btn--outline:focus{background:rgba(127,127,127,.12);color:inherit}
+.ebcr-ca-btn--ghost{background:transparent;color:inherit}
+.ebcr-ca-btn--ghost:hover,.ebcr-ca-btn--ghost:focus{background:rgba(127,127,127,.12);color:inherit}
+.ebcr-ca-btn--link{background:transparent;border:0;padding:.25em 0;min-height:0;border-radius:0;color:inherit;text-decoration:underline;text-underline-offset:.2em}
+.ebcr-ca-btn--link:hover,.ebcr-ca-btn--link:focus{text-decoration-thickness:2px}
+/* barra fixa (Configurações → Botão Área do Cliente) */
+.ebcr-ca-bar{position:fixed;z-index:99990;top:var(--ebcr-ca-offset,16px);right:var(--ebcr-ca-offset,16px);margin:0;padding:0}
+.ebcr-ca-bar--top-left{right:auto;left:var(--ebcr-ca-offset,16px)}
+body.admin-bar .ebcr-ca-bar{top:calc(var(--ebcr-ca-offset,16px) + 32px)}
+@media (max-width:782px){body.admin-bar .ebcr-ca-bar{top:calc(var(--ebcr-ca-offset,16px) + 46px)}}
+.ebcr-ca-bar .ebcr-ca-btn{box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.ebcr-ca-bar .ebcr-ca-btn--outline,.ebcr-ca-bar .ebcr-ca-btn--ghost,.ebcr-ca-bar .ebcr-ca-btn--link{background:var(--ebcr-surface,#fff);color:var(--ebcr-text,#111827);padding:.55em 1.15em;min-height:40px;border-radius:var(--ebcr-btn-radius,999px)}
+@media (max-width:600px){.ebcr-ca-bar .ebcr-ca-user,.ebcr-ca-bar .ebcr-ca-sep{display:none}.ebcr-ca-bar .ebcr-ca-btn{min-height:40px;padding:.5em .9em;font-size:.875rem}}
+/* itens de menu */
+.ebcr-ca-menu-item,.ebcr-ca-nav-item{display:flex;align-items:center;list-style:none}
+.ebcr-ca-menu-item>.ebcr-ca-btn,.ebcr-ca-nav-item>.ebcr-ca-btn{margin:0}
+@media print{.ebcr-ca-bar{display:none}}
+@media (prefers-reduced-motion:reduce){.ebcr-ca-btn{transition:none}}

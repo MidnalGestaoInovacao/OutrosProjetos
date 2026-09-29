@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<ruleset name="EB Crédito Rural">
+	<description>WordPress Coding Standards (Extra + Security) para o plugin.</description>
+	<file>.</file>
+	<exclude-pattern>*/vendor/*</exclude-pattern>
+	<exclude-pattern>*/node_modules/*</exclude-pattern>
+	<exclude-pattern>*/tests/*</exclude-pattern>
+	<exclude-pattern>*/assets/*</exclude-pattern>
+	<arg name="extensions" value="php"/>
+	<arg name="colors"/>
+	<arg value="sp"/>
+	<config name="minimum_supported_wp_version" value="6.4"/>
+	<config name="testVersion" value="8.1-"/>
+	<rule ref="WordPress-Extra">
+		<exclude name="Universal.Arrays.DisallowShortArraySyntax"/>
+		<exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
+	</rule>
+	<rule ref="WordPress.Security"/>
+	<rule ref="WordPress.Security.EscapeOutput">
+		<properties>
+			<!-- Helpers do plugin que devolvem HTML já escapado (funções ebcr_* de src/functions.php). -->
+			<property name="customAutoEscapedFunctions" type="array">
+				<element value="ebcr_input"/><element value="ebcr_textarea"/><element value="ebcr_select"/><element value="ebcr_radios"/><element value="ebcr_checkboxes"/><element value="ebcr_consent"/><element value="ebcr_error_summary"/>
+				<element value="ebcr_nonce_field"/><element value="ebcr_honeypot_fields"/><element value="ebcr_status_badge"/><element value="ebcr_captcha_field"/>
+			</property>
+		</properties>
+	</rule>
+	<rule ref="WordPress.WP.Capabilities">
+		<properties>
+			<property name="custom_capabilities" type="array">
+				<element value="ebcr_client_portal"/><element value="ebcr_view_submissions"/><element value="ebcr_edit_submissions"/><element value="ebcr_download_documents"/><element value="ebcr_manage_crm"/>
+				<element value="ebcr_change_final_status"/><element value="ebcr_view_dashboard"/><element value="ebcr_export"/><element value="ebcr_manage_settings"/><element value="ebcr_view_audit_log"/>
+			</property>
+		</properties>
+	</rule>
+	<rule ref="PHPCompatibilityWP"/>
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array"><element value="eb-credito-rural"/></property>
+		</properties>
+	</rule>
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array"><element value="ebcr"/><element value="EBCR"/></property>
+		</properties>
+	</rule>
+	<rule ref="WordPress.Files.FileName.InvalidClassFileName"><exclude-pattern>*/src/*</exclude-pattern></rule>
+	<rule ref="WordPress.Files.FileName.NotHyphenatedLowercase"><exclude-pattern>*/src/*</exclude-pattern></rule>
+</ruleset>

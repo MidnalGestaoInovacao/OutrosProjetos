@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="tests/bootstrap.php" colors="true" displayDetailsOnTestsThatTriggerWarnings="true" displayDetailsOnTestsThatTriggerNotices="true" displayDetailsOnTestsThatTriggerDeprecations="false" failOnWarning="false">
+	<testsuites>
+		<testsuite name="EB Crédito Rural"><directory>tests</directory></testsuite>
+	</testsuites>
+	<php>
+		<env name="WP_ROOT" value=""/>
+	</php>
+</phpunit>

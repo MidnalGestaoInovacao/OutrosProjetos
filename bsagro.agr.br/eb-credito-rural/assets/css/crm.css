@@ -1,0 +1,57 @@
+/* EB Crédito Rural — CRM (lista, ficha e quadro Kanban). Complementa admin.css. */
+.ebcr-crm .ebcr-crm-nav{display:inline-block;margin:0 0 0 8px;vertical-align:middle}
+.ebcr-crm .ebcr-crm-nav .button{margin-right:4px}
+.ebcr-crm .ebcr-crm-filters select,.ebcr-crm .ebcr-crm-filters input{margin-right:4px;vertical-align:middle}
+.ebcr-crm .ebcr-crm-tag-filter{width:120px}
+.ebcr-crm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:0 16px}
+.ebcr-crm-grid p{margin:0 0 12px}
+.ebcr-crm-form label,.ebcr-crm aside label{display:block;font-weight:600;margin-bottom:4px}
+.ebcr-crm aside p{margin:0 0 10px}
+.ebcr-chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.ebcr-chip{display:inline-block;padding:2px 9px;border-radius:999px;font-size:.75rem;font-weight:600;background:#eef0f2;color:#1d2327;text-decoration:none;line-height:1.6}
+a.ebcr-chip:hover{background:#dcdcde}
+.ebcr-chip--open{background:#e0ecff;color:#1d4ed8}
+.ebcr-chip--ok{background:#dcfce7;color:#15803d}
+.ebcr-chip--late{background:#fee2e2;color:#b91c1c}
+.ebcr-crm-timeline li p{margin:4px 0 2px}
+.ebcr-crm-timeline li.is-done{opacity:.75}
+.ebcr-crm-timeline li.is-late::before{background:#dc2626}
+.ebcr-act--tarefa::before{background:#2563eb}
+.ebcr-act--ligacao::before{background:#0891b2}
+.ebcr-act--reuniao::before{background:#7c3aed}
+.ebcr-act--visita::before{background:#16a34a}
+.ebcr-act--email::before{background:#d97706}
+.ebcr-act--nota::before{background:#6b7280}
+.ebcr-crm-tasks{list-style:none;margin:0;padding:0}
+.ebcr-crm-tasks li{border-bottom:1px solid #eee;padding:8px 0}
+.ebcr-crm-tasks li:last-child{border-bottom:0}
+.ebcr-crm-tasks li.is-late .description{color:#b91c1c}
+.ebcr-crm-inline{display:inline-block;margin-top:4px}
+.ebcr-crm-boardfilter{margin:12px 0;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+/* Kanban */
+.ebcr-kanban{display:flex;gap:12px;overflow-x:auto;padding:4px 0 16px;align-items:flex-start;scroll-snap-type:x proximity}
+.ebcr-kanban-col{flex:0 0 280px;max-width:280px;background:#f0f0f1;border:1px solid #dcdcde;border-radius:8px;scroll-snap-align:start;--ebcr-stage:#6b7280}
+.ebcr-kanban-col--other{--ebcr-stage:#9ca3af;border-style:dashed}
+.ebcr-kanban-head{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-top:4px solid var(--ebcr-stage);border-radius:8px 8px 0 0}
+.ebcr-kanban-head h2{margin:0;font-size:.9rem;font-weight:700}
+.ebcr-kanban-count{background:#fff;border:1px solid #dcdcde;border-radius:999px;padding:1px 8px;font-size:.75rem;font-weight:700;color:#50575e;min-width:1.6em;text-align:center}
+.ebcr-kanban-cards{padding:8px;min-height:120px;display:flex;flex-direction:column;gap:8px;transition:background .15s}
+.ebcr-kanban-cards.is-over{background:#e0ecff;outline:2px dashed #2563eb;outline-offset:-4px;border-radius:0 0 8px 8px}
+.ebcr-kanban-empty{margin:0;padding:8px 4px;display:none}
+.ebcr-kanban-cards:not(:has(.ebcr-card)) .ebcr-kanban-empty{display:block}
+.ebcr-card{background:#fff;border:1px solid #dcdcde;border-left:4px solid var(--ebcr-stage);border-radius:6px;padding:10px 12px;cursor:grab;box-shadow:0 1px 1px rgba(0,0,0,.04)}
+.ebcr-card:focus-visible{outline:2px solid #2563eb;outline-offset:2px}
+.ebcr-card.is-dragging{opacity:.5;cursor:grabbing}
+.ebcr-card.is-saving{opacity:.6;pointer-events:none}
+.ebcr-card-name{font-weight:700;text-decoration:none;display:block;margin-bottom:4px}
+.ebcr-card-meta{color:#50575e;font-size:.8rem;margin:2px 0;display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.ebcr-card-meta .dashicons{font-size:14px;width:14px;height:14px;color:#8c8f94}
+.ebcr-card-meta.is-late{color:#b91c1c}
+.ebcr-card-meta small{color:#8c8f94}
+.ebcr-card-foot{display:flex;justify-content:space-between;align-items:center;gap:6px;margin-top:8px}
+.ebcr-card-move[hidden]{display:none}
+select.ebcr-card-move{font-size:.75rem;max-width:150px;min-height:26px;line-height:1.2}
+.ebcr-kanban-toast{position:fixed;right:20px;bottom:20px;background:#1d2327;color:#fff;padding:10px 16px;border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,.25);z-index:9999;font-size:.9rem}
+.ebcr-kanban-toast.is-error{background:#b91c1c}
+.ebcr-kanban-toast[hidden]{display:none}
+@media (max-width:782px){.ebcr-kanban-col{flex-basis:240px;max-width:240px}}
