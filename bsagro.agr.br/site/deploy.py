@@ -72,8 +72,30 @@ def POSTU(slug):
     return rel(state["post_links"].get(slug)) if slug in state["post_links"] else "/?name=" + slug
 
 def IMG(key):
+    """URL de uma mídia. Sufixo @tamanho (ex.: logo-white@medium_large) usa o recorte gerado pelo WordPress."""
+    key, _, size = key.partition("@")
     m = state["media"].get(key)
-    return m["url"] if m else ""
+    if not m:
+        return ""
+    if size:
+        sizes = m.get("sizes") or media_sizes(key)
+        if size in sizes:
+            return sizes[size]
+    return m["url"]
+
+def media_sizes(key):
+    """Lê os recortes gerados pelo WordPress (API REST pública) e guarda no estado."""
+    import subprocess
+    m = state["media"][key]
+    for _ in range(10):
+        p = subprocess.run(["curl", "-sS", "-m", "60", "--http1.1", "-A", "Mozilla/5.0 Chrome/140", SITE + "/?rest_route=/wp/v2/media/%d" % m["id"]], capture_output=True, text=True)
+        try:
+            det = json.loads(p.stdout)["media_details"]["sizes"]
+            m["sizes"] = {k: v["source_url"] for k, v in det.items()}
+            save(); return m["sizes"]
+        except Exception:
+            continue
+    return {}
 
 def CAT(slug):
     """Link da categoria: ?cat=ID funciona com e sem links permanentes (o WordPress redireciona para o formato bonito)."""
@@ -89,7 +111,7 @@ def resolve(s):
     s = re.sub(r"\{\{LINK:([a-z0-9-]+)\}\}", lambda m: LINK(m.group(1)), s)
     s = re.sub(r"\{\{POST:([a-z0-9-]+)\}\}", lambda m: POSTU(m.group(1)), s)
     s = re.sub(r"\{\{CAT:([a-z0-9-]+)\}\}", lambda m: CAT(m.group(1)), s)
-    s = re.sub(r"\{\{IMG:([A-Za-z0-9_-]+)\}\}", lambda m: IMG(m.group(1)), s)
+    s = re.sub(r"\{\{IMG:([A-Za-z0-9_@-]+)\}\}", lambda m: IMG(m.group(1)), s)
     s = re.sub(r"\{\{EMAIL:([a-z]+)\}\}", lambda m: EMAILS[m.group(1)], s)
     s = re.sub(r"\{\{POLICY:([a-z0-9-]+)\}\}", lambda m: resolve(POLICIES.get(m.group(1), {}).get("content_html", "")), s)
     s = s.replace("{{HEADER_CLASS}}", "")
@@ -260,9 +282,15 @@ def build_header_block():
              '<link rel="preload" as="font" type="font/woff2" href="https://cdn.jsdelivr.net/npm/@fontsource/roboto@5/files/roboto-latin-400-normal.woff2" crossorigin>')
     return html_block(fonts + head + "\n" + resolve(read("header.html")))
 
+def inline_js(js):
+    """Entrega um script como data URI em base64. O WordPress aplica wptexturize ao HTML dos templates e,
+    quando o JavaScript tem comparações com '<', troca '&&' por '&#038;&#038;' e quebra o código; o base64
+    fica num atributo, que o wptexturize não altera."""
+    return '<script src="data:text/javascript;charset=utf-8;base64,%s"></script>' % base64.b64encode(js.encode("utf-8")).decode("ascii")
+
 def build_footer_block():
     js = read("bs.js")
-    return html_block(resolve(read("footer.html")) + '\n<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>\n<script>\n' + js + "\n</script>")
+    return html_block(resolve(read("footer.html")) + '\n<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>\n' + inline_js(js))
 
 def upsert_block(key, title, content):
     bid = state["blocks"].get(key)

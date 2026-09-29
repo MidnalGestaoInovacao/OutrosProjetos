@@ -77,6 +77,10 @@ Cada etapa é idempotente. Para republicar só algumas páginas: `BS_PAGES=conta
 - **Formulários**: "Solicitar análise" (home) continua enviando ao webhook n8n da Widen Creative, como no site original, e redireciona para `/obrigado`;
   Canal de contato, Portal do Titular e Canal de Integridade enviam por e-mail via FormSubmit (`contato@`, `dpo@`, `ouvidoria@`), com número de protocolo.
 - **Links**: gerados a partir do permalink real de cada página. Hoje o site usa links simples (`?page_id=`).
+- **Scripts**: o WordPress aplica `wptexturize` ao HTML dos templates e corrompe JavaScript embutido que tenha comparações com `<`
+  (troca `&&` por `&#038;&#038;`). Por isso o `bs.js` é publicado como `<script src="data:text/javascript;base64,…">` (ver `inline_js` em `deploy.py`).
+- **Limite do Easy MCP AI**: o plugin limita requisições por período; o `deploy.py` espera e tenta de novo automaticamente (30 s, 60 s, 120 s…).
+- **Imagens**: `{{IMG:chave@tamanho}}` usa um recorte gerado pelo WordPress (ex.: a logo do cabeçalho usa `medium_large`, 768 px).
 
 ## Pendências para o administrador do WordPress
 

@@ -233,8 +233,8 @@ body.admin-bar #site-header.header--sem-util { top: calc(0.75rem + 32px); }
   background: var(--color-olive-900); border-radius: 0 0 32px 32px;
 }
 @media (min-width: 1024px) { .bs-banner { padding: calc(var(--util-h) + 9rem) 2rem 4.5rem; border-radius: 0 0 48px 48px; } }
-.bs-banner__img, .bs-banner .wp-block-post-featured-image { position: absolute !important; inset: 0; z-index: -2; margin: 0 !important; width: 100%; height: 100%; }
-.bs-banner__img img, .bs-banner .wp-block-post-featured-image img { width: 100%; height: 100%; object-fit: cover; }
+.bs-banner__img { position: absolute !important; inset: 0; z-index: -2; margin: 0 !important; width: 100%; height: 100%; }
+.bs-banner__img img { width: 100%; height: 100%; object-fit: cover; }
 .bs-banner::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgb(8 32 26 / 0.78) 0%, rgb(13 53 39 / 0.82) 55%, rgb(8 32 26 / 0.94) 100%); }
 .bs-banner__in { position: relative; max-width: 80rem; margin: 0 auto; }
 .bs-banner h1, .bs-banner .wp-block-post-title, .bs-banner .wp-block-query-title {
@@ -548,7 +548,7 @@ html.bs-inner #site-header .nav-link { color: var(--color-graphite-800); }
 .bs-banner--post::after { background: linear-gradient(180deg, rgb(8 32 26 / 0.86) 0%, rgb(13 53 39 / 0.9) 60%, rgb(8 32 26 / 0.96) 100%); }
 .bs-banner--post .bs-banner__in { display: grid; gap: 2rem; align-items: center; }
 @media (min-width: 1024px) { .bs-banner--post .bs-banner__in { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 3.5rem; } }
-.bs-banner__cover { margin: 0 !important; border-radius: 22px; overflow: hidden; aspect-ratio: 16 / 9; box-shadow: 0 30px 60px -25px rgb(0 0 0 / 0.6), 0 0 0 1px rgb(237 214 143 / 0.25); transform: perspective(1200px) rotateY(-4deg); transition: transform 0.5s ease; }
+.bs-banner__cover { position: relative; z-index: 1; width: 100%; margin: 0 !important; border-radius: 22px; overflow: hidden; aspect-ratio: 16 / 9; box-shadow: 0 30px 60px -25px rgb(0 0 0 / 0.6), 0 0 0 1px rgb(237 214 143 / 0.25); transform: perspective(1200px) rotateY(-4deg); transition: transform 0.5s ease; }
 .bs-banner__cover:hover { transform: none; }
 .bs-banner__cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
 @media (prefers-reduced-motion: reduce) { .bs-banner__cover { transform: none; } }

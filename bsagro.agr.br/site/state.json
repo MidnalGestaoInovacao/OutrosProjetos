@@ -148,6 +148,15 @@
    "file": "bs-agro-logo-white.png",
    "id": 25,
    "size": 83416,
+   "sizes": {
+    "1536x1536": "https://bsagro.agr.br/wp-content/uploads/2026/09/bs-agro-logo-white-1536x221.png",
+    "2048x2048": "https://bsagro.agr.br/wp-content/uploads/2026/09/bs-agro-logo-white-2048x295.png",
+    "full": "https://bsagro.agr.br/wp-content/uploads/2026/09/bs-agro-logo-white-scaled.png",
+    "large": "https://bsagro.agr.br/wp-content/uploads/2026/09/bs-agro-logo-white-1024x148.png",
+    "medium": "https://bsagro.agr.br/wp-content/uploads/2026/09/bs-agro-logo-white-300x43.png",
+    "medium_large": "https://bsagro.agr.br/wp-content/uploads/2026/09/bs-agro-logo-white-768x111.png",
+    "thumbnail": "https://bsagro.agr.br/wp-content/uploads/2026/09/bs-agro-logo-white-150x150.png"
+   },
    "url": "https://bsagro.agr.br/wp-content/uploads/2026/09/bs-agro-logo-white-scaled.png"
   },
   "metlife": {
