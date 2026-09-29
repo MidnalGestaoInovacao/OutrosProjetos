@@ -11,23 +11,23 @@
   "recuperação judicial": 16
  },
  "links": {
-  "acessibilidade": "https://bsagro.agr.br/?page_id=60",
-  "area-do-cliente": "https://bsagro.agr.br/?page_id=51",
-  "autorizacao-consulta-scr": "https://bsagro.agr.br/?page_id=61",
-  "aviso-de-privacidade": "https://bsagro.agr.br/?page_id=54",
-  "canal-de-integridade": "https://bsagro.agr.br/?page_id=50",
-  "comunicacoes-de-marketing": "https://bsagro.agr.br/?page_id=63",
-  "conformidade": "https://bsagro.agr.br/?page_id=48",
-  "contato": "https://bsagro.agr.br/?page_id=47",
-  "declaracao-de-veracidade": "https://bsagro.agr.br/?page_id=62",
-  "materias": "https://bsagro.agr.br/?page_id=53",
-  "obrigado": "https://bsagro.agr.br/?page_id=52",
-  "politica-de-comercializacao": "https://bsagro.agr.br/?page_id=59",
-  "politica-de-compliance-anticorrupcao": "https://bsagro.agr.br/?page_id=57",
-  "politica-de-cookies": "https://bsagro.agr.br/?page_id=56",
-  "politica-de-esg": "https://bsagro.agr.br/?page_id=58",
-  "portal-do-titular": "https://bsagro.agr.br/?page_id=49",
-  "termos-de-uso": "https://bsagro.agr.br/?page_id=55"
+  "acessibilidade": "https://bsagro.agr.br/acessibilidade/",
+  "area-do-cliente": "https://bsagro.agr.br/area-do-cliente/",
+  "autorizacao-consulta-scr": "https://bsagro.agr.br/autorizacao-consulta-scr/",
+  "aviso-de-privacidade": "https://bsagro.agr.br/aviso-de-privacidade/",
+  "canal-de-integridade": "https://bsagro.agr.br/canal-de-integridade/",
+  "comunicacoes-de-marketing": "https://bsagro.agr.br/comunicacoes-de-marketing/",
+  "conformidade": "https://bsagro.agr.br/conformidade/",
+  "contato": "https://bsagro.agr.br/contato/",
+  "declaracao-de-veracidade": "https://bsagro.agr.br/declaracao-de-veracidade/",
+  "materias": "https://bsagro.agr.br/materias/",
+  "obrigado": "https://bsagro.agr.br/obrigado/",
+  "politica-de-comercializacao": "https://bsagro.agr.br/politica-de-comercializacao/",
+  "politica-de-compliance-anticorrupcao": "https://bsagro.agr.br/politica-de-compliance-anticorrupcao/",
+  "politica-de-cookies": "https://bsagro.agr.br/politica-de-cookies/",
+  "politica-de-esg": "https://bsagro.agr.br/politica-de-esg/",
+  "portal-do-titular": "https://bsagro.agr.br/portal-do-titular/",
+  "termos-de-uso": "https://bsagro.agr.br/termos-de-uso/"
  },
  "media": {
   "abc-brasil": {
@@ -301,11 +301,11 @@
  },
  "permalinks": "plain",
  "post_links": {
-  "cpr-cedula-de-produto-rural-na-pratica": "https://bsagro.agr.br/?p=67",
-  "credito-com-garantia-de-imovel-rural-ou-urbano": "https://bsagro.agr.br/?p=65",
-  "credito-estruturado-fundos-de-investimento-agro": "https://bsagro.agr.br/?p=64",
-  "diagnostico-financeiro-da-fazenda-primeiro-passo": "https://bsagro.agr.br/?p=68",
-  "recuperacao-judicial-no-agro-capital-para-novo-ciclo": "https://bsagro.agr.br/?p=66"
+  "cpr-cedula-de-produto-rural-na-pratica": "https://bsagro.agr.br/cpr-cedula-de-produto-rural-na-pratica/",
+  "credito-com-garantia-de-imovel-rural-ou-urbano": "https://bsagro.agr.br/credito-com-garantia-de-imovel-rural-ou-urbano/",
+  "credito-estruturado-fundos-de-investimento-agro": "https://bsagro.agr.br/credito-estruturado-fundos-de-investimento-agro/",
+  "diagnostico-financeiro-da-fazenda-primeiro-passo": "https://bsagro.agr.br/diagnostico-financeiro-da-fazenda-primeiro-passo/",
+  "recuperacao-judicial-no-agro-capital-para-novo-ciclo": "https://bsagro.agr.br/recuperacao-judicial-no-agro-capital-para-novo-ciclo/"
  },
  "posts": {
   "cpr-cedula-de-produto-rural-na-pratica": 67,
