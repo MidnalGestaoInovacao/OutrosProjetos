@@ -70,7 +70,7 @@
   };
   d.addEventListener("click", function (ev) {
     var link = ev.target.closest && ev.target.closest("a[href*='#']");
-    if (!link || link.hasAttribute("data-bs-cookie-open")) return;
+    if (!link || link.hasAttribute("data-ck")) return;
     var hash = mesmaPagina(link);
     if (!hash || hash === "#" || !d.querySelector(hash)) return;
     ev.preventDefault();
@@ -274,7 +274,7 @@
     d.documentElement.style.setProperty("--bs-fs", a11y.fs);
     d.documentElement.classList.toggle("bs-contrast", !!a11y.contrast);
     $$('[data-bs-a11y="contrast"]').forEach(function (b) { b.setAttribute("aria-pressed", a11y.contrast ? "true" : "false"); });
-    if (salvar) store("bs_a11y", a11y);
+    if (salvar && (!w.BSConsent || w.BSConsent.allowed("functional"))) store("bs_a11y", a11y);
   }
   aplicarA11y(false);
   var anunciar = (function () {
@@ -294,47 +294,157 @@
     });
   });
 
-  /* ---- Aviso de cookies ------------------------------------------------------ */
-  var ck = d.getElementById("bs-cookie"), consent = store("bs_cookie_consent");
-  function aplicarConsent() { d.documentElement.classList.toggle("bs-no-func", !!consent && !consent.functional); }
-  function mostrarCookies(prefs) {
-    if (!ck) return;
-    ck.hidden = false;
-    $(".bs-cookie__prefs", ck).hidden = !prefs;
-    $('[data-bs-cookie="save"]', ck).hidden = !prefs;
-    $('[data-bs-cookie="prefs"]', ck).hidden = !!prefs;
+  /* ---- Consentimento de cookies ---------------------------------------------
+     Banner + central de preferências + botão para rever. A escolha fica em
+     localStorage (bs_cookie_consent) com ID, versão e data, vale 12 meses e é
+     registrada no plugin da Área do Cliente quando ele está ativo (prova do
+     consentimento). Scripts opcionais podem ser marcados com type="text/plain"
+     e data-bs-category="analytics" (ou functional/advertising): só são
+     executados depois do consentimento da categoria. */
+  var CK_VERSAO = 1, CK_VALIDADE = 365 * 864e5;
+  var CK_CATS = [
+    { k: "necessary", t: "Necessários", fixo: true, d: "Essenciais para o site funcionar, manter a sessão da Área do Cliente com segurança e lembrar a sua escolha sobre cookies. Não podem ser desativados.",
+      itens: [
+        ["bs_cookie_consent", "12 meses", "Guarda a sua escolha neste aviso (armazenamento local).", "BS Agro Capital"],
+        ["wordpress_logged_in_*, wordpress_sec_*", "Sessão ou até 14 dias", "Mantêm e protegem o login de clientes e da equipe na Área do Cliente.", "BS Agro Capital (WordPress)"],
+        ["ebcr_fid", "1 dia", "Identificador aleatório para reexibir mensagens das telas de login e cadastro.", "BS Agro Capital (Área do Cliente)"],
+        ["ebcr_2fa_trust", "Até 30 dias", "Lembra um dispositivo confiável na verificação em duas etapas da equipe.", "BS Agro Capital (Área do Cliente)"]
+      ] },
+    { k: "functional", t: "Funcionais", d: "Recursos opcionais que melhoram a experiência: preferências de acessibilidade, tradução automática e o widget de Libras. Sem eles, o site continua funcionando.",
+      itens: [
+        ["bs_a11y", "Até ser apagado", "Lembra tamanho do texto e alto contraste (armazenamento local).", "BS Agro Capital"],
+        ["googtrans", "Até voltar ao português", "Guarda o idioma escolhido para a tradução automática (EN/ES).", "Google (Google Tradutor)"],
+        ["VLibras", "Conforme o serviço", "Widget oficial de tradução para Libras; carregado a partir de vlibras.gov.br.", "Governo Federal (VLibras)"],
+        ["wp-settings-*", "Até 1 ano", "Preferências de interface de usuários conectados.", "BS Agro Capital (WordPress)"]
+      ] },
+    { k: "analytics", t: "Analíticos", d: "Medem de forma agregada como o site é usado, para melhorar conteúdo e navegação.", itens: [] },
+    { k: "advertising", t: "Publicidade", d: "Personalizam anúncios e medem campanhas. A BS Agro Capital não usa publicidade de terceiros neste site.", itens: [] }
+  ];
+  var ckBanner = d.getElementById("bs-ck"), ckModal = d.getElementById("bs-ckm"), ckRevisit = d.getElementById("bs-ck-revisit");
+  var ckBox = ckModal ? $(".bs-ckm__box", ckModal) : null, ckFocoAntes = null;
+  var gpc = !!(navigator.globalPrivacyControl);
+  function ckLer() {
+    var c = store("bs_cookie_consent");
+    if (!c || c.v !== CK_VERSAO || !c.ts || Date.now() - c.ts > CK_VALIDADE) return null;
+    return c;
   }
-  function salvarConsent(fn, an) {
-    consent = { necessary: true, functional: !!fn, analytics: !!an, ts: Date.now(), v: 1 };
+  var consent = ckLer();
+  function ckUuid() {
+    if (w.crypto && crypto.randomUUID) return crypto.randomUUID();
+    return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, function (c) { return (c ^ (Math.random() * 16) >> (c / 4)).toString(16); });
+  }
+  function permitido(cat) { return cat === "necessary" || !!(consent && consent.categories && consent.categories[cat]); }
+  function ckAplicar() {
+    d.documentElement.classList.toggle("bs-no-func", !permitido("functional"));
+    /* Google Consent Mode v2 (pronto para uma futura medição de audiência) */
+    if (typeof w.gtag === "function") w.gtag("consent", "update", {
+      analytics_storage: permitido("analytics") ? "granted" : "denied",
+      ad_storage: permitido("advertising") ? "granted" : "denied", ad_user_data: permitido("advertising") ? "granted" : "denied", ad_personalization: permitido("advertising") ? "granted" : "denied",
+      functionality_storage: permitido("functional") ? "granted" : "denied", personalization_storage: permitido("functional") ? "granted" : "denied"
+    });
+    $$('script[type="text/plain"][data-bs-category]').forEach(function (s) {
+      if (!permitido(s.getAttribute("data-bs-category")) || s.hasAttribute("data-bs-ativo")) return;
+      var n = d.createElement("script");
+      Array.prototype.forEach.call(s.attributes, function (a) { if (a.name !== "type" && a.name !== "data-bs-category") n.setAttribute(a.name, a.value); });
+      if (!s.src) n.text = s.text;
+      s.setAttribute("data-bs-ativo", "1"); s.parentNode.insertBefore(n, s.nextSibling);
+    });
+    if (permitido("functional")) carregarVLibras();
+    if (ckRevisit) ckRevisit.hidden = !consent;
+  }
+  function ckRegistrar(acao) {
+    var CAx = w.EBCR_CLIENT_AREA;
+    if (!CAx || !CAx.consentEndpoint || !consent) return;
+    try {
+      fetch(CAx.consentEndpoint, { method: "POST", headers: { "Content-Type": "application/json" }, keepalive: true, credentials: "same-origin",
+        body: JSON.stringify({ consent_id: consent.id, categories: consent.categories, action: acao, version: CK_VERSAO, path: location.pathname }) }).catch(function () {});
+    } catch (e) { /* o registro é complementar; a escolha já está salva no navegador */ }
+  }
+  function ckSalvar(cats, acao) {
+    var ant = consent;
+    consent = { v: CK_VERSAO, id: (ant && ant.id) || ckUuid(), ts: Date.now(), action: acao, gpc: gpc,
+      categories: { necessary: true, functional: !!cats.functional, analytics: !!cats.analytics, advertising: !!cats.advertising } };
     store("bs_cookie_consent", consent);
-    if (ck) ck.hidden = true;
-    aplicarConsent();
-    if (consent.functional) carregarVLibras();
+    if (!consent.categories.functional) { try { localStorage.removeItem("bs_a11y"); } catch (e) {} }
+    if (ckBanner) ckBanner.hidden = true;
+    ckFechar();
+    ckAplicar(); ckRegistrar(acao);
+    try { d.dispatchEvent(new CustomEvent("bs:consent", { detail: consent })); } catch (e) {}
+    anunciar("Preferências de cookies salvas.");
   }
-  aplicarConsent();
-  if (!consent) setTimeout(function () { mostrarCookies(false); }, 900);
-  $$("[data-bs-cookie]").forEach(function (b) {
-    b.addEventListener("click", function () {
-      var a = b.getAttribute("data-bs-cookie");
-      if (a === "accept") salvarConsent(true, true);
-      else if (a === "reject") salvarConsent(false, false);
-      else if (a === "prefs") mostrarCookies(true);
-      else if (a === "save") salvarConsent($("#bs-ck-func").checked, $("#bs-ck-ana").checked);
+  function ckTodas(v) { return { functional: v, analytics: v, advertising: v }; }
+  function ckMontar() {
+    var alvo = $("[data-ck-cats]", ckModal); if (!alvo || alvo.childElementCount) return;
+    alvo.innerHTML = CK_CATS.map(function (c) {
+      var id = "bs-ckc-" + c.k;
+      var tab = c.itens.length ? '<div class="bs-ckm__tbl" role="region" aria-label="Itens da categoria ' + c.t + '" tabindex="0"><table><thead><tr><th scope="col">Item</th><th scope="col">Duração</th><th scope="col">Finalidade</th><th scope="col">Fornecedor</th></tr></thead><tbody>' +
+        c.itens.map(function (i) { return '<tr><td data-l="Item"><code>' + i[0] + '</code></td><td data-l="Duração">' + i[1] + '</td><td data-l="Finalidade">' + i[2] + '</td><td data-l="Fornecedor">' + i[3] + "</td></tr>"; }).join("") + "</tbody></table></div>"
+        : '<p class="bs-ckm__none">Nenhum item desta categoria está em uso no momento. Se for adotado, ele aparecerá aqui e pediremos a sua permissão.</p>';
+      var ctrl = c.fixo ? '<span class="bs-ckm__always">Sempre ativos</span>'
+        : '<button type="button" class="bs-sw" role="switch" aria-checked="false" data-ck-cat="' + c.k + '" aria-label="' + c.t + '"><span class="bs-sw__k"></span></button>';
+      return '<div class="bs-ckm__cat"><div class="bs-ckm__row"><button type="button" class="bs-ckm__acc" aria-expanded="false" aria-controls="' + id + '"><svg aria-hidden="true"><use href="#i-chev"/></svg><span><b>' + c.t + '</b></span></button>' + ctrl +
+        '</div><div class="bs-ckm__detail" id="' + id + '" hidden><p>' + c.d + "</p>" + tab + "</div></div>";
+    }).join("");
+    $$(".bs-ckm__acc", alvo).forEach(function (b) {
+      b.addEventListener("click", function () { var p = d.getElementById(b.getAttribute("aria-controls")), ab = b.getAttribute("aria-expanded") !== "true"; b.setAttribute("aria-expanded", ab); p.hidden = !ab; });
     });
-  });
-  $$("[data-bs-cookie-open]").forEach(function (a) {
-    a.addEventListener("click", function (e) {
-      e.preventDefault();
-      if (consent) { $("#bs-ck-func").checked = !!consent.functional; $("#bs-ck-ana").checked = !!consent.analytics; }
-      mostrarCookies(true);
-      var p = $(".bs-cookie__prefs input:not([disabled])"); if (p) p.focus();
+    $$(".bs-sw", alvo).forEach(function (s) { s.addEventListener("click", function () { s.setAttribute("aria-checked", s.getAttribute("aria-checked") === "true" ? "false" : "true"); }); });
+  }
+  function ckPreencher() {
+    $$("[data-ck-cat]", ckModal).forEach(function (s) {
+      var k = s.getAttribute("data-ck-cat"), on = consent ? !!consent.categories[k] : (k === "functional" && !gpc);
+      s.setAttribute("aria-checked", on ? "true" : "false");
     });
+    var meta = $("[data-ck-meta]", ckModal);
+    if (meta) {
+      meta.hidden = !consent;
+      if (consent) meta.innerHTML = "ID do seu consentimento: <code>" + consent.id + "</code><br>Registrado em " + new Date(consent.ts).toLocaleString("pt-BR") + (gpc ? " · Sinal Global Privacy Control respeitado" : "");
+    }
+  }
+  function ckAbrir() {
+    if (!ckModal) return;
+    ckMontar(); ckPreencher();
+    ckFocoAntes = d.activeElement;
+    ckModal.hidden = false; d.documentElement.classList.add("bs-ck-lock");
+    setTimeout(function () { ckBox.focus(); }, 30);
+  }
+  function ckFechar() {
+    if (!ckModal || ckModal.hidden) return;
+    ckModal.hidden = true; d.documentElement.classList.remove("bs-ck-lock");
+    if (ckFocoAntes && ckFocoAntes.focus) ckFocoAntes.focus();
+  }
+  if (ckModal) ckModal.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") { e.preventDefault(); ckFechar(); return; }
+    if (e.key !== "Tab") return;
+    var fs = $$('button:not([hidden]), a[href], [tabindex="0"]', ckBox).filter(function (x) { return x.offsetParent !== null; });
+    if (!fs.length) return;
+    if (e.shiftKey && (d.activeElement === fs[0] || d.activeElement === ckBox)) { e.preventDefault(); fs[fs.length - 1].focus(); }
+    else if (!e.shiftKey && d.activeElement === fs[fs.length - 1]) { e.preventDefault(); fs[0].focus(); }
   });
+  d.addEventListener("click", function (e) {
+    var b = e.target.closest && e.target.closest("[data-ck]"); if (!b) return;
+    var a = b.getAttribute("data-ck");
+    if (a === "open") { e.preventDefault(); ckAbrir(); }
+    else if (a === "close") ckFechar();
+    else if (a === "accept") ckSalvar(ckTodas(true), "accept_all");
+    else if (a === "reject") ckSalvar(ckTodas(false), "reject_all");
+    else if (a === "save") {
+      var cats = {}; $$("[data-ck-cat]", ckModal).forEach(function (s) { cats[s.getAttribute("data-ck-cat")] = s.getAttribute("aria-checked") === "true"; });
+      ckSalvar(cats, "custom");
+    } else if (a === "more") {
+      var intro = $("[data-ck-intro]", ckModal), ab = !intro.classList.contains("is-open");
+      intro.classList.toggle("is-open", ab); b.setAttribute("aria-expanded", ab); b.textContent = ab ? "Mostrar menos" : "Mostrar mais";
+    }
+  });
+  w.BSConsent = { get: function () { return consent; }, allowed: permitido, open: ckAbrir, acceptAll: function () { ckSalvar(ckTodas(true), "accept_all"); }, rejectAll: function () { ckSalvar(ckTodas(false), "reject_all"); } };
+  if (!consent && ckBanner) setTimeout(function () { ckBanner.hidden = false; }, 700);
 
-  /* ---- Libras (VLibras, widget oficial do Governo Federal) ----------------- */
+  /* ---- Libras (VLibras, widget oficial do Governo Federal) -----------------
+     Carregado com o consentimento "funcionais" ou quando a pessoa pede Libras
+     no botão da barra de acessibilidade (pedido explícito do recurso). */
   function carregarVLibras(abrir) {
-    if (consent && !consent.functional && !abrir) return;
     if (w.__bsVL) { if (abrir) abrirVLibras(); return; }
+    if (!abrir && !permitido("functional")) return;
     w.__bsVL = true;
     var s = d.createElement("script");
     s.src = "https://vlibras.gov.br/app/vlibras-plugin.js"; s.async = true;
@@ -345,8 +455,8 @@
     d.documentElement.classList.remove("bs-no-func");
     var b = $("[vw-access-button]"); if (b) b.click();
   }
-  if (!consent || consent.functional) { if (w.requestIdleCallback) requestIdleCallback(function () { carregarVLibras(); }, { timeout: 4000 }); else setTimeout(carregarVLibras, 2500); }
-  $$("[data-bs-libras]").forEach(function (b) { b.addEventListener("click", function () { carregarVLibras(true); if (w.__bsVL) abrirVLibras(); }); });
+  $$("[data-bs-libras]").forEach(function (b) { b.addEventListener("click", function () { carregarVLibras(true); }); });
+  ckAplicar();
 
   /* ---- Idiomas (PT/EN/ES) via Google Tradutor — cookie googtrans ------------ */
   function lerCookie(n) { var m = d.cookie.match("(?:^|; )" + n + "=([^;]*)"); return m ? decodeURIComponent(m[1]) : ""; }

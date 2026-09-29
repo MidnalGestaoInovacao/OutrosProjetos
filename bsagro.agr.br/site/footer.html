@@ -65,7 +65,7 @@
       <nav aria-label="Links legais" class="flex flex-wrap gap-x-4 gap-y-2">
         <a href="{{U:aviso-de-privacidade}}" class="footer-link">Privacidade</a>
         <a href="{{U:politica-de-cookies}}" class="footer-link">Cookies</a>
-        <a href="#" data-bs-cookie-open class="footer-link">Preferências de cookies</a>
+        <a href="#" data-ck="open" class="footer-link">Preferências de cookies</a>
         <a href="{{U:acessibilidade}}" class="footer-link">Acessibilidade</a>
         <span>Desenvolvido por <a href="https://widencreative.com/" class="footer-link underline underline-offset-2" target="_blank" rel="noopener noreferrer">Widen Creative</a></span>
       </nav>
@@ -77,25 +77,50 @@
   <img src="{{IMG:whatsapp-icon}}" alt="" width="224" height="224" class="whatsapp-fab__icon" />
 </a>
 
-<div class="bs-cookie" id="bs-cookie" role="dialog" aria-modal="false" aria-labelledby="bs-cookie-t" hidden>
-  <div class="bs-cookie__in">
-    <div class="bs-cookie__txt">
-      <p id="bs-cookie-t" class="font-display text-lg font-semibold text-graphite-900"><svg class="mr-1 inline h-5 w-5 align-[-3px] text-gold-700" aria-hidden="true"><use href="#i-cookie"/></svg>Sua privacidade importa</p>
-      <p class="mt-1 text-sm leading-relaxed text-graphite-600">Usamos apenas armazenamento necessário e recursos opcionais de acessibilidade e tradução (VLibras e Google Tradutor). Não usamos rastreadores de publicidade. Saiba mais no <a href="{{U:aviso-de-privacidade}}">Aviso de Privacidade</a> e na <a href="{{U:politica-de-cookies}}">Política de Cookies</a>.</p>
+<!-- Consentimento de cookies: banner + central de preferências + botão para rever (bs.js → "Consentimento") -->
+<section class="bs-ck" id="bs-ck" aria-labelledby="bs-ck-t" aria-describedby="bs-ck-d" hidden>
+  <div class="bs-ck__in">
+    <div class="bs-ck__txt">
+      <p id="bs-ck-t" class="bs-ck__title"><svg aria-hidden="true"><use href="#i-cookie"/></svg>Valorizamos a sua privacidade</p>
+      <p id="bs-ck-d" class="bs-ck__desc">Usamos armazenamento essencial para o site funcionar e, com a sua permissão, recursos opcionais de acessibilidade e tradução. Não usamos cookies de publicidade. Você pode aceitar, rejeitar ou escolher por categoria, e mudar de ideia a qualquer momento. <a href="{{U:politica-de-cookies}}">Política de Cookies</a> · <a href="{{U:aviso-de-privacidade}}">Aviso de Privacidade</a></p>
     </div>
-    <div class="bs-cookie__prefs" hidden>
-      <label><input type="checkbox" checked disabled /><span><b>Necessários</b> Funcionamento do site, segurança e registro das suas escolhas.</span></label>
-      <label><input type="checkbox" id="bs-ck-func" checked /><span><b>Funcionais</b> Libras (VLibras), tradução automática (Google) e preferências de acessibilidade.</span></label>
-      <label><input type="checkbox" id="bs-ck-ana" /><span><b>Analíticos</b> Métricas de audiência. Nenhuma ferramenta analítica está ativa hoje.</span></label>
-    </div>
-    <div class="bs-cookie__acts">
-      <button type="button" class="bs-btn bs-btn--ghost" data-bs-cookie="prefs">Personalizar</button>
-      <button type="button" class="bs-btn bs-btn--ghost" data-bs-cookie="reject">Rejeitar opcionais</button>
-      <button type="button" class="bs-btn bs-btn--ghost" data-bs-cookie="save" hidden>Salvar escolhas</button>
-      <button type="button" class="bs-btn bs-btn--primary" data-bs-cookie="accept">Aceitar todos</button>
+    <div class="bs-ck__acts">
+      <button type="button" class="bs-ck__btn bs-ck__btn--link" data-ck="open">Personalizar</button>
+      <button type="button" class="bs-ck__btn bs-ck__btn--ghost" data-ck="reject">Rejeitar tudo</button>
+      <button type="button" class="bs-ck__btn bs-ck__btn--gold" data-ck="accept">Aceitar tudo</button>
     </div>
   </div>
+</section>
+
+<div class="bs-ckm" id="bs-ckm" hidden>
+  <div class="bs-ckm__scrim" data-ck="close"></div>
+  <div class="bs-ckm__box" role="dialog" aria-modal="true" aria-labelledby="bs-ckm-t" tabindex="-1">
+    <header class="bs-ckm__head">
+      <img src="{{IMG:logo-white}}" alt="BS Agro Capital" width="2775" height="400" loading="lazy" decoding="async">
+      <button type="button" class="bs-ckm__x" data-ck="close" aria-label="Fechar preferências de privacidade"><svg aria-hidden="true"><use href="#i-close"/></svg></button>
+    </header>
+    <div class="bs-ckm__body">
+      <h2 id="bs-ckm-t" class="bs-ckm__title">Preferências de privacidade</h2>
+      <div class="bs-ckm__intro" data-ck-intro>
+        <p>Ao visitar um site, ele pode guardar ou consultar informações no seu navegador, geralmente na forma de cookies ou de armazenamento local. Elas servem para o site funcionar como você espera, lembrar escolhas e, em alguns casos, oferecer recursos de terceiros.</p>
+        <p>Os itens necessários ficam sempre ativos, porque sem eles o site e a Área do Cliente não funcionam. As demais categorias só são usadas com a sua permissão. Recusar alguma delas pode desativar recursos como a tradução automática e o widget de Libras.</p>
+        <p>A base legal, a finalidade e o prazo de cada item estão na <a href="{{U:politica-de-cookies}}">Política de Cookies</a>. Dúvidas sobre dados pessoais: <a href="mailto:{{EMAIL:dpo}}">{{EMAIL:dpo}}</a>.</p>
+      </div>
+      <button type="button" class="bs-ckm__more" data-ck="more" aria-expanded="false">Mostrar mais</button>
+
+      <div class="bs-ckm__cats" data-ck-cats></div>
+
+      <p class="bs-ckm__meta" data-ck-meta hidden></p>
+    </div>
+    <footer class="bs-ckm__foot">
+      <button type="button" class="bs-ck__btn bs-ck__btn--ghost-dark" data-ck="reject">Rejeitar tudo</button>
+      <button type="button" class="bs-ck__btn bs-ck__btn--dark" data-ck="save">Salvar minhas escolhas</button>
+      <button type="button" class="bs-ck__btn bs-ck__btn--gold" data-ck="accept">Aceitar tudo</button>
+    </footer>
+  </div>
 </div>
+
+<button type="button" class="bs-ck-revisit" id="bs-ck-revisit" data-ck="open" aria-label="Preferências de cookies" title="Preferências de cookies" hidden><svg aria-hidden="true"><use href="#i-cookie"/></svg></button>
 
 <div id="bs-gt" class="notranslate" aria-hidden="true"></div>
 <div vw class="enabled">

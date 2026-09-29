@@ -261,4 +261,34 @@ final class AbilitiesTest extends EBCR_TestCase {
 		$r = $this->ability( 'run-tool', array( 'tool' => 'send_crm_reminders' ) );
 		$this->assertFalse( is_wp_error( $r ), is_wp_error( $r ) ? $r->get_error_message() : '' );
 	}
+
+	public function test_branding_guarantees_and_client_area_via_registered_abilities(): void {
+		wp_set_current_user( $this->make_user( 'administrator' ) );
+		$r = $this->ability( 'run-tool', array( 'tool' => 'apply_brand_preset', 'preset' => 'bsagro' ) );
+		$this->assertIsArray( $r, is_wp_error( $r ) ? $r->get_error_message() : '' );
+		$this->assertSame( '#0d3527', Options::get( 'brand_primary' ) );
+		$this->assertInstanceOf( WP_Error::class, $this->ability( 'run-tool', array( 'tool' => 'apply_brand_preset', 'preset' => 'xyz' ) ), 'enum do schema' );
+		$r = $this->ability(
+			'update-settings',
+			array(
+				'settings' => array(
+					'guarantees_mode'                => 'optional',
+					'guarantees_required_modalities' => array( 'investimento' ),
+					'assets_mode'                    => 'disabled',
+					'client_area_bar'                => true,
+					'brand_name'                     => 'BS Agro Capital',
+				),
+			)
+		);
+		$this->assertSame( array(), $r['errors'] );
+		$this->assertSame( 'optional', \EBCR\Forms\SubmissionRules::guarantees_mode() );
+		$this->assertSame( array( 'investimento' ), \EBCR\Forms\SubmissionRules::guarantees_required_modalities() );
+		$status = $this->ability( 'get-status' );
+		$this->assertSame( 'optional', $status['modules']['guarantees_mode'] );
+		$this->assertSame( 'disabled', $status['modules']['assets_mode'] );
+		$this->assertSame( 'BS Agro Capital', $status['modules']['brand_name'] );
+		$this->assertTrue( $status['modules']['client_area']['bar'] );
+		$r = $this->ability( 'run-tool', array( 'tool' => 'flush_rewrite' ) );
+		$this->assertArrayHasKey( 'alias_url', $r );
+	}
 }

@@ -300,6 +300,8 @@ final class ClientAreaTest extends EBCR_TestCase {
 		delete_option( Migrator::SETTINGS_OPTION );
 		Migrator::maybe_upgrade_settings();
 		$this->assertSame( 'Crédito Rural — Évellyn Brandão', Options::get( 'operation_name' ), 'instalações existentes mantêm o nome antigo' );
+		$this->assertSame( 'Sanclé Albuquerque', Options::get( 'dpo_name' ), 'e o DPO antigo' );
+		$this->assertSame( '', Options::defaults()['dpo_name'], 'instalação nova: DPO a configurar' );
 		$this->assertSame( Migrator::SETTINGS_VERSION, get_option( Migrator::SETTINGS_OPTION ) );
 		Options::update( array( 'operation_name' => 'Outro' ) );
 		Migrator::maybe_upgrade_settings();

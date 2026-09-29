@@ -451,11 +451,20 @@ Consulta automática de CEP/CNPJ (APIs públicas), simulador de crédito na pág
 
 ---
 
+## 12a. Consentimento de cookies (1.3.0)
+
+- Rota pública `POST ebcr/v1/cookie-consent` (sem autenticação, 20 registros/hora por IP) recebendo `consent_id` (UUID v4), `categories` (booleanos para `necessary`, `functional`, `analytics`, `advertising`), `action` (`accept_all` | `reject_all` | `custom` | `withdraw`), `version` (inteiro) e `path` (só o caminho, até 200 caracteres). Resposta `{ok:true}`; nunca devolve dados gravados.
+- Tabela `ebcr_cookie_consents`: consent_id, categorias (JSON), ação, versão, created_at (UTC), `ip_hash` = HMAC-SHA256(IP, `wp_salt('auth')`) — nunca o IP em claro —, user agent (180), caminho, user_id quando conectado.
+- Tela somente leitura "Consentimentos de cookies" com filtros e CSV; retenção `cookie_consent_retention_days` (padrão 730) na rotina de retenção; exportador/apagador de dados pessoais por user_id (o apagador desvincula e mantém o registro anônimo).
+- O endereço é exposto ao front-end em `window.EBCR_CLIENT_AREA.consentEndpoint` (via `rest_url()`).
+
+---
+
 ## 17. Histórico de versões
 
 | Versão | Mudanças |
 |---|---|
-| 1.3.0 | Bens e garantias configuráveis (`guarantees_mode`, `guarantees_required_modalities`, `assets_mode`; filtros `ebcr_guarantees_required` e `ebcr_assets_required`; condição de matriz "qualquer garantia oferecida"); identidade visual da área do cliente (aba Identidade visual, predefinições Évellyn Brandão/BS Agro Capital/Neutro, herdar do tema, fontes, contraste WCAG, variáveis `--ebcr-*` com os valores originais como reserva, e-mails e login com a marca); botão "Área do Cliente" (shortcode, bloco, barra fixa, menus, `data-ebcr-client-area`, `window.EBCR_CLIENT_AREA`, filtro `ebcr_client_area_url`, `/area-do-cliente/`); páginas legais por slugs candidatos e links complementares; nome da operação padrão = nome do site (instalações existentes preservam o anterior por migração de configurações); correção do erro fatal ao salvar a matriz de documentos. Sem mudança de banco (`EBCR_DB_VERSION` 1.2.0). |
+| 1.3.0 | Bens e garantias configuráveis (`guarantees_mode`, `guarantees_required_modalities`, `assets_mode`; filtros `ebcr_guarantees_required` e `ebcr_assets_required`; condição de matriz "qualquer garantia oferecida"); identidade visual da área do cliente (aba Identidade visual, predefinições Évellyn Brandão/BS Agro Capital/Neutro, herdar do tema, fontes, contraste WCAG, variáveis `--ebcr-*` com os valores originais como reserva, e-mails e login com a marca); botão "Área do Cliente" (shortcode, bloco, barra fixa, menus, `data-ebcr-client-area`, `window.EBCR_CLIENT_AREA`, filtro `ebcr_client_area_url`, `/area-do-cliente/`); páginas legais por slugs candidatos e links complementares; registro de consentimento de cookies (§12a); nome da operação padrão = nome do site e DPO padrão vazio (instalações existentes preservam os anteriores por migração de configurações); correção do erro fatal ao salvar a matriz de documentos. Banco: nova tabela `ebcr_cookie_consents` (`EBCR_DB_VERSION` 1.3.0). |
 | 1.2.2 | Identidade visual do painel e do login (logotipo, ícone da marca, ícone do site). |
 | 1.2.1 | Páginas padrão para as políticas, momento do aceite configurável, etapas com a mesma altura. |
 | 1.2.0 | Fases 2 e 3: gráficos, relatórios por carteira, CRM completo, dossiê em PDF, 2FA, assinatura eletrônica, CEP/CNPJ, Turnstile, WhatsApp, simulador, painel da equipe no site. |

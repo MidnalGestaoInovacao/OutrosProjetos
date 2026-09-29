@@ -106,6 +106,10 @@ final class PrivacyIntegration {
 		$retained = false;
 		$messages = array();
 		if ( $user ) {
+			// Consentimentos de cookies: desvincula do usuário (o registro anônimo permanece como prova do consentimento).
+			if ( ( new \EBCR\Database\CookieConsentRepository() )->anonymize_user( $user->ID ) ) {
+				$removed = true;
+			}
 			$repo = new SubmissionRepository();
 			foreach ( $repo->for_user( $user->ID ) as $s ) {
 				if ( Status::is_final( $s['status'] ) || Status::DRAFT === $s['status'] ) {
@@ -138,6 +142,7 @@ final class PrivacyIntegration {
 			'perfil'         => array(),
 			'solicitacoes'   => array(),
 			'consentimentos' => array(),
+			'cookies'        => array(),
 		);
 		$u    = get_userdata( $user_id );
 		if ( $u ) {
@@ -164,6 +169,17 @@ final class PrivacyIntegration {
 				'versao'   => $c['policy_version'],
 				'aceito'   => $c['accepted_at'],
 				'ip'       => $c['ip'],
+			);
+		}
+		// Consentimentos de cookies registrados com o usuário conectado (o IP é guardado só como hash).
+		foreach ( ( new \EBCR\Database\CookieConsentRepository() )->for_user( $user_id ) as $c ) {
+			$out['cookies'][] = array(
+				'id_consentimento' => $c['consent_id'],
+				'acao'             => $c['action'],
+				'categorias'       => json_decode( (string) $c['categories'], true ),
+				'versao'           => (int) $c['version'],
+				'pagina'           => $c['path'],
+				'registrado_em'    => $c['created_at'],
 			);
 		}
 		return $out;

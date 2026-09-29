@@ -58,7 +58,7 @@ $ebcr_legal = \EBCR\Domain\Consent::legal_links();
 	<aside class="ebcr-col-side">
 		<div class="ebcr-card">
 			<h3><?php esc_html_e( 'Encarregado (DPO)', 'eb-credito-rural' ); ?></h3>
-			<p><?php echo esc_html( $dpo_name ); ?><br><a href="mailto:<?php echo esc_attr( $dpo_email ); ?>"><?php echo esc_html( $dpo_email ); ?></a></p>
+			<p><?php echo $dpo_name ? esc_html( $dpo_name ) . '<br>' : ''; ?><a href="mailto:<?php echo esc_attr( $dpo_email ); ?>"><?php echo esc_html( $dpo_email ); ?></a></p>
 			<h3><?php esc_html_e( 'Políticas', 'eb-credito-rural' ); ?></h3>
 			<ul>
 			<?php foreach ( $policies as $ebcr_key => $ebcr_p ) : ?>

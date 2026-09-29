@@ -25,6 +25,13 @@ defined( 'ABSPATH' ) || exit;
 final class Retention {
 
 	/**
+	 * Consentimentos de cookies apagados na última execução de run().
+	 *
+	 * @var int
+	 */
+	private static $last_cookie_purge = 0;
+
+	/**
 	 * Anonimiza uma solicitação.
 	 *
 	 * @param array  $submission Linha.
@@ -72,6 +79,30 @@ final class Retention {
 				++$n;
 			}
 		}
+		self::$last_cookie_purge = self::purge_cookie_consents();
 		return $n;
+	}
+
+	/**
+	 * Apaga consentimentos de cookies mais antigos que "Retenção dos consentimentos de cookies (dias)".
+	 *
+	 * @return int Registros apagados.
+	 */
+	public static function purge_cookie_consents() {
+		$days = max( 30, Options::int( 'cookie_consent_retention_days' ) );
+		$n    = ( new \EBCR\Database\CookieConsentRepository() )->purge_older_than( $days );
+		if ( $n ) {
+			AuditLog::log( 'retention_anonymized', 'cookie_consents', '', array( 'purged' => $n ), 0 );
+		}
+		return $n;
+	}
+
+	/**
+	 * Consentimentos de cookies apagados na última execução de run().
+	 *
+	 * @return int
+	 */
+	public static function last_cookie_purge() {
+		return self::$last_cookie_purge;
 	}
 }

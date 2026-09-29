@@ -197,13 +197,20 @@ final class ClientArea {
 	 * @return array
 	 */
 	public static function js_data() {
-		return array(
-			'url'           => self::url(),
-			'label'         => self::label(),
-			'labelLogged'   => self::label_logged(),
-			'loggedIn'      => is_user_logged_in(),
-			'userFirstName' => self::first_name(),
+		$data = array(
+			'url'             => self::url(),
+			'label'           => self::label(),
+			'labelLogged'     => self::label_logged(),
+			'loggedIn'        => is_user_logged_in(),
+			'userFirstName'   => self::first_name(),
+			// Registro de consentimento de cookies (POST JSON); rest_url() funciona com links permanentes simples.
+			'consentEndpoint' => esc_url_raw( rest_url( \EBCR\Rest\Routes::NS . '/cookie-consent' ) ),
 		);
+		if ( is_user_logged_in() ) {
+			// Com o nonce (cabeçalho X-WP-Nonce), o registro fica vinculado ao usuário conectado.
+			$data['consentNonce'] = wp_create_nonce( 'wp_rest' );
+		}
+		return $data;
 	}
 
 	/**

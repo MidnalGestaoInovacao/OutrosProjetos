@@ -82,11 +82,12 @@ final class Scheduler {
 	 */
 	public static function daily() {
 		$summary = array(
-			'reminders'    => self::pending_reminders(),
-			'certificates' => self::certificates_expiring(),
-			'anonymized'   => Retention::run(),
-			'audit_purged' => ( new AuditLogRepository() )->purge_older_than( max( 30, Options::int( 'audit_retention_days' ) ) ),
-			'mail_purged'  => ( new MailQueueRepository() )->purge_sent( 30 ),
+			'reminders'     => self::pending_reminders(),
+			'certificates'  => self::certificates_expiring(),
+			'anonymized'    => Retention::run(),
+			'cookie_purged' => Retention::last_cookie_purge(),
+			'audit_purged'  => ( new AuditLogRepository() )->purge_older_than( max( 30, Options::int( 'audit_retention_days' ) ) ),
+			'mail_purged'   => ( new MailQueueRepository() )->purge_sent( 30 ),
 		);
 		update_option( 'ebcr_last_daily', array_merge( $summary, array( 'at' => current_time( 'mysql', true ) ) ), false );
 		return $summary;

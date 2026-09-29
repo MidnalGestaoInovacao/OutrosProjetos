@@ -785,6 +785,12 @@ final class Abilities {
 		if ( ! Options::admin_emails() ) {
 			$todo[] = 'Definir admin_emails.';
 		}
+		if ( '' === trim( (string) Options::get( 'dpo_name', '' ) ) ) {
+			$todo[] = 'Definir dpo_name (encarregado de dados/DPO), exibido na área Privacidade do cliente.';
+		}
+		foreach ( \EBCR\Admin\Branding::contrast_warnings() as $w ) {
+			$todo[] = 'Identidade visual: ' . $w;
+		}
 		if ( ! get_users(
 			array(
 				'role__in' => array( Capabilities::ROLE_ANALYST, Capabilities::ROLE_MANAGER ),
@@ -837,6 +843,11 @@ final class Abilities {
 				'guarantees_forced'  => \EBCR\Forms\SubmissionRules::guarantees_required_modalities(),
 				'assets_mode'        => \EBCR\Forms\SubmissionRules::assets_mode(),
 				'client_area'        => \EBCR\Frontend\ClientArea::info(),
+				'cookie_consent'     => array(
+					'endpoint'       => rest_url( \EBCR\Rest\Routes::NS . '/cookie-consent' ),
+					'retention_days' => Options::int( 'cookie_consent_retention_days' ),
+					'records'        => ( new \EBCR\Database\CookieConsentRepository() )->query( array( 'per_page' => 1 ) )[1],
+				),
 				'site_icon_id'       => (int) get_option( 'site_icon', 0 ),
 				'team_2fa_mode'      => Options::get( 'team_2fa_mode', 'optional' ),
 				'cep_lookup'         => Options::bool( 'cep_lookup' ),

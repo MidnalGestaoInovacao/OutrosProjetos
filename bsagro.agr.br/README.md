@@ -13,11 +13,11 @@ conformidade (LGPD, compliance, ESG, comercialização), Área do Cliente e mat�
 | Novidades na home | — | Pré-diagnóstico interativo (3 perguntas → linhas indicadas, WhatsApp e formulário já preenchidos), faixa da Área do Cliente com linha do tempo ilustrativa, grade das últimas matérias, 3 novas perguntas no FAQ |
 | CSS | Tailwind Play CDN (compilado no navegador) | Tailwind 3.4 **pré-compilado** só com as classes usadas + CSS original + camada WordPress (`site/build/bs.min.css`, ~70 KB) no *CSS adicional* |
 | Fontes | Arquivos locais | Mesmos arquivos (Raleway/Roboto, fontsource) via jsDelivr — a biblioteca de mídia do WordPress não aceita `.woff2` |
-| Cabeçalho | Pílula de vidro, só visível no hero | Igual na home; nas páginas internas fica sempre visível. Botão **Área do Cliente** no topo (ícone no celular) |
+| Cabeçalho | Pílula de vidro, só visível no hero | Igual na home; nas páginas internas fica sempre visível. **Megamenus** (Soluções, Como funciona, A BS Agro, Matérias, Conformidade) com acordeão no celular. Botão **Área do Cliente** no topo (ícone no celular) |
 | Acessibilidade | Link "pular para o conteúdo" | Barra de acessibilidade com atalhos eMAG (Alt+1/2/3), alto contraste, A−/A/A+, **Libras (VLibras)**, declaração de acessibilidade |
 | Idiomas | Só PT | Bandeiras **PT/EN/ES** (Google Tradutor, carregado só depois da escolha do idioma) |
 | Contato | E-mail e WhatsApp no rodapé | Página **Canal de contato** (formulário com protocolo), Portal do Titular (LGPD), Canal de Integridade (com anonimato) |
-| Conformidade | Política de privacidade curta | Central de conformidade + 10 documentos (ver abaixo) + aviso de cookies com preferências |
+| Conformidade | Política de privacidade curta | Central de conformidade + 10 documentos + gerenciador de consentimento de cookies (ver abaixo) |
 | Matérias | — | Aba **Matérias** com 5 matérias com capa, categorias, tags, sumário automático, tempo de leitura e SEO |
 
 ## Canais oficiais (e-mails)
@@ -93,6 +93,24 @@ Cada etapa é idempotente. Para republicar só algumas páginas: `BS_PAGES=conta
 7. **Números da trajetória** ("+800 clientes"): o site original marcava para confirmar com o cliente antes de publicar.
 8. **Políticas**: são minutas completas, mas devem ser revisadas pelo jurídico (prazos internos, limite de brindes, retenção de 24 meses de contatos que não viraram clientes etc.).
 9. **Página "Privacy Policy"** (rascunho padrão do WordPress): em *Configurações → Privacidade*, selecione "Aviso de Privacidade" como página de política.
+
+## Aviso de cookies (gerenciador de consentimento)
+
+Inspirado no padrão de uso do CookieYes, mas com código próprio e a identidade do site (oliva, dourado, Raleway/Roboto):
+
+- **Banner** na primeira visita com "Aceitar tudo", "Rejeitar tudo" (mesmo destaque, como orienta a ANPD) e "Personalizar".
+- **Central de preferências** (diálogo acessível: foco preso, Esc fecha e devolve o foco) com as categorias Necessários (sempre ativos),
+  Funcionais, Analíticos e Publicidade, interruptores `role="switch"`, lista de cookies por categoria (nome, duração, finalidade,
+  fornecedor), "Mostrar mais", **ID do consentimento** e data do registro.
+- **Botão flutuante** (canto inferior esquerdo) e o link "Preferências de cookies" do rodapé reabrem a central.
+- A escolha vale **12 meses** (`bs_cookie_consent`, com versão); depois o banner volta. O sinal **Global Privacy Control** do navegador é respeitado.
+- **Bloqueio por categoria**: VLibras e preferências de acessibilidade só com "Funcionais" (ou quando a pessoa clica em "Libras");
+  Google Tradutor só quando um idioma é escolhido. Scripts futuros podem ser marcados com `type="text/plain" data-bs-category="analytics"`
+  e só rodam após o consentimento.
+- **Google Consent Mode v2** já declarado com tudo negado por padrão, atualizado conforme a escolha (pronto para um futuro GA4).
+- **Prova do consentimento**: com o plugin EB Crédito Rural 1.3.0 ativo, cada escolha é registrada no servidor (ID, categorias, ação,
+  data, IP em hash, navegador) e pode ser consultada/exportada no painel.
+- API para integrações: `window.BSConsent.get() | allowed(cat) | open() | acceptAll() | rejectAll()` e o evento `bs:consent`.
 
 ## SEO
 

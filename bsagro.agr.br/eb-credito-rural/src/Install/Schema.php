@@ -296,6 +296,23 @@ final class Schema {
   KEY submission_id (submission_id),
   KEY user_id (user_id)
 ) $c;";
+		// 1.3.0: registro de consentimento de cookies (prova do consentimento — LGPD art. 8º, § 2º). Sem IP em claro.
+		$sql[] = "CREATE TABLE {$t('cookie_consents')} (
+  id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  consent_id char(36) NOT NULL,
+  categories varchar(255) NOT NULL DEFAULT '',
+  action varchar(20) NOT NULL DEFAULT '',
+  version int(11) NOT NULL DEFAULT 0,
+  ip_hash char(64) NOT NULL DEFAULT '',
+  user_agent varchar(180) NOT NULL DEFAULT '',
+  path varchar(200) NOT NULL DEFAULT '',
+  user_id bigint(20) unsigned DEFAULT NULL,
+  created_at datetime NOT NULL,
+  PRIMARY KEY  (id),
+  KEY consent_id (consent_id),
+  KEY user_id (user_id),
+  KEY created_at (created_at)
+) $c;";
 		return $sql;
 	}
 
@@ -329,7 +346,7 @@ final class Schema {
 	 * @return string[]
 	 */
 	public static function tables() {
-		return array( 'submissions', 'submission_data', 'properties', 'guarantees', 'documents', 'document_requests', 'status_history', 'messages', 'crm_contacts', 'crm_activities', 'consents', 'audit_log', 'checks', 'mail_queue', 'signatures' );
+		return array( 'submissions', 'submission_data', 'properties', 'guarantees', 'documents', 'document_requests', 'status_history', 'messages', 'crm_contacts', 'crm_activities', 'consents', 'audit_log', 'checks', 'mail_queue', 'signatures', 'cookie_consents' );
 	}
 
 	/**

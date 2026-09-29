@@ -33,6 +33,7 @@ final class Admin {
 		add_action( 'admin_notices', array( $this, 'notices' ) );
 		( new Actions() )->register();
 		( new Settings() )->register();
+		( new CookieConsentsView() )->register();
 		add_filter( 'plugin_action_links_' . EBCR_BASENAME, array( $this, 'plugin_links' ) );
 	}
 
@@ -78,6 +79,7 @@ final class Admin {
 		add_submenu_page( 'ebcr', __( 'Relatórios', 'eb-credito-rural' ), __( 'Relatórios', 'eb-credito-rural' ), Capabilities::CAP_DASHBOARD, 'ebcr-reports', array( new Reports(), 'render' ) );
 		add_submenu_page( 'ebcr', __( 'Configurações', 'eb-credito-rural' ), __( 'Configurações', 'eb-credito-rural' ), Capabilities::CAP_SETTINGS, 'ebcr-settings', array( new Settings(), 'render' ) );
 		add_submenu_page( 'ebcr', __( 'Log de auditoria', 'eb-credito-rural' ), __( 'Log de auditoria', 'eb-credito-rural' ), Capabilities::CAP_AUDIT, 'ebcr-audit', array( new AuditLogView(), 'render' ) );
+		add_submenu_page( 'ebcr', __( 'Consentimentos de cookies', 'eb-credito-rural' ), __( 'Consentimentos de cookies', 'eb-credito-rural' ), Capabilities::CAP_AUDIT, 'ebcr-cookie-consents', array( new CookieConsentsView(), 'render' ) );
 		add_submenu_page( 'ebcr', __( 'Ajuda', 'eb-credito-rural' ), __( 'Ajuda', 'eb-credito-rural' ), Capabilities::CAP_VIEW, 'ebcr-help', array( new Help(), 'render' ) );
 	}
 

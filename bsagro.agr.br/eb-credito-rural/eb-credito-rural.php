@@ -19,7 +19,7 @@
 defined( 'ABSPATH' ) || exit;
 
 define( 'EBCR_VERSION', '1.3.0' );
-define( 'EBCR_DB_VERSION', '1.2.0' );
+define( 'EBCR_DB_VERSION', '1.3.0' );
 define( 'EBCR_FILE', __FILE__ );
 define( 'EBCR_DIR', plugin_dir_path( __FILE__ ) );
 define( 'EBCR_URL', plugin_dir_url( __FILE__ ) );

@@ -10,6 +10,8 @@ Esta é a **Fase 1 (MVP seguro)** do `SPEC.md`. Slug `eb-credito-rural`, prefixo
 - **Identidade visual da área do cliente** (Configurações → *Identidade visual*): nome e logotipo da marca, cores, arredondamentos, fontes (com folhas de estilo externas), "Herdar do tema" e predefinições **Évellyn Brandão** (visual original), **BS Agro Capital** e **Neutro**; verificação de contraste WCAG AA. Vale para portal, login/cadastro, formulário, simulador, assinatura eletrônica, painel da equipe no site, verificação em duas etapas, botão "Área do Cliente", e-mails e tela de login do WordPress (quando a paleta não é a original).
 - **Botão "Área do Cliente"**: shortcode `[ebcr_client_area_button]`, bloco `ebcr/client-area-button`, botão fixo no topo, item em menu clássico ou no bloco Navegação, atributo `data-ebcr-client-area` em qualquer link, `window.EBCR_CLIENT_AREA` e endereço amigável `/area-do-cliente/` (com `?ebcr_client_area=1` para links permanentes simples).
 - **Páginas legais por slug candidato**: sem página escolhida, cada política procura a primeira página publicada entre slugs padrão (privacidade: `aviso-de-privacidade`, `politica-de-privacidade` e, por fim, a página de privacidade do WordPress); novas páginas complementares (portal do titular, cookies, comercialização, canal de integridade) aparecem na área Privacidade do cliente. Título de cada política editável.
+- **Registro de consentimento de cookies** (prova do consentimento, LGPD art. 8º, § 2º): rota pública `POST ebcr/v1/cookie-consent` para o banner de cookies do site, tela *Crédito Rural → Consentimentos de cookies* com filtros e CSV, retenção configurável e integração com o exportador/apagador de dados pessoais. Nova tabela `{prefix}ebcr_cookie_consents` (`EBCR_DB_VERSION` 1.3.0, criada automaticamente na atualização).
+- Padrões neutros para novos sites: nome da operação = "Crédito Rural — {nome do site}" e encarregado (DPO) vazio (a atualização preserva os valores anteriores de quem já usava o plugin).
 - Correções: salvar a aba *Documentos e uploads* (matriz de documentos) causava erro fatal no PHP 8; aviso do PHP 8.3+ ao revalidar solicitação com a etapa financeira vazia; `font` inválido nos botões.
 
 ## Requisitos
@@ -97,6 +99,41 @@ Acessibilidade: foco visível em todos os controles; a tela mostra a razão de c
 - **Endereço amigável**: `/area-do-cliente/` (slug em `client_area_slug`, ligado por `client_area_alias`) redireciona ao portal quando não existe página com esse slug; as regras são renovadas na ativação e quando o slug muda. Com **links permanentes simples** (`?page_id=`), use `/?ebcr_client_area=1` (o caminho `/area-do-cliente/` também é tratado se o servidor o encaminhar ao WordPress). Todos os links internos do portal são montados com `add_query_arg()` sobre `get_permalink()` e funcionam nos dois modos.
 - Filtro `ebcr_client_area_url` (`string $url, array $context`).
 
+## Consentimento de cookies (registro)
+
+O banner de cookies do site (de qualquer fonte) registra cada decisão do visitante em `POST {rest_url}ebcr/v1/cookie-consent` — o endereço exato fica em `window.EBCR_CLIENT_AREA.consentEndpoint` (montado com `rest_url()`, funciona com links permanentes simples: `/?rest_route=/ebcr/v1/cookie-consent`). Rota pública, limitada a 20 registros por hora por IP (429 acima disso).
+
+```json
+{
+  "consent_id": "3f1c2b8e-9d4a-4c2b-8f1e-0a1b2c3d4e5f",
+  "categories": { "necessary": true, "functional": true, "analytics": false, "advertising": false },
+  "action": "custom",
+  "version": 3,
+  "path": "/credito-rural/"
+}
+```
+
+- `consent_id`: UUID v4 gerado e guardado pelo banner (identifica o navegador; o mesmo ID em registros sucessivos mostra o histórico).
+- `categories`: objeto com booleanos para `necessary`, `functional`, `analytics`, `advertising` (outras chaves são ignoradas; `necessary` é sempre gravado como `true`).
+- `action`: `accept_all` (grava todas as categorias como aceitas), `reject_all` e `withdraw` (só as necessárias) ou `custom` (como enviado).
+- `version`: inteiro — versão do texto/configuração do banner.
+- `path`: caminho da página (até 200 caracteres; query string e fragmento são descartados).
+- Resposta: `{"ok": true}` (400 com `ebcr_consent_invalid` se o corpo for inválido; nada do que foi gravado é devolvido).
+- Gravado: `consent_id`, categorias (JSON), ação, versão, data (UTC), **hash** HMAC-SHA256 do IP com `wp_salt('auth')` (nunca o IP), user agent (até 180 caracteres), caminho e `user_id` se a pessoa estiver conectada (envie o cabeçalho `X-WP-Nonce` com `window.EBCR_CLIENT_AREA.consentNonce`, presente só para usuários conectados).
+- Consulta: **Crédito Rural → Consentimentos de cookies** (capacidade `ebcr_view_audit_log`), com filtros por ID, ação e período e **Exportar CSV** (`ebcr_export`).
+- Retenção: `cookie_consent_retention_days` (Privacidade e compliance, padrão 730) — a rotina de retenção/diária apaga os registros mais antigos.
+- LGPD: o exportador de dados pessoais do WordPress e o "Baixar meus dados" do portal incluem os registros do usuário (por `user_id`); o apagador desvincula o usuário (remove `user_id`, hash do IP e user agent), mantendo o registro anônimo como prova.
+
+Exemplo mínimo no banner:
+
+```js
+fetch(window.EBCR_CLIENT_AREA.consentEndpoint, {
+  method: 'POST', credentials: 'same-origin',
+  headers: Object.assign({ 'Content-Type': 'application/json' }, window.EBCR_CLIENT_AREA.consentNonce ? { 'X-WP-Nonce': window.EBCR_CLIENT_AREA.consentNonce } : {}),
+  body: JSON.stringify({ consent_id: id, categories: cats, action: 'custom', version: 1, path: location.pathname })
+});
+```
+
 ## Páginas legais
 
 Em **Privacidade e compliance**, cada política tem título, página, versão e texto. Sem página escolhida (`policies[<chave>][page_id]` = 0), o plugin usa a primeira página **publicada** entre os slugs candidatos, sempre com `get_permalink()`:
@@ -174,7 +211,7 @@ uninstall.php          respeita "manter dados ao desinstalar"
 src/Install            Schema (dbDelta), Migrator, Activator, Deactivator
 src/Roles              Capabilities (papéis e capacidades)
 src/Database           repositórios por tabela ($wpdb->prepare em todas as consultas)
-src/Domain             Status (fluxo), Consent (políticas versionadas), Protocol
+src/Domain             Status (fluxo), Consent (políticas versionadas e páginas legais), CookieConsent (registro de consentimento de cookies), Protocol
 src/Forms              Steps (7 etapas; 2 e 5 configuráveis), Validators (CPF, CNPJ, CAR, CEP…), DocumentMatrix, Wizard, SubmissionRules (regras de envio e de bens/garantias), SubmissionService
 src/Security           Authorization, MathCaptcha, Honeypot, RateLimiter, LoginGuard, Nonces, Crypto (sodium), AuditLog, PrivacyIntegration, Retention
 src/Files              FileGuard, Storage, UploadHandler, DownloadController, Exif, Antivirus
@@ -189,12 +226,12 @@ src/Esign              assinatura eletrônica simples (código por e-mail, PDF c
 src/Integrations       Lookup (CEP/CNPJ), WhatsApp (Cloud API)
 src/Security           … + Turnstile (captcha), TwoFactor/Totp (2FA da equipe)
 src/Abilities          abilities do WordPress expostas ao Easy MCP AI (18 ferramentas)
-src/Rest               ebcr/v1 (etapas, uploads, envio, mensagens, status, atribuição, pedidos, revisão, lookup/cep, lookup/cnpj, crm/contacts/{id}/stage, esign/…)
+src/Rest               ebcr/v1 (etapas, uploads, envio, mensagens, status, atribuição, pedidos, revisão, lookup/cep, lookup/cnpj, crm/contacts/{id}/stage, esign/…, cookie-consent)
 src/Cron               lembretes, certidões a vencer, retenção, limpezas, lembretes de tarefas do CRM
 assets/vendor          Chart.js 4.4.4 (MIT) e qrcode-generator 1.4.4 (MIT), empacotados (sem CDN)
 templates/             portal, wizard, admin e e-mails (sobrescrevíveis pelo tema em /eb-credito-rural/)
 assets/                CSS/JS sem CDN
-tests/                 PHPUnit (autorização, segurança, validadores, wizard, bens/garantias, identidade visual, botão Área do Cliente, abilities, relatórios, CRM, dossiê, 2FA, assinatura, integrações, painel da equipe)
+tests/                 PHPUnit (autorização, segurança, validadores, wizard, bens/garantias, identidade visual, botão Área do Cliente, consentimento de cookies, abilities, relatórios, CRM, dossiê, 2FA, assinatura, integrações, painel da equipe)
 ```
 
 ## Desenvolvimento e testes
@@ -224,12 +261,13 @@ Os testes de autorização cobrem os critérios de aceite do SPEC: cliente A nã
 - [ ] Modo de bens e garantias definido (obrigatório/opcional/desativado) e matriz de documentos conferida
 - [ ] Botão "Área do Cliente" no cabeçalho (shortcode, bloco, menu, barra fixa ou `data-ebcr-client-area`) apontando para o portal
 - [ ] Páginas legais publicadas (ou escolhidas em Privacidade e compliance) e links conferidos
+- [ ] Banner de cookies registrando as decisões em `window.EBCR_CLIENT_AREA.consentEndpoint` (conferir em Consentimentos de cookies)
 - [ ] Cron do sistema (se `DISABLE_WP_CRON`)
 - [ ] Backup do banco e da pasta privada
 
 ## Versões
 
-- **1.3.0** — Bens e garantias configuráveis (obrigatório/opcional/desativado, finalidades que exigem garantia, filtro `ebcr_guarantees_required`); identidade visual da área do cliente (predefinições Évellyn Brandão, BS Agro Capital e Neutro, herdar do tema, fontes, contraste WCAG) aplicada a portal, acesso, formulário, simulador, assinatura, painel da equipe, 2FA, e-mails e login; botão "Área do Cliente" (shortcode, bloco, barra fixa, menus, `data-ebcr-client-area`, `/area-do-cliente/`); páginas legais por slugs candidatos e links complementares; nome da operação padrão passa a usar o nome do site (instalações existentes mantêm o anterior); correção do erro fatal ao salvar a matriz de documentos.
+- **1.3.0** — Bens e garantias configuráveis (obrigatório/opcional/desativado, finalidades que exigem garantia, filtro `ebcr_guarantees_required`); identidade visual da área do cliente (predefinições Évellyn Brandão, BS Agro Capital e Neutro, herdar do tema, fontes, contraste WCAG) aplicada a portal, acesso, formulário, simulador, assinatura, painel da equipe, 2FA, e-mails e login; botão "Área do Cliente" (shortcode, bloco, barra fixa, menus, `data-ebcr-client-area`, `/area-do-cliente/`); páginas legais por slugs candidatos e links complementares; registro de consentimento de cookies (`POST ebcr/v1/cookie-consent`, tela com CSV, retenção, exportador/apagador; tabela nova, `EBCR_DB_VERSION` 1.3.0); nome da operação padrão passa a usar o nome do site e o encarregado (DPO) padrão fica vazio (instalações existentes mantêm os valores anteriores); correção do erro fatal ao salvar a matriz de documentos.
 - **1.2.2** — Identidade visual do painel (Geral → logotipo e ícone da marca): tela de login com a marca, logotipo no topo do menu lateral e na barra do WordPress, ícone da marca no menu "Crédito Rural" e como ícone do site no wp-admin/login (ferramenta `apply_site_icon`).
 - **1.2.1** — Páginas padrão para todas as políticas (Termos de Uso, Autorização SCR/Bacen, Declaração de veracidade, Comunicações de marketing) vinculadas por slug; todas as políticas aceitas também no cadastro (momento do aceite configurável por política em Privacidade e compliance); blocos das etapas do formulário com a mesma altura.
 - **1.2.0** — Fases 2 e 3: painel com gráficos e tempo por etapa; relatórios por carteira/fundo com CSV; CRM completo (ficha, atividades, tarefas com lembretes, Kanban, CSV); dossiê em PDF (gerador próprio); 2FA da equipe (TOTP/e-mail, backup, dispositivo confiável); assinatura eletrônica simples; consultas de CEP/CNPJ; captcha Turnstile; notificações por WhatsApp; simulador de crédito; painel de operações da equipe no site (modo "só no site"); 4 abilities novas (relatório e CRM).

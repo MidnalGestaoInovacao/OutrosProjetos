@@ -52,6 +52,15 @@ final class Routes {
 		do_action( 'ebcr_rest_routes', self::NS );
 		register_rest_route(
 			self::NS,
+			'/cookie-consent',
+			array(
+				'methods'             => 'POST',
+				'callback'            => array( $this, 'cookie_consent' ),
+				'permission_callback' => '__return_true', // Público (banner de cookies); limitado por IP no callback.
+			)
+		);
+		register_rest_route(
+			self::NS,
 			'/captcha',
 			array(
 				'methods'             => 'POST',
@@ -277,6 +286,28 @@ final class Routes {
 	 */
 	public function captcha() {
 		return rest_ensure_response( MathCaptcha::provider()->issue() );
+	}
+
+	/**
+	 * Registro de consentimento de cookies (público, 20 registros por hora por IP). Nunca devolve dados gravados.
+	 *
+	 * @param \WP_REST_Request $request Request.
+	 * @return \WP_REST_Response|\WP_Error
+	 */
+	public function cookie_consent( $request ) {
+		if ( ! RateLimiter::hit( 'cookie_consent', Ip::get(), 20, HOUR_IN_SECONDS ) ) {
+			return new \WP_Error( 'rest_too_many', __( 'Muitas requisições. Aguarde alguns minutos.', 'eb-credito-rural' ), array( 'status' => 429 ) );
+		}
+		$payload = $request->get_json_params();
+		if ( ! is_array( $payload ) || ! $payload ) {
+			$payload = $request->get_body_params();
+		}
+		$clean = \EBCR\Domain\CookieConsent::validate( $payload );
+		if ( is_wp_error( $clean ) ) {
+			return $clean;
+		}
+		\EBCR\Domain\CookieConsent::record( $clean );
+		return rest_ensure_response( array( 'ok' => true ) );
 	}
 
 	/**

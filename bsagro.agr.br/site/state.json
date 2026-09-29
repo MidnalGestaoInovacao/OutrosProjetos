@@ -3,7 +3,13 @@
   "footer": 72,
   "header": 71
  },
- "cats": {},
+ "cats": {
+  "crédito estruturado": 3,
+  "garantias & patrimônio": 10,
+  "gestão financeira": 26,
+  "instrumentos do agro": 22,
+  "recuperação judicial": 16
+ },
  "links": {
   "acessibilidade": "https://bsagro.agr.br/?page_id=60",
   "area-do-cliente": "https://bsagro.agr.br/?page_id=51",
@@ -299,5 +305,29 @@
   "diagnostico-financeiro-da-fazenda-primeiro-passo": 68,
   "recuperacao-judicial-no-agro-capital-para-novo-ciclo": 66
  },
- "tags": {}
+ "tags": {
+  "alienação fiduciária": 12,
+  "barter": 24,
+  "capital de giro": 14,
+  "cpr": 9,
+  "cra": 8,
+  "crédito estruturado": 4,
+  "crédito para o agro": 21,
+  "crédito rural": 30,
+  "cédula de produto rural": 23,
+  "diagnóstico financeiro": 27,
+  "documentação rural": 15,
+  "endividamento": 29,
+  "fiagro": 7,
+  "fidc": 6,
+  "financiamento dip": 18,
+  "fluxo de caixa": 20,
+  "fundos de investimento": 5,
+  "garantia de imóvel": 11,
+  "gestão rural": 28,
+  "hipoteca": 13,
+  "recuperação judicial": 17,
+  "reestruturação de dívidas": 19,
+  "seguro rural": 25
+ }
 }
