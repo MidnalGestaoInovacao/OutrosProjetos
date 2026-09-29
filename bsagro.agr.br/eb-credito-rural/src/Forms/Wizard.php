@@ -400,10 +400,10 @@ final class Wizard {
 			'requirements'    => SubmissionRules::requirements( $ctx ),
 			'imoveis_texto'   => $saved['imoveis']['imoveis'] ? '' : SubmissionRules::assets_empty_text( $saved['imoveis'], $ctx ),
 			'garantias_texto' => $saved['garantias']['garantias'] ? '' : SubmissionRules::guarantees_empty_text( $saved['garantias'], $ctx ),
-			'tomador'    => 'PJ' === ( isset( $ident['person_type'] ) ? $ident['person_type'] : 'PF' ) ? ( isset( $ident['razao_social'] ) ? $ident['razao_social'] : '' ) : ( isset( $ident['nome'] ) ? $ident['nome'] : '' ),
-			'documento'  => isset( $ident['cnpj'] ) && $ident['cnpj'] ? \EBCR\Support\Helpers::format_document( $ident['cnpj'] ) : ( isset( $ident['cpf'] ) ? \EBCR\Support\Helpers::format_document( $ident['cpf'] ) : '' ),
-			'imoveis'    => count( $saved['imoveis']['imoveis'] ),
-			'atividades' => implode(
+			'tomador'         => 'PJ' === ( isset( $ident['person_type'] ) ? $ident['person_type'] : 'PF' ) ? ( isset( $ident['razao_social'] ) ? $ident['razao_social'] : '' ) : ( isset( $ident['nome'] ) ? $ident['nome'] : '' ),
+			'documento'       => isset( $ident['cnpj'] ) && $ident['cnpj'] ? \EBCR\Support\Helpers::format_document( $ident['cnpj'] ) : ( isset( $ident['cpf'] ) ? \EBCR\Support\Helpers::format_document( $ident['cpf'] ) : '' ),
+			'imoveis'         => count( $saved['imoveis']['imoveis'] ),
+			'atividades'      => implode(
 				', ',
 				array_map(
 					static function ( $a ) use ( $acts ) {
@@ -411,11 +411,11 @@ final class Wizard {
 					isset( $prod['atividades'] ) ? (array) $prod['atividades'] : array()
 				)
 			),
-			'valor'      => isset( $fin['valor_solicitado'] ) ? $fin['valor_solicitado'] : null,
-			'finalidade' => isset( $fin['finalidade'] ) ? ( Steps::options( 'purposes' )[ $fin['finalidade'] ] ?? $fin['finalidade'] ) : '',
-			'prazo'      => isset( $fin['prazo_meses'] ) ? $fin['prazo_meses'] : null,
-			'garantias'  => count( $saved['garantias']['garantias'] ),
-			'documentos' => $this->document_slots( $submission ),
+			'valor'           => isset( $fin['valor_solicitado'] ) ? $fin['valor_solicitado'] : null,
+			'finalidade'      => isset( $fin['finalidade'] ) ? ( Steps::options( 'purposes' )[ $fin['finalidade'] ] ?? $fin['finalidade'] ) : '',
+			'prazo'           => isset( $fin['prazo_meses'] ) ? $fin['prazo_meses'] : null,
+			'garantias'       => count( $saved['garantias']['garantias'] ),
+			'documentos'      => $this->document_slots( $submission ),
 		);
 	}
 

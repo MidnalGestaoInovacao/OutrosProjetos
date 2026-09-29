@@ -473,3 +473,69 @@ html.bs-inner #site-header .nav-link { color: var(--color-graphite-800); }
 .bs-banner__cover:hover { transform: none; }
 .bs-banner__cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
 @media (prefers-reduced-motion: reduce) { .bs-banner__cover { transform: none; } }
+
+/* ---------- 20. Megamenus (desktop) ---------------------------------------- */
+.bs-mnav__btn {
+  display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.625rem 0.85rem; border: 0; border-radius: 999px;
+  background: none; color: inherit; font: inherit; cursor: pointer; white-space: nowrap; transition: background-color 0.2s ease, color 0.2s ease;
+}
+.bs-mnav__btn svg { width: 14px; height: 14px; opacity: 0.7; transition: transform 0.2s ease; }
+.bs-mnav__btn:hover { background: rgb(13 53 39 / 0.06); }
+.bs-mnav__btn[aria-expanded="true"] { background: color-mix(in srgb, var(--color-gold-500) 22%, transparent); color: var(--color-olive-900); }
+.bs-mnav__btn[aria-expanded="true"] svg { transform: rotate(180deg); opacity: 1; }
+.nav-link.is-current, .nav-link[aria-current="page"] { background-color: color-mix(in srgb, var(--color-gold-500) 20%, transparent); color: var(--color-olive-900); }
+.bs-mm-layer { position: absolute; left: 0; right: 0; top: 100%; padding: 0.65rem 1.5rem 0; pointer-events: none; }
+.bs-mm { max-width: 80rem; margin: 0 auto; pointer-events: auto; }
+.bs-mm__in {
+  display: grid; gap: 1.25rem; padding: 1.5rem; border-radius: 28px;
+  background: rgb(251 249 244 / 0.97); border: 1px solid rgb(255 255 255 / 0.7);
+  box-shadow: 0 40px 80px -30px rgb(8 32 26 / 0.5), 0 0 0 1px rgb(23 27 36 / 0.06);
+  backdrop-filter: blur(24px) saturate(160%); -webkit-backdrop-filter: blur(24px) saturate(160%);
+  max-height: calc(100vh - 150px); overflow: auto; animation: bs-mm-in 0.22s ease both;
+}
+.bs-mm__in--3 { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 19rem; }
+.bs-mm__in--4 { grid-template-columns: repeat(3, minmax(0, 1fr)) 17rem; }
+.bs-mm__h { margin: 0.2rem 0.75rem 0.45rem; font: 500 0.72rem/1.2 var(--font-sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-olive-700); }
+.bs-mm__col { display: flex; flex-direction: column; gap: 0.1rem; min-width: 0; }
+.bs-mm__col a { display: flex; align-items: flex-start; gap: 0.8rem; padding: 0.7rem 0.75rem; border-radius: 16px; color: var(--color-graphite-900); transition: background-color 0.2s ease, box-shadow 0.2s ease; }
+.bs-mm__col a:hover, .bs-mm__col a:focus-visible { background: #fff; box-shadow: 0 10px 24px -18px rgb(13 53 39 / 0.55); }
+.bs-mm__col a > svg, .bs-mm__n { flex: none; width: 36px; height: 36px; padding: 8px; border-radius: 11px; background: var(--color-olive-50); color: var(--color-olive-800); transition: background-color 0.2s ease, color 0.2s ease; }
+.bs-mm__col a:hover > svg, .bs-mm__col a:hover .bs-mm__n { background: var(--color-olive-800); color: var(--color-gold-300); }
+.bs-mm__n { display: grid; place-items: center; padding: 0; font: 600 0.78rem/1 var(--font-display); font-style: normal; }
+.bs-mm__col b { display: block; font: 600 0.95rem/1.3 var(--font-display); }
+.bs-mm__col small { display: block; margin-top: 0.15rem; font-size: 0.8rem; line-height: 1.4; color: var(--color-graphite-600); }
+.bs-mm__promo {
+  display: flex; flex-direction: column; gap: 0.6rem; padding: 1.35rem; border-radius: 22px; color: rgb(251 249 244 / 0.78);
+  background: radial-gradient(120% 120% at 0% 0%, var(--color-olive-800) 0%, var(--color-olive-900) 55%, var(--color-olive-950) 100%);
+}
+.bs-mm__promo .bs-mm__h { margin: 0; color: var(--color-gold-300); }
+.bs-mm__promo b { font: 600 1.15rem/1.3 var(--font-display); color: var(--color-paper); }
+.bs-mm__promo p { font-size: 0.86rem; line-height: 1.5; }
+.bs-mm__promo .bs-btn { margin-top: auto; align-self: flex-start; min-height: 40px; font-size: 0.85rem; }
+.bs-mm__promo img { width: 100%; border-radius: 14px; object-fit: cover; }
+.bs-mm__promo--img img { aspect-ratio: 16 / 10; object-position: 50% 30%; }
+.bs-mm__promo--post img { aspect-ratio: 16 / 9; }
+.bs-mm__promo--post { transition: transform 0.25s ease; }
+.bs-mm__promo--post:hover { transform: translateY(-2px); }
+.bs-mm__more { margin-top: auto; font: 600 0.9rem/1 var(--font-display); color: var(--color-gold-300); }
+.bs-mm-backdrop { position: fixed; inset: 0; z-index: -1; background: rgb(8 32 26 / 0.3); backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); animation: bs-fade 0.2s ease both; }
+@keyframes bs-mm-in { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+@keyframes bs-fade { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .bs-mm__in, .bs-mm-backdrop { animation: none; } }
+html.bs-contrast .bs-mm-backdrop { background: rgb(0 0 0 / 0.7) !important; }
+
+/* ---------- 21. Menu móvel em acordeão ------------------------------------- */
+.bs-mmob { display: flex; flex-direction: column; gap: 0.2rem; padding: 0.9rem; max-height: calc(100dvh - 150px); overflow: auto; }
+.bs-mmob__g summary, .bs-mmob__link {
+  display: flex; align-items: center; justify-content: space-between; padding: 0.8rem 0.8rem; border-radius: 16px;
+  font: 500 1rem/1.2 var(--font-sans); color: var(--color-graphite-800); cursor: pointer; list-style: none;
+}
+.bs-mmob__g summary::-webkit-details-marker { display: none; }
+.bs-mmob__g summary svg { width: 18px; height: 18px; transition: transform 0.2s ease; }
+.bs-mmob__g[open] summary { background: color-mix(in srgb, var(--color-gold-500) 18%, transparent); color: var(--color-olive-900); }
+.bs-mmob__g[open] summary svg { transform: rotate(180deg); }
+.bs-mmob__g ul { display: grid; gap: 0.05rem; margin: 0.3rem 0 0.5rem 0.9rem; padding: 0; list-style: none; }
+.bs-mmob__g ul a { display: block; padding: 0.55rem 0.8rem; border-left: 2px solid rgb(13 53 39 / 0.14); font-size: 0.95rem; color: var(--color-graphite-700); }
+.bs-mmob__g ul a:hover, .bs-mmob__g ul a:focus-visible { border-left-color: var(--color-gold-500); color: var(--color-olive-900); }
+#mobile-menu.header-pill--menu { background: rgb(251 249 244 / 0.97); }
+body:has(#mobile-menu:not(.hidden)) .whatsapp-fab { opacity: 0; pointer-events: none; }

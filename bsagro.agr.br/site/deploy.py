@@ -22,6 +22,8 @@ SITE = seo.SITE
 EMAILS = {"contato": "contato@bsagro.agr.br", "dpo": "dpo@bsagro.agr.br", "ouvidoria": "ouvidoria@bsagro.agr.br"}
 PLUGIN = "eb-credito-rural/eb-credito-rural.php"
 CATEGORIES = ["Crédito Estruturado", "Garantias & Patrimônio", "Recuperação Judicial", "Instrumentos do Agro", "Gestão Financeira"]
+CAT_SLUGS = {"credito-estruturado": "Crédito Estruturado", "garantias-patrimonio": "Garantias & Patrimônio", "recuperacao-judicial": "Recuperação Judicial",
+             "instrumentos-do-agro": "Instrumentos do Agro", "gestao-financeira": "Gestão Financeira"}
 
 STATE_PATH = os.path.join(HERE, "state.json")
 state = json.load(open(STATE_PATH, encoding="utf-8")) if os.path.exists(STATE_PATH) else {}
@@ -61,6 +63,11 @@ def IMG(key):
     m = state["media"].get(key)
     return m["url"] if m else ""
 
+def CAT(slug):
+    """Link da categoria: ?cat=ID funciona com e sem links permanentes (o WordPress redireciona para o formato bonito)."""
+    tid = state["cats"].get(CAT_SLUGS.get(slug, slug).strip().lower())
+    return "/?cat=%d" % tid if tid else U("materias")
+
 def LINK(slug):
     return {"home-solucoes": "/#solucoes", "home-como-funciona": "/#como-funciona", "home": "/"}.get(slug) or U(slug)
 
@@ -69,6 +76,7 @@ def resolve(s):
     s = re.sub(r"\{\{U:([a-z0-9-]+)\}\}", lambda m: U(m.group(1)), s)
     s = re.sub(r"\{\{LINK:([a-z0-9-]+)\}\}", lambda m: LINK(m.group(1)), s)
     s = re.sub(r"\{\{POST:([a-z0-9-]+)\}\}", lambda m: POSTU(m.group(1)), s)
+    s = re.sub(r"\{\{CAT:([a-z0-9-]+)\}\}", lambda m: CAT(m.group(1)), s)
     s = re.sub(r"\{\{IMG:([A-Za-z0-9_-]+)\}\}", lambda m: IMG(m.group(1)), s)
     s = re.sub(r"\{\{EMAIL:([a-z]+)\}\}", lambda m: EMAILS[m.group(1)], s)
     s = re.sub(r"\{\{POLICY:([a-z0-9-]+)\}\}", lambda m: resolve(POLICIES.get(m.group(1), {}).get("content_html", "")), s)
@@ -215,6 +223,8 @@ def step_skeleton():
             continue
         r = call("wp_create_post", {"title": p["title"], "slug": p["slug"], "status": "draft", "content": "", "comment_status": "closed"})
         state["posts"][p["slug"]] = r["id"]; state["post_links"][p["slug"]] = r.get("link"); save(); print("  matéria criada (rascunho):", p["slug"], r["id"])
+    for name in CATEGORIES:
+        term_id("category", name)
     refresh_links()
     mode = "pretty" if any("?page_id=" not in (l or "") for l in state["links"].values()) else "plain"
     state["permalinks"] = mode; save(); print("  links permanentes:", mode)

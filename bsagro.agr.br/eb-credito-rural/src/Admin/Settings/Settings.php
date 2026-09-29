@@ -357,11 +357,11 @@ final class Settings {
 				);
 			case 'privacidade':
 				return array(
-					'dpo_name'                  => array( 'text', __( 'Nome do encarregado (DPO)', 'eb-credito-rural' ), __( 'Exibido na página de privacidade do cliente.', 'eb-credito-rural' ) ),
-					'dpo_email'                 => array( 'email', __( 'E-mail do encarregado (DPO)', 'eb-credito-rural' ), __( 'Recebe cópia das solicitações de direitos do titular.', 'eb-credito-rural' ) ),
-					'retention_months_rejected' => array( 'number', __( 'Retenção de reprovadas/canceladas (meses)', 'eb-credito-rural' ), __( 'Após esse prazo, documentos são apagados e dados pessoais anonimizados (estatísticas agregadas permanecem). Recomendado: 24, salvo orientação jurídica.', 'eb-credito-rural' ) ),
-					'retention_months_approved' => array( 'number', __( 'Retenção de aprovadas/concluídas (meses)', 'eb-credito-rural' ), __( 'Operações de crédito têm prazos legais de guarda; defina com o jurídico. Padrão provisório: 120 (10 anos).', 'eb-credito-rural' ) ),
-					'audit_retention_days'      => array( 'number', __( 'Retenção do log de auditoria (dias)', 'eb-credito-rural' ), __( 'Recomendado: 730 (2 anos).', 'eb-credito-rural' ) ),
+					'dpo_name'                   => array( 'text', __( 'Nome do encarregado (DPO)', 'eb-credito-rural' ), __( 'Exibido na página de privacidade do cliente.', 'eb-credito-rural' ) ),
+					'dpo_email'                  => array( 'email', __( 'E-mail do encarregado (DPO)', 'eb-credito-rural' ), __( 'Recebe cópia das solicitações de direitos do titular.', 'eb-credito-rural' ) ),
+					'retention_months_rejected'  => array( 'number', __( 'Retenção de reprovadas/canceladas (meses)', 'eb-credito-rural' ), __( 'Após esse prazo, documentos são apagados e dados pessoais anonimizados (estatísticas agregadas permanecem). Recomendado: 24, salvo orientação jurídica.', 'eb-credito-rural' ) ),
+					'retention_months_approved'  => array( 'number', __( 'Retenção de aprovadas/concluídas (meses)', 'eb-credito-rural' ), __( 'Operações de crédito têm prazos legais de guarda; defina com o jurídico. Padrão provisório: 120 (10 anos).', 'eb-credito-rural' ) ),
+					'audit_retention_days'       => array( 'number', __( 'Retenção do log de auditoria (dias)', 'eb-credito-rural' ), __( 'Recomendado: 730 (2 anos).', 'eb-credito-rural' ) ),
 					'policies'                   => array( 'policies', __( 'Políticas e declarações', 'eb-credito-rural' ), __( 'Para cada item: título, página com o texto completo (opcional), versão e texto curto do aceite. Sem página escolhida, o plugin procura pelos slugs indicados (ex.: aviso-de-privacidade, politica-de-privacidade). Ao mudar a versão, o cliente precisa aceitar novamente no próximo acesso.', 'eb-credito-rural' ) ),
 					'legal_page_titular'         => array( 'page', __( 'Página "Portal do titular"', 'eb-credito-rural' ), __( 'Link exibido na área Privacidade do cliente. Vazio = página com slug portal-do-titular, se existir.', 'eb-credito-rural' ) ),
 					'legal_page_cookies'         => array( 'page', __( 'Página "Política de cookies"', 'eb-credito-rural' ), __( 'Vazio = página com slug politica-de-cookies, se existir.', 'eb-credito-rural' ) ),

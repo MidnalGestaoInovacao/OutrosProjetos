@@ -158,7 +158,7 @@ final class DocumentMatrix {
 	 * @return array Lista de slots: type, label, required(bool), level, ref_key, ref_label, validity_days, help.
 	 */
 	public static function slots( array $ctx ) {
-		$ctx   = array_merge(
+		$ctx = array_merge(
 			array(
 				'person_type'    => 'PF',
 				'married'        => false,

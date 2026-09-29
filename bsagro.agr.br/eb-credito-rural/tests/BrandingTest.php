@@ -205,6 +205,19 @@ final class BrandingTest extends EBCR_TestCase {
 		$this->assertSame( 'neutro', Options::get( 'brand_preset' ) );
 		$this->assertInstanceOf( \WP_Error::class, Abilities::run_tool( array( 'tool' => 'apply_brand_preset', 'preset' => 'xyz' ) ) );
 		$this->assertSame( array( 'custom', 'evellyn', 'bsagro', 'neutro' ), array_keys( Branding::preset_labels() ) );
+		// get-settings expõe as novas abas, opções e a identidade efetiva.
+		$all = Abilities::get_settings( array() );
+		foreach ( array( 'identidade', 'botao', 'garantias' ) as $tab ) {
+			$this->assertArrayHasKey( $tab, $all['tabs'] );
+		}
+		$this->assertArrayHasKey( 'css_vars', $all['branding'] );
+		$this->assertArrayHasKey( 'alias_url', $all['client_area'] );
+		$g = Abilities::get_settings( array( 'tab' => 'garantias' ) );
+		$this->assertSame( array( 'required', 'optional', 'disabled' ), array_keys( $g['fields']['guarantees_mode']['options'] ) );
+		$this->assertSame( 'required', $g['settings']['guarantees_mode'] );
+		$this->assertArrayHasKey( 'options', $g['fields']['guarantees_required_modalities'] );
+		$i = Abilities::get_settings( array( 'keys' => array( 'brand_preset' ) ) );
+		$this->assertArrayHasKey( 'bsagro', $i['fields']['brand_preset']['options'] );
 	}
 
 	public function test_logo_name_and_front_handle(): void {

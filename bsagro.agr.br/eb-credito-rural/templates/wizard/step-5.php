@@ -31,11 +31,11 @@ if ( SubmissionRules::assets_active( $ebcr_ctx ) ) {
 }
 $ebcr_purposes = Steps::options( 'purposes' );
 $ebcr_purpose  = isset( $ebcr_ctx['purpose'] ) ? (string) $ebcr_ctx['purpose'] : '';
-$ebcr_e    = static function ( $k ) use ( $errors ) {
+$ebcr_e        = static function ( $k ) use ( $errors ) {
 	return Fields::error( $errors, $k );
 };
-$ebcr_real = implode( ',', Steps::options( 'real_guarantees' ) );
-$ebcr_row  = static function ( $i, array $it ) use ( $ebcr_e, $ebcr_props, $ebcr_real ) {
+$ebcr_real     = implode( ',', Steps::options( 'real_guarantees' ) );
+$ebcr_row      = static function ( $i, array $it ) use ( $ebcr_e, $ebcr_props, $ebcr_real ) {
 	$v = static function ( $k ) use ( $it ) {
 		return isset( $it[ $k ] ) && null !== $it[ $k ] ? $it[ $k ] : '';
 	};

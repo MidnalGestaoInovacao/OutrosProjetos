@@ -20,6 +20,7 @@ def R(s):
     s = re.sub(r"\{\{U:([a-z0-9-]+)\}\}", lambda m: m.group(1) + ".html", s)
     s = re.sub(r"\{\{LINK:([a-z0-9-]+)\}\}", lambda m: m.group(1) + ".html", s)
     s = re.sub(r"\{\{POST:([a-z0-9-]+)\}\}", lambda m: "materia.html", s)
+    s = re.sub(r"\{\{CAT:([a-z0-9-]+)\}\}", lambda m: "materias.html", s)
     s = re.sub(r"\{\{IMG:([A-Za-z0-9_-]+)\}\}", lambda m: imgs.get(m.group(1), ""), s)
     s = re.sub(r"\{\{EMAIL:([a-z]+)\}\}", lambda m: EM[m.group(1)], s)
     s = re.sub(r"\{\{POLICY:([a-z0-9-]+)\}\}", lambda m: R(pol.get(m.group(1), {}).get("content_html", "<p>(texto da política)</p>")), s)

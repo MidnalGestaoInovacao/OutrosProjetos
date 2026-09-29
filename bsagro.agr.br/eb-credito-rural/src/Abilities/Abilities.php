@@ -181,7 +181,7 @@ final class Abilities {
 				'input'       => array(
 					'type'       => 'object',
 					'properties' => array(
-						'tool' => array(
+						'tool'   => array(
 							'type' => 'string',
 							'enum' => array( 'test_protection', 'test_email', 'process_mail', 'retry_mail', 'run_daily', 'run_retention', 'enable_mcp', 'send_crm_reminders', 'apply_site_icon', 'apply_brand_preset', 'flush_rewrite' ),
 						),
@@ -671,7 +671,7 @@ final class Abilities {
 				'label' => $def[1],
 				'help'  => $def[2],
 			);
-			if ( 'select' === $def[0] ) {
+			if ( in_array( $def[0], array( 'select', 'preset', 'multicheck' ), true ) && isset( $def[3] ) ) {
 				$out['fields'][ $key ]['options'] = $def[3];
 			}
 			$out['settings'][ $key ] = isset( $all[ $key ] ) ? $all[ $key ] : null;
@@ -1155,7 +1155,7 @@ final class Abilities {
 				'count' => count( $saved['imoveis']['imoveis'] ),
 				'note'  => $saved['imoveis']['imoveis'] ? '' : \EBCR\Forms\SubmissionRules::assets_empty_text( $saved['imoveis'], $ctx ),
 			),
-			'documents'   => array_map(
+			'documents'    => array_map(
 				static function ( $d ) {
 					return array(
 						'id'            => $d['public_id'],
@@ -1173,14 +1173,14 @@ final class Abilities {
 				},
 				( new DocumentRepository() )->for_submission( (int) $s['id'] )
 			),
-			'checklist'   => array(
+			'checklist'    => array(
 				'required_total' => $slots['required_total'],
 				'required_done'  => $slots['required_done'],
 			),
-			'requests'    => ( new DocumentRequestRepository() )->for_submission( (int) $s['id'] ),
-			'history'     => ( new StatusHistoryRepository() )->for_submission( (int) $s['id'] ),
-			'messages'    => ( new MessageRepository() )->for_submission( (int) $s['id'] ),
-			'transitions' => array_values(
+			'requests'     => ( new DocumentRequestRepository() )->for_submission( (int) $s['id'] ),
+			'history'      => ( new StatusHistoryRepository() )->for_submission( (int) $s['id'] ),
+			'messages'     => ( new MessageRepository() )->for_submission( (int) $s['id'] ),
+			'transitions'  => array_values(
 				array_filter(
 					array_keys( Status::all() ),
 					static function ( $k ) use ( $s ) {

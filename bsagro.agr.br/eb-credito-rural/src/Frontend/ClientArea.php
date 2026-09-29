@@ -147,7 +147,7 @@ final class ClientArea {
 	 */
 	public static function slug_page_exists() {
 		$cached = get_transient( self::SLUG_TR );
-		if ( is_array( $cached ) && isset( $cached['slug'], $cached['exists'] ) && $cached['slug'] === self::slug() ) {
+		if ( is_array( $cached ) && isset( $cached['slug'], $cached['exists'] ) && self::slug() === $cached['slug'] ) {
 			return (bool) $cached['exists'];
 		}
 		$page   = get_page_by_path( self::slug(), OBJECT, 'page' );
@@ -269,7 +269,7 @@ final class ClientArea {
 	 * @return string
 	 */
 	public static function button( array $args = array() ) {
-		$a      = array_merge(
+		$a       = array_merge(
 			array(
 				'label'        => '',
 				'label_logged' => '',
@@ -279,9 +279,9 @@ final class ClientArea {
 			),
 			$args
 		);
-		$style  = isset( self::styles()[ $a['style'] ] ) ? $a['style'] : 'primary';
-		$label  = '' !== trim( (string) $a['label'] ) ? trim( (string) $a['label'] ) : self::label();
-		$logged = '' !== trim( (string) $a['label_logged'] ) ? trim( (string) $a['label_logged'] ) : self::label_logged();
+		$style   = isset( self::styles()[ $a['style'] ] ) ? $a['style'] : 'primary';
+		$label   = '' !== trim( (string) $a['label'] ) ? trim( (string) $a['label'] ) : self::label();
+		$logged  = '' !== trim( (string) $a['label_logged'] ) ? trim( (string) $a['label_logged'] ) : self::label_logged();
 		$classes = array( 'ebcr-ca-btn', 'ebcr-ca-btn--' . $style );
 		foreach ( preg_split( '/\s+/', (string) $a['class'] ) as $c ) {
 			$c = sanitize_html_class( $c );
@@ -292,7 +292,7 @@ final class ClientArea {
 		$is_logged = is_user_logged_in();
 		$first     = self::first_name();
 		if ( $is_logged ) {
-			$text  = ( '' !== $first ? '<span class="ebcr-ca-user">' . esc_html( $first ) . '</span><span class="ebcr-ca-sep" aria-hidden="true">·</span>' : '' ) . '<span class="ebcr-ca-label">' . esc_html( $logged ) . '</span>';
+			$text = ( '' !== $first ? '<span class="ebcr-ca-user">' . esc_html( $first ) . '</span><span class="ebcr-ca-sep" aria-hidden="true">·</span>' : '' ) . '<span class="ebcr-ca-label">' . esc_html( $logged ) . '</span>';
 			/* translators: 1: rótulo (Minha área), 2: nome do usuário */
 			$aria = '' !== $first ? sprintf( __( '%1$s — conectado como %2$s', 'eb-credito-rural' ), $logged, $first ) : $logged;
 		} else {

@@ -1,8 +1,16 @@
 # EB Crédito Rural — plugin WordPress
 
-Captação de solicitações de crédito rural para o site de Évellyn Brandão: cadastro do produtor com confirmação de e-mail, formulário em sete etapas com validação no servidor, documentos armazenados fora do alcance público com download autenticado, notificações por e-mail, área do cliente e painel da equipe com fluxo de status, pedidos de documento, revisão, mensagens, checklist de conferência, auditoria e configurações explicadas campo a campo.
+Captação de solicitações de crédito rural (criado para o site de Évellyn Brandão e usado também no site da BS Agro Capital): cadastro do produtor com confirmação de e-mail, formulário em sete etapas com validação no servidor, documentos armazenados fora do alcance público com download autenticado, notificações por e-mail, área do cliente com a identidade visual de cada site, botão "Área do Cliente" e painel da equipe com fluxo de status, pedidos de documento, revisão, mensagens, checklist de conferência, auditoria e configurações explicadas campo a campo.
 
 Esta é a **Fase 1 (MVP seguro)** do `SPEC.md`. Slug `eb-credito-rural`, prefixo `ebcr_`, namespace `EBCR\`.
+
+## Novidades da 1.3.0
+
+- **Bens e garantias configuráveis** (Configurações → *Bens e garantias*): imóveis rurais (etapa 2) e garantias (etapa 5) podem ser **obrigatórios** (padrão, igual às versões anteriores), **opcionais** (o cliente pode declarar "não tenho garantia/imóvel a informar") ou **desativados** (a etapa some, as etapas seguintes são renumeradas e os documentos ligados a ela não são pedidos). Finalidades marcadas continuam exigindo garantia no modo opcional. Validação no navegador e no servidor; filtro `ebcr_guarantees_required`.
+- **Identidade visual da área do cliente** (Configurações → *Identidade visual*): nome e logotipo da marca, cores, arredondamentos, fontes (com folhas de estilo externas), "Herdar do tema" e predefinições **Évellyn Brandão** (visual original), **BS Agro Capital** e **Neutro**; verificação de contraste WCAG AA. Vale para portal, login/cadastro, formulário, simulador, assinatura eletrônica, painel da equipe no site, verificação em duas etapas, botão "Área do Cliente", e-mails e tela de login do WordPress (quando a paleta não é a original).
+- **Botão "Área do Cliente"**: shortcode `[ebcr_client_area_button]`, bloco `ebcr/client-area-button`, botão fixo no topo, item em menu clássico ou no bloco Navegação, atributo `data-ebcr-client-area` em qualquer link, `window.EBCR_CLIENT_AREA` e endereço amigável `/area-do-cliente/` (com `?ebcr_client_area=1` para links permanentes simples).
+- **Páginas legais por slug candidato**: sem página escolhida, cada política procura a primeira página publicada entre slugs padrão (privacidade: `aviso-de-privacidade`, `politica-de-privacidade` e, por fim, a página de privacidade do WordPress); novas páginas complementares (portal do titular, cookies, comercialização, canal de integridade) aparecem na área Privacidade do cliente. Título de cada política editável.
+- Correções: salvar a aba *Documentos e uploads* (matriz de documentos) causava erro fatal no PHP 8; aviso do PHP 8.3+ ao revalidar solicitação com a etapa financeira vazia; `font` inválido nos botões.
 
 ## Requisitos
 
@@ -36,6 +44,74 @@ Se `DISABLE_WP_CRON` estiver definido, configure um cron do sistema chamando `wp
 | `[ebcr_form]` | Formulário (redireciona ao login se necessário) |
 | `[ebcr_cta titulo="" texto="" botao="" url=""]` | Chamada para ação |
 | `[ebcr_simulador taxa="" sistema="price|sac" valor="" prazo="" carencia="" titulo="" botao="" url="" tema="claro|escuro"]` | Simulador de crédito ilustrativo (Price/SAC, carência, tabela de parcelas) com botão para a área do produtor. Padrões em Configurações → Integrações |
+| `[ebcr_client_area_button label="Área do Cliente" label_logged="Minha área" style="primary|outline|ghost|link" icon="yes|no" class=""]` | Botão que abre a área do cliente; para quem está conectado mostra "Primeiro nome · Minha área". Também disponível como bloco *Botão Área do Cliente* |
+
+## Bens e garantias (etapas 2 e 5)
+
+Configurações → **Bens e garantias** (chaves entre parênteses; padrões preservam o comportamento até a 1.2.2):
+
+| Configuração | Valores | Padrão |
+| --- | --- | --- |
+| Garantias (`guarantees_mode`) | `required` \| `optional` \| `disabled` | `required` |
+| Finalidades que sempre exigem garantia (`guarantees_required_modalities`) | lista de chaves de Formulário → Finalidades | vazia |
+| Imóveis rurais / bens (`assets_mode`) | `required` \| `optional` \| `disabled` | `required` |
+
+- **Obrigatório**: como antes — ao menos uma garantia/um imóvel.
+- **Opcional**: a etapa pergunta "Você tem garantia (imóvel) a oferecer?". "Não" dispensa a lista e descarta linhas enviadas; "Sim" exige ao menos uma. O laudo de avaliação e os documentos por imóvel só são pedidos quando há garantia real/imóvel. Se a finalidade escolhida na etapa 4 estiver em *Finalidades que sempre exigem garantia* (ex.: crie `garantia_imovel|Crédito com garantia de imóvel` em Formulário → Finalidades e marque-a), a garantia volta a ser obrigatória.
+- **Desativado**: a etapa não aparece (o cliente vê as etapas renumeradas), não pode ser enviada nem por requisição forjada, e os documentos ligados a ela não entram na matriz. Com imóveis desativados, garantias reais são descritas no texto (sem vínculo com imóvel).
+- A regra vale no navegador (pergunta obrigatória e mínimo de linhas antes de enviar) e no servidor (`Steps`/`Wizard`/`SubmissionRules`), na revalidação do envio final, no resumo da etapa 7, nas telas da equipe (portal e wp-admin), no dossiê em PDF e na ability `get-submission` (campos `requirements`, `guarantees`, `properties`).
+- Condição nova na matriz de documentos: **Qualquer garantia oferecida** (`guarantee`).
+- Filtros para desenvolvedores: `ebcr_guarantees_required` (`bool $required, array $submission_context`) e `ebcr_assets_required` (mesma assinatura). O contexto traz `submission_id`, `public_id`, `user_id`, `purpose`, `amount`, `term_months`, `person_type`, `properties_count` e `mode`. Se o filtro exigir garantia com o modo desativado, a etapa reaparece.
+
+## Identidade visual
+
+Configurações → **Identidade visual**: escolha uma predefinição e clique em **Aplicar** (preenche os campos; nada muda até **Salvar**).
+
+| Chave | O que controla | Padrão (visual original) |
+| --- | --- | --- |
+| `brand_preset` | Predefinição de referência (`evellyn`, `bsagro`, `neutro`, `custom`) | `evellyn` |
+| `brand_name` | Nome no topo da área do cliente, telas de acesso, e-mails, 2FA e dossiê | vazio = nome do site |
+| `brand_logo_id` | Logotipo (biblioteca de mídia) | vazio = logotipo do tema → ícone do site |
+| `brand_portal_header` | Logotipo + nome no topo do portal, do painel da equipe e da tela de acesso | ligado |
+| `brand_inherit_theme` | Usa paleta/fontes do tema de blocos (`wp_get_global_settings()`/`wp_get_global_styles()`), com os campos manuais como reserva | desligado |
+| `brand_primary`, `brand_primary_hover`, `brand_primary_contrast` | Botões principais, etapa atual, chamada para ação | `#d4af37`, `#b8860b`, `#111111` |
+| `brand_accent`, `brand_accent_strong` | Destaques e links | `#d4af37`, `#b8860b` |
+| `brand_bg`, `brand_surface`, `brand_text`, `brand_muted`, `brand_border` | Fundo, cartões, texto, texto secundário, bordas (aceita `rgba()`) | vazio (fundo do tema), `#ffffff`, `#111827`, `#4b5563`, `#e5e7eb` |
+| `brand_radius`, `brand_btn_radius` | Arredondamento de cartões e botões (px; 999 = pílula) | 12, 999 |
+| `brand_button_style` | `gradient` (degradê gerado da primária) ou `solid` | `gradient` |
+| `brand_font_heading`, `brand_heading_weight`, `brand_font_body` | Pilhas de fontes e peso dos títulos | vazio = fontes do tema |
+| `brand_font_urls` | Folhas de estilo das fontes (https, uma por linha), carregadas só nas páginas do plugin | vazio |
+
+A predefinição **BS Agro Capital** aplica: primária `#0d3527` (hover `#124a35`, texto `#fbf9f4`), destaque `#d4af37` / `#b8860b`, fundo `#fbf9f4`, superfície `#ffffff`, texto `#171b24`, secundário `#4b5262`, borda `rgba(23,27,36,.15)`, cartões com 20 px, botões em pílula, títulos `"Raleway"` 600 e texto `"Roboto"` (fontsource via jsDelivr). Por MCP: `update-settings` com `{"settings":{"brand_preset":"bsagro","brand_name":"BS Agro Capital"}}` ou `run-tool` com `{"tool":"apply_brand_preset","preset":"bsagro"}`.
+
+Como funciona: os arquivos CSS do front-end (`portal.css`, `simulator.css`, `esign.css`, `team.css`, `2fa.css`, `client-area.css`) só **leem** as variáveis `--ebcr-primary`, `--ebcr-primary-hover`, `--ebcr-primary-contrast`, `--ebcr-accent`, `--ebcr-accent-strong`, `--ebcr-bg`, `--ebcr-surface`, `--ebcr-text`, `--ebcr-muted`, `--ebcr-border`, `--ebcr-radius`, `--ebcr-btn-radius`, `--ebcr-font-heading`, `--ebcr-font-body`, `--ebcr-heading-weight` (e derivadas como `--ebcr-primary-bg`, `--ebcr-link`, `--ebcr-dark`), com os valores originais como reserva. O plugin imprime os valores configurados em um estilo inline (`ebcr-brand`, via `wp_add_inline_style`) limitado aos invólucros `.ebcr-portal`, `.ebcr-cta`, `.ebcr-sim`, `.ebcr-2fa-page`, `.ebcr-ca-btn`, `.ebcr-ca-bar` — o restante do tema não é afetado. Na paleta original nenhuma variável derivada é impressa, então o visual da 1.2.2 é mantido. Filtros: `ebcr_brand_tokens`, `ebcr_brand_css`, `ebcr_brand_name`, `ebcr_brand_logo_url`, `ebcr_brandbar_show_name`.
+
+Acessibilidade: foco visível em todos os controles; a tela mostra a razão de contraste de texto/primária, texto/fundo, texto/cartões, secundário/cartões e links/cartões, avisa abaixo de 4,5:1 (também no retorno do `update-settings`) e, fora da paleta original, os links usam automaticamente a primeira cor com contraste suficiente (destaque forte → primária → texto).
+
+## Botão "Área do Cliente"
+
+- **Shortcode** `[ebcr_client_area_button]` — atributos `label` (padrão "Área do Cliente"), `label_logged` (padrão "Minha área"), `style` (`primary` | `outline` | `ghost` | `link`), `icon` (`yes` | `no`), `class`. Gera um `<a>` para a página do portal (configurada em Geral ou, se vazia, a que contém `[ebcr_portal]`) com `aria-label`; conectado, mostra "Primeiro nome · Minha área".
+- **Bloco** `ebcr/client-area-button` (dinâmico, sem etapa de build): atributos `label`, `labelLogged`, `buttonStyle`, `showIcon` (+ classe e alinhamento).
+- **Configurações → Botão Área do Cliente** (tudo desligado por padrão): botão fixo no topo (`client_area_bar`, `client_area_bar_position` = `top-right`|`top-left`, `client_area_bar_offset` em px, `client_area_bar_style`), inserido por `wp_body_open` (reserva no `wp_footer`) e oculto na própria página do portal; item no menu clássico (`client_area_menu_location`) e no primeiro bloco Navegação (`client_area_nav_block`) com `client_area_menu_style`; textos `client_area_label`/`client_area_label_logged`; ícone `client_area_icon`.
+- **Qualquer link**: `<a href="#" data-ebcr-client-area>Área do Cliente</a>` recebe o endereço do portal e, para quem está conectado, o texto "Nome · Minha área" (personalizável com `data-label-logged`). O auxiliar também expõe `window.EBCR_CLIENT_AREA = { url, label, labelLogged, loggedIn, userFirstName }` (desligável pelo filtro `ebcr_client_area_helper_enabled`).
+- **Endereço amigável**: `/area-do-cliente/` (slug em `client_area_slug`, ligado por `client_area_alias`) redireciona ao portal quando não existe página com esse slug; as regras são renovadas na ativação e quando o slug muda. Com **links permanentes simples** (`?page_id=`), use `/?ebcr_client_area=1` (o caminho `/area-do-cliente/` também é tratado se o servidor o encaminhar ao WordPress). Todos os links internos do portal são montados com `add_query_arg()` sobre `get_permalink()` e funcionam nos dois modos.
+- Filtro `ebcr_client_area_url` (`string $url, array $context`).
+
+## Páginas legais
+
+Em **Privacidade e compliance**, cada política tem título, página, versão e texto. Sem página escolhida (`policies[<chave>][page_id]` = 0), o plugin usa a primeira página **publicada** entre os slugs candidatos, sempre com `get_permalink()`:
+
+| Política | Slugs procurados |
+| --- | --- |
+| `privacidade` | `aviso-de-privacidade`, `politica-de-privacidade`, depois a página de Configurações → Privacidade do WordPress |
+| `termos` | `termos-de-uso` |
+| `scr` | `autorizacao-consulta-scr` |
+| `veracidade` | `declaracao-de-veracidade` |
+| `socioambiental` | `politica-de-esg`, `politica-socioambiental` |
+| `anticorrupcao` | `politica-de-compliance-anticorrupcao`, `politica-de-compliance` |
+| `marketing` | `comunicacoes-de-marketing` |
+
+Links complementares na área Privacidade do cliente (página escolhida ou slug): `legal_page_titular` (`portal-do-titular`), `legal_page_cookies` (`politica-de-cookies`), `legal_page_comercializacao` (`politica-de-comercializacao`), `legal_page_integridade` (`canal-de-integridade`). Filtro `ebcr_policy_page_slugs` (`array $slugs, string $key`).
 
 ## Configuração e operação por IA (Easy MCP AI / Abilities API)
 
@@ -43,15 +119,15 @@ O plugin registra 18 *abilities* na Abilities API do WordPress (6.9+), categoria
 
 | Ferramenta | Função | Exige |
 | --- | --- | --- |
-| `wp_ability_ebcr_get_settings` | Lê configurações (todas, por aba ou por chave) com rótulo, ajuda e tipo | `ebcr_manage_settings` |
-| `wp_ability_ebcr_update_settings` | Altera configurações (mesma sanitização/limites/avisos da tela) | `ebcr_manage_settings` |
+| `wp_ability_ebcr_get_settings` | Lê configurações (todas, por aba ou por chave) com rótulo, ajuda e tipo; sem filtros inclui a identidade visual efetiva (tokens, variáveis CSS, contraste) e as URLs do botão "Área do Cliente" | `ebcr_manage_settings` |
+| `wp_ability_ebcr_update_settings` | Altera configurações (mesma sanitização/limites/avisos da tela); `brand_preset` expande a predefinição | `ebcr_manage_settings` |
 | `wp_ability_ebcr_reset_settings` | Restaura os padrões de uma aba | `ebcr_manage_settings` |
 | `wp_ability_ebcr_get_status` | Estado do plugin: ambiente, pasta privada, criptografia, fila de e-mails, contagens, pendências de publicação, estado do MCP | `ebcr_manage_settings` |
-| `wp_ability_ebcr_run_tool` | `test_protection`, `test_email`, `process_mail`, `retry_mail`, `run_daily`, `run_retention`, `enable_mcp`, `send_crm_reminders` | `ebcr_manage_settings` |
+| `wp_ability_ebcr_run_tool` | `test_protection`, `test_email`, `process_mail`, `retry_mail`, `run_daily`, `run_retention`, `enable_mcp`, `send_crm_reminders`, `apply_site_icon`, `apply_brand_preset` (+ `preset`), `flush_rewrite` | `ebcr_manage_settings` |
 | `wp_ability_ebcr_list_team` | Lista analistas, gestores e administradores | `ebcr_change_final_status` |
 | `wp_ability_ebcr_set_team_member` | Cria/atribui analista ou gestor por e-mail; `remover` tira da equipe | `promote_users` |
 | `wp_ability_ebcr_list_submissions` | Lista solicitações com filtros (status, busca, responsável, paginação) | `ebcr_view_submissions` |
-| `wp_ability_ebcr_get_submission` | Detalhe (dados mascarados, documentos, pendências, mensagens, histórico) | `ebcr_view_submissions` |
+| `wp_ability_ebcr_get_submission` | Detalhe (dados mascarados, documentos, pendências, mensagens, histórico, exigências de imóveis/garantias) | `ebcr_view_submissions` |
 | `wp_ability_ebcr_change_status` | Muda status respeitando transições e papéis (aprovar/reprovar só gestor) | `ebcr_edit_submissions` |
 | `wp_ability_ebcr_assign_submission` | Atribui responsável (ID ou e-mail) | `ebcr_edit_submissions` |
 | `wp_ability_ebcr_request_document` | Abre pendência documental e notifica o cliente | `ebcr_edit_submissions` |
@@ -99,12 +175,13 @@ src/Install            Schema (dbDelta), Migrator, Activator, Deactivator
 src/Roles              Capabilities (papéis e capacidades)
 src/Database           repositórios por tabela ($wpdb->prepare em todas as consultas)
 src/Domain             Status (fluxo), Consent (políticas versionadas), Protocol
-src/Forms              Steps (7 etapas), Validators (CPF, CNPJ, CAR, CEP…), DocumentMatrix, Wizard, SubmissionRules, SubmissionService
+src/Forms              Steps (7 etapas; 2 e 5 configuráveis), Validators (CPF, CNPJ, CAR, CEP…), DocumentMatrix, Wizard, SubmissionRules (regras de envio e de bens/garantias), SubmissionService
 src/Security           Authorization, MathCaptcha, Honeypot, RateLimiter, LoginGuard, Nonces, Crypto (sodium), AuditLog, PrivacyIntegration, Retention
 src/Files              FileGuard, Storage, UploadHandler, DownloadController, Exif, Antivirus
 src/Mail               Events (templates), Mailer, Queue (Action Scheduler ou WP-Cron, 3 tentativas), Notifier
-src/Frontend           Auth, Portal, FormRouter (formulários enviam para a própria página do portal), Fields, Simulator, Team (painel da equipe no site)
-src/Admin              Menu, Dashboard (gráficos), SubmissionsList, SubmissionView, Actions, Settings (13 abas), Help, AuditLogView, Crm/CrmList, Reports
+src/Frontend           Auth, Portal, FormRouter (formulários enviam para a própria página do portal), Fields, Simulator, ClientArea (botão/bloco/barra "Área do Cliente" e /area-do-cliente/), Team (painel da equipe no site)
+src/Admin              Menu, Dashboard (gráficos), SubmissionsList, SubmissionView, Actions, Settings (15 abas), Branding (identidade do painel/login e da área do cliente), Help, AuditLogView, Crm/CrmList, Reports
+src/Support            Options, Helpers, Color (cores CSS e contraste WCAG), View, Ip, Uuid
 src/Reports            Metrics (funil, mês, UF, atividade, garantia, tempo por etapa, carteira, analista), Dossier (PDF do comitê)
 src/Pdf                Writer (gerador de PDF em PHP puro)
 src/Crm                Service (ficha, estágios, atividades, tarefas, lembretes, CSV)
@@ -117,7 +194,7 @@ src/Cron               lembretes, certidões a vencer, retenção, limpezas, lem
 assets/vendor          Chart.js 4.4.4 (MIT) e qrcode-generator 1.4.4 (MIT), empacotados (sem CDN)
 templates/             portal, wizard, admin e e-mails (sobrescrevíveis pelo tema em /eb-credito-rural/)
 assets/                CSS/JS sem CDN
-tests/                 PHPUnit (autorização, segurança, validadores, wizard, abilities, relatórios, CRM, dossiê, 2FA, assinatura, integrações, painel da equipe)
+tests/                 PHPUnit (autorização, segurança, validadores, wizard, bens/garantias, identidade visual, botão Área do Cliente, abilities, relatórios, CRM, dossiê, 2FA, assinatura, integrações, painel da equipe)
 ```
 
 ## Desenvolvimento e testes
@@ -143,11 +220,16 @@ Os testes de autorização cobrem os critérios de aceite do SPEC: cliente A nã
 - [ ] Políticas revisadas pelo jurídico, versões definidas
 - [ ] Matriz de documentos e limites revisados pela gestora do fundo
 - [ ] Usuários da equipe com papéis corretos
+- [ ] Identidade visual revisada (predefinição/cores/logotipo) e sem avisos de contraste
+- [ ] Modo de bens e garantias definido (obrigatório/opcional/desativado) e matriz de documentos conferida
+- [ ] Botão "Área do Cliente" no cabeçalho (shortcode, bloco, menu, barra fixa ou `data-ebcr-client-area`) apontando para o portal
+- [ ] Páginas legais publicadas (ou escolhidas em Privacidade e compliance) e links conferidos
 - [ ] Cron do sistema (se `DISABLE_WP_CRON`)
 - [ ] Backup do banco e da pasta privada
 
 ## Versões
 
+- **1.3.0** — Bens e garantias configuráveis (obrigatório/opcional/desativado, finalidades que exigem garantia, filtro `ebcr_guarantees_required`); identidade visual da área do cliente (predefinições Évellyn Brandão, BS Agro Capital e Neutro, herdar do tema, fontes, contraste WCAG) aplicada a portal, acesso, formulário, simulador, assinatura, painel da equipe, 2FA, e-mails e login; botão "Área do Cliente" (shortcode, bloco, barra fixa, menus, `data-ebcr-client-area`, `/area-do-cliente/`); páginas legais por slugs candidatos e links complementares; nome da operação padrão passa a usar o nome do site (instalações existentes mantêm o anterior); correção do erro fatal ao salvar a matriz de documentos.
 - **1.2.2** — Identidade visual do painel (Geral → logotipo e ícone da marca): tela de login com a marca, logotipo no topo do menu lateral e na barra do WordPress, ícone da marca no menu "Crédito Rural" e como ícone do site no wp-admin/login (ferramenta `apply_site_icon`).
 - **1.2.1** — Páginas padrão para todas as políticas (Termos de Uso, Autorização SCR/Bacen, Declaração de veracidade, Comunicações de marketing) vinculadas por slug; todas as políticas aceitas também no cadastro (momento do aceite configurável por política em Privacidade e compliance); blocos das etapas do formulário com a mesma altura.
 - **1.2.0** — Fases 2 e 3: painel com gráficos e tempo por etapa; relatórios por carteira/fundo com CSV; CRM completo (ficha, atividades, tarefas com lembretes, Kanban, CSV); dossiê em PDF (gerador próprio); 2FA da equipe (TOTP/e-mail, backup, dispositivo confiável); assinatura eletrônica simples; consultas de CEP/CNPJ; captcha Turnstile; notificações por WhatsApp; simulador de crédito; painel de operações da equipe no site (modo "só no site"); 4 abilities novas (relatório e CRM).

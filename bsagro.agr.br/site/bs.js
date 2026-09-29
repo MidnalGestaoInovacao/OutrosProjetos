@@ -104,6 +104,59 @@
     d.addEventListener("keydown", function (ev) { if (ev.key === "Escape") fecharMenu(); });
   }
 
+  /* ---- Megamenus (desktop): clique/teclado; hover com pequena intenção ------- */
+  var mmBtns = $$("[data-mm]"), mmBack = $(".bs-mm-backdrop"), mmTimer = null, mmAtual = null, mmDesde = 0;
+  var hoverOK = w.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  function mmPainel(b) { return d.getElementById(b.getAttribute("data-mm")); }
+  function mmFechar(foco) {
+    clearTimeout(mmTimer);
+    if (!mmAtual) return;
+    var p = mmPainel(mmAtual); if (p) p.hidden = true;
+    mmAtual.setAttribute("aria-expanded", "false");
+    if (foco) mmAtual.focus();
+    mmAtual = null; if (mmBack) mmBack.hidden = true;
+  }
+  function mmAbrir(b) {
+    if (mmAtual === b) return;
+    mmFechar(false);
+    var p = mmPainel(b); if (!p) return;
+    p.hidden = false; b.setAttribute("aria-expanded", "true");
+    mmAtual = b; mmDesde = Date.now(); if (mmBack) mmBack.hidden = false;
+  }
+  function focaveis(el) { return $$("a[href], button:not([disabled])", el).filter(function (x) { return x.offsetParent !== null; }); }
+  mmBtns.forEach(function (b, i) {
+    b.addEventListener("click", function () { if (mmAtual === b && Date.now() - mmDesde > 450) mmFechar(false); else mmAbrir(b); });
+    if (hoverOK) {
+      b.addEventListener("mouseenter", function () { clearTimeout(mmTimer); mmTimer = setTimeout(function () { mmAbrir(b); }, mmAtual ? 0 : 90); });
+      b.addEventListener("mouseleave", function () { clearTimeout(mmTimer); mmTimer = setTimeout(function () { mmFechar(false); }, 280); });
+    }
+    b.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowDown" || (e.key === "Tab" && !e.shiftKey && mmAtual === b)) {
+        e.preventDefault(); mmAbrir(b); var f = focaveis(mmPainel(b))[0]; if (f) f.focus();
+      }
+    });
+  });
+  $$(".bs-mm").forEach(function (p) {
+    if (hoverOK) {
+      p.addEventListener("mouseenter", function () { clearTimeout(mmTimer); });
+      p.addEventListener("mouseleave", function () { clearTimeout(mmTimer); mmTimer = setTimeout(function () { mmFechar(false); }, 280); });
+    }
+    p.addEventListener("click", function (e) { if (e.target.closest("a")) mmFechar(false); });
+    p.addEventListener("keydown", function (e) {
+      if (e.key !== "Tab" || !mmAtual) return;
+      var fs = focaveis(p), btn = mmAtual;
+      if (e.shiftKey && d.activeElement === fs[0]) { e.preventDefault(); btn.focus(); }
+      else if (!e.shiftKey && d.activeElement === fs[fs.length - 1]) {
+        e.preventDefault(); var itens = $$("#bs-nav .nav-link"), prox = itens[itens.indexOf(btn) + 1];
+        mmFechar(false); (prox || btn).focus();
+      }
+    });
+  });
+  if (mmBack) mmBack.addEventListener("click", function () { mmFechar(false); });
+  d.addEventListener("keydown", function (e) { if (e.key === "Escape" && mmAtual) mmFechar(true); });
+  d.addEventListener("click", function (e) { if (mmAtual && !e.target.closest("[data-mm], .bs-mm")) mmFechar(false); });
+  w.addEventListener("resize", function () { if (w.innerWidth < 1280) mmFechar(false); });
+
   /* ---- Header -------------------------------------------------------------
      Página inicial: como no site original, aparece só enquanto o hero está na
      tela. Demais páginas: sempre visível; depois do banner, a logo ganha um
@@ -120,7 +173,8 @@
       header.classList.toggle("header--sem-util", w.scrollY > utilH);
       if (hero) {
         var noHero = hero.getBoundingClientRect().bottom > 0;
-        header.classList.toggle("header--escondido", !(menuAberto || temFoco || noHero));
+        var esconder = !(menuAberto || temFoco || noHero || mmAtual);
+        header.classList.toggle("header--escondido", esconder);
       } else {
         var ref = banner || $("main");
         var passou = ref ? ref.getBoundingClientRect().bottom < 90 : w.scrollY > 200;
@@ -143,12 +197,12 @@
       entradas.forEach(function (e) { if (e.isIntersecting) visiveis["#" + e.target.id] = true; else delete visiveis["#" + e.target.id]; });
       var atual = null;
       for (var i = 0; i < navLinks.length; i++) { if (visiveis[navLinks[i].dataset.navAnchor]) { atual = navLinks[i].dataset.navAnchor; break; } }
-      navLinks.forEach(function (l) { if (atual && l.dataset.navAnchor === atual) l.setAttribute("aria-current", "true"); else l.removeAttribute("aria-current"); });
+      navLinks.forEach(function (l) { var on = !!atual && l.dataset.navAnchor === atual; if (l.tagName === "BUTTON") l.classList.toggle("is-current", on); else if (on) l.setAttribute("aria-current", "true"); else l.removeAttribute("aria-current"); });
     }, { rootMargin: "-20% 0px -60% 0px", threshold: 0 });
     secoes.forEach(function (s) { spy.observe(s); });
   }
   var pagEl = $("[data-bs-page]"), pagAtual = pagEl ? pagEl.getAttribute("data-bs-page") : "";
-  if (pagAtual) $$('.nav-link[data-nav-page="' + pagAtual + '"]').forEach(function (l) { l.setAttribute("aria-current", "page"); });
+  if (pagAtual) $$('.nav-link[data-nav-page="' + pagAtual + '"]').forEach(function (l) { if (l.tagName === "BUTTON") l.classList.add("is-current"); else l.setAttribute("aria-current", "page"); });
 
   /* ---- Revelação ao rolar -------------------------------------------------- */
   var revelaveis = $$(".revelar");

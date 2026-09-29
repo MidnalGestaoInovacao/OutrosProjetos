@@ -122,6 +122,7 @@ Salvamento automático de rascunho a cada etapa. O cliente pode sair e voltar. V
 
 ### Etapa 2 — Imóveis rurais (repetível)
 Campos da tabela `ebcr_properties`. Se arrendado → contrato e data de término (alertar se terminar antes do prazo do empréstimo).
+Desde a 1.3.0 a exigência é configurável (`assets_mode`: obrigatório — padrão —, opcional com a pergunta "possui imóvel rural a informar?" ou desativado, quando a etapa some e os documentos por imóvel não são pedidos). Filtro `ebcr_assets_required`.
 
 ### Etapa 3 — Atividade produtiva
 - Atividade (grãos, café, cana, fruticultura, pecuária de corte/leite, outras), área plantada por cultura, produtividade das últimas 3 a 5 safras.
@@ -137,6 +138,7 @@ Campos da tabela `ebcr_properties`. Se arrendado → contrato e data de término
 
 ### Etapa 5 — Garantias oferecidas (repetível)
 Tipos: alienação fiduciária de imóvel, hipoteca, penhor agrícola, penhor pecuário, máquinas/equipamentos, CPR, cessão de recebíveis, Patrimônio Rural em Afetação/CIR, aval/fiança. Cada tipo exibe os campos e documentos próprios (ver §6).
+Desde a 1.3.0 a exigência é configurável (`guarantees_mode`): **obrigatória** (padrão), **opcional** (o cliente pode declarar "sem garantia a oferecer"; finalidades listadas em `guarantees_required_modalities` continuam exigindo garantia) ou **desativada** (etapa e documentos de garantia ocultos; as etapas exibidas são renumeradas). Validação no navegador e no servidor (inclusive na revalidação do envio). Filtro `ebcr_guarantees_required` (`bool $required, array $submission_context`). Sem imóveis informados, a garantia real não exige vínculo com imóvel.
 
 ### Etapa 6 — Documentos
 Lista dinâmica gerada pela matriz de §6, marcando obrigatórios e opcionais conforme as respostas anteriores. Barra de progresso de documentos.
@@ -187,6 +189,8 @@ Configurável no admin (adicionar/remover tipos, obrigatoriedade, condição, va
 | Apólice de seguro rural | Se possuir | Não | — |
 | Licenças ambientais / outorga de água | Se aplicável | Condicional | — |
 | Laudo de avaliação com ART | Garantia real | Recomendado (pode ser solicitado depois) | 180 dias |
+
+Condições disponíveis na matriz: sempre, PF, PJ, casado/união, por imóvel, por imóvel arrendado, pecuária, seguro, licenças, garantia real, **qualquer garantia oferecida** (1.3.0) e "apenas sob solicitação". Com imóveis/garantias desativados ou não oferecidos, os documentos dessas condições não são pedidos.
 | Autorização de consulta SCR assinada | Sempre | Sim | — |
 
 Regras:
@@ -205,6 +209,9 @@ Regras:
 | `[ebcr_register]` | Apenas cadastro |
 | `[ebcr_form]` | Apenas o wizard (redireciona para login se não autenticado) |
 | `[ebcr_cta]` | Bloco de chamada para ação configurável (título, texto, botão) para usar na página de captação |
+| `[ebcr_client_area_button]` | (1.3.0) Botão "Área do Cliente" (`label`, `label_logged`, `style` = primary/outline/ghost/link, `icon`, `class`); também como bloco `ebcr/client-area-button`, botão fixo no topo, item de menu/bloco Navegação e atributo `data-ebcr-client-area`. Endereço amigável `/area-do-cliente/` (ou `?ebcr_client_area=1` com links permanentes simples) |
+
+A área do cliente segue a identidade visual configurada (§11.4, aba Identidade visual) por meio de variáveis CSS `--ebcr-*` limitadas aos invólucros do plugin; todos os links internos usam `add_query_arg()` sobre `get_permalink()` e funcionam com links permanentes simples (`?page_id=`) ou amigáveis.
 
 ### Cadastro e acesso
 - Cadastro com nome, e-mail, telefone e senha forte (medidor de força + mínimo configurável), captcha e aceite dos termos.
@@ -358,12 +365,15 @@ Menu "Crédito Rural" com:
 Cada campo deve ter descrição curta abaixo explicando **o que faz, valor recomendado e impacto**. Topo de cada aba com um parágrafo introdutório. Botão "Restaurar padrão" por aba.
 
 1. **Geral** — nome da operação, e-mails administrativos, página do portal (seleção de página), prefixo do protocolo, logotipo para e-mails.
+1a. **Identidade visual** (1.3.0) — nome e logotipo da marca, cores (primária, texto sobre a primária, destaque, fundo, superfície, texto, texto secundário, bordas), arredondamentos, fontes e folhas de estilo de fontes, "herdar do tema", predefinições (Évellyn Brandão, BS Agro Capital, Neutro) e verificação de contraste WCAG AA.
+1b. **Botão Área do Cliente** (1.3.0) — textos, ícone, botão fixo no topo (posição/distância/estilo), item em menu clássico ou bloco Navegação, endereço amigável.
 2. **Formulário** — ativar/desativar etapas e campos opcionais, limites de valor e prazo, textos de ajuda por etapa, lista de atividades e finalidades.
+2a. **Bens e garantias** (1.3.0) — exigência de imóveis (etapa 2) e garantias (etapa 5): obrigatório, opcional ou desativado; finalidades que sempre exigem garantia.
 3. **Documentos e uploads** — extensões, tamanho por arquivo, cota por usuário, máximo por submissão, matriz de documentos (§6), validade padrão por tipo, remoção de EXIF, antivírus.
 4. **Regras de submissão** — intervalo mínimo em dias, bloquear se houver outra em andamento, prazo para cliente responder pendências antes de lembrete/cancelamento automático.
 5. **Segurança** — caminho de armazenamento privado com **botão "Testar proteção"**, criptografia (status da chave), rate limit de login, captcha (provedor e dificuldade), honeypot, tempo mínimo, expiração de sessão da equipe, analista vê só as atribuídas.
 6. **E-mails** — remetente, templates por evento com pré-visualização, botão "Enviar e-mail de teste", opção de anexos (desligada, com aviso).
-7. **Privacidade e compliance** — editor/seleção de página para cada política, **versão** de cada texto (alterar a versão exige novo aceite no próximo acesso), prazo de retenção de dados e documentos após encerramento, contato do encarregado (DPO), texto das declarações.
+7. **Privacidade e compliance** — editor/seleção de página para cada política (sem página escolhida, procura por slugs candidatos, ex.: privacidade → `aviso-de-privacidade`, `politica-de-privacidade`, página de privacidade do WordPress), título e **versão** de cada texto (alterar a versão exige novo aceite no próximo acesso), prazo de retenção de dados e documentos após encerramento, contato do encarregado (DPO), texto das declarações e páginas complementares (portal do titular, cookies, comercialização, canal de integridade).
 8. **Status** — editor do fluxo (§10).
 9. **Ferramentas** — verificação de ambiente (versão do PHP, limites de upload, HTTPS, extensões `sodium`/`fileinfo`, WP-Cron ativo, SMTP), exportar/importar configurações (sem segredos), reprocessar fila de e-mails, rodar rotina de retenção.
 10. **Desinstalação** — "Manter dados ao desinstalar" (padrão: sim), com aviso claro.
@@ -438,3 +448,16 @@ Consulta automática de CEP/CNPJ (APIs públicas), simulador de crédito na pág
 3. Implemente **apenas a Fase 1**, em commits pequenos por módulo, rodando PHPCS e os testes a cada módulo.
 4. Priorize nesta ordem: segurança de arquivos e autorização → modelo de dados → wizard e validação → e-mails → portal do cliente → admin.
 5. Ao terminar a Fase 1, gere um `README.md` com instalação, configuração inicial e o checklist de publicação.
+
+---
+
+## 17. Histórico de versões
+
+| Versão | Mudanças |
+|---|---|
+| 1.3.0 | Bens e garantias configuráveis (`guarantees_mode`, `guarantees_required_modalities`, `assets_mode`; filtros `ebcr_guarantees_required` e `ebcr_assets_required`; condição de matriz "qualquer garantia oferecida"); identidade visual da área do cliente (aba Identidade visual, predefinições Évellyn Brandão/BS Agro Capital/Neutro, herdar do tema, fontes, contraste WCAG, variáveis `--ebcr-*` com os valores originais como reserva, e-mails e login com a marca); botão "Área do Cliente" (shortcode, bloco, barra fixa, menus, `data-ebcr-client-area`, `window.EBCR_CLIENT_AREA`, filtro `ebcr_client_area_url`, `/area-do-cliente/`); páginas legais por slugs candidatos e links complementares; nome da operação padrão = nome do site (instalações existentes preservam o anterior por migração de configurações); correção do erro fatal ao salvar a matriz de documentos. Sem mudança de banco (`EBCR_DB_VERSION` 1.2.0). |
+| 1.2.2 | Identidade visual do painel e do login (logotipo, ícone da marca, ícone do site). |
+| 1.2.1 | Páginas padrão para as políticas, momento do aceite configurável, etapas com a mesma altura. |
+| 1.2.0 | Fases 2 e 3: gráficos, relatórios por carteira, CRM completo, dossiê em PDF, 2FA, assinatura eletrônica, CEP/CNPJ, Turnstile, WhatsApp, simulador, painel da equipe no site. |
+| 1.1.x | Abilities API / Easy MCP AI; formulários do portal enviados à própria página do portal. |
+| 1.0.0 | Fase 1 (MVP seguro). |

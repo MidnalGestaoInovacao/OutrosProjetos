@@ -82,14 +82,14 @@ document.documentElement.classList.add("js");
       <img src="{{IMG:logo-white}}" alt="" width="2775" height="400" class="h-6 w-auto sm:h-7" decoding="async" fetchpriority="high" />
     </a>
 
-    <nav id="bs-nav" aria-label="Navegação principal" class="header-pill hidden items-center gap-1 p-1.5 xl:flex">
-      <ul class="flex items-center gap-1 text-sm font-medium text-graphite-700">
-        <li><a href="{{HOME}}#solucoes" data-nav-anchor="#solucoes" class="nav-link inline-block rounded-full px-4 py-2.5 transition hover:bg-olive-900/5">Soluções</a></li>
-        <li><a href="{{HOME}}#como-funciona" data-nav-anchor="#como-funciona" class="nav-link inline-block rounded-full px-4 py-2.5 transition hover:bg-olive-900/5">Como funciona</a></li>
-        <li><a href="{{HOME}}#sobre" data-nav-anchor="#sobre" class="nav-link inline-block rounded-full px-4 py-2.5 transition hover:bg-olive-900/5">Sobre</a></li>
-        <li><a href="{{U:materias}}" data-nav-page="materias" class="nav-link inline-block rounded-full px-4 py-2.5 transition hover:bg-olive-900/5">Matérias</a></li>
-        <li><a href="{{HOME}}#faq" data-nav-anchor="#faq" class="nav-link inline-block rounded-full px-4 py-2.5 transition hover:bg-olive-900/5">Dúvidas</a></li>
-        <li><a href="{{U:contato}}" data-nav-page="contato" class="nav-link inline-block rounded-full px-4 py-2.5 transition hover:bg-olive-900/5">Contato</a></li>
+    <nav id="bs-nav" aria-label="Navegação principal" class="header-pill hidden items-center p-1.5 xl:flex">
+      <ul class="bs-mnav flex items-center gap-0.5 text-sm font-medium text-graphite-700">
+        <li><button type="button" class="nav-link bs-mnav__btn" data-mm="mm-solucoes" data-nav-anchor="#solucoes" aria-expanded="false" aria-controls="mm-solucoes">Soluções<svg aria-hidden="true"><use href="#i-chev"/></svg></button></li>
+        <li><button type="button" class="nav-link bs-mnav__btn" data-mm="mm-processo" data-nav-anchor="#como-funciona" aria-expanded="false" aria-controls="mm-processo">Como funciona<svg aria-hidden="true"><use href="#i-chev"/></svg></button></li>
+        <li><button type="button" class="nav-link bs-mnav__btn" data-mm="mm-sobre" data-nav-anchor="#sobre" aria-expanded="false" aria-controls="mm-sobre">A BS Agro<svg aria-hidden="true"><use href="#i-chev"/></svg></button></li>
+        <li><button type="button" class="nav-link bs-mnav__btn" data-mm="mm-materias" data-nav-page="materias" aria-expanded="false" aria-controls="mm-materias">Matérias<svg aria-hidden="true"><use href="#i-chev"/></svg></button></li>
+        <li><button type="button" class="nav-link bs-mnav__btn" data-mm="mm-conformidade" data-nav-page="conformidade" aria-expanded="false" aria-controls="mm-conformidade">Conformidade<svg aria-hidden="true"><use href="#i-chev"/></svg></button></li>
+        <li><a href="{{U:contato}}" data-nav-page="contato" class="nav-link bs-mnav__btn">Contato</a></li>
       </ul>
     </nav>
 
@@ -108,19 +108,141 @@ document.documentElement.classList.add("js");
     </div>
   </div>
 
+  <!-- Megamenus (desktop). Ficam fora da pílula de vidro para ocupar a largura do cabeçalho. -->
+  <div class="bs-mm-layer hidden xl:block">
+    <div class="bs-mm" id="mm-solucoes" role="region" aria-label="Soluções" hidden>
+      <div class="bs-mm__in bs-mm__in--3">
+        <div class="bs-mm__col"><p class="bs-mm__h">Linhas de crédito · Plano Safra</p>
+          <a href="{{HOME}}#linha-custeio"><svg aria-hidden="true"><use href="#i-leaf"/></svg><span><b>Custeio Rural</b><small>Insumos, sementes, defensivos e mão de obra do ciclo</small></span></a>
+          <a href="{{HOME}}#linha-investimentos"><svg aria-hidden="true"><use href="#i-spark"/></svg><span><b>Crédito para Investimentos</b><small>Máquinas, benfeitorias, irrigação e armazenagem</small></span></a>
+          <a href="{{HOME}}#linha-comercializacao"><svg aria-hidden="true"><use href="#i-clock"/></svg><span><b>Comercialização</b><small>Fôlego entre a colheita e a venda</small></span></a>
+          <a href="{{HOME}}#linha-cpr"><svg aria-hidden="true"><use href="#i-doc"/></svg><span><b>CPR · Cédula de Produto Rural</b><small>A produção futura como lastro</small></span></a>
+        </div>
+        <div class="bs-mm__col"><p class="bs-mm__h">Estruturas especializadas</p>
+          <a href="{{HOME}}#credito-fundos"><svg aria-hidden="true"><use href="#i-handshake"/></svg><span><b>Crédito Estruturado via Fundos</b><small>Mais volume, prazo e flexibilidade — a mais procurada</small></span></a>
+          <a href="{{HOME}}#garantia-imovel"><svg aria-hidden="true"><use href="#i-key"/></svg><span><b>Garantia de imóvel rural e urbano</b><small>Seu patrimônio como garantia real</small></span></a>
+          <a href="{{HOME}}#recuperacao-judicial"><svg aria-hidden="true"><use href="#i-scale"/></svg><span><b>Recuperação Judicial</b><small>Capital para reorganizar passivos e recomeçar</small></span></a>
+          <a href="{{HOME}}#parceiros"><svg aria-hidden="true"><use href="#i-shield"/></svg><span><b>Parceiros e instituições</b><small>Bancos, cooperativas, fundos e seguradoras</small></span></a>
+        </div>
+        <div class="bs-mm__promo">
+          <p class="bs-mm__h">Pré-diagnóstico</p>
+          <b>Descubra por onde começar em 3 perguntas</b>
+          <p>Veja quais estruturas costumam se encaixar no seu momento, sem compromisso e sem pedir dados pessoais.</p>
+          <a class="bs-btn bs-btn--gold" href="{{HOME}}#pre-diagnostico"><svg width="18" height="18" aria-hidden="true"><use href="#i-spark"/></svg>Fazer o pré-diagnóstico</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="bs-mm" id="mm-processo" role="region" aria-label="Como funciona" hidden>
+      <div class="bs-mm__in bs-mm__in--3">
+        <div class="bs-mm__col"><p class="bs-mm__h">Do diagnóstico à execução</p>
+          <a href="{{HOME}}#como-funciona"><i class="bs-mm__n">01</i><span><b>Diagnóstico financeiro e patrimonial</b><small>Passivos, patrimônio e contexto da operação</small></span></a>
+          <a href="{{HOME}}#como-funciona"><i class="bs-mm__n">02</i><span><b>Capacidade produtiva e garantias</b><small>Alternativas de garantia rural ou urbana</small></span></a>
+          <a href="{{HOME}}#como-funciona"><i class="bs-mm__n">03</i><span><b>Estruturação e fontes de capital</b><small>A estrutura certa para cada caso</small></span></a>
+          <a href="{{HOME}}#como-funciona"><i class="bs-mm__n">04</i><span><b>Acompanhamento da execução</b><small>Até a efetivação da operação</small></span></a>
+        </div>
+        <div class="bs-mm__col"><p class="bs-mm__h">Comece agora</p>
+          <a href="{{HOME}}#pre-diagnostico"><svg aria-hidden="true"><use href="#i-spark"/></svg><span><b>Pré-diagnóstico</b><small>3 perguntas, resultado na hora</small></span></a>
+          <a href="{{HOME}}#solicitar-analise"><svg aria-hidden="true"><use href="#i-doc"/></svg><span><b>Solicitar análise de crédito</b><small>Formulário rápido, sem compromisso</small></span></a>
+          <a href="#" data-bs-wa target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#i-whats"/></svg><span><b>Falar pelo WhatsApp</b><small>(62) 99689-2488</small></span></a>
+          <a href="{{HOME}}#faq"><svg aria-hidden="true"><use href="#i-chat"/></svg><span><b>Dúvidas frequentes</b><small>Garantias, prazos e como funciona</small></span></a>
+        </div>
+        <div class="bs-mm__promo">
+          <p class="bs-mm__h">Área do Cliente</p>
+          <b>Sua operação, do pedido à assinatura</b>
+          <p>Solicitação guiada, documentos em área privada, linha do tempo e assinatura eletrônica.</p>
+          <a class="bs-btn bs-btn--gold" href="{{U:area-do-cliente}}" data-ebcr-client-area data-keep-label><svg width="18" height="18" aria-hidden="true"><use href="#i-lock"/></svg>Acessar a Área do Cliente</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="bs-mm" id="mm-sobre" role="region" aria-label="A BS Agro" hidden>
+      <div class="bs-mm__in bs-mm__in--3">
+        <div class="bs-mm__col"><p class="bs-mm__h">Quem somos</p>
+          <a href="{{HOME}}#sobre"><svg aria-hidden="true"><use href="#i-user"/></svg><span><b>Como surgiu a BS Agro Capital</b><small>Uma empresa familiar: Brandão Salles</small></span></a>
+          <a href="{{HOME}}#trajetoria"><svg aria-hidden="true"><use href="#i-book"/></svg><span><b>A trajetória</b><small>Uma década de mercado financeiro e agro</small></span></a>
+          <a href="{{HOME}}#proposito"><svg aria-hidden="true"><use href="#i-leaf"/></svg><span><b>Na prática</b><small>Caixa, dívidas sob controle e fôlego para crescer</small></span></a>
+        </div>
+        <div class="bs-mm__col"><p class="bs-mm__h">Nosso jeito de trabalhar</p>
+          <a href="{{HOME}}#diferenciais"><svg aria-hidden="true"><use href="#i-check"/></svg><span><b>Diferenciais</b><small>Conhecimento do agro, análise e rede de capital</small></span></a>
+          <a href="{{HOME}}#parceiros"><svg aria-hidden="true"><use href="#i-handshake"/></svg><span><b>Rede de parceiros</b><small>Conexão com instituições do mercado</small></span></a>
+          <a href="{{U:politica-de-esg}}"><svg aria-hidden="true"><use href="#i-leaf"/></svg><span><b>Compromisso ESG</b><small>Critérios socioambientais nas operações</small></span></a>
+        </div>
+        <div class="bs-mm__promo bs-mm__promo--img">
+          <img src="{{IMG:socios-fundadores-bs-agro-capital-lavoura}}" alt="Os sócios da BS Agro Capital em uma lavoura" width="1080" height="1080" loading="lazy" decoding="async">
+          <b>Capital para fortalecer quem produz.</b>
+          <a class="bs-btn bs-btn--gold" href="{{U:contato}}">Falar com o nosso time</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="bs-mm" id="mm-materias" role="region" aria-label="Matérias" hidden>
+      <div class="bs-mm__in bs-mm__in--3">
+        <div class="bs-mm__col"><p class="bs-mm__h">Por tema</p>
+          <a href="{{CAT:credito-estruturado}}"><svg aria-hidden="true"><use href="#i-handshake"/></svg><span><b>Crédito Estruturado</b><small>Fundos, FIDC, Fiagro e mercado de capitais</small></span></a>
+          <a href="{{CAT:garantias-patrimonio}}"><svg aria-hidden="true"><use href="#i-key"/></svg><span><b>Garantias &amp; Patrimônio</b><small>Imóveis, alienação fiduciária e avaliação</small></span></a>
+          <a href="{{CAT:recuperacao-judicial}}"><svg aria-hidden="true"><use href="#i-scale"/></svg><span><b>Recuperação Judicial</b><small>Estratégia e capital para um novo ciclo</small></span></a>
+        </div>
+        <div class="bs-mm__col"><p class="bs-mm__h">&nbsp;</p>
+          <a href="{{CAT:instrumentos-do-agro}}"><svg aria-hidden="true"><use href="#i-doc"/></svg><span><b>Instrumentos do Agro</b><small>CPR, CRA e antecipação de recursos</small></span></a>
+          <a href="{{CAT:gestao-financeira}}"><svg aria-hidden="true"><use href="#i-book"/></svg><span><b>Gestão Financeira</b><small>Diagnóstico, fluxo de caixa e endividamento</small></span></a>
+          <a href="{{U:materias}}"><svg aria-hidden="true"><use href="#i-arrow"/></svg><span><b>Todas as matérias</b><small>Conteúdo completo, do mais recente ao mais antigo</small></span></a>
+        </div>
+        <a class="bs-mm__promo bs-mm__promo--post" href="{{POST:diagnostico-financeiro-da-fazenda-primeiro-passo}}">
+          <img src="{{IMG:capa-diagnostico-financeiro-da-fazenda-primeiro-passo}}" alt="" width="1200" height="675" loading="lazy" decoding="async">
+          <p class="bs-mm__h">Mais recente</p>
+          <b>Diagnóstico financeiro da fazenda: o primeiro passo de todo bom crédito</b>
+          <span class="bs-mm__more">Ler matéria →</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="bs-mm" id="mm-conformidade" role="region" aria-label="Conformidade" hidden>
+      <div class="bs-mm__in bs-mm__in--4">
+        <div class="bs-mm__col"><p class="bs-mm__h">Transparência</p>
+          <a href="{{U:aviso-de-privacidade}}"><svg aria-hidden="true"><use href="#i-key"/></svg><span><b>Aviso de Privacidade</b><small>LGPD: dados, finalidades e direitos</small></span></a>
+          <a href="{{U:termos-de-uso}}"><svg aria-hidden="true"><use href="#i-doc"/></svg><span><b>Termos de Uso</b><small>Site e Área do Cliente</small></span></a>
+          <a href="{{U:politica-de-cookies}}"><svg aria-hidden="true"><use href="#i-cookie"/></svg><span><b>Política de Cookies</b><small>Preferências e recursos de terceiros</small></span></a>
+          <a href="{{U:acessibilidade}}"><svg aria-hidden="true"><use href="#i-access"/></svg><span><b>Acessibilidade</b><small>Recursos, Libras e idiomas</small></span></a>
+        </div>
+        <div class="bs-mm__col"><p class="bs-mm__h">Integridade</p>
+          <a href="{{U:politica-de-compliance-anticorrupcao}}"><svg aria-hidden="true"><use href="#i-shield"/></svg><span><b>Compliance e Anticorrupção</b><small>Condutas, prevenção e diligência</small></span></a>
+          <a href="{{U:politica-de-esg}}"><svg aria-hidden="true"><use href="#i-leaf"/></svg><span><b>Política de ESG</b><small>Ambiental, social e governança</small></span></a>
+          <a href="{{U:politica-de-comercializacao}}"><svg aria-hidden="true"><use href="#i-handshake"/></svg><span><b>Política de Comercialização</b><small>Transparência e proteção contra golpes</small></span></a>
+        </div>
+        <div class="bs-mm__col"><p class="bs-mm__h">Canais</p>
+          <a href="{{U:portal-do-titular}}"><svg aria-hidden="true"><use href="#i-key"/></svg><span><b>Portal do Titular (LGPD)</b><small>{{EMAIL:dpo}}</small></span></a>
+          <a href="{{U:canal-de-integridade}}"><svg aria-hidden="true"><use href="#i-shield"/></svg><span><b>Canal de Integridade</b><small>{{EMAIL:ouvidoria}}</small></span></a>
+          <a href="{{U:contato}}"><svg aria-hidden="true"><use href="#i-mail"/></svg><span><b>Canal de contato</b><small>{{EMAIL:contato}}</small></span></a>
+        </div>
+        <div class="bs-mm__promo">
+          <p class="bs-mm__h">Central de conformidade</p>
+          <b>Privacidade, integridade e ESG em um só lugar</b>
+          <p>Todos os documentos e canais para exercer direitos ou relatar condutas, com sigilo.</p>
+          <a class="bs-btn bs-btn--gold" href="{{U:conformidade}}"><svg width="18" height="18" aria-hidden="true"><use href="#i-shield"/></svg>Abrir a central</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bs-mm-backdrop" hidden></div>
+
   <nav id="mobile-menu" aria-label="Navegação móvel" class="header-pill header-pill--menu mx-4 mt-2 hidden xl:hidden">
-    <ul class="flex flex-col gap-1 p-4 text-base font-medium text-graphite-700">
-      <li><a href="{{HOME}}#solucoes" data-nav-anchor="#solucoes" class="nav-link block rounded-2xl px-3 py-3">Soluções</a></li>
-      <li><a href="{{HOME}}#como-funciona" data-nav-anchor="#como-funciona" class="nav-link block rounded-2xl px-3 py-3">Como funciona</a></li>
-      <li><a href="{{HOME}}#sobre" data-nav-anchor="#sobre" class="nav-link block rounded-2xl px-3 py-3">Sobre</a></li>
-      <li><a href="{{U:materias}}" class="nav-link block rounded-2xl px-3 py-3">Matérias</a></li>
-      <li><a href="{{HOME}}#faq" data-nav-anchor="#faq" class="nav-link block rounded-2xl px-3 py-3">Dúvidas</a></li>
-      <li><a href="{{U:contato}}" class="nav-link block rounded-2xl px-3 py-3">Canal de contato</a></li>
-      <li><a href="{{U:conformidade}}" class="nav-link block rounded-2xl px-3 py-3">Conformidade</a></li>
-      <li class="mt-2 grid gap-2 sm:grid-cols-2">
+    <div class="bs-mmob">
+      <details class="bs-mmob__g"><summary>Soluções<svg aria-hidden="true"><use href="#i-chev"/></svg></summary>
+        <ul><li><a href="{{HOME}}#linha-custeio">Custeio Rural</a></li><li><a href="{{HOME}}#linha-investimentos">Crédito para Investimentos</a></li><li><a href="{{HOME}}#linha-comercializacao">Comercialização</a></li><li><a href="{{HOME}}#linha-cpr">CPR (Cédula de Produto Rural)</a></li><li><a href="{{HOME}}#credito-fundos">Crédito Estruturado via Fundos</a></li><li><a href="{{HOME}}#garantia-imovel">Garantia de imóvel rural e urbano</a></li><li><a href="{{HOME}}#recuperacao-judicial">Recuperação Judicial</a></li><li><a href="{{HOME}}#parceiros">Parceiros e instituições</a></li></ul></details>
+      <details class="bs-mmob__g"><summary>Como funciona<svg aria-hidden="true"><use href="#i-chev"/></svg></summary>
+        <ul><li><a href="{{HOME}}#como-funciona">As 4 etapas</a></li><li><a href="{{HOME}}#pre-diagnostico">Pré-diagnóstico</a></li><li><a href="{{HOME}}#solicitar-analise">Solicitar análise</a></li><li><a href="{{HOME}}#faq">Dúvidas frequentes</a></li></ul></details>
+      <details class="bs-mmob__g"><summary>A BS Agro<svg aria-hidden="true"><use href="#i-chev"/></svg></summary>
+        <ul><li><a href="{{HOME}}#sobre">Como surgiu</a></li><li><a href="{{HOME}}#trajetoria">A trajetória</a></li><li><a href="{{HOME}}#proposito">Na prática</a></li><li><a href="{{HOME}}#diferenciais">Diferenciais</a></li></ul></details>
+      <details class="bs-mmob__g"><summary>Matérias<svg aria-hidden="true"><use href="#i-chev"/></svg></summary>
+        <ul><li><a href="{{U:materias}}">Todas as matérias</a></li><li><a href="{{CAT:credito-estruturado}}">Crédito Estruturado</a></li><li><a href="{{CAT:garantias-patrimonio}}">Garantias &amp; Patrimônio</a></li><li><a href="{{CAT:recuperacao-judicial}}">Recuperação Judicial</a></li><li><a href="{{CAT:instrumentos-do-agro}}">Instrumentos do Agro</a></li><li><a href="{{CAT:gestao-financeira}}">Gestão Financeira</a></li></ul></details>
+      <details class="bs-mmob__g"><summary>Conformidade<svg aria-hidden="true"><use href="#i-chev"/></svg></summary>
+        <ul><li><a href="{{U:conformidade}}">Central de conformidade</a></li><li><a href="{{U:aviso-de-privacidade}}">Aviso de Privacidade</a></li><li><a href="{{U:termos-de-uso}}">Termos de Uso</a></li><li><a href="{{U:politica-de-compliance-anticorrupcao}}">Compliance e Anticorrupção</a></li><li><a href="{{U:politica-de-esg}}">Política de ESG</a></li><li><a href="{{U:politica-de-comercializacao}}">Política de Comercialização</a></li><li><a href="{{U:portal-do-titular}}">Portal do Titular (LGPD)</a></li><li><a href="{{U:canal-de-integridade}}">Canal de Integridade</a></li></ul></details>
+      <a class="bs-mmob__link" href="{{U:contato}}">Canal de contato</a>
+      <div class="mt-3 grid gap-2 sm:grid-cols-2">
         <a href="{{U:area-do-cliente}}" data-ebcr-client-area class="font-display flex items-center justify-center gap-2 rounded-full border border-olive-800/30 px-4 py-3 text-center font-semibold text-olive-900"><svg class="h-5 w-5" aria-hidden="true"><use href="#i-user"/></svg>Área do Cliente</a>
         <a href="{{HOME}}#solicitar-analise" class="font-display block rounded-full bg-olive-800 px-4 py-3 text-center font-semibold text-paper">Solicitar análise de crédito</a>
-      </li>
-    </ul>
+      </div>
+    </div>
   </nav>
 </header>

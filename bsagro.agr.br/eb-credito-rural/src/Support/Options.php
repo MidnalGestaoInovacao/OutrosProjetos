@@ -43,27 +43,27 @@ final class Options {
 			\EBCR\Admin\Branding::preset_values( 'evellyn' ),
 			array(
 				// Botão "Área do Cliente".
-				'client_area_label'         => 'Área do Cliente',
-				'client_area_label_logged'  => 'Minha área',
-				'client_area_icon'          => true,
-				'client_area_bar'           => false,
-				'client_area_bar_position'  => 'top-right',
-				'client_area_bar_offset'    => 16,
-				'client_area_bar_style'     => 'primary',
-				'client_area_menu_location' => '',
-				'client_area_nav_block'     => false,
-				'client_area_menu_style'    => 'primary',
-				'client_area_alias'         => true,
-				'client_area_slug'          => 'area-do-cliente',
+				'client_area_label'              => 'Área do Cliente',
+				'client_area_label_logged'       => 'Minha área',
+				'client_area_icon'               => true,
+				'client_area_bar'                => false,
+				'client_area_bar_position'       => 'top-right',
+				'client_area_bar_offset'         => 16,
+				'client_area_bar_style'          => 'primary',
+				'client_area_menu_location'      => '',
+				'client_area_nav_block'          => false,
+				'client_area_menu_style'         => 'primary',
+				'client_area_alias'              => true,
+				'client_area_slug'               => 'area-do-cliente',
 				// Bens e garantias (padrão = comportamento até a 1.2.x: ambos obrigatórios).
 				'guarantees_mode'                => 'required',
 				'guarantees_required_modalities' => array(),
 				'assets_mode'                    => 'required',
 				// Páginas legais complementares (0 = procurar pelo slug).
-				'legal_page_titular'         => 0,
-				'legal_page_cookies'         => 0,
-				'legal_page_comercializacao' => 0,
-				'legal_page_integridade'     => 0,
+				'legal_page_titular'             => 0,
+				'legal_page_cookies'             => 0,
+				'legal_page_comercializacao'     => 0,
+				'legal_page_integridade'         => 0,
 			)
 		);
 	}

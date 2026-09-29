@@ -66,7 +66,7 @@ $ebcr_field = static function ( $key, array $def, $value ) use ( $values ) {
 			echo '</fieldset>';
 			break;
 		case 'preset':
-			echo '<select id="' . esc_attr( $id ) . '" name="' . esc_attr( $key ) . '" data-ebcr-presets="' . esc_attr( wp_json_encode( array_map( static function ( $p ) { return $p['values']; }, \EBCR\Admin\Branding::presets() ) ) ) . '">'; // phpcs:ignore Generic.Functions.OpeningFunctionBraceKernighanRitchie -- closure curta.
+			echo '<select id="' . esc_attr( $id ) . '" name="' . esc_attr( $key ) . '" data-ebcr-presets="' . esc_attr( wp_json_encode( \EBCR\Admin\Branding::preset_data() ) ) . '">';
 			foreach ( $def[3] as $ebcr_pk2 => $ebcr_pl2 ) {
 				echo '<option value="' . esc_attr( $ebcr_pk2 ) . '" ' . selected( (string) $value, (string) $ebcr_pk2, false ) . '>' . esc_html( $ebcr_pl2 ) . '</option>';
 			}

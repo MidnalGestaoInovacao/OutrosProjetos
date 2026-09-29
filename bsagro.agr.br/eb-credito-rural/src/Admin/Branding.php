@@ -662,7 +662,7 @@ body.login .language-switcher{display:none}';
 			}
 			return '';
 		};
-		$out = array(
+		$out    = array(
 			'primary'          => $color( $get( array( 'elements', 'button', 'color', 'background' ) ), array( 'primary', 'brand', 'accent-1', 'accent' ) ),
 			'primary_contrast' => $color( $get( array( 'elements', 'button', 'color', 'text' ) ), array( 'on-primary', 'base', 'background', 'white' ) ),
 			'accent'           => $color( '', array( 'secondary', 'accent', 'accent-2', 'tertiary' ) ),
