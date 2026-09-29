@@ -317,7 +317,7 @@ final class Options {
 			$saved[ $k ] = $v;
 		}
 		update_option( self::OPTION, $saved, false );
-		self::$cache = null;
+		self::flush();
 	}
 
 	/**
@@ -333,7 +333,7 @@ final class Options {
 			unset( $saved[ $k ] );
 		}
 		update_option( self::OPTION, $saved, false );
-		self::$cache = null;
+		self::flush();
 	}
 
 	/**
@@ -343,5 +343,8 @@ final class Options {
 	 */
 	public static function flush() {
 		self::$cache = null;
+		if ( class_exists( '\\EBCR\\Admin\\Branding', false ) ) {
+			\EBCR\Admin\Branding::flush();
+		}
 	}
 }

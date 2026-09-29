@@ -2,7 +2,13 @@
  "blocks": {},
  "cats": {},
  "links": {
-  "contato": "https://bsagro.agr.br/?page_id=47"
+  "area-do-cliente": "https://bsagro.agr.br/?page_id=51",
+  "canal-de-integridade": "https://bsagro.agr.br/?page_id=50",
+  "conformidade": "https://bsagro.agr.br/?page_id=48",
+  "contato": "https://bsagro.agr.br/?page_id=47",
+  "materias": "https://bsagro.agr.br/?page_id=53",
+  "obrigado": "https://bsagro.agr.br/?page_id=52",
+  "portal-do-titular": "https://bsagro.agr.br/?page_id=49"
  },
  "media": {
   "abc-brasil": {
@@ -247,7 +253,13 @@
   }
  },
  "pages": {
-  "contato": 47
+  "area-do-cliente": 51,
+  "canal-de-integridade": 50,
+  "conformidade": 48,
+  "contato": 47,
+  "materias": 53,
+  "obrigado": 52,
+  "portal-do-titular": 49
  },
  "post_links": {},
  "posts": {},

@@ -571,11 +571,14 @@ body.login .language-switcher{display:none}';
 	/**
 	 * Limpa o cache dos tokens (após salvar configurações; testes).
 	 *
+	 * @param bool $inline Também permite anexar o CSS inline de novo (testes).
 	 * @return void
 	 */
-	public static function flush() {
-		self::$tokens      = null;
-		self::$inline_done = false;
+	public static function flush( $inline = false ) {
+		self::$tokens = null;
+		if ( $inline ) {
+			self::$inline_done = false;
+		}
 	}
 
 	/**
