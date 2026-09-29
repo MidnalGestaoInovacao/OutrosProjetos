@@ -665,8 +665,21 @@
       if (dados.email) dados._replyto = dados.email;
       if (btn) btn.disabled = true;
       msg.className = "bs-form-msg is-ok"; msg.textContent = "Enviando…";
-      fetch((C.formEndpoint || "https://formsubmit.co/ajax/") + destino, { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(dados) })
-        .then(function (r) { return r.json(); })
+      /* Com o plugin da Área do Cliente ativo, a mensagem vai para o próprio WordPress (registro com protocolo
+         e e-mail pelo servidor); sem ele, usa o FormSubmit. */
+      var CAc = w.EBCR_CLIENT_AREA, envio;
+      if (CAc && CAc.channelEndpoint) {
+        var campos = {}; Object.keys(dados).forEach(function (k) { if (k.charAt(0) !== "_" && k !== "protocolo" && k !== "pagina" && k !== "anonimo") campos[k] = dados[k]; });
+        var cabc = { "Content-Type": "application/json", Accept: "application/json" }; if (CAc.consentNonce) cabc["X-WP-Nonce"] = CAc.consentNonce;
+        envio = fetch(CAc.channelEndpoint, { method: "POST", headers: cabc, credentials: "same-origin",
+          body: JSON.stringify({ channel: canal, protocol: prot, anonymous: dados.anonimo === "Sim", page: location.pathname, fields: campos, _honey: "" }) })
+          .then(function (r) { return r.json(); })
+          .then(function (j) { if (j && j.ok && j.protocol) { prot = j.protocol; return { success: true }; } return { success: false, message: j && j.message }; });
+      } else {
+        envio = fetch((C.formEndpoint || "https://formsubmit.co/ajax/") + destino, { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(dados) })
+          .then(function (r) { return r.json(); });
+      }
+      envio
         .then(function (j) {
           if (!(j && (j.success === true || j.success === "true"))) throw new Error((j && j.message) || "erro");
           msg.className = "bs-form-msg is-ok";

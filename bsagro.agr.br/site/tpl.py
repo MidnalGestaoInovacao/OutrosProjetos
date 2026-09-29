@@ -80,7 +80,7 @@ ASIDE_CANAIS = """<div class="bs-card">
   <h2>Canais oficiais</h2>
   <ul class="bs-contact-list">
     <li><svg aria-hidden="true"><use href="#i-mail"/></svg><div><small>Contato central</small><a href="mailto:{{EMAIL:contato}}">{{EMAIL:contato}}</a></div></li>
-    <li><svg aria-hidden="true"><use href="#i-key"/></svg><div><small>Privacidade e LGPD</small><a href="mailto:{{EMAIL:dpo}}">{{EMAIL:dpo}}</a></div></li>
+    <li><svg aria-hidden="true"><use href="#i-key"/></svg><div><small>Privacidade e LGPD · DPO {{DPO}}</small><a href="mailto:{{EMAIL:dpo}}">{{EMAIL:dpo}}</a></div></li>
     <li><svg aria-hidden="true"><use href="#i-shield"/></svg><div><small>Ouvidoria e compliance</small><a href="mailto:{{EMAIL:ouvidoria}}">{{EMAIL:ouvidoria}}</a></div></li>
     <li><svg aria-hidden="true"><use href="#i-whats"/></svg><div><small>WhatsApp</small><a href="#" data-bs-wa target="_blank" rel="noopener noreferrer">(62) 99689-2488</a></div></li>
   </ul>

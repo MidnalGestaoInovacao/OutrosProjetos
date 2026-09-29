@@ -16,7 +16,7 @@ imgs["logo-white"] = imgs["bs-agro-logo-white"]; imgs["whatsapp-icon"] = imgs["w
 EM = {"contato": "contato@bsagro.agr.br", "dpo": "dpo@bsagro.agr.br", "ouvidoria": "ouvidoria@bsagro.agr.br"}
 pol = json.load(open(os.path.join(ROOT, "content", "policies.json"), encoding="utf-8")) if os.path.exists(os.path.join(ROOT, "content", "policies.json")) else {}
 def R(s):
-    s = s.replace("{{HOME}}", "index.html").replace("{{HEADER_CLASS}}", "")
+    s = s.replace("{{HOME}}", "index.html").replace("{{HEADER_CLASS}}", "").replace("{{DPO}}", "Sanclé Albuquerque")
     s = re.sub(r"\{\{U:([a-z0-9-]+)\}\}", lambda m: m.group(1) + ".html", s)
     s = re.sub(r"\{\{LINK:([a-z0-9-]+)\}\}", lambda m: m.group(1) + ".html", s)
     s = re.sub(r"\{\{POST:([a-z0-9-]+)\}\}", lambda m: "materia.html", s)

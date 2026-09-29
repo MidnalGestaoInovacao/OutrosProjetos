@@ -10,7 +10,7 @@ SITE_NAME = "BS Agro Capital"
 DESCRIPTION = ("A BS Agro Capital é especializada na estruturação de soluções financeiras para produtores rurais e empresas "
                "do agronegócio, inclusive em cenários que exigem maior complexidade financeira.")
 
-def org(emails, logo_url, image_url):
+def org(emails, logo_url, image_url, dpo_nome="", linkedin=""):
     return {
         "@type": ["FinancialService", "Organization"], "@id": SITE + "/#org", "name": SITE_NAME,
         "description": DESCRIPTION, "url": SITE + "/", "logo": {"@type": "ImageObject", "url": logo_url}, "image": image_url,
@@ -24,7 +24,7 @@ def org(emails, logo_url, image_url):
         "sameAs": ["https://www.instagram.com/bsagro.capital/", "https://www.facebook.com/bsagrooficial"],
         "contactPoint": [
             {"@type": "ContactPoint", "contactType": "customer service", "email": emails["contato"], "telephone": "+5562996892488", "availableLanguage": ["pt-BR", "en", "es"]},
-            {"@type": "ContactPoint", "contactType": "Encarregado pelo Tratamento de Dados Pessoais (LGPD)", "email": emails["dpo"]},
+            {"@type": "ContactPoint", "contactType": "Encarregado pelo Tratamento de Dados Pessoais (LGPD)", "email": emails["dpo"], "name": dpo_nome or None},
             {"@type": "ContactPoint", "contactType": "Ouvidoria, compliance e anticorrupção", "email": emails["ouvidoria"]},
         ],
     }
@@ -38,14 +38,22 @@ def head_links(icon512, icon32, apple):
     return ('<link rel="icon" type="image/png" sizes="32x32" href="%s"><link rel="icon" type="image/png" sizes="512x512" href="%s">'
             '<link rel="apple-touch-icon" href="%s"><meta name="theme-color" content="#0d3527">' % (icon32, icon512, apple))
 
-def global_jsonld(emails, logo_url, image_url, search_url):
+def _sem_nulos(x):
+    if isinstance(x, dict):
+        return {k: _sem_nulos(v) for k, v in x.items() if v is not None}
+    if isinstance(x, list):
+        return [_sem_nulos(v) for v in x if v is not None]
+    return x
+
+def global_jsonld(emails, dpo_nome, linkedin, logo_url, image_url, search_url):
     data = {"@context": "https://schema.org", "@graph": [
-        org(emails, logo_url, image_url),
+        dict(org(emails, logo_url, image_url, dpo_nome, linkedin),
+             founder={"@type": "Person", "name": "Évellyn Brandão", "sameAs": [linkedin]} if linkedin else None),
         {"@type": "WebSite", "@id": SITE + "/#website", "url": SITE + "/", "name": SITE_NAME, "inLanguage": "pt-BR",
          "publisher": {"@id": SITE + "/#org"},
          "potentialAction": {"@type": "SearchAction", "target": search_url, "query-input": "required name=search_term_string"}},
     ]}
-    return '<script type="application/ld+json">%s</script>' % json.dumps(data, ensure_ascii=False)
+    return '<script type="application/ld+json">%s</script>' % json.dumps(_sem_nulos(data), ensure_ascii=False)
 
 def seo_block(title, description, url, image, kind="website", article=None, breadcrumbs=None, keywords=None, robots=None, faq=None, image_size=(1200, 630)):
     """Bloco wp:html com as tags de SEO. url: endereço absoluto da página. breadcrumbs: [(nome, url_absoluta)]."""

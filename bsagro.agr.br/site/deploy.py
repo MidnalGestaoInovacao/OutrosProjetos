@@ -20,6 +20,8 @@ SITE = seo.SITE
 # Canais oficiais. O pedido original citava "@bragro.agr.br", domínio que não existe (sem DNS);
 # o domínio do site e do e-mail (MX) é bsagro.agr.br. Para trocar, edite aqui e rode `deploy.py all`.
 EMAILS = {"contato": "contato@bsagro.agr.br", "dpo": "dpo@bsagro.agr.br", "ouvidoria": "ouvidoria@bsagro.agr.br"}
+DPO_NOME = "Sanclé Albuquerque"  # Encarregado pelo Tratamento de Dados Pessoais (LGPD, art. 41)
+LINKEDIN = "https://www.linkedin.com/in/evellynbrandao/"  # provisório: LinkedIn da fundadora, até a empresa ter página própria
 PLUGIN = "eb-credito-rural/eb-credito-rural.php"
 CATEGORIES = ["Crédito Estruturado", "Garantias & Patrimônio", "Recuperação Judicial", "Instrumentos do Agro", "Gestão Financeira"]
 CAT_SLUGS = {"credito-estruturado": "Crédito Estruturado", "garantias-patrimonio": "Garantias & Patrimônio", "recuperacao-judicial": "Recuperação Judicial",
@@ -106,7 +108,7 @@ def LINK(slug):
     return {"home-solucoes": "/#solucoes", "home-como-funciona": "/#como-funciona", "home": "/"}.get(slug) or U(slug)
 
 def resolve(s):
-    s = s.replace("{{HOME}}", "/")
+    s = s.replace("{{HOME}}", "/").replace("{{DPO}}", DPO_NOME)
     s = re.sub(r"\{\{U:([a-z0-9-]+)\}\}", lambda m: U(m.group(1)), s)
     s = re.sub(r"\{\{LINK:([a-z0-9-]+)\}\}", lambda m: LINK(m.group(1)), s)
     s = re.sub(r"\{\{POST:([a-z0-9-]+)\}\}", lambda m: POSTU(m.group(1)), s)
@@ -276,7 +278,7 @@ def step_css():
 # ---------------------------------------------------------------- BLOCOS SINCRONIZADOS
 def build_header_block():
     head = seo.head_links(IMG("favicon-512"), IMG("favicon-32"), IMG("apple-touch-icon"))
-    head += seo.global_jsonld(EMAILS, IMG("favicon-512"), IMG("og-bs-agro-capital"), SITE + "/?s={search_term_string}")
+    head += seo.global_jsonld(EMAILS, DPO_NOME, LINKEDIN, IMG("favicon-512"), IMG("og-bs-agro-capital"), SITE + "/?s={search_term_string}")
     fonts = ('<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>'
              '<link rel="preload" as="font" type="font/woff2" href="https://cdn.jsdelivr.net/npm/@fontsource/raleway@5/files/raleway-latin-600-normal.woff2" crossorigin>'
              '<link rel="preload" as="font" type="font/woff2" href="https://cdn.jsdelivr.net/npm/@fontsource/roboto@5/files/roboto-latin-400-normal.woff2" crossorigin>')
