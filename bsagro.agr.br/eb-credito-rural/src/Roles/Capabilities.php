@@ -30,6 +30,7 @@ final class Capabilities {
 	const CAP_EXPORT       = 'ebcr_export';
 	const CAP_SETTINGS     = 'ebcr_manage_settings';
 	const CAP_AUDIT        = 'ebcr_view_audit_log';
+	const CAP_CHANNELS     = 'ebcr_manage_channels'; // Mensagens dos canais (contato, titular/DPO, integridade).
 
 	/**
 	 * Capacidades por papel.
@@ -38,7 +39,7 @@ final class Capabilities {
 	 */
 	public static function map() {
 		$analyst = array( self::CAP_VIEW, self::CAP_EDIT, self::CAP_DOWNLOAD, self::CAP_CRM );
-		$manager = array_merge( $analyst, array( self::CAP_FINAL_STATUS, self::CAP_DASHBOARD, self::CAP_EXPORT ) );
+		$manager = array_merge( $analyst, array( self::CAP_FINAL_STATUS, self::CAP_DASHBOARD, self::CAP_EXPORT, self::CAP_CHANNELS ) );
 		$admin   = array_merge( $manager, array( self::CAP_SETTINGS, self::CAP_AUDIT ) );
 		return array(
 			self::ROLE_CLIENT  => array( self::CAP_CLIENT ),
@@ -124,6 +125,25 @@ final class Capabilities {
 		foreach ( self::map()['administrator'] as $cap ) {
 			if ( ! $admin->has_cap( $cap ) ) {
 				$admin->add_cap( $cap );
+			}
+		}
+	}
+
+	/**
+	 * Acrescenta aos papéis existentes as capacidades novas do mapa (sem remover as que o site tenha adicionado).
+	 *
+	 * @return void
+	 */
+	public static function add_missing_caps() {
+		foreach ( self::map() as $role => $caps ) {
+			$r = get_role( $role );
+			if ( ! $r ) {
+				continue;
+			}
+			foreach ( $caps as $cap ) {
+				if ( ! $r->has_cap( $cap ) ) {
+					$r->add_cap( $cap );
+				}
 			}
 		}
 	}

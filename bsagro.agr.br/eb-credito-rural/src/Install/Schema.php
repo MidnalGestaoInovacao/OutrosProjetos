@@ -313,6 +313,28 @@ final class Schema {
   KEY user_id (user_id),
   KEY created_at (created_at)
 ) $c;";
+		// 1.3.0 (banco 1.3.1): mensagens dos canais públicos (contato, titular/DPO, integridade). Sem IP em claro;
+		// relatos anônimos não guardam hash de IP, user agent, usuário nem e-mail.
+		$sql[] = "CREATE TABLE {$t('channel_messages')} (
+  id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  channel varchar(20) NOT NULL,
+  protocol varchar(30) NOT NULL,
+  anonymous tinyint(1) NOT NULL DEFAULT 0,
+  fields longtext NOT NULL,
+  email varchar(190) NOT NULL DEFAULT '',
+  page varchar(200) NOT NULL DEFAULT '',
+  ip_hash char(64) DEFAULT NULL,
+  user_agent varchar(180) DEFAULT NULL,
+  user_id bigint(20) unsigned DEFAULT NULL,
+  status varchar(20) NOT NULL DEFAULT 'novo',
+  created_at datetime NOT NULL,
+  updated_at datetime NOT NULL,
+  PRIMARY KEY  (id),
+  UNIQUE KEY protocol (protocol),
+  KEY channel_status (channel,status),
+  KEY email (email),
+  KEY created_at (created_at)
+) $c;";
 		return $sql;
 	}
 
@@ -346,7 +368,7 @@ final class Schema {
 	 * @return string[]
 	 */
 	public static function tables() {
-		return array( 'submissions', 'submission_data', 'properties', 'guarantees', 'documents', 'document_requests', 'status_history', 'messages', 'crm_contacts', 'crm_activities', 'consents', 'audit_log', 'checks', 'mail_queue', 'signatures', 'cookie_consents' );
+		return array( 'submissions', 'submission_data', 'properties', 'guarantees', 'documents', 'document_requests', 'status_history', 'messages', 'crm_contacts', 'crm_activities', 'consents', 'audit_log', 'checks', 'mail_queue', 'signatures', 'cookie_consents', 'channel_messages' );
 	}
 
 	/**

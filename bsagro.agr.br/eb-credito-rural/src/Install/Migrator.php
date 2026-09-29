@@ -91,7 +91,9 @@ final class Migrator {
 		update_option( self::OPTION, EBCR_DB_VERSION, false );
 		// 1.1.0: abilities do plugin habilitadas no Easy MCP AI (se instalado).
 		\EBCR\Abilities\Abilities::enable_in_easy_mcp();
-		// 1.3.0: tabela ebcr_cookie_consents (criada pelo Schema::install() acima) e padrões antigos preservados.
+		// 1.3.0 (banco 1.3.0/1.3.1): tabelas ebcr_cookie_consents e ebcr_channel_messages (criadas pelo Schema::install()
+		// acima), capacidade nova ebcr_manage_channels nos papéis existentes e padrões antigos preservados.
+		Capabilities::add_missing_caps();
 		if ( '0' === (string) $from && false === get_option( \EBCR\Support\Options::OPTION, false ) ) {
 			update_option( self::SETTINGS_OPTION, self::SETTINGS_VERSION, true ); // instalação nova: nada a preservar.
 		} else {
