@@ -1,0 +1,233 @@
+{
+ "blocks": {},
+ "cats": {},
+ "links": {},
+ "media": {
+  "abc-brasil": {
+   "file": "abc-brasil.png",
+   "id": 10,
+   "size": 9834,
+   "url": "https://bsagro.agr.br/wp-content/uploads/2026/09/abc-brasil.png"
+  },
+  "aperto-maos-negocio-fechado-garantia-real": {
+   "file": "aperto-maos-negocio-fechado-garantia-real.webp",
+   "id": 36,
+   "size": 172046,
+   "url": "https://bsagro.agr.br/wp-content/uploads/2026/09/aperto-maos-negocio-fechado-garantia-real.webp"
+  },
+  "apple-touch-icon": {
+   "file": "apple-touch-icon.png",
+   "id": 7,
+   "size": 14941,
+   "url": "https://bsagro.agr.br/wp-content/uploads/2026/09/apple-touch-icon.png"
+  },
+  "bradesco": {
+   "file": "bradesco.png",
+   "id": 11,
+   "size": 92778,
+   "url": "https://bsagro.agr.br/wp-content/uploads/2026/09/bradesco-scaled.png"
+  },
+  "c6-bank": {
+   "file": "c6-bank.png",
+   "id": 12,
+   "size": 14415,
+   "url": "https://bsagro.agr.br/wp-content/uploads/2026/09/c6-bank.png"
+  },
+  "capa-cpr-cedula-de-produto-rural-na-pratica": {
+   "file": "capa-cpr-cedula-de-produto-rural-na-pratica.jpg",
+   "id": 39,
+   "size": 85106,
+   "url": "https://bsagro.agr.br/wp-content/uploads/2026/09/capa-cpr-cedula-de-produto-rural-na-pratica.jpg"
+  },
+  "capa-credito-com-garantia-de-imovel-rural-ou-urbano": {
+   "file": "capa-credito-com-garantia-de-imovel-rural-ou-urbano.jpg",
+   "id": 40,
+   "size": 88720,
+   "url": "https://bsagro.agr.br/wp-content/uploads/2026/09/capa-credito-com-garantia-de-imovel-rural-ou-urbano.jpg"
+  },
+  "capa-credito-estruturado-fundos-de-investimento-agro": {
+   "file": "capa-credito-estruturado-fundos-de-investimento-agro.jpg",
+   "id": 41,
+   "size": 120086,
+   "url": "https://bsagro.agr.br/wp-content/uploads/2026/09/capa-credito-estruturado-fundos-de-investimento-agro.jpg"
+  },
+  "capa-diagnostico-financeiro-da-fazenda-primeiro-passo": {
+   "file": "capa-diagnostico-financeiro-da-fazenda-primeiro-passo.jpg",
+   "id": 42,
+   "size": 91322,
+   "url": "https://bsagro.agr.br/wp-content/uploads/2026/09/capa-diagnostico-financeiro-da-fazenda-primeiro-passo.jpg"
+  },
+  "capa-recuperacao-judicial-no-agro-capital-para-novo-ciclo": {
+   "file": "capa-recuperacao-judicial-no-agro-capital-para-novo-ciclo.jpg",
+   "id": 43,
+   "size": 110862,
+   "url": "https://bsagro.agr.br/wp-content/uploads/2026/09/capa-recuperacao-judicial-no-agro-capital-para-novo-ciclo.jpg"
+  },
+  "cashme": {
+   "file": "cashme.png",
+   "id": 13,
+   "size": 7501,
+   "url": "https://bsagro.agr.br/wp-content/uploads/2026/09/cashme.png"
+  },
+  "daycoval": {
+   "file": "daycoval.png",
+   "id": 14,
+   "size": 13867,
+   "url": "https://bsagro.agr.br/wp-content/uploads/2026/09/daycoval.png"
+  },
+  "estrada-propriedade-rural-recuperacao-judicial": {
+   "file": "estrada-propriedade-rural-recuperacao-judicial.webp",
+   "id": 37,
+   "size": 158100,
+   "url": "https://bsagro.agr.br/wp-content/uploads/2026/09/estrada-propriedade-rural-recuperacao-judicial.webp"
+  },
+  "favicon-32": {
+   "file": "favicon-32.png",
+   "id": 8,
+   "size": 2016,
+   "url": "https://bsagro.agr.br/wp-content/uploads/2026/09/favicon-32.png"
+  },
+  "favicon-512": {
+   "file": "favicon-512.png",
+   "id": 9,
+   "size": 49443,
+   "url": "https://bsagro.agr.br/wp-content/uploads/2026/09/favicon-512.png"
+  },
+  "galleria-bank": {
+   "file": "galleria-bank.png",
+   "id": 15,
+   "size": 5032,
+   "url": "https://bsagro.agr.br/wp-content/uploads/2026/09/galleria-bank.png"
+  },
+  "icatu": {
+   "file": "icatu.png",
+   "id": 16,
+   "size": 13341,
+   "url": "https://bsagro.agr.br/wp-content/uploads/2026/09/icatu.png"
+  },
+  "inter": {
+   "file": "inter.png",
+   "id": 17,
+   "size": 18783,
+   "url": "https://bsagro.agr.br/wp-content/uploads/2026/09/inter.png"
+  },
+  "itau": {
+   "file": "itau.png",
+   "id": 18,
+   "size": 45602,
+   "url": "https://bsagro.agr.br/wp-content/uploads/2026/09/itau.png"
+  },
+  "logo-white": {
+   "file": "bs-agro-logo-white.png",
+   "id": 25,
+   "size": 83416,
+   "url": "https://bsagro.agr.br/wp-content/uploads/2026/09/bs-agro-logo-white-scaled.png"
+  },
+  "metlife": {
+   "file": "metlife.png",
+   "id": 19,
+   "size": 23883,
+   "url": "https://bsagro.agr.br/wp-content/uploads/2026/09/metlife.png"
+  },
+  "porto-seguro-bank": {
+   "file": "porto-seguro-bank.png",
+   "id": 20,
+   "size": 8464,
+   "url": "https://bsagro.agr.br/wp-content/uploads/2026/09/porto-seguro-bank.png"
+  },
+  "produtor-rural-credito-agronegocio": {
+   "file": "produtor-rural-credito-agronegocio.jpg",
+   "id": 27,
+   "size": 203603,
+   "url": "https://bsagro.agr.br/wp-content/uploads/2026/09/produtor-rural-credito-agronegocio.jpg"
+  },
+  "produtor-rural-credito-agronegocio-mobile": {
+   "file": "produtor-rural-credito-agronegocio-mobile.webp",
+   "id": 26,
+   "size": 51538,
+   "url": "https://bsagro.agr.br/wp-content/uploads/2026/09/produtor-rural-credito-agronegocio-mobile.webp"
+  },
+  "produtor-rural-graos-colhidos-cpr": {
+   "file": "produtor-rural-graos-colhidos-cpr.webp",
+   "id": 28,
+   "size": 63024,
+   "url": "https://bsagro.agr.br/wp-content/uploads/2026/09/produtor-rural-graos-colhidos-cpr.webp"
+  },
+  "produtor-rural-plantacao-milho-comercializacao": {
+   "file": "produtor-rural-plantacao-milho-comercializacao.webp",
+   "id": 29,
+   "size": 89238,
+   "url": "https://bsagro.agr.br/wp-content/uploads/2026/09/produtor-rural-plantacao-milho-comercializacao.webp"
+  },
+  "produtoras-rurais-equipe-bs-agro-capital": {
+   "file": "produtoras-rurais-equipe-bs-agro-capital.webp",
+   "id": 30,
+   "size": 302916,
+   "url": "https://bsagro.agr.br/wp-content/uploads/2026/09/produtoras-rurais-equipe-bs-agro-capital.webp"
+  },
+  "pulverizacao-aerea-defensivos-agricolas-lavoura": {
+   "file": "pulverizacao-aerea-defensivos-agricolas-lavoura.webp",
+   "id": 31,
+   "size": 354766,
+   "url": "https://bsagro.agr.br/wp-content/uploads/2026/09/pulverizacao-aerea-defensivos-agricolas-lavoura.webp"
+  },
+  "rodobens": {
+   "file": "rodobens.png",
+   "id": 21,
+   "size": 14112,
+   "url": "https://bsagro.agr.br/wp-content/uploads/2026/09/rodobens.png"
+  },
+  "santander": {
+   "file": "santander.png",
+   "id": 22,
+   "size": 21629,
+   "url": "https://bsagro.agr.br/wp-content/uploads/2026/09/santander.png"
+  },
+  "sicoob": {
+   "file": "sicoob.png",
+   "id": 23,
+   "size": 11668,
+   "url": "https://bsagro.agr.br/wp-content/uploads/2026/09/sicoob.png"
+  },
+  "socios-fundadores-bs-agro-capital-lavoura": {
+   "file": "socios-fundadores-bs-agro-capital-lavoura.webp",
+   "id": 38,
+   "size": 95342,
+   "url": "https://bsagro.agr.br/wp-content/uploads/2026/09/socios-fundadores-bs-agro-capital-lavoura.webp"
+  },
+  "sofisa": {
+   "file": "sofisa.png",
+   "id": 24,
+   "size": 36159,
+   "url": "https://bsagro.agr.br/wp-content/uploads/2026/09/sofisa.png"
+  },
+  "trator-implemento-agricola-credito-investimento": {
+   "file": "trator-implemento-agricola-credito-investimento.webp",
+   "id": 32,
+   "size": 69538,
+   "url": "https://bsagro.agr.br/wp-content/uploads/2026/09/trator-implemento-agricola-credito-investimento.webp"
+  },
+  "vinhedo-trator-por-do-sol-credito-agronegocio": {
+   "file": "vinhedo-trator-por-do-sol-credito-agronegocio.jpg",
+   "id": 35,
+   "size": 476481,
+   "url": "https://bsagro.agr.br/wp-content/uploads/2026/09/vinhedo-trator-por-do-sol-credito-agronegocio.jpg"
+  },
+  "vista-lavoura-fileiras-agronegocio": {
+   "file": "vista-lavoura-fileiras-agronegocio.webp",
+   "id": 33,
+   "size": 114156,
+   "url": "https://bsagro.agr.br/wp-content/uploads/2026/09/vista-lavoura-fileiras-agronegocio.webp"
+  },
+  "whatsapp-icon": {
+   "file": "whatsapp.webp",
+   "id": 34,
+   "size": 9304,
+   "url": "https://bsagro.agr.br/wp-content/uploads/2026/09/whatsapp.webp"
+  }
+ },
+ "pages": {},
+ "post_links": {},
+ "posts": {},
+ "tags": {}
+}

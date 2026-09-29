@@ -1,0 +1,1377 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>BS Agro Capital</title>
+    <meta name="description" content="A BS Agro Capital é especializada na estruturação de soluções financeiras para produtores rurais e empresas do agronegócio, inclusive em cenários que exigem maior complexidade financeira." />
+    <link rel="canonical" href="https://www.bsagrocapital.com.br/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="BS Agro Capital" />
+    <meta property="og:description" content="A BS Agro Capital é especializada na estruturação de soluções financeiras para produtores rurais e empresas do agronegócio, inclusive em cenários que exigem maior complexidade financeira." />
+    <meta property="og:url" content="https://www.bsagrocapital.com.br/" />
+    <meta property="og:image" content="https://www.bsagrocapital.com.br/og-image.svg" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="BS Agro Capital" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="BS Agro Capital" />
+    <meta name="twitter:description" content="A BS Agro Capital é especializada na estruturação de soluções financeiras para produtores rurais e empresas do agronegócio, inclusive em cenários que exigem maior complexidade financeira." />
+    <meta name="twitter:image" content="https://www.bsagrocapital.com.br/og-image.svg" />
+
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <meta name="theme-color" content="#0d3527" />
+
+    <!-- Marca o documento como "JS ativo" antes de qualquer pintura, para que a
+         animação de entrada só esconda conteúdo se o JavaScript funcionar. -->
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
+
+    <!-- As fontes são locais; o preload evita o salto de texto no carregamento. -->
+    <link rel="preload" as="font" type="font/woff2" href="assets/fonts/raleway-latin-600-normal.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="assets/fonts/roboto-latin-400-normal.woff2" crossorigin />
+
+    <!-- Tailwind via CDN. Atenção: o Play CDN compila o CSS no navegador a cada
+         carregamento; ver a seção "Performance" do README para a alternativa. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="assets/tailwind-config.js"></script>
+
+    <link rel="stylesheet" href="assets/styles.css" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FinancialService",
+        "name": "BS Agro Capital",
+        "description": "A BS Agro Capital é especializada na estruturação de soluções financeiras para produtores rurais e empresas do agronegócio, inclusive em cenários que exigem maior complexidade financeira.",
+        "url": "https://www.bsagrocapital.com.br",
+        "telephone": "+5562996892488",
+        "taxID": "66.308.795/0001-08",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Av. 136, 960 - Setor Marista",
+          "addressLocality": "Goiânia",
+          "addressRegion": "GO",
+          "postalCode": "74180-140",
+          "addressCountry": "BR"
+        },
+        "areaServed": "BR",
+        "serviceType": [
+          "Estruturação de crédito para o agronegócio",
+          "Crédito com garantia de imóvel rural e urbano",
+          "Assessoria financeira em Recuperação Judicial"
+        ]
+      }
+    </script>
+  </head>
+  <body class="flex min-h-screen flex-col bg-paper font-sans text-graphite-900 antialiased">
+    <a href="#conteudo-principal" class="skip-link fixed left-4 top-4 z-[60] rounded-full bg-olive-800 px-4 py-3 text-sm font-medium text-paper">Ir para o conteúdo principal</a>
+
+    <!-- Header em pílula flutuante (glassmorphism), sempre com o mesmo
+         tratamento de vidro sobre qualquer fundo — ver "4. Header" no CSS. -->
+    <header id="site-header">
+      <div class="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 lg:px-6">
+        <a href="#topo" class="site-logo flex items-center py-1" aria-label="BS Agro Capital, ir para o início">
+          <img src="assets/img/logo/bs-agro-logo-white.png" alt="" width="2775" height="400" class="h-6 w-auto sm:h-7" />
+        </a>
+
+        <!-- Só os links de navegação ficam na pílula de vidro — logo e CTA
+             ficam soltos na barra transparente, como no site de referência. -->
+        <nav aria-label="Navegação principal" class="header-pill hidden items-center gap-1 p-1.5 xl:flex">
+          <ul class="flex items-center gap-1 text-sm font-medium text-graphite-700">
+            <li><a href="#solucoes" data-nav-anchor="#solucoes" class="nav-link inline-block rounded-full px-4 py-2.5 transition hover:bg-olive-900/5">Soluções</a></li>
+            <li><a href="#como-funciona" data-nav-anchor="#como-funciona" class="nav-link inline-block rounded-full px-4 py-2.5 transition hover:bg-olive-900/5">Como funciona</a></li>
+            <li><a href="#sobre" data-nav-anchor="#sobre" class="nav-link inline-block rounded-full px-4 py-2.5 transition hover:bg-olive-900/5">Sobre</a></li>
+            <li><a href="#faq" data-nav-anchor="#faq" class="nav-link inline-block rounded-full px-4 py-2.5 transition hover:bg-olive-900/5">Dúvidas</a></li>
+            <li><a href="#solicitar-analise" data-nav-anchor="#solicitar-analise" class="nav-link inline-block rounded-full px-4 py-2.5 transition hover:bg-olive-900/5">Contato</a></li>
+          </ul>
+        </nav>
+
+        <div class="flex items-center gap-2">
+          <!-- Envolvida numa div com o hidden/lg:block (em vez de aplicar
+               isso direto no link): .cta-btn já define display: inline-flex
+               no próprio seletor, e essa regra vence a disputa de
+               especificidade com as classes de visibilidade do Tailwind
+               (mesmo problema resolvido em .cta-btn--block, ver 6. CTA no
+               CSS) — então a visibilidade responsiva precisa morar num
+               elemento que não seja .cta-btn. -->
+          <div class="hidden lg:block">
+            <a href="#solicitar-analise" class="cta-btn cta-btn--icon"><span class="cta-btn__text">Solicitar análise</span><span class="cta-btn__hover" aria-hidden="true"><span>Solicitar análise</span><svg viewBox="0 0 24 24" focusable="false"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span></a>
+          </div>
+
+          <button id="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" class="header-pill flex h-10 w-10 items-center justify-center rounded-full text-graphite-700 xl:hidden">
+            <span class="sr-only">Abrir menu de navegação</span>
+            <svg id="icon-menu" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+            <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <nav id="mobile-menu" aria-label="Navegação móvel" class="header-pill header-pill--menu mx-4 mt-2 hidden xl:hidden">
+        <ul class="flex flex-col gap-1 p-4 text-base font-medium text-graphite-700">
+          <li><a href="#solucoes" data-nav-anchor="#solucoes" class="nav-link block rounded-2xl px-3 py-3">Soluções</a></li>
+          <li><a href="#como-funciona" data-nav-anchor="#como-funciona" class="nav-link block rounded-2xl px-3 py-3">Como funciona</a></li>
+          <li><a href="#sobre" data-nav-anchor="#sobre" class="nav-link block rounded-2xl px-3 py-3">Sobre</a></li>
+          <li><a href="#faq" data-nav-anchor="#faq" class="nav-link block rounded-2xl px-3 py-3">Dúvidas</a></li>
+          <li><a href="#solicitar-analise" data-nav-anchor="#solicitar-analise" class="nav-link block rounded-2xl px-3 py-3">Contato</a></li>
+          <li class="mt-2"><a href="#solicitar-analise" class="font-display block rounded-full bg-olive-800 px-4 py-3 text-center font-semibold text-paper">Solicitar análise de crédito</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="conteudo-principal" class="flex-1">
+
+      <!-- HERO
+           Reestruturado a partir de um site de referência (gflow-solar):
+           cartão com cantos arredondados e respiro da borda da tela, badge
+           pequeno, título com a primeira palavra em escala bem maior que o
+           resto (mesma técnica do "Solar Power" gigante da referência,
+           usando "Capital" — que também é a primeira palavra do próprio
+           H1), CTA e dois cartões de vidro com indicadores reais (os mesmos
+           números da seção "Quem somos" — nada inventado só pro hero). O
+           formulário que morava aqui foi pro fim da página (ver "FORMULÁRIO
+           FINAL", perto do rodapé) — os links para #solicitar-analise
+           continuam funcionando, só que agora rolam pra lá. -->
+      <section id="topo" data-hero class="relative flex min-h-[100dvh] flex-col overflow-hidden rounded-b-[32px] bg-olive-900 text-paper lg:rounded-b-[48px]">
+        <!-- A foto do hero tem duas versões porque o enquadramento não
+             sobrevive à troca de formato: a original é 16:9 e o hero é
+             min-h-[100dvh], então num celular em pé o object-cover corta as
+             laterais e sobra pouco mais que o meio da cena. A versão mobile
+             é 9:16, já enquadrada em retrato.
+             O media query casa com o formato da tela, não com a largura
+             sozinha: um notebook estreito (<1024px) continua sendo paisagem
+             e recebe a foto 16:9; um tablet em pé recebe a de retrato, que é
+             o caso em que ele se parece com o celular. -->
+        <picture>
+          <source media="(orientation: portrait) and (max-width: 1023px)" srcset="assets/img/hero/produtor-rural-credito-agronegocio-mobile.webp" type="image/webp" width="540" height="960" />
+          <img src="assets/img/hero/produtor-rural-credito-agronegocio.jpg" alt="" aria-hidden="true" width="1920" height="1080" fetchpriority="high" decoding="async" class="absolute inset-0 h-full w-full object-cover" style="object-position: 50% 12%" />
+        </picture>
+        <div class="hero-overlay absolute inset-0"></div>
+
+        <!-- Cartões flutuando perto do corpo do Caio — título grande + legenda
+             menor embaixo, sem ícone (voltou pro formato original dos
+             .hero-stat, a pedido do cliente). Nome e cargo do Caio viraram um
+             cartão só (título/legenda) em vez de dois separados. Cada um com
+             posição e animation-delay próprios (ver @keyframes hero-float no
+             CSS) pra não flutuarem em sincronia perfeita. Só em telas grandes
+             (lg:) porque no mobile o enquadramento da foto muda e essas
+             posições deixariam de bater com o corpo dele. Os dois últimos
+             reaproveitam diferenciais reais do site (ver "Diferenciais" em
+             Propósito) — não são os números da Évellyn, que são dela, não
+             dele. -->
+        <div class="hero-chip revelar absolute hidden lg:block" style="top: 54%; right: 4rem; animation-delay: -1.2s;">
+          <p class="hero-chip__title">Caio Afiune</p>
+          <p class="hero-chip__label">Embaixador da BS Agro</p>
+        </div>
+        <div class="hero-chip revelar absolute hidden lg:block" style="top: 71%; left: 62%; animation-delay: -0.6s;">
+          <p class="hero-chip__title">Conhecimento do agro</p>
+          <p class="hero-chip__label">Direto do campo à estruturação do crédito</p>
+        </div>
+        <div class="hero-chip revelar absolute hidden lg:block" style="top: 79%; right: 5.5rem; animation-delay: -2.1s;">
+          <p class="hero-chip__title">Rede estratégica</p>
+          <p class="hero-chip__label">Cooperativas de crédito e fundos de investimento</p>
+        </div>
+
+        <!-- pb-28 no mobile (era pb-12): o .whatsapp-fab é fixo no canto
+             inferior direito e caía exatamente em cima da última palavra do
+             CTA "Solicitar uma análise pelo WhatsApp" com a página no topo —
+             ou seja, na primeira coisa que todo visitante vê. A folga maior
+             embaixo tira o botão de baixo do flutuante. A partir de lg o
+             lg:pb-16 volta a valer, onde nunca houve sobreposição. -->
+        <div class="relative flex flex-1 flex-col justify-end gap-8 px-6 pb-28 pt-32 lg:px-14 lg:pb-16 lg:pt-40">
+          <div class="mx-auto flex w-full max-w-7xl flex-col gap-8">
+            <div class="flex max-w-2xl flex-col gap-6">
+              <h1 class="hero-headline revelar">
+                <span class="hero-headline__big">Capital</span>
+                <span class="hero-headline__rest">para fortalecer quem produz.</span>
+              </h1>
+              <p class="lead revelar max-w-lg text-lg leading-relaxed text-paper/80">Estruturação de crédito para produtores rurais e empresas do agronegócio, com assessoria técnica do diagnóstico à execução da operação.</p>
+              <div class="revelar"><a href="https://wa.me/5562996892488?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20uma%20an%C3%A1lise%20de%20cr%C3%A9dito." class="cta-btn cta-btn--whatsapp cta-btn--icon" target="_blank" rel="noopener noreferrer"><span class="cta-btn__text">Solicitar uma análise pelo WhatsApp</span><span class="cta-btn__hover" aria-hidden="true"><span>Solicitar uma análise pelo WhatsApp</span><svg viewBox="0 0 24 24" focusable="false"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span></a></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SOLUÇÕES: linhas de crédito e as duas frentes de atuação reunidas
+           num só bloco — Garantia de Imóvel e Recuperação Judicial deixam de
+           ser duas seções cheias alternando cor e passam a ser dois cartões
+           lado a lado. -->
+      <section id="solucoes" class="bg-paper px-6 pt-6 pb-10 lg:px-8 lg:pt-8 lg:pb-14">
+        <div class="mx-auto max-w-7xl">
+          <div class="section-divider revelar mb-8 lg:mb-10" aria-hidden="true"><span class="section-divider__plus">+</span></div>
+          <div class="revelar max-w-2xl">
+            <p class="text-sm font-medium uppercase tracking-[0.14em] text-olive-800">Soluções de crédito</p>
+            <h2 class="mt-3 text-3xl font-semibold leading-[1.15] tracking-tight text-graphite-900 sm:text-4xl lg:text-[44px]">Crédito Plano Safra e soluções financeiras para o agro</h2>
+            <p class="lead mt-4 text-lg leading-relaxed text-graphite-600">No âmbito do Plano Safra e de outras fontes de capital do mercado, combinamos as linhas abaixo às garantias e à realidade financeira disponíveis em cada operação.</p>
+          </div>
+
+          <div class="relative mt-8 revelar lg:mt-10">
+            <div class="solucoes-featured p-10 lg:p-14">
+              <img src="assets/img/solucoes/vista-lavoura-fileiras-agronegocio.webp" alt="Vista de lavoura em fileiras" width="1024" height="395" loading="lazy" decoding="async" class="solucoes-featured__img" />
+              <div class="solucoes-featured__overlay" aria-hidden="true"></div>
+              <div class="solucoes-featured__content">
+                <div class="max-w-3xl">
+                  <h3 class="text-3xl font-semibold leading-tight lg:text-4xl">Crédito Estruturado via Fundos de Investimento</h3>
+                  <p class="mt-5 text-lg leading-relaxed text-paper/75">Para operações que exigem maior volume, prazo ou flexibilidade, avaliamos alternativas com acesso a fundos de investimento e outras fontes de capital privado, sempre compatibilizadas com a capacidade de pagamento do cliente. É a solução mais procurada pelos clientes da BS Agro Capital.</p>
+                  <div class="mt-8"><a href="#solicitar-analise" class="cta-btn cta-btn--icon"><span class="cta-btn__text">Solicitar análise de crédito</span><span class="cta-btn__hover" aria-hidden="true"><span>Solicitar análise de crédito</span><svg viewBox="0 0 24 24" focusable="false"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span></a></div>
+                </div>
+              </div>
+            </div>
+            <img src="assets/img/solucoes/produtoras-rurais-equipe-bs-agro-capital.webp" alt="Duas produtoras rurais sorrindo, de braços cruzados, em uma lavoura" width="1080" height="1304" loading="lazy" decoding="async" class="solucoes-featured__portrait" />
+          </div>
+
+          <div class="solucoes-cards mt-12 revelar">
+            <div class="solucoes-card" tabindex="0">
+              <img src="assets/img/solucoes/pulverizacao-aerea-defensivos-agricolas-lavoura.webp" alt="Pulverização aérea de defensivos agrícolas sobre lavoura" width="1100" height="733" loading="lazy" decoding="async" class="solucoes-card__img" />
+              <div class="solucoes-card__overlay" aria-hidden="true"></div>
+              <div class="solucoes-card__content">
+                <p class="solucoes-card__eyebrow">Linha de crédito</p>
+                <h3 class="solucoes-card__title">Custeio Rural</h3>
+                <p class="solucoes-card__desc">Financia as despesas do ciclo produtivo em andamento, como insumos, sementes, defensivos e mão de obra, cobrindo o intervalo entre o plantio e a colheita.</p>
+              </div>
+            </div>
+            <div class="solucoes-card" tabindex="0">
+              <img src="assets/img/solucoes/trator-implemento-agricola-credito-investimento.webp" alt="Trator com implemento agrícola em operação na lavoura ao entardecer" width="1100" height="617" loading="lazy" decoding="async" class="solucoes-card__img" />
+              <div class="solucoes-card__overlay" aria-hidden="true"></div>
+              <div class="solucoes-card__content">
+                <p class="solucoes-card__eyebrow">Linha de crédito</p>
+                <h3 class="solucoes-card__title">Crédito para Investimentos</h3>
+                <p class="solucoes-card__desc">Voltado à ampliação ou modernização da estrutura produtiva: máquinas, equipamentos, benfeitorias, irrigação, armazenagem própria e outras melhorias de médio e longo prazo.</p>
+              </div>
+            </div>
+            <div class="solucoes-card" tabindex="0">
+              <img src="assets/img/solucoes/produtor-rural-plantacao-milho-comercializacao.webp" alt="Produtor rural avaliando plantação de milho no campo" width="1100" height="744" loading="lazy" decoding="async" class="solucoes-card__img" style="object-position: 50% 15%" />
+              <div class="solucoes-card__overlay" aria-hidden="true"></div>
+              <div class="solucoes-card__content">
+                <p class="solucoes-card__eyebrow">Linha de crédito</p>
+                <h3 class="solucoes-card__title">Comercialização</h3>
+                <p class="solucoes-card__desc">Dá suporte financeiro entre a colheita e a venda da produção, viabilizando armazenagem estratégica e reduzindo a pressão por uma venda imediata em condições desfavoráveis.</p>
+              </div>
+            </div>
+            <div class="solucoes-card" tabindex="0">
+              <img src="assets/img/solucoes/produtor-rural-graos-colhidos-cpr.webp" alt="Produtor rural manuseando grãos colhidos" width="1100" height="733" loading="lazy" decoding="async" class="solucoes-card__img" style="object-position: 50% 20%" />
+              <div class="solucoes-card__overlay" aria-hidden="true"></div>
+              <div class="solucoes-card__content">
+                <p class="solucoes-card__eyebrow">Linha de crédito</p>
+                <h3 class="solucoes-card__title">CPR (Cédula de Produto Rural)</h3>
+                <p class="solucoes-card__desc">Título de crédito emitido pelo produtor que representa uma promessa de entrega futura de produto rural, ou de pagamento em espécie equivalente, utilizado para antecipação de recursos junto a compradores ou instituições financeiras.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-10 border-t border-graphite-900/15 pt-10 lg:mt-12 lg:pt-12">
+            <p class="revelar text-sm font-medium uppercase tracking-[0.14em] text-olive-700">Atuação especializada</p>
+            <h3 class="revelar mt-2 max-w-2xl text-2xl font-semibold text-graphite-900 sm:text-3xl">Estruturas para situações mais específicas</h3>
+            <p class="lead revelar mt-3 max-w-2xl text-graphite-600">Além das linhas de crédito acima, atuamos em duas frentes que costumam exigir uma estruturação mais criteriosa.</p>
+          <div class="atuacao-cards mt-8 grid gap-8 revelar lg:grid-cols-2">
+            <div class="atuacao-card flex flex-col overflow-hidden rounded-[20px] bg-paper shadow-soft">
+              <div class="aspect-[16/9] flex-none overflow-hidden">
+                <img src="assets/img/atuacao/aperto-maos-negocio-fechado-garantia-real.webp" alt="Aperto de mãos entre dois parceiros em uma lavoura, fechando negócio" width="1080" height="1080" loading="lazy" decoding="async" class="h-full w-full object-cover" style="object-position: 50% 30%" />
+              </div>
+              <div class="flex flex-1 flex-col p-8 lg:p-10">
+                <p class="mb-3 text-sm font-medium uppercase tracking-[0.14em] text-olive-800">Garantia real</p>
+                <h3 class="text-2xl font-semibold leading-[1.15] text-graphite-900">Crédito com garantia de imóvel rural e urbano</h3>
+                <div class="prose-institucional mt-4 text-graphite-700">
+                  <p>Estruturamos crédito com garantia real, imóvel rural ou urbano, a partir da análise do bem, da capacidade produtiva e da situação financeira do cliente. Cada operação é construída de forma individual, com condições definidas junto às fontes de capital durante a estruturação.</p>
+                </div>
+                <div class="mt-auto pt-8"><a href="https://wa.me/5562996892488?text=Ol%C3%A1!%20Gostaria%20de%20falar%20sobre%20um%20plano%20de%20cr%C3%A9dito%20com%20garantia%20do%20meu%20im%C3%B3vel." class="cta-btn cta-btn--dark cta-btn--icon" target="_blank" rel="noopener noreferrer"><span class="cta-btn__text">Quero um plano para meu imóvel</span><span class="cta-btn__hover" aria-hidden="true"><span>Quero um plano para meu imóvel</span><svg viewBox="0 0 24 24" focusable="false"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span></a></div>
+              </div>
+            </div>
+
+            <div class="atuacao-card flex flex-col overflow-hidden rounded-[20px] bg-paper shadow-soft">
+              <div class="aspect-[16/9] flex-none overflow-hidden">
+                <img src="assets/img/atuacao/estrada-propriedade-rural-recuperacao-judicial.webp" alt="Estrada de terra e porteira em propriedade rural ao entardecer" width="1376" height="768" loading="lazy" decoding="async" class="h-full w-full object-cover" />
+              </div>
+              <div class="flex flex-1 flex-col p-8 lg:p-10">
+                <p class="mb-3 text-sm font-medium uppercase tracking-[0.14em] text-olive-800">Recuperação Judicial</p>
+                <h3 class="text-2xl font-semibold leading-[1.15] text-graphite-900">Operações para produtores e empresas em Recuperação Judicial</h3>
+                <div class="prose-institucional mt-4 text-graphite-700">
+                  <p>Atuamos em cenários de maior complexidade, conectando capacidade produtiva, patrimônio e estratégia financeira para preservar a atividade do cliente. A partir de um diagnóstico da situação financeira e patrimonial, identificamos alternativas de capital que reorganizam passivos e abrem caminho para um novo ciclo de crescimento.</p>
+                </div>
+                <div class="mt-auto pt-8"><a href="https://wa.me/5562996892488?text=Ol%C3%A1!%20Gostaria%20de%20falar%20sobre%20um%20plano%20para%20Recupera%C3%A7%C3%A3o%20Judicial." class="cta-btn cta-btn--dark cta-btn--icon" target="_blank" rel="noopener noreferrer"><span class="cta-btn__text">Quero um plano para Recuperação Judicial</span><span class="cta-btn__hover" aria-hidden="true"><span>Quero um plano para Recuperação Judicial</span><svg viewBox="0 0 24 24" focusable="false"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span></a></div>
+                <!-- NOTA JURÍDICA: não citar leis, artigos ou jurisprudência de Recuperação
+                     Judicial nesta seção. Conteúdo deve ser revisado pelo jurídico do
+                     cliente antes da publicação. -->
+              </div>
+            </div>
+          </div>
+          </div>
+
+          <div class="mt-10 border-t border-graphite-900/15 pt-10 lg:mt-12 lg:pt-12">
+            <p class="revelar text-sm font-medium uppercase tracking-[0.14em] text-olive-700">Rede de capital</p>
+            <h3 class="revelar mt-2 max-w-2xl text-2xl font-semibold text-graphite-900 sm:text-3xl">Parceiros e instituições financeiras</h3>
+            <p class="lead revelar mt-3 max-w-2xl text-graphite-600">Atuamos em conexão com bancos, fundos de investimento e outras instituições financeiras do mercado, sempre em busca da estrutura mais compatível com cada operação.</p>
+            <div class="partners-marquee revelar mt-8">
+              <div class="partners-marquee__track">
+                <div class="flex">
+                  <div class="partners-marquee__item"><img src="assets/img/parceiros/c6-bank.png" alt="C6 Bank" decoding="async" /></div>
+                  <div class="partners-marquee__item"><img src="assets/img/parceiros/itau.png" alt="Itaú" decoding="async" /></div>
+                  <div class="partners-marquee__item"><img src="assets/img/parceiros/santander.png" alt="Santander" decoding="async" /></div>
+                  <div class="partners-marquee__item"><img src="assets/img/parceiros/bradesco.png" alt="Bradesco" decoding="async" /></div>
+                  <div class="partners-marquee__item"><img src="assets/img/parceiros/inter.png" alt="Banco Inter" decoding="async" /></div>
+                  <div class="partners-marquee__item"><img src="assets/img/parceiros/sofisa.png" alt="Banco Sofisa" decoding="async" /></div>
+                  <div class="partners-marquee__item"><img src="assets/img/parceiros/daycoval.png" alt="Banco Daycoval" decoding="async" /></div>
+                  <div class="partners-marquee__item"><img src="assets/img/parceiros/abc-brasil.png" alt="Banco ABC Brasil" decoding="async" /></div>
+                  <div class="partners-marquee__item"><img src="assets/img/parceiros/sicoob.png" alt="Sicoob" decoding="async" /></div>
+                  <div class="partners-marquee__item"><img src="assets/img/parceiros/galleria-bank.png" alt="Galleria Bank" decoding="async" /></div>
+                  <div class="partners-marquee__item partners-marquee__item--lg"><img src="assets/img/parceiros/porto-seguro-bank.png" alt="Porto Seguro Bank" decoding="async" /></div>
+                  <div class="partners-marquee__item"><img src="assets/img/parceiros/rodobens.png" alt="Rodobens" decoding="async" /></div>
+                  <div class="partners-marquee__item"><img src="assets/img/parceiros/icatu.png" alt="Icatu Seguros" decoding="async" /></div>
+                  <div class="partners-marquee__item partners-marquee__item--lg"><img src="assets/img/parceiros/cashme.png" alt="CashMe" decoding="async" /></div>
+                  <div class="partners-marquee__item partners-marquee__item--lg"><img src="assets/img/parceiros/metlife.png" alt="MetLife" decoding="async" /></div>
+                </div>
+                <div class="contents" aria-hidden="true">
+                  <div class="flex">
+                    <div class="partners-marquee__item"><img src="assets/img/parceiros/c6-bank.png" alt="" decoding="async" /></div>
+                    <div class="partners-marquee__item"><img src="assets/img/parceiros/itau.png" alt="" decoding="async" /></div>
+                    <div class="partners-marquee__item"><img src="assets/img/parceiros/santander.png" alt="" decoding="async" /></div>
+                    <div class="partners-marquee__item"><img src="assets/img/parceiros/bradesco.png" alt="" decoding="async" /></div>
+                    <div class="partners-marquee__item"><img src="assets/img/parceiros/inter.png" alt="" decoding="async" /></div>
+                    <div class="partners-marquee__item"><img src="assets/img/parceiros/sofisa.png" alt="" decoding="async" /></div>
+                    <div class="partners-marquee__item"><img src="assets/img/parceiros/daycoval.png" alt="" decoding="async" /></div>
+                    <div class="partners-marquee__item"><img src="assets/img/parceiros/abc-brasil.png" alt="" decoding="async" /></div>
+                    <div class="partners-marquee__item"><img src="assets/img/parceiros/sicoob.png" alt="" decoding="async" /></div>
+                    <div class="partners-marquee__item"><img src="assets/img/parceiros/galleria-bank.png" alt="" decoding="async" /></div>
+                    <div class="partners-marquee__item partners-marquee__item--lg"><img src="assets/img/parceiros/porto-seguro-bank.png" alt="" decoding="async" /></div>
+                    <div class="partners-marquee__item"><img src="assets/img/parceiros/rodobens.png" alt="" decoding="async" /></div>
+                    <div class="partners-marquee__item"><img src="assets/img/parceiros/icatu.png" alt="" decoding="async" /></div>
+                    <div class="partners-marquee__item partners-marquee__item--lg"><img src="assets/img/parceiros/cashme.png" alt="" decoding="async" /></div>
+                    <div class="partners-marquee__item partners-marquee__item--lg"><img src="assets/img/parceiros/metlife.png" alt="" decoding="async" /></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mt-8 flex justify-center"><a href="https://wa.me/5562996892488?text=Ol%C3%A1!%20Gostaria%20de%20falar%20com%20um%20especialista%20da%20BS%20Agro%20Capital." class="cta-btn cta-btn--icon cta-btn--wide" target="_blank" rel="noopener noreferrer"><span class="cta-btn__text">Solicitar uma análise pelo WhatsApp</span><span class="cta-btn__hover" aria-hidden="true"><span>Solicitar uma análise pelo WhatsApp</span><svg viewBox="0 0 24 24" focusable="false"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span></a></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- COMO FUNCIONA -->
+      <section id="como-funciona" class="bg-mesh-light px-6 pt-6 pb-10 lg:px-8 lg:pt-8 lg:pb-14">
+        <div class="mx-auto max-w-7xl">
+          <div class="section-divider revelar mb-8 lg:mb-10" aria-hidden="true"><span class="section-divider__plus">+</span></div>
+          <div class="revelar mx-auto max-w-2xl text-center">
+            <p class="text-sm font-medium uppercase tracking-[0.14em] text-olive-800">Como funciona</p>
+            <h2 class="mt-3 text-3xl font-semibold leading-[1.15] tracking-tight text-graphite-900 sm:text-4xl lg:text-[44px]">Um processo técnico, do diagnóstico à execução</h2>
+            <p class="lead mt-4 text-lg leading-relaxed text-graphite-600">Do diagnóstico inicial até a efetivação, cada etapa é construída a partir da realidade financeira e patrimonial apresentada pelo cliente.</p>
+          </div>
+          <div class="relative mt-10 lg:mt-12">
+            <!-- left-0/right-0 em vez de -left-12/-right-12: assim posicionados,
+                 estes dois brilhos eram a única coisa que estourava a largura
+                 da página — 24px de cada lado no celular e 16px até ~1376px,
+                 que é a largura a partir da qual o contêiner (max-w-7xl) tem
+                 folga lateral suficiente pro recuo negativo caber. Quem
+                 segurava isso era o overflow-x:hidden de html/body, que
+                 esconde o sintoma em vez de resolver. São círculos de 288px
+                 com blur-3xl a 30% de opacidade: deslocar 48px pra dentro não
+                 muda nada visível, e a página deixa de depender da trava. -->
+            <div class="pointer-events-none absolute left-0 -top-16 h-72 w-72 rounded-full bg-gold-400/30 blur-3xl" aria-hidden="true"></div>
+            <div class="pointer-events-none absolute right-0 bottom-0 h-72 w-72 rounded-full bg-olive-400/30 blur-3xl" aria-hidden="true"></div>
+            <ol class="relative grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+              <li class="revelar relative flex flex-col items-center text-left lg:after:absolute lg:after:left-1/2 lg:after:top-5 lg:after:h-px lg:after:w-[calc(100%+2rem)] lg:after:bg-graphite-900/20 lg:after:content-['']">
+                <span class="relative z-10 flex h-10 w-10 flex-none items-center justify-center rounded-full bg-olive-800 text-sm font-semibold text-paper">01</span>
+                <div class="glass-card mt-5 flex w-full flex-1 flex-col p-6 transition-transform duration-300 hover:-translate-y-1 lg:p-7">
+                  <span class="flex h-10 w-10 items-center justify-center rounded-full bg-olive-900/10 text-olive-800"><svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <circle cx="11.5" cy="14.5" r="2.5" /> <path d="M13.3 16.3 15 18" /></svg></span>
+                  <h3 class="mt-4 text-lg font-semibold leading-snug text-graphite-900">Diagnóstico da situação financeira e patrimonial</h3>
+                  <p class="mt-2 text-sm leading-relaxed text-graphite-600">Levantamento da situação financeira e patrimonial do cliente, incluindo passivos existentes, patrimônio disponível e contexto da operação, como base para qualquer estruturação.</p>
+                </div>
+              </li>
+              <li class="revelar relative flex flex-col items-center text-left lg:after:absolute lg:after:left-1/2 lg:after:top-5 lg:after:h-px lg:after:w-[calc(100%+2rem)] lg:after:bg-graphite-900/20 lg:after:content-['']">
+                <span class="relative z-10 flex h-10 w-10 flex-none items-center justify-center rounded-full bg-olive-800 text-sm font-semibold text-paper">02</span>
+                <div class="glass-card mt-5 flex w-full flex-1 flex-col p-6 transition-transform duration-300 hover:-translate-y-1 lg:p-7">
+                  <span class="flex h-10 w-10 items-center justify-center rounded-full bg-olive-900/10 text-olive-800"><svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 8 6-3-6-3v10" /> <path d="m8 11.99-5.5 3.14a1 1 0 0 0 0 1.74l8.5 4.86a2 2 0 0 0 2 0l8.5-4.86a1 1 0 0 0 0-1.74L16 12" /> <path d="m6.49 12.85 11.02 6.3" /> <path d="M17.51 12.85 6.5 19.15" /></svg></span>
+                  <h3 class="mt-4 text-lg font-semibold leading-snug text-graphite-900">Análise de capacidade produtiva e alternativas de garantia</h3>
+                  <p class="mt-2 text-sm leading-relaxed text-graphite-600">Avaliação da capacidade produtiva envolvida e dos bens que podem ser oferecidos em garantia, rural ou urbano, para identificar quais alternativas de capital são compatíveis com a operação.</p>
+                </div>
+              </li>
+              <li class="revelar relative flex flex-col items-center text-left lg:after:absolute lg:after:left-1/2 lg:after:top-5 lg:after:h-px lg:after:w-[calc(100%+2rem)] lg:after:bg-graphite-900/20 lg:after:content-['']">
+                <span class="relative z-10 flex h-10 w-10 flex-none items-center justify-center rounded-full bg-olive-800 text-sm font-semibold text-paper">03</span>
+                <div class="glass-card mt-5 flex w-full flex-1 flex-col p-6 transition-transform duration-300 hover:-translate-y-1 lg:p-7">
+                  <span class="flex h-10 w-10 items-center justify-center rounded-full bg-olive-900/10 text-olive-800"><svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z" /> <path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12" /> <path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17" /></svg></span>
+                  <h3 class="mt-4 text-lg font-semibold leading-snug text-graphite-900">Estruturação da operação e conexão com fontes de capital</h3>
+                  <p class="mt-2 text-sm leading-relaxed text-graphite-600">Construção da estrutura financeira mais adequada ao caso e conexão com as fontes de capital disponíveis no mercado, alinhando a operação à realidade patrimonial e produtiva do cliente.</p>
+                </div>
+              </li>
+              <li class="revelar relative flex flex-col items-center text-left">
+                <span class="relative z-10 flex h-10 w-10 flex-none items-center justify-center rounded-full bg-olive-800 text-sm font-semibold text-paper">04</span>
+                <div class="glass-card mt-5 flex w-full flex-1 flex-col p-6 transition-transform duration-300 hover:-translate-y-1 lg:p-7">
+                  <span class="flex h-10 w-10 items-center justify-center rounded-full bg-olive-900/10 text-olive-800"><svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="8" height="4" x="8" y="2" rx="1" ry="1" /> <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /> <path d="m9 14 2 2 4-4" /></svg></span>
+                  <h3 class="mt-4 text-lg font-semibold leading-snug text-graphite-900">Acompanhamento da execução</h3>
+                  <p class="mt-2 text-sm leading-relaxed text-graphite-600">Acompanhamento das etapas necessárias até a efetivação da operação, mantendo o cliente informado sobre o andamento e as definições ao longo do processo.</p>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- SOBRE: quem somos, história, especialista e indicadores reunidos
+           num só bloco — antes eram 5 seções cheias empilhadas (Quem somos,
+           História, Citação, Especialista, Indicadores), cada uma com seu
+           próprio respiro de py-20/28/32. Juntar tudo aqui, separado por
+           filetes finos (border-t) em vez de novas seções, é a maior parte
+           do corte de altura da página. -->
+      <section id="sobre" class="bg-mesh-light px-6 pt-6 pb-10 lg:px-8 lg:pt-8 lg:pb-14">
+        <div class="mx-auto max-w-7xl">
+          <div class="section-divider revelar mb-8 lg:mb-10" aria-hidden="true"><span class="section-divider__plus">+</span></div>
+
+          <div class="grid gap-8 lg:grid-cols-2 lg:items-center lg:gap-12">
+            <div class="revelar max-w-2xl">
+              <p class="text-sm font-medium uppercase tracking-[0.14em] text-olive-800">Quem somos</p>
+              <h2 class="mt-3 text-3xl font-semibold leading-[1.15] tracking-tight text-graphite-900 sm:text-4xl lg:text-[44px]">Como surgiu a BS Agro Capital</h2>
+              <div class="prose-institucional mt-4 text-graphite-600">
+                <p>A BS Agro Capital é uma empresa familiar que carrega sua origem no próprio nome: Brandão Salles. Nasceu da trajetória de Évellyn Brandão, que construiu quase uma década de experiência no mercado financeiro, sendo mais de oito anos no Itaú Unibanco, entre relacionamento, negócios e crédito, com certificação CPA-20, participação em comitês de crédito e na estruturação de mais de R$ 200 milhões em operações.</p>
+                <p>Ao assumir a posição de Gerente Regional Agro, Évellyn deixou Minas Gerais com a família rumo a Goiás, um dos principais polos do agronegócio brasileiro. Na prática com produtores rurais e empresas do setor, viu de perto a dificuldade de acessar crédito estruturado. Dessa percepção, somada à paixão da família Brandão Salles pelo agro, nasceu a BS Agro Capital: conhecimento técnico do mercado financeiro e uma rede estratégica com cooperativas de crédito e fundos de investimento, a serviço de quem produz.</p>
+              </div>
+            </div>
+
+            <!-- Foto dos sócios enviada especificamente pra esta seção (não é
+                 mais a reaproveitada de #solucoes, nem o recorte com fundo
+                 removido de antes — essa nova é uma foto comum, opaca,
+                 quadrada, com os quatro de corpo inteiro). Por já mostrar o
+                 grupo inteiro dentro do próprio quadrado, o retrato flutuante
+                 que existia aqui (a versão recortada, ver histórico) foi
+                 removido: mostrar as mesmas quatro pessoas duas vezes na
+                 mesma seção lia como repetição, não como destaque. -->
+            <div class="revelar aspect-square overflow-hidden rounded-[28px]">
+              <img src="assets/img/sobre/socios-fundadores-bs-agro-capital-lavoura.webp" alt="Os quatro sócios da BS Agro Capital de mãos dadas em uma lavoura" width="1080" height="1080" loading="lazy" decoding="async" class="h-full w-full object-cover" />
+            </div>
+          </div>
+
+          <!-- Indicadores sobre a TRAJETÓRIA PROFISSIONAL da sócia-fundadora
+               (mercado financeiro + agro), não sobre o tempo de existência da
+               empresa — a pedido do cliente. O de "8+ anos no Itaú Unibanco"
+               foi trocado por "800+ clientes atendidos" porque era redundante
+               com o primeiro número (o tempo no Itaú já está contido na
+               década de mercado financeiro). -->
+          <!-- ATENÇÃO: confirmar com o cliente se "800+ clientes atendidos"
+               é o número real antes de publicar — os outros dois vêm direto
+               do texto da "Nossa História" (nenhum estimado); este aqui foi
+               informado à parte durante o ajuste desta seção. -->
+          <div class="mt-10 border-t border-graphite-900/15 pt-10 lg:mt-12 lg:pt-12">
+            <p class="revelar text-sm font-medium uppercase tracking-[0.14em] text-olive-700">A trajetória por trás da BS Agro Capital</p>
+            <!-- As três colunas só a partir de 768px, não de 640: em 640 cada
+                 coluna ficava com 176px e os números (que não quebram mais,
+                 ver .stat-numero) não cabiam.
+                 Colunas do tamanho do conteúdo (auto) com o espaço livre
+                 repartido igualmente (justify-between), em vez de três faixas
+                 de largura idêntica: com faixas iguais e textos de larguras
+                 bem diferentes, o vão que se VÊ entre um indicador e outro
+                 não é o vão entre as faixas — sobra muito espaço vazio depois
+                 do texto curto e quase nenhum depois do longo. Era o que
+                 fazia o bloco do meio parecer colado no da direita (179px de
+                 um lado contra 63px do outro, em 1280px). -->
+            <div class="mt-5 grid gap-8 md:grid-cols-[auto_auto_auto] md:justify-between">
+              <div class="revelar md:text-center">
+                <p class="stat-numero font-display uppercase font-semibold text-gold-800" data-contador>+10 anos</p>
+                <p class="mt-4 text-graphite-600">De experiência no mercado financeiro</p>
+              </div>
+              <!-- Os três centralizados, não só este: número e legenda têm
+                   larguras bem diferentes e, alinhados à esquerda, a legenda
+                   ficava pendurada num canto do espaço do número. Centralizar
+                   um só deixava o espaçamento entre os três desigual. -->
+              <div class="revelar md:text-center">
+                <p class="stat-numero font-display uppercase font-semibold text-gold-800" data-contador>+800 clientes</p>
+                <p class="mt-4 text-graphite-600">Atendidos ao longo da carreira</p>
+              </div>
+              <div class="revelar md:text-center">
+                <p class="stat-numero font-display uppercase font-semibold text-gold-800" data-contador>+de R$ 200m</p>
+                <p class="mt-4 text-graphite-600">Em operações de crédito ao longo da carreira</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROPÓSITO & DIFERENCIAIS: dois grids de cartões que antes eram duas
+           seções cheias, agora um bloco só com um filete entre eles. -->
+      <section id="proposito" class="bg-paper px-6 pt-6 pb-10 lg:px-8 lg:pt-8 lg:pb-14">
+        <div class="mx-auto max-w-7xl">
+          <div class="section-divider revelar mb-8 lg:mb-10" aria-hidden="true"><span class="section-divider__plus">+</span></div>
+          <!-- Estrutura pedida pelo cliente a partir de uma referência (dashboard
+               escuro, badge + headline grande à esquerda, grid 2x2 de cartões à
+               direita): mantivemos o fundo claro do site (bg-paper), só
+               reaproveitando o LAYOUT. Os cartões continuam com o conteúdo real
+               que já existia aqui (os 4 benefícios do Propósito) — a referência
+               usava números tipo "500.000 usuários", mas isso não existe pra
+               essa seção, então os cartões mostram ícone + título + descrição
+               no lugar de ícone + número + variação percentual. -->
+          <div class="grid gap-10 lg:grid-cols-2 lg:items-start lg:gap-16">
+            <div class="revelar max-w-xl">
+              <p class="text-sm font-medium uppercase tracking-[0.14em] text-olive-800">Na prática</p>
+              <h2 class="mt-3 text-3xl font-semibold leading-[1.15] tracking-tight text-graphite-900 sm:text-4xl lg:text-[44px]">O que a BS Agro Capital faz pelo seu negócio</h2>
+              <p class="lead mt-4 text-lg leading-relaxed text-graphite-600">Transformamos o seu patrimônio e a sua capacidade produtiva em crédito estruturado, pra você ter caixa pra operar, dívidas sob controle e fôlego pra seguir produzindo e crescendo.</p>
+              <div class="mt-6"><a href="#solicitar-analise" class="cta-btn cta-btn--icon"><span class="cta-btn__text">Solicitar análise de crédito</span><span class="cta-btn__hover" aria-hidden="true"><span>Solicitar análise de crédito</span><svg viewBox="0 0 24 24" focusable="false"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span></a></div>
+            </div>
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div class="revelar revelar--right flex flex-col justify-between gap-6 rounded-[20px] border border-graphite-900/15 bg-paper p-6 shadow-soft">
+                <span class="text-gold-700"><svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.744 17.736a6 6 0 1 1-7.48-7.48" /> <path d="M15 6h1v4" /> <path d="m6.134 14.768.866-.5 2 3.464" /> <circle cx="16" cy="8" r="6" /></svg></span>
+                <div>
+                  <h3 class="text-xl font-semibold leading-snug text-graphite-900">Caixa pra operar</h3>
+                  <p class="mt-2 text-sm leading-relaxed text-graphite-600">Transformamos seu patrimônio e sua capacidade produtiva em dinheiro em caixa pra tocar a safra ou o negócio.</p>
+                </div>
+              </div>
+              <div class="revelar revelar--right flex flex-col justify-between gap-6 rounded-[20px] border border-graphite-900/15 bg-paper p-6 shadow-soft">
+                <span class="text-gold-700"><svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" /> <path d="M21 3v5h-5" /> <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" /> <path d="M8 16H3v5" /></svg></span>
+                <div>
+                  <h3 class="text-xl font-semibold leading-snug text-graphite-900">Dívidas sob controle</h3>
+                  <p class="mt-2 text-sm leading-relaxed text-graphite-600">Reorganizamos suas dívidas num formato que cabe no seu fluxo de caixa, sem sufocar a operação.</p>
+                </div>
+              </div>
+              <div class="revelar revelar--right flex flex-col justify-between gap-6 rounded-[20px] border border-graphite-900/15 bg-paper p-6 shadow-soft">
+                <span class="text-gold-700"><svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 9.536V7a4 4 0 0 1 4-4h1.5a.5.5 0 0 1 .5.5V5a4 4 0 0 1-4 4 4 4 0 0 0-4 4c0 2 1 3 1 5a5 5 0 0 1-1 3" /> <path d="M4 9a5 5 0 0 1 8 4 5 5 0 0 1-8-4" /> <path d="M5 21h14" /></svg></span>
+                <div>
+                  <h3 class="text-xl font-semibold leading-snug text-graphite-900">Produção sem interrupção</h3>
+                  <p class="mt-2 text-sm leading-relaxed text-graphite-600">Estruturamos a operação pra você continuar plantando, colhendo e vendendo, mesmo em momentos mais difíceis.</p>
+                </div>
+              </div>
+              <div class="revelar revelar--right flex flex-col justify-between gap-6 rounded-[20px] border border-graphite-900/15 bg-paper p-6 shadow-soft">
+                <span class="text-gold-700"><svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 7h6v6" /> <path d="m22 7-8.5 8.5-5-5L2 17" /></svg></span>
+                <div>
+                  <h3 class="text-xl font-semibold leading-snug text-graphite-900">Fôlego pra crescer</h3>
+                  <p class="mt-2 text-sm leading-relaxed text-graphite-600">Com as contas organizadas, você ganha base financeira pra investir e crescer na próxima safra.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-10 border-t border-graphite-900/15 pt-10 lg:mt-12 lg:pt-12">
+            <div class="diferenciais-carousel revelar" data-carousel>
+              <div class="mx-auto max-w-2xl text-center">
+                <p class="text-sm font-medium uppercase tracking-[0.14em] text-olive-700">Diferenciais</p>
+                <h3 class="mt-2 text-2xl font-semibold text-graphite-900 sm:text-3xl">O que sustenta cada estruturação</h3>
+                <p class="lead mt-3 text-graphite-600">Unimos conhecimento do agro, análise financeira e acesso a diferentes fontes de capital para construir operações de acordo com a realidade de cada cliente.</p>
+              </div>
+
+              <div class="diferenciais-carousel__track mt-8" data-carousel-track tabindex="0" role="region" aria-label="Diferenciais da BS Agro Capital, role para o lado ou use as setas abaixo">
+                <div class="diferenciais-carousel__card">
+                  <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-gold-500/10 text-gold-700"><svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 22 16 8" /> <path d="M3.47 12.53 5 11l1.53 1.53a3.5 3.5 0 0 1 0 4.94L5 19l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z" /> <path d="M7.47 8.53 9 7l1.53 1.53a3.5 3.5 0 0 1 0 4.94L9 15l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z" /> <path d="M11.47 4.53 13 3l1.53 1.53a3.5 3.5 0 0 1 0 4.94L13 11l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z" /> <path d="M20 2h2v2a4 4 0 0 1-4 4h-2V6a4 4 0 0 1 4-4Z" /> <path d="M11.47 17.47 13 19l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L5 19l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z" /> <path d="M15.47 13.47 17 15l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L9 15l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z" /> <path d="M19.47 9.47 21 11l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L13 11l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z" /></svg></span>
+                  <h4 class="mt-5 text-xl font-semibold leading-snug text-graphite-900">Conhecimento do agro</h4>
+                  <p class="mt-3 text-sm leading-relaxed text-graphite-600">Compreensão da dinâmica produtiva, patrimonial e financeira do agronegócio brasileiro.</p>
+                </div>
+                <div class="diferenciais-carousel__card">
+                  <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-gold-500/10 text-gold-700"><svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <circle cx="11.5" cy="14.5" r="2.5" /> <path d="M13.3 16.3 15 18" /></svg></span>
+                  <h4 class="mt-5 text-xl font-semibold leading-snug text-graphite-900">Análise financeira</h4>
+                  <p class="mt-3 text-sm leading-relaxed text-graphite-600">Avaliação técnica da situação financeira e patrimonial de cada cliente antes de estruturar qualquer operação.</p>
+                </div>
+                <div class="diferenciais-carousel__card">
+                  <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-gold-500/10 text-gold-700"><svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m11 17 2 2a1 1 0 1 0 3-3" /> <path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4" /> <path d="m21 3 1 11h-2" /> <path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3" /> <path d="M3 4h8" /></svg></span>
+                  <h4 class="mt-5 text-xl font-semibold leading-snug text-graphite-900">Rede de relacionamento</h4>
+                  <p class="mt-3 text-sm leading-relaxed text-graphite-600">Relacionamento estratégico com cooperativas de crédito, fundos de investimento e diferentes agentes do mercado financeiro e do agronegócio.</p>
+                </div>
+                <div class="diferenciais-carousel__card">
+                  <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-gold-500/10 text-gold-700"><svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z" /> <path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12" /> <path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17" /></svg></span>
+                  <h4 class="mt-5 text-xl font-semibold leading-snug text-graphite-900">Estruturação sob medida</h4>
+                  <p class="mt-3 text-sm leading-relaxed text-graphite-600">Cada operação é desenhada de acordo com o patrimônio, a garantia disponível e a realidade financeira do cliente.</p>
+                </div>
+                <div class="diferenciais-carousel__card">
+                  <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-gold-500/10 text-gold-700"><svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="8" height="4" x="8" y="2" rx="1" ry="1" /> <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /> <path d="m9 14 2 2 4-4" /></svg></span>
+                  <h4 class="mt-5 text-xl font-semibold leading-snug text-graphite-900">Acompanhamento em cada etapa</h4>
+                  <p class="mt-3 text-sm leading-relaxed text-graphite-600">Suporte técnico do diagnóstico à execução, com transparência sobre o andamento do processo.</p>
+                </div>
+                <div class="diferenciais-carousel__card">
+                  <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-gold-500/10 text-gold-700"><svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" /> <path d="m9 12 2 2 4-4" /></svg></span>
+                  <h4 class="mt-5 text-xl font-semibold leading-snug text-graphite-900">Relacionamento direto e discrição</h4>
+                  <p class="mt-3 text-sm leading-relaxed text-graphite-600">Atendimento próximo e sigiloso, essencial diante de decisões financeiras sensíveis.</p>
+                </div>
+              </div>
+
+              <!-- Setas nas pontas da barra de progresso, fora da faixa de
+                   cartões: ver .diferenciais-carousel__controles no CSS. -->
+              <div class="diferenciais-carousel__controles mt-8">
+                <button type="button" class="diferenciais-carousel__nav" data-carousel-prev aria-label="Ver diferencial anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 5 5 12 12 19"></polyline></svg></button>
+                <div class="diferenciais-carousel__progress" aria-hidden="true">
+                  <span class="diferenciais-carousel__progress-fill" data-carousel-progress></span>
+                </div>
+                <button type="button" class="diferenciais-carousel__nav" data-carousel-next aria-label="Ver próximo diferencial"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ: no lugar da antiga seção de Depoimentos (removida — eram só
+           placeholders "[INSERIR]", nunca teve conteúdo real). Perguntas e
+           respostas abaixo são baseadas só no que já está documentado no
+           resto da página (Soluções, Como funciona, Rede de capital) —
+           nenhum dado novo. <details>/<summary> nativos: acessível e sem
+           JavaScript, teclado e leitor de tela já funcionam de graça. -->
+      <section id="faq" class="bg-mesh-light px-6 pt-6 pb-10 lg:px-8 lg:pt-8 lg:pb-14">
+        <div class="mx-auto max-w-7xl">
+          <div class="section-divider revelar mb-8 lg:mb-10" aria-hidden="true"><span class="section-divider__plus">+</span></div>
+          <div class="revelar mx-auto max-w-2xl text-center">
+            <p class="text-sm font-medium uppercase tracking-[0.14em] text-olive-800">Perguntas frequentes</p>
+            <h2 class="mt-3 text-3xl font-semibold leading-[1.15] tracking-tight text-graphite-900 sm:text-4xl lg:text-[44px]">Tire suas dúvidas sobre o processo</h2>
+          </div>
+
+          <div class="mx-auto mt-8 max-w-3xl divide-y divide-graphite-900/15 lg:mt-10">
+            <details class="faq-item revelar">
+              <summary class="faq-item__question">
+                Quem pode solicitar uma análise de crédito com a BS Agro Capital?
+                <svg class="faq-item__chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </summary>
+              <p class="faq-item__answer">Produtores rurais e empresas do agronegócio que buscam estruturar crédito. Basta preencher o formulário abaixo ou falar direto pelo WhatsApp, sem compromisso.</p>
+            </details>
+            <details class="faq-item revelar">
+              <summary class="faq-item__question">
+                Quais linhas de crédito a BS Agro Capital estrutura?
+                <svg class="faq-item__chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </summary>
+              <p class="faq-item__answer">Custeio Rural, Crédito para Investimentos, Comercialização, CPR (Cédula de Produto Rural) e Crédito Estruturado via Fundos de Investimento — além de crédito com garantia de imóvel rural e urbano e operações para quem está em Recuperação Judicial.</p>
+            </details>
+            <details class="faq-item revelar">
+              <summary class="faq-item__question">
+                A BS Agro Capital empresta o dinheiro diretamente?
+                <svg class="faq-item__chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </summary>
+              <p class="faq-item__answer">Não. Atuamos em conexão com bancos, fundos de investimento, cooperativas de crédito e outras instituições financeiras do mercado, estruturando a operação e conectando o cliente à fonte de capital mais compatível com a sua realidade.</p>
+            </details>
+            <details class="faq-item revelar">
+              <summary class="faq-item__question">
+                É preciso ter garantia para conseguir o crédito?
+                <svg class="faq-item__chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </summary>
+              <p class="faq-item__answer">Depende da linha e da operação. Trabalhamos tanto com garantia real (imóvel rural ou urbano) quanto com instrumentos como a CPR, que usa a própria produção futura como lastro. Cada operação é desenhada de acordo com o patrimônio, a garantia disponível e a realidade financeira do cliente.</p>
+            </details>
+            <details class="faq-item revelar">
+              <summary class="faq-item__question">
+                Como funciona o processo, do diagnóstico até a execução?
+                <svg class="faq-item__chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </summary>
+              <p class="faq-item__answer">Em quatro etapas: diagnóstico da situação financeira e patrimonial, análise de capacidade produtiva e alternativas de garantia, estruturação da operação com conexão às fontes de capital, e acompanhamento da execução até a efetivação.</p>
+            </details>
+            <details class="faq-item revelar">
+              <summary class="faq-item__question">
+                A empresa atende quem está em Recuperação Judicial?
+                <svg class="faq-item__chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </summary>
+              <p class="faq-item__answer">Sim. Atuamos em cenários de maior complexidade, conectando capacidade produtiva, patrimônio e estratégia financeira para preservar a atividade do cliente e reorganizar passivos.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- FORMULÁRIO FINAL
+           O formulário de captação que antes morava no hero, movido pra cá a
+           pedido do cliente — único formulário do site, mesmo id
+           (#solicitar-analise) de sempre, então todo link/botão "Solicitar
+           análise de crédito" do site continua funcionando, só que agora rola
+           até aqui em vez de até o hero. -->
+      <section class="relative overflow-hidden bg-olive-900 px-6 pt-6 pb-10 text-paper lg:px-8 lg:pt-8 lg:pb-14">
+        <img src="assets/img/formulario/vinhedo-trator-por-do-sol-credito-agronegocio.jpg" alt="" aria-hidden="true" width="1092" height="612" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover" />
+        <div class="form-section-overlay absolute inset-0" aria-hidden="true"></div>
+        <div class="relative mx-auto max-w-7xl">
+          <div class="section-divider revelar mb-8 lg:mb-10" aria-hidden="true"><span class="section-divider__plus">+</span></div>
+          <div class="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-12">
+            <div class="revelar max-w-2xl">
+              <h2 class="text-3xl font-semibold leading-[1.15] tracking-tight sm:text-4xl lg:text-[44px]">BS Agro Capital. Crédito estruturado para quem produz.</h2>
+              <p class="mt-5 text-lg leading-relaxed text-paper/75">Preencha os dados da sua operação, sem compromisso, ou fale agora mesmo com um especialista pelo WhatsApp.</p>
+              <div class="mt-8"><a href="https://wa.me/5562996892488?text=Ol%C3%A1!%20Gostaria%20de%20falar%20com%20um%20especialista%20da%20BS%20Agro%20Capital." class="cta-btn cta-btn--outline cta-btn--icon" target="_blank" rel="noopener noreferrer"><span class="cta-btn__text">Falar no WhatsApp</span><span class="cta-btn__hover" aria-hidden="true"><span>Falar no WhatsApp</span><svg viewBox="0 0 24 24" focusable="false"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span></a></div>
+            </div>
+
+            <!-- Opacidade alta (85%, ver .glass-card--hero): esta seção agora
+                 também tem foto de fundo (vinhedo, ver .form-section-overlay),
+                 então o cartão precisa da mesma leitura garantida que tem em
+                 cima da foto do hero. -->
+            <div id="solicitar-analise" class="glass-card--hero revelar p-6 lg:p-8">
+              <h3 class="font-display text-xl font-bold leading-snug text-gold-800 lg:text-2xl">Você está perto de estruturar seu crédito.</h3>
+              <p class="mt-1.5 text-sm leading-relaxed text-graphite-600">Preencha os dados da sua operação, sem compromisso.</p>
+
+              <form data-form-endpoint data-form-steps action="https://n8n.widencreative.com/webhook/342d16c8-25c7-4b6c-810a-201ae3a351da" method="POST" novalidate class="mt-5 flex flex-col gap-4">
+                <input type="hidden" name="origem" value="Formulário final" />
+                <!-- Campo honeypot anti-spam, oculto para usuários reais -->
+                <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+
+                <!-- Etapa 1: sobre a operação. Vem primeiro de propósito — o
+                     visitante qualifica a necessidade antes de informar dados
+                     pessoais, o que reduz a fricção inicial do formulário. O
+                     botão mantém o mesmo texto do botão de envio (a pedido do
+                     cliente). Um campo por linha, em largura quase total do
+                     cartão (sem grade 2 colunas) — layout pedido pelo
+                     cliente a partir de um site de referência. A troca de
+                     etapa é um fade/slide simples (`.form-step`), sem efeito
+                     de flip — testado e descartado a pedido do cliente. -->
+                <div data-form-step="1" class="form-step form-step--visivel flex flex-col gap-4">
+                  <fieldset class="border-0 p-0">
+                    <legend class="form-legend">Sobre a operação</legend>
+                    <div class="flex flex-col gap-4">
+                      <div>
+                        <label for="modalidade" class="form-label">Modalidade de interesse <span aria-hidden="true">*</span></label>
+                        <select id="modalidade" name="modalidade" required class="form-input"><option value="">Selecione uma opção</option><option value="Custeio Rural">Custeio Rural</option><option value="Crédito para Investimentos">Crédito para Investimentos</option><option value="Comercialização">Comercialização</option><option value="CPR (Cédula de Produto Rural)">CPR (Cédula de Produto Rural)</option><option value="Crédito Estruturado via Fundos de Investimento">Crédito Estruturado via Fundos de Investimento</option><option value="Crédito com garantia de imóvel (rural ou urbano)">Crédito com garantia de imóvel (rural ou urbano)</option><option value="Recuperação Judicial">Recuperação Judicial</option><option value="Ainda não sei / quero orientação">Ainda não sei / quero orientação</option></select>
+                        <p class="field-error" role="alert"></p>
+                      </div>
+                      <div>
+                        <label for="possui_garantia" class="form-label">Possui garantia disponível? <span class="form-optional">(opcional)</span></label>
+                        <select id="possui_garantia" name="possui_garantia" class="form-input"><option value="">Selecione uma opção</option><option value="Sim">Sim</option><option value="Não">Não</option></select>
+                      </div>
+                      <div>
+                        <label for="tipo_garantia" class="form-label">Tipo de garantia <span class="form-optional">(opcional)</span></label>
+                        <select id="tipo_garantia" name="tipo_garantia" class="form-input"><option value="">Selecione uma opção</option><option value="Imóvel rural">Imóvel rural</option><option value="Imóvel urbano">Imóvel urbano</option><option value="Imóvel rural e urbano">Imóvel rural e urbano</option><option value="Sem garantia">Sem garantia</option></select>
+                      </div>
+                      <div>
+                        <label for="valor" class="form-label">Valor pretendido <span class="form-optional">(opcional)</span></label>
+                        <select id="valor" name="valor_pretendido" class="form-input"><option value="">Selecione uma opção</option><option value="R$ 1 milhão a R$ 3 milhões">R$ 1 milhão a R$ 3 milhões</option><option value="R$ 3 milhões a R$ 7 milhões">R$ 3 milhões a R$ 7 milhões</option><option value="R$ 7 milhões a R$ 15 milhões">R$ 7 milhões a R$ 15 milhões</option><option value="R$ 15 milhões a R$ 30 milhões">R$ 15 milhões a R$ 30 milhões</option><option value="Acima de R$ 30 milhões">Acima de R$ 30 milhões</option></select>
+                      </div>
+                    </div>
+                  </fieldset>
+
+                  <button type="button" data-form-next class="cta-btn cta-btn--block cta-btn--icon"><span class="cta-btn__text">Solicitar análise de crédito</span><span class="cta-btn__hover" aria-hidden="true"><span>Solicitar análise de crédito</span><svg viewBox="0 0 24 24" focusable="false"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span></button>
+                </div>
+
+                <!-- Etapa 2: dados de contato, exibida só depois que a etapa 1
+                     passa a validação. Diferente do que um comentário antigo
+                     dizia aqui: `hidden` num ancestral NÃO exclui os campos da
+                     validação nativa (só `disabled` faz isso, e `disabled`
+                     também tiraria o campo do envio). Por isso a validação da
+                     etapa 1 é feita manualmente no clique do botão, e o envio
+                     final valida só os campos da etapa 2 — ver `ligarFormulario`
+                     no script no fim da página. Checkbox de consentimento
+                     (LGPD) antes do envio, linkando para a página de
+                     privacidade. -->
+                <div data-form-step="2" hidden class="form-step flex flex-col gap-4">
+                  <fieldset class="border-0 p-0">
+                    <legend class="form-legend">Seus dados</legend>
+                    <div class="flex flex-col gap-4">
+                      <div>
+                        <label for="nome" class="form-label">Nome completo <span aria-hidden="true">*</span></label>
+                        <input type="text" id="nome" name="nome" required autocomplete="name" class="form-input" placeholder="Insira seu nome" />
+                        <p class="field-error" role="alert"></p>
+                      </div>
+                      <div>
+                        <label for="email" class="form-label">E-mail <span aria-hidden="true">*</span></label>
+                        <input type="email" id="email" name="email" required autocomplete="email" class="form-input" placeholder="Insira seu e-mail" />
+                        <p class="field-error" role="alert"></p>
+                      </div>
+                      <div>
+                        <label for="telefone" class="form-label">WhatsApp <span aria-hidden="true">*</span></label>
+                        <!-- maxlength 14 = os 11 dígitos (2 do DDD + 9) mais o
+                             "(", ")" e o espaço que a máscara insere. O limite
+                             real de 11 dígitos é aplicado no JS. -->
+                        <input type="tel" id="telefone" name="telefone" required autocomplete="tel" inputmode="numeric" maxlength="14" pattern="^[0-9\(\)+\-\s]{8,14}$" class="form-input" placeholder="DDD+WhatsApp" />
+                        <p class="field-error" role="alert"></p>
+                      </div>
+                      <div>
+                        <label for="empresa" class="form-label">Empresa <span class="form-optional">(opcional)</span></label>
+                        <input type="text" id="empresa" name="empresa" autocomplete="organization" class="form-input" placeholder="Nome da empresa ou propriedade" />
+                      </div>
+                    </div>
+                  </fieldset>
+
+                  <div>
+                    <label class="flex items-start gap-2.5 text-sm leading-snug text-graphite-700">
+                      <input type="checkbox" id="termos" name="termos" required class="mt-0.5 h-4 w-4 flex-none rounded border-graphite-300 text-olive-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold-600 focus-visible:outline-offset-2" />
+                      <span>Aceito os <a href="privacidade.html" class="font-medium text-olive-700 underline underline-offset-2 hover:text-olive-800" target="_blank" rel="noopener noreferrer">Termos de Privacidade</a>.</span>
+                    </label>
+                    <p class="field-error" role="alert"></p>
+                  </div>
+
+                  <p data-form-status class="form-status" role="status" hidden></p>
+
+                  <div class="flex gap-3">
+                    <button type="button" data-form-back class="cta-btn cta-btn--dark flex-1"><span class="cta-btn__text">Voltar</span></button>
+                    <button type="submit" class="cta-btn cta-btn--icon flex-[2]"><span class="cta-btn__text">Receber análise</span><span class="cta-btn__hover" aria-hidden="true"><span>Receber análise</span><svg viewBox="0 0 24 24" focusable="false"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span></button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+    </main>
+
+    <!-- Reorganizado no layout de referência "Footer7" (logo + descrição +
+         redes sociais num bloco à esquerda, colunas de links à direita,
+         barra inferior com copyright + legal) — portado à mão pro stack do
+         projeto (HTML/Tailwind/SVG inline), sem instalar React/shadcn/
+         react-icons: o site não usa build step nem framework algum (ver
+         CLAUDE.md). Todo o conteúdo é o mesmo que já existia (e-mail,
+         telefone, endereço, WhatsApp, CNPJ, aviso legal) — só a organização
+         visual mudou. O CTA de WhatsApp, antes um botão grande em destaque,
+         virou um link de texto na coluna "Contato", como o resto. -->
+    <footer class="bg-graphite-950 px-6 py-14 text-paper lg:px-8 lg:py-20">
+      <div class="mx-auto max-w-7xl">
+        <div class="flex w-full flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
+          <div class="flex w-full flex-col items-start gap-6 lg:max-w-xs">
+            <img src="assets/img/logo/bs-agro-logo-white.png" alt="BS Agro Capital" width="2775" height="400" class="h-9 w-auto" />
+            <p class="leading-relaxed text-paper/60">Estruturação de crédito para o agronegócio, com solidez técnica e visão de longo prazo.</p>
+            <ul class="footer-social flex items-center">
+              <li><a href="https://www.facebook.com/bsagrooficial" target="_blank" rel="noopener noreferrer" class="footer-link" aria-label="Facebook da BS Agro Capital"><svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg></a></li>
+              <li><a href="https://www.instagram.com/bsagro.capital/" target="_blank" rel="noopener noreferrer" class="footer-link" aria-label="Instagram da BS Agro Capital"><svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /> <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /> <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></svg></a></li>
+              <li><a href="[INSERIR LINK DO LINKEDIN]" class="footer-link" aria-label="LinkedIn da BS Agro Capital"><svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /> <rect width="4" height="12" x="2" y="9" /> <circle cx="4" cy="4" r="2" /></svg></a></li>
+            </ul>
+          </div>
+
+          <div class="grid w-full gap-10 sm:grid-cols-2 lg:w-auto lg:gap-20">
+            <div>
+              <h3 class="mb-4 text-sm font-semibold uppercase tracking-[0.1em] text-paper/50">Navegação</h3>
+              <ul class="flex flex-col gap-2">
+                <li><a href="#solucoes" class="footer-link inline-block py-1 text-base">Soluções</a></li>
+                <li><a href="#como-funciona" class="footer-link inline-block py-1 text-base">Como funciona</a></li>
+                <li><a href="#sobre" class="footer-link inline-block py-1 text-base">Sobre</a></li>
+                <li><a href="#proposito" class="footer-link inline-block py-1 text-base">Na prática</a></li>
+                <li><a href="#solicitar-analise" class="footer-link inline-block py-1 text-base">Contato</a></li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="mb-4 text-sm font-semibold uppercase tracking-[0.1em] text-paper/50">Contato</h3>
+              <ul class="flex flex-col gap-3">
+                <li><a href="mailto:contato@bsagrocapital.com" class="footer-link flex items-center gap-2.5 text-base"><svg class="h-5 w-5 flex-none text-gold-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2" /> <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>contato@bsagrocapital.com</a></li>
+                <li><a href="tel:+5562996892488" class="footer-link flex items-center gap-2.5 text-base"><svg class="h-5 w-5 flex-none text-gold-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /></svg>(62) 99689-2488</a></li>
+                <li class="flex items-center gap-2.5 text-base text-paper/70"><svg class="h-5 w-5 flex-none text-gold-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /></svg>Av. 136, 960 - St. Marista, Goiânia - GO, 74180-140</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-10 flex flex-col gap-4 border-t border-paper/10 pt-8 text-sm text-paper/55 lg:flex-row lg:items-center lg:justify-between">
+          <p>&copy; <span id="ano">2026</span> BS Agro Capital. Todos os direitos reservados. CNPJ: 66.308.795/0001-08</p>
+          <p>Desenvolvido por <a href="https://widencreative.com/" class="footer-link underline underline-offset-2" target="_blank" rel="noopener noreferrer">Widen Creative</a></p>
+        </div>
+      </div>
+    </footer>
+
+    <a href="https://wa.me/5562996892488?text=Ol%C3%A1!%20Gostaria%20de%20falar%20com%20um%20especialista%20da%20BS%20Agro%20Capital." target="_blank" rel="noopener noreferrer" aria-label="Falar com a BS Agro Capital pelo WhatsApp" class="whatsapp-fab">
+      <img src="assets/img/icons/whatsapp.webp" alt="" width="224" height="224" class="whatsapp-fab__icon" />
+    </a>
+
+    <style>
+      .footer-link { color: color-mix(in srgb, var(--color-paper) 80%, transparent); transition: color 200ms ease; }
+      /* Área de toque dos ícones sociais. O ícone continua com 20px, mas o
+         link passa a ocupar 44x44 — 20x20 fica abaixo até do mínimo de 24x24
+         do WCAG 2.5.8 e, no celular, errar o toque é a regra, não a exceção.
+         O recuo negativo na lista devolve o alinhamento do primeiro ícone
+         com o texto acima, que o padding teria empurrado pra dentro. */
+      .footer-social { gap: 0.25rem; margin-inline-start: -0.75rem; }
+      .footer-social .footer-link {
+        display: flex; align-items: center; justify-content: center;
+        width: 44px; height: 44px;
+      }
+      .footer-link:hover { color: var(--color-paper); }
+    </style>
+
+    <!-- Lenis: só para o scroll suave. -->
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+    <script>
+      (function () {
+        "use strict";
+
+        var semMovimento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        /* ---- Lenis: scroll suave ----------------------------------------
+           Fica desligado para quem pede menos movimento; nesse caso o
+           navegador cuida da rolagem normalmente. */
+        var lenis = null;
+        /* Easing padrão do Lenis (exponencial de saída), escrita à mão pra
+           poder ser reaproveitada no clique em âncora — assim a roda do mouse
+           e o menu desaceleram do mesmo jeito. */
+        var suavizacao = function (t) {
+          return Math.min(1, 1.001 - Math.pow(2, -10 * t));
+        };
+        if (!semMovimento && typeof Lenis !== "undefined") {
+          lenis = new Lenis({
+            autoRaf: false,
+            duration: 1.4,
+            easing: suavizacao,
+            smoothWheel: true,
+            wheelMultiplier: 1,
+          });
+          (function animar(t) {
+            lenis.raf(t);
+            requestAnimationFrame(animar);
+          })(0);
+        }
+
+        /* Rolagem até âncoras, respeitando a altura do header fixo. Mede o
+           header de verdade em vez de usar um número fixo: a altura muda
+           conforme a logo/breakpoint, e um valor fixo desalinha (como
+           aconteceu quando a logo cresceu e o antigo "-96" ficou 17px curto,
+           escondendo o topo do alvo atrás do header). */
+        function irPara(alvo) {
+          var el = document.querySelector(alvo);
+          if (!el) return;
+          var header = document.getElementById("site-header");
+          var alturaHeader = header ? header.getBoundingClientRect().height : 0;
+          var topo = el.getBoundingClientRect().top + window.scrollY - alturaHeader - 3;
+          if (lenis) lenis.scrollTo(topo, { duration: 1.1, easing: suavizacao });
+          else window.scrollTo({ top: topo, behavior: semMovimento ? "auto" : "smooth" });
+        }
+
+        document.addEventListener("click", function (ev) {
+          var link = ev.target.closest('a[href^="#"]');
+          if (!link) return;
+          var alvo = link.getAttribute("href");
+          if (alvo === "#" || !document.querySelector(alvo)) return;
+          ev.preventDefault();
+          irPara(alvo);
+          history.replaceState(null, "", alvo);
+        });
+
+        /* ---- Menu mobile ------------------------------------------------ */
+        var header = document.getElementById("site-header");
+        var toggle = document.getElementById("menu-toggle");
+        var menu = document.getElementById("mobile-menu");
+        var iconMenu = document.getElementById("icon-menu");
+        var iconClose = document.getElementById("icon-close");
+
+        function fecharMenu() {
+          if (!menu) return;
+          menu.classList.add("hidden");
+          if (iconMenu) iconMenu.classList.remove("hidden");
+          if (iconClose) iconClose.classList.add("hidden");
+          if (toggle) toggle.setAttribute("aria-expanded", "false");
+        }
+
+        if (toggle && menu) {
+          toggle.addEventListener("click", function () {
+            var aberto = !menu.classList.contains("hidden");
+            menu.classList.toggle("hidden", aberto);
+            if (iconMenu) iconMenu.classList.toggle("hidden", !aberto);
+            if (iconClose) iconClose.classList.toggle("hidden", aberto);
+            toggle.setAttribute("aria-expanded", String(!aberto));
+          });
+          menu.addEventListener("click", function (ev) {
+            if (ev.target.closest("a")) fecharMenu();
+          });
+          document.addEventListener("keydown", function (ev) {
+            if (ev.key === "Escape") fecharMenu();
+          });
+        }
+
+        /* ---- Header: visível só no hero ----------------------------------
+           Não reage mais à direção da rolagem (antes: escondia ao descer e
+           voltava ao subir). A regra agora é de posição: enquanto qualquer
+           parte do hero estiver na tela o header aparece; passou do hero,
+           some — e continua sumido por toda a página, inclusive subindo.
+           Só volta quando o hero reaparece no topo da tela.
+
+           Duas exceções, ambas para não deixar ninguém preso: com o menu
+           mobile aberto o header não some (senão o menu sumiria junto), e
+           se algo dentro dele receber foco de teclado ele reaparece — um
+           elemento focável e invisível manda o teclado pra um lugar que não
+           dá pra ver. */
+        if (header) {
+          var hero = document.querySelector("[data-hero]");
+
+          function atualizarHeader() {
+            var menuAberto = menu && !menu.classList.contains("hidden");
+            var temFoco = header.contains(document.activeElement);
+            /* bottom > 0: a borda de baixo do hero ainda está abaixo do
+               topo da tela, ou seja, sobra hero visível. Medido a cada
+               evento em vez de guardar a altura, porque ela muda com o
+               redimensionamento e com a barra de endereço do celular. */
+            var noHero = !hero || hero.getBoundingClientRect().bottom > 0;
+            header.classList.toggle("header--escondido", !(menuAberto || temFoco || noHero));
+          }
+
+          window.addEventListener("scroll", atualizarHeader, { passive: true });
+          window.addEventListener("resize", atualizarHeader);
+          header.addEventListener("focusin", atualizarHeader);
+          header.addEventListener("focusout", atualizarHeader);
+          atualizarHeader();
+        }
+
+        /* ---- Menu: destaca a seção que está sendo lida ------------------- */
+        var navLinks = Array.prototype.slice.call(document.querySelectorAll(".nav-link[data-nav-anchor]"));
+        var secoes = navLinks
+          .map(function (l) {
+            return document.querySelector(l.dataset.navAnchor);
+          })
+          .filter(Boolean);
+
+        if (secoes.length && "IntersectionObserver" in window) {
+          var visiveis = {};
+          var spy = new IntersectionObserver(
+            function (entradas) {
+              entradas.forEach(function (e) {
+                if (e.isIntersecting) visiveis["#" + e.target.id] = true;
+                else delete visiveis["#" + e.target.id];
+              });
+              var atual = null;
+              for (var i = 0; i < navLinks.length; i++) {
+                if (visiveis[navLinks[i].dataset.navAnchor]) {
+                  atual = navLinks[i].dataset.navAnchor;
+                  break;
+                }
+              }
+              navLinks.forEach(function (l) {
+                if (atual && l.dataset.navAnchor === atual) l.setAttribute("aria-current", "true");
+                else l.removeAttribute("aria-current");
+              });
+            },
+            { rootMargin: "-20% 0px -60% 0px", threshold: 0 }
+          );
+          secoes.forEach(function (s) {
+            spy.observe(s);
+          });
+        }
+
+        /* ---- Animação de entrada ----------------------------------------- */
+        var reveláveis = document.querySelectorAll(".revelar");
+        if ("IntersectionObserver" in window) {
+          var obsRevelar = new IntersectionObserver(
+            function (entradas) {
+              entradas.forEach(function (e) {
+                if (!e.isIntersecting) return;
+                e.target.classList.add("visivel");
+                obsRevelar.unobserve(e.target);
+              });
+            },
+            { rootMargin: "0px 0px -10% 0px", threshold: 0.05 }
+          );
+          Array.prototype.forEach.call(reveláveis, function (el) {
+            obsRevelar.observe(el);
+          });
+        } else {
+          Array.prototype.forEach.call(reveláveis, function (el) {
+            el.classList.add("visivel");
+          });
+        }
+
+        /* ---- Contagem animada dos indicadores ----------------------------
+           Só anima quando o conteúdo é um número. Enquanto os indicadores
+           estiverem como [INSERIR DADO], o texto é exibido sem animação. */
+        function animarNumero(el) {
+          var bruto = el.textContent.trim();
+          var casado = bruto.match(/^([^\d]*)([\d.,]+)(.*)$/);
+          if (!casado) return;
+          var prefixo = casado[1];
+          var sufixo = casado[3];
+          var limpo = casado[2].replace(/\./g, "").replace(",", ".");
+          var alvo = parseFloat(limpo);
+          if (isNaN(alvo)) return;
+          var decimais = (limpo.split(".")[1] || "").length;
+          // Um inteiro de 4 dígitos sem decimais (ex.: um ano de fundação como
+          // "2018") não deve ganhar separador de milhar: "2.018" leria como
+          // duas mil e dezoito, não como um ano.
+          var pareceAno = decimais === 0 && alvo >= 1000 && alvo <= 9999 && limpo.indexOf(".") === -1;
+          if (semMovimento) return;
+          var inicio = null;
+          var duracao = 1600;
+          function passo(ts) {
+            if (inicio === null) inicio = ts;
+            var p = Math.min((ts - inicio) / duracao, 1);
+            var eased = 1 - Math.pow(1 - p, 3);
+            var atual = (alvo * eased).toFixed(decimais);
+            var textoNumero = pareceAno
+              ? Math.round(atual).toString()
+              : Number(atual).toLocaleString("pt-BR", {
+                  minimumFractionDigits: decimais,
+                  maximumFractionDigits: decimais,
+                });
+            el.textContent = prefixo + textoNumero + sufixo;
+            if (p < 1) requestAnimationFrame(passo);
+          }
+          requestAnimationFrame(passo);
+        }
+
+        var contadores = document.querySelectorAll("[data-contador]");
+        if (contadores.length && "IntersectionObserver" in window) {
+          var obsContador = new IntersectionObserver(
+            function (entradas) {
+              entradas.forEach(function (e) {
+                if (!e.isIntersecting) return;
+                animarNumero(e.target);
+                obsContador.unobserve(e.target);
+              });
+            },
+            { threshold: 0.5 }
+          );
+          Array.prototype.forEach.call(contadores, function (el) {
+            obsContador.observe(el);
+          });
+        }
+
+        /* ---- Carrossel de diferenciais -------------------------------------
+           Rolagem nativa (scroll-snap, ver .diferenciais-carousel__track no
+           CSS) — o JS cuida de 2 coisas: desenhar a barra de progresso
+           proporcional ao quanto já rolou, e levar o track direto pra uma
+           ponta quando clica numa seta (a seta esquerda sempre vai pro
+           primeiro cartão, a direita sempre vai pro último — não é
+           incremento por página, é ir direto pro extremo pedido). */
+        var carrossel = document.querySelector("[data-carousel]");
+        if (carrossel) {
+          var trilhoDif = carrossel.querySelector("[data-carousel-track]");
+          var progressoDif = carrossel.querySelector("[data-carousel-progress]");
+          var btnAnterior = carrossel.querySelector("[data-carousel-prev]");
+          var btnProximo = carrossel.querySelector("[data-carousel-next]");
+
+          function atualizarCarrossel() {
+            var maximo = trilhoDif.scrollWidth - trilhoDif.clientWidth;
+
+            /* Cada seta some quando não há mais para onde ir naquela direção:
+               no começo não existe "anterior", no fim não existe "próximo".
+               Some também quando tudo já cabe na tela (máximo 0) e não há o
+               que rolar. Usa o atributo disabled, não só CSS, pra sumir
+               junto da navegação por teclado e do leitor de tela — um botão
+               invisível que ainda recebe foco é pior que um botão inútil.
+               A margem de 1px é porque o scrollLeft vem fracionário em telas
+               com escala não inteira ou zoom: comparar com === nunca acerta
+               as pontas e a seta ficaria presa visível no fim do curso. */
+            var noComeco = trilhoDif.scrollLeft <= 1;
+            var noFim = trilhoDif.scrollLeft >= maximo - 1;
+            btnAnterior.disabled = maximo <= 0 || noComeco;
+            btnProximo.disabled = maximo <= 0 || noFim;
+
+            if (maximo <= 0) {
+              progressoDif.style.width = "100%";
+              return;
+            }
+            var progresso = trilhoDif.scrollLeft / maximo;
+            progressoDif.style.width = Math.max(0, Math.min(1, progresso)) * 100 + "%";
+          }
+
+          function irParaExtremo(posicao) {
+            var comportamento = semMovimento ? "auto" : "smooth";
+            trilhoDif.scrollTo({ left: posicao, behavior: comportamento });
+          }
+
+          btnAnterior.addEventListener("click", function () {
+            irParaExtremo(0);
+          });
+          btnProximo.addEventListener("click", function () {
+            irParaExtremo(trilhoDif.scrollWidth - trilhoDif.clientWidth);
+          });
+          trilhoDif.addEventListener("scroll", atualizarCarrossel, { passive: true });
+          window.addEventListener("resize", atualizarCarrossel);
+          atualizarCarrossel();
+        }
+
+        /* ---- Ano do rodapé ----------------------------------------------- */
+        var ano = document.getElementById("ano");
+        if (ano) ano.textContent = new Date().getFullYear();
+
+        /* ---- Formulário -----------------------------------------------------
+           Envia via fetch() pro endpoint do próprio atributo `action` (hoje um
+           webhook do n8n da Widen Creative) — o handler não sabe nem precisa
+           saber qual serviço está do outro lado, só que ele aceita POST com
+           FormData e responde OK/erro. Fica dentro de uma função aplicada a
+           cada form[data-form-endpoint], em vez de assumir um único
+           formulário fixo por id, caso mais algum apareça na página no
+           futuro. */
+        var mensagensErro = {
+          valueMissing: "Este campo é obrigatório.",
+          typeMismatch: "Informe um valor válido.",
+          patternMismatch: "Formato inválido. Verifique o número informado.",
+        };
+
+        function ligarFormulario(form) {
+          var status = form.querySelector("[data-form-status]");
+
+          function validarCampo(campo) {
+            var erro = campo.parentElement.querySelector(".field-error");
+            if (!erro) return;
+            if (campo.validity.valid) {
+              erro.textContent = "";
+              campo.removeAttribute("aria-invalid");
+              return;
+            }
+            var chave = Object.keys(mensagensErro).filter(function (k) {
+              return campo.validity[k];
+            })[0];
+            erro.textContent = chave ? mensagensErro[chave] : "Verifique este campo.";
+            campo.setAttribute("aria-invalid", "true");
+          }
+
+          var campos = form.querySelectorAll("input, textarea, select");
+          Array.prototype.forEach.call(campos, function (campo) {
+            campo.addEventListener("blur", function () {
+              validarCampo(campo);
+            });
+            campo.addEventListener("change", function () {
+              validarCampo(campo);
+            });
+          });
+
+          /* ---- Máscara do WhatsApp -----------------------------------------
+             Formata enquanto digita: o DDD entra entre parênteses e o resto do
+             número vem depois. Só os dígitos contam pro limite de 11 (2 do DDD
+             + 9) — parênteses e espaço são enfeite, e é por isso que o
+             maxlength do HTML é 14 e não 11. Sem JS o campo continua aceitando
+             o número digitado à mão (o pattern aceita os dois formatos). */
+          function formatarTelefone(valor) {
+            var digitos = valor.replace(/\D/g, "").slice(0, 11);
+            if (digitos.length <= 2) return digitos ? "(" + digitos : "";
+            return "(" + digitos.slice(0, 2) + ") " + digitos.slice(2);
+          }
+
+          var campoTelefone = form.querySelector('input[type="tel"]');
+          if (campoTelefone) {
+            campoTelefone.addEventListener("input", function () {
+              // Quantos dígitos havia antes do cursor: é essa contagem, e não a
+              // posição em caracteres, que sobrevive à reformatação.
+              var digitosAntesDoCursor = campoTelefone.value.slice(0, campoTelefone.selectionStart || 0).replace(/\D/g, "").length;
+              campoTelefone.value = formatarTelefone(campoTelefone.value);
+
+              var pos = 0;
+              var vistos = 0;
+              while (pos < campoTelefone.value.length && vistos < digitosAntesDoCursor) {
+                if (/\d/.test(campoTelefone.value.charAt(pos))) vistos++;
+                pos++;
+              }
+              // Pula a pontuação que vier logo depois (o ") " do DDD), senão o
+              // próximo dígito digitado entraria antes dela.
+              while (pos < campoTelefone.value.length && !/\d/.test(campoTelefone.value.charAt(pos))) pos++;
+              try {
+                campoTelefone.setSelectionRange(pos, pos);
+              } catch (e) {
+                /* input[type=tel] aceita seleção em todo navegador atual; se
+                   algum recusar, a máscara ainda funciona com o cursor no fim. */
+              }
+            });
+          }
+
+          /* ---- Formulário em duas etapas -----------------------------------
+             Etapa 1 (Sobre a operação) vem antes de Etapa 2 (Seus dados). O
+             atributo `hidden` na etapa escondida tira os campos dela da
+             validação do formulário (é assim que o navegador já trata
+             campos não renderizados), então o "Solicitar análise de crédito"
+             na etapa 2 nunca é bloqueado por um campo da etapa 1 que já foi
+             validado ao avançar. */
+          // Declarado fora do bloco abaixo (e atribuído por expressão, não por
+          // function declaration) para continuar acessível dali pra baixo,
+          // inclusive dentro do "use strict" — uma function declaration dentro
+          // de um if tem escopo só do bloco em modo estrito.
+          var mostrarPasso = null;
+
+          if (form.hasAttribute("data-form-steps")) {
+            var passo1 = form.querySelector('[data-form-step="1"]');
+            var passo2 = form.querySelector('[data-form-step="2"]');
+            var btnAvancar = form.querySelector("[data-form-next]");
+            var btnVoltar = form.querySelector("[data-form-back]");
+
+            // Qual etapa está ativa já é comunicado pela legenda de cada
+            // fieldset ("Sobre a operação" / "Seus dados"), então não há um
+            // indicador de progresso separado — um elemento a menos, cartão
+            // mais compacto.
+            mostrarPasso = function (numero) {
+              var alvo = numero === 1 ? passo1 : passo2;
+              var outro = numero === 1 ? passo2 : passo1;
+
+              outro.hidden = true;
+              outro.classList.remove("form-step--visivel");
+              alvo.hidden = false;
+
+              if (semMovimento) {
+                alvo.classList.add("form-step--visivel");
+              } else {
+                // A etapa acabou de virar de `display: none` pra visível, com
+                // opacidade 0 (ver .form-step no CSS). Dois `requestAnimationFrame`
+                // garantem que o navegador já pintou esse estado inicial antes de
+                // adicionar a classe que anima pra opacidade 1 — só um rAF às
+                // vezes roda antes do layout, e a transição não anima nada.
+                alvo.classList.remove("form-step--visivel");
+                requestAnimationFrame(function () {
+                  requestAnimationFrame(function () {
+                    alvo.classList.add("form-step--visivel");
+                  });
+                });
+              }
+
+              var primeiroCampo = alvo.querySelector("input, select, textarea");
+              if (primeiroCampo) primeiroCampo.focus();
+            };
+
+            if (btnAvancar) {
+              btnAvancar.addEventListener("click", function () {
+                var camposPasso1 = passo1.querySelectorAll("input, select, textarea");
+                Array.prototype.forEach.call(camposPasso1, validarCampo);
+                var primeiroInvalido = passo1.querySelector("input:invalid, textarea:invalid, select:invalid");
+                if (primeiroInvalido) {
+                  primeiroInvalido.focus();
+                  return;
+                }
+                mostrarPasso(2);
+              });
+            }
+
+            if (btnVoltar) {
+              btnVoltar.addEventListener("click", function () {
+                mostrarPasso(1);
+              });
+            }
+          }
+
+          function mostrarStatus(texto, tipo) {
+            if (!status) return;
+            status.textContent = texto;
+            status.className = "form-status form-status--" + tipo;
+            status.hidden = false;
+          }
+
+          form.addEventListener("submit", function (ev) {
+            ev.preventDefault();
+
+            // Num formulário em etapas, só a etapa visível (etapa 2) é
+            // validada aqui — a etapa 1 já foi validada ao avançar. Isso é
+            // necessário porque `hidden` num ancestral NÃO tira um campo da
+            // validação nativa (só `disabled` faz isso, e `disabled` também
+            // tiraria o campo do envio, o que não queremos: os dados da
+            // etapa 1 têm que continuar indo no FormData). Sem essa
+            // distinção, form.checkValidity() podia travar no envio final
+            // tentando focar um campo escondido que o usuário nem vê.
+            var camposParaValidar = mostrarPasso ? passo2.querySelectorAll("input, select, textarea") : campos;
+            var primeiroInvalido = null;
+            Array.prototype.forEach.call(camposParaValidar, function (campo) {
+              validarCampo(campo);
+              if (!primeiroInvalido && !campo.validity.valid) primeiroInvalido = campo;
+            });
+
+            if (primeiroInvalido) {
+              primeiroInvalido.focus();
+              return;
+            }
+
+            mostrarStatus("Enviando solicitação...", "info");
+            var enviar = form.querySelector('button[type="submit"]');
+            if (enviar) enviar.disabled = true;
+            var redirecionando = false;
+
+            fetch(form.action, {
+              method: "POST",
+              body: new FormData(form),
+              headers: { Accept: "application/json" },
+            })
+              .then(function (r) {
+                if (!r.ok) throw new Error("falha");
+                form.reset();
+                // form.reset() só reverte o valor dos campos — a etapa visível
+                // (controlada por `hidden` em divs, não em controles de
+                // formulário) não muda por conta própria. Volta pra etapa 1
+                // pra deixar tudo pronto caso a pessoa volte pra cá pelo
+                // botão "voltar" do navegador.
+                if (mostrarPasso) mostrarPasso(1);
+                // A confirmação agora é a página de obrigado, não a mensagem
+                // embaixo do formulário. O status de "redirecionando" cobre o
+                // intervalo até a nova página pintar, e `assign` (em vez de
+                // `replace`) mantém o site no histórico, pra o "voltar"
+                // funcionar como a pessoa espera.
+                redirecionando = true;
+                mostrarStatus("Solicitação enviada. Redirecionando...", "ok");
+                window.location.assign("obrigado.html");
+              })
+              .catch(function () {
+                mostrarStatus(
+                  "Não foi possível enviar sua solicitação agora. Tente novamente ou fale conosco pelo WhatsApp.",
+                  "erro"
+                );
+              })
+              .then(function () {
+                // Enquanto a navegação acontece o botão fica desabilitado de
+                // propósito: reabilitar aqui abriria uma janela de alguns
+                // instantes em que dá pra enviar o formulário de novo.
+                if (enviar && !redirecionando) enviar.disabled = false;
+              });
+          });
+        }
+
+        Array.prototype.forEach.call(document.querySelectorAll("form[data-form-endpoint]"), ligarFormulario);
+      })();
+    </script>
+  </body>
+</html>

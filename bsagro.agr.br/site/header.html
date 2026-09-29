@@ -1,0 +1,126 @@
+<script>
+window.BS_CONFIG = {
+  whatsapp: "5562996892488",
+  whatsappMsg: "Olá! Vim pelo site bsagro.agr.br e gostaria de falar com um especialista da BS Agro Capital.",
+  emails: { contato: "{{EMAIL:contato}}", dpo: "{{EMAIL:dpo}}", ouvidoria: "{{EMAIL:ouvidoria}}" },
+  formEndpoint: "https://formsubmit.co/ajax/",
+  analiseEndpoint: "https://n8n.widencreative.com/webhook/342d16c8-25c7-4b6c-810a-201ae3a351da",
+  obrigado: "{{U:obrigado}}",
+  clientArea: "{{U:area-do-cliente}}",
+  home: "{{HOME}}"
+};
+document.documentElement.classList.add("js");
+</script>
+<svg xmlns="http://www.w3.org/2000/svg" class="bs-sprite" aria-hidden="true" focusable="false">
+  <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></symbol>
+  <symbol id="i-arrow-l" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 5 5 12 12 19"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="18" y2="18"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+  <symbol id="i-contrast" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></symbol>
+  <symbol id="i-hands" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 11V5.5a1.5 1.5 0 0 1 3 0V10"/><path d="M10 9.5V4a1.5 1.5 0 0 1 3 0v6"/><path d="M13 9.5V5a1.5 1.5 0 0 1 3 0v6.5"/><path d="M16 10.5V8a1.5 1.5 0 0 1 3 0v5.5A7.5 7.5 0 0 1 11.5 21h-.6a6 6 0 0 1-4.5-2L3.3 15.4a1.6 1.6 0 0 1 2.3-2.2L7 14.5"/></symbol>
+  <symbol id="i-access" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4.5" r="1.8" fill="currentColor"/><path d="M4 9.5c5.3 1.2 10.7 1.2 16 0M12 10v4l-3 7M12 14l3 7"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M15 8l2 2M18 5l2 2"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+  <symbol id="i-map" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-whats" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.6 1.1 2.7c.1.2 1.9 2.9 4.6 4 1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></symbol>
+  <symbol id="i-facebook" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></symbol>
+  <symbol id="i-instagram" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M8 13h8M8 17h5"/></symbol>
+  <symbol id="i-scale" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 21h14M4 7h16M7 7l-3 7a3 3 0 0 0 6 0L7 7zM17 7l-3 7a3 3 0 0 0 6 0l-3-7z"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></symbol>
+  <symbol id="i-cookie" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3a9 9 0 1 0 9 9 4 4 0 0 1-4-4 4 4 0 0 1-5-5z"/><circle cx="9" cy="10" r="1" fill="currentColor"/><circle cx="14" cy="15" r="1" fill="currentColor"/><circle cx="9" cy="16" r="1" fill="currentColor"/></symbol>
+  <symbol id="i-handshake" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-2"/><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/><path d="M3 4h8"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/><path d="M8 12h.01M12 12h.01M16 12h.01"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></symbol>
+  <symbol id="i-pen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M5.6 18.4l2.8-2.8M15.6 8.4l2.8-2.8"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></symbol>
+  <symbol id="f-br" viewBox="0 0 24 17"><rect width="24" height="17" rx="2" fill="#009b3a"/><path d="M12 2.2 21.5 8.5 12 14.8 2.5 8.5z" fill="#fedf00"/><circle cx="12" cy="8.5" r="3.6" fill="#002776"/><path d="M8.6 7.6c2.4-.5 4.9 0 6.9 1.4" stroke="#fff" stroke-width=".7" fill="none"/></symbol>
+  <symbol id="f-us" viewBox="0 0 24 17"><rect width="24" height="17" rx="2" fill="#fff"/><g fill="#b22234"><rect width="24" height="1.3"/><rect y="2.6" width="24" height="1.3"/><rect y="5.2" width="24" height="1.3"/><rect y="7.8" width="24" height="1.3"/><rect y="10.4" width="24" height="1.3"/><rect y="13" width="24" height="1.3"/><rect y="15.7" width="24" height="1.3"/></g><rect width="10.5" height="9.1" fill="#3c3b6e"/></symbol>
+  <symbol id="f-es" viewBox="0 0 24 17"><rect width="24" height="17" rx="2" fill="#aa151b"/><rect y="4.25" width="24" height="8.5" fill="#f1bf00"/><rect x="6" y="7" width="3" height="3.4" rx=".5" fill="#aa151b" opacity=".85"/></symbol>
+</svg>
+
+<a href="#conteudo-principal" class="skip-link fixed left-4 top-4 z-[80] rounded-full bg-olive-800 px-4 py-3 text-sm font-medium text-paper">Ir para o conteúdo principal</a>
+
+<!-- Barra de acessibilidade (atalhos no padrão eMAG, contraste, fonte, Libras, idiomas) -->
+<div id="bs-util" class="bs-util" role="region" aria-label="Acessibilidade e idioma">
+  <div class="mx-auto flex h-full w-full max-w-7xl items-center justify-between gap-3 px-4 lg:px-6">
+    <ul class="bs-util__atalhos hidden items-center gap-4 md:flex" aria-label="Atalhos de teclado">
+      <li><a href="#conteudo-principal" accesskey="1">Ir para o conteúdo <span aria-hidden="true">[1]</span></a></li>
+      <li><a href="#bs-nav" accesskey="2">Ir para o menu <span aria-hidden="true">[2]</span></a></li>
+      <li><a href="#rodape" accesskey="3">Ir para o rodapé <span aria-hidden="true">[3]</span></a></li>
+      <li><a href="{{U:acessibilidade}}">Acessibilidade</a></li>
+    </ul>
+    <div class="bs-util__tools flex items-center gap-1 sm:gap-1.5">
+      <button type="button" class="bs-util__btn" data-bs-a11y="contrast" aria-pressed="false" title="Alto contraste"><svg aria-hidden="true"><use href="#i-contrast"/></svg><span class="sr-only">Alto contraste</span></button>
+      <button type="button" class="bs-util__btn bs-util__btn--txt" data-bs-a11y="minus" title="Diminuir texto"><span aria-hidden="true">A−</span><span class="sr-only">Diminuir tamanho do texto</span></button>
+      <button type="button" class="bs-util__btn bs-util__btn--txt" data-bs-a11y="reset" title="Tamanho padrão do texto"><span aria-hidden="true">A</span><span class="sr-only">Tamanho padrão do texto</span></button>
+      <button type="button" class="bs-util__btn bs-util__btn--txt" data-bs-a11y="plus" title="Aumentar texto"><span aria-hidden="true">A+</span><span class="sr-only">Aumentar tamanho do texto</span></button>
+      <button type="button" class="bs-util__btn" data-bs-libras title="Tradução para Libras (VLibras)"><svg aria-hidden="true"><use href="#i-hands"/></svg><span class="bs-util__lbl hidden sm:inline">Libras</span><span class="sr-only sm:hidden">Libras</span></button>
+      <span class="bs-util__sep" aria-hidden="true"></span>
+      <span class="bs-langs notranslate" role="group" aria-label="Idioma / Language / Idioma">
+        <button type="button" class="bs-lang" data-lang="pt" lang="pt-BR" title="Português (Brasil)" aria-label="Português (Brasil)"><svg aria-hidden="true"><use href="#f-br"/></svg><span>PT</span></button>
+        <button type="button" class="bs-lang" data-lang="en" lang="en" title="English" aria-label="English"><svg aria-hidden="true"><use href="#f-us"/></svg><span>EN</span></button>
+        <button type="button" class="bs-lang" data-lang="es" lang="es" title="Español" aria-label="Español"><svg aria-hidden="true"><use href="#f-es"/></svg><span>ES</span></button>
+      </span>
+      <span class="bs-util__sep hidden lg:block" aria-hidden="true"></span>
+      <a class="bs-util__link hidden lg:inline-flex" href="{{U:conformidade}}"><svg aria-hidden="true"><use href="#i-shield"/></svg>Conformidade</a>
+    </div>
+  </div>
+</div>
+
+<header id="site-header" class="{{HEADER_CLASS}}">
+  <div class="mx-auto flex w-full max-w-7xl items-center justify-between gap-3 px-4 lg:px-6">
+    <a href="{{HOME}}" class="site-logo flex items-center py-1" aria-label="BS Agro Capital, ir para a página inicial">
+      <img src="{{IMG:logo-white}}" alt="" width="2775" height="400" class="h-6 w-auto sm:h-7" decoding="async" fetchpriority="high" />
+    </a>
+
+    <nav id="bs-nav" aria-label="Navegação principal" class="header-pill hidden items-center gap-1 p-1.5 xl:flex">
+      <ul class="flex items-center gap-1 text-sm font-medium text-graphite-700">
+        <li><a href="{{HOME}}#solucoes" data-nav-anchor="#solucoes" class="nav-link inline-block rounded-full px-4 py-2.5 transition hover:bg-olive-900/5">Soluções</a></li>
+        <li><a href="{{HOME}}#como-funciona" data-nav-anchor="#como-funciona" class="nav-link inline-block rounded-full px-4 py-2.5 transition hover:bg-olive-900/5">Como funciona</a></li>
+        <li><a href="{{HOME}}#sobre" data-nav-anchor="#sobre" class="nav-link inline-block rounded-full px-4 py-2.5 transition hover:bg-olive-900/5">Sobre</a></li>
+        <li><a href="{{U:materias}}" data-nav-page="materias" class="nav-link inline-block rounded-full px-4 py-2.5 transition hover:bg-olive-900/5">Matérias</a></li>
+        <li><a href="{{HOME}}#faq" data-nav-anchor="#faq" class="nav-link inline-block rounded-full px-4 py-2.5 transition hover:bg-olive-900/5">Dúvidas</a></li>
+        <li><a href="{{U:contato}}" data-nav-page="contato" class="nav-link inline-block rounded-full px-4 py-2.5 transition hover:bg-olive-900/5">Contato</a></li>
+      </ul>
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <a href="{{U:area-do-cliente}}" data-ebcr-client-area class="bs-client-btn header-pill" aria-label="Área do Cliente: acompanhe sua solicitação de crédito">
+        <svg aria-hidden="true"><use href="#i-user"/></svg><span class="bs-client-btn__txt">Área do Cliente</span>
+      </a>
+      <div class="hidden lg:block">
+        <a href="{{HOME}}#solicitar-analise" class="cta-btn cta-btn--icon"><span class="cta-btn__text">Solicitar análise</span><span class="cta-btn__hover" aria-hidden="true"><span>Solicitar análise</span><svg viewBox="0 0 24 24" focusable="false"><use href="#i-arrow"/></svg></span></a>
+      </div>
+      <button id="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" class="header-pill flex h-10 w-10 items-center justify-center rounded-full text-graphite-700 xl:hidden">
+        <span class="sr-only">Abrir menu de navegação</span>
+        <svg id="icon-menu" width="24" height="24" aria-hidden="true"><use href="#i-menu"/></svg>
+        <svg id="icon-close" width="24" height="24" class="hidden" aria-hidden="true"><use href="#i-close"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <nav id="mobile-menu" aria-label="Navegação móvel" class="header-pill header-pill--menu mx-4 mt-2 hidden xl:hidden">
+    <ul class="flex flex-col gap-1 p-4 text-base font-medium text-graphite-700">
+      <li><a href="{{HOME}}#solucoes" data-nav-anchor="#solucoes" class="nav-link block rounded-2xl px-3 py-3">Soluções</a></li>
+      <li><a href="{{HOME}}#como-funciona" data-nav-anchor="#como-funciona" class="nav-link block rounded-2xl px-3 py-3">Como funciona</a></li>
+      <li><a href="{{HOME}}#sobre" data-nav-anchor="#sobre" class="nav-link block rounded-2xl px-3 py-3">Sobre</a></li>
+      <li><a href="{{U:materias}}" class="nav-link block rounded-2xl px-3 py-3">Matérias</a></li>
+      <li><a href="{{HOME}}#faq" data-nav-anchor="#faq" class="nav-link block rounded-2xl px-3 py-3">Dúvidas</a></li>
+      <li><a href="{{U:contato}}" class="nav-link block rounded-2xl px-3 py-3">Canal de contato</a></li>
+      <li><a href="{{U:conformidade}}" class="nav-link block rounded-2xl px-3 py-3">Conformidade</a></li>
+      <li class="mt-2 grid gap-2 sm:grid-cols-2">
+        <a href="{{U:area-do-cliente}}" data-ebcr-client-area class="font-display flex items-center justify-center gap-2 rounded-full border border-olive-800/30 px-4 py-3 text-center font-semibold text-olive-900"><svg class="h-5 w-5" aria-hidden="true"><use href="#i-user"/></svg>Área do Cliente</a>
+        <a href="{{HOME}}#solicitar-analise" class="font-display block rounded-full bg-olive-800 px-4 py-3 text-center font-semibold text-paper">Solicitar análise de crédito</a>
+      </li>
+    </ul>
+  </nav>
+</header>

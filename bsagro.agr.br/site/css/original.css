@@ -1,0 +1,1545 @@
+/* ==========================================================================
+   BS Agro Capital — estilos customizados
+   Complementa o Tailwind carregado via CDN. A paleta está duplicada aqui como
+   variáveis CSS (e em assets/tailwind-config.js para as classes utilitárias);
+   ao mudar uma cor, mudar nos dois lugares.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Fontes (self-hosted, sem CDN de terceiros)
+   Apenas estes pesos existem no projeto:
+   Raleway 400/600 (títulos e botões) e Roboto 300/400/500 (texto e rótulos).
+   -------------------------------------------------------------------------- */
+@font-face {
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("https://cdn.jsdelivr.net/npm/@fontsource/raleway@5/files/raleway-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("https://cdn.jsdelivr.net/npm/@fontsource/raleway@5/files/raleway-latin-600-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("https://cdn.jsdelivr.net/npm/@fontsource/roboto@5/files/roboto-latin-300-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("https://cdn.jsdelivr.net/npm/@fontsource/roboto@5/files/roboto-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("https://cdn.jsdelivr.net/npm/@fontsource/roboto@5/files/roboto-latin-500-normal.woff2") format("woff2");
+}
+
+/* --------------------------------------------------------------------------
+   2. Tokens
+   -------------------------------------------------------------------------- */
+:root {
+  --font-display: "Raleway", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Roboto", ui-sans-serif, system-ui, sans-serif;
+
+  --color-olive-950: #08201a;
+  --color-olive-900: #0d3527;
+  --color-olive-800: #124a35;
+  --color-olive-700: #1a6247;
+  --color-olive-600: #237a58;
+  --color-olive-100: #e2f2ea;
+  --color-olive-50: #f1f9f5;
+
+  --color-gold-800: #7a5710;
+  --color-gold-600: #b8860b;
+  --color-gold-500: #d4af37;
+  --color-gold-400: #e3c667;
+  --color-gold-300: #edd68f;
+
+  --color-graphite-950: #10131a;
+  --color-graphite-900: #171b24;
+  --color-graphite-800: #232833;
+  --color-graphite-700: #333a47;
+  --color-graphite-600: #4b5262;
+  --color-graphite-500: #6b7180;
+  --color-graphite-300: #bcc0c7;
+
+  --color-paper: #fbf9f4;
+
+  /* Pílula de 64px + 12px de respiro no topo (ver `#site-header`) + folga. */
+  --header-height: 88px;
+}
+
+/* --------------------------------------------------------------------------
+   3. Base
+   -------------------------------------------------------------------------- */
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Bloco de CSS que a documentação do Lenis manda incluir; as classes
+   .lenis* quem põe no <html> é o próprio Lenis. A regra do scroll-behavior
+   existe porque, com o Lenis ativo, é ele quem posiciona a rolagem quadro a
+   quadro: deixar a rolagem suave nativa do navegador ligada junto faz o
+   navegador animar suavemente até um alvo que já está se movendo. Medindo
+   um giro da roda aqui, a diferença não apareceu — mas as duas animações
+   concorrendo é um conflito real e sem motivo pra existir. O smooth vem da
+   seção de movimento reduzido, mais abaixo, onde serve de alternativa pra
+   quando o Lenis não roda; o !important é preciso porque aquela regra está
+   dentro de uma media query. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+/* A regra oficial do Lenis usa .lenis.lenis-smooth, mas a classe
+   lenis-smooth nem sempre está no <html> (na 1.3 o Lenis põe só "lenis"),
+   e aí o scroll-behavior: smooth do navegador continuava valendo. Basta o
+   Lenis estar ativo pra não querermos a rolagem suave nativa por cima. */
+html.lenis {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* Trava de segurança: nada nesta página deveria alargar o viewport (é
+   sempre um elemento específico ultrapassando a largura da tela, nunca
+   intencional), mas sem isso um único elemento estourando a largura força
+   rolagem horizontal na página inteira — em vez de cortar só aquele
+   elemento, "empurra" tudo e some com conteúdo pra quem não pensa em
+   rolar pro lado, especialmente no celular. */
+html,
+body {
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-paper);
+  color: var(--color-graphite-900);
+  font-family: var(--font-sans);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  /* Impede que o navegador invente pesos que não foram carregados: se algo
+     pedir um peso inexistente, cai no mais próximo real em vez de gerar um
+     negrito sintético. */
+  font-synthesis: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+/* Texto de destaque que não é heading (citações, números, rótulos de botão).
+   font-variant-numeric: a Raleway usa algarismos old-style por padrão —
+   números como "3" e "9" descem abaixo da linha de base, do jeito que uma
+   letra minúscula desceria. Do lado de texto maiúsculo (ex.: os indicadores
+   da Trajetória, com .uppercase) isso lê como se o número estivesse em
+   caixa baixa. "lining-nums" força todo algarismo pra altura da caixa-alta,
+   em qualquer texto que use a fonte de destaque. */
+.font-display {
+  font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
+}
+
+/* Parágrafo de abertura: Roboto Light em corpo maior. */
+.lead {
+  font-weight: 300;
+}
+
+.prose-institucional p + p {
+  margin-top: 1.1em;
+}
+
+/* Foco visível e consistente para navegação por teclado. */
+:focus-visible {
+  outline: 2px solid var(--color-gold-600);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.skip-link:not(:focus) {
+  position: absolute;
+  left: -9999px;
+}
+
+/* Âncoras não podem parar atrás do header fixo. */
+[id] {
+  scroll-margin-top: calc(var(--header-height) + 3px);
+}
+
+/* --------------------------------------------------------------------------
+   4. Header — pílula flutuante em glassmorphism
+   Sempre em vidro fosco, sobre qualquer fundo (foto do hero ou seção normal)
+   — diferente da versão anterior, não alterna mais entre transparente e
+   sólido no scroll. Só os links de navegação ficam dentro da pílula de
+   vidro (.header-pill); a logo e o botão "Solicitar análise" ficam soltos,
+   direto na barra transparente, como no site de referência. */
+#site-header {
+  position: fixed;
+  inset-inline: 0;
+  top: 0.75rem;
+  /* 55, não 50: precisa vencer o z-index: 51 do .solucoes-featured__portrait
+     (a foto que escapa do cartão de Soluções) — com o header aparecendo e
+     sumindo ao rolar, ele precisa ficar por cima de qualquer conteúdo da
+     página sempre que estiver visível, nunca atrás. */
+  z-index: 55;
+  transition: transform 0.3s ease;
+}
+
+/* Sobe pra fora da tela ao descer a página, volta ao subir — ver "Header:
+   esconde ao descer" no <script> do fim da página, que alterna essa classe
+   comparando a posição do scroll a cada evento. O deslocamento soma o
+   próprio "top: 0.75rem" pra garantir que a pílula suma por completo, sem
+   deixar nem uma tira visível colada no topo. */
+#site-header.header--escondido {
+  transform: translateY(calc(-100% - 0.75rem));
+}
+
+.header-pill {
+  position: relative;
+  isolation: isolate;
+  border-radius: 999px;
+  border: 1px solid rgb(255 255 255 / 0.4);
+  background: linear-gradient(
+    165deg,
+    rgb(255 255 255 / 0.5) 0%,
+    rgb(255 255 255 / 0.22) 45%,
+    rgb(255 255 255 / 0.32) 100%
+  );
+  backdrop-filter: blur(26px) saturate(190%);
+  -webkit-backdrop-filter: blur(26px) saturate(190%);
+  box-shadow:
+    0 20px 45px -20px rgb(16 19 26 / 0.4),
+    inset 0 1px 1px rgb(255 255 255 / 0.85),
+    inset 0 -1px 1px rgb(255 255 255 / 0.2),
+    inset 0 0 0 1px rgb(255 255 255 / 0.08);
+}
+
+/* Realce especular: uma faixa de luz na diagonal, como a refração de uma
+   borda de vidro de verdade — é o que diferencia "liquid glass" do
+   glassmorphism plano de antes. Fica atrás do conteúdo (z-index -1) e não
+   interfere no clique dos links. */
+.header-pill::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: linear-gradient(
+    115deg,
+    rgb(255 255 255 / 0.55) 0%,
+    rgb(255 255 255 / 0) 30%,
+    rgb(255 255 255 / 0) 70%,
+    rgb(255 255 255 / 0.3) 100%
+  );
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+/* Mesmo tratamento de vidro, só que com cantos menos arredondados — o menu
+   mobile não comporta uma lista de links em várias linhas dentro de uma
+   pílula de verdade. */
+.header-pill--menu {
+  border-radius: 28px;
+}
+
+/* Se o navegador não suporta backdrop-filter, o fundo precisa ser opaco para
+   o texto continuar legível. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .header-pill {
+    background: rgb(255 255 255 / 0.95);
+  }
+
+  .header-pill::before {
+    content: none;
+  }
+}
+
+/* Link da seção visível no momento — vira uma pílula preenchida dentro da
+   pílula de vidro do menu, como o item ativo do site de referência. */
+.nav-link[aria-current="true"] {
+  background-color: color-mix(in srgb, var(--color-gold-500) 20%, transparent);
+  color: var(--color-olive-900);
+}
+
+/* A logo fica solta na barra transparente (sem fundo próprio), então precisa
+   da própria sombra pra continuar legível tanto sobre a foto do hero quanto
+   sobre uma seção clara mais abaixo. */
+.site-logo img {
+  filter: drop-shadow(0 1px 2px rgb(16 19 26 / 0.35));
+}
+
+/* --------------------------------------------------------------------------
+   5. Hero — foto sangrando, gradiente e ornamento
+   -------------------------------------------------------------------------- */
+.hero-overlay {
+  background-image: linear-gradient(
+    to top,
+    rgb(16 19 26 / 0.9) 0%,
+    rgb(16 19 26 / 0.2) 55%,
+    rgb(16 19 26 / 0.1) 100%
+  );
+}
+
+/* Mesma ideia do .hero-overlay, mas pra seção do formulário final: o
+   conteúdo (headline + cartão) fica espalhado do topo ao fundo da seção,
+   não só grudado embaixo como no hero, então o véu é quase uniforme em vez
+   de um gradiente forte num sentido só. A cor é olive-900 (não graphite,
+   como no hero) pra manter a identidade da seção — o texto continua claro
+   por cima, então o contraste é o mesmo de antes, só que agora tem uma foto
+   por baixo do véu em vez de fundo sólido. */
+.form-section-overlay {
+  background-image: linear-gradient(
+    180deg,
+    rgb(13 53 39 / 0.88) 0%,
+    rgb(13 53 39 / 0.82) 100%
+  );
+}
+
+@keyframes hero-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Cartões flutuando perto do corpo do Caio — ícone redondo à esquerda +
+   texto em caixa alta à direita, a partir de uma referência que o cliente
+   mandou. Cada um usa um animation-delay negativo diferente (ver HTML) só
+   pra começar em um ponto diferente do ciclo do @keyframes hero-float —
+   sem isso, os quatro subiriam e desceriam em sincronia perfeita, o que lê
+   como "travado" em vez de orgânico. */
+.hero-chip {
+  display: inline-flex;
+  width: fit-content;
+  max-width: 14.5rem;
+  border-radius: 18px;
+  border: 1px solid rgb(255 255 255 / 0.18);
+  background-color: rgb(16 19 26 / 0.42);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  padding: 0.625rem 1.125rem;
+  animation: hero-float 5.5s ease-in-out infinite;
+}
+
+/* Título grande + legenda menor embaixo — mesmo par que os antigos
+   .hero-stat__number/__label (removidos: eram só usados aqui). */
+.hero-chip__title {
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--color-gold-300);
+}
+
+.hero-chip__label {
+  margin-top: 0.2rem;
+  font-size: 0.75rem;
+  line-height: 1.35;
+  color: rgb(255 255 255 / 0.78);
+}
+
+/* Título com a primeira palavra em escala bem maior que o resto da frase —
+   mesmo princípio do "Solar Power" gigante do site de referência. */
+.hero-headline {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.hero-headline__big {
+  font-size: clamp(4rem, 11vw, 8.5rem);
+  line-height: 0.92;
+}
+
+.hero-headline__rest {
+  font-size: clamp(1.75rem, 3.4vw, 2.75rem);
+  line-height: 1.15;
+}
+
+/* --------------------------------------------------------------------------
+   6. CTA — pílula com preenchimento expansivo
+   Efeito portado do botão "InteractiveHoverButton" do design system da
+   GFlow: um ponto no canto esquerdo (::before) expande no hover até cobrir
+   o botão inteiro, trocando a cor de fundo; nas variantes com seta
+   (.cta-btn--icon) o texto desliza pra fora enquanto uma cópia do texto + a
+   seta desliza por baixo pra dentro. .cta-btn sozinho (sem .cta-btn--icon,
+   ex.: "Voltar") só tem o preenchimento — sem texto duplicado, porque não
+   há seta pra revelar. 100% CSS, sem JavaScript.
+   O ponto é pseudo-elemento (não span) de propósito: assim todo .cta-btn
+   ganha o efeito de graça, sem precisar de markup extra nos botões sem seta.
+   Variantes: padrão (dourado), .cta-btn--outline (fundos escuros), .cta-btn--dark
+   (fundos claros) e .cta-btn--block (ocupa a largura do contêiner).
+   -------------------------------------------------------------------------- */
+/* Portado 1:1 do .btn da GFlow, trocando só a paleta. De propósito NÃO tem
+   gradiente, brilho, pulo no hover nem encolher no clique: o botão de
+   referência é chapado e o único movimento é o preenchimento crescendo. A
+   altura sai do padding (como lá), não de um height fixo — as variantes
+   continuam com a mesma altura entre si porque todas têm a borda de 1px. */
+.cta-btn {
+  --cta-fill: var(--color-graphite-950);
+  --cta-hover-fg: var(--color-paper);
+  position: relative;
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid var(--color-gold-500);
+  border-radius: 100px;
+  background-color: var(--color-gold-500);
+  /* Assimétrico: os 2.375rem à esquerda reservam o espaço em repouso do
+     ponto, igual ao botão de referência da GFlow. */
+  padding: 0.875rem 1.625rem 0.875rem 2.375rem;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--color-graphite-950);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.cta-btn:hover,
+.cta-btn:focus-visible {
+  color: var(--cta-hover-fg);
+}
+
+/* O ponto em repouso — vira o preenchimento que toma o botão inteiro no
+   hover. Portado 1:1 do .btn-dot da GFlow: a caixa cresce de 8×8 no canto
+   esquerdo até 100%×100%, e o scale(1.8) por cima garante que o excesso
+   estoure os cantos (o overflow: hidden da regra base corta seguindo a
+   curva da pílula).
+   O border-radius de 8px é o detalhe que faz o efeito: num quadrado de 8px
+   os raios se sobrepõem e o browser os reduz pra 4px, então em repouso é um
+   círculo perfeito; conforme a caixa cresce, os mesmos 8px viram cantos
+   discretos e a forma lê como um retângulo preenchendo o botão. Com 50% no
+   lugar disso a caixa vira uma elipse no meio do caminho — que era o que
+   estava errado aqui antes. */
+.cta-btn::before {
+  content: "";
+  position: absolute;
+  left: 1.125rem;
+  top: calc(50% - 0.25rem);
+  z-index: 1;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 8px;
+  background: var(--cta-fill);
+  transform: scale(1);
+  transition: left 0.3s ease, top 0.3s ease, width 0.3s ease, height 0.3s ease,
+    transform 0.3s ease;
+}
+
+.cta-btn:hover::before,
+.cta-btn:focus-visible::before {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  transform: scale(1.8);
+}
+
+/* O translateX(4px) em repouso vem da referência: é o respiro entre o ponto
+   e a primeira letra. */
+.cta-btn__text {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  transform: translateX(4px);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Só nos botões com seta o preenchimento passa POR CIMA do rótulo, como na
+   referência (lá o .btn-dot é o último elemento do botão; aqui é um
+   ::before, então quem reproduz isso é o z-index). Dá pra fazer porque o
+   rótulo some no hover e quem reexibe o texto é a camada duplicada. Sem
+   seta não existe duplicata, então o rótulo tem que continuar por cima — por
+   isso a regra é escopada em vez de valer pra todo .cta-btn__text. */
+.cta-btn--icon .cta-btn__text {
+  z-index: 0;
+}
+
+.cta-btn--icon:hover .cta-btn__text,
+.cta-btn--icon:focus-visible .cta-btn__text {
+  transform: translateX(3rem);
+  opacity: 0;
+}
+
+/* Camada com a cópia do texto + a seta: escondida à direita em repouso,
+   revelada no hover. aria-hidden porque o texto já foi lido em
+   .cta-btn__text — duplicar aqui é só efeito visual. */
+.cta-btn__hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  opacity: 0;
+  transform: translateX(3rem);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.cta-btn__hover svg {
+  height: 1.125rem;
+  width: 1.125rem;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.cta-btn--icon:hover .cta-btn__hover,
+.cta-btn--icon:focus-visible .cta-btn__hover {
+  transform: translateX(-0.25rem);
+  opacity: 1;
+}
+
+/* Variante para fundos escuros. A borda usa 45% de opacidade (e não 40%) para
+   ficar acima de 3:1 sobre o verde-floresta. O preenchimento no hover é
+   dourado, com texto grafite por cima — inverte o contraste do botão. */
+.cta-btn--outline {
+  --cta-fill: var(--color-gold-500);
+  --cta-hover-fg: var(--color-graphite-950);
+  background-color: transparent;
+  border-color: color-mix(in srgb, var(--color-paper) 45%, transparent);
+  color: var(--color-paper);
+}
+
+.cta-btn--outline:hover,
+.cta-btn--outline:focus-visible {
+  border-color: var(--color-gold-500);
+}
+
+/* Variante para fundos claros. Borda em 60%: com os 40% da referência daria
+   2,28:1 sobre o papel, abaixo do mínimo de 3:1. O preenchimento no hover é
+   oliva-900 (a mesma cor da borda), com texto claro por cima. */
+.cta-btn--dark {
+  --cta-fill: var(--color-olive-900);
+  --cta-hover-fg: var(--color-paper);
+  background-color: transparent;
+  border-color: color-mix(in srgb, var(--color-olive-900) 60%, transparent);
+  color: var(--color-graphite-950);
+}
+
+.cta-btn--dark:hover,
+.cta-btn--dark:focus-visible {
+  border-color: var(--color-olive-900);
+}
+
+/* Variante verde do WhatsApp — mesma mecânica das outras (preenchimento e
+   texto seguem herdando de .cta-btn, só a cor de fundo muda), com o verde
+   oficial #25D366 (mesmo tom do .whatsapp-fab) no lugar do dourado. Texto
+   continua graphite-950 (herdado da base) e passa de 4,5:1 sobre esse
+   verde. */
+.cta-btn--whatsapp {
+  background-color: #25d366;
+  border-color: #25d366;
+}
+
+/* Telas bem estreitas: reduz um pouco a fonte pra rótulos curtos não
+   brigarem por espaço à toa. Rótulos realmente longos ("Quero um plano
+   para Recuperação Judicial", 42 caracteres) não cabem numa linha só nem
+   reduzindo a fonte — sem max-width nem quebra, o botão simplesmente
+   ficava mais largo que a tela e estourava a página (era o que causava o
+   corte de conteúdo no celular). max-width trava o botão na largura do
+   próprio contêiner, e white-space: normal deixa o rótulo virar duas
+   linhas quando precisa. O botão não tem altura fixa (só padding), então
+   crescer pra duas linhas não quebra nada — inclusive a camada do hover
+   (.cta-btn__hover), que é width/height: 100% do botão e acompanha esse
+   crescimento. */
+@media (max-width: 420px) {
+  .cta-btn {
+    max-width: 100%;
+    font-size: 0.9375rem;
+    white-space: normal;
+    line-height: 1.3;
+  }
+}
+
+/* Botão que ocupa a largura do contêiner em qualquer tamanho de tela — usado
+   no envio de formulários dentro de um cartão (não no viewport inteiro, onde
+   ocupar 100% colidiria com o botão flutuante do WhatsApp). Definida depois
+   de .cta-btn no mesmo arquivo para vencer a disputa de especificidade com o
+   `width: fit-content` da regra base, sem depender da ordem de carregamento
+   entre este arquivo e o CSS gerado pelo Tailwind CDN. */
+.cta-btn--block {
+  width: 100%;
+}
+
+/* Botão mais comprido que o natural, mantendo a forma de pílula (só o
+   border-radius de 100px já garante isso, qualquer que seja a largura) —
+   usado quando o botão precisa se destacar mais sozinho, centralizado, em
+   vez de ocupar só o espaço do próprio texto. */
+.cta-btn--wide {
+  width: 100%;
+  max-width: 26rem;
+}
+
+/* --------------------------------------------------------------------------
+   7. Botão flutuante do WhatsApp
+   Redondo, com o ícone oficial da marca (assets/img/icons/whatsapp.webp) —
+   de propósito não segue a paleta da BS Agro: é um botão de canal externo
+   (como um "compartilhar no Facebook"), não um elemento de identidade da
+   marca. O ícone já vem com o verde oficial (#25D366) embutido na própria
+   imagem, então o botão não precisa de background-color própria — só o
+   recorte redondo (overflow: hidden) como reforço, já que a imagem em si já
+   é um círculo com cantos transparentes.
+   -------------------------------------------------------------------------- */
+.whatsapp-fab {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 50;
+  display: flex;
+  height: 56px;
+  width: 56px;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 9999px;
+  text-decoration: none;
+  box-shadow: 0 12px 26px -14px rgb(16 19 26 / 0.65);
+  transition: transform 300ms ease;
+}
+
+.whatsapp-fab:hover {
+  transform: translateY(-2px);
+}
+
+.whatsapp-fab__icon {
+  display: block;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  transition: filter 300ms ease;
+}
+
+.whatsapp-fab:hover .whatsapp-fab__icon {
+  filter: brightness(0.92);
+}
+
+/* --------------------------------------------------------------------------
+   8. Formulário — campos preenchidos (pill), em versão clara e escura
+   -------------------------------------------------------------------------- */
+.form-legend {
+  margin-bottom: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-olive-700);
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-graphite-800);
+}
+
+.form-optional {
+  font-weight: 400;
+  color: var(--color-graphite-600);
+}
+
+/* Campo preenchido em vez de sublinhado: fundo neutro leve (preto a 6% de
+   opacidade lê como cinza claro sobre o cartão de vidro claro) e cantos bem
+   arredondados, no padrão pedido pelo cliente. */
+.form-input {
+  margin-top: 0;
+  width: 100%;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  background-color: rgb(23 27 36 / 0.08);
+  padding: 0.75rem 1rem;
+  font-family: var(--font-sans);
+  /* Não reduzir abaixo de 16px: no Safari do iOS, um campo de texto/e-mail/
+     telefone com font-size menor que 16px faz a página inteira dar zoom ao
+     focar o campo. */
+  font-size: 1rem;
+  color: var(--color-graphite-900);
+  transition: background-color 200ms ease, border-color 200ms ease;
+}
+
+.form-input::placeholder {
+  color: var(--color-graphite-500);
+}
+
+.form-input:focus {
+  border-color: var(--color-olive-700);
+  background-color: rgb(23 27 36 / 0.03);
+  outline: none;
+}
+
+.form-input:focus-visible {
+  outline: 2px solid var(--color-gold-600);
+  outline-offset: 2px;
+}
+
+.field-error {
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  color: #b91c1c;
+}
+
+.field-error:empty {
+  display: none;
+}
+
+.form-status {
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+}
+
+/* Transição simples de "aparecer" entre as duas etapas do formulário (sem
+   flip de cartão, a pedido do cliente) — a etapa entra com um leve
+   deslizar + fade em vez de só trocar o atributo `hidden` de um jeito
+   abrupto. O JS remove `hidden` e alterna `.form-step--visivel` num
+   próximo frame para o navegador animar a transição. */
+.form-step {
+  transition: opacity 320ms ease, transform 320ms ease;
+}
+
+/* Precisa de mais especificidade que a classe `flex` do Tailwind: sem isso,
+   `display:flex` (CSS de autor) vence o `[hidden]{display:none}` do
+   navegador (CSS de user-agent), que perde em qualquer empate de
+   especificidade — e a etapa escondida continua ocupando altura no layout
+   mesmo com o atributo `hidden` presente. */
+.form-step[hidden] {
+  display: none;
+}
+
+.form-step:not(.form-step--visivel) {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+.form-step--visivel {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.form-status[hidden] {
+  display: none;
+}
+
+.form-status--info {
+  background-color: var(--color-olive-100);
+  color: var(--color-olive-800);
+}
+
+.form-status--ok {
+  background-color: var(--color-olive-100);
+  color: var(--color-olive-800);
+}
+
+.form-status--erro {
+  background-color: #fef2f2;
+  color: #991b1b;
+}
+
+/* Versão sobre fundo escuro */
+[data-tone="dark"] .form-legend {
+  color: var(--color-gold-300);
+}
+
+[data-tone="dark"] .form-label {
+  color: var(--color-paper);
+}
+
+[data-tone="dark"] .form-optional {
+  color: color-mix(in srgb, var(--color-paper) 70%, transparent);
+}
+
+[data-tone="dark"] .form-input {
+  background-color: rgb(255 255 255 / 0.08);
+  color: var(--color-paper);
+}
+
+[data-tone="dark"] .form-input::placeholder {
+  color: color-mix(in srgb, var(--color-paper) 55%, transparent);
+}
+
+[data-tone="dark"] .form-input:focus {
+  border-color: var(--color-gold-400);
+  background-color: rgb(255 255 255 / 0.05);
+}
+
+/* O menu suspenso do select é desenhado pelo sistema, sempre sobre fundo
+   claro, então a opção precisa de texto escuro mesmo na versão escura. */
+[data-tone="dark"] .form-input option {
+  color: var(--color-graphite-900);
+}
+
+[data-tone="dark"] .field-error {
+  color: #fca5a5;
+}
+
+/* --------------------------------------------------------------------------
+   9. Cards e mídia
+   -------------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------------
+   9a. Cards de soluções — hover reveal
+   Grade de cartões com imagem de fundo: ao passar o mouse pelo grupo, todos
+   esmaecem e desfocam levemente; o cartão sob o cursor (ou com foco de
+   teclado) ganha destaque, com escala maior e nitidez total. A regra do
+   cartão individual vem depois da regra do grupo no arquivo — mesma
+   especificidade, então quem vem por último no CSS ganha, sem precisar de
+   !important. tabindex="0" no HTML garante que dá pra alcançar o destaque
+   sem mouse, pelo teclado (:focus-visible). */
+/* Uma coluna no celular. Em duas colunas o cartão ficava com ~148px de
+   largura e as descrições (a do CPR tem 230 caracteres) passavam de 460px de
+   altura dentro de um cartão de 320px: como o texto é ancorado embaixo e o
+   cartão tem overflow:hidden, o excesso era cortado POR CIMA e o título
+   sumia — o cartão do CPR aparecia sem dizer a que linha se referia. Duas
+   colunas voltam a partir de 640px e as quatro ficam para 1024px, largura em
+   que a descrição mais longa cabe de novo. */
+.solucoes-cards {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .solucoes-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .solucoes-cards {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* min-height no lugar de height: com altura fixa, texto maior que o cartão
+   era cortado em silêncio (foi o que aconteceu com os títulos no celular).
+   Assim o cartão cresce quando precisa, em vez de esconder conteúdo. As
+   larguras acima já fazem o texto caber, então na prática ele fica nos 20rem
+   de sempre — isto é a rede de proteção para quando o texto mudar. O
+   justify-content mantém o conteúdo ancorado embaixo, como era com o
+   position:absolute. */
+.solucoes-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 20rem;
+  overflow: hidden;
+  border-radius: 20px;
+  background-color: var(--color-graphite-900);
+  box-shadow: var(--shadow-soft, 0 20px 45px -20px rgb(23 27 36 / 0.25));
+  transition: transform 0.5s ease, opacity 0.5s ease, filter 0.5s ease;
+}
+
+.solucoes-cards:hover .solucoes-card {
+  transform: scale(0.97);
+  opacity: 0.65;
+  filter: blur(2px);
+}
+
+.solucoes-cards .solucoes-card:hover,
+.solucoes-cards .solucoes-card:focus-visible {
+  transform: scale(1.04);
+  opacity: 1;
+  filter: none;
+  z-index: 2;
+}
+
+.solucoes-card:focus-visible {
+  outline: 2px solid var(--color-gold-500);
+  outline-offset: 3px;
+}
+
+.solucoes-card__img {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* Gradiente por baixo do texto: mais opaco perto do rodapé do cartão pra
+   garantir leitura mesmo na pior combinação de cores da imagem, igual ao
+   raciocínio de contraste usado no resto do site. */
+.solucoes-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgb(8 10 13 / 0.85) 0%, rgb(8 10 13 / 0.35) 48%, transparent 78%);
+}
+
+/* Fora do position:absolute: agora o texto conta na altura do cartão, que é
+   o que permite o cartão crescer em vez de cortá-lo. Continua sobre o
+   gradiente porque vem depois dele no HTML. */
+.solucoes-card__content {
+  position: relative;
+  padding: 1.25rem;
+  color: var(--color-paper);
+}
+
+.solucoes-card__eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-gold-300);
+}
+
+.solucoes-card__title {
+  margin-top: 0.25rem;
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.solucoes-card__desc {
+  margin-top: 0.5rem;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: rgb(255 255 255 / 0.75);
+}
+
+/* 9a-bis. Cards de "Atuação especializada" — mesmo hover-reveal dos cards de
+   soluções acima: ao passar o mouse por um, o outro esmaece e desfoca
+   levemente, e o cartão sob o cursor (ou com foco de teclado num link de
+   dentro dele) ganha destaque com escala maior e nitidez total. */
+.atuacao-card {
+  transition: transform 0.5s ease, opacity 0.5s ease, filter 0.5s ease;
+}
+
+.atuacao-cards:hover .atuacao-card {
+  transform: scale(0.97);
+  opacity: 0.65;
+  filter: blur(2px);
+}
+
+.atuacao-cards .atuacao-card:hover,
+.atuacao-cards .atuacao-card:focus-within {
+  transform: scale(1.02);
+  opacity: 1;
+  filter: none;
+  z-index: 2;
+}
+
+/* Cartão grande em destaque ("Solução mais procurada"): foto de fundo com um
+   véu verde-oliva por cima (mesmo tom do bg-olive-900 que existia antes, só
+   que agora sobre a imagem) pra manter o texto legível em qualquer ponto da
+   foto. O conteúdo (texto, ícone, botão) fica em .solucoes-featured__content,
+   que tem z-index próprio pra nunca ficar por baixo da imagem. */
+.solucoes-featured {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: 20px;
+  color: var(--color-paper);
+  background-color: var(--color-olive-900);
+}
+
+.solucoes-featured__img {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.solucoes-featured__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    rgb(13 53 39 / 0.94) 0%,
+    rgb(13 53 39 / 0.88) 45%,
+    rgb(13 53 39 / 0.7) 100%
+  );
+}
+
+.solucoes-featured__content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Retrato que escapa do cartão por cima, encostado no canto inferior direito.
+   Sibling do .solucoes-featured (não filho) de propósito: o cartão tem
+   overflow: hidden para as bordas arredondadas, e um filho não conseguiria
+   estourar esse recorte. pointer-events: none porque é puramente decorativo:
+   sem isso, passar o mouse sobre a foto (que visualmente fica sobre o
+   cartão) bloquearia o :hover dos elementos por baixo. */
+.solucoes-featured__portrait {
+  position: absolute;
+  right: clamp(0rem, 1.5vw, 1.25rem);
+  bottom: 0;
+  /* Garante que o retrato fique por cima do .solucoes-featured (o cartão
+     escuro logo antes dele no HTML). NÃO é mais maior que o #site-header
+     de propósito — o header usa z-index: 55 justamente pra vencer esse 51
+     e nunca ficar escondido atrás do retrato ao reaparecer na rolagem
+     (era o contrário antes; ver #site-header no CSS). */
+  z-index: 51;
+  height: clamp(20rem, 38vw, 31rem);
+  width: auto;
+  pointer-events: none;
+}
+
+@media (max-width: 640px) {
+  .solucoes-featured__portrait {
+    display: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   9d. Divisor de seção (linha + "+")
+   Marca a transição entre uma seção e a próxima: um filete de 1px com um "+"
+   centralizado por cima. currentColor em vez de uma cor fixa: herda a cor de
+   texto de cada seção (escura nas seções claras, .text-paper nas escuras,
+   como a CTA final), então funciona em qualquer fundo sem precisar de uma
+   variante por seção. */
+.section-divider {
+  position: relative;
+  height: 1px;
+  background-color: color-mix(in srgb, currentColor 14%, transparent);
+}
+
+.section-divider__plus {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  line-height: 1;
+  color: color-mix(in srgb, currentColor 55%, transparent);
+}
+
+/* --------------------------------------------------------------------------
+   9b. Glassmorphism
+   Usado com moderação, só onde um cartão flutua sobre um fundo com gradiente
+   próprio (nunca sobre a foto do hero, onde o contraste real não dá pra
+   garantir com o site parado numa posição qualquer de rolagem). Cada seção
+   que usa vidro define o gradiente que fica por baixo (.bg-mesh-*).
+   -------------------------------------------------------------------------- */
+/* Os dois círculos ficam perto do centro vertical (35%/65%), não perto do
+   topo/fundo — uma seção bg-mesh-light quase sempre encosta em cima ou
+   embaixo numa seção bg-paper lisa (sem gradiente nenhum), e um círculo
+   perto da borda concentra o tom ali, criando uma linha de contraste bem
+   visível exatamente na emenda entre as duas — lia como defeito de
+   renderização, não como gradiente de propósito. */
+.bg-mesh-light {
+  background-color: var(--color-paper);
+  background-image: radial-gradient(560px circle at 15% 35%, rgb(212 175 55 / 0.10), transparent 60%),
+    radial-gradient(620px circle at 85% 65%, rgb(26 98 71 / 0.10), transparent 60%);
+}
+
+.bg-mesh-dark {
+  background-color: var(--color-graphite-950);
+  background-image: radial-gradient(600px circle at 8% 12%, rgb(212 175 55 / 0.12), transparent 60%),
+    radial-gradient(680px circle at 92% 88%, rgb(35 122 88 / 0.16), transparent 60%);
+}
+
+.glass-card {
+  position: relative;
+  border-radius: 28px;
+  border: 1px solid rgb(255 255 255 / 0.6);
+  background-color: rgb(255 255 255 / 0.55);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  box-shadow: var(--shadow-soft, 0 20px 45px -20px rgb(23 27 36 / 0.25));
+}
+
+.glass-card--dark {
+  border-radius: 24px;
+  border: 1px solid rgb(255 255 255 / 0.12);
+  background-color: rgb(255 255 255 / 0.06);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+}
+
+/* Variante para o cartão do hero: fica direto sobre a foto, não sobre um
+   gradiente controlado como as outras duas. A foto muda de brilho conforme o
+   recorte e a posição do cartão, então a opacidade continua bem mais alta que
+   .glass-card (85%, não 55%) para garantir leitura em qualquer ponto — subir
+   de 80% para 85% só aumenta a margem de contraste do texto escuro
+   (graphite-900) e do texto claro (graphite-600, ex.: "(opcional)") em cima
+   do mínimo de 4,5:1. O saturate caiu de 180% para 130% para o vidro não
+   puxar o tom dourado/oliva da foto por baixo — fica um branco mais limpo e
+   neutro em vez de amarelado. Blur maior (36px) suaviza ainda mais o que
+   atravessa, mantendo a leitura de vidro fosco sem ficar um retângulo branco
+   sólido. O brilho no topo (::before) é o toque clássico de glassmorphism,
+   imitando luz refletindo na borda superior do vidro. */
+.glass-card--hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: 28px;
+  border: 1px solid rgb(255 255 255 / 0.75);
+  background-color: rgb(255 255 255 / 0.85);
+  backdrop-filter: blur(36px) saturate(130%);
+  -webkit-backdrop-filter: blur(36px) saturate(130%);
+  box-shadow: 0 30px 60px -20px rgb(16 19 26 / 0.4);
+}
+
+.glass-card--hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, rgb(255 255 255 / 0.65) 0%, rgb(255 255 255 / 0) 36%);
+  pointer-events: none;
+}
+
+/* Sem suporte a backdrop-filter: cai para um fundo quase opaco em vez de vidro
+   invisível. O contraste do texto já foi verificado contra este fallback. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass-card {
+    background-color: rgb(255 255 255 / 0.92);
+  }
+
+  .glass-card--dark {
+    background-color: rgb(255 255 255 / 0.1);
+  }
+
+  .glass-card--hero {
+    background-color: rgb(255 255 255 / 0.97);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   9b. Carrossel de parceiros — loop infinito
+   A trilha duplica a lista de logos uma vez (ver `partners-marquee--duplicada`
+   no HTML) e anima -50%: como a segunda metade é idêntica à primeira, o ponto
+   em que o loop reinicia é visualmente idêntico ao quadro anterior, dando a
+   impressão de um scroll contínuo sem "salto". A máscara nas bordas some com
+   o corte abrupto onde os logos entram/saem da view. `prefers-reduced-motion`
+   já zera a duração de toda animação no site (seção 11), então a trilha para
+   sozinha sem precisar de uma regra própria aqui. -------------------------- */
+.partners-marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+.partners-marquee__track {
+  display: flex;
+  width: max-content;
+  animation: partners-marquee-scroll 56s linear infinite;
+}
+
+/* Só pausa no foco por teclado (não no hover do mouse, a pedido do cliente) —
+   mantém um jeito de pausar pra quem navega via teclado (WCAG 2.2.2). */
+.partners-marquee:focus-within .partners-marquee__track {
+  animation-play-state: paused;
+}
+
+@keyframes partners-marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.partners-marquee__item {
+  display: flex;
+  height: 88px;
+  width: 168px;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem 1.5rem;
+}
+
+.partners-marquee__item img {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: 0.6;
+  transition: opacity 250ms ease, filter 250ms ease;
+}
+
+.partners-marquee__item:hover img,
+.partners-marquee__item:focus-within img {
+  filter: none;
+  opacity: 1;
+}
+
+/* Marcas cujo arquivo só existe em branco (pensado para fundo escuro): o
+   card ganha um fundo escuro próprio em vez de tentar o mesmo tratamento
+   cinza das outras, que ficaria invisível sobre o `bg-mesh-light` da seção. */
+.partners-marquee__item--dark {
+  border-radius: 16px;
+  background-color: var(--color-graphite-950);
+}
+
+.partners-marquee__item--dark img {
+  opacity: 0.75;
+}
+
+.partners-marquee__item--dark:hover img,
+.partners-marquee__item--dark:focus-within img {
+  opacity: 1;
+}
+
+/* Alguns arquivos de logo (Porto Seguro Bank, CashMe, MetLife) têm mais
+   respiro/padding dentro do próprio PNG, então ficam visivelmente menores
+   que os outros mesmo com a caixa do item do mesmo tamanho. Escala só a
+   imagem, centralizada, sem mexer no tamanho da caixa nem no espaçamento
+   da trilha. */
+.partners-marquee__item--lg img {
+  transform: scale(1.6);
+}
+
+/* --------------------------------------------------------------------------
+   9e. Carrossel de diferenciais — com setas e barra de progresso
+   Estrutura pedida pelo cliente a partir de uma referência (site da Cresol):
+   título e legenda centralizados, cartões em caixas com borda (não mais só
+   um filete no topo) e navegação manual por setas, com uma barra fina
+   indicando o progresso da rolagem.
+   Diferente dos carrosséis de loop infinito acima (parceiros, depoimentos),
+   este é rolagem nativa do navegador com scroll-snap — sem transform, sem
+   @keyframes, sem duplicar cartão nenhum. As setas chamam scrollTo() no
+   JS (ver "Carrossel de diferenciais" no <script> do fim da página) direto
+   pra ponta (esquerda = primeiro cartão, direita = último), e o mesmo JS
+   recalcula a barra de progresso a cada evento de scroll.
+   As setas ficam nas pontas da barra de progresso, embaixo do carrossel
+   (ver .diferenciais-carousel__controles), e não flutuando nas laterais da
+   faixa de cartões. Ali elas já foram tentadas de três jeitos — grudadas na
+   borda, num corredor de 3.5rem e num de 4.5rem — e em todos parecia que
+   estavam por cima do cartão: o scroll-snap sempre trava ALGUM cartão flush
+   contra a borda do viewport (é o que "scroll-snap-align: start" faz), e
+   cartão, corredor e seta têm todos o mesmo fundo (--color-paper), então não
+   existe distância nem contraste que separe as duas coisas de forma
+   confiável. Embaixo o problema simplesmente não acontece, em nenhuma
+   posição do scroll — e as setas passam a servir também no celular, onde o
+   corredor lateral não cabia e elas ficavam escondidas.
+   O número de cartões por "página" nunca é fixo em JS: cada cartão ocupa uma
+   fração da largura do track (33% no desktop, 50% no tablet, 85% no
+   celular, deixando o próximo cartão espiar na borda), então quantos cabem
+   por vez já é decidido pelo CSS — inclusive se algum dia entrar um sétimo
+   diferencial, o carrossel continua funcionando sem tocar no JS. */
+
+.diferenciais-carousel__track {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: 1px;
+  /* Esconde a barra de rolagem nativa nos navegadores que suportam — a
+     navegação visível é a barra de progresso + as setas abaixo, não a
+     scrollbar do sistema. */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.diferenciais-carousel__track::-webkit-scrollbar {
+  display: none;
+}
+
+.diferenciais-carousel__card {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  /* 85%: deixa o próximo cartão espiando na borda direita — a pista de que
+     tem mais conteúdo pra rolar, o mesmo papel que as setas cumprem a
+     partir de 640px (aqui embaixo desse breakpoint elas ficam escondidas,
+     ver .diferenciais-carousel__nav). */
+  width: 85%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  border: 1px solid color-mix(in srgb, var(--color-graphite-900) 15%, transparent);
+  background-color: var(--color-paper);
+  padding: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .diferenciais-carousel__card {
+    width: calc(50% - 0.75rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  .diferenciais-carousel__track {
+    gap: 2rem;
+  }
+
+  .diferenciais-carousel__card {
+    width: calc(33.333% - 1.334rem);
+    padding: 2rem;
+  }
+}
+
+/* Trilho fino cinza com um segmento colorido por cima (mesma leitura da
+   referência): a largura do preenchimento é a % de scroll já percorrida,
+   escrita direto no atributo style pelo JS a cada evento de scroll. */
+.diferenciais-carousel__progress {
+  position: relative;
+  height: 2px;
+  /* Estica entre as duas setas, ocupando toda a largura que sobra da linha. */
+  flex: 1 1 auto;
+  min-width: 0;
+  border-radius: 999px;
+  background-color: color-mix(in srgb, var(--color-graphite-900) 12%, transparent);
+}
+
+.diferenciais-carousel__progress-fill {
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  border-radius: 999px;
+  background-color: var(--color-gold-600);
+  transition: width 0.2s ease;
+}
+
+/* Linha de controles embaixo do carrossel, na largura inteira da faixa de
+   cartões: seta anterior colada na ponta esquerda, seta seguinte na ponta
+   direita e a barra de progresso esticada entre as duas. Centralizar o
+   conjunto (que era o que estava aqui antes) deixava um vazio grande entre a
+   borda dos cartões e a primeira seta — a mesma faixa branca que o corredor
+   lateral criava, só que embaixo. */
+.diferenciais-carousel__controles {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.diferenciais-carousel__nav {
+  /* Só a seta, sem o círculo (borda + fundo + sombra) que ela tinha quando
+     ficava na lateral: lá o botão e o cartão dividiam o mesmo fundo
+     (--color-paper), e o círculo lia como um pedaço do cartão. Aqui embaixo,
+     longe da faixa de cartões, a seta sozinha já basta como sinal de "dá pra
+     passar pro lado". A área de clique continua sendo os 2.75rem do botão —
+     alvo de toque confortável no celular, onde agora ela também aparece — e o
+     border-radius fica pro anel de foco do teclado. O border/background/padding
+     zerados não são redundância do preflight do Tailwind: são o que garante
+     que sobre só a seta se o preflight sair do caminho. */
+  display: flex;
+  height: 2.75rem;
+  width: 2.75rem;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  padding: 0;
+  color: var(--color-graphite-900);
+  cursor: pointer;
+  transition: color 0.2s ease, opacity 0.25s ease, visibility 0.25s ease;
+}
+
+/* Seta desativada: some de vista. O estado vem do atributo disabled, posto
+   pelo JS quando o carrossel chega numa das pontas (ver atualizarCarrossel).
+   visibility em vez de display pra manter a transição — com display:none o
+   navegador não anima nada e a seta piscaria de um quadro pro outro. */
+.diferenciais-carousel__nav[disabled] {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.diferenciais-carousel__nav svg {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.diferenciais-carousel__nav:hover,
+.diferenciais-carousel__nav:focus-visible {
+  color: var(--color-gold-700);
+}
+
+/* --------------------------------------------------------------------------
+   9f. FAQ — acordeão nativo
+   <details>/<summary> em vez de um acordeão em JS: teclado, leitor de tela e
+   busca do navegador (Ctrl+F encontra texto dentro de itens fechados) já
+   funcionam de graça, sem precisar reimplementar nada disso. O JS do site
+   não toca aqui — só o CSS abaixo cuida da aparência (esconde o marcador
+   nativo do <summary>, gira o chevron) e o próprio navegador cuida de abrir
+   e fechar. */
+.faq-item {
+  padding-block: 1.25rem;
+}
+
+.faq-item__question {
+  display: flex;
+  cursor: pointer;
+  list-style: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--color-graphite-900);
+}
+
+/* Marcador padrão do <summary> (a seta do Chrome/Safari): escondido porque
+   o .faq-item__chevron abaixo já cumpre esse papel, com controle de estilo
+   e animação que o marcador nativo não permite. */
+.faq-item__question::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item__question:focus-visible {
+  outline: 2px solid var(--color-gold-500);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.faq-item__chevron {
+  height: 1.25rem;
+  width: 1.25rem;
+  flex: none;
+  color: var(--color-olive-800);
+  transition: transform 0.25s ease;
+}
+
+.faq-item[open] .faq-item__chevron {
+  transform: rotate(180deg);
+}
+
+.faq-item__answer {
+  margin-top: 0.75rem;
+  padding-right: 2rem;
+  line-height: 1.6;
+  color: var(--color-graphite-600);
+}
+
+/* Indicadores da seção "Quem somos" (+10 anos, +800 clientes, +R$ 200M).
+   nowrap porque "+800 CLIENTES" é o mais longo dos três e quebrava em duas
+   linhas ("+800" / "CLIENTES") na maioria das larguras de desktop: a coluna
+   tem 384px em 1280px de tela e o texto, 385px. Um pixel. Com a quebra, a
+   legenda dessa coluna descia e ficava fora de linha com as outras duas.
+   Como nowrap sozinho faria o texto transbordar a coluna e invadir a
+   vizinha, o tamanho é fluido: cresce com a tela e para nos 52px de antes,
+   que é onde ele cabe inteiro. O mesmo tamanho vale para os três, senão um
+   indicador ficaria menor que os outros sem motivo aparente. */
+.stat-numero {
+  white-space: nowrap;
+  line-height: 1.1;
+  /* Empilhados, um por linha: o número tem a largura toda e o limite é só
+     não passar da borda da tela. */
+  font-size: clamp(2rem, 10vw, 2.75rem);
+}
+
+@media (min-width: 768px) {
+  /* Três por linha: agora cada número disputa um terço da largura, e o teto
+     é o tamanho original de 52px — alcançado a partir de ~1530px, onde a
+     coluna finalmente comporta os 385px de "+800 CLIENTES". */
+  .stat-numero {
+    font-size: clamp(1.625rem, 3.4vw, 52px);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   10. Animação de entrada ao rolar
+   O elemento só fica invisível se o JS estiver ativo (a classe `js` é posta no
+   <html> logo no início do documento), para que o conteúdo apareça normalmente
+   quando o JavaScript falha ou está desligado.
+   -------------------------------------------------------------------------- */
+.js .revelar {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 700ms cubic-bezier(0.23, 1, 0.32, 1),
+    transform 700ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.js .revelar.visivel {
+  opacity: 1;
+  transform: none;
+}
+
+/* Variante lateral: os cartões de Propósito entram vindo da direita, não de
+   baixo pra cima. A regra de chegada (opacity/transform final) continua
+   sendo a de .revelar.visivel acima — só o ponto de partida muda aqui, e por
+   isso essa regra precisa vir DEPOIS de ".js .revelar" no arquivo (mesma
+   especificidade, então quem é declarado por último vence a disputa do
+   transform inicial). */
+.js .revelar--right {
+  transform: translateX(64px);
+}
+
+/* --------------------------------------------------------------------------
+   11. Movimento reduzido
+   Zera durações e animações. Os estados finais continuam iguais aos de todo
+   mundo: quem pede menos movimento vê a mesma interface, só que sem o tween.
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .js .revelar {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Exceção: sem o loop, boa parte das logos de parceiros nunca apareceria
+     pra quem pede menos movimento (só cabem ~5 na largura da tela). O
+     scroll é lento, linear e sem susto, e continua pausável no hover/foco
+     do mouse e teclado — por isso volta a rodar mesmo aqui. */
+  .partners-marquee__track {
+    animation-duration: 56s !important;
+    animation-iteration-count: infinite !important;
+  }
+}

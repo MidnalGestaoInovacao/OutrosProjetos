@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Solicitação recebida | BS Agro Capital</title>
+    <meta name="description" content="Recebemos sua solicitação de análise de crédito. Nossa equipe entrará em contato pelos dados informados." />
+    <link rel="canonical" href="https://www.bsagrocapital.com.br/obrigado.html" />
+    <!-- noindex: página de confirmação, só faz sentido depois de enviar o
+         formulário — não deve aparecer em busca nem no sitemap.xml. -->
+    <meta name="robots" content="noindex, nofollow" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Solicitação recebida | BS Agro Capital" />
+    <meta property="og:description" content="Recebemos sua solicitação de análise de crédito. Nossa equipe entrará em contato pelos dados informados." />
+    <meta property="og:url" content="https://www.bsagrocapital.com.br/obrigado.html" />
+    <meta property="og:image" content="https://www.bsagrocapital.com.br/og-image.svg" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="BS Agro Capital" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Solicitação recebida | BS Agro Capital" />
+    <meta name="twitter:description" content="Recebemos sua solicitação de análise de crédito. Nossa equipe entrará em contato pelos dados informados." />
+    <meta name="twitter:image" content="https://www.bsagrocapital.com.br/og-image.svg" />
+
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <meta name="theme-color" content="#0d3527" />
+
+    <!-- Marca o documento como "JS ativo" antes de qualquer pintura, para que a
+         animação de entrada só esconda conteúdo se o JavaScript funcionar. -->
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
+
+    <!-- As fontes são locais; o preload evita o salto de texto no carregamento. -->
+    <link rel="preload" as="font" type="font/woff2" href="assets/fonts/raleway-latin-600-normal.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="assets/fonts/roboto-latin-400-normal.woff2" crossorigin />
+
+    <!-- Tailwind via CDN. Atenção: o Play CDN compila o CSS no navegador a cada
+         carregamento; ver a seção "Performance" do README para a alternativa. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="assets/tailwind-config.js"></script>
+
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body class="flex min-h-screen flex-col bg-paper font-sans text-graphite-900 antialiased">
+    <a href="#conteudo-principal" class="skip-link fixed left-4 top-4 z-[60] rounded-full bg-olive-800 px-4 py-3 text-sm font-medium text-paper">Ir para o conteúdo principal</a>
+
+    <header id="site-header">
+      <div class="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 lg:px-6">
+        <a href="index.html" class="site-logo flex items-center py-1" aria-label="BS Agro Capital, ir para o início">
+          <img src="assets/img/logo/bs-agro-logo-white.png" alt="" width="524" height="400" class="h-6 w-auto sm:h-7" />
+        </a>
+
+        <nav aria-label="Navegação principal" class="header-pill hidden items-center gap-1 p-1.5 xl:flex">
+          <ul class="flex items-center gap-1 text-sm font-medium text-graphite-700">
+            <li><a href="index.html#sobre" class="nav-link inline-block rounded-full px-4 py-2.5 transition hover:bg-olive-900/5">Sobre</a></li>
+            <li><a href="index.html#solucoes" class="nav-link inline-block rounded-full px-4 py-2.5 transition hover:bg-olive-900/5">Soluções</a></li>
+            <li><a href="index.html#como-funciona" class="nav-link inline-block rounded-full px-4 py-2.5 transition hover:bg-olive-900/5">Como funciona</a></li>
+            <li><a href="index.html#solicitar-analise" class="nav-link inline-block rounded-full px-4 py-2.5 transition hover:bg-olive-900/5">Contato</a></li>
+          </ul>
+        </nav>
+
+        <div class="flex items-center gap-2">
+          <div class="hidden lg:block">
+            <a href="index.html" class="cta-btn cta-btn--icon"><span class="cta-btn__text">Voltar ao início</span><span class="cta-btn__hover" aria-hidden="true"><span>Voltar ao início</span><svg viewBox="0 0 24 24" focusable="false"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span></a>
+          </div>
+
+          <button id="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" class="header-pill flex h-10 w-10 items-center justify-center rounded-full text-graphite-700 xl:hidden">
+            <span class="sr-only">Abrir menu de navegação</span>
+            <svg id="icon-menu" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+            <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <nav id="mobile-menu" aria-label="Navegação móvel" class="header-pill header-pill--menu mx-4 mt-2 hidden xl:hidden">
+        <ul class="flex flex-col gap-1 p-4 text-base font-medium text-graphite-700">
+          <li><a href="index.html#sobre" class="nav-link block rounded-2xl px-3 py-3">Sobre</a></li>
+          <li><a href="index.html#solucoes" class="nav-link block rounded-2xl px-3 py-3">Soluções</a></li>
+          <li><a href="index.html#como-funciona" class="nav-link block rounded-2xl px-3 py-3">Como funciona</a></li>
+          <li><a href="index.html#solicitar-analise" class="nav-link block rounded-2xl px-3 py-3">Contato</a></li>
+          <li class="mt-2"><a href="index.html" class="font-display block rounded-full bg-olive-800 px-4 py-3 text-center font-semibold text-paper">Voltar ao início</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="conteudo-principal" class="flex-1">
+      <!-- CONFIRMAÇÃO -->
+      <section data-hero class="relative overflow-hidden bg-olive-900 px-6 pb-20 pt-32 text-paper sm:pt-36 lg:px-8 lg:pb-24">
+        <img src="assets/img/formulario/vinhedo-trator-por-do-sol-credito-agronegocio.jpg" alt="" aria-hidden="true" width="1092" height="612" fetchpriority="high" decoding="async" class="absolute inset-0 h-full w-full object-cover" />
+        <div class="form-section-overlay absolute inset-0" aria-hidden="true"></div>
+        <div class="relative mx-auto max-w-7xl">
+          <!-- role="status" no lugar de um badge decorativo: quem chega aqui
+               vindo do formulário precisa ouvir a confirmação, e este é o
+               único aviso de que o envio deu certo. -->
+          <p role="status" class="inline-flex items-center gap-2 rounded-full bg-gold-500 px-4 py-2 text-sm font-medium text-graphite-950">
+            <svg class="h-4 w-4 flex-none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>
+            Solicitação recebida
+          </p>
+          <h1 class="mt-6 max-w-3xl text-[clamp(2.25rem,5vw,4.5rem)] font-semibold leading-[1.05] tracking-tight">Obrigado. Recebemos sua solicitação.</h1>
+          <p class="lead mt-6 max-w-2xl text-lg leading-relaxed text-paper/80">Um especialista da BS Agro Capital vai analisar as informações da sua operação e entrar em contato pelo WhatsApp ou e-mail que você informou. Se preferir adiantar a conversa, fale agora mesmo com a nossa equipe.</p>
+          <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <a href="https://wa.me/5562996892488?text=Ol%C3%A1!%20Acabei%20de%20enviar%20uma%20solicita%C3%A7%C3%A3o%20de%20an%C3%A1lise%20no%20site%20da%20BS%20Agro%20Capital." class="cta-btn cta-btn--whatsapp cta-btn--icon" target="_blank" rel="noopener noreferrer"><span class="cta-btn__text">Falar agora no WhatsApp</span><span class="cta-btn__hover" aria-hidden="true"><span>Falar agora no WhatsApp</span><svg viewBox="0 0 24 24" focusable="false"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span></a>
+            <a href="index.html" class="cta-btn cta-btn--outline cta-btn--icon"><span class="cta-btn__text">Voltar ao site</span><span class="cta-btn__hover" aria-hidden="true"><span>Voltar ao site</span><svg viewBox="0 0 24 24" focusable="false"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span></a>
+          </div>
+        </div>
+      </section>
+
+      <!-- O QUE ACONTECE AGORA -->
+      <section class="bg-mesh-light px-6 pt-6 pb-16 lg:px-8 lg:pt-8 lg:pb-24">
+        <div class="mx-auto max-w-7xl">
+          <div class="section-divider revelar mb-8 lg:mb-10" aria-hidden="true"><span class="section-divider__plus">+</span></div>
+          <div class="revelar mx-auto max-w-2xl text-center">
+            <p class="text-sm font-medium uppercase tracking-[0.14em] text-olive-800">Próximos passos</p>
+            <h2 class="mt-3 text-3xl font-semibold leading-[1.15] tracking-tight text-graphite-900 sm:text-4xl lg:text-[44px]">O que acontece a partir de agora</h2>
+            <p class="lead mt-4 text-lg leading-relaxed text-graphite-600">O contato inicial é técnico e sem compromisso: serve para entender a operação antes de qualquer proposta.</p>
+          </div>
+          <div class="relative mt-10 lg:mt-12">
+            <div class="pointer-events-none absolute left-0 -top-16 h-72 w-72 rounded-full bg-gold-400/30 blur-3xl" aria-hidden="true"></div>
+            <div class="pointer-events-none absolute right-0 bottom-0 h-72 w-72 rounded-full bg-olive-400/30 blur-3xl" aria-hidden="true"></div>
+            <ol class="relative grid gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+              <li class="revelar relative flex flex-col items-center text-left lg:after:absolute lg:after:left-1/2 lg:after:top-5 lg:after:h-px lg:after:w-[calc(100%+2rem)] lg:after:bg-graphite-900/20 lg:after:content-['']">
+                <span class="relative z-10 flex h-10 w-10 flex-none items-center justify-center rounded-full bg-olive-800 text-sm font-semibold text-paper">01</span>
+                <div class="glass-card mt-5 flex w-full flex-1 flex-col p-6 lg:p-7">
+                  <span class="flex h-10 w-10 items-center justify-center rounded-full bg-olive-900/10 text-olive-800"><svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <circle cx="11.5" cy="14.5" r="2.5" /> <path d="M13.3 16.3 15 18" /></svg></span>
+                  <h3 class="mt-4 text-lg font-semibold leading-snug text-graphite-900">Análise do que você enviou</h3>
+                  <p class="mt-2 text-sm leading-relaxed text-graphite-600">A modalidade de interesse, o valor pretendido e as garantias informadas são revisados por um especialista, para entender o contexto da operação antes do primeiro contato.</p>
+                </div>
+              </li>
+              <li class="revelar relative flex flex-col items-center text-left lg:after:absolute lg:after:left-1/2 lg:after:top-5 lg:after:h-px lg:after:w-[calc(100%+2rem)] lg:after:bg-graphite-900/20 lg:after:content-['']">
+                <span class="relative z-10 flex h-10 w-10 flex-none items-center justify-center rounded-full bg-olive-800 text-sm font-semibold text-paper">02</span>
+                <div class="glass-card mt-5 flex w-full flex-1 flex-col p-6 lg:p-7">
+                  <span class="flex h-10 w-10 items-center justify-center rounded-full bg-olive-900/10 text-olive-800"><svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /></svg></span>
+                  <h3 class="mt-4 text-lg font-semibold leading-snug text-graphite-900">Contato da nossa equipe</h3>
+                  <p class="mt-2 text-sm leading-relaxed text-graphite-600">Entramos em contato pelos dados informados para confirmar as informações, esclarecer dúvidas e levantar o que mais for necessário para o diagnóstico.</p>
+                </div>
+              </li>
+              <li class="revelar relative flex flex-col items-center text-left">
+                <span class="relative z-10 flex h-10 w-10 flex-none items-center justify-center rounded-full bg-olive-800 text-sm font-semibold text-paper">03</span>
+                <div class="glass-card mt-5 flex w-full flex-1 flex-col p-6 lg:p-7">
+                  <span class="flex h-10 w-10 items-center justify-center rounded-full bg-olive-900/10 text-olive-800"><svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z" /> <path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12" /> <path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17" /></svg></span>
+                  <h3 class="mt-4 text-lg font-semibold leading-snug text-graphite-900">Estruturação da operação</h3>
+                  <p class="mt-2 text-sm leading-relaxed text-graphite-600">A partir do diagnóstico, a estrutura de crédito mais adequada ao caso é construída e conectada às fontes de capital disponíveis no mercado. <a href="index.html#como-funciona" class="font-medium text-olive-800 underline underline-offset-2">Ver o processo completo</a>.</p>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="bg-graphite-950 px-6 py-14 text-paper lg:px-8 lg:py-20">
+      <div class="mx-auto max-w-7xl">
+        <div class="flex w-full flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
+          <div class="flex w-full flex-col items-start gap-6 lg:max-w-xs">
+            <img src="assets/img/logo/bs-agro-logo-white.png" alt="BS Agro Capital" width="2775" height="400" class="h-9 w-auto" />
+            <p class="leading-relaxed text-paper/60">Estruturação de crédito para o agronegócio, com solidez técnica e visão de longo prazo.</p>
+            <ul class="footer-social flex items-center">
+              <li><a href="https://www.facebook.com/bsagrooficial" target="_blank" rel="noopener noreferrer" class="footer-link" aria-label="Facebook da BS Agro Capital"><svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg></a></li>
+              <li><a href="https://www.instagram.com/bsagro.capital/" target="_blank" rel="noopener noreferrer" class="footer-link" aria-label="Instagram da BS Agro Capital"><svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /> <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /> <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></svg></a></li>
+              <li><a href="[INSERIR LINK DO LINKEDIN]" class="footer-link" aria-label="LinkedIn da BS Agro Capital"><svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /> <rect width="4" height="12" x="2" y="9" /> <circle cx="4" cy="4" r="2" /></svg></a></li>
+            </ul>
+          </div>
+
+          <div class="grid w-full gap-10 sm:grid-cols-2 lg:w-auto lg:gap-20">
+            <div>
+              <h3 class="mb-4 text-sm font-semibold uppercase tracking-[0.1em] text-paper/50">Navegação</h3>
+              <ul class="flex flex-col gap-2">
+                <li><a href="index.html#solucoes" class="footer-link inline-block py-1 text-base">Soluções</a></li>
+                <li><a href="index.html#como-funciona" class="footer-link inline-block py-1 text-base">Como funciona</a></li>
+                <li><a href="index.html#sobre" class="footer-link inline-block py-1 text-base">Sobre</a></li>
+                <li><a href="index.html#proposito" class="footer-link inline-block py-1 text-base">Propósito</a></li>
+                <li><a href="index.html#solicitar-analise" class="footer-link inline-block py-1 text-base">Contato</a></li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="mb-4 text-sm font-semibold uppercase tracking-[0.1em] text-paper/50">Contato</h3>
+              <ul class="flex flex-col gap-3">
+                <li><a href="mailto:contato@bsagrocapital.com" class="footer-link flex items-center gap-2.5 text-base"><svg class="h-5 w-5 flex-none text-gold-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2" /> <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>contato@bsagrocapital.com</a></li>
+                <li><a href="tel:+5562996892488" class="footer-link flex items-center gap-2.5 text-base"><svg class="h-5 w-5 flex-none text-gold-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /></svg>(62) 99689-2488</a></li>
+                <li class="flex items-center gap-2.5 text-base text-paper/70"><svg class="h-5 w-5 flex-none text-gold-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /></svg>Av. 136, 960 - St. Marista, Goiânia - GO, 74180-140</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-10 flex flex-col gap-4 border-t border-paper/10 pt-8 text-sm text-paper/55 lg:flex-row lg:items-center lg:justify-between">
+          <p>&copy; <span id="ano">2026</span> BS Agro Capital. Todos os direitos reservados. CNPJ: 66.308.795/0001-08</p>
+          <p>Desenvolvido por <a href="https://widencreative.com/" class="footer-link underline underline-offset-2" target="_blank" rel="noopener noreferrer">Widen Creative</a></p>
+        </div>
+      </div>
+    </footer>
+
+    <a href="https://wa.me/5562996892488?text=Ol%C3%A1!%20Gostaria%20de%20falar%20com%20um%20especialista%20da%20BS%20Agro%20Capital." target="_blank" rel="noopener noreferrer" aria-label="Falar com a BS Agro Capital pelo WhatsApp" class="whatsapp-fab">
+      <img src="assets/img/icons/whatsapp.webp" alt="" width="224" height="224" class="whatsapp-fab__icon" />
+    </a>
+
+    <style>
+      .footer-link { color: color-mix(in srgb, var(--color-paper) 80%, transparent); transition: color 200ms ease; }
+      /* Área de toque dos ícones sociais — mesma regra do rodapé das outras
+         páginas: o ícone continua com 20px e o link ocupa 44x44. */
+      .footer-social { gap: 0.25rem; margin-inline-start: -0.75rem; }
+      .footer-social .footer-link {
+        display: flex; align-items: center; justify-content: center;
+        width: 44px; height: 44px;
+      }
+      .footer-link:hover { color: var(--color-paper); }
+    </style>
+
+    <!-- Lenis: só para o scroll suave. -->
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+    <script>
+      (function () {
+        "use strict";
+
+        var semMovimento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        /* ---- Lenis: scroll suave ----------------------------------------
+           Fica desligado para quem pede menos movimento; nesse caso o
+           navegador cuida da rolagem normalmente. */
+        var lenis = null;
+        if (!semMovimento && typeof Lenis !== "undefined") {
+          lenis = new Lenis({
+            autoRaf: false,
+            duration: 1.4,
+            easing: function (t) {
+              return Math.min(1, 1.001 - Math.pow(2, -10 * t));
+            },
+            smoothWheel: true,
+            wheelMultiplier: 1,
+          });
+          (function animar(t) {
+            lenis.raf(t);
+            requestAnimationFrame(animar);
+          })(0);
+        }
+
+        /* ---- Menu mobile ------------------------------------------------ */
+        var toggle = document.getElementById("menu-toggle");
+        var menu = document.getElementById("mobile-menu");
+        var iconMenu = document.getElementById("icon-menu");
+        var iconClose = document.getElementById("icon-close");
+
+        function fecharMenu() {
+          if (!menu) return;
+          menu.classList.add("hidden");
+          if (iconMenu) iconMenu.classList.remove("hidden");
+          if (iconClose) iconClose.classList.add("hidden");
+          if (toggle) toggle.setAttribute("aria-expanded", "false");
+        }
+
+        if (toggle && menu) {
+          toggle.addEventListener("click", function () {
+            var aberto = !menu.classList.contains("hidden");
+            menu.classList.toggle("hidden", aberto);
+            if (iconMenu) iconMenu.classList.toggle("hidden", !aberto);
+            if (iconClose) iconClose.classList.toggle("hidden", aberto);
+            toggle.setAttribute("aria-expanded", String(!aberto));
+          });
+          menu.addEventListener("click", function (ev) {
+            if (ev.target.closest("a")) fecharMenu();
+          });
+          document.addEventListener("keydown", function (ev) {
+            if (ev.key === "Escape") fecharMenu();
+          });
+        }
+
+        /* ---- Animação de entrada ----------------------------------------- */
+        var reveláveis = document.querySelectorAll(".revelar");
+        if ("IntersectionObserver" in window) {
+          var obsRevelar = new IntersectionObserver(
+            function (entradas) {
+              entradas.forEach(function (e) {
+                if (!e.isIntersecting) return;
+                e.target.classList.add("visivel");
+                obsRevelar.unobserve(e.target);
+              });
+            },
+            { rootMargin: "0px 0px -10% 0px", threshold: 0.05 }
+          );
+          Array.prototype.forEach.call(reveláveis, function (el) {
+            obsRevelar.observe(el);
+          });
+        } else {
+          Array.prototype.forEach.call(reveláveis, function (el) {
+            el.classList.add("visivel");
+          });
+        }
+
+        /* ---- Ano do rodapé ----------------------------------------------- */
+        var ano = document.getElementById("ano");
+        if (ano) ano.textContent = new Date().getFullYear();
+      })();
+    </script>
+  </body>
+</html>

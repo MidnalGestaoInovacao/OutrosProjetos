@@ -1,0 +1,15 @@
+# Credenciais e sessão do Easy MCP AI
+.wpmcp_key
+.mcp_session
+# Corpos temporários das requisições do mcp.py
+tmp*.json
+tmp*.json.hdr
+*.tmp
+__pycache__/
+# Ferramentas de build
+node_modules
+site/.tw/
+site/build/bs.css
+site/build/preview/
+imggen/out/_tmp.html
+.phpunit.result.cache
