@@ -3,6 +3,7 @@
  "cats": {},
  "links": {
   "area-do-cliente": "https://bsagro.agr.br/?page_id=51",
+  "aviso-de-privacidade": "https://bsagro.agr.br/?page_id=54",
   "canal-de-integridade": "https://bsagro.agr.br/?page_id=50",
   "conformidade": "https://bsagro.agr.br/?page_id=48",
   "contato": "https://bsagro.agr.br/?page_id=47",
@@ -254,6 +255,7 @@
  },
  "pages": {
   "area-do-cliente": 51,
+  "aviso-de-privacidade": 54,
   "canal-de-integridade": 50,
   "conformidade": 48,
   "contato": 47,
