@@ -2,6 +2,7 @@
  "blocks": {},
  "cats": {},
  "links": {
+  "acessibilidade": "https://bsagro.agr.br/?page_id=60",
   "area-do-cliente": "https://bsagro.agr.br/?page_id=51",
   "aviso-de-privacidade": "https://bsagro.agr.br/?page_id=54",
   "canal-de-integridade": "https://bsagro.agr.br/?page_id=50",
@@ -259,6 +260,7 @@
   }
  },
  "pages": {
+  "acessibilidade": 60,
   "area-do-cliente": 51,
   "aviso-de-privacidade": 54,
   "canal-de-integridade": 50,

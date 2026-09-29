@@ -222,7 +222,6 @@ final class BrandingTest extends EBCR_TestCase {
 		wp_deregister_style( Branding::HANDLE );
 		$this->assertSame( Branding::HANDLE, Branding::style_handle() );
 		$this->assertContains( 'ebcr-brand-font-0', wp_styles()->registered[ Branding::HANDLE ]->deps );
-		$this->assertTrue( wp_style_is( 'ebcr-portal', 'registered' ) || true );
 	}
 
 	public function test_inherit_theme_merges_theme_values(): void {
