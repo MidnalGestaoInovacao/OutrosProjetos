@@ -283,11 +283,13 @@
  },
  "post_links": {
   "credito-com-garantia-de-imovel-rural-ou-urbano": "https://bsagro.agr.br/?p=65",
-  "credito-estruturado-fundos-de-investimento-agro": "https://bsagro.agr.br/?p=64"
+  "credito-estruturado-fundos-de-investimento-agro": "https://bsagro.agr.br/?p=64",
+  "recuperacao-judicial-no-agro-capital-para-novo-ciclo": "https://bsagro.agr.br/?p=66"
  },
  "posts": {
   "credito-com-garantia-de-imovel-rural-ou-urbano": 65,
-  "credito-estruturado-fundos-de-investimento-agro": 64
+  "credito-estruturado-fundos-de-investimento-agro": 64,
+  "recuperacao-judicial-no-agro-capital-para-novo-ciclo": 66
  },
  "tags": {}
 }
