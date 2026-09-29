@@ -41,8 +41,8 @@
     if (CA && CA.url) a.href = CA.url;
     else if (C.clientArea) a.href = C.clientArea;
     if (CA && CA.loggedIn && !a.hasAttribute("data-keep-label")) {
-      var t = a.querySelector(".bs-client-btn__txt") || (a.children.length ? null : a);
-      if (t) t.textContent = CA.labelLogged || "Minha área";
+      var t = a.querySelector("[data-ebcr-label]") || (a.children.length ? null : a);
+      if (t) t.textContent = (CA.userFirstName ? CA.userFirstName + " · " : "") + (CA.labelLogged || "Minha área");
     }
   });
 
@@ -356,7 +356,8 @@
     var CAx = w.EBCR_CLIENT_AREA;
     if (!CAx || !CAx.consentEndpoint || !consent) return;
     try {
-      fetch(CAx.consentEndpoint, { method: "POST", headers: { "Content-Type": "application/json" }, keepalive: true, credentials: "same-origin",
+      var cab = { "Content-Type": "application/json" }; if (CAx.consentNonce) cab["X-WP-Nonce"] = CAx.consentNonce;
+      fetch(CAx.consentEndpoint, { method: "POST", headers: cab, keepalive: true, credentials: "same-origin",
         body: JSON.stringify({ consent_id: consent.id, categories: consent.categories, action: acao, version: CK_VERSAO, path: location.pathname }) }).catch(function () {});
     } catch (e) { /* o registro é complementar; a escolha já está salva no navegador */ }
   }

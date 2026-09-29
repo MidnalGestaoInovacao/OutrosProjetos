@@ -530,6 +530,8 @@ final class ClientArea {
 		}
 		/**
 		 * Imprime o auxiliar JS (window.EBCR_CLIENT_AREA + a[data-ebcr-client-area]).
+		 * Para usuários logados troca o rótulo: só o filho [data-ebcr-label] quando existir, ou o texto de
+		 * links sem elementos filhos; links com data-keep-label mantêm o texto (ex.: botões com ícone/animação).
 		 *
 		 * @param bool $enabled Ativo.
 		 */
@@ -537,7 +539,7 @@ final class ClientArea {
 			return;
 		}
 		$json = wp_json_encode( self::js_data(), JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_SLASHES );
-		$js   = '(function(){var d=window.EBCR_CLIENT_AREA=' . $json . ';function run(){var l=document.querySelectorAll("a[data-ebcr-client-area]");for(var i=0;i<l.length;i++){var a=l[i];a.setAttribute("href",d.url);if(d.loggedIn){var t=a.getAttribute("data-label-logged")||d.labelLogged;a.textContent=d.userFirstName?d.userFirstName+" · "+t:t;}}}if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",run);}else{run();}})();';
+		$js   = '(function(){var d=window.EBCR_CLIENT_AREA=' . $json . ';function run(){var l=document.querySelectorAll("a[data-ebcr-client-area]");for(var i=0;i<l.length;i++){var a=l[i];a.setAttribute("href",d.url);if(d.loggedIn&&!a.hasAttribute("data-keep-label")){var t=a.getAttribute("data-label-logged")||d.labelLogged,x=d.userFirstName?d.userFirstName+" · "+t:t,s=a.querySelector("[data-ebcr-label]");if(s){s.textContent=x;}else if(!a.children.length){a.textContent=x;}}}}if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",run);}else{run();}})();';
 		if ( function_exists( 'wp_print_inline_script_tag' ) ) {
 			wp_print_inline_script_tag( $js, array( 'id' => 'ebcr-client-area-helper' ) );
 		} else {
