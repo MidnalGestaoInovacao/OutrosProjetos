@@ -774,10 +774,10 @@ final class Steps {
 		$receitas = array_filter(
 			array( $clean['receita_ano1'], $clean['receita_ano2'], $clean['receita_ano3'] ),
 			static function ( $v ) {
-				return null !== $v;
+				return null !== $v && is_numeric( $v );
 			}
 		);
-		$media    = $receitas ? array_sum( $receitas ) / count( $receitas ) : 0;
+		$media    = $receitas ? array_sum( array_map( 'floatval', $receitas ) ) / count( $receitas ) : 0;
 		$anual    = 0;
 		$saldo    = 0;
 		foreach ( $clean['dividas'] as $d ) {

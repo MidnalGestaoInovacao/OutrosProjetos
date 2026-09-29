@@ -596,7 +596,8 @@ final class ClientArea {
 	 */
 	public static function add_rewrite_rules() {
 		if ( self::alias_active() ) {
-			add_rewrite_rule( '^' . preg_quote( self::slug(), '/' ) . '/?$', 'index.php?' . self::QUERY_VAR . '=1', 'top' );
+			// O slug já passou por sanitize_title(); o hífen não precisa de escape na regex.
+			add_rewrite_rule( '^' . str_replace( '\\-', '-', preg_quote( self::slug(), '/' ) ) . '/?$', 'index.php?' . self::QUERY_VAR . '=1', 'top' );
 		}
 	}
 
