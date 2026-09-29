@@ -44,10 +44,22 @@ POLICIES = jload("policies.json", {})
 POSTS = jload("posts.json", [])
 
 def call(tool, args):
-    r = mcp.call(tool, args)
-    if isinstance(r, dict) and "error" in r:
-        raise RuntimeError("%s -> %s" % (tool, json.dumps(r["error"], ensure_ascii=False)[:800]))
-    return r
+    """Chama uma ferramenta do Easy MCP AI. Se o limite de requisições do plugin for atingido,
+    espera (30 s, 60 s, 120 s…) e tenta de novo antes de desistir."""
+    import time
+    espera = 30
+    for tentativa in range(7):
+        r = mcp.call(tool, args)
+        erro = r.get("error") if isinstance(r, dict) else None
+        if erro is None:
+            return r
+        texto = json.dumps(erro, ensure_ascii=False)
+        if "-32003" in texto or "rate limit" in texto.lower():
+            print("  limite de requisições do MCP atingido; aguardando %d s (%s)" % (espera, tool), flush=True)
+            time.sleep(espera); espera = min(espera * 2, 600)
+            continue
+        raise RuntimeError("%s -> %s" % (tool, texto[:800]))
+    raise RuntimeError("%s -> limite de requisições persistente" % tool)
 
 # ---------------------------------------------------------------- resolução de placeholders
 def rel(url):
