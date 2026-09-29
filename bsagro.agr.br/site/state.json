@@ -299,7 +299,7 @@
   "portal-do-titular": 49,
   "termos-de-uso": 55
  },
- "permalinks": "plain",
+ "permalinks": "pretty",
  "post_links": {
   "cpr-cedula-de-produto-rural-na-pratica": "https://bsagro.agr.br/cpr-cedula-de-produto-rural-na-pratica/",
   "credito-com-garantia-de-imovel-rural-ou-urbano": "https://bsagro.agr.br/credito-com-garantia-de-imovel-rural-ou-urbano/",
