@@ -40,7 +40,9 @@
   function updateContrast() {
     var box = document.querySelector('[data-ebcr-contrast]'); if (!box) { return; }
     var bg = val('brand_bg') || val('brand_surface');
-    var pairs = { primary: [val('brand_primary_contrast'), val('brand_primary')], text_bg: [val('brand_text'), bg], text_surface: [val('brand_text'), val('brand_surface')], muted_surface: [val('brand_muted'), val('brand_surface')], link_surface: [val('brand_accent_strong'), val('brand_surface')] };
+    var surf = parseColor(val('brand_surface')); var link = val('brand_accent_strong');
+    if (surf && val('brand_primary') !== '#d4af37') { [val('brand_accent_strong'), val('brand_primary'), val('brand_text')].some(function (cand) { var c = parseColor(cand); if (c && contrast(c, surf) >= 4.5) { link = cand; return true; } return false; }); }
+    var pairs = { primary: [val('brand_primary_contrast'), val('brand_primary')], text_bg: [val('brand_text'), bg], text_surface: [val('brand_text'), val('brand_surface')], muted_surface: [val('brand_muted'), val('brand_surface')], link_surface: [link, val('brand_surface')] };
     Object.keys(pairs).forEach(function (k) {
       var li = box.querySelector('[data-contrast-key="' + k + '"]'); if (!li) { return; }
       var f = parseColor(pairs[k][0]), b = parseColor(pairs[k][1]); var out = li.querySelector('[data-contrast-ratio]'); var st = li.querySelector('[data-contrast-status]'); var sample = li.querySelector('.ebcr-contrast-sample');

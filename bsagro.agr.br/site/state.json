@@ -9,7 +9,9 @@
   "contato": "https://bsagro.agr.br/?page_id=47",
   "materias": "https://bsagro.agr.br/?page_id=53",
   "obrigado": "https://bsagro.agr.br/?page_id=52",
-  "portal-do-titular": "https://bsagro.agr.br/?page_id=49"
+  "politica-de-cookies": "https://bsagro.agr.br/?page_id=56",
+  "portal-do-titular": "https://bsagro.agr.br/?page_id=49",
+  "termos-de-uso": "https://bsagro.agr.br/?page_id=55"
  },
  "media": {
   "abc-brasil": {
@@ -261,7 +263,9 @@
   "contato": 47,
   "materias": 53,
   "obrigado": 52,
-  "portal-do-titular": 49
+  "politica-de-cookies": 56,
+  "portal-do-titular": 49,
+  "termos-de-uso": 55
  },
  "post_links": {},
  "posts": {},

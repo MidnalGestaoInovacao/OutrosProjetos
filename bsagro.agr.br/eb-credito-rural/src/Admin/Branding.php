@@ -928,7 +928,7 @@ body.login .language-switcher{display:none}';
 			'text_bg'       => array( '' !== (string) $t['bg'] ? __( 'Texto sobre o fundo da área', 'eb-credito-rural' ) : __( 'Texto sobre o fundo (fundo do tema não verificado; usando a superfície)', 'eb-credito-rural' ), $t['text'], $bg ),
 			'text_surface'  => array( __( 'Texto sobre os cartões', 'eb-credito-rural' ), $t['text'], $t['surface'] ),
 			'muted_surface' => array( __( 'Texto secundário sobre os cartões', 'eb-credito-rural' ), $t['muted'], $t['surface'] ),
-			'link_surface'  => array( __( 'Destaque forte (links) sobre os cartões', 'eb-credito-rural' ), $t['accent_strong'], $t['surface'] ),
+			'link_surface'  => array( __( 'Links sobre os cartões (destaque forte; fora da paleta original cai para a primária ou o texto se faltar contraste)', 'eb-credito-rural' ), self::is_legacy_palette( $t ) ? $t['accent_strong'] : self::css_vars( $t )['--ebcr-link'], $t['surface'] ),
 		);
 		$out   = array();
 		foreach ( $pairs as $key => $p ) {
