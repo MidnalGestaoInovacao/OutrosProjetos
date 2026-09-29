@@ -71,6 +71,7 @@ final class Settings {
 		'retention_months_approved'     => array( 1, 600 ),
 		'audit_retention_days'          => array( 30, 3650 ),
 		'cookie_consent_retention_days' => array( 30, 3650 ),
+		'channel_message_retention_days' => array( 30, 3650 ),
 		'simulator_rate'                => array( 0, 200 ),
 		'simulator_min_amount'          => array( 0, null ),
 		'simulator_max_amount'          => array( 0, null ),
@@ -128,6 +129,10 @@ final class Settings {
 				'label' => __( 'Privacidade e compliance', 'eb-credito-rural' ),
 				'intro' => __( 'Políticas exibidas para aceite, suas versões (alterar a versão exige novo aceite), prazos de retenção e contato do encarregado (DPO).', 'eb-credito-rural' ),
 			),
+			'canais'      => array(
+				'label' => __( 'Canais de atendimento', 'eb-credito-rural' ),
+				'intro' => __( 'Formulários públicos do site — contato, Portal do Titular (LGPD) e Canal de Integridade (com opção anônima) — enviados para POST ebcr/v1/channel-message. As mensagens ficam em Crédito Rural → Mensagens dos canais e são avisadas por e-mail pela fila do plugin, sem serviços externos.', 'eb-credito-rural' ),
+			),
 			'status'      => array(
 				'label' => __( 'Status', 'eb-credito-rural' ),
 				'intro' => __( 'Nome, cor e texto padrão ao cliente de cada status do fluxo. As transições seguem o fluxo padrão do sistema.', 'eb-credito-rural' ),
@@ -180,6 +185,15 @@ final class Settings {
 						),
 					),
 					'funds'                   => array( 'textarea', __( 'Fundos / carteiras', 'eb-credito-rural' ), __( 'Uma por linha no formato chave|Nome (ex.: fiagro|FIAGRO Safra). Cada solicitação pode ser vinculada a uma carteira na tela de detalhe; os Relatórios agrupam por carteira.', 'eb-credito-rural' ) ),
+					'disable_wp_emoji'        => array( 'checkbox', __( 'Remover o script de emojis do WordPress', 'eb-credito-rural' ), __( 'Tira do site público o script de detecção e os estilos de emoji do WordPress (e a conversão de emojis em imagens nos feeds). Os navegadores atuais exibem emojis sozinhos. Recomendado: ligado.', 'eb-credito-rural' ) ),
+				);
+			case 'canais':
+				return array(
+					'channel_email_contato'          => array( 'email', __( 'E-mail do canal de contato', 'eb-credito-rural' ), __( 'Recebe as mensagens do formulário de contato (protocolo CT-…). Vazio = e-mail do administrador do WordPress.', 'eb-credito-rural' ) ),
+					'channel_email_dpo'              => array( 'email', __( 'E-mail do Portal do Titular (DPO)', 'eb-credito-rural' ), __( 'Recebe os pedidos de titulares de dados (protocolo LGPD-…). Recomendado: o e-mail do encarregado. Vazio = e-mail do administrador do WordPress.', 'eb-credito-rural' ) ),
+					'channel_email_ouvidoria'        => array( 'email', __( 'E-mail do Canal de Integridade', 'eb-credito-rural' ), __( 'Recebe os relatos de integridade/ouvidoria (protocolo OUV-…), inclusive anônimos. Use uma caixa de acesso restrito. Vazio = e-mail do administrador do WordPress.', 'eb-credito-rural' ) ),
+					'channel_send_receipt'           => array( 'checkbox', __( 'Enviar recibo com o protocolo ao remetente', 'eb-credito-rural' ), __( 'Quando a pessoa informa um e-mail (nunca em relato anônimo), ela recebe uma confirmação curta com o protocolo. Recomendado: ligado.', 'eb-credito-rural' ) ),
+					'channel_message_retention_days' => array( 'number', __( 'Retenção das mensagens dos canais (dias)', 'eb-credito-rural' ), __( 'Mensagens mais antigas são apagadas pela rotina de retenção. Recomendado: 1825 (5 anos), prazo usual para relatos de integridade; ajuste com o jurídico.', 'eb-credito-rural' ) ),
 				);
 			case 'identidade':
 				$presets = array();

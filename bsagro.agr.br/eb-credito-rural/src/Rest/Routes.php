@@ -52,6 +52,15 @@ final class Routes {
 		do_action( 'ebcr_rest_routes', self::NS );
 		register_rest_route(
 			self::NS,
+			'/channel-message',
+			array(
+				'methods'             => 'POST',
+				'callback'            => array( $this, 'channel_message' ),
+				'permission_callback' => '__return_true', // Público (formulários do site); limitado por IP e honeypot no callback.
+			)
+		);
+		register_rest_route(
+			self::NS,
 			'/cookie-consent',
 			array(
 				'methods'             => 'POST',
@@ -286,6 +295,50 @@ final class Routes {
 	 */
 	public function captcha() {
 		return rest_ensure_response( MathCaptcha::provider()->issue() );
+	}
+
+	/**
+	 * Mensagem dos canais públicos (contato, titular/DPO, integridade). 10 envios por hora por IP; campo _honey vazio.
+	 * Resposta: {ok:true, protocol} ou {ok:false, message[, fields]} com 400/429. Nunca devolve os dados gravados.
+	 * Com usuário conectado (cabeçalho X-WP-Nonce), o registro fica vinculado a ele (exceto relato anônimo).
+	 *
+	 * @param \WP_REST_Request $request Request.
+	 * @return \WP_REST_Response
+	 */
+	public function channel_message( $request ) {
+		if ( ! RateLimiter::hit( 'channel_message', Ip::get(), 10, HOUR_IN_SECONDS ) ) {
+			return new \WP_REST_Response(
+				array(
+					'ok'      => false,
+					'message' => __( 'Muitos envios em pouco tempo. Aguarde alguns minutos e tente novamente.', 'eb-credito-rural' ),
+				),
+				429
+			);
+		}
+		$payload = $request->get_json_params();
+		if ( ! is_array( $payload ) || ! $payload ) {
+			$payload = $request->get_body_params();
+		}
+		$clean = \EBCR\Domain\ChannelMessage::validate( $payload );
+		if ( is_wp_error( $clean ) ) {
+			$data = (array) $clean->get_error_data();
+			$out  = array(
+				'ok'      => false,
+				'message' => $clean->get_error_message(),
+			);
+			if ( ! empty( $data['fields'] ) ) {
+				$out['fields'] = array_values( (array) $data['fields'] );
+			}
+			return new \WP_REST_Response( $out, 400 );
+		}
+		$row = \EBCR\Domain\ChannelMessage::record( $clean );
+		return new \WP_REST_Response(
+			array(
+				'ok'       => true,
+				'protocol' => (string) $row['protocol'],
+			),
+			200
+		);
 	}
 
 	/**

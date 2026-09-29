@@ -66,10 +66,11 @@ final class PrivacyIntegration {
 	 * @return array
 	 */
 	public function export( $email, $page = 1 ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed -- assinatura do WordPress.
-		$user = get_user_by( 'email', $email );
-		$data = array();
-		if ( $user ) {
-			foreach ( self::collect( $user->ID ) as $group => $items ) {
+		$user   = get_user_by( 'email', $email );
+		$data   = array();
+		$groups = $user ? self::collect( $user->ID ) : array( 'canais' => self::channel_items( $email ) );
+		if ( $groups ) {
+			foreach ( $groups as $group => $items ) {
 				foreach ( $items as $i => $item ) {
 					$fields = array();
 					foreach ( $item as $k => $v ) {
@@ -105,6 +106,19 @@ final class PrivacyIntegration {
 		$removed  = false;
 		$retained = false;
 		$messages = array();
+		// Mensagens dos canais (pelo e-mail, mesmo sem conta): mantidas como registro do atendimento, sem os dados de
+		// identificação (nome, e-mail, telefone, empresa) nem hash de IP/user agent. Relatos anônimos não são afetados.
+		$channels = new \EBCR\Database\ChannelMessageRepository();
+		foreach ( $channels->for_email( $email ) as $m ) {
+			$fields = \EBCR\Domain\ChannelMessage::fields_of( $m );
+			foreach ( \EBCR\Domain\ChannelMessage::IDENTIFYING as $k ) {
+				unset( $fields[ $k ] );
+			}
+			$fields['_anonimizado'] = 'sim';
+			$channels->anonymize( (int) $m['id'], $fields );
+			$removed    = true;
+			$messages[] = sprintf( /* translators: %s: protocolo */ __( 'A mensagem %s foi mantida sem os dados de identificação.', 'eb-credito-rural' ), $m['protocol'] );
+		}
 		if ( $user ) {
 			// Consentimentos de cookies: desvincula do usuário (o registro anônimo permanece como prova do consentimento).
 			if ( ( new \EBCR\Database\CookieConsentRepository() )->anonymize_user( $user->ID ) ) {
@@ -130,6 +144,28 @@ final class PrivacyIntegration {
 	}
 
 	/**
+	 * Mensagens identificadas dos canais públicos enviadas com um e-mail (anônimas nunca entram).
+	 *
+	 * @param string $email E-mail.
+	 * @return array
+	 */
+	public static function channel_items( $email ) {
+		$out    = array();
+		$labels = \EBCR\Domain\ChannelMessage::channels();
+		foreach ( ( new \EBCR\Database\ChannelMessageRepository() )->for_email( $email ) as $m ) {
+			$out[] = array(
+				'protocolo'   => $m['protocol'],
+				'canal'       => isset( $labels[ $m['channel'] ] ) ? $labels[ $m['channel'] ]['label'] : $m['channel'],
+				'status'      => $m['status'],
+				'recebida_em' => $m['created_at'],
+				'pagina'      => $m['page'],
+				'campos'      => \EBCR\Domain\ChannelMessage::fields_of( $m ),
+			);
+		}
+		return $out;
+	}
+
+	/**
 	 * Coleta dados do usuário para exportação (usada também pelo portal).
 	 *
 	 * @param int $user_id Usuário.
@@ -143,6 +179,7 @@ final class PrivacyIntegration {
 			'solicitacoes'   => array(),
 			'consentimentos' => array(),
 			'cookies'        => array(),
+			'canais'         => array(),
 		);
 		$u    = get_userdata( $user_id );
 		if ( $u ) {
@@ -170,6 +207,9 @@ final class PrivacyIntegration {
 				'aceito'   => $c['accepted_at'],
 				'ip'       => $c['ip'],
 			);
+		}
+		if ( $u ) {
+			$out['canais'] = self::channel_items( $u->user_email );
 		}
 		// Consentimentos de cookies registrados com o usuário conectado (o IP é guardado só como hash).
 		foreach ( ( new \EBCR\Database\CookieConsentRepository() )->for_user( $user_id ) as $c ) {

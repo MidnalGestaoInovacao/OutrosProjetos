@@ -32,6 +32,13 @@ final class Retention {
 	private static $last_cookie_purge = 0;
 
 	/**
+	 * Mensagens dos canais apagadas na última execução de run().
+	 *
+	 * @var int
+	 */
+	private static $last_channel_purge = 0;
+
+	/**
 	 * Anonimiza uma solicitação.
 	 *
 	 * @param array  $submission Linha.
@@ -79,7 +86,8 @@ final class Retention {
 				++$n;
 			}
 		}
-		self::$last_cookie_purge = self::purge_cookie_consents();
+		self::$last_cookie_purge  = self::purge_cookie_consents();
+		self::$last_channel_purge = self::purge_channel_messages();
 		return $n;
 	}
 
@@ -104,5 +112,28 @@ final class Retention {
 	 */
 	public static function last_cookie_purge() {
 		return self::$last_cookie_purge;
+	}
+
+	/**
+	 * Apaga mensagens dos canais mais antigas que "Retenção das mensagens dos canais (dias)".
+	 *
+	 * @return int Registros apagados.
+	 */
+	public static function purge_channel_messages() {
+		$days = max( 30, Options::int( 'channel_message_retention_days' ) );
+		$n    = ( new \EBCR\Database\ChannelMessageRepository() )->purge_older_than( $days );
+		if ( $n ) {
+			AuditLog::log( 'retention_anonymized', 'channel_messages', '', array( 'purged' => $n ), 0 );
+		}
+		return $n;
+	}
+
+	/**
+	 * Mensagens dos canais apagadas na última execução de run().
+	 *
+	 * @return int
+	 */
+	public static function last_channel_purge() {
+		return self::$last_channel_purge;
 	}
 }

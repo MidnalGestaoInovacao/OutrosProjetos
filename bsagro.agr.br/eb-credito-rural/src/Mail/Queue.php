@@ -58,16 +58,24 @@ final class Queue {
 	 * @param string $subject     Assunto.
 	 * @param string $html        Corpo HTML.
 	 * @param array  $attachments Anexos.
+	 * @param array  $headers     Cabeçalhos extras (ex.: Reply-To), somados aos padrões.
 	 * @return int
 	 */
-	public static function enqueue( $event, $recipient, $subject, $html, array $attachments = array() ) {
+	public static function enqueue( $event, $recipient, $subject, $html, array $attachments = array(), array $headers = array() ) {
+		$extra = array();
+		foreach ( $headers as $h ) {
+			$h = str_replace( array( "\r", "\n" ), '', (string) $h );
+			if ( preg_match( '/^(Reply-To|Cc|Bcc):\s*\S/i', $h ) ) {
+				$extra[] = $h;
+			}
+		}
 		$id = ( new MailQueueRepository() )->enqueue(
 			array(
 				'event'       => sanitize_key( $event ),
 				'recipient'   => $recipient,
 				'subject'     => $subject,
 				'body'        => $html,
-				'headers'     => wp_json_encode( Mailer::headers() ),
+				'headers'     => wp_json_encode( array_merge( Mailer::headers(), $extra ) ),
 				'attachments' => wp_json_encode( array_values( $attachments ) ),
 			)
 		);

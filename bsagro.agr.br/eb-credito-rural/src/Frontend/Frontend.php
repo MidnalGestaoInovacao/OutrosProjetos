@@ -33,6 +33,7 @@ final class Frontend {
 		add_shortcode( 'ebcr_cta', array( $this, 'sc_cta' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'register_assets' ) );
 		add_action( 'init', array( $this, 'form_cookie' ) );
+		add_action( 'init', array( __CLASS__, 'disable_emoji' ), 20 );
 		add_filter( 'logout_redirect', array( $this, 'logout_redirect' ), 10, 3 );
 		add_action(
 			'save_post_page',
@@ -40,6 +41,27 @@ final class Frontend {
 				delete_transient( 'ebcr_portal_page_auto' );
 			}
 		);
+	}
+
+	/**
+	 * Remove o script de detecção e os estilos de emoji do WordPress no site público (configuração disable_wp_emoji).
+	 * O wp-admin não é alterado.
+	 *
+	 * @return bool Removido.
+	 */
+	public static function disable_emoji() {
+		if ( is_admin() || ! Options::bool( 'disable_wp_emoji' ) ) {
+			return false;
+		}
+		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+		remove_action( 'embed_head', 'print_emoji_detection_script' );
+		remove_action( 'wp_enqueue_scripts', 'wp_enqueue_emoji_styles' );
+		remove_action( 'enqueue_embed_scripts', 'wp_enqueue_emoji_styles' );
+		remove_action( 'wp_print_styles', 'print_emoji_styles' );
+		remove_filter( 'the_content_feed', 'wp_staticize_emoji' );
+		remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
+		add_filter( 'emoji_svg_url', '__return_false' ); // Sem dns-prefetch para o CDN de emojis.
+		return true;
 	}
 
 	/**

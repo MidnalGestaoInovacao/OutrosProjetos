@@ -129,6 +129,36 @@ final class Mailer {
 	}
 
 	/**
+	 * Enfileira um e-mail com corpo HTML já escapado, dentro do layout da marca (sem template de evento).
+	 *
+	 * @param string   $event   Nome do evento (registro na fila).
+	 * @param string   $to      Destinatário.
+	 * @param string   $subject Assunto (texto).
+	 * @param string   $body    Corpo HTML (já escapado pelo chamador).
+	 * @param string[] $headers Cabeçalhos extras (Reply-To/Cc/Bcc).
+	 * @return int ID na fila (0 se o destinatário for inválido).
+	 */
+	public static function send_raw( $event, $to, $subject, $body, array $headers = array() ) {
+		$to = sanitize_email( (string) $to );
+		if ( ! $to || ! is_email( $to ) ) {
+			return 0;
+		}
+		$subject = wp_strip_all_tags( str_replace( array( "\r", "\n" ), ' ', (string) $subject ) );
+		$html    = View::render(
+			'emails/layout',
+			array(
+				'subject'  => $subject,
+				'body'     => $body,
+				'logo_url' => (string) Options::get( 'email_logo_url', '' ),
+				'site'     => \EBCR\Admin\Branding::brand_name(),
+				'colors'   => \EBCR\Admin\Branding::email_colors(),
+				'home'     => home_url( '/' ),
+			)
+		);
+		return Queue::enqueue( $event, $to, $subject, $html, array(), $headers );
+	}
+
+	/**
 	 * Cabeçalhos padrão.
 	 *
 	 * @return string[]

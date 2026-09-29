@@ -64,6 +64,14 @@ final class Options {
 				'legal_page_cookies'             => 0,
 				'legal_page_comercializacao'     => 0,
 				'legal_page_integridade'         => 0,
+				// Canais públicos (contato, titular/DPO, integridade). Vazio = e-mail do administrador do WordPress.
+				'channel_email_contato'          => '',
+				'channel_email_dpo'              => '',
+				'channel_email_ouvidoria'        => '',
+				'channel_send_receipt'           => true,
+				'channel_message_retention_days' => 1825,
+				// Remove o script/estilos de emoji do WordPress no site público.
+				'disable_wp_emoji'               => true,
 			)
 		);
 	}
