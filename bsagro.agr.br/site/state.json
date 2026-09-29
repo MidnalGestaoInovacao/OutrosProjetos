@@ -281,7 +281,13 @@
   "portal-do-titular": 49,
   "termos-de-uso": 55
  },
- "post_links": {},
- "posts": {},
+ "post_links": {
+  "credito-com-garantia-de-imovel-rural-ou-urbano": "https://bsagro.agr.br/?p=65",
+  "credito-estruturado-fundos-de-investimento-agro": "https://bsagro.agr.br/?p=64"
+ },
+ "posts": {
+  "credito-com-garantia-de-imovel-rural-ou-urbano": 65,
+  "credito-estruturado-fundos-de-investimento-agro": 64
+ },
  "tags": {}
 }
