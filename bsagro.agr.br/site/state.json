@@ -282,13 +282,17 @@
   "termos-de-uso": 55
  },
  "post_links": {
+  "cpr-cedula-de-produto-rural-na-pratica": "https://bsagro.agr.br/?p=67",
   "credito-com-garantia-de-imovel-rural-ou-urbano": "https://bsagro.agr.br/?p=65",
   "credito-estruturado-fundos-de-investimento-agro": "https://bsagro.agr.br/?p=64",
+  "diagnostico-financeiro-da-fazenda-primeiro-passo": "https://bsagro.agr.br/?p=68",
   "recuperacao-judicial-no-agro-capital-para-novo-ciclo": "https://bsagro.agr.br/?p=66"
  },
  "posts": {
+  "cpr-cedula-de-produto-rural-na-pratica": 67,
   "credito-com-garantia-de-imovel-rural-ou-urbano": 65,
   "credito-estruturado-fundos-de-investimento-agro": 64,
+  "diagnostico-financeiro-da-fazenda-primeiro-passo": 68,
   "recuperacao-judicial-no-agro-capital-para-novo-ciclo": 66
  },
  "tags": {}
