@@ -80,6 +80,7 @@ final class Settings {
 		'brand_radius'                   => array( 0, 40 ),
 		'brand_btn_radius'               => array( 0, 999 ),
 		'client_area_bar_offset'         => array( 0, 200 ),
+		'complement_reminder_days'       => array( 0, 60 ),
 	);
 
 	/**
@@ -107,7 +108,7 @@ final class Settings {
 			),
 			'garantias'   => array(
 				'label' => __( 'Bens e garantias', 'eb-credito-rural' ),
-				'intro' => __( 'Define se o formulário exige imóveis rurais (etapa 2) e garantias (etapa 5). Obrigatório mantém o comportamento original; Opcional mostra os campos e deixa o cliente declarar que não tem o que informar; Desativado esconde a etapa e os documentos ligados a ela. A validação vale no navegador e no servidor.', 'eb-credito-rural' ),
+				'intro' => __( 'Define se o formulário exige imóveis rurais (etapa 2) e garantias (etapa 5). Obrigatório mantém o comportamento original; Opcional mostra os campos e deixa o cliente declarar que não tem o que informar; Desativado esconde a etapa e os documentos ligados a ela. A validação vale no navegador e no servidor. No modo Opcional, o cliente vê uma orientação para preencher o mais completo possível e pode completar bens e garantias depois do envio, pela área dele.', 'eb-credito-rural' ),
 			),
 			'documentos'  => array(
 				'label' => __( 'Documentos e uploads', 'eb-credito-rural' ),
@@ -287,6 +288,10 @@ final class Settings {
 						__( 'Obrigatório: exige ao menos um imóvel (comportamento original). Opcional: o cliente pode marcar "não tenho imóvel a informar". Desativado: a etapa some e os documentos por imóvel (matrícula, CCIR/ITR, CAR…) não são pedidos; garantias reais passam a ser descritas no texto.', 'eb-credito-rural' ),
 						$modes,
 					),
+					'assets_optional_notice'         => array( 'textarea', __( 'Orientação sobre imóveis/bens (modo opcional)', 'eb-credito-rural' ), __( 'Quadro informativo exibido na etapa de imóveis, no resumo antes do envio (quando nenhum imóvel foi informado) e na área do cliente. Diga que não é obrigatório, mas que é pertinente preencher o mais completo possível e que dá para completar depois. Vazio = texto padrão.', 'eb-credito-rural' ) ),
+					'guarantees_optional_notice'     => array( 'textarea', __( 'Orientação sobre garantias (modo opcional)', 'eb-credito-rural' ), __( 'Quadro informativo exibido na etapa de garantias, no resumo antes do envio (quando nenhuma garantia foi informada) e na área do cliente. Vazio = texto padrão.', 'eb-credito-rural' ) ),
+					'complement_statuses'            => array( 'multicheck', __( 'Status em que o cliente pode completar bens e garantias', 'eb-credito-rural' ), __( 'Depois do envio, no modo Opcional, o cliente pode incluir ou corrigir imóveis e garantias pela área dele enquanto a solicitação estiver em um destes status. Cada complemento fica no histórico e no log de auditoria, avisa a equipe (e-mail "Complemento de bens e garantias") e abre pedidos para os documentos que os novos itens exigem. Recomendado: todos os status em andamento.', 'eb-credito-rural' ), \EBCR\Forms\Complement::status_options() ),
+					'complement_reminder_days'       => array( 'number', __( 'Lembrete para completar (dias após o envio)', 'eb-credito-rural' ), __( 'Envia UM e-mail ao cliente cuja solicitação foi enviada sem imóveis/garantias (modo Opcional), N dias depois do envio, enquanto o status permitir o complemento. 0 = não enviar. Recomendado: 3.', 'eb-credito-rural' ) ),
 				);
 			case 'formulario':
 				return array(

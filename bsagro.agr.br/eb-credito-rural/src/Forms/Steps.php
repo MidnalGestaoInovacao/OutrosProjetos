@@ -828,6 +828,11 @@ final class Steps {
 		$items  = self::repeat(
 			isset( $in['garantias'] ) ? $in['garantias'] : array(),
 			array(
+				'id'             => array(
+					'label' => 'id',
+					'rules' => array( 'int:0,' ),
+					'type'  => 'int',
+				),
 				'type'           => array(
 					'label' => __( 'Tipo de garantia', 'eb-credito-rural' ),
 					'rules' => array( 'required', 'in:' . implode( '|', $types ) ),
@@ -854,7 +859,13 @@ final class Steps {
 		$real   = self::options( 'real_guarantees' );
 		// Vínculo com imóvel só é exigido quando há imóveis informados (a etapa 2 pode estar desativada/opcional).
 		$link = ! isset( $context['properties_count'] ) || null === $context['properties_count'] || (int) $context['properties_count'] > 0;
+		// IDs de imóveis desta solicitação (quando conhecidos): o vínculo nunca aponta para imóvel de outra solicitação.
+		$owned = isset( $context['property_ids'] ) && is_array( $context['property_ids'] ) ? array_map( 'intval', $context['property_ids'] ) : null;
 		foreach ( $items as $i => $item ) {
+			if ( null !== $owned && ! empty( $item['property_id'] ) && ! in_array( (int) $item['property_id'], $owned, true ) ) {
+				$errors[ "garantias.{$i}.property_id" ] = __( 'Selecione um imóvel informado nesta solicitação.', 'eb-credito-rural' );
+				continue;
+			}
 			if ( $link && in_array( $item['type'], $real, true ) && empty( $item['property_id'] ) ) {
 				$errors[ "garantias.{$i}.property_id" ] = __( 'Selecione o imóvel vinculado à garantia real.', 'eb-credito-rural' );
 			}

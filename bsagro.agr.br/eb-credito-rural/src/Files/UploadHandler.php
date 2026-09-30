@@ -63,6 +63,9 @@ final class UploadHandler {
 				return new \WP_Error( 'bad_request', __( 'Pedido de documento inválido ou já atendido.', 'eb-credito-rural' ), array( 'status' => 400 ) );
 			}
 			$doc_type = $request['doc_type'];
+			if ( ! empty( $request['ref_key'] ) ) {
+				$ref_key = (string) $request['ref_key']; // pedido gerado por complemento: documento de um imóvel específico.
+			}
 		} elseif ( ! \EBCR\Domain\Status::client_can_edit( $submission['status'] ) ) {
 			// Fora de rascunho/pendência, só é permitido atender pedidos abertos.
 			$open = ( new DocumentRequestRepository() )->for_submission( (int) $submission['id'], true );

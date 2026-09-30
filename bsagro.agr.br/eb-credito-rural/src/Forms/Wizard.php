@@ -71,6 +71,7 @@ final class Wizard {
 		$ident = isset( $saved['identificacao'] ) && is_array( $saved['identificacao'] ) ? $saved['identificacao'] : array();
 		$extra = array(
 			'properties_count' => count( $saved['imoveis']['imoveis'] ),
+			'property_ids'     => array_map( 'intval', wp_list_pluck( $saved['imoveis']['imoveis'], 'id' ) ),
 		);
 		if ( ! empty( $fin['finalidade'] ) ) {
 			$extra['purpose'] = (string) $fin['finalidade'];
@@ -84,6 +85,7 @@ final class Wizard {
 		$ctx = SubmissionRules::context( $submission, $extra );
 		if ( ! SubmissionRules::assets_active( $ctx ) ) {
 			$ctx['properties_count'] = 0;
+			$ctx['property_ids']     = array();
 		}
 		return $ctx;
 	}

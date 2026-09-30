@@ -59,6 +59,11 @@ final class Options {
 				'guarantees_mode'                => 'required',
 				'guarantees_required_modalities' => array(),
 				'assets_mode'                    => 'required',
+				// Modo opcional (1.3.1): orientação ao cliente e complemento depois do envio.
+				'guarantees_optional_notice'     => 'Informar bens e garantias não é obrigatório para enviar a solicitação, mas é muito pertinente: quanto mais completas as informações, mais ágil a análise e melhores as alternativas de crédito que conseguimos estruturar. Se não tiver os dados agora, envie a solicitação e complete depois pela Área do Cliente.',
+				'assets_optional_notice'         => 'Informar imóveis rurais e outros bens não é obrigatório para enviar a solicitação, mas é muito pertinente: quanto mais completas as informações sobre o patrimônio, mais ágil a análise e melhores as alternativas de crédito que conseguimos estruturar. Se não tiver os dados agora, envie a solicitação e complete depois pela Área do Cliente.',
+				'complement_statuses'            => array( 'enviada', 'pre_analise', 'pendencia_documental', 'analise_credito', 'comite', 'formalizacao' ),
+				'complement_reminder_days'       => 3,
 				// Páginas legais complementares (0 = procurar pelo slug).
 				'legal_page_titular'             => 0,
 				'legal_page_cookies'             => 0,

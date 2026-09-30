@@ -99,6 +99,23 @@ class DocumentRequestRepository extends Db {
 	}
 
 	/**
+	 * Há pedido aberto do mesmo tipo (e referência) para a solicitação?
+	 *
+	 * @param int    $submission_id Solicitação.
+	 * @param string $doc_type      Tipo.
+	 * @param string $ref_key       Referência (ex.: p:12) ou ''.
+	 * @return bool
+	 */
+	public function has_open( $submission_id, $doc_type, $ref_key = '' ) {
+		foreach ( $this->for_submission( (int) $submission_id, true ) as $r ) {
+			if ( $r['doc_type'] === $doc_type && (string) ( isset( $r['ref_key'] ) ? $r['ref_key'] : '' ) === (string) $ref_key ) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
 	 * Marca lembrete enviado.
 	 *
 	 * @param int $id Pedido.

@@ -149,6 +149,38 @@ class SubmissionRepository extends Db {
 	}
 
 	/**
+	 * Candidatas ao lembrete de complemento (cron): enviadas entre $after e $before, em um dos status, sem lembrete
+	 * anterior e sem imóveis ($need_props) e/ou sem garantias ($need_guarantees).
+	 *
+	 * @param string[] $statuses        Status.
+	 * @param string   $before          Enviadas até (UTC, Y-m-d H:i:s).
+	 * @param string   $after           Enviadas a partir de (UTC).
+	 * @param bool     $need_props      Considerar falta de imóveis.
+	 * @param bool     $need_guarantees Considerar falta de garantias.
+	 * @param int      $limit           Máximo.
+	 * @return array
+	 */
+	public function complement_reminder_candidates( array $statuses, $before, $after, $need_props, $need_guarantees, $limit = 500 ) {
+		global $wpdb;
+		if ( ! $statuses || ( ! $need_props && ! $need_guarantees ) ) {
+			return array();
+		}
+		$t       = self::table( 'submissions' );
+		$p       = self::table( 'properties' );
+		$g       = self::table( 'guarantees' );
+		$in      = self::in_placeholders( $statuses );
+		$missing = array();
+		if ( $need_props ) {
+			$missing[] = "NOT EXISTS (SELECT 1 FROM `{$p}` p WHERE p.submission_id = s.id)";
+		}
+		if ( $need_guarantees ) {
+			$missing[] = "NOT EXISTS (SELECT 1 FROM `{$g}` g WHERE g.submission_id = s.id)";
+		}
+		$sql = "SELECT s.* FROM `{$t}` s WHERE s.deleted_at IS NULL AND s.anonymized_at IS NULL AND s.complement_reminded_at IS NULL AND s.submitted_at IS NOT NULL AND s.submitted_at <= %s AND s.submitted_at >= %s AND s.status IN ($in) AND (" . implode( ' OR ', $missing ) . ') ORDER BY s.submitted_at ASC LIMIT %d';
+		return (array) $wpdb->get_results( $wpdb->prepare( $sql, array_merge( array( (string) $before, (string) $after ), $statuses, array( max( 1, (int) $limit ) ) ) ), ARRAY_A ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery,WordPress.DB.PreparedSQL.NotPrepared -- tabelas internas; placeholders gerados por in_placeholders.
+	}
+
+	/**
 	 * Listagem administrativa com filtros e paginação.
 	 *
 	 * @param array $args status, assigned_to, search, uf, activity, date_from, date_to, amount_min, amount_max, orderby, order, per_page, page, only_assigned_to.

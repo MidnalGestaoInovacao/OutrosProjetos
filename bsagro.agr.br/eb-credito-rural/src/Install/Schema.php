@@ -44,6 +44,8 @@ final class Schema {
   fund varchar(40) NOT NULL DEFAULT '',
   duplicated_from bigint(20) unsigned DEFAULT NULL,
   submitted_at datetime DEFAULT NULL,
+  complemented_at datetime DEFAULT NULL,
+  complement_reminded_at datetime DEFAULT NULL,
   created_at datetime NOT NULL,
   updated_at datetime NOT NULL,
   deleted_at datetime DEFAULT NULL,
@@ -87,6 +89,7 @@ final class Schema {
   lease_end date DEFAULT NULL,
   sort_order int(11) NOT NULL DEFAULT 0,
   created_at datetime NOT NULL,
+  updated_at datetime DEFAULT NULL,
   PRIMARY KEY  (id),
   KEY submission_id (submission_id)
 ) $c;";
@@ -104,6 +107,7 @@ final class Schema {
   extra longtext,
   sort_order int(11) NOT NULL DEFAULT 0,
   created_at datetime NOT NULL,
+  updated_at datetime DEFAULT NULL,
   PRIMARY KEY  (id),
   KEY submission_id (submission_id)
 ) $c;";
@@ -142,6 +146,8 @@ final class Schema {
   id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   submission_id bigint(20) unsigned NOT NULL,
   doc_type varchar(60) NOT NULL,
+  ref_key varchar(60) NOT NULL DEFAULT '',
+  origin varchar(20) NOT NULL DEFAULT '',
   label varchar(190) NOT NULL,
   note text,
   requested_by bigint(20) unsigned NOT NULL,
