@@ -84,19 +84,21 @@ Cada etapa é idempotente. Para republicar só algumas páginas: `BS_PAGES=conta
 
 ## Pendências para o administrador do WordPress
 
-1. **Links permanentes**: em *Configurações → Links permanentes*, escolha **"Nome do post"** e salve. Depois rode `python3 site/deploy.py all`
-   para os links internos passarem ao formato `/contato/`, `/materias/` etc. (a API do MCP não altera essa opção).
-2. **Plugin da Área do Cliente**: o Easy MCP AI não instala plugins. Em *Plugins → Adicionar novo → Enviar plugin*, envie
+Concluídas: links permanentes em "Nome do post" (links internos já no formato `/slug/`), nome do Encarregado (DPO) Sr. Sanclé
+Albuquerque publicado (`DPO_NOME` em `site/deploy.py`, placeholder `{{DPO}}` nos textos), LinkedIn provisório da fundadora
+(`LINKEDIN`), "+800 clientes" mantido.
+
+1. **Plugin da Área do Cliente**: o Easy MCP AI não instala plugins. Em *Plugins → Adicionar novo → Enviar plugin*, envie
    `dist/eb-credito-rural-1.3.0.zip` e ative. Depois rode `python3 site/deploy.py pages` para a página **Área do Cliente**
-   trocar o aviso "sendo ativada" pelo portal (`[ebcr_portal]`). Configure em *Crédito Rural → Configurações*: identidade visual
-   (preset "BS Agro Capital"), exigência de garantias, e as páginas legais (Aviso de Privacidade etc.).
-3. **FormSubmit**: cada endereço precisa clicar uma vez em "Activate Form" no e-mail recebido do FormSubmit (`deploy.py forms` dispara esse e-mail).
-4. **Encarregado (DPO)**: a LGPD pede a divulgação da identidade do Encarregado. Os textos citam o cargo e o e-mail `dpo@`; informe o nome para incluí-lo.
-5. **Ícone do site**: em *Configurações → Geral → Ícone do site*, escolha a mídia "favicon-512" (os ícones já são declarados via HTML).
-6. **LinkedIn**: o site original tinha o placeholder `[INSERIR LINK DO LINKEDIN]`; o ícone foi retirado até o endereço ser informado.
-7. **Números da trajetória** ("+800 clientes"): o site original marcava para confirmar com o cliente antes de publicar.
-8. **Políticas**: são minutas completas, mas devem ser revisadas pelo jurídico (prazos internos, limite de brindes, retenção de 24 meses de contatos que não viraram clientes etc.).
-9. **Página "Privacy Policy"** (rascunho padrão do WordPress): em *Configurações → Privacidade*, selecione "Aviso de Privacidade" como página de política.
+   trocar o aviso "sendo ativada" pelo portal (`[ebcr_portal]`). Em *Crédito Rural → Configurações*: preset "BS Agro Capital"
+   (Identidade visual), modo de garantias, nome do DPO e e-mails dos canais (aba "Canais de atendimento").
+2. **Formulários**: com o plugin ativo, Contato, Portal do Titular e Canal de Integridade são registrados no próprio WordPress
+   (protocolo, e-mail pelo servidor, painel "Mensagens dos canais"). Sem o plugin, usam o FormSubmit, que exige um clique em
+   "Activate Form" no primeiro e-mail recebido em cada endereço (contato@, dpo@, ouvidoria@) — a ativação não pôde ser feita
+   a partir do ambiente de publicação, porque o FormSubmit recusa requisições dele.
+3. **Ícone do site**: em *Configurações → Geral → Ícone do site*, escolha a mídia "favicon-512" (os ícones já são declarados via HTML).
+4. **Políticas**: são minutas completas, mas devem ser revisadas pelo jurídico (prazos internos, limite de brindes, retenção de 24 meses de contatos que não viraram clientes etc.).
+5. **Página "Privacy Policy"** (rascunho padrão do WordPress): em *Configurações → Privacidade*, selecione "Aviso de Privacidade" como página de política.
 
 ## Aviso de cookies (gerenciador de consentimento)
 

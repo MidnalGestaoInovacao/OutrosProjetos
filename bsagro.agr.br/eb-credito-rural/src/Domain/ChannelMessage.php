@@ -191,8 +191,15 @@ final class ChannelMessage {
 			);
 		}
 		// Honeypot: campo invisível que robôs preenchem.
-		$honey = isset( $payload['_honey'] ) ? $payload['_honey'] : ( isset( $payload['fields']['_honey'] ) ? $payload['fields']['_honey'] : '' );
-		if ( '' !== ( is_scalar( $honey ) ? trim( (string) $honey ) : 'x' ) ) {
+		$honeys = array(
+			isset( $payload['_honey'] ) ? $payload['_honey'] : '',
+			isset( $payload['fields'] ) && is_array( $payload['fields'] ) && isset( $payload['fields']['_honey'] ) ? $payload['fields']['_honey'] : '',
+		);
+		$filled = false;
+		foreach ( $honeys as $honey ) {
+			$filled = $filled || '' !== ( is_scalar( $honey ) ? trim( (string) $honey ) : 'x' );
+		}
+		if ( $filled ) {
 			return new \WP_Error( 'ebcr_channel_spam', __( 'Não foi possível enviar. Tente novamente.', 'eb-credito-rural' ), array( 'status' => 400 ) );
 		}
 		$anonymous = 'ouvidoria' === $channel && isset( $payload['anonymous'] ) && self::truthy( $payload['anonymous'] );
@@ -315,8 +322,10 @@ final class ChannelMessage {
 		$id       = 0;
 		// Até 5 tentativas: protocolo do cliente já usado (ou colisão rara na gravação) gera um novo.
 		for ( $attempt = 0; $attempt < 5 && ! $id; $attempt++ ) {
-			for ( $i = 0; ( '' === $protocol || $repo->protocol_exists( $protocol ) ) && $i < 20; $i++ ) {
+			$tries = 0;
+			while ( $tries < 20 && ( '' === $protocol || $repo->protocol_exists( $protocol ) ) ) {
 				$protocol = self::generate_protocol( $clean['channel'] );
+				++$tries;
 			}
 			$id = $repo->insert(
 				array(
@@ -405,8 +414,8 @@ final class ChannelMessage {
 		if ( $anon ) {
 			$body .= '<p><strong>' . esc_html__( 'Relato anônimo: não há dados de identificação do remetente.', 'eb-credito-rural' ) . '</strong></p>';
 		}
-		$body   .= self::fields_html( $fields );
-		$body   .= '<p style="color:#6b7280;font-size:13px">' . esc_html(
+		$body .= self::fields_html( $fields );
+		$body .= '<p style="color:#6b7280;font-size:13px">' . esc_html(
 			sprintf(
 				/* translators: 1: data, 2: página */
 				__( 'Recebido em %1$s pela página %2$s.', 'eb-credito-rural' ),

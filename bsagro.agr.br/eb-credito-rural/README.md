@@ -11,6 +11,8 @@ Esta é a **Fase 1 (MVP seguro)** do `SPEC.md`. Slug `eb-credito-rural`, prefixo
 - **Botão "Área do Cliente"**: shortcode `[ebcr_client_area_button]`, bloco `ebcr/client-area-button`, botão fixo no topo, item em menu clássico ou no bloco Navegação, atributo `data-ebcr-client-area` em qualquer link, `window.EBCR_CLIENT_AREA` e endereço amigável `/area-do-cliente/` (com `?ebcr_client_area=1` para links permanentes simples).
 - **Páginas legais por slug candidato**: sem página escolhida, cada política procura a primeira página publicada entre slugs padrão (privacidade: `aviso-de-privacidade`, `politica-de-privacidade` e, por fim, a página de privacidade do WordPress); novas páginas complementares (portal do titular, cookies, comercialização, canal de integridade) aparecem na área Privacidade do cliente. Título de cada política editável.
 - **Registro de consentimento de cookies** (prova do consentimento, LGPD art. 8º, § 2º): rota pública `POST ebcr/v1/cookie-consent` para o banner de cookies do site, tela *Crédito Rural → Consentimentos de cookies* com filtros e CSV, retenção configurável e integração com o exportador/apagador de dados pessoais. Nova tabela `{prefix}ebcr_cookie_consents` (`EBCR_DB_VERSION` 1.3.0, criada automaticamente na atualização).
+- **Canais de atendimento** (contato, Portal do Titular/LGPD e Canal de Integridade): rota pública `POST ebcr/v1/channel-message` para os formulários do site, com protocolo (`CT-`, `LGPD-`, `OUV-`), relato anônimo no Canal de Integridade, e-mail para a caixa de cada canal (Reply-To do remetente) e recibo com o protocolo; tela *Crédito Rural → Mensagens dos canais* com filtros, detalhe, status e CSV; retenção e exportador/apagador de dados pessoais. Nova tabela `{prefix}ebcr_channel_messages` (`EBCR_DB_VERSION` 1.3.1) e capacidade `ebcr_manage_channels` (gestores e administradores).
+- **Sem o script de emojis do WordPress** no site público (Configurações → Geral → *Remover o script de emojis do WordPress*, ligado por padrão).
 - Padrões neutros para novos sites: nome da operação = "Crédito Rural — {nome do site}" e encarregado (DPO) vazio (a atualização preserva os valores anteriores de quem já usava o plugin).
 - Correções: salvar a aba *Documentos e uploads* (matriz de documentos) causava erro fatal no PHP 8; aviso do PHP 8.3+ ao revalidar solicitação com a etapa financeira vazia; `font` inválido nos botões.
 
@@ -134,6 +136,52 @@ fetch(window.EBCR_CLIENT_AREA.consentEndpoint, {
 });
 ```
 
+## Canais de atendimento (contato, titular e integridade)
+
+Os formulários públicos do site (contato, Portal do Titular/DPO e Canal de Integridade/ouvidoria) enviam para `POST {rest_url}ebcr/v1/channel-message` — o endereço exato fica em `window.EBCR_CLIENT_AREA.channelEndpoint` (montado com `rest_url()`; com links permanentes simples: `/?rest_route=/ebcr/v1/channel-message`). Rota pública, limitada a **10 envios por hora por IP**. Aceita JSON ou formulário (`application/x-www-form-urlencoded`). Com usuário conectado, envie `X-WP-Nonce` (`window.EBCR_CLIENT_AREA.consentNonce`) para vincular a mensagem à conta.
+
+```json
+{
+  "channel": "contato",
+  "protocol": "CT-20260929-7K2Q",
+  "anonymous": false,
+  "page": "/contato/",
+  "_honey": "",
+  "fields": {
+    "nome": "Maria Souza", "email": "maria@exemplo.com.br", "telefone": "(62) 99999-0000",
+    "assunto": "Custeio de soja", "mensagem": "Gostaria de informações.", "consentimento": true
+  }
+}
+```
+
+- `channel`: `contato` | `dpo` | `ouvidoria`.
+- `protocol`: opcional. Formato `^(CT|LGPD|OUV)-\d{8}-[A-Z0-9]{4}$` com o prefixo do canal (`CT` contato, `LGPD` titular, `OUV` integridade). Se ausente, inválido, de outro canal ou já usado, o servidor gera outro (`PREFIXO-AAAAMMDD-XXXX`, data no fuso do site). A resposta traz **sempre** o protocolo gravado — mostre esse ao visitante.
+- `anonymous`: só vale para `ouvidoria`. Quando verdadeiro, `nome`, `email` e `telefone` são descartados e **não** se grava hash de IP, user agent nem usuário; também não há Reply-To nem recibo.
+- `page`: caminho da página (sem domínio, query ou fragmento; até 200 caracteres).
+- `_honey`: campo invisível (no topo ou dentro de `fields`); precisa chegar vazio.
+- `fields`: objeto (não lista) com até 20 chaves; só entram `nome, email, telefone, empresa, assunto, mensagem, relacao, direito, descricao, tipo, quando, onde, envolvidos, relato, evidencias, consentimento, declaracao_titular, boa_fe` (outras são ignoradas). Valores em texto, sanitizados, até 5000 caracteres cada; `email` é validado quando enviado. Caixas (`consentimento`, `declaracao_titular`, `boa_fe`) aceitam `true`, `1`, `"on"`, `"sim"`.
+- Obrigatórios: **contato** `nome, email, assunto, mensagem, consentimento`; **dpo** `nome, email, relacao, direito, descricao, declaracao_titular, consentimento`; **ouvidoria** `tipo, relato, boa_fe`.
+- Respostas: `200 {"ok": true, "protocol": "CT-20260929-7K2Q"}`; `400 {"ok": false, "message": "…", "fields": ["email"]}` (mensagem genérica em português; `fields` lista os campos com problema, quando houver); `429 {"ok": false, "message": "…"}` acima do limite; `500 {"ok": false, "message": "…"}` só se o banco recusar a gravação. Nada do que foi gravado é devolvido.
+- Gravado em `{prefix}ebcr_channel_messages`: canal, protocolo, anônimo, campos (JSON), e-mail (minúsculo, para o exportador/apagador), página, **hash** HMAC-SHA256 do IP com `wp_salt('auth')` (nunca o IP), user agent (180 caracteres), usuário, status (`novo`, `em_andamento`, `concluido`) e datas (UTC).
+- E-mail à equipe (fila de e-mails): assunto `[<Canal>] <protocolo> — <nome do site>`, corpo com os campos (escapados) e o protocolo, **Reply-To** do remetente quando há e-mail válido e a mensagem não é anônima; nunca inclui o hash do IP. Destinatário: `channel_email_contato`, `channel_email_dpo`, `channel_email_ouvidoria` (vazio = e-mail do administrador do WordPress). Recibo curto com o protocolo ao remetente quando `channel_send_receipt` está ligado (padrão).
+- Consulta: **Crédito Rural → Mensagens dos canais** (capacidade `ebcr_manage_channels`: gestores e administradores; pode ser dada ao encarregado/DPO), com filtros por canal, status e período, detalhe da mensagem, troca de status e **Exportar CSV** (também exige `ebcr_export`; células neutralizadas contra fórmulas; sem hash de IP nem user agent). Visualização, troca de status e exportação ficam no log de auditoria.
+- Retenção: `channel_message_retention_days` (Canais de atendimento, padrão 1825 = 5 anos) — a rotina de retenção apaga as mensagens mais antigas.
+- LGPD: o exportador de dados pessoais do WordPress inclui as mensagens identificadas enviadas com o e-mail (mesmo sem conta; anônimas nunca entram) e o "Baixar meus dados" do portal as inclui para o e-mail da conta; o apagador mantém o registro do atendimento, mas remove nome, e-mail, telefone, empresa, hash do IP, user agent e usuário.
+
+Exemplo mínimo:
+
+```js
+fetch(window.EBCR_CLIENT_AREA.channelEndpoint, {
+  method: 'POST', credentials: 'same-origin',
+  headers: Object.assign({ 'Content-Type': 'application/json' }, window.EBCR_CLIENT_AREA.consentNonce ? { 'X-WP-Nonce': window.EBCR_CLIENT_AREA.consentNonce } : {}),
+  body: JSON.stringify({ channel: 'ouvidoria', anonymous: true, page: location.pathname, _honey: form._honey.value, fields: { tipo: 'fraude', relato: texto, boa_fe: true } })
+}).then(r => r.json()).then(r => { if (r.ok) mostrarProtocolo(r.protocol); else mostrarErro(r.message); });
+```
+
+## Emojis do WordPress
+
+`disable_wp_emoji` (Configurações → Geral, ligado por padrão) remove do site público o script de detecção de emojis (`print_emoji_detection_script`), os estilos (`wp_enqueue_emoji_styles`/`print_emoji_styles`), a conversão de emojis em imagens nos feeds e o `dns-prefetch` para o CDN de emojis. O painel não é afetado. Desligue se o tema depender das imagens de emoji do WordPress.
+
 ## Páginas legais
 
 Em **Privacidade e compliance**, cada política tem título, página, versão e texto. Sem página escolhida (`policies[<chave>][page_id]` = 0), o plugin usa a primeira página **publicada** entre os slugs candidatos, sempre com `get_permalink()`:
@@ -159,7 +207,7 @@ O plugin registra 18 *abilities* na Abilities API do WordPress (6.9+), categoria
 | `wp_ability_ebcr_get_settings` | Lê configurações (todas, por aba ou por chave) com rótulo, ajuda e tipo; sem filtros inclui a identidade visual efetiva (tokens, variáveis CSS, contraste) e as URLs do botão "Área do Cliente" | `ebcr_manage_settings` |
 | `wp_ability_ebcr_update_settings` | Altera configurações (mesma sanitização/limites/avisos da tela); `brand_preset` expande a predefinição | `ebcr_manage_settings` |
 | `wp_ability_ebcr_reset_settings` | Restaura os padrões de uma aba | `ebcr_manage_settings` |
-| `wp_ability_ebcr_get_status` | Estado do plugin: ambiente, pasta privada, criptografia, fila de e-mails, contagens, pendências de publicação, estado do MCP | `ebcr_manage_settings` |
+| `wp_ability_ebcr_get_status` | Estado do plugin: ambiente, pasta privada, criptografia, fila de e-mails, contagens, pendências de publicação, estado do MCP; em `modules`, entre outros, `cookie_consent` e `channels` (endpoint, destinatários efetivos, recibo, retenção, total e novas) e `disable_wp_emoji` | `ebcr_manage_settings` |
 | `wp_ability_ebcr_run_tool` | `test_protection`, `test_email`, `process_mail`, `retry_mail`, `run_daily`, `run_retention`, `enable_mcp`, `send_crm_reminders`, `apply_site_icon`, `apply_brand_preset` (+ `preset`), `flush_rewrite` | `ebcr_manage_settings` |
 | `wp_ability_ebcr_list_team` | Lista analistas, gestores e administradores | `ebcr_change_final_status` |
 | `wp_ability_ebcr_set_team_member` | Cria/atribui analista ou gestor por e-mail; `remover` tira da equipe | `promote_users` |
@@ -211,13 +259,13 @@ uninstall.php          respeita "manter dados ao desinstalar"
 src/Install            Schema (dbDelta), Migrator, Activator, Deactivator
 src/Roles              Capabilities (papéis e capacidades)
 src/Database           repositórios por tabela ($wpdb->prepare em todas as consultas)
-src/Domain             Status (fluxo), Consent (políticas versionadas e páginas legais), CookieConsent (registro de consentimento de cookies), Protocol
+src/Domain             Status (fluxo), Consent (políticas versionadas e páginas legais), CookieConsent (registro de consentimento de cookies), ChannelMessage (canais de contato, titular e integridade), Protocol
 src/Forms              Steps (7 etapas; 2 e 5 configuráveis), Validators (CPF, CNPJ, CAR, CEP…), DocumentMatrix, Wizard, SubmissionRules (regras de envio e de bens/garantias), SubmissionService
 src/Security           Authorization, MathCaptcha, Honeypot, RateLimiter, LoginGuard, Nonces, Crypto (sodium), AuditLog, PrivacyIntegration, Retention
 src/Files              FileGuard, Storage, UploadHandler, DownloadController, Exif, Antivirus
 src/Mail               Events (templates), Mailer, Queue (Action Scheduler ou WP-Cron, 3 tentativas), Notifier
 src/Frontend           Auth, Portal, FormRouter (formulários enviam para a própria página do portal), Fields, Simulator, ClientArea (botão/bloco/barra "Área do Cliente" e /area-do-cliente/), Team (painel da equipe no site)
-src/Admin              Menu, Dashboard (gráficos), SubmissionsList, SubmissionView, Actions, Settings (15 abas), Branding (identidade do painel/login e da área do cliente), Help, AuditLogView, Crm/CrmList, Reports
+src/Admin              Menu, Dashboard (gráficos), SubmissionsList, SubmissionView, Actions, Settings (16 abas), ChannelMessagesView (mensagens dos canais), CookieConsentsView, Branding (identidade do painel/login e da área do cliente), Help, AuditLogView, Crm/CrmList, Reports
 src/Support            Options, Helpers, Color (cores CSS e contraste WCAG), View, Ip, Uuid
 src/Reports            Metrics (funil, mês, UF, atividade, garantia, tempo por etapa, carteira, analista), Dossier (PDF do comitê)
 src/Pdf                Writer (gerador de PDF em PHP puro)
@@ -226,12 +274,12 @@ src/Esign              assinatura eletrônica simples (código por e-mail, PDF c
 src/Integrations       Lookup (CEP/CNPJ), WhatsApp (Cloud API)
 src/Security           … + Turnstile (captcha), TwoFactor/Totp (2FA da equipe)
 src/Abilities          abilities do WordPress expostas ao Easy MCP AI (18 ferramentas)
-src/Rest               ebcr/v1 (etapas, uploads, envio, mensagens, status, atribuição, pedidos, revisão, lookup/cep, lookup/cnpj, crm/contacts/{id}/stage, esign/…, cookie-consent)
+src/Rest               ebcr/v1 (etapas, uploads, envio, mensagens, status, atribuição, pedidos, revisão, lookup/cep, lookup/cnpj, crm/contacts/{id}/stage, esign/…, cookie-consent, channel-message)
 src/Cron               lembretes, certidões a vencer, retenção, limpezas, lembretes de tarefas do CRM
 assets/vendor          Chart.js 4.4.4 (MIT) e qrcode-generator 1.4.4 (MIT), empacotados (sem CDN)
 templates/             portal, wizard, admin e e-mails (sobrescrevíveis pelo tema em /eb-credito-rural/)
 assets/                CSS/JS sem CDN
-tests/                 PHPUnit (autorização, segurança, validadores, wizard, bens/garantias, identidade visual, botão Área do Cliente, consentimento de cookies, abilities, relatórios, CRM, dossiê, 2FA, assinatura, integrações, painel da equipe)
+tests/                 PHPUnit (autorização, segurança, validadores, wizard, bens/garantias, identidade visual, botão Área do Cliente, consentimento de cookies, canais de atendimento, abilities, relatórios, CRM, dossiê, 2FA, assinatura, integrações, painel da equipe)
 ```
 
 ## Desenvolvimento e testes
@@ -262,12 +310,14 @@ Os testes de autorização cobrem os critérios de aceite do SPEC: cliente A nã
 - [ ] Botão "Área do Cliente" no cabeçalho (shortcode, bloco, menu, barra fixa ou `data-ebcr-client-area`) apontando para o portal
 - [ ] Páginas legais publicadas (ou escolhidas em Privacidade e compliance) e links conferidos
 - [ ] Banner de cookies registrando as decisões em `window.EBCR_CLIENT_AREA.consentEndpoint` (conferir em Consentimentos de cookies)
+- [ ] Formulários de contato, titular e integridade enviando para `window.EBCR_CLIENT_AREA.channelEndpoint`; e-mails de cada canal definidos em Canais de atendimento; mensagem de teste recebida e visível em Mensagens dos canais
+- [ ] Papel com acesso às mensagens dos canais (`ebcr_manage_channels`) revisado — em especial para o Canal de Integridade
 - [ ] Cron do sistema (se `DISABLE_WP_CRON`)
 - [ ] Backup do banco e da pasta privada
 
 ## Versões
 
-- **1.3.0** — Bens e garantias configuráveis (obrigatório/opcional/desativado, finalidades que exigem garantia, filtro `ebcr_guarantees_required`); identidade visual da área do cliente (predefinições Évellyn Brandão, BS Agro Capital e Neutro, herdar do tema, fontes, contraste WCAG) aplicada a portal, acesso, formulário, simulador, assinatura, painel da equipe, 2FA, e-mails e login; botão "Área do Cliente" (shortcode, bloco, barra fixa, menus, `data-ebcr-client-area`, `/area-do-cliente/`); páginas legais por slugs candidatos e links complementares; registro de consentimento de cookies (`POST ebcr/v1/cookie-consent`, tela com CSV, retenção, exportador/apagador; tabela nova, `EBCR_DB_VERSION` 1.3.0); nome da operação padrão passa a usar o nome do site e o encarregado (DPO) padrão fica vazio (instalações existentes mantêm os valores anteriores); correção do erro fatal ao salvar a matriz de documentos.
+- **1.3.0** — Bens e garantias configuráveis (obrigatório/opcional/desativado, finalidades que exigem garantia, filtro `ebcr_guarantees_required`); identidade visual da área do cliente (predefinições Évellyn Brandão, BS Agro Capital e Neutro, herdar do tema, fontes, contraste WCAG) aplicada a portal, acesso, formulário, simulador, assinatura, painel da equipe, 2FA, e-mails e login; botão "Área do Cliente" (shortcode, bloco, barra fixa, menus, `data-ebcr-client-area`, `/area-do-cliente/`); páginas legais por slugs candidatos e links complementares; registro de consentimento de cookies (`POST ebcr/v1/cookie-consent`, tela com CSV, retenção, exportador/apagador; tabela nova, `EBCR_DB_VERSION` 1.3.0); canais de atendimento (`POST ebcr/v1/channel-message` com protocolo, relato anônimo, e-mail por canal com Reply-To e recibo, tela *Mensagens dos canais* com status e CSV, retenção, exportador/apagador por e-mail; tabela `ebcr_channel_messages`, `EBCR_DB_VERSION` 1.3.1, capacidade `ebcr_manage_channels`); script de emojis do WordPress removido do site público (`disable_wp_emoji`); log de auditoria passa a gravar IDs textuais (public_id/protocolo) corretamente; nome da operação padrão passa a usar o nome do site e o encarregado (DPO) padrão fica vazio (instalações existentes mantêm os valores anteriores); correção do erro fatal ao salvar a matriz de documentos.
 - **1.2.2** — Identidade visual do painel (Geral → logotipo e ícone da marca): tela de login com a marca, logotipo no topo do menu lateral e na barra do WordPress, ícone da marca no menu "Crédito Rural" e como ícone do site no wp-admin/login (ferramenta `apply_site_icon`).
 - **1.2.1** — Páginas padrão para todas as políticas (Termos de Uso, Autorização SCR/Bacen, Declaração de veracidade, Comunicações de marketing) vinculadas por slug; todas as políticas aceitas também no cadastro (momento do aceite configurável por política em Privacidade e compliance); blocos das etapas do formulário com a mesma altura.
 - **1.2.0** — Fases 2 e 3: painel com gráficos e tempo por etapa; relatórios por carteira/fundo com CSV; CRM completo (ficha, atividades, tarefas com lembretes, Kanban, CSV); dossiê em PDF (gerador próprio); 2FA da equipe (TOTP/e-mail, backup, dispositivo confiável); assinatura eletrônica simples; consultas de CEP/CNPJ; captcha Turnstile; notificações por WhatsApp; simulador de crédito; painel de operações da equipe no site (modo "só no site"); 4 abilities novas (relatório e CRM).

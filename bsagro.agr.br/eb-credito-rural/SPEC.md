@@ -72,7 +72,7 @@ eb-credito-rural/
 |---|---|---|
 | `ebcr_cliente` | Produtor rural cadastrado | Ver e editar apenas as próprias submissões (em rascunho ou com pendência), enviar documentos, ler feedback visível ao cliente |
 | `ebcr_analista` | Analista de crédito | `ebcr_view_submissions`, `ebcr_edit_submissions`, `ebcr_download_documents`, `ebcr_manage_crm` |
-| `ebcr_gestor` | Gestor / comitê | Tudo do analista + `ebcr_change_final_status` (aprovar/reprovar), `ebcr_view_dashboard`, `ebcr_export` |
+| `ebcr_gestor` | Gestor / comitê | Tudo do analista + `ebcr_change_final_status` (aprovar/reprovar), `ebcr_view_dashboard`, `ebcr_export`, `ebcr_manage_channels` (mensagens dos canais, 1.3.0; pode ser dada também ao encarregado/DPO) |
 | `administrator` | Admin do WP | Tudo acima + `ebcr_manage_settings`, `ebcr_view_audit_log` |
 
 Regras:
@@ -374,6 +374,7 @@ Cada campo deve ter descrição curta abaixo explicando **o que faz, valor recom
 5. **Segurança** — caminho de armazenamento privado com **botão "Testar proteção"**, criptografia (status da chave), rate limit de login, captcha (provedor e dificuldade), honeypot, tempo mínimo, expiração de sessão da equipe, analista vê só as atribuídas.
 6. **E-mails** — remetente, templates por evento com pré-visualização, botão "Enviar e-mail de teste", opção de anexos (desligada, com aviso).
 7. **Privacidade e compliance** — editor/seleção de página para cada política (sem página escolhida, procura por slugs candidatos, ex.: privacidade → `aviso-de-privacidade`, `politica-de-privacidade`, página de privacidade do WordPress), título e **versão** de cada texto (alterar a versão exige novo aceite no próximo acesso), prazo de retenção de dados e documentos após encerramento, contato do encarregado (DPO), texto das declarações e páginas complementares (portal do titular, cookies, comercialização, canal de integridade).
+7a. **Canais de atendimento** (1.3.0) — e-mail de destino de cada canal (`channel_email_contato`, `channel_email_dpo`, `channel_email_ouvidoria`; vazio = e-mail do administrador), recibo ao remetente (`channel_send_receipt`) e retenção das mensagens (`channel_message_retention_days`, padrão 1825). Ver §12b.
 8. **Status** — editor do fluxo (§10).
 9. **Ferramentas** — verificação de ambiente (versão do PHP, limites de upload, HTTPS, extensões `sodium`/`fileinfo`, WP-Cron ativo, SMTP), exportar/importar configurações (sem segredos), reprocessar fila de e-mails, rodar rotina de retenção.
 10. **Desinstalação** — "Manter dados ao desinstalar" (padrão: sim), com aviso claro.
@@ -458,13 +459,26 @@ Consulta automática de CEP/CNPJ (APIs públicas), simulador de crédito na pág
 - Tela somente leitura "Consentimentos de cookies" com filtros e CSV; retenção `cookie_consent_retention_days` (padrão 730) na rotina de retenção; exportador/apagador de dados pessoais por user_id (o apagador desvincula e mantém o registro anônimo).
 - O endereço é exposto ao front-end em `window.EBCR_CLIENT_AREA.consentEndpoint` (via `rest_url()`).
 
+## 12b. Canais de atendimento: contato, titular (DPO) e integridade (1.3.0, banco 1.3.1)
+
+- Rota pública `POST ebcr/v1/channel-message` (`permission_callback` aberto; 10 envios/hora por IP; honeypot `_honey` vazio; com usuário conectado, `X-WP-Nonce` vincula o registro ao usuário). JSON ou formulário.
+- Corpo: `channel` (`contato` | `dpo` | `ouvidoria`); `protocol` opcional no formato `^(CT|LGPD|OUV)-\d{8}-[A-Z0-9]{4}$` com o prefixo do canal — ausente, inválido, de outro canal ou já usado → gerado no servidor (`PREFIXO-AAAAMMDD-XXXX`); `anonymous` (só `ouvidoria`); `page` (só o caminho, até 200); `fields` (objeto, até 20 chaves, lista branca `nome, email, telefone, empresa, assunto, mensagem, relacao, direito, descricao, tipo, quando, onde, envolvidos, relato, evidencias, consentimento, declaracao_titular, boa_fe`; texto sanitizado até 5000 caracteres; `email` validado).
+- Obrigatórios: contato `nome, email, assunto, mensagem, consentimento`; dpo `nome, email, relacao, direito, descricao, declaracao_titular, consentimento`; ouvidoria `tipo, relato, boa_fe`. Relato anônimo descarta `nome`, `email`, `telefone` e não grava hash de IP, user agent nem usuário.
+- Respostas: `{ok:true, protocol}` (sempre o protocolo gravado) ou `{ok:false, message[, fields]}` com 400/429 (mensagem genérica em português); 500 só se o banco recusar a gravação.
+- Tabela `ebcr_channel_messages`: channel, protocol (único), anonymous, fields (JSON), email (minúsculo, vazio se anônimo), page, ip_hash (HMAC-SHA256 com `wp_salt('auth')`), user_agent (180), user_id, status (`novo` | `em_andamento` | `concluido`), created_at/updated_at (UTC).
+- E-mails pela fila: para o destinatário do canal (vazio = administrador), assunto `[<Canal>] <protocolo> — <nome do site>`, campos escapados, Reply-To do remetente (se e-mail válido e não anônimo), nunca o hash do IP; recibo com o protocolo ao remetente se `channel_send_receipt` (padrão ligado).
+- Tela "Mensagens dos canais" (capacidade `ebcr_manage_channels`, gestores e administradores): filtros por canal/status/período, detalhe, troca de status e CSV via admin-post com nonce (também `ebcr_export`; células neutralizadas contra fórmulas; sem hash de IP/user agent). Auditoria: `channel_message_viewed`, `channel_status_changed`, `export`.
+- Retenção `channel_message_retention_days` (padrão 1825) na rotina de retenção; exportador/apagador de dados pessoais por e-mail (anônimas nunca entram; o apagador remove nome, e-mail, telefone, empresa, hash do IP, user agent e usuário, mantendo o registro do atendimento).
+- Endereço exposto em `window.EBCR_CLIENT_AREA.channelEndpoint` e em `get-status` (`modules.channels`).
+- `disable_wp_emoji` (Geral, padrão ligado) remove do site público o script/estilos de emoji do WordPress.
+
 ---
 
 ## 17. Histórico de versões
 
 | Versão | Mudanças |
 |---|---|
-| 1.3.0 | Bens e garantias configuráveis (`guarantees_mode`, `guarantees_required_modalities`, `assets_mode`; filtros `ebcr_guarantees_required` e `ebcr_assets_required`; condição de matriz "qualquer garantia oferecida"); identidade visual da área do cliente (aba Identidade visual, predefinições Évellyn Brandão/BS Agro Capital/Neutro, herdar do tema, fontes, contraste WCAG, variáveis `--ebcr-*` com os valores originais como reserva, e-mails e login com a marca); botão "Área do Cliente" (shortcode, bloco, barra fixa, menus, `data-ebcr-client-area`, `window.EBCR_CLIENT_AREA`, filtro `ebcr_client_area_url`, `/area-do-cliente/`); páginas legais por slugs candidatos e links complementares; registro de consentimento de cookies (§12a); nome da operação padrão = nome do site e DPO padrão vazio (instalações existentes preservam os anteriores por migração de configurações); correção do erro fatal ao salvar a matriz de documentos. Banco: nova tabela `ebcr_cookie_consents` (`EBCR_DB_VERSION` 1.3.0). |
+| 1.3.0 | Bens e garantias configuráveis (`guarantees_mode`, `guarantees_required_modalities`, `assets_mode`; filtros `ebcr_guarantees_required` e `ebcr_assets_required`; condição de matriz "qualquer garantia oferecida"); identidade visual da área do cliente (aba Identidade visual, predefinições Évellyn Brandão/BS Agro Capital/Neutro, herdar do tema, fontes, contraste WCAG, variáveis `--ebcr-*` com os valores originais como reserva, e-mails e login com a marca); botão "Área do Cliente" (shortcode, bloco, barra fixa, menus, `data-ebcr-client-area`, `window.EBCR_CLIENT_AREA`, filtro `ebcr_client_area_url`, `/area-do-cliente/`); páginas legais por slugs candidatos e links complementares; registro de consentimento de cookies (§12a); nome da operação padrão = nome do site e DPO padrão vazio (instalações existentes preservam os anteriores por migração de configurações); correção do erro fatal ao salvar a matriz de documentos. Canais de atendimento (§12b): `POST ebcr/v1/channel-message`, tela *Mensagens dos canais*, e-mails por canal com recibo, retenção e exportador/apagador; capacidade `ebcr_manage_channels`; `disable_wp_emoji`; o log de auditoria grava IDs textuais (o `object_id` era convertido para número pelo `$wpdb->field_types` do WordPress). Banco: novas tabelas `ebcr_cookie_consents` e `ebcr_channel_messages` (`EBCR_DB_VERSION` 1.3.1; a versão do plugin continua 1.3.0). |
 | 1.2.2 | Identidade visual do painel e do login (logotipo, ícone da marca, ícone do site). |
 | 1.2.1 | Páginas padrão para as políticas, momento do aceite configurável, etapas com a mesma altura. |
 | 1.2.0 | Fases 2 e 3: gráficos, relatórios por carteira, CRM completo, dossiê em PDF, 2FA, assinatura eletrônica, CEP/CNPJ, Turnstile, WhatsApp, simulador, painel da equipe no site. |

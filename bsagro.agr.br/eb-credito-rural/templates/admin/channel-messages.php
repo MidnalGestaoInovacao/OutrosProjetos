@@ -53,8 +53,8 @@ $ebcr_filters = array_filter(
 		<tbody>
 		<?php
 		foreach ( $items as $ebcr_i ) :
-			$ebcr_f    = ChannelMessage::fields_of( $ebcr_i );
-			$ebcr_link = add_query_arg(
+			$ebcr_f     = ChannelMessage::fields_of( $ebcr_i );
+			$ebcr_link  = add_query_arg(
 				array(
 					'page' => ChannelMessagesView::PAGE,
 					'view' => (int) $ebcr_i['id'],

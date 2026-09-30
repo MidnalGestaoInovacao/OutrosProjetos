@@ -15,13 +15,20 @@ defined( 'ABSPATH' ) || exit;
 class AuditLogRepository extends Db {
 
 	/**
-	 * Insere.
+	 * Insere. Formatos explícitos: o WordPress mapeia a coluna "object_id" para %d ($wpdb->field_types, usado
+	 * pelas taxonomias), o que gravaria public_id/protocolos como 0.
 	 *
 	 * @param array $data Dados.
 	 * @return int
 	 */
 	public function insert( array $data ) {
-		return self::insert_row( 'audit_log', $data );
+		global $wpdb;
+		$formats = array();
+		foreach ( array_keys( $data ) as $col ) {
+			$formats[] = 'actor_id' === $col ? '%d' : '%s';
+		}
+		$wpdb->insert( self::table( 'audit_log' ), $data, $formats ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery -- tabela própria.
+		return (int) $wpdb->insert_id;
 	}
 
 	/**

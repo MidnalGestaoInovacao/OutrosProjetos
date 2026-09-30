@@ -100,9 +100,13 @@ def media_sizes(key):
     return {}
 
 def CAT(slug):
-    """Link da categoria: ?cat=ID funciona com e sem links permanentes (o WordPress redireciona para o formato bonito)."""
+    """Link da categoria: /category/<slug>/ com links permanentes; ?cat=ID no modo simples."""
     tid = state["cats"].get(CAT_SLUGS.get(slug, slug).strip().lower())
-    return "/?cat=%d" % tid if tid else U("materias")
+    if not tid:
+        return U("materias")
+    if state.get("permalinks") == "pretty":
+        return "/category/%s/" % slug
+    return "/?cat=%d" % tid
 
 def LINK(slug):
     return {"home-solucoes": "/#solucoes", "home-como-funciona": "/#como-funciona", "home": "/"}.get(slug) or U(slug)
