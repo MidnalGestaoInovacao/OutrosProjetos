@@ -14,6 +14,15 @@ $ebcr_check = $wizard->validate_all( $s );
 $ebcr_rules = \EBCR\Forms\SubmissionRules::can_submit( get_current_user_id(), (int) $s['id'] );
 $ebcr_nums  = isset( $numbers ) && is_array( $numbers ) ? $numbers : $wizard->step_numbers( $s );
 $ebcr_req   = $ebcr_sum['requirements'];
+// Modo opcional sem imóveis/garantias: orientação para preencher o mais completo possível (ou completar depois).
+$ebcr_cparts = \EBCR\Forms\Complement::parts( $wizard->rules_context( $s ) );
+$ebcr_empty  = array();
+if ( $ebcr_cparts['imoveis'] && ! $ebcr_sum['imoveis'] && ! $ebcr_req['assets_required'] ) {
+	$ebcr_empty['imoveis'] = 2;
+}
+if ( $ebcr_cparts['garantias'] && ! $ebcr_sum['garantias'] && ! $ebcr_req['guarantees_required'] ) {
+	$ebcr_empty['garantias'] = 5;
+}
 ?>
 <div data-ebcr-step="7">
 	<?php echo ebcr_error_summary( $errors ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
@@ -31,6 +40,23 @@ $ebcr_req   = $ebcr_sum['requirements'];
 			<?php endif; ?>
 			<dt><?php esc_html_e( 'Documentos obrigatórios', 'eb-credito-rural' ); ?></dt><dd><?php echo (int) $ebcr_sum['documentos']['required_done']; ?> / <?php echo (int) $ebcr_sum['documentos']['required_total']; ?></dd>
 		</dl>
+		<?php
+		if ( $ebcr_empty ) :
+			$ebcr_links = '';
+			foreach ( $ebcr_empty as $ebcr_part => $ebcr_stepn ) {
+				$ebcr_links .= '<a class="ebcr-btn ebcr-btn--small" href="' . esc_url(
+					Helpers::portal_url(
+						array(
+							'ebcr_view' => 'formulario',
+							'id'        => $s['public_id'],
+							'etapa'     => $ebcr_stepn,
+						)
+					)
+				) . '">' . esc_html( 'imoveis' === $ebcr_part ? __( 'Informar imóveis agora', 'eb-credito-rural' ) : __( 'Informar garantias agora', 'eb-credito-rural' ) ) . '</a> ';
+			}
+			echo ebcr_notice( \EBCR\Forms\Complement::notice( isset( $ebcr_empty['garantias'] ) ? 'garantias' : 'imoveis' ), '', '<p class="ebcr-notice__actions">' . $ebcr_links . '</p>' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escapado no helper e acima.
+		endif;
+		?>
 		<?php if ( $ebcr_check ) : ?>
 			<div class="ebcr-alert ebcr-alert--warning" role="alert">
 				<strong><?php esc_html_e( 'Há pendências antes do envio:', 'eb-credito-rural' ); ?></strong>

@@ -117,7 +117,11 @@ final class Queue {
 			$headers          = json_decode( (string) $item['headers'], true );
 			$attachments      = json_decode( (string) $item['attachments'], true );
 			self::$last_error = '';
-			$ok               = wp_mail( $item['recipient'], $item['subject'], $item['body'], is_array( $headers ) ? $headers : array(), is_array( $attachments ) ? array_filter( $attachments, 'is_file' ) : array() );
+			$ok               = (bool) Smtp::own(
+				static function () use ( $item, $headers, $attachments ) {
+					return wp_mail( $item['recipient'], $item['subject'], $item['body'], is_array( $headers ) ? $headers : array(), is_array( $attachments ) ? array_filter( $attachments, 'is_file' ) : array() );
+				}
+			);
 			$attempts         = (int) $item['attempts'] + 1;
 			if ( $ok ) {
 				$repo->update(

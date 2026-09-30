@@ -129,6 +129,9 @@ final class AuditLog {
 			'2fa_failed'              => __( '2FA: falha de verificação', 'eb-credito-rural' ),
 			'2fa_trusted_device'      => __( '2FA: dispositivo confiável', 'eb-credito-rural' ),
 			'channel_message_viewed'  => __( 'Canais: mensagem visualizada', 'eb-credito-rural' ),
+			'complement_added'        => __( 'Cliente complementou bens/garantias', 'eb-credito-rural' ),
+			'complement_reminder_sent' => __( 'Lembrete para completar bens/garantias', 'eb-credito-rural' ),
+			'storage_created'         => __( 'Pasta privada criada', 'eb-credito-rural' ),
 			'channel_status_changed'  => __( 'Canais: status alterado', 'eb-credito-rural' ),
 		);
 	}

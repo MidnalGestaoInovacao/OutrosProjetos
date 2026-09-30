@@ -223,6 +223,20 @@ final class Status {
 	}
 
 	/**
+	 * Título de uma entrada do histórico: o status novo ou, quando o status não mudou (ex.: complemento de bens e
+	 * garantias pelo cliente), "Atualização da solicitação".
+	 *
+	 * @param array $entry Linha de status_history.
+	 * @return string
+	 */
+	public static function history_title( array $entry ) {
+		if ( isset( $entry['from_status'] ) && (string) $entry['from_status'] === (string) $entry['to_status'] ) {
+			return __( 'Atualização da solicitação', 'eb-credito-rural' );
+		}
+		return self::label( $entry['to_status'] );
+	}
+
+	/**
 	 * Status "em andamento" (nem rascunho nem finais).
 	 *
 	 * @return string[]

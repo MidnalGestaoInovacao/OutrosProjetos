@@ -90,6 +90,7 @@ final class Plugin {
 
 		// E-mails (fila).
 		( new Queue() )->register();
+		( new \EBCR\Mail\Smtp() )->register();
 
 		// Cron.
 		( new Scheduler() )->register();

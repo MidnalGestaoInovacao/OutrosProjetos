@@ -180,17 +180,33 @@ final class Mailer {
 	 * @return bool
 	 */
 	public static function send_test( $to ) {
-		$html = View::render(
+		$subject = __( 'E-mail de teste — EB Crédito Rural', 'eb-credito-rural' );
+		$html    = self::layout( $subject, '<p>' . esc_html__( 'Este é um e-mail de teste enviado pelo plugin EB Crédito Rural. Se você o recebeu, o envio está funcionando.', 'eb-credito-rural' ) . '</p>' );
+		return (bool) Smtp::own(
+			static function () use ( $to, $subject, $html ) {
+				return wp_mail( $to, $subject, $html, self::headers() );
+			}
+		);
+	}
+
+	/**
+	 * Corpo HTML dentro do layout de e-mail da marca.
+	 *
+	 * @param string $subject Assunto (texto).
+	 * @param string $body    Corpo HTML já escapado.
+	 * @return string
+	 */
+	public static function layout( $subject, $body ) {
+		return View::render(
 			'emails/layout',
 			array(
-				'subject'  => __( 'E-mail de teste — EB Crédito Rural', 'eb-credito-rural' ),
-				'body'     => '<p>' . esc_html__( 'Este é um e-mail de teste enviado pelo plugin EB Crédito Rural. Se você o recebeu, o envio está funcionando.', 'eb-credito-rural' ) . '</p>',
+				'subject'  => (string) $subject,
+				'body'     => (string) $body,
 				'logo_url' => (string) Options::get( 'email_logo_url', '' ),
 				'site'     => \EBCR\Admin\Branding::brand_name(),
 				'colors'   => \EBCR\Admin\Branding::email_colors(),
 				'home'     => home_url( '/' ),
 			)
 		);
-		return (bool) wp_mail( $to, __( 'E-mail de teste — EB Crédito Rural', 'eb-credito-rural' ), $html, self::headers() );
 	}
 }

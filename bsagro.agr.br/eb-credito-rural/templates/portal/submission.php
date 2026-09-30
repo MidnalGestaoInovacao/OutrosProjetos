@@ -2,14 +2,17 @@
 /**
  * Detalhe da solicitação (cliente).
  * Variáveis: $s, $history, $requests, $documents, $messages, $slots, $can_edit, $can_upload, $can_cancel, $can_message, $flash, $just_sent,
- * $facts (resumo de imóveis/garantias conforme Configurações → Bens e garantias).
+ * $facts (resumo de imóveis/garantias conforme Configurações → Bens e garantias),
+ * $bens (null ou dados do quadro "Bens e garantias" no modo Opcional: parts, can, properties, guarantees, done).
  *
  * @package EBCR
  */
 
 use EBCR\Domain\Status;
 use EBCR\Files\DownloadController;
+use EBCR\Forms\Complement;
 use EBCR\Forms\DocumentMatrix;
+use EBCR\Forms\Steps;
 use EBCR\Support\Helpers;
 
 defined( 'ABSPATH' ) || exit;
@@ -52,9 +55,25 @@ $ebcr_open = array_filter(
 													"><?php esc_html_e( 'Editar / continuar o preenchimento', 'eb-credito-rural' ); ?></a></p>
 <?php endif; ?>
 
+<?php if ( ! empty( $bens['done']['values'] ) ) : ?>
+	<?php $ebcr_done = $bens['done']['values']; ?>
+	<div class="ebcr-alert ebcr-alert--success" role="status">
+		<strong><?php esc_html_e( 'Complemento salvo.', 'eb-credito-rural' ); ?></strong>
+		<?php /* translators: 1: incluídos, 2: alterados */ printf( esc_html__( '%1$d item(ns) incluído(s) e %2$d alterado(s). A equipe foi avisada.', 'eb-credito-rural' ), (int) $ebcr_done['added'], (int) $ebcr_done['updated'] ); ?>
+		<?php if ( ! empty( $ebcr_done['requests'] ) ) : ?>
+			<br><?php esc_html_e( 'Envie agora, logo abaixo, os documentos dos novos itens:', 'eb-credito-rural' ); ?>
+			<ul>
+			<?php foreach ( (array) $ebcr_done['requests'] as $ebcr_label ) : ?>
+				<li><?php echo esc_html( (string) $ebcr_label ); ?></li>
+			<?php endforeach; ?>
+			</ul>
+		<?php endif; ?>
+	</div>
+<?php endif; ?>
+
 <?php if ( $ebcr_open && $can_upload ) : ?>
-<section class="ebcr-card ebcr-card--warn">
-	<h3><?php esc_html_e( 'Pendências solicitadas pela equipe', 'eb-credito-rural' ); ?></h3>
+<section class="ebcr-card ebcr-card--warn" id="ebcr-pendencias">
+	<h3><?php esc_html_e( 'Pendências e documentos solicitados', 'eb-credito-rural' ); ?></h3>
 	<?php foreach ( $ebcr_open as $ebcr_r ) : ?>
 		<form class="ebcr-pending" method="post" action="<?php echo esc_url( ebcr_form_action() ); ?>" enctype="multipart/form-data" data-ebcr-upload data-doc-type="<?php echo esc_attr( $ebcr_r['doc_type'] ); ?>" data-request-id="<?php echo esc_attr( (string) $ebcr_r['id'] ); ?>">
 			<div><strong><?php echo esc_html( $ebcr_r['label'] ); ?></strong>
@@ -79,13 +98,65 @@ $ebcr_open = array_filter(
 </section>
 <?php endif; ?>
 
+<?php if ( $bens ) : ?>
+<section class="ebcr-card ebcr-bens" id="ebcr-bens" aria-labelledby="ebcr-bens-title">
+	<h3 id="ebcr-bens-title"><?php esc_html_e( 'Bens e garantias', 'eb-credito-rural' ); ?></h3>
+	<?php
+	$ebcr_types = Steps::options( 'guarantee_types' );
+	foreach ( array( 'imoveis', 'garantias' ) as $ebcr_part ) :
+		if ( empty( $bens['parts'][ $ebcr_part ] ) ) {
+			continue;
+		}
+		$ebcr_items = 'imoveis' === $ebcr_part ? $bens['properties'] : $bens['guarantees'];
+		$ebcr_url   = Helpers::portal_url(
+			array(
+				'ebcr_view' => 'complementar',
+				'id'        => $s['public_id'],
+				'parte'     => $ebcr_part,
+			)
+		);
+		?>
+		<div class="ebcr-bens-part">
+			<h4><?php echo esc_html( Complement::part_label( $ebcr_part ) ); ?></h4>
+			<?php if ( $ebcr_items ) : ?>
+				<ul class="ebcr-items">
+				<?php foreach ( $ebcr_items as $ebcr_it ) : ?>
+					<li>
+						<?php if ( 'imoveis' === $ebcr_part ) : ?>
+							<strong><?php echo esc_html( $ebcr_it['name'] ); ?></strong> — <?php echo esc_html( $ebcr_it['city'] . '/' . $ebcr_it['uf'] ); ?>
+							<span class="ebcr-muted ebcr-small"><?php /* translators: 1: matrícula, 2: área */ printf( esc_html__( 'Matrícula %1$s · %2$s ha', 'eb-credito-rural' ), esc_html( $ebcr_it['registration_number'] ), esc_html( (string) $ebcr_it['total_area'] ) ); ?></span>
+						<?php else : ?>
+							<strong><?php echo esc_html( isset( $ebcr_types[ $ebcr_it['type'] ] ) ? $ebcr_types[ $ebcr_it['type'] ] : $ebcr_it['type'] ); ?></strong> — <?php echo esc_html( Helpers::money( $ebcr_it['declared_value'] ) ); ?>
+						<?php endif; ?>
+						<?php $ebcr_note = Complement::item_note( $ebcr_it, $s ); ?>
+						<?php if ( $ebcr_note ) : ?>
+							<span class="ebcr-tag"><?php echo esc_html( $ebcr_note ); ?></span>
+						<?php endif; ?>
+					</li>
+				<?php endforeach; ?>
+				</ul>
+			<?php else : ?>
+				<p class="ebcr-muted"><?php echo esc_html( 'imoveis' === $ebcr_part ? __( 'Nenhum imóvel informado.', 'eb-credito-rural' ) : __( 'Nenhuma garantia informada.', 'eb-credito-rural' ) ); ?></p>
+				<?php echo ebcr_notice( Complement::notice( $ebcr_part ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escapado no helper. ?>
+			<?php endif; ?>
+			<?php if ( ! empty( $bens['can'][ $ebcr_part ] ) ) : ?>
+				<p><a class="ebcr-btn <?php echo $ebcr_items ? '' : 'ebcr-btn--primary'; ?>" href="<?php echo esc_url( $ebcr_url ); ?>"><?php echo esc_html( $ebcr_items ? __( 'Adicionar ou editar', 'eb-credito-rural' ) : __( 'Completar agora', 'eb-credito-rural' ) ); ?></a></p>
+			<?php endif; ?>
+		</div>
+	<?php endforeach; ?>
+	<?php if ( ! array_filter( $bens['can'] ) ) : ?>
+		<p class="ebcr-muted ebcr-small"><?php esc_html_e( 'Nesta fase da análise, bens e garantias não podem ser alterados pela sua área. Se precisar incluir ou corrigir algum item, fale com a equipe pelas mensagens.', 'eb-credito-rural' ); ?></p>
+	<?php endif; ?>
+</section>
+<?php endif; ?>
+
 <div class="ebcr-grid">
 	<div class="ebcr-col-main">
 		<section class="ebcr-card">
 			<h3><?php esc_html_e( 'Linha do tempo', 'eb-credito-rural' ); ?></h3>
 			<ol class="ebcr-timeline">
 			<?php foreach ( $history as $ebcr_h ) : ?>
-				<li><span class="ebcr-timeline-dot" style="--ebcr-badge:<?php echo esc_attr( Status::color( $ebcr_h['to_status'] ) ); ?>"></span><div><strong><?php echo esc_html( Status::label( $ebcr_h['to_status'] ) ); ?></strong> <span class="ebcr-muted ebcr-small"><?php echo esc_html( Helpers::date( $ebcr_h['created_at'] ) ); ?></span>
+				<li><span class="ebcr-timeline-dot" style="--ebcr-badge:<?php echo esc_attr( Status::color( $ebcr_h['to_status'] ) ); ?>"></span><div><strong><?php echo esc_html( Status::history_title( $ebcr_h ) ); ?></strong> <span class="ebcr-muted ebcr-small"><?php echo esc_html( Helpers::date( $ebcr_h['created_at'] ) ); ?></span>
 				<?php
 				if ( $ebcr_h['comment_client'] ) :
 					?>

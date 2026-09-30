@@ -15,6 +15,7 @@ use EBCR\Database\SubmissionRepository;
 use EBCR\Domain\Consent;
 use EBCR\Domain\Status;
 use EBCR\Files\UploadHandler;
+use EBCR\Forms\Complement;
 use EBCR\Forms\Steps;
 use EBCR\Forms\SubmissionRules;
 use EBCR\Forms\SubmissionService;
@@ -34,7 +35,7 @@ use EBCR\Support\View;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Views: painel | solicitacao | nova | formulario | perfil | privacidade | cadastro.
+ * Views: painel | solicitacao | nova | formulario | complementar | perfil | privacidade | cadastro.
  */
 // phpcs:disable WordPress.Security.NonceVerification -- todos os handlers verificam o nonce (Nonces::verify/check_admin_referer) antes de ler a entrada.
 final class Portal {
@@ -45,7 +46,7 @@ final class Portal {
 	 * @return void
 	 */
 	public function register() {
-		$actions = array( 'new_submission', 'wizard_step', 'wizard_upload', 'wizard_submit', 'delete_document', 'cancel_submission', 'client_message', 'profile', 'password', 'lgpd_export', 'lgpd_request', 'request_upload' );
+		$actions = array( 'new_submission', 'wizard_step', 'wizard_upload', 'wizard_submit', 'delete_document', 'cancel_submission', 'client_message', 'profile', 'password', 'lgpd_export', 'lgpd_request', 'request_upload', 'complement' );
 		foreach ( $actions as $a ) {
 			add_action( 'admin_post_ebcr_' . $a, array( $this, 'handle_' . $a ) );
 		}
@@ -182,6 +183,9 @@ final class Portal {
 			case 'formulario':
 				$out .= $this->render_wizard( $user->ID );
 				break;
+			case 'complementar':
+				$out .= $this->render_complement( $user->ID );
+				break;
 			case 'assinar':
 				$out .= \EBCR\Esign\Esign::render( $user->ID );
 				break;
@@ -250,12 +254,27 @@ final class Portal {
 		$msgs = new MessageRepository();
 		$rows = array();
 		foreach ( $subs as $s ) {
-			$open   = Status::is_final( $s['status'] ) ? array() : $reqs->for_submission( (int) $s['id'], true );
-			$rows[] = array(
+			$open    = Status::is_final( $s['status'] ) ? array() : $reqs->for_submission( (int) $s['id'], true );
+			$missing = Complement::can_complement( $user_id, $s ) ? Complement::missing( $s ) : array();
+			$rows[]  = array(
 				'submission' => $s,
 				'open'       => $open,
 				'unread'     => $msgs->unread_for_client( (int) $s['id'], $user_id ),
-				'next'       => $this->next_action( $s, $open ),
+				'next'       => $missing && ! $open ? __( 'Completar bens e garantias', 'eb-credito-rural' ) : $this->next_action( $s, $open ),
+				'missing'    => $missing,
+			);
+		}
+		$draft    = ( new SubmissionRepository() )->open_draft( $user_id );
+		$progress = null;
+		if ( $draft ) {
+			$wizard   = new Wizard();
+			$ctx      = $wizard->rules_context( $draft );
+			$numbers  = Steps::numbers( $ctx );
+			$current  = Steps::resolve( max( 1, (int) $draft['current_step'] ), $ctx );
+			$progress = array(
+				'step'  => isset( $numbers[ $current ] ) ? (int) $numbers[ $current ] : 1,
+				'total' => count( $numbers ),
+				'title' => Steps::all()[ $current ]['title'],
 			);
 		}
 		return View::render(
@@ -263,7 +282,8 @@ final class Portal {
 			array(
 				'rows'          => $rows,
 				'rules'         => SubmissionRules::can_submit( $user_id ),
-				'draft'         => ( new SubmissionRepository() )->open_draft( $user_id ),
+				'draft'         => $draft,
+				'progress'      => $progress,
 				'quota'         => UploadHandler::quota_usage( $user_id ),
 				'verified'      => $verified,
 				'can_duplicate' => Options::bool( 'allow_duplicate_previous' ) && (bool) ( new SubmissionRepository() )->last_submitted( $user_id ),
@@ -318,9 +338,24 @@ final class Portal {
 			$n       = count( $saved['garantias']['garantias'] );
 			$facts[] = $n ? sprintf( /* translators: %d: quantidade */ _n( '%d garantia oferecida', '%d garantias oferecidas', $n, 'eb-credito-rural' ), $n ) : ( isset( $saved['garantias']['oferece_garantia'] ) && 'nao' === $saved['garantias']['oferece_garantia'] ? __( 'Sem garantia oferecida', 'eb-credito-rural' ) : __( 'Nenhuma garantia informada', 'eb-credito-rural' ) );
 		}
+		$parts = Complement::parts( $ctx );
+		$bens  = null;
+		if ( Status::DRAFT !== $s['status'] && array_filter( $parts ) ) {
+			$bens = array(
+				'parts'      => $parts,
+				'can'        => array(
+					'imoveis'   => $parts['imoveis'] && Complement::can_complement( $user_id, $s, 'imoveis' ),
+					'garantias' => $parts['garantias'] && Complement::can_complement( $user_id, $s, 'garantias' ),
+				),
+				'properties' => $saved['imoveis']['imoveis'],
+				'guarantees' => $saved['garantias']['garantias'],
+				'done'       => self::unflash( 'complement_done_' . $s['public_id'] ),
+			);
+		}
 		return View::render(
 			'portal/submission',
 			array(
+				'bens'        => $bens,
 				'facts'       => $facts,
 				's'           => $s,
 				'history'     => array_filter(
@@ -410,6 +445,60 @@ final class Portal {
 						'numbers' => Steps::numbers( $context ),
 						'prev'    => Steps::prev( $step, $context ),
 						'captcha' => MathCaptcha::provider(),
+					)
+				),
+			)
+		);
+	}
+
+	/**
+	 * Complemento de bens e garantias depois do envio (?ebcr_view=complementar&id=…&parte=imoveis|garantias).
+	 *
+	 * @param int $user_id Usuário.
+	 * @return string
+	 */
+	private function render_complement( $user_id ) {
+		$id   = isset( $_GET['id'] ) ? sanitize_text_field( wp_unslash( $_GET['id'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- navegação.
+		$part = isset( $_GET['parte'] ) ? sanitize_key( wp_unslash( $_GET['parte'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- navegação.
+		$s    = ( new SubmissionRepository() )->find_by_public_id( $id );
+		if ( ! $s || ! Authorization::owns( $user_id, $s ) ) {
+			AuditLog::log( 'access_denied', 'submission', $id, array( 'op' => 'complement_view' ), $user_id );
+			return '<div class="ebcr-alert ebcr-alert--error">' . esc_html__( 'Solicitação não encontrada.', 'eb-credito-rural' ) . '</div>';
+		}
+		$back = Helpers::portal_url(
+			array(
+				'ebcr_view' => 'solicitacao',
+				'id'        => $s['public_id'],
+			)
+		);
+		if ( ! isset( Complement::PARTS[ $part ] ) || ! Complement::can_complement( $user_id, $s, $part ) ) {
+			return '<div class="ebcr-alert ebcr-alert--info">' . esc_html__( 'No momento não é possível completar bens e garantias desta solicitação pela sua área. Se precisar incluir ou corrigir algum item, fale com a equipe pelas mensagens.', 'eb-credito-rural' ) . '</div>'
+				. sprintf( '<p><a class="ebcr-btn" href="%s">%s</a></p>', esc_url( $back ), esc_html__( 'Ver solicitação', 'eb-credito-rural' ) );
+		}
+		$step    = Complement::PARTS[ $part ];
+		$wizard  = new Wizard();
+		$saved   = $wizard->saved( $s );
+		$context = $wizard->rules_context( $s, $saved );
+		$flash   = self::unflash( 'complement_' . $s['public_id'] . '_' . $part );
+		$data    = $flash['values'] ? $flash['values'] : ( isset( $saved[ $part ] ) ? $saved[ $part ] : array() );
+		$add     = isset( $_GET['add'] ) ? sanitize_key( wp_unslash( $_GET['add'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- navegação.
+		Frontend::enqueue_wizard( $s, $step );
+		return View::render(
+			'portal/complement',
+			array(
+				's'       => $s,
+				'part'    => $part,
+				'content' => View::render(
+					'wizard/step-' . $step,
+					array(
+						's'       => $s,
+						'data'    => $data,
+						'errors'  => $flash['errors'],
+						'saved'   => $saved,
+						'add'     => $add,
+						'wizard'  => $wizard,
+						'context' => $context,
+						'mode'    => 'complement',
 					)
 				),
 			)
@@ -513,6 +602,56 @@ final class Portal {
 			},
 			$input
 		);
+	}
+
+	/**
+	 * Complemento de bens e garantias depois do envio (mesmas regras do formulário, validadas no servidor).
+	 *
+	 * @return void
+	 */
+	public function handle_complement() {
+		$uid  = $this->guard( 'complement' );
+		$s    = $this->posted_submission();
+		$part = isset( $_POST['parte'] ) ? sanitize_key( wp_unslash( $_POST['parte'] ) ) : '';
+		if ( ! $s || ! isset( Complement::PARTS[ $part ] ) ) {
+			$this->go( array( 'ebcr_msg' => 'forbidden' ) );
+		}
+		$input = wp_unslash( $_POST ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- sanitizado campo a campo pelo Validator (Complement::save → Steps::validate).
+		$view  = array(
+			'ebcr_view' => 'complementar',
+			'id'        => $s['public_id'],
+			'parte'     => $part,
+		);
+		if ( ! empty( $input['ebcr_add'] ) ) {
+			// Sem JS: guarda o que foi digitado e reabre com uma linha a mais (nada é gravado).
+			$this->flash( 'complement_' . $s['public_id'] . '_' . $part, array(), $this->strip_meta( $input ) );
+			$this->go( array_merge( $view, array( 'add' => $part ) ) );
+		}
+		list( $ok, $errors, $result ) = Complement::save( $uid, $s, $part, $input );
+		if ( ! $ok ) {
+			$this->flash( 'complement_' . $s['public_id'] . '_' . $part, $errors, $this->strip_meta( $input ) );
+			$this->go( array_merge( $view, array( 'ebcr_msg' => 'step_errors' ) ) );
+		}
+		$this->flash(
+			'complement_done_' . $s['public_id'],
+			array(),
+			array(
+				'part'     => $part,
+				'added'    => (int) $result['added'],
+				'updated'  => (int) $result['updated'],
+				'requests' => wp_list_pluck( $result['requests'], 'label' ),
+			)
+		);
+		wp_safe_redirect(
+			Helpers::portal_url(
+				array(
+					'ebcr_view' => 'solicitacao',
+					'id'        => $s['public_id'],
+					'ebcr_msg'  => 'complemented',
+				)
+			) . ( $result['requests'] ? '#ebcr-pendencias' : '#ebcr-bens' )
+		);
+		exit;
 	}
 
 	/**
@@ -885,6 +1024,7 @@ final class Portal {
 		}
 		$map = array(
 			'draft_saved'     => array( 'success', __( 'Rascunho salvo. Você pode continuar quando quiser.', 'eb-credito-rural' ) ),
+			'complemented'    => array( 'success', __( 'Bens e garantias atualizados. A equipe foi avisada.', 'eb-credito-rural' ) ),
 			'step_errors'     => array( 'error', __( 'Alguns campos precisam de correção.', 'eb-credito-rural' ) ),
 			'uploaded'        => array( 'success', __( 'Documento enviado com sucesso.', 'eb-credito-rural' ) ),
 			'upload_error'    => array( 'error', __( 'O documento não foi aceito. Veja o motivo abaixo.', 'eb-credito-rural' ) ),

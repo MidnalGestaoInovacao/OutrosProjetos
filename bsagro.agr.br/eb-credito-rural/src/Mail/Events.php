@@ -99,6 +99,18 @@ final class Events {
 				'subject'  => 'Certidões a vencer nos próximos dias',
 				'body'     => "Os documentos abaixo vencem em breve:\n\n{pendencias}\n\nPainel: {link_portal}",
 			),
+			'complement_added'        => array(
+				'label'    => __( 'Cliente complementou bens/garantias (equipe)', 'eb-credito-rural' ),
+				'audience' => 'admin',
+				'subject'  => 'Bens e garantias complementados — {protocolo}',
+				'body'     => "{nome} complementou os bens e garantias da solicitação {protocolo} em {data}:\n\n{pendencias}\n\nOs documentos exigidos pelos novos itens foram pedidos ao cliente na área dele.\n\nPainel: {link_portal}",
+			),
+			'complement_reminder'     => array(
+				'label'    => __( 'Lembrete para completar bens/garantias (cliente)', 'eb-credito-rural' ),
+				'audience' => 'cliente',
+				'subject'  => 'Complete os bens e garantias da solicitação {protocolo}',
+				'body'     => "Olá, {nome}.\n\nSua solicitação {protocolo} foi enviada sem estas informações:\n\n{pendencias}\n\n{comentario}\n\nVocê pode completar agora pela sua área:\n{link_portal}",
+			),
 			'assigned'                => array(
 				'label'    => __( 'Solicitação atribuída ao analista', 'eb-credito-rural' ),
 				'audience' => 'admin',

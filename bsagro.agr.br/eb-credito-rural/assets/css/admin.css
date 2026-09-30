@@ -39,3 +39,5 @@ pre.ebcr-code{background:#1f2937;color:#e5e7eb;padding:12px;border-radius:6px;ov
 .ebcr-contrast-list{margin:8px 0 0;list-style:none;padding:0}
 .ebcr-contrast-list li{margin:6px 0;display:flex;flex-wrap:wrap;align-items:center;gap:6px}
 .ebcr-contrast-sample{display:inline-block;min-width:36px;text-align:center;padding:2px 6px;border:1px solid #dcdcde;border-radius:4px;font-weight:700}
+/* Itens incluídos/alterados pelo cliente depois do envio (complemento de bens e garantias). */
+.ebcr-admin .ebcr-tag{display:inline-block;margin:2px 0 8px;padding:2px 10px;border-radius:999px;background:#f0f6fc;border:1px solid #72aee6;color:#1d2327;font-size:12px;font-weight:600}

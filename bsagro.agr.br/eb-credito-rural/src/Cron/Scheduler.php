@@ -83,6 +83,7 @@ final class Scheduler {
 	public static function daily() {
 		$summary = array(
 			'reminders'      => self::pending_reminders(),
+			'complement'     => \EBCR\Forms\Complement::send_reminders(),
 			'certificates'   => self::certificates_expiring(),
 			'anonymized'     => Retention::run(),
 			'cookie_purged'  => Retention::last_cookie_purge(),
@@ -117,14 +118,21 @@ final class Scheduler {
 			if ( ! $s || Status::is_final( $s['status'] ) ) {
 				continue;
 			}
-			$oldest = min(
+			// Pedidos abertos automaticamente por complemento do cliente não levam ao cancelamento automático.
+			$team   = array_filter(
+				$list,
+				static function ( $r ) {
+					return empty( $r['origin'] ) || \EBCR\Forms\Complement::ORIGIN !== $r['origin'];
+				}
+			);
+			$oldest = $team ? min(
 				array_map(
 					static function ( $r ) {
 						return strtotime( $r['requested_at'] . ' UTC' );
 					},
-					$list
+					$team
 				)
-			);
+			) : time();
 			if ( $cancel > 0 && $oldest < time() - $cancel * DAY_IN_SECONDS && Status::can_transition( $s['status'], Status::CANCELLED ) ) {
 				( new SubmissionRepository() )->update( $sid, array( 'status' => Status::CANCELLED ) );
 				( new \EBCR\Database\StatusHistoryRepository() )->add( $sid, $s['status'], Status::CANCELLED, null, __( 'Cancelamento automático: pendências sem resposta.', 'eb-credito-rural' ), __( 'Sua solicitação foi cancelada por falta de resposta às pendências. Você pode iniciar uma nova quando quiser.', 'eb-credito-rural' ) );

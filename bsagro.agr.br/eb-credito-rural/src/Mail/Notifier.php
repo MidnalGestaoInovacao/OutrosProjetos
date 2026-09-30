@@ -268,6 +268,51 @@ final class Notifier {
 	}
 
 	/**
+	 * Cliente complementou bens/garantias depois do envio: avisa os e-mails administrativos e o analista atribuído.
+	 *
+	 * @param array    $submission Solicitação (atualizada).
+	 * @param string[] $lines      Linhas do resumo (itens novos, alterados, documentos pedidos).
+	 * @return void
+	 */
+	public static function complement_added( array $submission, array $lines ) {
+		$to = self::admin_recipients( $submission );
+		if ( ! empty( $submission['assigned_to'] ) ) {
+			$a = get_userdata( (int) $submission['assigned_to'] );
+			if ( $a ) {
+				$to[] = $a->user_email;
+			}
+		}
+		$vars                = self::vars( $submission );
+		$vars['pendencias']  = implode( "\n", $lines );
+		$vars['link_portal'] = self::admin_link( $submission );
+		Mailer::send_event( 'complement_added', array_values( array_unique( $to ) ), $vars );
+	}
+
+	/**
+	 * Lembrete ao cliente: solicitação enviada sem imóveis/garantias (modo opcional).
+	 *
+	 * @param array    $submission Solicitação.
+	 * @param string[] $parts      Partes em falta (imoveis, garantias).
+	 * @return void
+	 */
+	public static function complement_reminder( array $submission, array $parts ) {
+		$vars               = self::vars( $submission );
+		$vars['pendencias'] = implode(
+			"\n",
+			array_map(
+				static function ( $p ) {
+					return '• ' . \EBCR\Forms\Complement::part_label( $p );
+				},
+				$parts
+			)
+		);
+		// O texto das garantias já fala de "bens e garantias"; o de imóveis só entra quando só eles faltam.
+		$vars['comentario'] = \EBCR\Forms\Complement::notice( in_array( 'garantias', $parts, true ) ? 'garantias' : 'imoveis' );
+		$vars['link_portal'] .= '#ebcr-bens';
+		Mailer::send_event( 'complement_reminder', self::client_email( $submission ), $vars );
+	}
+
+	/**
 	 * Atribuição.
 	 *
 	 * @param array $submission Linha.

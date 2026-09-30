@@ -807,7 +807,7 @@ final class Abilities {
 		return array(
 			'version'         => EBCR_VERSION,
 			'environment'     => $env,
-			'storage'         => $guard->status(),
+			'storage'         => array_merge( $guard->status(), array( 'created' => FileGuard::created_info() ) ),
 			'protection_test' => $last,
 			'crypto'          => Crypto::status(),
 			'portal_page_id'  => $portal,
@@ -865,6 +865,11 @@ final class Abilities {
 					)[1],
 				),
 				'disable_wp_emoji'   => Options::bool( 'disable_wp_emoji' ),
+				'complement'         => array(
+					'parts'         => \EBCR\Forms\Complement::parts(),
+					'statuses'      => \EBCR\Forms\Complement::statuses(),
+					'reminder_days' => Options::int( 'complement_reminder_days' ),
+				),
 				'site_icon_id'       => (int) get_option( 'site_icon', 0 ),
 				'team_2fa_mode'      => Options::get( 'team_2fa_mode', 'optional' ),
 				'cep_lookup'         => Options::bool( 'cep_lookup' ),
@@ -1088,6 +1093,7 @@ final class Abilities {
 			'assigned_to'   => $s['assigned_to'] ? (int) $s['assigned_to'] : null,
 			'assigned_name' => $s['assigned_to'] ? Helpers::user_name( (int) $s['assigned_to'] ) : null,
 			'submitted_at'  => $s['submitted_at'],
+			'complemented_at' => isset( $s['complemented_at'] ) ? $s['complemented_at'] : null,
 			'updated_at'    => $s['updated_at'],
 			'admin_url'     => admin_url( 'admin.php?page=ebcr-submissions&view=' . rawurlencode( $s['public_id'] ) ),
 		);
@@ -1174,12 +1180,31 @@ final class Abilities {
 			'submission'   => self::summary( $s ),
 			'data'         => $saved,
 			'requirements' => \EBCR\Forms\SubmissionRules::requirements( $ctx ),
+			'complement'   => array(
+				'complemented_at'        => isset( $s['complemented_at'] ) ? $s['complemented_at'] : null,
+				'complement_reminded_at' => isset( $s['complement_reminded_at'] ) ? $s['complement_reminded_at'] : null,
+				'parts'                  => \EBCR\Forms\Complement::parts( $ctx ),
+				'status_allows'          => \EBCR\Forms\Complement::status_allows( $s['status'] ),
+				'missing'                => \EBCR\Forms\Complement::missing( $s ),
+			),
 			'guarantees'   => array(
+				'items'   => array_map(
+					static function ( $g ) use ( $s ) {
+						return \EBCR\Forms\Complement::item_info( $g, $s );
+					},
+					$saved['garantias']['garantias']
+				),
 				'count'   => count( $saved['garantias']['garantias'] ),
 				'offered' => isset( $saved['garantias']['oferece_garantia'] ) ? (string) $saved['garantias']['oferece_garantia'] : ( $saved['garantias']['garantias'] ? 'sim' : '' ),
 				'note'    => $saved['garantias']['garantias'] ? '' : \EBCR\Forms\SubmissionRules::guarantees_empty_text( $saved['garantias'], $ctx ),
 			),
 			'properties'   => array(
+				'items' => array_map(
+					static function ( $p ) use ( $s ) {
+						return \EBCR\Forms\Complement::item_info( $p, $s );
+					},
+					$saved['imoveis']['imoveis']
+				),
 				'count' => count( $saved['imoveis']['imoveis'] ),
 				'note'  => $saved['imoveis']['imoveis'] ? '' : \EBCR\Forms\SubmissionRules::assets_empty_text( $saved['imoveis'], $ctx ),
 			),

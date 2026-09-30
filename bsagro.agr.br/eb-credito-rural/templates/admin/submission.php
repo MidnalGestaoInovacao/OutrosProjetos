@@ -149,12 +149,19 @@ $ebcr_post  = esc_url( admin_url( 'admin-post.php' ) );
 			</div>
 
 			<div class="ebcr-tabpanel ebcr-box" id="ebcr-tab-imoveis" hidden>
+				<?php if ( ! empty( $s['complemented_at'] ) ) : ?>
+					<p class="ebcr-tag"><?php /* translators: %s: data */ printf( esc_html__( 'Bens e garantias complementados pelo cliente depois do envio (último complemento em %s).', 'eb-credito-rural' ), esc_html( Helpers::date( $s['complemented_at'] ) ) ); ?></p>
+				<?php endif; ?>
 				<?php
 				if ( ! $saved['imoveis']['imoveis'] ) :
 					?>
 					<p class="description"><?php echo esc_html( \EBCR\Forms\SubmissionRules::assets_empty_text( $saved['imoveis'], $ebcr_rctx ) ); ?></p><?php endif; ?>
 				<?php foreach ( $saved['imoveis']['imoveis'] as $ebcr_p ) : ?>
 					<h4><?php echo esc_html( $ebcr_p['name'] ); ?> <span class="description">#<?php echo (int) $ebcr_p['id']; ?></span></h4>
+					<?php $ebcr_note = \EBCR\Forms\Complement::item_note( $ebcr_p, $s ); ?>
+					<?php if ( $ebcr_note ) : ?>
+						<p class="ebcr-tag"><?php echo esc_html( $ebcr_note ); ?></p>
+					<?php endif; ?>
 					<?php
 					$ebcr_kv(
 						array(
@@ -234,12 +241,19 @@ $ebcr_post  = esc_url( admin_url( 'admin-post.php' ) );
 			</div>
 
 			<div class="ebcr-tabpanel ebcr-box" id="ebcr-tab-garantias" hidden>
+				<?php if ( ! empty( $s['complemented_at'] ) ) : ?>
+					<p class="ebcr-tag"><?php /* translators: %s: data */ printf( esc_html__( 'Bens e garantias complementados pelo cliente depois do envio (último complemento em %s).', 'eb-credito-rural' ), esc_html( Helpers::date( $s['complemented_at'] ) ) ); ?></p>
+				<?php endif; ?>
 				<?php
 				if ( ! $saved['garantias']['garantias'] ) :
 					?>
 					<p class="description"><?php echo esc_html( \EBCR\Forms\SubmissionRules::guarantees_empty_text( $saved['garantias'], $ebcr_rctx ) ); ?></p><?php endif; ?>
 				<?php foreach ( $saved['garantias']['garantias'] as $ebcr_g ) : ?>
 					<h4><?php echo esc_html( Steps::options( 'guarantee_types' )[ $ebcr_g['type'] ] ?? $ebcr_g['type'] ); ?></h4>
+					<?php $ebcr_note = \EBCR\Forms\Complement::item_note( $ebcr_g, $s ); ?>
+					<?php if ( $ebcr_note ) : ?>
+						<p class="ebcr-tag"><?php echo esc_html( $ebcr_note ); ?></p>
+					<?php endif; ?>
 					<?php
 					$ebcr_kv(
 						array(
@@ -306,7 +320,7 @@ $ebcr_post  = esc_url( admin_url( 'admin-post.php' ) );
 					<?php
 					foreach ( $requests as $ebcr_r ) :
 						?>
-					<li><?php echo esc_html( $ebcr_r['label'] ); ?> — <?php echo $ebcr_r['fulfilled_at'] ? '<span class="ebcr-status-ok">' . esc_html__( 'atendido em', 'eb-credito-rural' ) . ' ' . esc_html( Helpers::date( $ebcr_r['fulfilled_at'] ) ) . '</span>' : '<span class="ebcr-status-warn">' . esc_html__( 'em aberto desde', 'eb-credito-rural' ) . ' ' . esc_html( Helpers::date( $ebcr_r['requested_at'] ) ) . '</span>'; ?></li><?php endforeach; ?></ul>
+					<li><?php echo esc_html( $ebcr_r['label'] ); ?><?php echo ! empty( $ebcr_r['origin'] ) && \EBCR\Forms\Complement::ORIGIN === $ebcr_r['origin'] ? ' <span class="description">(' . esc_html__( 'pedido automático: complemento do cliente', 'eb-credito-rural' ) . ')</span>' : ''; ?> — <?php echo $ebcr_r['fulfilled_at'] ? '<span class="ebcr-status-ok">' . esc_html__( 'atendido em', 'eb-credito-rural' ) . ' ' . esc_html( Helpers::date( $ebcr_r['fulfilled_at'] ) ) . '</span>' : '<span class="ebcr-status-warn">' . esc_html__( 'em aberto desde', 'eb-credito-rural' ) . ' ' . esc_html( Helpers::date( $ebcr_r['requested_at'] ) ) . '</span>'; ?></li><?php endforeach; ?></ul>
 				<?php endif; ?>
 			</div>
 
@@ -347,7 +361,7 @@ $ebcr_post  = esc_url( admin_url( 'admin-post.php' ) );
 			<div class="ebcr-tabpanel ebcr-box" id="ebcr-tab-historico" hidden>
 				<ul class="ebcr-timeline">
 				<?php foreach ( $history as $ebcr_h ) : ?>
-					<li style="--ebcr-badge:<?php echo esc_attr( Status::color( $ebcr_h['to_status'] ) ); ?>"><strong><?php echo esc_html( Status::label( $ebcr_h['to_status'] ) ); ?></strong> <span class="description"><?php echo esc_html( Helpers::date( $ebcr_h['created_at'] ) . ' · ' . Helpers::user_name( (int) $ebcr_h['changed_by'] ) ); ?></span>
+					<li style="--ebcr-badge:<?php echo esc_attr( Status::color( $ebcr_h['to_status'] ) ); ?>"><strong><?php echo esc_html( Status::history_title( $ebcr_h ) ); ?></strong> <span class="description"><?php echo esc_html( Helpers::date( $ebcr_h['created_at'] ) . ' · ' . Helpers::user_name( (int) $ebcr_h['changed_by'] ) ); ?></span>
 					<?php
 					if ( $ebcr_h['comment_internal'] ) :
 						?>

@@ -168,6 +168,27 @@ final class Complement {
 	}
 
 	/**
+	 * Chamada do aviso no painel do cliente ("Sua solicitação … está sem … informados — completar agora").
+	 *
+	 * @param string   $protocol Protocolo.
+	 * @param string[] $parts    Partes em falta.
+	 * @return string
+	 */
+	public static function missing_title( $protocol, array $parts ) {
+		$parts = array_values( array_intersect( array_keys( self::PARTS ), $parts ) );
+		if ( 2 === count( $parts ) ) {
+			/* translators: %s: protocolo */
+			return sprintf( __( 'Sua solicitação %s está sem bens e garantias informados — completar agora', 'eb-credito-rural' ), $protocol );
+		}
+		if ( array( 'garantias' ) === $parts ) {
+			/* translators: %s: protocolo */
+			return sprintf( __( 'Sua solicitação %s está sem garantias informadas — completar agora', 'eb-credito-rural' ), $protocol );
+		}
+		/* translators: %s: protocolo */
+		return sprintf( __( 'Sua solicitação %s está sem imóveis/bens informados — completar agora', 'eb-credito-rural' ), $protocol );
+	}
+
+	/**
 	 * O cliente pode complementar esta solicitação (e esta parte) agora?
 	 *
 	 * @param int    $user_id    Usuário.

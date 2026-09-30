@@ -152,4 +152,13 @@ textarea.ebcr-input{min-height:96px;resize:vertical}
 .ebcr-brandbar img{display:block;max-height:52px;max-width:min(240px,60vw);width:auto;height:auto}
 .ebcr-brandbar-name{font-size:1.15rem;font-weight:700;letter-spacing:.01em;color:var(--ebcr-ink);line-height:1.2;overflow-wrap:anywhere}
 .ebcr-brandbar img+.ebcr-brandbar-name{font-size:1rem;color:var(--ebcr-mut)}
+/* Quadro informativo (role=note) com as cores da identidade visual: modo opcional de bens e garantias, rascunho, lembretes. */
+.ebcr-notice{display:flex;gap:12px;align-items:flex-start;background:var(--ebcr-soft);border:1px solid var(--ebcr-line);border-left:4px solid var(--ebcr-gold-2);border-radius:var(--ebcr-r);padding:14px 16px;margin:0 0 16px;color:var(--ebcr-ink)}
+.ebcr-notice__icon{flex:none;display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--ebcr-primary,var(--ebcr-gold));color:var(--ebcr-primary-contrast,#fff);font-weight:700;font-style:italic;font-family:Georgia,serif;line-height:1}
+.ebcr-notice__body{min-width:0}.ebcr-notice__body p{margin:0 0 6px}.ebcr-notice__body p:last-child{margin-bottom:0}
+.ebcr-notice__title{font-weight:700}
+.ebcr-notice__actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px!important}
+.ebcr-tag{display:inline-block;margin:4px 0 6px;padding:2px 10px;border-radius:999px;background:var(--ebcr-soft);border:1px solid var(--ebcr-gold-2);color:var(--ebcr-ink);font-size:.8rem;font-weight:600}
+.ebcr-bens-part{border-top:1px solid var(--ebcr-line);padding-top:12px;margin-top:12px}.ebcr-bens-part:first-of-type{border-top:0;padding-top:0;margin-top:0}
+.ebcr-items{list-style:none;margin:0 0 12px;padding:0}.ebcr-items li{padding:8px 0;border-bottom:1px solid var(--ebcr-line)}.ebcr-items li .ebcr-muted{display:block}
 @media (prefers-reduced-motion:reduce){.ebcr-portal *{transition:none!important}}

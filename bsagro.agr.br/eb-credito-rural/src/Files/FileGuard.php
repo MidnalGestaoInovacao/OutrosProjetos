@@ -73,6 +73,82 @@ final class FileGuard {
 	}
 
 	/**
+	 * Prepara a pasta privada configurada (storage_path): se não existir e o pai existente mais próximo for gravável,
+	 * cria-a (wp_mkdir_p, permissão 0750 quando possível) e grava index.php, .htaccess (negar tudo) e web.config.
+	 * Caminho relativo, com ".." ou byte nulo é recusado. Não muda nada se a pasta já existir (só reforça a proteção).
+	 *
+	 * @param string $path Caminho absoluto.
+	 * @return array{path:string,created:bool,exists:bool,writable:bool,protected:bool,inside_public:bool,error:string,parent:string}
+	 */
+	public function prepare_custom_dir( $path ) {
+		$path = wp_normalize_path( untrailingslashit( trim( (string) $path ) ) );
+		$out  = array(
+			'path'          => $path,
+			'created'       => false,
+			'exists'        => false,
+			'writable'      => false,
+			'protected'     => false,
+			'inside_public' => false,
+			'error'         => '',
+			'parent'        => '',
+		);
+		if ( '' === $path ) {
+			return $out;
+		}
+		if ( ! path_is_absolute( $path ) || preg_match( '#(^|/)\.\.(/|$)#', $path ) || false !== strpos( $path, "\0" ) ) {
+			$out['error'] = 'not_absolute';
+			return $out;
+		}
+		$root                 = trailingslashit( wp_normalize_path( ABSPATH ) );
+		$out['inside_public'] = 0 === strpos( trailingslashit( $path ), $root );
+		if ( ! is_dir( $path ) ) {
+			$parent = dirname( $path );
+			while ( ! is_dir( $parent ) && dirname( $parent ) !== $parent ) {
+				$parent = dirname( $parent );
+			}
+			$out['parent'] = $parent;
+			if ( ! is_dir( $parent ) || ! wp_is_writable( $parent ) ) {
+				$out['error'] = 'parent_not_writable';
+				return $out;
+			}
+			if ( ! wp_mkdir_p( $path ) || ! is_dir( $path ) ) {
+				$out['error'] = 'mkdir_failed';
+				return $out;
+			}
+			chmod( $path, 0750 ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_chmod -- pasta recém-criada pelo próprio PHP; só dono e grupo.
+			clearstatcache( true, $path );
+			$out['created'] = true;
+			update_option(
+				'ebcr_storage_created',
+				array(
+					'path' => $path,
+					'at'   => current_time( 'mysql', true ),
+					'mode' => substr( sprintf( '%o', fileperms( $path ) ), -4 ),
+				),
+				false
+			);
+			AuditLog::log( 'storage_created', 'storage', '', array( 'path' => $path ) );
+		}
+		$out['exists']   = is_dir( $path );
+		$out['writable'] = $out['exists'] && wp_is_writable( $path );
+		if ( $out['writable'] ) {
+			$this->protect_dir( $path );
+			$out['protected'] = file_exists( trailingslashit( $path ) . '.htaccess' ) && file_exists( trailingslashit( $path ) . 'index.php' );
+		}
+		return $out;
+	}
+
+	/**
+	 * Registro da última pasta criada pelo plugin (get-status → storage.created).
+	 *
+	 * @return array|null {path, at, mode}
+	 */
+	public static function created_info() {
+		$info = get_option( 'ebcr_storage_created', null );
+		return is_array( $info ) ? $info : null;
+	}
+
+	/**
 	 * Garante que o diretório base exista com os arquivos de proteção.
 	 *
 	 * @return bool

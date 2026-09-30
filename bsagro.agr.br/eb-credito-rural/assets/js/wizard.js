@@ -173,6 +173,19 @@
     }
   });
 
+  // Complemento de bens e garantias (área do cliente, depois do envio): mesmos campos condicionais, grupos repetíveis e
+  // pré-validação; envio normal (sem autosave nem REST) para a ação ebcr_complement — o servidor valida de novo.
+  root.querySelectorAll('form[data-ebcr-complement]').forEach(function (form) {
+    form.addEventListener('change', function () { applyConditions(form); sumAreas(); });
+    applyConditions(form);
+    form.querySelectorAll('[data-repeat]').forEach(bindRepeat);
+    form.addEventListener('submit', function (ev) {
+      var submitter = ev.submitter; if (submitter && submitter.name === 'ebcr_add') { return; }
+      var pre = precheck(form); if (Object.keys(pre).length) { ev.preventDefault(); showErrors(form, pre); return; }
+      var btn = form.querySelector('[data-next]'); if (btn) { btn.disabled = true; }
+    });
+  });
+
   // Etapa 6: atualizar lista/progresso após upload via REST.
   document.addEventListener('ebcr:uploaded', function (ev) {
     var form = ev.detail.form; var doc = ev.detail.doc; var slot = form.closest('.ebcr-slot');

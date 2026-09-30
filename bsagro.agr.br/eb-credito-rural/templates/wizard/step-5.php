@@ -1,8 +1,9 @@
 <?php
 /**
- * Etapa 5 — garantias (repetível). Variáveis: $s, $data, $errors, $add, $saved, $wizard, $context.
- * Exigência conforme Configurações → Bens e garantias (obrigatória, opcional — com "sem garantia a oferecer" —
- * ou exigida pela finalidade escolhida na etapa 4).
+ * Etapa 5 — garantias (repetível). Variáveis: $s, $data, $errors, $add, $saved, $wizard, $context e, opcional, $mode.
+ * Exigência conforme Configurações → Bens e garantias (obrigatória, opcional — com "sem garantia a oferecer" e a
+ * orientação configurável guarantees_optional_notice — ou exigida pela finalidade escolhida na etapa 4).
+ * $mode = 'complement': mesmo formulário na área do cliente, depois do envio (Forms\Complement).
  *
  * @package EBCR
  */
@@ -12,8 +13,9 @@ use EBCR\Forms\SubmissionRules;
 use EBCR\Frontend\Fields;
 
 defined( 'ABSPATH' ) || exit;
-$ebcr_ctx      = isset( $context ) && is_array( $context ) ? $context : $wizard->rules_context( $s, $saved );
-$ebcr_required = SubmissionRules::guarantees_required( $ebcr_ctx );
+$ebcr_ctx        = isset( $context ) && is_array( $context ) ? $context : $wizard->rules_context( $s, $saved );
+$ebcr_complement = isset( $mode ) && 'complement' === $mode;
+$ebcr_required   = SubmissionRules::guarantees_required( $ebcr_ctx );
 $ebcr_reason   = SubmissionRules::guarantees_reason( $ebcr_ctx );
 $ebcr_items    = isset( $data['garantias'] ) && is_array( $data['garantias'] ) ? array_values( $data['garantias'] ) : array();
 $ebcr_answer   = isset( $data['oferece_garantia'] ) && in_array( $data['oferece_garantia'], array( 'sim', 'nao' ), true ) ? $data['oferece_garantia'] : ( $ebcr_items ? 'sim' : '' );
@@ -35,12 +37,13 @@ $ebcr_e        = static function ( $k ) use ( $errors ) {
 	return Fields::error( $errors, $k );
 };
 $ebcr_real     = implode( ',', Steps::options( 'real_guarantees' ) );
-$ebcr_row      = static function ( $i, array $it ) use ( $ebcr_e, $ebcr_props, $ebcr_real ) {
+$ebcr_row      = static function ( $i, array $it ) use ( $ebcr_e, $ebcr_props, $ebcr_real, $ebcr_complement ) {
 	$v = static function ( $k ) use ( $it ) {
 		return isset( $it[ $k ] ) && null !== $it[ $k ] ? $it[ $k ] : '';
 	};
 	$p = "garantias[{$i}]";
 	return '<div class="ebcr-repeat-row ebcr-guarantee"><h4>' . esc_html( sprintf( /* translators: %d: número */ __( 'Garantia %d', 'eb-credito-rural' ), (int) $i + 1 ) ) . '</h4>'
+		. '<input type="hidden" name="' . esc_attr( $p . '[id]' ) . '" value="' . esc_attr( (string) $v( 'id' ) ) . '">'
 		. '<div class="ebcr-row">' . ebcr_select(
 			$p . '[type]',
 			__( 'Tipo', 'eb-credito-rural' ),
@@ -77,14 +80,23 @@ $ebcr_row      = static function ( $i, array $it ) use ( $ebcr_e, $ebcr_props, $
 			),
 			$ebcr_e( "garantias.{$i}.description" )
 		)
-		. '<button type="button" class="ebcr-btn ebcr-btn--small ebcr-btn--ghost" data-remove-row>' . esc_html__( 'Remover garantia', 'eb-credito-rural' ) . '</button></div>';
+		. ( ! $ebcr_complement || empty( $it['id'] ) ? '<button type="button" class="ebcr-btn ebcr-btn--small ebcr-btn--ghost" data-remove-row>' . esc_html__( 'Remover garantia', 'eb-credito-rural' ) . '</button>' : '' )
+		. '</div>';
 };
 ?>
-<form class="ebcr-form" method="post" action="<?php echo esc_url( ebcr_form_action() ); ?>" novalidate data-ebcr-step="5">
+<form class="ebcr-form" method="post" action="<?php echo esc_url( ebcr_form_action() ); ?>" novalidate <?php echo $ebcr_complement ? 'data-ebcr-complement="garantias"' : 'data-ebcr-step="5"'; ?>>
 	<?php echo ebcr_error_summary( $errors ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-	<input type="hidden" name="action" value="ebcr_wizard_step"><input type="hidden" name="id" value="<?php echo esc_attr( $s['public_id'] ); ?>"><input type="hidden" name="etapa" value="5">
-	<?php echo ebcr_nonce_field( 'wizard' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-	<?php if ( $ebcr_required ) : ?>
+	<?php if ( $ebcr_complement ) : ?>
+		<input type="hidden" name="action" value="ebcr_complement"><input type="hidden" name="id" value="<?php echo esc_attr( $s['public_id'] ); ?>"><input type="hidden" name="parte" value="garantias">
+		<?php echo ebcr_nonce_field( 'complement' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+	<?php else : ?>
+		<input type="hidden" name="action" value="ebcr_wizard_step"><input type="hidden" name="id" value="<?php echo esc_attr( $s['public_id'] ); ?>"><input type="hidden" name="etapa" value="5">
+		<?php echo ebcr_nonce_field( 'wizard' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+	<?php endif; ?>
+	<?php if ( $ebcr_complement ) : ?>
+		<?php echo ebcr_notice( \EBCR\Forms\Complement::notice( 'garantias' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escapado no helper. ?>
+		<p class="ebcr-muted"><?php esc_html_e( 'Inclua as garantias que pode oferecer ou corrija as já informadas. A equipe avaliará cada uma; documentos como o laudo de avaliação serão pedidos em seguida, na página da solicitação. Para remover uma garantia já informada, fale com a equipe pelas mensagens.', 'eb-credito-rural' ); ?></p>
+	<?php elseif ( $ebcr_required ) : ?>
 		<p class="ebcr-muted"><?php esc_html_e( 'Informe as garantias que pode oferecer. A equipe avaliará cada uma e poderá pedir laudo de avaliação.', 'eb-credito-rural' ); ?></p>
 		<?php if ( 'modality' === $ebcr_reason ) : ?>
 			<p class="ebcr-alert ebcr-alert--info" role="note"><?php /* translators: %s: finalidade */ printf( esc_html__( 'Para a finalidade "%s", é obrigatório informar ao menos uma garantia.', 'eb-credito-rural' ), esc_html( isset( $ebcr_purposes[ $ebcr_purpose ] ) ? $ebcr_purposes[ $ebcr_purpose ] : $ebcr_purpose ) ); ?></p>
@@ -92,7 +104,8 @@ $ebcr_row      = static function ( $i, array $it ) use ( $ebcr_e, $ebcr_props, $
 			<p class="ebcr-muted ebcr-small"><?php esc_html_e( 'Obrigatório: informe ao menos uma garantia.', 'eb-credito-rural' ); ?></p>
 		<?php endif; ?>
 	<?php else : ?>
-		<p class="ebcr-muted"><?php esc_html_e( 'Oferecer garantia é opcional nesta solicitação. Se tiver bens ou recebíveis para oferecer, informe-os: a equipe avaliará cada um e poderá pedir laudo de avaliação.', 'eb-credito-rural' ); ?></p>
+		<?php echo ebcr_notice( \EBCR\Forms\Complement::notice( 'garantias' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escapado no helper. ?>
+		<p class="ebcr-muted"><?php esc_html_e( 'Se tiver bens ou recebíveis para oferecer, informe-os: a equipe avaliará cada um e poderá pedir laudo de avaliação.', 'eb-credito-rural' ); ?></p>
 		<?php
 		echo ebcr_radios( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escapado no helper.
 			'oferece_garantia',
@@ -109,7 +122,7 @@ $ebcr_row      = static function ( $i, array $it ) use ( $ebcr_e, $ebcr_props, $
 		?>
 		<div data-show-if="oferece_garantia=sim">
 	<?php endif; ?>
-	<div class="ebcr-repeat" data-repeat="garantias" data-min-rows="1" data-min-rows-message="<?php echo esc_attr( $ebcr_required ? __( 'Informe pelo menos uma garantia.', 'eb-credito-rural' ) : __( 'Informe pelo menos uma garantia ou marque que não tem garantia a oferecer.', 'eb-credito-rural' ) ); ?>" data-min-rows-key="garantias">
+	<div class="ebcr-repeat" data-repeat="garantias" data-min-rows="1" data-min-rows-message="<?php echo esc_attr( $ebcr_required || $ebcr_complement ? __( 'Informe pelo menos uma garantia.', 'eb-credito-rural' ) : __( 'Informe pelo menos uma garantia ou marque que não tem garantia a oferecer.', 'eb-credito-rural' ) ); ?>" data-min-rows-key="garantias">
 		<?php
 		if ( ! empty( $errors['garantias'] ) ) :
 			?>
@@ -120,12 +133,12 @@ $ebcr_row      = static function ( $i, array $it ) use ( $ebcr_e, $ebcr_props, $
 		<template data-repeat-template><?php echo str_replace( 'garantias[' . count( $ebcr_items ) . ']', 'garantias[__i__]', $ebcr_row( count( $ebcr_items ), array() ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></template>
 		<button type="submit" name="ebcr_add" value="garantias" class="ebcr-btn ebcr-btn--small" data-add-row formnovalidate><?php esc_html_e( '+ Adicionar garantia', 'eb-credito-rural' ); ?></button>
 	</div>
-	<?php if ( ! $ebcr_required ) : ?>
+	<?php if ( ! $ebcr_required && ! $ebcr_complement ) : ?>
 		</div>
 	<?php endif; ?>
 	<?php
 	\EBCR\Support\View::show(
-		'wizard/nav',
+		$ebcr_complement ? 'portal/complement-nav' : 'wizard/nav',
 		array(
 			's'    => $s,
 			'step' => 5,

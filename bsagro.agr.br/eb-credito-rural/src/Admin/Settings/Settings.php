@@ -81,6 +81,8 @@ final class Settings {
 		'brand_btn_radius'               => array( 0, 999 ),
 		'client_area_bar_offset'         => array( 0, 200 ),
 		'complement_reminder_days'       => array( 0, 60 ),
+		'smtp_port'                      => array( 1, 65535 ),
+		'smtp_timeout'                   => array( 5, 120 ),
 	);
 
 	/**
@@ -325,7 +327,7 @@ final class Settings {
 				);
 			case 'seguranca':
 				return array(
-					'storage_path'          => array( 'text', __( 'Pasta privada de documentos (caminho absoluto)', 'eb-credito-rural' ), __( 'Recomendado: uma pasta FORA da raiz pública, ex.: /home/usuario/ebcr-private. Deve existir e ser gravável pelo PHP. Se vazio ou inválido, usa wp-content/uploads/ebcr-private com bloqueio por .htaccess (teste abaixo!).', 'eb-credito-rural' ) ),
+					'storage_path'          => array( 'text', __( 'Pasta privada de documentos (caminho absoluto)', 'eb-credito-rural' ), __( 'Recomendado: uma pasta FORA da raiz pública, ex.: /home/usuario/ebcr-private. Se ainda não existir e a pasta mãe for gravável pelo PHP, ela é criada ao salvar (permissão 0750, com index.php e .htaccess de bloqueio). Se vazio ou inválido, usa wp-content/uploads/ebcr-private com bloqueio por .htaccess (teste abaixo!).', 'eb-credito-rural' ) ),
 					'encrypt_files'         => array( 'checkbox', __( 'Criptografar arquivos em repouso', 'eb-credito-rural' ), __( 'Usa libsodium com a chave EBCR_ENCRYPTION_KEY do wp-config.php. Perder a chave torna os arquivos irrecuperáveis. Não é possível desligar com arquivos já criptografados.', 'eb-credito-rural' ) ),
 					'encrypt_fields'        => array( 'checkbox', __( 'Criptografar campos sensíveis (identificação e financeiro)', 'eb-credito-rural' ), __( 'CPF/CNPJ, renda e dívidas ficam cifrados no banco. A busca por CPF na lista deixa de funcionar para esses registros.', 'eb-credito-rural' ) ),
 					'login_max_attempts'    => array( 'number', __( 'Tentativas de login antes do bloqueio', 'eb-credito-rural' ), __( 'Por IP e por usuário, dentro da janela abaixo. Bloqueios repetidos dobram a duração. Recomendado: 5.', 'eb-credito-rural' ) ),
@@ -372,6 +374,34 @@ final class Settings {
 					'from_name'                  => array( 'text', __( 'Nome do remetente', 'eb-credito-rural' ), __( 'Ex.: Nome da Empresa — Crédito Rural.', 'eb-credito-rural' ) ),
 					'from_email'                 => array( 'email', __( 'E-mail do remetente', 'eb-credito-rural' ), __( 'Use um endereço do próprio domínio (e configure SPF/DKIM no provedor) para não cair em spam.', 'eb-credito-rural' ) ),
 					'notify_admin_status_change' => array( 'checkbox', __( 'Avisar administração a cada mudança de status', 'eb-credito-rural' ), __( 'Desligue se a equipe preferir acompanhar só pelo painel.', 'eb-credito-rural' ) ),
+					'smtp_enabled'               => array(
+						'checkbox',
+						__( 'Enviar por SMTP autenticado', 'eb-credito-rural' ),
+						__( 'Liga o envio pela caixa de e-mail informada abaixo (ex.: contato@seudominio), em vez da função mail() do servidor. Recomendado: ligado — mensagens autenticadas chegam muito mais à caixa de entrada. Teste com o botão "Testar SMTP" abaixo.', 'eb-credito-rural' ),
+						'section'       => __( 'Envio (SMTP)', 'eb-credito-rural' ),
+						'section_intro' => __( 'Quando a fila mostra "enviado" mas as mensagens não chegam, normalmente o servidor está entregando pela função mail() sem autenticação (e às vezes com remetente wordpress@…, inexistente). Informe os dados da caixa de e-mail do domínio (o provedor ou o cPanel mostram "Servidor de saída/SMTP"). O remetente do envelope (Return-Path) passa a ser o próprio e-mail do remetente.', 'eb-credito-rural' ),
+					),
+					'smtp_host'                  => array( 'text', __( 'Servidor SMTP', 'eb-credito-rural' ), __( 'Ex.: mail.seudominio.com.br ou smtp.provedor.com.', 'eb-credito-rural' ) ),
+					'smtp_port'                  => array( 'number', __( 'Porta', 'eb-credito-rural' ), __( '465 com SSL (recomendado) ou 587 com TLS. 25 só em último caso.', 'eb-credito-rural' ) ),
+					'smtp_secure'                => array(
+						'select',
+						__( 'Criptografia', 'eb-credito-rural' ),
+						__( 'SSL (porta 465) ou TLS/STARTTLS (porta 587). "Nenhuma" envia a senha sem proteção: evite.', 'eb-credito-rural' ),
+						array(
+							'ssl'  => __( 'SSL (implícito)', 'eb-credito-rural' ),
+							'tls'  => __( 'TLS (STARTTLS)', 'eb-credito-rural' ),
+							'none' => __( 'Nenhuma', 'eb-credito-rural' ),
+						),
+					),
+					'smtp_auth'                  => array( 'checkbox', __( 'Autenticar com usuário e senha', 'eb-credito-rural' ), __( 'Quase todos os servidores exigem. Mantenha ligado.', 'eb-credito-rural' ) ),
+					'smtp_username'              => array( 'text', __( 'Usuário', 'eb-credito-rural' ), __( 'Normalmente o próprio endereço da caixa (ex.: contato@seudominio.com.br).', 'eb-credito-rural' ) ),
+					'smtp_password'              => array( 'password', __( 'Senha', 'eb-credito-rural' ), __( 'Recomendado: defina no wp-config.php a constante EBCR_SMTP_PASSWORD (tem prioridade sobre este campo). A senha salva aqui fica cifrada e nunca é exibida; deixe em branco para manter a atual.', 'eb-credito-rural' ) ),
+					'smtp_password_clear'        => array( 'password_clear', __( 'Apagar a senha salva', 'eb-credito-rural' ), '' ),
+					'smtp_from_email'            => array( 'email', __( 'E-mail do remetente (SMTP)', 'eb-credito-rural' ), __( 'Deve ser a própria caixa autenticada ou um alias dela. Vazio = usa o "E-mail do remetente" acima.', 'eb-credito-rural' ) ),
+					'smtp_from_name'             => array( 'text', __( 'Nome do remetente (SMTP)', 'eb-credito-rural' ), __( 'Vazio = usa o "Nome do remetente" acima.', 'eb-credito-rural' ) ),
+					'smtp_apply_all'             => array( 'checkbox', __( 'Usar o SMTP para todos os e-mails do site', 'eb-credito-rural' ), __( 'Ligado: também os e-mails do WordPress (senha, novos usuários) e de outros plugins saem por esta caixa, com este remetente — some o wordpress@… Desligado: só as mensagens deste plugin. Recomendado: ligado, se não houver outro plugin de SMTP.', 'eb-credito-rural' ) ),
+					'smtp_verify_peer'           => array( 'checkbox', __( 'Verificar o certificado do servidor', 'eb-credito-rural' ), __( 'Mantenha ligado. Desligue só se o servidor usar certificado autoassinado ou de outro nome (a conexão continua cifrada, mas fica sujeita a interceptação).', 'eb-credito-rural' ) ),
+					'smtp_timeout'               => array( 'number', __( 'Tempo limite (segundos)', 'eb-credito-rural' ), __( 'Recomendado: 15.', 'eb-credito-rural' ) ),
 					'attach_documents_admin'     => array( 'checkbox', __( 'Anexar documentos ao e-mail do administrador (NÃO recomendado)', 'eb-credito-rural' ), __( 'E-mail não é canal seguro: os anexos ficam em caixas de terceiros (risco LGPD) e mensagens grandes são recusadas. Prefira o link para o painel. Só ligue se houver exigência do cliente do projeto.', 'eb-credito-rural' ) ),
 					'email_templates'            => array( 'templates', __( 'Templates por evento', 'eb-credito-rural' ), __( 'Assunto e corpo (texto simples; quebras de linha viram parágrafos). Deixe em branco para usar o padrão.', 'eb-credito-rural' ) ),
 				);
@@ -468,6 +498,9 @@ final class Settings {
 				'statuses'      => Status::all(),
 				'mail_stats'    => ( new MailQueueRepository() )->stats(),
 				'mail_failures' => ( new MailQueueRepository() )->failures( 10 ),
+				'smtp'          => \EBCR\Mail\Smtp::status(),
+				'smtp_test'     => self::take_smtp_test(),
+				'smtp_failures' => array_slice( \EBCR\Mail\Smtp::failures(), -5 ),
 				'env'           => self::environment(),
 				'last_daily'    => get_option( 'ebcr_last_daily', array() ),
 				'mcp'           => Abilities::mcp_status(),
@@ -480,6 +513,20 @@ final class Settings {
 				'tab'           => isset( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : 'geral', // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- navegação.
 			)
 		);
+	}
+
+	/**
+	 * Resultado do último "Testar SMTP" (lido uma vez).
+	 *
+	 * @return array|null
+	 */
+	private static function take_smtp_test() {
+		$k = 'ebcr_smtp_test_' . get_current_user_id();
+		$r = get_transient( $k );
+		if ( $r ) {
+			delete_transient( $k );
+		}
+		return is_array( $r ) ? $r : null;
 	}
 
 	/**
@@ -580,6 +627,18 @@ final class Settings {
 					break;
 				case 'email':
 					$values[ $key ] = sanitize_email( (string) $raw );
+					break;
+				case 'password':
+					// Somente escrita: vazio mantém a atual; o valor é gravado cifrado (Mail\Smtp::seal()).
+					$raw = is_scalar( $raw ) ? (string) $raw : '';
+					if ( '' !== $raw ) {
+						$values[ $key ] = \EBCR\Mail\Smtp::seal( $raw );
+					}
+					break;
+				case 'password_clear':
+					if ( is_string( $raw ) ? in_array( strtolower( $raw ), array( '1', 'true', 'on', 'sim', 'yes' ), true ) : ! empty( $raw ) ) {
+						$values['smtp_password'] = '';
+					}
 					break;
 				case 'url':
 					$values[ $key ] = esc_url_raw( (string) $raw );
@@ -723,6 +782,23 @@ final class Settings {
 				$warnings[] = __( 'Criptografia ligada sem chave válida: defina EBCR_ENCRYPTION_KEY no wp-config.php. Até lá, os dados NÃO serão criptografados.', 'eb-credito-rural' );
 			}
 		}
+		if ( ! empty( $values['storage_path'] ) ) {
+			// Tenta criar a pasta (se o pai for gravável) e protegê-la antes de avaliar o aviso abaixo.
+			$prep = ( new FileGuard() )->prepare_custom_dir( $values['storage_path'] );
+			if ( $prep['created'] ) {
+				/* translators: %s: caminho */
+				$warnings[] = sprintf( __( 'Pasta privada criada: %s (permissão 0750, com index.php e .htaccess que bloqueiam o acesso direto).', 'eb-credito-rural' ), $prep['path'] );
+			}
+			if ( 'not_absolute' === $prep['error'] ) {
+				$warnings[] = __( 'Informe um caminho absoluto para a pasta privada (ex.: /home/usuario/ebcr-private), sem "..".', 'eb-credito-rural' );
+			} elseif ( 'parent_not_writable' === $prep['error'] || 'mkdir_failed' === $prep['error'] ) {
+				/* translators: %s: pasta mãe */
+				$warnings[] = sprintf( __( 'Não foi possível criar a pasta: %s não existe ou não é gravável pelo PHP. Crie a pasta pelo gerenciador de arquivos da hospedagem e salve de novo.', 'eb-credito-rural' ), '' !== $prep['parent'] ? $prep['parent'] : dirname( $prep['path'] ) );
+			}
+			if ( $prep['inside_public'] ) {
+				$warnings[] = __( 'Atenção: a pasta privada fica dentro da instalação do WordPress (acessível pela web). Prefira um caminho fora da pasta pública (public_html), por exemplo na pasta da conta da hospedagem.', 'eb-credito-rural' );
+			}
+		}
 		if ( ! empty( $values['storage_path'] ) && ( ! is_dir( $values['storage_path'] ) || ! wp_is_writable( $values['storage_path'] ) ) ) {
 			$warnings[] = __( 'A pasta informada não existe ou não é gravável; o plugin continuará usando a pasta de fallback dentro de uploads.', 'eb-credito-rural' );
 		}
@@ -732,10 +808,50 @@ final class Settings {
 		if ( array_intersect( array_keys( $values ), array( 'brand_primary', 'brand_primary_contrast', 'brand_text', 'brand_bg', 'brand_surface', 'brand_muted', 'brand_accent_strong' ) ) ) {
 			$warnings = array_merge( $warnings, Branding::contrast_warnings( Branding::tokens_from( $values ) ) );
 		}
+		if ( array_intersect( array_keys( $values ), array( 'smtp_enabled', 'smtp_host', 'smtp_secure', 'smtp_auth', 'smtp_username', 'smtp_password', 'smtp_from_email', 'smtp_verify_peer' ) ) ) {
+			$warnings = array_merge( $warnings, self::smtp_warnings( array_merge( Options::all(), $values ) ) );
+		}
 		if ( isset( $values['guarantees_mode'] ) && 'optional' !== $values['guarantees_mode'] && ! empty( $values['guarantees_required_modalities'] ) ) {
 			$warnings[] = __( 'As "Finalidades que sempre exigem garantia" só têm efeito no modo Opcional.', 'eb-credito-rural' );
 		}
 		return $warnings;
+	}
+
+	/**
+	 * Avisos da configuração de SMTP (valores efetivos após salvar).
+	 *
+	 * @param array $v Configurações.
+	 * @return string[]
+	 */
+	public static function smtp_warnings( array $v ) {
+		$out = array();
+		if ( empty( $v['smtp_enabled'] ) ) {
+			return $out;
+		}
+		if ( '' === trim( (string) $v['smtp_host'] ) ) {
+			$out[] = __( 'SMTP ligado sem servidor: informe o "Servidor SMTP". Até lá, os e-mails continuam saindo pela função mail().', 'eb-credito-rural' );
+		}
+		$const = defined( \EBCR\Mail\Smtp::PASSWORD_CONSTANT ) && '' !== (string) constant( \EBCR\Mail\Smtp::PASSWORD_CONSTANT );
+		if ( ! empty( $v['smtp_auth'] ) && ! $const ) {
+			if ( '' === (string) $v['smtp_password'] ) {
+				$out[] = __( 'SMTP com autenticação, mas sem senha: defina EBCR_SMTP_PASSWORD no wp-config.php ou preencha a senha.', 'eb-credito-rural' );
+			} elseif ( 0 === strpos( (string) $v['smtp_password'], \EBCR\Mail\Smtp::SALT_PREFIX ) ) {
+				$out[] = __( 'A senha do SMTP foi salva cifrada com uma chave derivada do sal do WordPress (não há EBCR_ENCRYPTION_KEY). Isso protege contra vazamento só do banco de dados; o recomendado é definir define( \'EBCR_SMTP_PASSWORD\', \'…\' ); no wp-config.php e apagar a senha salva.', 'eb-credito-rural' );
+			}
+		}
+		if ( ! empty( $v['smtp_auth'] ) && 'none' === $v['smtp_secure'] ) {
+			$out[] = __( 'Criptografia "Nenhuma" com autenticação: a senha trafega sem proteção. Use SSL (465) ou TLS (587).', 'eb-credito-rural' );
+		}
+		if ( empty( $v['smtp_verify_peer'] ) ) {
+			$out[] = __( 'A verificação do certificado do servidor SMTP está desligada: a conexão fica sujeita a interceptação. Religue assim que o servidor tiver certificado válido.', 'eb-credito-rural' );
+		}
+		$user = sanitize_email( (string) $v['smtp_username'] );
+		$from = sanitize_email( (string) ( '' !== (string) $v['smtp_from_email'] ? $v['smtp_from_email'] : $v['from_email'] ) );
+		if ( $user && is_email( $user ) && $from && strtolower( $user ) !== strtolower( $from ) ) {
+			/* translators: 1: remetente, 2: usuário */
+			$out[] = sprintf( __( 'O remetente (%1$s) é diferente da caixa autenticada (%2$s). Muitos servidores recusam ou marcam como spam: use a mesma caixa ou um alias dela.', 'eb-credito-rural' ), $from, $user );
+		}
+		return $out;
 	}
 
 	/**
@@ -868,7 +984,18 @@ final class Settings {
 			case 'test_email':
 				$to = isset( $_POST['to'] ) ? sanitize_email( wp_unslash( $_POST['to'] ) ) : '';
 				$ok = $to && Mailer::send_test( $to );
-				$this->back( 'emails', $ok ? __( 'E-mail de teste enviado. Verifique a caixa (e o spam).', 'eb-credito-rural' ) : __( 'Falha ao enviar. Configure um plugin SMTP e verifique o remetente.', 'eb-credito-rural' ), $ok ? 'success' : 'error' );
+				$this->back( 'emails', $ok ? __( 'E-mail de teste enviado. Verifique a caixa (e o spam).', 'eb-credito-rural' ) : __( 'Falha ao enviar. Configure o envio SMTP e verifique o remetente.', 'eb-credito-rural' ), $ok ? 'success' : 'error' );
+				break;
+			case 'test_smtp':
+				$to = isset( $_POST['to'] ) ? sanitize_email( wp_unslash( $_POST['to'] ) ) : '';
+				$r  = \EBCR\Mail\Smtp::test( $to );
+				if ( is_wp_error( $r ) ) {
+					$this->back( 'emails', $r->get_error_message(), 'error' );
+				}
+				// Resultado (sem senha; transcrição já mascarada) exibido uma vez na aba E-mails.
+				set_transient( 'ebcr_smtp_test_' . get_current_user_id(), $r, 10 * MINUTE_IN_SECONDS );
+				/* translators: 1: transporte, 2: erro */
+				$this->back( 'emails', $r['sent'] ? sprintf( __( 'Mensagem de teste aceita pelo servidor (%s). Confira a caixa de entrada e o spam.', 'eb-credito-rural' ), 'smtp' === $r['transport'] ? 'SMTP' : 'mail()' ) : sprintf( __( 'Falha no envio (%1$s): %2$s', 'eb-credito-rural' ), 'smtp' === $r['transport'] ? 'SMTP' : 'mail()', $r['error'] ), $r['sent'] ? 'success' : 'error' );
 				break;
 			case 'retry_mail':
 				$n = ( new MailQueueRepository() )->retry_failed();
@@ -901,7 +1028,7 @@ final class Settings {
 				break;
 			case 'export_settings':
 				$all = Options::all();
-				unset( $all['sentinel_name'], $all['last_protection_test'], $all['storage_path'], $all['antivirus_command'], $all['trusted_proxy_header'] );
+				unset( $all['sentinel_name'], $all['last_protection_test'], $all['storage_path'], $all['antivirus_command'], $all['trusted_proxy_header'], $all['smtp_password'] );
 				AuditLog::log( 'export', 'settings', '', array() );
 				nocache_headers();
 				header( 'Content-Type: application/json; charset=utf-8' );
@@ -917,7 +1044,7 @@ final class Settings {
 				$allowed = array_keys( Options::defaults() );
 				$clean   = array();
 				foreach ( $data as $k => $v ) {
-					if ( in_array( $k, $allowed, true ) && ! in_array( $k, array( 'storage_path', 'sentinel_name', 'last_protection_test', 'encrypt_files', 'encrypt_fields', 'antivirus_command', 'trusted_proxy_header' ), true ) ) {
+					if ( in_array( $k, $allowed, true ) && ! in_array( $k, array( 'storage_path', 'sentinel_name', 'last_protection_test', 'encrypt_files', 'encrypt_fields', 'antivirus_command', 'trusted_proxy_header', 'smtp_password', 'smtp_password_clear' ), true ) ) {
 						$clean[ $k ] = is_string( $v ) ? sanitize_textarea_field( $v ) : $v;
 					}
 				}

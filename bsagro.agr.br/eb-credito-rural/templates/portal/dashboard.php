@@ -1,6 +1,7 @@
 <?php
 /**
- * Painel do cliente. Variáveis: $rows, $rules, $draft, $quota, $verified, $can_duplicate.
+ * Painel do cliente. Variáveis: $rows (cada um com submission, open, unread, next, missing), $rules, $draft,
+ * $progress (etapa atual do rascunho: step, total, title), $quota, $verified, $can_duplicate.
  *
  * @package EBCR
  */
@@ -17,6 +18,42 @@ $ebcr_flash = \EBCR\Frontend\Portal::unflash( 'dashboard' );
 		<?php if ( ! empty( $ebcr_flash['errors']['_'] ) ) : ?>
 			<div class="ebcr-alert ebcr-alert--error" role="alert"><?php echo esc_html( $ebcr_flash['errors']['_'] ); ?></div>
 		<?php endif; ?>
+		<?php
+		if ( $draft ) :
+			$ebcr_continue = '<p class="ebcr-notice__actions"><a class="ebcr-btn ebcr-btn--primary" href="' . esc_url(
+				Helpers::portal_url(
+					array(
+						'ebcr_view' => 'formulario',
+						'id'        => $draft['public_id'],
+					)
+				)
+			) . '">' . esc_html__( 'Continuar preenchimento', 'eb-credito-rural' ) . '</a></p>';
+			echo ebcr_notice( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escapado no helper e acima.
+				! empty( $progress ) ? sprintf( /* translators: 1: etapa, 2: total, 3: título */ __( 'Você parou na etapa %1$d de %2$d (%3$s). Os dados já digitados estão salvos.', 'eb-credito-rural' ), (int) $progress['step'], (int) $progress['total'], $progress['title'] ) : __( 'Os dados já digitados estão salvos.', 'eb-credito-rural' ),
+				__( 'Você tem uma solicitação em preenchimento', 'eb-credito-rural' ),
+				$ebcr_continue
+			);
+		endif;
+		foreach ( $rows as $ebcr_r ) :
+			if ( empty( $ebcr_r['missing'] ) ) {
+				continue;
+			}
+			$ebcr_s = $ebcr_r['submission'];
+			$ebcr_a = '<p class="ebcr-notice__actions"><a class="ebcr-btn ebcr-btn--primary" href="' . esc_url(
+				Helpers::portal_url(
+					array(
+						'ebcr_view' => 'solicitacao',
+						'id'        => $ebcr_s['public_id'],
+					)
+				) . '#ebcr-bens'
+			) . '">' . esc_html__( 'Completar agora', 'eb-credito-rural' ) . '</a></p>';
+			echo ebcr_notice( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escapado no helper e acima.
+				\EBCR\Forms\Complement::notice( in_array( 'garantias', $ebcr_r['missing'], true ) ? 'garantias' : 'imoveis' ),
+				\EBCR\Forms\Complement::missing_title( (string) $ebcr_s['protocol'], $ebcr_r['missing'] ),
+				$ebcr_a
+			);
+		endforeach;
+		?>
 		<?php if ( ! $rows ) : ?>
 			<p class="ebcr-muted"><?php esc_html_e( 'Você ainda não tem solicitações. Comece uma nova ao lado.', 'eb-credito-rural' ); ?></p>
 		<?php else : ?>
@@ -57,7 +94,7 @@ $ebcr_flash = \EBCR\Frontend\Portal::unflash( 'dashboard' );
 								)
 							);
 							?>
-																						"><?php esc_html_e( 'Continuar', 'eb-credito-rural' ); ?></a>
+																						"><?php esc_html_e( 'Continuar preenchimento', 'eb-credito-rural' ); ?></a>
 						<?php else : ?>
 							<a class="ebcr-btn ebcr-btn--small" href="
 							<?php
@@ -95,7 +132,7 @@ $ebcr_flash = \EBCR\Frontend\Portal::unflash( 'dashboard' );
 					)
 				);
 				?>
-																			"><?php esc_html_e( 'Continuar rascunho', 'eb-credito-rural' ); ?></a>
+																			"><?php esc_html_e( 'Continuar preenchimento', 'eb-credito-rural' ); ?></a>
 			<?php elseif ( ! $rules['allowed'] ) : ?>
 				<p class="ebcr-muted"><?php echo esc_html( $rules['message'] ); ?></p>
 				<?php if ( $rules['wait_seconds'] > 0 ) : ?>

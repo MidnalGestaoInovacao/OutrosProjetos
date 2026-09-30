@@ -1,7 +1,10 @@
 <?php
 /**
- * Etapa 2 — imóveis (repetível). Variáveis: $s, $data, $errors, $add, $wizard, $saved, $context.
- * Modo "Bens e garantias": obrigatório (padrão) mostra só a lista; opcional pergunta antes se há imóvel a informar.
+ * Etapa 2 — imóveis (repetível). Variáveis: $s, $data, $errors, $add, $wizard, $saved, $context e, opcional, $mode.
+ * Modo "Bens e garantias": obrigatório (padrão) mostra só a lista; opcional pergunta antes se há imóvel a informar
+ * e exibe a orientação configurável (assets_optional_notice).
+ * $mode = 'complement': mesmo formulário na área do cliente, depois do envio (Forms\Complement) — sem a pergunta,
+ * itens já informados sem o botão "Remover" e envio para a ação ebcr_complement.
  *
  * @package EBCR
  */
@@ -12,8 +15,9 @@ use EBCR\Frontend\Fields;
 use EBCR\Support\Helpers;
 
 defined( 'ABSPATH' ) || exit;
-$ebcr_ctx      = isset( $context ) && is_array( $context ) ? $context : $wizard->rules_context( $s, $saved );
-$ebcr_required = SubmissionRules::assets_required( $ebcr_ctx );
+$ebcr_ctx        = isset( $context ) && is_array( $context ) ? $context : $wizard->rules_context( $s, $saved );
+$ebcr_complement = isset( $mode ) && 'complement' === $mode;
+$ebcr_required   = SubmissionRules::assets_required( $ebcr_ctx );
 $ebcr_items    = isset( $data['imoveis'] ) && is_array( $data['imoveis'] ) ? array_values( $data['imoveis'] ) : array();
 $ebcr_answer   = isset( $data['possui_imoveis'] ) && in_array( $data['possui_imoveis'], array( 'sim', 'nao' ), true ) ? $data['possui_imoveis'] : ( $ebcr_items ? 'sim' : '' );
 if ( 'imoveis' === $add || ! $ebcr_items ) {
@@ -25,7 +29,7 @@ if ( 'imoveis' === $add ) {
 $ebcr_e   = static function ( $k ) use ( $errors ) {
 	return Fields::error( $errors, $k );
 };
-$ebcr_row = static function ( $i, array $it ) use ( $ebcr_e ) {
+$ebcr_row = static function ( $i, array $it ) use ( $ebcr_e, $ebcr_complement ) {
 	$v    = static function ( $k ) use ( $it ) {
 		return isset( $it[ $k ] ) && null !== $it[ $k ] ? $it[ $k ] : '';
 	};
@@ -123,18 +127,29 @@ $ebcr_row = static function ( $i, array $it ) use ( $ebcr_e ) {
 		$ebcr_e( "imoveis.{$i}.tenure" )
 	)
 		. '<div data-show-if="' . esc_attr( $p . '[tenure]=arrendada,parceria' ) . '">' . ebcr_input( $p . '[lease_end]', __( 'Término do contrato', 'eb-credito-rural' ), $v( 'lease_end' ), array( 'type' => 'date' ), $ebcr_e( "imoveis.{$i}.lease_end" ), __( 'Alertaremos se terminar antes do prazo do financiamento.', 'eb-credito-rural' ) ) . '</div></div>';
-	$out .= '<button type="button" class="ebcr-btn ebcr-btn--small ebcr-btn--ghost" data-remove-row>' . esc_html__( 'Remover imóvel', 'eb-credito-rural' ) . '</button></div>';
-	return $out;
+	if ( ! $ebcr_complement || empty( $it['id'] ) ) {
+		$out .= '<button type="button" class="ebcr-btn ebcr-btn--small ebcr-btn--ghost" data-remove-row>' . esc_html__( 'Remover imóvel', 'eb-credito-rural' ) . '</button>';
+	}
+	return $out . '</div>';
 };
 ?>
-<form class="ebcr-form" method="post" action="<?php echo esc_url( ebcr_form_action() ); ?>" novalidate data-ebcr-step="2">
+<form class="ebcr-form" method="post" action="<?php echo esc_url( ebcr_form_action() ); ?>" novalidate <?php echo $ebcr_complement ? 'data-ebcr-complement="imoveis"' : 'data-ebcr-step="2"'; ?>>
 	<?php echo ebcr_error_summary( $errors ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-	<input type="hidden" name="action" value="ebcr_wizard_step"><input type="hidden" name="id" value="<?php echo esc_attr( $s['public_id'] ); ?>"><input type="hidden" name="etapa" value="2">
-	<?php echo ebcr_nonce_field( 'wizard' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-	<?php if ( $ebcr_required ) : ?>
+	<?php if ( $ebcr_complement ) : ?>
+		<input type="hidden" name="action" value="ebcr_complement"><input type="hidden" name="id" value="<?php echo esc_attr( $s['public_id'] ); ?>"><input type="hidden" name="parte" value="imoveis">
+		<?php echo ebcr_nonce_field( 'complement' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+	<?php else : ?>
+		<input type="hidden" name="action" value="ebcr_wizard_step"><input type="hidden" name="id" value="<?php echo esc_attr( $s['public_id'] ); ?>"><input type="hidden" name="etapa" value="2">
+		<?php echo ebcr_nonce_field( 'wizard' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+	<?php endif; ?>
+	<?php if ( $ebcr_complement ) : ?>
+		<?php echo ebcr_notice( \EBCR\Forms\Complement::notice( 'imoveis' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escapado no helper. ?>
+		<p class="ebcr-muted"><?php esc_html_e( 'Inclua os imóveis que faltam ou corrija os já informados. Os documentos de cada imóvel novo (matrícula, CCIR/ITR, CAR…) serão pedidos em seguida, na página da solicitação. Para remover um imóvel já informado, fale com a equipe pelas mensagens.', 'eb-credito-rural' ); ?></p>
+	<?php elseif ( $ebcr_required ) : ?>
 		<p class="ebcr-muted"><?php esc_html_e( 'Informe todos os imóveis envolvidos na atividade e nas garantias. Os documentos de cada imóvel serão pedidos na etapa de documentos.', 'eb-credito-rural' ); ?></p>
 	<?php else : ?>
-		<p class="ebcr-muted"><?php esc_html_e( 'Informar imóveis rurais é opcional nesta solicitação. Se houver imóveis envolvidos na atividade ou nas garantias, informe-os: os documentos de cada imóvel serão pedidos na etapa de documentos.', 'eb-credito-rural' ); ?></p>
+		<?php echo ebcr_notice( \EBCR\Forms\Complement::notice( 'imoveis' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escapado no helper. ?>
+		<p class="ebcr-muted"><?php esc_html_e( 'Se houver imóveis envolvidos na atividade ou nas garantias, informe-os: os documentos de cada imóvel serão pedidos na etapa de documentos.', 'eb-credito-rural' ); ?></p>
 		<?php
 		echo ebcr_radios( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escapado no helper.
 			'possui_imoveis',
@@ -151,7 +166,7 @@ $ebcr_row = static function ( $i, array $it ) use ( $ebcr_e ) {
 		?>
 		<div data-show-if="possui_imoveis=sim">
 	<?php endif; ?>
-	<div class="ebcr-repeat" data-repeat="imoveis" data-min-rows="1" data-min-rows-message="<?php echo esc_attr( $ebcr_required ? __( 'Informe pelo menos um imóvel rural.', 'eb-credito-rural' ) : __( 'Informe pelo menos um imóvel rural ou marque que não possui imóvel a informar.', 'eb-credito-rural' ) ); ?>" data-min-rows-key="imoveis">
+	<div class="ebcr-repeat" data-repeat="imoveis" data-min-rows="1" data-min-rows-message="<?php echo esc_attr( $ebcr_required || $ebcr_complement ? __( 'Informe pelo menos um imóvel rural.', 'eb-credito-rural' ) : __( 'Informe pelo menos um imóvel rural ou marque que não possui imóvel a informar.', 'eb-credito-rural' ) ); ?>" data-min-rows-key="imoveis">
 		<?php
 		if ( ! empty( $errors['imoveis'] ) ) :
 			?>
@@ -162,12 +177,12 @@ $ebcr_row = static function ( $i, array $it ) use ( $ebcr_e ) {
 		<template data-repeat-template><?php echo str_replace( 'imoveis[' . count( $ebcr_items ) . ']', 'imoveis[__i__]', $ebcr_row( count( $ebcr_items ), array() ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></template>
 		<button type="submit" name="ebcr_add" value="imoveis" class="ebcr-btn ebcr-btn--small" data-add-row formnovalidate><?php esc_html_e( '+ Adicionar outro imóvel', 'eb-credito-rural' ); ?></button>
 	</div>
-	<?php if ( ! $ebcr_required ) : ?>
+	<?php if ( ! $ebcr_required && ! $ebcr_complement ) : ?>
 		</div>
 	<?php endif; ?>
 	<?php
 	\EBCR\Support\View::show(
-		'wizard/nav',
+		$ebcr_complement ? 'portal/complement-nav' : 'wizard/nav',
 		array(
 			's'    => $s,
 			'step' => 2,

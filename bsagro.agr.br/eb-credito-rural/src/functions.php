@@ -155,3 +155,23 @@ function ebcr_captcha_field( \EBCR\Security\CaptchaProvider $provider ) {
 function ebcr_form_action( array $args = array() ) {
 	return \EBCR\Frontend\FormRouter::url( $args );
 }
+
+/**
+ * Quadro informativo acessível (role="note") com as cores da identidade visual (classe .ebcr-notice).
+ *
+ * @param string $text   Texto (escapado aqui; quebras de linha viram <br>).
+ * @param string $title  Título curto opcional.
+ * @param string $action HTML de ação já escapado pelo chamador (ex.: botão/link), opcional.
+ * @return string
+ */
+function ebcr_notice( $text, $title = '', $action = '' ) {
+	$text = trim( (string) $text );
+	if ( '' === $text && '' === $title ) {
+		return '';
+	}
+	return '<div class="ebcr-notice" role="note"><span class="ebcr-notice__icon" aria-hidden="true">i</span><div class="ebcr-notice__body">'
+		. ( '' !== $title ? '<p class="ebcr-notice__title">' . esc_html( $title ) . '</p>' : '' )
+		. ( '' !== $text ? '<p>' . nl2br( esc_html( $text ) ) . '</p>' : '' )
+		. $action
+		. '</div></div>';
+}
