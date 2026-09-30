@@ -90,7 +90,8 @@ Albuquerque publicado (`DPO_NOME` em `site/deploy.py`, placeholder `{{DPO}}` nos
 bens e garantias opcionais com complemento depois do envio, DPO, e-mails dos canais, 2FA obrigatório para a equipe);
 pasta privada dos documentos fora da raiz pública (`/backup/bsagroagr/ebcr-private`, teste de proteção "externa");
 envio de e-mails por SMTP autenticado com contato@bsagro.agr.br (`mail.bsagro.agr.br:465` SSL, senha na constante
-`EBCR_SMTP_PASSWORD` do `wp-config.php`; teste com `235 Authentication succeeded` e `250 OK`).
+`EBCR_SMTP_PASSWORD` do `wp-config.php`; teste com `235 Authentication succeeded` e `250 OK`); equipe cadastrada
+(7 analistas e 2 gestores, com convite do WordPress para definir a senha e 2FA obrigatório no primeiro acesso).
 
 1. **Atualizar o plugin para a 1.3.2** (opcional): `dist/eb-credito-rural-1.3.2.zip` em *Plugins → Adicionar novo → Enviar
    plugin → Substituir a atual*. Só muda a resposta do teste de SMTP via MCP (a 1.3.1 exibe "Tool execution failed." mesmo
@@ -99,11 +100,10 @@ envio de e-mails por SMTP autenticado com contato@bsagro.agr.br (`mail.bsagro.ag
    `wp-config.php` (ver abaixo). A senha não fica no repositório nem no banco.
 3. **Criptografia em repouso** (recomendada): defina `EBCR_ENCRYPTION_KEY` no `wp-config.php` (ver abaixo) e ligue
    "Criptografar arquivos em repouso" e "Criptografar campos sensíveis" em *Crédito Rural → Configurações → Segurança*.
-4. **Equipe**: cadastre ao menos um analista/gestor (*Usuários → Adicionar novo* com a função "Analista de crédito" ou "Gestor de crédito", ou `set-team-member` via MCP). O 2FA é obrigatório para a equipe.
-5. **Ícone do site**: em *Configurações → Geral → Ícone do site*, escolha a mídia "favicon-512" (os ícones já são declarados via HTML).
-6. **Políticas**: são minutas completas, mas devem ser revisadas pelo jurídico (prazos internos, limite de brindes, retenção de 24 meses de contatos que não viraram clientes etc.).
-7. **Página "Privacy Policy"** (rascunho padrão do WordPress): em *Configurações → Privacidade*, selecione "Aviso de Privacidade" como página de política.
-8. **Formulários sem o plugin**: se o plugin for desativado, Contato, Portal do Titular e Canal de Integridade voltam a usar o
+4. **Ícone do site**: em *Configurações → Geral → Ícone do site*, escolha a mídia "favicon-512" (os ícones já são declarados via HTML).
+5. **Políticas**: são minutas completas, mas devem ser revisadas pelo jurídico (prazos internos, limite de brindes, retenção de 24 meses de contatos que não viraram clientes etc.).
+6. **Página "Privacy Policy"** (rascunho padrão do WordPress): em *Configurações → Privacidade*, selecione "Aviso de Privacidade" como página de política.
+7. **Formulários sem o plugin**: se o plugin for desativado, Contato, Portal do Titular e Canal de Integridade voltam a usar o
    FormSubmit, que exige um clique em "Activate Form" no primeiro e-mail recebido em cada endereço (contato@, dpo@, ouvidoria@).
 
 ## Aviso de cookies (gerenciador de consentimento)
