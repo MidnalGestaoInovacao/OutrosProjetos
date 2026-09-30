@@ -119,7 +119,7 @@ final class Abilities {
 			),
 			'update-settings'   => array(
 				'label'       => __( 'Atualizar configurações do EB Crédito Rural', 'eb-credito-rural' ),
-				'description' => 'Atualiza uma ou mais configurações do plugin EB Crédito Rural (mesma validação da tela de configurações). Envie um objeto "settings" com chave => valor; use get-settings para conhecer chaves e tipos. Campos compostos: document_matrix (lista de {key,label,condition,required,validity_days,help}; condições incluem real_guarantee e guarantee), email_templates ({evento:{subject,body}}), policies ({chave:{page_id,version,text,title,moment}}), statuses ({chave:{label,color,client_visible,client_text}}), step_help ({1..7: texto}), guarantees_required_modalities (lista de chaves de finalidade). Identidade visual: brand_preset (evellyn | bsagro | neutro) preenche todas as cores/fontes da predefinição que não vierem explícitas; cores aceitam #hex, rgb() e rgba(); brand_font_urls = URLs https, uma por linha. Modos de garantias/imóveis: required | optional | disabled. Retorna avisos de contraste WCAG quando as cores não atingem 4,5:1.',
+				'description' => 'Atualiza uma ou mais configurações do plugin EB Crédito Rural (mesma validação da tela de configurações). Envie um objeto "settings" com chave => valor; use get-settings para conhecer chaves e tipos. Campos compostos: document_matrix (lista de {key,label,condition,required,validity_days,help}; condições incluem real_guarantee e guarantee), email_templates ({evento:{subject,body}}), policies ({chave:{page_id,version,text,title,moment}}), statuses ({chave:{label,color,client_visible,client_text}}), step_help ({1..7: texto}), guarantees_required_modalities (lista de chaves de finalidade). Identidade visual: brand_preset (evellyn | bsagro | neutro) preenche todas as cores/fontes da predefinição que não vierem explícitas; cores aceitam #hex, rgb() e rgba(); brand_font_urls = URLs https, uma por linha. Modos de garantias/imóveis: required | optional | disabled; complement_statuses (lista de status em que o cliente pode completar bens/garantias depois do envio), complement_reminder_days (0 desliga), guarantees_optional_notice e assets_optional_notice (textos de orientação). SMTP: smtp_enabled, smtp_host, smtp_port, smtp_secure (ssl | tls | none), smtp_auth, smtp_username, smtp_password (somente escrita: gravada cifrada e nunca devolvida; string vazia mantém a atual; smtp_password_clear=true apaga), smtp_from_email, smtp_from_name, smtp_apply_all, smtp_verify_peer, smtp_timeout. Retorna avisos de contraste WCAG quando as cores não atingem 4,5:1.',
 				'input'       => array(
 					'type'       => 'object',
 					'properties' => array(
@@ -177,13 +177,13 @@ final class Abilities {
 			),
 			'run-tool'          => array(
 				'label'       => __( 'Executar ferramenta do EB Crédito Rural', 'eb-credito-rural' ),
-				'description' => 'Executa uma ferramenta: test_protection (testa se a pasta de documentos está exposta por URL), test_email (envia e-mail de teste para "to"), process_mail (processa a fila de e-mails), retry_mail (reenfileira falhas), run_daily (rotina diária: lembretes, certidões, retenção, limpezas), run_retention (anonimiza solicitações finalizadas fora do prazo de retenção) ou enable_mcp (habilita estas abilities no Easy MCP AI), send_crm_reminders (envia os lembretes de tarefas do CRM agora), apply_site_icon (define o ícone do site do WordPress a partir do ícone da marca configurado em Geral), apply_brand_preset (aplica a predefinição de identidade visual informada em "preset": evellyn, bsagro ou neutro) ou flush_rewrite (renova as regras de endereço amigável /area-do-cliente/).',
+				'description' => 'Executa uma ferramenta: test_protection (testa se a pasta de documentos está exposta por URL), test_email (envia e-mail de teste para "to"), test_smtp (envia um teste para "to" com diagnóstico: devolve {sent, error, transport (smtp|mail), host, port, secure, from, sender, to, transcript} — a conversa SMTP com usuário/senha mascarados, até ~4000 caracteres; funciona com o SMTP ligado ou desligado), process_mail (processa a fila de e-mails), retry_mail (reenfileira falhas), run_daily (rotina diária: lembretes, certidões, retenção, limpezas), run_retention (anonimiza solicitações finalizadas fora do prazo de retenção) ou enable_mcp (habilita estas abilities no Easy MCP AI), send_crm_reminders (envia os lembretes de tarefas do CRM agora), apply_site_icon (define o ícone do site do WordPress a partir do ícone da marca configurado em Geral), apply_brand_preset (aplica a predefinição de identidade visual informada em "preset": evellyn, bsagro ou neutro) ou flush_rewrite (renova as regras de endereço amigável /area-do-cliente/).',
 				'input'       => array(
 					'type'       => 'object',
 					'properties' => array(
 						'tool'   => array(
 							'type' => 'string',
-							'enum' => array( 'test_protection', 'test_email', 'process_mail', 'retry_mail', 'run_daily', 'run_retention', 'enable_mcp', 'send_crm_reminders', 'apply_site_icon', 'apply_brand_preset', 'flush_rewrite' ),
+							'enum' => array( 'test_protection', 'test_email', 'test_smtp', 'process_mail', 'retry_mail', 'run_daily', 'run_retention', 'enable_mcp', 'send_crm_reminders', 'apply_site_icon', 'apply_brand_preset', 'flush_rewrite' ),
 						),
 						'to'     => array(
 							'type'        => 'string',
@@ -675,6 +675,12 @@ final class Abilities {
 				$out['fields'][ $key ]['options'] = $def[3];
 			}
 			$out['settings'][ $key ] = isset( $all[ $key ] ) ? $all[ $key ] : null;
+			if ( in_array( $def[0], array( 'password', 'password_clear' ), true ) ) {
+				$out['settings'][ $key ] = null; // somente escrita.
+			}
+		}
+		if ( isset( $out['fields']['smtp_password'] ) || ( ! $tab && ! $keys ) ) {
+			$out['secrets'] = array( 'smtp_password' => \EBCR\Mail\Smtp::password_source() );
 		}
 		if ( ! $tab && ! $keys ) {
 			$out['settings']['document_matrix'] = DocumentMatrix::all();
@@ -711,6 +717,9 @@ final class Abilities {
 		$warnings                = Settings::guard( $values );
 		if ( $values ) {
 			Settings::persist( $values, 'mcp' );
+		}
+		if ( array_key_exists( 'smtp_password', $values ) ) {
+			$values['smtp_password'] = '' === $values['smtp_password'] ? '(apagada)' : '(definida)'; // nunca devolve a senha nem a cifra.
 		}
 		return array(
 			'saved'    => array_keys( $values ),
@@ -779,8 +788,10 @@ final class Abilities {
 		if ( 'ok' !== Crypto::status() ) {
 			$todo[] = 'Definir EBCR_ENCRYPTION_KEY no wp-config.php se desejar criptografia em repouso (opcional, recomendada).';
 		}
-		if ( ! ( class_exists( 'WPMailSMTP\Core' ) || class_exists( 'FluentMail\App\Application' ) || defined( 'POST_SMTP_VERSION' ) ) ) {
-			$todo[] = 'Instalar e configurar um plugin SMTP e testar com run-tool test_email.';
+		if ( ! \EBCR\Mail\Smtp::enabled() && ! ( class_exists( 'WPMailSMTP\Core' ) || class_exists( 'FluentMail\App\Application' ) || defined( 'POST_SMTP_VERSION' ) ) ) {
+			$todo[] = 'Configurar o envio SMTP autenticado (update-settings smtp_enabled, smtp_host, smtp_port, smtp_secure, smtp_username e EBCR_SMTP_PASSWORD no wp-config.php) e testar com run-tool test_smtp.';
+		} elseif ( \EBCR\Mail\Smtp::enabled() && Options::bool( 'smtp_auth' ) && 'none' === \EBCR\Mail\Smtp::password_source() ) {
+			$todo[] = 'SMTP ligado sem senha: definir EBCR_SMTP_PASSWORD no wp-config.php (ou smtp_password).';
 		}
 		if ( ! Options::admin_emails() ) {
 			$todo[] = 'Definir admin_emails.';
@@ -813,7 +824,11 @@ final class Abilities {
 			'portal_page_id'  => $portal,
 			'portal_url'      => $portal ? get_permalink( $portal ) : '',
 			'mail_queue'      => $queue->stats(),
-			'mail_failures'   => $queue->failures( 5 ),
+			'mail_failures'   => array(
+				'recent' => array_slice( \EBCR\Mail\Smtp::failures(), -10 ),
+				'queue'  => $queue->failures( 5 ),
+			),
+			'smtp'            => \EBCR\Mail\Smtp::status(),
 			'submissions'     => $subs->count_by_status(),
 			'team'            => count(
 				get_users(
@@ -899,6 +914,21 @@ final class Abilities {
 		switch ( $tool ) {
 			case 'test_protection':
 				return ( new FileGuard() )->test_protection();
+			case 'test_smtp':
+				$r = \EBCR\Mail\Smtp::test( isset( $in['to'] ) ? (string) $in['to'] : '' );
+				if ( ! is_wp_error( $r ) ) {
+					AuditLog::log(
+						'settings_updated',
+						'smtp_test',
+						'',
+						array(
+							'via'       => 'mcp',
+							'sent'      => $r['sent'],
+							'transport' => $r['transport'],
+						)
+					);
+				}
+				return $r;
 			case 'test_email':
 				$to = isset( $in['to'] ) ? sanitize_email( $in['to'] ) : '';
 				if ( ! $to ) {

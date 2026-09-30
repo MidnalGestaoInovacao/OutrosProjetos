@@ -118,6 +118,27 @@ Inspirado no padrão de uso do CookieYes, mas com código próprio e a identidad
   data, IP em hash, navegador) e pode ser consultada/exportada no painel.
 - API para integrações: `window.BSConsent.get() | allowed(cat) | open() | acceptAll() | rejectAll()` e o evento `bs:consent`.
 
+## Configuração no wp-config.php (senhas e chaves fora do banco)
+
+Arquivo: `public_html/wp-config.php` (cPanel → Gerenciador de Arquivos). Faça uma cópia de segurança antes de editar.
+Cole o bloco **acima** da linha `/* That's all, stop editing! Happy publishing. */` (em instalações em português:
+`/* Isso é tudo, pode parar de editar! :) */`) e, em qualquer caso, antes de `require_once ABSPATH . 'wp-settings.php';`.
+
+```php
+/* EB Crédito Rural — envio de e-mails (SMTP da caixa contato@bsagro.agr.br). */
+define( 'EBCR_SMTP_PASSWORD', 'SENHA-DA-CAIXA-CONTATO' );
+
+/* EB Crédito Rural — criptografia dos documentos e dados sensíveis (opcional, recomendado).
+   Gere com: php -r "echo 'base64:'.base64_encode(random_bytes(32)).PHP_EOL;"
+   Guarde a chave em local seguro: sem ela, arquivos criptografados não podem ser abertos. */
+define( 'EBCR_ENCRYPTION_KEY', 'base64:COLE-A-CHAVE-GERADA' );
+```
+
+- Use **aspas simples**: a senha pode conter `@`, `#` e `$` sem problemas.
+- Não acrescente `?>` no fim do arquivo.
+- Com a constante definida, o plugin usa a senha do `wp-config.php` e ignora a que estiver salva nas configurações
+  (a tela mostra "definida no wp-config"). Ao trocar a senha da caixa no cPanel, atualize só esta linha.
+
 ## SEO
 
 Sem plugin: cada página/matéria traz description, Open Graph, Twitter Cards e JSON-LD, movidos para o `<head>` pelo `bs.js`.

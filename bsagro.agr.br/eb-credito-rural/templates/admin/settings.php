@@ -2,7 +2,7 @@
 /**
  * Configurações em abas.
  * Variáveis: $tabs, $values, $fields, $guard, $storage, $crypto, $new_key, $has_encrypted, $php_limits, $events, $placeholders, $matrix, $conditions, $levels, $policies, $statuses, $mail_stats, $mail_failures, $env, $last_daily, $notice, $notice_type, $tab,
- * $contrast, $presets, $client_area, $theme_tokens.
+ * $contrast, $presets, $client_area, $theme_tokens, $smtp (Mail\Smtp::status()), $smtp_test (último "Testar SMTP"), $smtp_failures.
  *
  * @package EBCR
  */
@@ -14,6 +14,9 @@ $ebcr_post  = esc_url( admin_url( 'admin-post.php' ) );
 $ebcr_field = static function ( $key, array $def, $value ) use ( $values ) {
 	list( $type, $label, $help ) = $def;
 	$id                          = 'ebcr-' . $key;
+	if ( 'password_clear' === $type ) {
+		return; // exibido junto do campo de senha.
+	}
 	echo '<tr><th scope="row"><label for="' . esc_attr( $id ) . '">' . esc_html( $label ) . '</label></th><td>';
 	switch ( $type ) {
 		case 'checkbox':
@@ -74,6 +77,22 @@ $ebcr_field = static function ( $key, array $def, $value ) use ( $values ) {
 			break;
 		case 'urls':
 			echo '<textarea id="' . esc_attr( $id ) . '" name="' . esc_attr( $key ) . '" rows="3" class="large-text code" spellcheck="false">' . esc_textarea( (string) $value ) . '</textarea>';
+			break;
+		case 'password':
+			// Somente escrita: o valor salvo nunca volta ao formulário.
+			$ebcr_src = \EBCR\Mail\Smtp::password_source();
+			echo '<input type="password" id="' . esc_attr( $id ) . '" name="' . esc_attr( $key ) . '" value="" class="regular-text" autocomplete="new-password" spellcheck="false" placeholder="' . esc_attr( 'none' === $ebcr_src ? '' : __( 'deixe em branco para manter', 'eb-credito-rural' ) ) . '"> ';
+			if ( 'constant' === $ebcr_src ) {
+				echo '<span class="ebcr-status-ok">' . esc_html__( 'definida no wp-config (EBCR_SMTP_PASSWORD) — este campo é ignorado', 'eb-credito-rural' ) . '</span>';
+			} elseif ( 'option' === $ebcr_src ) {
+				echo '<span class="ebcr-status-ok">••• ' . esc_html__( 'definida', 'eb-credito-rural' ) . '</span> <span class="description">' . esc_html__( '(digite uma nova para trocar)', 'eb-credito-rural' ) . '</span>';
+				echo '<br><label><input type="checkbox" name="smtp_password_clear" value="1"> ' . esc_html__( 'Apagar a senha salva', 'eb-credito-rural' ) . '</label>';
+				if ( 'salt' === \EBCR\Mail\Smtp::password_storage() ) {
+					echo '<br><span class="ebcr-status-warn">' . esc_html__( 'Salva com chave derivada do sal do WordPress (sem EBCR_ENCRYPTION_KEY). Recomendado: usar a constante EBCR_SMTP_PASSWORD no wp-config.php.', 'eb-credito-rural' ) . '</span>';
+				}
+			} else {
+				echo '<span class="ebcr-status-warn">' . esc_html__( 'não definida', 'eb-credito-rural' ) . '</span>';
+			}
 			break;
 		case 'steps':
 			foreach ( \EBCR\Forms\Steps::all() as $n => $st ) {
@@ -192,6 +211,14 @@ $ebcr_field = static function ( $key, array $def, $value ) use ( $values ) {
 			<?php endif; ?>
 			<table class="form-table" role="presentation"><tbody>
 			<?php foreach ( $fields[ $ebcr_k ] as $ebcr_key => $ebcr_def ) : ?>
+				<?php if ( ! empty( $ebcr_def['section'] ) ) : ?>
+					</tbody></table>
+					<h2 class="ebcr-section-title"><?php echo esc_html( $ebcr_def['section'] ); ?></h2>
+					<?php if ( ! empty( $ebcr_def['section_intro'] ) ) : ?>
+						<p class="description"><?php echo esc_html( $ebcr_def['section_intro'] ); ?></p>
+					<?php endif; ?>
+					<table class="form-table" role="presentation"><tbody>
+				<?php endif; ?>
 				<?php if ( in_array( $ebcr_def[0], array( 'matrix', 'templates', 'policies', 'statuses' ), true ) ) : ?>
 					<tr><th scope="row"><?php echo esc_html( $ebcr_def[1] ); ?></th><td><p class="ebcr-help-field"><?php echo esc_html( $ebcr_def[2] ); ?></p>
 					<?php if ( 'matrix' === $ebcr_def[0] ) : ?>
@@ -342,6 +369,45 @@ endforeach;
 			<form method="post" action="<?php echo $ebcr_post; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" style="display:inline-block"><input type="hidden" name="action" value="ebcr_tool"><input type="hidden" name="tool" value="test_protection"><?php echo ebcr_nonce_field( 'settings_tool' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><button class="button button-secondary"><?php esc_html_e( 'Testar proteção da pasta agora', 'eb-credito-rural' ); ?></button></form>
 		<?php endif; ?>
 			<?php if ( 'emails' === $ebcr_k ) : ?>
+			<div class="ebcr-box">
+				<h3><?php esc_html_e( 'Envio (SMTP): situação', 'eb-credito-rural' ); ?></h3>
+				<p>
+				<?php
+				if ( $smtp['enabled'] ) {
+					/* translators: 1: servidor, 2: porta, 3: criptografia, 4: usuário */
+					echo '<span class="ebcr-status-ok">' . esc_html( sprintf( __( 'Ligado: %1$s:%2$d (%3$s), usuário %4$s.', 'eb-credito-rural' ), $smtp['host'], (int) $smtp['port'], strtoupper( $smtp['secure'] ), '' !== $smtp['username'] ? $smtp['username'] : '—' ) ) . '</span>';
+					echo ' ' . esc_html( $smtp['apply_all'] ? __( 'Vale para todos os e-mails do site.', 'eb-credito-rural' ) : __( 'Só para as mensagens deste plugin.', 'eb-credito-rural' ) );
+				} else {
+					echo '<span class="ebcr-status-warn">' . esc_html__( 'Desligado: os e-mails saem pela função mail() do servidor (o plugin define ao menos o remetente do envelope das próprias mensagens).', 'eb-credito-rural' ) . '</span>';
+				}
+				?>
+				</p>
+				<?php
+				$ebcr_sources = array(
+					'constant' => __( 'constante EBCR_SMTP_PASSWORD (wp-config)', 'eb-credito-rural' ),
+					'option'   => __( 'salva nas configurações (cifrada)', 'eb-credito-rural' ),
+					'none'     => __( 'não definida', 'eb-credito-rural' ),
+				);
+				?>
+				<p><?php esc_html_e( 'Senha:', 'eb-credito-rural' ); ?> <?php echo esc_html( $ebcr_sources[ $smtp['password_source'] ] ); ?><?php echo $smtp['password_readable'] ? '' : ' — <span class="ebcr-status-bad">' . esc_html__( 'não foi possível decifrar (chave ou sal mudaram): digite a senha de novo', 'eb-credito-rural' ) . '</span>'; ?></p>
+				<?php if ( 'constant' !== $smtp['password_source'] ) : ?>
+					<p class="description"><?php esc_html_e( 'Recomendado: no wp-config.php, antes de "/* That\'s all, stop editing! */":', 'eb-credito-rural' ); ?></p><pre class="ebcr-code">define( 'EBCR_SMTP_PASSWORD', 'senha-da-caixa' );</pre>
+				<?php endif; ?>
+				<form method="post" action="<?php echo $ebcr_post; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>"><input type="hidden" name="action" value="ebcr_tool"><input type="hidden" name="tool" value="test_smtp"><?php echo ebcr_nonce_field( 'settings_tool' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><label for="ebcr-smtp-to" class="screen-reader-text"><?php esc_html_e( 'Destinatário do teste', 'eb-credito-rural' ); ?></label><input type="email" id="ebcr-smtp-to" name="to" value="<?php echo esc_attr( wp_get_current_user()->user_email ); ?>" required> <button class="button button-secondary"><?php esc_html_e( 'Testar SMTP (com diagnóstico)', 'eb-credito-rural' ); ?></button></form>
+				<?php if ( $smtp_test ) : ?>
+					<h4><?php esc_html_e( 'Resultado do último teste', 'eb-credito-rural' ); ?></h4>
+					<p><?php echo $smtp_test['sent'] ? '<span class="ebcr-status-ok">' . esc_html__( 'Aceito pelo servidor.', 'eb-credito-rural' ) . '</span>' : '<span class="ebcr-status-bad">' . esc_html( $smtp_test['error'] ) . '</span>'; ?> <?php /* translators: 1: transporte, 2: remetente do envelope */ printf( esc_html__( 'Transporte: %1$s · remetente do envelope: %2$s', 'eb-credito-rural' ), esc_html( $smtp_test['transport'] ), esc_html( '' !== $smtp_test['sender'] ? $smtp_test['sender'] : '—' ) ); ?></p>
+					<pre class="ebcr-code" style="max-height:320px;overflow:auto;white-space:pre-wrap"><?php echo esc_html( $smtp_test['transcript'] ); ?></pre>
+				<?php endif; ?>
+				<?php if ( $smtp_failures ) : ?>
+					<h4><?php esc_html_e( 'Últimas falhas do wp_mail', 'eb-credito-rural' ); ?></h4>
+					<ul class="ul-disc">
+					<?php foreach ( array_reverse( $smtp_failures ) as $ebcr_f ) : ?>
+						<li><?php echo esc_html( Helpers::date( $ebcr_f['time'] ) . ' · ' . $ebcr_f['transport'] . ' · ' . implode( ', ', (array) $ebcr_f['domains'] ) . ' — ' . $ebcr_f['message'] ); ?></li>
+					<?php endforeach; ?>
+					</ul>
+				<?php endif; ?>
+			</div>
 			<form method="post" action="<?php echo $ebcr_post; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" style="display:inline-block"><input type="hidden" name="action" value="ebcr_tool"><input type="hidden" name="tool" value="test_email"><?php echo ebcr_nonce_field( 'settings_tool' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><input type="email" name="to" value="<?php echo esc_attr( wp_get_current_user()->user_email ); ?>" required> <button class="button button-secondary"><?php esc_html_e( 'Enviar e-mail de teste', 'eb-credito-rural' ); ?></button></form>
 		<?php endif; ?>
 		<form method="post" action="<?php echo $ebcr_post; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" style="display:inline-block;margin-left:8px"><input type="hidden" name="action" value="ebcr_reset_settings"><input type="hidden" name="tab" value="<?php echo esc_attr( $ebcr_k ); ?>"><?php echo ebcr_nonce_field( 'settings_reset' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><button class="button-link" data-confirm="<?php esc_attr_e( 'Restaurar os valores padrão desta aba?', 'eb-credito-rural' ); ?>"><?php esc_html_e( 'Restaurar padrão desta aba', 'eb-credito-rural' ); ?></button></form>
