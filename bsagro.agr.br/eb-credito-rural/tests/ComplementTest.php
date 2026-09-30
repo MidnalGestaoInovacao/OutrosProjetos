@@ -517,6 +517,28 @@ final class ComplementTest extends EBCR_TestCase {
 		$this->assertStringNotContainsString( 'ebcr-notice', $html );
 	}
 
+	public function test_team_views_show_complemented_items(): void {
+		add_filter( 'pre_wp_mail', '__return_true' );
+		$uid = $this->make_user();
+		$s   = $this->sent( $uid );
+		list( $ok ) = Complement::save( $uid, $s, 'garantias', array( 'garantias' => array( $this->gar() ) ) );
+		$this->assertTrue( $ok );
+		$manager = $this->make_user( Capabilities::ROLE_MANAGER );
+		wp_set_current_user( $manager );
+		$team = ( new \EBCR\Frontend\Team\Screens( $manager ) )->submission( $s['public_id'] );
+		$this->assertStringContainsString( 'Incluído pelo cliente em', $team );
+		$this->assertStringContainsString( 'complementados pelo cliente depois do envio', $team );
+		$this->assertStringContainsString( 'Atualização da solicitação', $team );
+		$admin = $this->make_user( 'administrator' );
+		wp_set_current_user( $admin );
+		ob_start();
+		( new \EBCR\Admin\SubmissionView() )->render( $s['public_id'] );
+		$html = ob_get_clean();
+		$this->assertStringContainsString( 'Incluído pelo cliente em', $html );
+		$this->assertStringContainsString( 'Atualização da solicitação', $html );
+		remove_filter( 'pre_wp_mail', '__return_true' );
+	}
+
 	public function test_admin_post_handler_saves_and_redirects(): void {
 		$uid = $this->make_user();
 		wp_set_current_user( $uid );

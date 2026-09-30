@@ -16,9 +16,9 @@ defined( 'ABSPATH' ) || exit;
 $ebcr_ctx        = isset( $context ) && is_array( $context ) ? $context : $wizard->rules_context( $s, $saved );
 $ebcr_complement = isset( $mode ) && 'complement' === $mode;
 $ebcr_required   = SubmissionRules::guarantees_required( $ebcr_ctx );
-$ebcr_reason   = SubmissionRules::guarantees_reason( $ebcr_ctx );
-$ebcr_items    = isset( $data['garantias'] ) && is_array( $data['garantias'] ) ? array_values( $data['garantias'] ) : array();
-$ebcr_answer   = isset( $data['oferece_garantia'] ) && in_array( $data['oferece_garantia'], array( 'sim', 'nao' ), true ) ? $data['oferece_garantia'] : ( $ebcr_items ? 'sim' : '' );
+$ebcr_reason     = SubmissionRules::guarantees_reason( $ebcr_ctx );
+$ebcr_items      = isset( $data['garantias'] ) && is_array( $data['garantias'] ) ? array_values( $data['garantias'] ) : array();
+$ebcr_answer     = isset( $data['oferece_garantia'] ) && in_array( $data['oferece_garantia'], array( 'sim', 'nao' ), true ) ? $data['oferece_garantia'] : ( $ebcr_items ? 'sim' : '' );
 if ( 'garantias' === $add || ! $ebcr_items ) {
 	$ebcr_items[] = array();
 }

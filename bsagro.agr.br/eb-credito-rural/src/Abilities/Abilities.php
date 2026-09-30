@@ -1110,22 +1110,22 @@ final class Abilities {
 	private static function summary( array $s ) {
 		$u = get_userdata( (int) $s['user_id'] );
 		return array(
-			'id'            => $s['public_id'],
-			'protocol'      => $s['protocol'],
-			'status'        => $s['status'],
-			'status_label'  => Status::label( $s['status'] ),
-			'client'        => $u ? $u->display_name : '',
-			'client_email'  => $u ? $u->user_email : '',
-			'person_type'   => $s['person_type'],
-			'amount'        => $s['requested_amount'],
-			'purpose'       => $s['purpose'],
-			'term_months'   => $s['term_months'],
-			'assigned_to'   => $s['assigned_to'] ? (int) $s['assigned_to'] : null,
-			'assigned_name' => $s['assigned_to'] ? Helpers::user_name( (int) $s['assigned_to'] ) : null,
-			'submitted_at'  => $s['submitted_at'],
+			'id'              => $s['public_id'],
+			'protocol'        => $s['protocol'],
+			'status'          => $s['status'],
+			'status_label'    => Status::label( $s['status'] ),
+			'client'          => $u ? $u->display_name : '',
+			'client_email'    => $u ? $u->user_email : '',
+			'person_type'     => $s['person_type'],
+			'amount'          => $s['requested_amount'],
+			'purpose'         => $s['purpose'],
+			'term_months'     => $s['term_months'],
+			'assigned_to'     => $s['assigned_to'] ? (int) $s['assigned_to'] : null,
+			'assigned_name'   => $s['assigned_to'] ? Helpers::user_name( (int) $s['assigned_to'] ) : null,
+			'submitted_at'    => $s['submitted_at'],
 			'complemented_at' => isset( $s['complemented_at'] ) ? $s['complemented_at'] : null,
-			'updated_at'    => $s['updated_at'],
-			'admin_url'     => admin_url( 'admin.php?page=ebcr-submissions&view=' . rawurlencode( $s['public_id'] ) ),
+			'updated_at'      => $s['updated_at'],
+			'admin_url'       => admin_url( 'admin.php?page=ebcr-submissions&view=' . rawurlencode( $s['public_id'] ) ),
 		);
 	}
 

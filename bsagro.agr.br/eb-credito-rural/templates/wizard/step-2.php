@@ -18,8 +18,8 @@ defined( 'ABSPATH' ) || exit;
 $ebcr_ctx        = isset( $context ) && is_array( $context ) ? $context : $wizard->rules_context( $s, $saved );
 $ebcr_complement = isset( $mode ) && 'complement' === $mode;
 $ebcr_required   = SubmissionRules::assets_required( $ebcr_ctx );
-$ebcr_items    = isset( $data['imoveis'] ) && is_array( $data['imoveis'] ) ? array_values( $data['imoveis'] ) : array();
-$ebcr_answer   = isset( $data['possui_imoveis'] ) && in_array( $data['possui_imoveis'], array( 'sim', 'nao' ), true ) ? $data['possui_imoveis'] : ( $ebcr_items ? 'sim' : '' );
+$ebcr_items      = isset( $data['imoveis'] ) && is_array( $data['imoveis'] ) ? array_values( $data['imoveis'] ) : array();
+$ebcr_answer     = isset( $data['possui_imoveis'] ) && in_array( $data['possui_imoveis'], array( 'sim', 'nao' ), true ) ? $data['possui_imoveis'] : ( $ebcr_items ? 'sim' : '' );
 if ( 'imoveis' === $add || ! $ebcr_items ) {
 	$ebcr_items[] = array();
 }

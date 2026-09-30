@@ -307,7 +307,7 @@ final class Notifier {
 			)
 		);
 		// O texto das garantias já fala de "bens e garantias"; o de imóveis só entra quando só eles faltam.
-		$vars['comentario'] = \EBCR\Forms\Complement::notice( in_array( 'garantias', $parts, true ) ? 'garantias' : 'imoveis' );
+		$vars['comentario']   = \EBCR\Forms\Complement::notice( in_array( 'garantias', $parts, true ) ? 'garantias' : 'imoveis' );
 		$vars['link_portal'] .= '#ebcr-bens';
 		Mailer::send_event( 'complement_reminder', self::client_email( $submission ), $vars );
 	}

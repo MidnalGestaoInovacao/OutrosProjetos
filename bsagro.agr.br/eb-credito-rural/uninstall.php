@@ -38,7 +38,7 @@ foreach ( EBCR\Install\Schema::tables() as $ebcr_table ) {
 
 EBCR\Roles\Capabilities::uninstall();
 
-foreach ( array( 'ebcr_settings', 'ebcr_db_version', 'ebcr_protocol_seq', 'ebcr_settings_version', 'ebcr_rewrite_sig' ) as $ebcr_option ) {
+foreach ( array( 'ebcr_settings', 'ebcr_db_version', 'ebcr_protocol_seq', 'ebcr_settings_version', 'ebcr_rewrite_sig', 'ebcr_mail_failures', 'ebcr_storage_created', 'ebcr_last_daily' ) as $ebcr_option ) {
 	delete_option( $ebcr_option );
 }
 $wpdb->query( "DELETE FROM {$wpdb->usermeta} WHERE meta_key LIKE 'ebcr\_%'" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery -- limpeza na desinstalação.

@@ -56,11 +56,25 @@ final class Smtp {
 	private static $in_auth = false;
 
 	/**
+	 * Fase DATA na transcrição: '' (fora), 'headers' (cabeçalhos exibidos) ou 'body' (corpo omitido).
+	 *
+	 * @var string
+	 */
+	private static $in_data = '';
+
+	/**
 	 * Remetente de envelope definido pelo plugin na última mensagem (para não vazar para mensagens de terceiros).
 	 *
 	 * @var string
 	 */
 	private static $sender = '';
+
+	/**
+	 * Transporte aplicado na última mensagem que passou por configure(): smtp | mail (null = nenhuma).
+	 *
+	 * @var string|null
+	 */
+	private static $transport = null;
 
 	/**
 	 * Hooks.
@@ -186,17 +200,18 @@ final class Smtp {
 	}
 
 	/**
-	 * Cifra a senha para gravar na opção.
+	 * Cifra a senha para gravar na opção: com EBCR_ENCRYPTION_KEY quando existir; senão, com a chave derivada do sal.
 	 *
-	 * @param string $plain Senha.
+	 * @param string $plain   Senha.
+	 * @param bool   $use_key Usar EBCR_ENCRYPTION_KEY se disponível (false força a chave derivada do sal).
 	 * @return string
 	 */
-	public static function seal( $plain ) {
+	public static function seal( $plain, $use_key = true ) {
 		$plain = (string) $plain;
 		if ( '' === $plain ) {
 			return '';
 		}
-		if ( Crypto::is_available() ) {
+		if ( $use_key && Crypto::is_available() ) {
 			return Crypto::encrypt( $plain );
 		}
 		$key   = self::salt_key();
@@ -259,8 +274,10 @@ final class Smtp {
 		} elseif ( $own || self::enabled() ) {
 			$phpmailer->SMTPDebug = 0;
 		}
+		self::$transport = 'mail';
 		if ( self::enabled() && ( $own || Options::bool( 'smtp_apply_all' ) ) ) {
-			$secure = self::secure();
+			self::$transport = 'smtp';
+			$secure          = self::secure();
 			$phpmailer->isSMTP();
 			$phpmailer->Host        = self::host();
 			$phpmailer->Port        = self::port();
@@ -277,7 +294,7 @@ final class Smtp {
 					'allow_self_signed' => true,
 				),
 			);
-			$from = self::from_email();
+			$from                   = self::from_email();
 			if ( $from ) {
 				$phpmailer->setFrom( $from, self::from_name(), false );
 				$phpmailer->Sender = $from;
@@ -366,6 +383,20 @@ final class Smtp {
 			return;
 		}
 		$str = rtrim( (string) $str );
+		// Mensagem (DATA): mostra os cabeçalhos e omite o corpo.
+		if ( '' !== self::$in_data ) {
+			if ( preg_match( '/^\s*SERVER -> CLIENT:/i', $str ) ) {
+				self::$in_data = '';
+			} elseif ( 'body' === self::$in_data ) {
+				return;
+			} elseif ( preg_match( '/^\s*CLIENT -> SERVER:\s*$/i', $str ) ) {
+				self::$in_data = 'body';
+				self::$debug[] = 'CLIENT -> SERVER: ' . __( '[corpo da mensagem omitido]', 'eb-credito-rural' );
+				return;
+			}
+		} elseif ( preg_match( '/^\s*SERVER -> CLIENT:\s*354\b/i', $str ) ) {
+			self::$in_data = 'headers';
+		}
 		if ( preg_match( '/^\s*CLIENT -> SERVER:\s*AUTH\b/i', $str ) ) {
 			self::$in_auth = true;
 			$str           = self::mask( $str );
@@ -422,21 +453,21 @@ final class Smtp {
 	 */
 	public static function status() {
 		return array(
-			'enabled'          => self::enabled(),
-			'configured'       => Options::bool( 'smtp_enabled' ),
-			'host'             => self::host(),
-			'port'             => self::port(),
-			'secure'           => self::secure(),
-			'auth'             => Options::bool( 'smtp_auth' ),
-			'username'         => (string) Options::get( 'smtp_username', '' ),
-			'password_source'  => self::password_source(),
-			'password_storage' => self::password_storage(),
+			'enabled'           => self::enabled(),
+			'configured'        => Options::bool( 'smtp_enabled' ),
+			'host'              => self::host(),
+			'port'              => self::port(),
+			'secure'            => self::secure(),
+			'auth'              => Options::bool( 'smtp_auth' ),
+			'username'          => (string) Options::get( 'smtp_username', '' ),
+			'password_source'   => self::password_source(),
+			'password_storage'  => self::password_storage(),
 			'password_readable' => 'option' !== self::password_source() || null !== self::open( (string) Options::get( 'smtp_password', '' ) ),
-			'from_email'       => self::from_email(),
-			'from_name'        => self::from_name(),
-			'apply_all'        => Options::bool( 'smtp_apply_all' ),
-			'verify_peer'      => Options::bool( 'smtp_verify_peer' ),
-			'timeout'          => max( 5, min( 120, Options::int( 'smtp_timeout' ) ) ),
+			'from_email'        => self::from_email(),
+			'from_name'         => self::from_name(),
+			'apply_all'         => Options::bool( 'smtp_apply_all' ),
+			'verify_peer'       => Options::bool( 'smtp_verify_peer' ),
+			'timeout'           => max( 5, min( 120, Options::int( 'smtp_timeout' ) ) ),
 		);
 	}
 
@@ -452,14 +483,16 @@ final class Smtp {
 		if ( ! $to || ! is_email( $to ) ) {
 			return new \WP_Error( 'bad_to', __( 'Informe um destinatário válido em "to".', 'eb-credito-rural' ) );
 		}
-		$error         = '';
-		$catch         = static function ( $e ) use ( &$error ) {
+		$error           = '';
+		$catch           = static function ( $e ) use ( &$error ) {
 			if ( $e instanceof \WP_Error ) {
 				$error = self::mask( wp_strip_all_tags( $e->get_error_message() ) );
 			}
 		};
-		self::$debug   = array();
-		self::$in_auth = false;
+		self::$debug     = array();
+		self::$in_auth   = false;
+		self::$in_data   = '';
+		self::$transport = null;
 		add_action( 'wp_mail_failed', $catch, 5 );
 		$subject = __( 'Teste de envio (SMTP) — EB Crédito Rural', 'eb-credito-rural' );
 		$html    = Mailer::layout(
@@ -475,12 +508,21 @@ final class Smtp {
 		$lines       = self::$debug;
 		self::$debug = null;
 		global $phpmailer;
-		$transport = is_object( $phpmailer ) && isset( $phpmailer->Mailer ) ? (string) $phpmailer->Mailer : ( self::enabled() ? 'smtp' : 'mail' );
-		$sender    = is_object( $phpmailer ) && isset( $phpmailer->Sender ) ? (string) $phpmailer->Sender : '';
+		// "none": o envio foi interrompido antes do PHPMailer (ex.: filtro pre_wp_mail de outro plugin).
+		$transport = null === self::$transport ? 'none' : self::$transport;
+		$sender    = 'none' !== $transport && is_object( $phpmailer ) && isset( $phpmailer->Sender ) ? (string) $phpmailer->Sender : '';
 		if ( is_object( $phpmailer ) ) {
 			$phpmailer->SMTPDebug = 0;
 		}
-		$transcript = implode( "\n", (array) $lines );
+		if ( 'smtp' === $transport ) {
+			/* translators: 1: servidor, 2: porta, 3: criptografia */
+			$head = sprintf( __( 'Transporte: SMTP %1$s:%2$d (%3$s)', 'eb-credito-rural' ), self::host(), self::port(), 'none' === self::secure() ? __( 'sem criptografia', 'eb-credito-rural' ) : strtoupper( self::secure() ) );
+		} elseif ( 'mail' === $transport ) {
+			$head = __( 'Transporte: função mail() do servidor (SMTP desligado) — não há conversa SMTP; o servidor só aceitou (ou recusou) a mensagem localmente.', 'eb-credito-rural' );
+		} else {
+			$head = __( 'Transporte: nenhum — o envio foi interrompido antes do PHPMailer (filtro pre_wp_mail de outro plugin).', 'eb-credito-rural' );
+		}
+		$transcript = $head . "\n" . implode( "\n", (array) $lines );
 		if ( strlen( $transcript ) > self::TRANSCRIPT_MAX ) {
 			$transcript = substr( $transcript, 0, self::TRANSCRIPT_MAX ) . "\n[…]";
 		}
@@ -494,7 +536,7 @@ final class Smtp {
 			'from'       => 'smtp' === $transport ? self::from_email() : sanitize_email( (string) Options::get( 'from_email', '' ) ),
 			'sender'     => $sender,
 			'to'         => $to,
-			'transcript' => '' !== $transcript ? $transcript : ( 'smtp' === $transport ? '' : __( 'Envio pela função mail() do PHP (SMTP desligado): não há conversa SMTP para mostrar.', 'eb-credito-rural' ) ),
+			'transcript' => rtrim( $transcript ),
 		);
 	}
 }

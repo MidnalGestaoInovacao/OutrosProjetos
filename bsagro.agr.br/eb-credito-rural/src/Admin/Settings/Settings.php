@@ -126,7 +126,7 @@ final class Settings {
 			),
 			'emails'      => array(
 				'label' => __( 'E-mails', 'eb-credito-rural' ),
-				'intro' => __( 'Remetente, templates por evento (com placeholders) e teste de envio. Recomendamos um plugin SMTP para garantir a entrega.', 'eb-credito-rural' ),
+				'intro' => __( 'Remetente, envio autenticado por SMTP (seção "Envio (SMTP)"), templates por evento (com placeholders) e teste de envio. Com o SMTP do plugin ligado, não é preciso outro plugin de SMTP.', 'eb-credito-rural' ),
 			),
 			'privacidade' => array(
 				'label' => __( 'Privacidade e compliance', 'eb-credito-rural' ),
@@ -374,6 +374,8 @@ final class Settings {
 					'from_name'                  => array( 'text', __( 'Nome do remetente', 'eb-credito-rural' ), __( 'Ex.: Nome da Empresa — Crédito Rural.', 'eb-credito-rural' ) ),
 					'from_email'                 => array( 'email', __( 'E-mail do remetente', 'eb-credito-rural' ), __( 'Use um endereço do próprio domínio (e configure SPF/DKIM no provedor) para não cair em spam.', 'eb-credito-rural' ) ),
 					'notify_admin_status_change' => array( 'checkbox', __( 'Avisar administração a cada mudança de status', 'eb-credito-rural' ), __( 'Desligue se a equipe preferir acompanhar só pelo painel.', 'eb-credito-rural' ) ),
+					'attach_documents_admin'     => array( 'checkbox', __( 'Anexar documentos ao e-mail do administrador (NÃO recomendado)', 'eb-credito-rural' ), __( 'E-mail não é canal seguro: os anexos ficam em caixas de terceiros (risco LGPD) e mensagens grandes são recusadas. Prefira o link para o painel. Só ligue se houver exigência do cliente do projeto.', 'eb-credito-rural' ) ),
+					'email_templates'            => array( 'templates', __( 'Templates por evento', 'eb-credito-rural' ), __( 'Assunto e corpo (texto simples; quebras de linha viram parágrafos). Deixe em branco para usar o padrão.', 'eb-credito-rural' ) ),
 					'smtp_enabled'               => array(
 						'checkbox',
 						__( 'Enviar por SMTP autenticado', 'eb-credito-rural' ),
@@ -402,8 +404,6 @@ final class Settings {
 					'smtp_apply_all'             => array( 'checkbox', __( 'Usar o SMTP para todos os e-mails do site', 'eb-credito-rural' ), __( 'Ligado: também os e-mails do WordPress (senha, novos usuários) e de outros plugins saem por esta caixa, com este remetente — some o wordpress@… Desligado: só as mensagens deste plugin. Recomendado: ligado, se não houver outro plugin de SMTP.', 'eb-credito-rural' ) ),
 					'smtp_verify_peer'           => array( 'checkbox', __( 'Verificar o certificado do servidor', 'eb-credito-rural' ), __( 'Mantenha ligado. Desligue só se o servidor usar certificado autoassinado ou de outro nome (a conexão continua cifrada, mas fica sujeita a interceptação).', 'eb-credito-rural' ) ),
 					'smtp_timeout'               => array( 'number', __( 'Tempo limite (segundos)', 'eb-credito-rural' ), __( 'Recomendado: 15.', 'eb-credito-rural' ) ),
-					'attach_documents_admin'     => array( 'checkbox', __( 'Anexar documentos ao e-mail do administrador (NÃO recomendado)', 'eb-credito-rural' ), __( 'E-mail não é canal seguro: os anexos ficam em caixas de terceiros (risco LGPD) e mensagens grandes são recusadas. Prefira o link para o painel. Só ligue se houver exigência do cliente do projeto.', 'eb-credito-rural' ) ),
-					'email_templates'            => array( 'templates', __( 'Templates por evento', 'eb-credito-rural' ), __( 'Assunto e corpo (texto simples; quebras de linha viram parágrafos). Deixe em branco para usar o padrão.', 'eb-credito-rural' ) ),
 				);
 			case 'privacidade':
 				return array(
@@ -547,7 +547,7 @@ final class Settings {
 			array( 'upload_max_filesize / post_max_size', size_format( $limits['php_upload'] ) . ' / ' . size_format( $limits['php_post'] ), $limits['ok'] ),
 			array( __( 'WP-Cron', 'eb-credito-rural' ), ( defined( 'DISABLE_WP_CRON' ) && DISABLE_WP_CRON ) ? __( 'desativado (use cron do sistema)', 'eb-credito-rural' ) : __( 'ativo', 'eb-credito-rural' ), (bool) wp_next_scheduled( 'ebcr_daily' ) ),
 			array( __( 'Action Scheduler', 'eb-credito-rural' ), function_exists( 'as_enqueue_async_action' ) ? __( 'disponível', 'eb-credito-rural' ) : __( 'não (usa WP-Cron)', 'eb-credito-rural' ), true ),
-			array( __( 'Plugin SMTP', 'eb-credito-rural' ), ( class_exists( 'WPMailSMTP\Core' ) || class_exists( 'FluentMail\App\Application' ) || defined( 'POST_SMTP_VERSION' ) ) ? __( 'detectado', 'eb-credito-rural' ) : __( 'não detectado (recomendado)', 'eb-credito-rural' ), class_exists( 'WPMailSMTP\Core' ) || class_exists( 'FluentMail\App\Application' ) || defined( 'POST_SMTP_VERSION' ) ),
+			array( __( 'Envio SMTP', 'eb-credito-rural' ), \EBCR\Mail\Smtp::enabled() ? __( 'SMTP do plugin ligado', 'eb-credito-rural' ) : ( ( class_exists( 'WPMailSMTP\Core' ) || class_exists( 'FluentMail\App\Application' ) || defined( 'POST_SMTP_VERSION' ) ) ? __( 'plugin SMTP detectado', 'eb-credito-rural' ) : __( 'desligado (recomendado ligar em E-mails → Envio (SMTP))', 'eb-credito-rural' ) ), \EBCR\Mail\Smtp::enabled() || class_exists( 'WPMailSMTP\Core' ) || class_exists( 'FluentMail\App\Application' ) || defined( 'POST_SMTP_VERSION' ) ),
 			array( __( 'Chave de criptografia', 'eb-credito-rural' ), Crypto::status(), 'ok' === Crypto::status() ),
 			array( __( 'Antivírus (clamdscan)', 'eb-credito-rural' ), Antivirus::is_available() ? __( 'disponível', 'eb-credito-rural' ) : __( 'não encontrado', 'eb-credito-rural' ), true ),
 		);

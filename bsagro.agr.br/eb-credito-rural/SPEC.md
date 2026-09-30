@@ -292,7 +292,7 @@ Registrar: login/logout/falhas, criação/envio de submissão, upload, download/
 
 ## 9. Notificações por e-mail
 
-- Envio via `wp_mail` (recomendar plugin SMTP na tela de ajuda, com teste de envio pelo painel).
+- Envio via `wp_mail`. Desde a 1.3.1, SMTP autenticado no próprio plugin (§9a); plugin SMTP de terceiros continua opcional.
 - Fila assíncrona (Action Scheduler se disponível, senão WP-Cron) com retentativas e log de falhas.
 - Templates editáveis no admin (assunto + corpo HTML simples), com placeholders: `{nome}`, `{protocolo}`, `{status}`, `{comentario}`, `{link_portal}`, `{pendencias}`, `{data}`, `{site}`.
 - Destinatários administrativos: lista de e-mails configurável, com opção de notificar também o analista atribuído.
@@ -308,8 +308,18 @@ Registrar: login/logout/falhas, criação/envio de submissão, upload, download/
 | Cliente respondeu pendência | — | ✓ |
 | Lembrete de pendência sem resposta (X dias) | ✓ | ✓ |
 | Certidões a vencer | — | ✓ |
+| Cliente complementou bens/garantias (`complement_added`, 1.3.1) | — | ✓ (+ analista atribuído) |
+| Lembrete para completar bens/garantias (`complement_reminder`, 1.3.1, uma vez) | ✓ | — |
 
 Protocolo legível: `EB-2026-000123` (sequencial apenas para exibição; URLs continuam com UUID).
+
+### 9a. Envio autenticado por SMTP (1.3.1)
+
+- Configurações (aba E-mails, seção "Envio (SMTP)"): `smtp_enabled` (false), `smtp_host` (''), `smtp_port` (465), `smtp_secure` (`ssl` | `tls` | `none`; ssl), `smtp_auth` (true), `smtp_username` (''), `smtp_password` (somente escrita), `smtp_from_email` / `smtp_from_name` ('' = `from_email` / `from_name`), `smtp_apply_all` (true), `smtp_verify_peer` (true), `smtp_timeout` (15).
+- Senha: constante `EBCR_SMTP_PASSWORD` no wp-config.php (prioridade; recomendada). Senão, opção cifrada com libsodium — `EBCR_ENCRYPTION_KEY` quando definida; sem ela, chave derivada de `wp_salt('secure_auth')` (protege só contra vazamento do banco; a tela avisa). Nunca exibida, exportada, auditada, devolvida por abilities ou incluída em transcrições.
+- `phpmailer_init` (quando ligado e — se `smtp_apply_all` for falso — só para mensagens do plugin): isSMTP, Host, Port, SMTPSecure/SMTPAutoTLS, SMTPAuth, Username, Password, Timeout, SMTPOptions (verify_peer), From/FromName e sempre `Sender` (Return-Path) = remetente; com `smtp_apply_all`, filtros `wp_mail_from`/`wp_mail_from_name`. Com SMTP desligado, as mensagens do plugin recebem `Sender` = `from_email`.
+- `wp_mail_failed`: últimas 20 falhas (data, mensagem sem credenciais, transporte, domínios dos destinatários) em `get-status` → `mail_failures.recent`; a fila mantém retentativas e `last_error` por item (`mail_failures.queue`).
+- `run-tool test_smtp` (`to`) e botão na tela: `{sent, error, transport, host, port, secure, from, sender, to, transcript}` com a conversa SMTP (SMTPDebug 2) mascarada e o corpo omitido, até ~4000 caracteres; `get-status` → `smtp` com `password_source` (constant | option | none).
 
 ---
 
@@ -368,11 +378,11 @@ Cada campo deve ter descrição curta abaixo explicando **o que faz, valor recom
 1a. **Identidade visual** (1.3.0) — nome e logotipo da marca, cores (primária, texto sobre a primária, destaque, fundo, superfície, texto, texto secundário, bordas), arredondamentos, fontes e folhas de estilo de fontes, "herdar do tema", predefinições (Évellyn Brandão, BS Agro Capital, Neutro) e verificação de contraste WCAG AA.
 1b. **Botão Área do Cliente** (1.3.0) — textos, ícone, botão fixo no topo (posição/distância/estilo), item em menu clássico ou bloco Navegação, endereço amigável.
 2. **Formulário** — ativar/desativar etapas e campos opcionais, limites de valor e prazo, textos de ajuda por etapa, lista de atividades e finalidades.
-2a. **Bens e garantias** (1.3.0) — exigência de imóveis (etapa 2) e garantias (etapa 5): obrigatório, opcional ou desativado; finalidades que sempre exigem garantia.
+2a. **Bens e garantias** (1.3.0) — exigência de imóveis (etapa 2) e garantias (etapa 5): obrigatório, opcional ou desativado; finalidades que sempre exigem garantia. 1.3.1: textos de orientação do modo opcional (`assets_optional_notice`, `guarantees_optional_notice`), status em que o cliente pode completar depois do envio (`complement_statuses`) e lembrete (`complement_reminder_days`). Ver §12c.
 3. **Documentos e uploads** — extensões, tamanho por arquivo, cota por usuário, máximo por submissão, matriz de documentos (§6), validade padrão por tipo, remoção de EXIF, antivírus.
 4. **Regras de submissão** — intervalo mínimo em dias, bloquear se houver outra em andamento, prazo para cliente responder pendências antes de lembrete/cancelamento automático.
 5. **Segurança** — caminho de armazenamento privado com **botão "Testar proteção"**, criptografia (status da chave), rate limit de login, captcha (provedor e dificuldade), honeypot, tempo mínimo, expiração de sessão da equipe, analista vê só as atribuídas.
-6. **E-mails** — remetente, templates por evento com pré-visualização, botão "Enviar e-mail de teste", opção de anexos (desligada, com aviso).
+6. **E-mails** — remetente, templates por evento com pré-visualização, botão "Enviar e-mail de teste", opção de anexos (desligada, com aviso) e, desde a 1.3.1, seção "Envio (SMTP)" com "Testar SMTP (com diagnóstico)" (§9a).
 7. **Privacidade e compliance** — editor/seleção de página para cada política (sem página escolhida, procura por slugs candidatos, ex.: privacidade → `aviso-de-privacidade`, `politica-de-privacidade`, página de privacidade do WordPress), título e **versão** de cada texto (alterar a versão exige novo aceite no próximo acesso), prazo de retenção de dados e documentos após encerramento, contato do encarregado (DPO), texto das declarações e páginas complementares (portal do titular, cookies, comercialização, canal de integridade).
 7a. **Canais de atendimento** (1.3.0) — e-mail de destino de cada canal (`channel_email_contato`, `channel_email_dpo`, `channel_email_ouvidoria`; vazio = e-mail do administrador), recibo ao remetente (`channel_send_receipt`) e retenção das mensagens (`channel_message_retention_days`, padrão 1825). Ver §12b.
 8. **Status** — editor do fluxo (§10).
@@ -474,10 +484,24 @@ Consulta automática de CEP/CNPJ (APIs públicas), simulador de crédito na pág
 
 ---
 
+## 12c. Bens e garantias opcionais: orientação e complemento depois do envio (1.3.1, banco 1.3.2)
+
+- Modo opcional: quadro `role="note"` (cores da marca) nas etapas 2 e 5 e no resumo da etapa 7 quando nada foi informado, com texto configurável: não é obrigatório, mas é pertinente preencher o mais completo possível; dá para completar depois pela Área do Cliente.
+- Área do Cliente → solicitação: quadro "Bens e garantias" (itens, datas de inclusão/alteração depois do envio, "Completar agora" / "Adicionar ou editar") e formulário de complemento (templates das etapas 2 e 5 em modo `complement`, ação `ebcr_complement`, nonce próprio) com as mesmas regras de `Steps::validate()`; permitido ao dono, nas partes em modo opcional e nos status de `complement_statuses` (padrão: enviada, pré-análise, pendência documental, análise de crédito, comitê, formalização). Itens existentes mantêm ID, data de inclusão e campos da equipe; não podem ser removidos pelo cliente; envio sem alteração é recusado; vínculo de garantia real só com imóveis da própria solicitação.
+- Ao salvar: `submissions.complemented_at`; histórico sem mudança de status; auditoria `complement_added`; e-mail `complement_added` (administração + analista atribuído); pedidos de documento (`origin = complemento`, `ref_key` do imóvel) para os slots novos de nível obrigatório ou recomendado ainda não atendidos — o upload do pedido herda o `ref_key` e satisfaz o slot; esses pedidos não levam ao cancelamento automático.
+- Telas da equipe (wp-admin e painel no site): itens marcados "Incluído/Alterado pelo cliente em … depois do envio" e aviso do último complemento; pedidos automáticos identificados.
+- Lembretes: aviso no painel do cliente e um e-mail (`complement_reminder`) `complement_reminder_days` dias depois do envio (0 desliga; janela de 30 dias), marcado em `complement_reminded_at`.
+- Rascunho: aviso "Você tem uma solicitação em preenchimento" com a etapa atual e "Continuar preenchimento".
+- `storage_path`: criada ao salvar (0750, index.php, .htaccess, web.config) se a pasta mãe for gravável; aviso para caminho dentro do WordPress; `get-status` → `storage.created`.
+- Esquema 1.3.2: `submissions.complemented_at`, `submissions.complement_reminded_at`, `properties.updated_at`, `guarantees.updated_at`, `document_requests.ref_key`, `document_requests.origin`.
+
+---
+
 ## 17. Histórico de versões
 
 | Versão | Mudanças |
 |---|---|
+| 1.3.1 | Bens e garantias opcionais com orientação configurável e complemento depois do envio (§12c: histórico, auditoria, e-mail à equipe, pedidos automáticos de documentos, lembrete único, aviso no painel); "Continuar preenchimento" para rascunhos; criação/proteção da pasta privada ao salvar; SMTP autenticado com Return-Path, registro de falhas e `run-tool test_smtp` (§9a). Banco: `EBCR_DB_VERSION` 1.3.2. |
 | 1.3.0 | Bens e garantias configuráveis (`guarantees_mode`, `guarantees_required_modalities`, `assets_mode`; filtros `ebcr_guarantees_required` e `ebcr_assets_required`; condição de matriz "qualquer garantia oferecida"); identidade visual da área do cliente (aba Identidade visual, predefinições Évellyn Brandão/BS Agro Capital/Neutro, herdar do tema, fontes, contraste WCAG, variáveis `--ebcr-*` com os valores originais como reserva, e-mails e login com a marca); botão "Área do Cliente" (shortcode, bloco, barra fixa, menus, `data-ebcr-client-area`, `window.EBCR_CLIENT_AREA`, filtro `ebcr_client_area_url`, `/area-do-cliente/`); páginas legais por slugs candidatos e links complementares; registro de consentimento de cookies (§12a); nome da operação padrão = nome do site e DPO padrão vazio (instalações existentes preservam os anteriores por migração de configurações); correção do erro fatal ao salvar a matriz de documentos. Canais de atendimento (§12b): `POST ebcr/v1/channel-message`, tela *Mensagens dos canais*, e-mails por canal com recibo, retenção e exportador/apagador; capacidade `ebcr_manage_channels`; `disable_wp_emoji`; o log de auditoria grava IDs textuais (o `object_id` era convertido para número pelo `$wpdb->field_types` do WordPress). Banco: novas tabelas `ebcr_cookie_consents` e `ebcr_channel_messages` (`EBCR_DB_VERSION` 1.3.1; a versão do plugin continua 1.3.0). |
 | 1.2.2 | Identidade visual do painel e do login (logotipo, ícone da marca, ícone do site). |
 | 1.2.1 | Páginas padrão para as políticas, momento do aceite configurável, etapas com a mesma altura. |

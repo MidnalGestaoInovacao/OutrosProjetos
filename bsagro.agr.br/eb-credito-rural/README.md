@@ -4,6 +4,17 @@ Captação de solicitações de crédito rural (criado para o site de Évellyn B
 
 Esta é a **Fase 1 (MVP seguro)** do `SPEC.md`. Slug `eb-credito-rural`, prefixo `ebcr_`, namespace `EBCR\`.
 
+## Novidades da 1.3.1
+
+- **Bens e garantias opcionais, com complemento depois do envio.** No modo *Opcional* (Configurações → Bens e garantias), as etapas de imóveis (2) e garantias (5) e o resumo antes do envio (quando nada foi informado) mostram um quadro de orientação (`role="note"`, cores da identidade visual) dizendo que não é obrigatório, mas é pertinente preencher o mais completo possível — e que dá para completar depois. Textos configuráveis: `assets_optional_notice` e `guarantees_optional_notice`.
+- **Área do Cliente → solicitação → quadro "Bens e garantias"**: lista os itens informados (com a data dos incluídos/alterados depois do envio) e os botões **Completar agora** (nenhum item) ou **Adicionar ou editar**. O formulário é o mesmo das etapas 2 e 5, com as mesmas regras e sanitização no servidor, enquanto o status estiver em `complement_statuses`. Cada complemento grava uma entrada no histórico ("Atualização da solicitação"), o log de auditoria "Cliente complementou bens/garantias", avisa os e-mails administrativos e o analista atribuído (evento `complement_added`) e abre pedidos para os documentos que os novos itens passam a exigir (matrícula, CCIR/ITR, CAR, contrato de arrendamento, laudo…), que o cliente envia logo em seguida na mesma tela. As telas da equipe (wp-admin e painel no site) marcam os itens incluídos/alterados e quando.
+- **Lembretes**: aviso no painel do cliente ("Sua solicitação … está sem bens e garantias informados — completar agora") e um único e-mail (`complement_reminder`) `complement_reminder_days` dias depois do envio (padrão 3; 0 desliga).
+- **Rascunho**: o painel do cliente mostra o aviso "Você tem uma solicitação em preenchimento" com a etapa em que parou e o botão **Continuar preenchimento**.
+- **Pasta privada criada ao salvar**: se `storage_path` não existir e a pasta mãe for gravável, o plugin cria a pasta (0750) com `index.php`, `.htaccess` (negar tudo) e `web.config`; avisa se o caminho estiver dentro da instalação do WordPress. `get-status` → `storage.created`.
+- **Envio autenticado por SMTP** (Configurações → E-mails → *Envio (SMTP)*): servidor, porta, SSL/TLS, usuário e senha da caixa do domínio (senha de preferência na constante `EBCR_SMTP_PASSWORD` do wp-config.php; se salva na tela, fica cifrada e nunca é exibida), remetente próprio, aplicação a todos os e-mails do site (some o `wordpress@…`), remetente do envelope (Return-Path) sempre igual ao remetente, registro das falhas do `wp_mail` e o botão/ferramenta **Testar SMTP** com a conversa SMTP (credenciais mascaradas).
+- Banco `EBCR_DB_VERSION` 1.3.2 (colunas novas, criadas automaticamente na atualização): `complemented_at` e `complement_reminded_at` nas solicitações, `updated_at` em imóveis e garantias, `ref_key` e `origin` nos pedidos de documento.
+- Garantias passam a manter o ID (e a data de inclusão e os campos da equipe: valor avaliado, LTV, formalização) quando o cliente edita; o vínculo da garantia real só aceita imóveis da própria solicitação.
+
 ## Novidades da 1.3.0
 
 - **Bens e garantias configuráveis** (Configurações → *Bens e garantias*): imóveis rurais (etapa 2) e garantias (etapa 5) podem ser **obrigatórios** (padrão, igual às versões anteriores), **opcionais** (o cliente pode declarar "não tenho garantia/imóvel a informar") ou **desativados** (a etapa some, as etapas seguintes são renumeradas e os documentos ligados a ela não são pedidos). Finalidades marcadas continuam exigindo garantia no modo opcional. Validação no navegador e no servidor; filtro `ebcr_guarantees_required`.
@@ -65,6 +76,21 @@ Configurações → **Bens e garantias** (chaves entre parênteses; padrões pre
 - **Desativado**: a etapa não aparece (o cliente vê as etapas renumeradas), não pode ser enviada nem por requisição forjada, e os documentos ligados a ela não entram na matriz. Com imóveis desativados, garantias reais são descritas no texto (sem vínculo com imóvel).
 - A regra vale no navegador (pergunta obrigatória e mínimo de linhas antes de enviar) e no servidor (`Steps`/`Wizard`/`SubmissionRules`), na revalidação do envio final, no resumo da etapa 7, nas telas da equipe (portal e wp-admin), no dossiê em PDF e na ability `get-submission` (campos `requirements`, `guarantees`, `properties`).
 - Condição nova na matriz de documentos: **Qualquer garantia oferecida** (`guarantee`).
+
+### Modo opcional: orientação e complemento (1.3.1)
+
+| Configuração | Padrão |
+| --- | --- |
+| Orientação sobre imóveis/bens (`assets_optional_notice`) | "Informar imóveis rurais e outros bens não é obrigatório para enviar a solicitação, mas é muito pertinente: …" |
+| Orientação sobre garantias (`guarantees_optional_notice`) | "Informar bens e garantias não é obrigatório para enviar a solicitação, mas é muito pertinente: quanto mais completas as informações, mais ágil a análise e melhores as alternativas de crédito que conseguimos estruturar. Se não tiver os dados agora, envie a solicitação e complete depois pela Área do Cliente." |
+| Status em que o cliente pode completar (`complement_statuses`) | `enviada`, `pre_analise`, `pendencia_documental`, `analise_credito`, `comite`, `formalizacao` (todos os em andamento, exceto `aprovada`; rascunho continua pelo formulário) |
+| Lembrete para completar (`complement_reminder_days`) | `3` (0 desliga; 0–60) |
+
+- Onde aparece a orientação: etapa 2 e etapa 5 (modo opcional), resumo da etapa 7 quando nenhum imóvel/garantia foi informado (com botões "Informar … agora"), quadro "Bens e garantias" da solicitação e e-mail de lembrete.
+- Complemento (`?ebcr_view=complementar&id=<uuid>&parte=imoveis|garantias`, ação `ebcr_complement` com nonce próprio): só o dono, só partes em modo opcional, só nos status configurados. Valida com `Steps::validate()` (mesmas regras e mensagens), exige ao menos um item, não permite remover itens já informados (a equipe pode tê-los avaliado; para remover, o cliente fala com a equipe), mantém IDs e datas e recusa envio sem alteração. Sem JavaScript funciona igual (o botão "+ Adicionar" recarrega com uma linha a mais, sem gravar).
+- Ao salvar: `complemented_at` na solicitação; entrada no histórico sem mudar o status (título "Atualização da solicitação"; comentário interno com o resumo e os documentos pedidos); auditoria `complement_added`; e-mail `complement_added` para os e-mails administrativos + analista atribuído; pedidos de documento (origem `complemento`, `ref_key` do imóvel) para os slots novos de nível **Obrigatório** ou **Recomendado** que ainda não foram enviados nem pedidos. Esses pedidos não contam para o cancelamento automático por pendência.
+- Lembrete (cron diário): uma vez por solicitação (`complement_reminded_at`), para solicitações enviadas há mais de N dias (e no máximo N + 30) sem imóveis e/ou garantias numa parte em modo opcional, enquanto o status estiver em `complement_statuses`.
+- Abilities: `get-submission` traz `complement` (`complemented_at`, `complement_reminded_at`, `parts`, `status_allows`, `missing`) e `properties.items` / `guarantees.items` com `created_at`, `updated_at`, `added_after_submission` e `changed_after_submission`; `get-status` → `modules.complement`.
 - Filtros para desenvolvedores: `ebcr_guarantees_required` (`bool $required, array $submission_context`) e `ebcr_assets_required` (mesma assinatura). O contexto traz `submission_id`, `public_id`, `user_id`, `purpose`, `amount`, `term_months`, `person_type`, `properties_count` e `mode`. Se o filtro exigir garantia com o modo desativado, a etapa reaparece.
 
 ## Identidade visual
@@ -182,6 +208,34 @@ fetch(window.EBCR_CLIENT_AREA.channelEndpoint, {
 
 `disable_wp_emoji` (Configurações → Geral, ligado por padrão) remove do site público o script de detecção de emojis (`print_emoji_detection_script`), os estilos (`wp_enqueue_emoji_styles`/`print_emoji_styles`), a conversão de emojis em imagens nos feeds e o `dns-prefetch` para o CDN de emojis. O painel não é afetado. Desligue se o tema depender das imagens de emoji do WordPress.
 
+## Envio de e-mails (SMTP)
+
+Configurações → **E-mails** → *Envio (SMTP)*. Resolve o caso "a fila diz *enviado*, mas nada chega": o PHP `mail()` do servidor entrega sem autenticação (e o WordPress usa `wordpress@dominio`, uma caixa inexistente).
+
+| Configuração | Padrão | Observação |
+| --- | --- | --- |
+| `smtp_enabled` | `false` | Liga o SMTP (exige `smtp_host`). |
+| `smtp_host` | `''` | Ex.: `mail.bsagro.agr.br`. |
+| `smtp_port` | `465` | 465 (SSL) ou 587 (TLS). |
+| `smtp_secure` | `ssl` | `ssl` \| `tls` \| `none`. |
+| `smtp_auth` | `true` | Usuário e senha. |
+| `smtp_username` | `''` | Normalmente a própria caixa (ex.: `contato@bsagro.agr.br`). |
+| `smtp_password` | `''` | Somente escrita. A constante `EBCR_SMTP_PASSWORD` no wp-config.php tem prioridade e é o recomendado. Salva na tela/MCP, fica cifrada (libsodium) com `EBCR_ENCRYPTION_KEY`; sem essa chave, com uma chave derivada de `wp_salt('secure_auth')` (protege contra vazamento só do banco, não contra quem lê o wp-config.php — a tela avisa). Nunca é exibida, exportada, registrada na auditoria nem devolvida pelas abilities. `smtp_password_clear=true` apaga. |
+| `smtp_from_email` / `smtp_from_name` | `''` | Vazio = usa `from_email` / `from_name`. |
+| `smtp_apply_all` | `true` | Todos os `wp_mail()` do site (e filtros `wp_mail_from`/`wp_mail_from_name`); desligado = só as mensagens do plugin. |
+| `smtp_verify_peer` | `true` | Desligar aceita certificado autoassinado (aviso). |
+| `smtp_timeout` | `15` | 5–120 segundos. |
+
+- Hook `phpmailer_init`: `isSMTP`, `Host`, `Port`, `SMTPSecure` (e `SMTPAutoTLS` desligado em "nenhuma"), `SMTPAuth`, `Username`, `Password`, `Timeout`, `SMTPOptions` (verificação do certificado), `From`/`FromName` e **sempre** `Sender` (Return-Path) = remetente. Com o SMTP desligado, as mensagens do plugin ainda recebem `Sender` = `from_email` (alinhamento SPF no `mail()`).
+- Falhas: `wp_mail_failed` é registrado (últimas 20: data, mensagem sem credenciais, transporte e só o **domínio** dos destinatários) — `get-status` → `mail_failures.recent` (e `mail_failures.queue`, os itens da fila que falharam; a fila já tenta 3 vezes e guarda o erro do PHPMailer em cada item).
+- Teste: botão **Testar SMTP (com diagnóstico)** na aba E-mails ou `run-tool` `test_smtp` com `to`. Retorno: `{sent, error, transport (smtp|mail|none), host, port, secure, from, sender, to, transcript}` — `transcript` é a conversa SMTP (SMTPDebug 2) com as linhas de autenticação e a senha mascaradas, o corpo da mensagem omitido, até ~4000 caracteres. Funciona com o SMTP ligado ou desligado (informa o transporte usado).
+- `get-status` → `smtp` = `{enabled, configured, host, port, secure, auth, username, password_source (constant|option|none), password_storage, password_readable, from_email, from_name, apply_all, verify_peer, timeout}`.
+- Para a BS Agro: `smtp_enabled=true`, `smtp_host` = servidor de saída do cPanel, `smtp_port=465`, `smtp_secure=ssl`, `smtp_username=contato@bsagro.agr.br`, `define( 'EBCR_SMTP_PASSWORD', '…' );` no wp-config.php e `smtp_from_email=contato@bsagro.agr.br`; depois `run-tool test_smtp`.
+
+## Pasta privada (storage_path)
+
+Ao salvar `storage_path` (tela Segurança ou `update-settings`), se a pasta não existir e a pasta mãe existente mais próxima for gravável pelo PHP, o plugin a cria (`wp_mkdir_p`, permissão 0750) e grava `index.php`, `.htaccess` (negar tudo) e `web.config`. Caminhos relativos ou com `..` são recusados; se não der para criar, o aviso de sempre continua ("não existe ou não é gravável" — o plugin segue usando a pasta dentro de uploads); caminhos dentro da instalação do WordPress geram aviso. Ex. BS Agro: `/backup/bsagroagr/ebcr-private` (a pasta da conta fica acima de `public_html`). `get-status` → `storage.created` (`path`, `at`, `mode`).
+
 ## Páginas legais
 
 Em **Privacidade e compliance**, cada política tem título, página, versão e texto. Sem página escolhida (`policies[<chave>][page_id]` = 0), o plugin usa a primeira página **publicada** entre os slugs candidatos, sempre com `get_permalink()`:
@@ -260,10 +314,10 @@ src/Install            Schema (dbDelta), Migrator, Activator, Deactivator
 src/Roles              Capabilities (papéis e capacidades)
 src/Database           repositórios por tabela ($wpdb->prepare em todas as consultas)
 src/Domain             Status (fluxo), Consent (políticas versionadas e páginas legais), CookieConsent (registro de consentimento de cookies), ChannelMessage (canais de contato, titular e integridade), Protocol
-src/Forms              Steps (7 etapas; 2 e 5 configuráveis), Validators (CPF, CNPJ, CAR, CEP…), DocumentMatrix, Wizard, SubmissionRules (regras de envio e de bens/garantias), SubmissionService
+src/Forms              Steps (7 etapas; 2 e 5 configuráveis), Validators (CPF, CNPJ, CAR, CEP…), DocumentMatrix, Wizard, SubmissionRules (regras de envio e de bens/garantias), Complement (complemento de bens/garantias depois do envio e lembretes), SubmissionService
 src/Security           Authorization, MathCaptcha, Honeypot, RateLimiter, LoginGuard, Nonces, Crypto (sodium), AuditLog, PrivacyIntegration, Retention
 src/Files              FileGuard, Storage, UploadHandler, DownloadController, Exif, Antivirus
-src/Mail               Events (templates), Mailer, Queue (Action Scheduler ou WP-Cron, 3 tentativas), Notifier
+src/Mail               Events (templates), Mailer, Queue (Action Scheduler ou WP-Cron, 3 tentativas), Notifier, Smtp (envio autenticado, Return-Path, falhas, teste com transcrição)
 src/Frontend           Auth, Portal, FormRouter (formulários enviam para a própria página do portal), Fields, Simulator, ClientArea (botão/bloco/barra "Área do Cliente" e /area-do-cliente/), Team (painel da equipe no site)
 src/Admin              Menu, Dashboard (gráficos), SubmissionsList, SubmissionView, Actions, Settings (16 abas), ChannelMessagesView (mensagens dos canais), CookieConsentsView, Branding (identidade do painel/login e da área do cliente), Help, AuditLogView, Crm/CrmList, Reports
 src/Support            Options, Helpers, Color (cores CSS e contraste WCAG), View, Ip, Uuid
@@ -279,7 +333,7 @@ src/Cron               lembretes, certidões a vencer, retenção, limpezas, lem
 assets/vendor          Chart.js 4.4.4 (MIT) e qrcode-generator 1.4.4 (MIT), empacotados (sem CDN)
 templates/             portal, wizard, admin e e-mails (sobrescrevíveis pelo tema em /eb-credito-rural/)
 assets/                CSS/JS sem CDN
-tests/                 PHPUnit (autorização, segurança, validadores, wizard, bens/garantias, identidade visual, botão Área do Cliente, consentimento de cookies, canais de atendimento, abilities, relatórios, CRM, dossiê, 2FA, assinatura, integrações, painel da equipe)
+tests/                 PHPUnit (autorização, segurança, validadores, wizard, bens/garantias, identidade visual, botão Área do Cliente, consentimento de cookies, canais de atendimento, complemento de bens/garantias, SMTP, abilities, relatórios, CRM, dossiê, 2FA, assinatura, integrações, painel da equipe)
 ```
 
 ## Desenvolvimento e testes
@@ -301,12 +355,13 @@ Os testes de autorização cobrem os critérios de aceite do SPEC: cliente A nã
 - [ ] Página do portal criada e selecionada
 - [ ] Teste de proteção da pasta = "Protegido" ou pasta fora da raiz pública
 - [ ] Chave de criptografia definida e guardada (se ligada)
-- [ ] SMTP configurado e e-mail de teste recebido
+- [ ] SMTP configurado (E-mails → Envio (SMTP), senha em `EBCR_SMTP_PASSWORD`) e "Testar SMTP" aceito; e-mail de teste recebido na caixa de entrada
 - [ ] Políticas revisadas pelo jurídico, versões definidas
 - [ ] Matriz de documentos e limites revisados pela gestora do fundo
 - [ ] Usuários da equipe com papéis corretos
 - [ ] Identidade visual revisada (predefinição/cores/logotipo) e sem avisos de contraste
 - [ ] Modo de bens e garantias definido (obrigatório/opcional/desativado) e matriz de documentos conferida
+- [ ] No modo opcional: textos de orientação, status em que o cliente pode completar e dias do lembrete revisados (Bens e garantias)
 - [ ] Botão "Área do Cliente" no cabeçalho (shortcode, bloco, menu, barra fixa ou `data-ebcr-client-area`) apontando para o portal
 - [ ] Páginas legais publicadas (ou escolhidas em Privacidade e compliance) e links conferidos
 - [ ] Banner de cookies registrando as decisões em `window.EBCR_CLIENT_AREA.consentEndpoint` (conferir em Consentimentos de cookies)
@@ -317,6 +372,7 @@ Os testes de autorização cobrem os critérios de aceite do SPEC: cliente A nã
 
 ## Versões
 
+- **1.3.1** — Bens e garantias opcionais com orientação configurável (`assets_optional_notice`, `guarantees_optional_notice`) nas etapas 2, 5 e 7; complemento de imóveis/garantias depois do envio pela Área do Cliente (`complement_statuses`), com histórico, auditoria, e-mail `complement_added` à equipe e pedidos automáticos dos documentos exigidos pelos novos itens; aviso no painel e lembrete único por e-mail (`complement_reminder_days`); chamada "Continuar preenchimento" para rascunhos; criação e proteção da pasta privada ao salvar `storage_path`; envio autenticado por SMTP (`smtp_*`, `EBCR_SMTP_PASSWORD`, Return-Path, falhas em `get-status`, `run-tool test_smtp`). Banco `EBCR_DB_VERSION` 1.3.2.
 - **1.3.0** — Bens e garantias configuráveis (obrigatório/opcional/desativado, finalidades que exigem garantia, filtro `ebcr_guarantees_required`); identidade visual da área do cliente (predefinições Évellyn Brandão, BS Agro Capital e Neutro, herdar do tema, fontes, contraste WCAG) aplicada a portal, acesso, formulário, simulador, assinatura, painel da equipe, 2FA, e-mails e login; botão "Área do Cliente" (shortcode, bloco, barra fixa, menus, `data-ebcr-client-area`, `/area-do-cliente/`); páginas legais por slugs candidatos e links complementares; registro de consentimento de cookies (`POST ebcr/v1/cookie-consent`, tela com CSV, retenção, exportador/apagador; tabela nova, `EBCR_DB_VERSION` 1.3.0); canais de atendimento (`POST ebcr/v1/channel-message` com protocolo, relato anônimo, e-mail por canal com Reply-To e recibo, tela *Mensagens dos canais* com status e CSV, retenção, exportador/apagador por e-mail; tabela `ebcr_channel_messages`, `EBCR_DB_VERSION` 1.3.1, capacidade `ebcr_manage_channels`); script de emojis do WordPress removido do site público (`disable_wp_emoji`); log de auditoria passa a gravar IDs textuais (public_id/protocolo) corretamente; nome da operação padrão passa a usar o nome do site e o encarregado (DPO) padrão fica vazio (instalações existentes mantêm os valores anteriores); correção do erro fatal ao salvar a matriz de documentos.
 - **1.2.2** — Identidade visual do painel (Geral → logotipo e ícone da marca): tela de login com a marca, logotipo no topo do menu lateral e na barra do WordPress, ícone da marca no menu "Crédito Rural" e como ícone do site no wp-admin/login (ferramenta `apply_site_icon`).
 - **1.2.1** — Páginas padrão para todas as políticas (Termos de Uso, Autorização SCR/Bacen, Declaração de veracidade, Comunicações de marketing) vinculadas por slug; todas as políticas aceitas também no cadastro (momento do aceite configurável por política em Privacidade e compliance); blocos das etapas do formulário com a mesma altura.

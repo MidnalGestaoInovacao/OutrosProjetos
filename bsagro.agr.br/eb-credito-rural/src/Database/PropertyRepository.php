@@ -22,16 +22,16 @@ class PropertyRepository extends Db {
 	/**
 	 * Algum campo mudou? Áreas, valores e IDs são comparados como números (2 casas); vazio e NULL equivalem.
 	 *
-	 * @param array    $old    Linha atual.
-	 * @param array    $new    Valores novos.
-	 * @param string[] $fields Campos.
+	 * @param array    $current Linha atual.
+	 * @param array    $next    Valores novos.
+	 * @param string[] $fields  Campos.
 	 * @return bool
 	 */
-	public static function changed( array $old, array $new, array $fields ) {
+	public static function changed( array $current, array $next, array $fields ) {
 		$numeric = array( 'total_area', 'usable_area', 'declared_value', 'property_id' );
 		foreach ( $fields as $f ) {
-			$a = isset( $old[ $f ] ) ? (string) $old[ $f ] : '';
-			$b = isset( $new[ $f ] ) ? (string) $new[ $f ] : '';
+			$a = isset( $current[ $f ] ) ? (string) $current[ $f ] : '';
+			$b = isset( $next[ $f ] ) ? (string) $next[ $f ] : '';
 			if ( in_array( $f, $numeric, true ) && is_numeric( $a ) && is_numeric( $b ) ) {
 				if ( round( (float) $a, 2 ) !== round( (float) $b, 2 ) ) {
 					return true;
@@ -54,7 +54,7 @@ class PropertyRepository extends Db {
 	 */
 	public function replace_all( $submission_id, array $items ) {
 		global $wpdb;
-		$current  = array();
+		$current = array();
 		foreach ( $this->for_submission( $submission_id ) as $r ) {
 			$current[ (int) $r['id'] ] = $r;
 		}
