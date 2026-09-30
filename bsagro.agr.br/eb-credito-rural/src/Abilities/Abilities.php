@@ -848,6 +848,23 @@ final class Abilities {
 					'retention_days' => Options::int( 'cookie_consent_retention_days' ),
 					'records'        => ( new \EBCR\Database\CookieConsentRepository() )->query( array( 'per_page' => 1 ) )[1],
 				),
+				'channels'           => array(
+					'endpoint'       => rest_url( \EBCR\Rest\Routes::NS . '/channel-message' ),
+					'recipients'     => array_combine(
+						array_keys( \EBCR\Domain\ChannelMessage::channels() ),
+						array_map( array( '\EBCR\Domain\ChannelMessage', 'recipient' ), array_keys( \EBCR\Domain\ChannelMessage::channels() ) )
+					),
+					'send_receipt'   => Options::bool( 'channel_send_receipt' ),
+					'retention_days' => Options::int( 'channel_message_retention_days' ),
+					'records'        => ( new \EBCR\Database\ChannelMessageRepository() )->query( array( 'per_page' => 1 ) )[1],
+					'new'            => ( new \EBCR\Database\ChannelMessageRepository() )->query(
+						array(
+							'status'   => 'novo',
+							'per_page' => 1,
+						)
+					)[1],
+				),
+				'disable_wp_emoji'   => Options::bool( 'disable_wp_emoji' ),
 				'site_icon_id'       => (int) get_option( 'site_icon', 0 ),
 				'team_2fa_mode'      => Options::get( 'team_2fa_mode', 'optional' ),
 				'cep_lookup'         => Options::bool( 'cep_lookup' ),

@@ -205,9 +205,11 @@ final class ClientArea {
 			'userFirstName'   => self::first_name(),
 			// Registro de consentimento de cookies (POST JSON); rest_url() funciona com links permanentes simples.
 			'consentEndpoint' => esc_url_raw( rest_url( \EBCR\Rest\Routes::NS . '/cookie-consent' ) ),
+			// Formulários dos canais (contato, Portal do Titular, Canal de Integridade): POST JSON, resposta { ok, protocol }.
+			'channelEndpoint' => esc_url_raw( rest_url( \EBCR\Rest\Routes::NS . '/channel-message' ) ),
 		);
 		if ( is_user_logged_in() ) {
-			// Com o nonce (cabeçalho X-WP-Nonce), o registro fica vinculado ao usuário conectado.
+			// Com o nonce (cabeçalho X-WP-Nonce), o registro (consentimento ou mensagem) fica vinculado ao usuário conectado.
 			$data['consentNonce'] = wp_create_nonce( 'wp_rest' );
 		}
 		return $data;

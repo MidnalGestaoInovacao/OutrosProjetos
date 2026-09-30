@@ -288,6 +288,24 @@ final class AbilitiesTest extends EBCR_TestCase {
 		$this->assertSame( 'disabled', $status['modules']['assets_mode'] );
 		$this->assertSame( 'BS Agro Capital', $status['modules']['brand_name'] );
 		$this->assertTrue( $status['modules']['client_area']['bar'] );
+		// Canais de atendimento (1.3.0): endpoint, destinatários resolvidos, recibo, retenção.
+		$r = $this->ability(
+			'update-settings',
+			array(
+				'settings' => array(
+					'channel_email_dpo'    => 'dpo@example.com',
+					'channel_send_receipt' => false,
+				),
+			)
+		);
+		$this->assertSame( array(), $r['errors'] );
+		$status = $this->ability( 'get-status' );
+		$this->assertSame( rest_url( 'ebcr/v1/channel-message' ), $status['modules']['channels']['endpoint'] );
+		$this->assertSame( 'dpo@example.com', $status['modules']['channels']['recipients']['dpo'] );
+		$this->assertSame( get_option( 'admin_email' ), $status['modules']['channels']['recipients']['contato'], 'vazio = e-mail do administrador' );
+		$this->assertFalse( $status['modules']['channels']['send_receipt'] );
+		$this->assertSame( 1825, $status['modules']['channels']['retention_days'] );
+		$this->assertTrue( $status['modules']['disable_wp_emoji'] );
 		$r = $this->ability( 'run-tool', array( 'tool' => 'flush_rewrite' ) );
 		$this->assertArrayHasKey( 'alias_url', $r );
 	}

@@ -244,7 +244,7 @@ final class ChannelMessage {
 		}
 		if ( isset( $fields['email'] ) && '' !== $fields['email'] ) {
 			$email = sanitize_email( $fields['email'] );
-			if ( ! $email || ! is_email( $email ) ) {
+			if ( ! $email || ! is_email( $email ) || strlen( $email ) > 190 ) {
 				$errors[] = 'email';
 			} else {
 				$fields['email'] = strtolower( $email );
@@ -302,40 +302,45 @@ final class ChannelMessage {
 
 	/**
 	 * Grava a mensagem validada (o protocolo do cliente é mantido se válido e livre; senão, gera outro) e
-	 * enfileira os e-mails. Retorna o registro gravado.
+	 * enfileira os e-mails. Retorna o registro gravado (null se o banco recusar a gravação).
 	 *
 	 * @param array $clean Resultado de validate().
-	 * @return array
+	 * @return array|null
 	 */
 	public static function record( array $clean ) {
 		$repo     = new ChannelMessageRepository();
 		$protocol = $clean['protocol'];
-		for ( $i = 0; '' === $protocol || $repo->protocol_exists( $protocol ); $i++ ) {
-			$protocol = self::generate_protocol( $clean['channel'] );
-			if ( $i > 20 ) {
-				break;
+		$anon     = ! empty( $clean['anonymous'] );
+		$uid      = get_current_user_id();
+		$id       = 0;
+		// Até 5 tentativas: protocolo do cliente já usado (ou colisão rara na gravação) gera um novo.
+		for ( $attempt = 0; $attempt < 5 && ! $id; $attempt++ ) {
+			for ( $i = 0; ( '' === $protocol || $repo->protocol_exists( $protocol ) ) && $i < 20; $i++ ) {
+				$protocol = self::generate_protocol( $clean['channel'] );
+			}
+			$id = $repo->insert(
+				array(
+					'channel'    => $clean['channel'],
+					'protocol'   => $protocol,
+					'anonymous'  => $anon ? 1 : 0,
+					'fields'     => (string) wp_json_encode( $clean['fields'], JSON_UNESCAPED_UNICODE ),
+					'email'      => $anon || empty( $clean['fields']['email'] ) ? '' : (string) $clean['fields']['email'],
+					'page'       => $clean['page'],
+					'ip_hash'    => $anon ? null : CookieConsent::ip_hash( Ip::get() ),
+					'user_agent' => $anon ? null : mb_substr( Ip::user_agent(), 0, 180 ),
+					'user_id'    => ! $anon && $uid ? $uid : null,
+				)
+			);
+			if ( ! $id ) {
+				$protocol = '';
 			}
 		}
-		$anon = ! empty( $clean['anonymous'] );
-		$uid  = get_current_user_id();
-		$id   = $repo->insert(
-			array(
-				'channel'    => $clean['channel'],
-				'protocol'   => $protocol,
-				'anonymous'  => $anon ? 1 : 0,
-				'fields'     => (string) wp_json_encode( $clean['fields'], JSON_UNESCAPED_UNICODE ),
-				'email'      => $anon || empty( $clean['fields']['email'] ) ? '' : (string) $clean['fields']['email'],
-				'page'       => $clean['page'],
-				'ip_hash'    => $anon ? null : CookieConsent::ip_hash( Ip::get() ),
-				'user_agent' => $anon ? null : mb_substr( Ip::user_agent(), 0, 180 ),
-				'user_id'    => ! $anon && $uid ? $uid : null,
-			)
-		);
-		$row = $repo->find( $id );
-		if ( $row ) {
-			self::notify( $row );
+		$row = $id ? $repo->find( $id ) : null;
+		if ( ! $row ) {
+			return null;
 		}
-		return $row ? $row : array( 'protocol' => $protocol );
+		self::notify( $row );
+		return $row;
 	}
 
 	/**

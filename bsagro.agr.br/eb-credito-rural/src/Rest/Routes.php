@@ -299,7 +299,7 @@ final class Routes {
 
 	/**
 	 * Mensagem dos canais públicos (contato, titular/DPO, integridade). 10 envios por hora por IP; campo _honey vazio.
-	 * Resposta: {ok:true, protocol} ou {ok:false, message[, fields]} com 400/429. Nunca devolve os dados gravados.
+	 * Resposta: {ok:true, protocol} ou {ok:false, message[, fields]} com 400/429 (500 se o banco falhar). Nunca devolve os dados gravados.
 	 * Com usuário conectado (cabeçalho X-WP-Nonce), o registro fica vinculado a ele (exceto relato anônimo).
 	 *
 	 * @param \WP_REST_Request $request Request.
@@ -332,6 +332,15 @@ final class Routes {
 			return new \WP_REST_Response( $out, 400 );
 		}
 		$row = \EBCR\Domain\ChannelMessage::record( $clean );
+		if ( ! $row ) {
+			return new \WP_REST_Response(
+				array(
+					'ok'      => false,
+					'message' => __( 'Não foi possível registrar sua mensagem agora. Tente novamente mais tarde.', 'eb-credito-rural' ),
+				),
+				500
+			);
+		}
 		return new \WP_REST_Response(
 			array(
 				'ok'       => true,

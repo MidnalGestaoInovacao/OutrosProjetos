@@ -128,6 +128,8 @@ final class AuditLog {
 			'2fa_verified'            => __( '2FA: código confirmado', 'eb-credito-rural' ),
 			'2fa_failed'              => __( '2FA: falha de verificação', 'eb-credito-rural' ),
 			'2fa_trusted_device'      => __( '2FA: dispositivo confiável', 'eb-credito-rural' ),
+			'channel_message_viewed'  => __( 'Canais: mensagem visualizada', 'eb-credito-rural' ),
+			'channel_status_changed'  => __( 'Canais: status alterado', 'eb-credito-rural' ),
 		);
 	}
 }
