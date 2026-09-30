@@ -53,7 +53,7 @@ configurado, é `bsagro.agr.br`, e foi o usado. Para trocar, edite `EMAILS` em `
 | `site/deploy.py` | Publicador idempotente (IDs em `site/state.json`). |
 | `site/preview.py` | Pré-visualização local sem WordPress (para revisar layout com o navegador). |
 | `imggen/covers.mjs` | Gera as capas das matérias (1200×675) e as imagens de compartilhamento (1200×630) com as fotos do site. |
-| `eb-credito-rural/` | Plugin da Área do Cliente (versão 1.3.0), ver abaixo. `dist/` guarda o `.zip` para instalar. |
+| `eb-credito-rural/` | Plugin da Área do Cliente (versão 1.3.2), ver abaixo. `dist/` guarda o `.zip` para instalar. |
 
 ## Como publicar / atualizar
 
@@ -86,19 +86,25 @@ Cada etapa é idempotente. Para republicar só algumas páginas: `BS_PAGES=conta
 
 Concluídas: links permanentes em "Nome do post" (links internos já no formato `/slug/`), nome do Encarregado (DPO) Sr. Sanclé
 Albuquerque publicado (`DPO_NOME` em `site/deploy.py`, placeholder `{{DPO}}` nos textos), LinkedIn provisório da fundadora
-(`LINKEDIN`), "+800 clientes" mantido.
+(`LINKEDIN`), "+800 clientes" mantido; plugin instalado e configurado (portal na página Área do Cliente, preset BS Agro,
+bens e garantias opcionais com complemento depois do envio, DPO, e-mails dos canais, 2FA obrigatório para a equipe);
+pasta privada dos documentos fora da raiz pública (`/backup/bsagroagr/ebcr-private`, teste de proteção "externa");
+envio de e-mails por SMTP autenticado com contato@bsagro.agr.br (`mail.bsagro.agr.br:465` SSL, senha na constante
+`EBCR_SMTP_PASSWORD` do `wp-config.php`; teste com `235 Authentication succeeded` e `250 OK`).
 
-1. **Plugin da Área do Cliente**: o Easy MCP AI não instala plugins. Em *Plugins → Adicionar novo → Enviar plugin*, envie
-   `dist/eb-credito-rural-1.3.0.zip` e ative. Depois rode `python3 site/deploy.py pages` para a página **Área do Cliente**
-   trocar o aviso "sendo ativada" pelo portal (`[ebcr_portal]`). Em *Crédito Rural → Configurações*: preset "BS Agro Capital"
-   (Identidade visual), modo de garantias, nome do DPO e e-mails dos canais (aba "Canais de atendimento").
-2. **Formulários**: com o plugin ativo, Contato, Portal do Titular e Canal de Integridade são registrados no próprio WordPress
-   (protocolo, e-mail pelo servidor, painel "Mensagens dos canais"). Sem o plugin, usam o FormSubmit, que exige um clique em
-   "Activate Form" no primeiro e-mail recebido em cada endereço (contato@, dpo@, ouvidoria@) — a ativação não pôde ser feita
-   a partir do ambiente de publicação, porque o FormSubmit recusa requisições dele.
-3. **Ícone do site**: em *Configurações → Geral → Ícone do site*, escolha a mídia "favicon-512" (os ícones já são declarados via HTML).
-4. **Políticas**: são minutas completas, mas devem ser revisadas pelo jurídico (prazos internos, limite de brindes, retenção de 24 meses de contatos que não viraram clientes etc.).
-5. **Página "Privacy Policy"** (rascunho padrão do WordPress): em *Configurações → Privacidade*, selecione "Aviso de Privacidade" como página de política.
+1. **Atualizar o plugin para a 1.3.2** (opcional): `dist/eb-credito-rural-1.3.2.zip` em *Plugins → Adicionar novo → Enviar
+   plugin → Substituir a atual*. Só muda a resposta do teste de SMTP via MCP (a 1.3.1 exibe "Tool execution failed." mesmo
+   com o envio aceito). Sem mudança de banco.
+2. **Senha de teste do SMTP**: troque a senha da caixa contato@ no cPanel e atualize a linha `EBCR_SMTP_PASSWORD` do
+   `wp-config.php` (ver abaixo). A senha não fica no repositório nem no banco.
+3. **Criptografia em repouso** (recomendada): defina `EBCR_ENCRYPTION_KEY` no `wp-config.php` (ver abaixo) e ligue
+   "Criptografar arquivos em repouso" e "Criptografar campos sensíveis" em *Crédito Rural → Configurações → Segurança*.
+4. **Equipe**: cadastre ao menos um analista/gestor (*Usuários → Adicionar novo* com a função "Analista de crédito" ou "Gestor de crédito", ou `set-team-member` via MCP). O 2FA é obrigatório para a equipe.
+5. **Ícone do site**: em *Configurações → Geral → Ícone do site*, escolha a mídia "favicon-512" (os ícones já são declarados via HTML).
+6. **Políticas**: são minutas completas, mas devem ser revisadas pelo jurídico (prazos internos, limite de brindes, retenção de 24 meses de contatos que não viraram clientes etc.).
+7. **Página "Privacy Policy"** (rascunho padrão do WordPress): em *Configurações → Privacidade*, selecione "Aviso de Privacidade" como página de política.
+8. **Formulários sem o plugin**: se o plugin for desativado, Contato, Portal do Titular e Canal de Integridade voltam a usar o
+   FormSubmit, que exige um clique em "Activate Form" no primeiro e-mail recebido em cada endereço (contato@, dpo@, ouvidoria@).
 
 ## Aviso de cookies (gerenciador de consentimento)
 
@@ -114,7 +120,7 @@ Inspirado no padrão de uso do CookieYes, mas com código próprio e a identidad
   Google Tradutor só quando um idioma é escolhido. Scripts futuros podem ser marcados com `type="text/plain" data-bs-category="analytics"`
   e só rodam após o consentimento.
 - **Google Consent Mode v2** já declarado com tudo negado por padrão, atualizado conforme a escolha (pronto para um futuro GA4).
-- **Prova do consentimento**: com o plugin EB Crédito Rural 1.3.0 ativo, cada escolha é registrada no servidor (ID, categorias, ação,
+- **Prova do consentimento**: com o plugin EB Crédito Rural (1.3.0 ou superior) ativo, cada escolha é registrada no servidor (ID, categorias, ação,
   data, IP em hash, navegador) e pode ser consultada/exportada no painel.
 - API para integrações: `window.BSConsent.get() | allowed(cat) | open() | acceptAll() | rejectAll()` e o evento `bs:consent`.
 

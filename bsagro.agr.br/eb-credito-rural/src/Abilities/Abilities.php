@@ -177,7 +177,7 @@ final class Abilities {
 			),
 			'run-tool'          => array(
 				'label'       => __( 'Executar ferramenta do EB Crédito Rural', 'eb-credito-rural' ),
-				'description' => 'Executa uma ferramenta: test_protection (testa se a pasta de documentos está exposta por URL), test_email (envia e-mail de teste para "to"), test_smtp (envia um teste para "to" com diagnóstico: devolve {sent, error, transport (smtp|mail), host, port, secure, from, sender, to, transcript} — a conversa SMTP com usuário/senha mascarados, até ~4000 caracteres; funciona com o SMTP ligado ou desligado), process_mail (processa a fila de e-mails), retry_mail (reenfileira falhas), run_daily (rotina diária: lembretes, certidões, retenção, limpezas), run_retention (anonimiza solicitações finalizadas fora do prazo de retenção) ou enable_mcp (habilita estas abilities no Easy MCP AI), send_crm_reminders (envia os lembretes de tarefas do CRM agora), apply_site_icon (define o ícone do site do WordPress a partir do ícone da marca configurado em Geral), apply_brand_preset (aplica a predefinição de identidade visual informada em "preset": evellyn, bsagro ou neutro) ou flush_rewrite (renova as regras de endereço amigável /area-do-cliente/).',
+				'description' => 'Executa uma ferramenta: test_protection (testa se a pasta de documentos está exposta por URL), test_email (envia e-mail de teste para "to"), test_smtp (envia um teste para "to" com diagnóstico: devolve {sent, smtp_error (só quando o envio falhou), transport (smtp|mail), host, port, secure, from, sender, to, transcript} — a conversa SMTP com usuário/senha mascarados, até ~4000 caracteres; funciona com o SMTP ligado ou desligado), process_mail (processa a fila de e-mails), retry_mail (reenfileira falhas), run_daily (rotina diária: lembretes, certidões, retenção, limpezas), run_retention (anonimiza solicitações finalizadas fora do prazo de retenção) ou enable_mcp (habilita estas abilities no Easy MCP AI), send_crm_reminders (envia os lembretes de tarefas do CRM agora), apply_site_icon (define o ícone do site do WordPress a partir do ícone da marca configurado em Geral), apply_brand_preset (aplica a predefinição de identidade visual informada em "preset": evellyn, bsagro ou neutro) ou flush_rewrite (renova as regras de endereço amigável /area-do-cliente/).',
 				'input'       => array(
 					'type'       => 'object',
 					'properties' => array(
@@ -927,6 +927,13 @@ final class Abilities {
 							'transport' => $r['transport'],
 						)
 					);
+					// O Easy MCP AI trata qualquer chave "error" na resposta como falha da
+					// ferramenta (e troca o texto por "Tool execution failed."), mesmo vazia.
+					// Via MCP o erro do SMTP vai em "smtp_error", e só quando existe.
+					if ( '' !== $r['error'] ) {
+						$r['smtp_error'] = $r['error'];
+					}
+					unset( $r['error'] );
 				}
 				return $r;
 			case 'test_email':

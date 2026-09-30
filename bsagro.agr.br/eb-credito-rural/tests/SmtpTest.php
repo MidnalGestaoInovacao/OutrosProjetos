@@ -369,7 +369,10 @@ final class SmtpTest extends EBCR_TestCase {
 			)
 		);
 		$this->assertIsArray( $r, is_wp_error( $r ) ? $r->get_error_message() : '' );
-		$this->assertTrue( $r['sent'], $r['error'] . "\n" . $r['transcript'] );
+		$this->assertTrue( $r['sent'], ( $r['smtp_error'] ?? '' ) . "\n" . $r['transcript'] );
+		// Sem chave "error" via MCP: o Easy MCP AI a trataria como falha da ferramenta.
+		$this->assertArrayNotHasKey( 'error', $r );
+		$this->assertArrayNotHasKey( 'smtp_error', $r );
 		$this->assertSame( 'smtp', $r['transport'] );
 		$this->assertSame( self::USER, $r['sender'] );
 		$this->assertSame( '127.0.0.1', $r['host'] );
@@ -392,6 +395,20 @@ final class SmtpTest extends EBCR_TestCase {
 	}
 
 	public function test_test_smtp_reports_auth_failure_and_mail_transport(): void {
+		$port = $this->start_server( 1, 'outra-senha' );
+		$this->configure( array( 'smtp_port' => $port ) );
+		wp_set_current_user( $this->make_user( 'administrator' ) );
+		$m = wp_get_ability( 'ebcr/run-tool' )->execute(
+			array(
+				'tool' => 'test_smtp',
+				'to'   => 'destino@example.com',
+			)
+		);
+		$this->assertFalse( $m['sent'] );
+		$this->assertArrayNotHasKey( 'error', $m );
+		$this->assertStringContainsString( 'authenticate', strtolower( $m['smtp_error'] ) );
+		$this->assertStringNotContainsString( self::PASS, $m['smtp_error'] );
+
 		$port = $this->start_server( 1, 'outra-senha' );
 		$this->configure( array( 'smtp_port' => $port ) );
 		$r = Smtp::test( 'destino@example.com' );
