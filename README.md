@@ -3,4 +3,4 @@ OutrosProjetos
 
 ## Projetos
 
-- [Intranet corporativa para WordPress — Planejamento](intranet-wordpress/PLANEJAMENTO.md)
+- [Alicerce360 — Intranet corporativa para WordPress (EBAEM) — Planejamento](alicerce360/PLANEJAMENTO.md)
