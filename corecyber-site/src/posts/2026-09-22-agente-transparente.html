@@ -1,0 +1,76 @@
+<!--meta {
+  "slug": "agente-transparente",
+  "title": "O que o agente do CoreCyber vê no seu notebook — e o que ele nunca vai ler",
+  "description": "Criptografia, atualizações, antivírus e inventário, sim. Arquivos, tela, teclas e navegação, nunca. Veja o que o agente coleta, o que ele faz e por que vale contar tudo à equipe.",
+  "date": "2026-09-22",
+  "category": "produto",
+  "tags": ["Agente", "Ativos", "LGPD", "Transparência"],
+  "icon": "laptop",
+  "cover": {
+    "kicker": "Ativos · Transparência",
+    "stat": "15",
+    "stat_label": "correções remotas, todas desligadas de fábrica",
+    "s2": "17",
+    "s2_label": "verificações de conformidade no agente",
+    "s3": "0",
+    "s3_label": "arquivos, telas ou teclas capturados",
+    "question": "Seus colaboradores sabem o que o agente de segurança faz no computador deles?"
+  },
+  "alt": "Infográfico CoreCyber — o que o agente coleta nos computadores e o que ele nunca lê"
+} -->
+
+<p class="art-lead">Quando a TI anuncia “vamos instalar um agente de segurança em todos os computadores”, a pergunta que corre no corredor é sempre a mesma: <strong>vão ler o meu e-mail?</strong> É uma pergunta justa. E merece uma resposta clara, por escrito, antes da instalação — não depois.</p>
+
+<h2>Por que um agente, afinal</h2>
+<p>A varredura externa mostra o que a internet enxerga da sua empresa. Mas boa parte do risco mora dentro de casa: o notebook sem criptografia esquecido no táxi, a máquina com atualizações pendentes há semanas, o antivírus desligado sem que ninguém perceba. Para saber disso, é preciso perguntar ao próprio computador. É o que o agente faz.</p>
+<p>O agente do CoreCyber roda em Windows, Linux, Docker, WordPress e Android. A versão para iOS está em preparação, e o macOS ainda não é suportado. Se a sua empresa usa Mac, é melhor saber disso agora do que no meio da implantação.</p>
+
+<h2>O que o agente coleta</h2>
+<p>Cada item tem um propósito de segurança ou de gestão de ativos:</p>
+<ul class="checks">
+  <li><strong>Saúde da máquina:</strong> uso de CPU, memória e disco.</li>
+  <li><strong>Criptografia de disco:</strong> se o BitLocker (Windows) ou o LUKS (Linux) está ativo, com guarda das chaves de recuperação — para que um disco protegido não vire um disco perdido.</li>
+  <li><strong>Antivírus:</strong> a situação do Microsoft Defender e as ameaças que ele detectou.</li>
+  <li><strong>Atualizações pendentes:</strong> o que falta instalar em cada máquina.</li>
+  <li><strong>Inventário:</strong> software e hardware, com histórico de mudanças.</li>
+  <li><strong>Usuário conectado:</strong> quem está usando a máquina, para saber com quem falar.</li>
+  <li><strong>Verificações de conformidade:</strong> 17 ao todo.</li>
+  <li><strong>Localização:</strong> somente com consentimento.</li>
+</ul>
+
+<h2>O que ele nunca faz</h2>
+<p>Aqui a resposta é curta, e vale repeti-la para a equipe com as mesmas palavras: o agente <strong>não lê o conteúdo de arquivos</strong>, <strong>não captura a tela nem as teclas digitadas</strong> e <strong>não registra a navegação</strong>. Ele sabe que um programa está instalado; não sabe o que você escreveu nele.</p>
+<p>Esse limite é uma escolha de projeto, alinhada ao princípio da necessidade da LGPD: tratar só o mínimo necessário para a finalidade. Para manter um computador seguro, ninguém precisa ler o relatório que o colaborador está escrevendo.</p>
+
+<div class="art-box art-box--curio"><b>Você sabia?</b><p>A LGPD lista dez princípios no art. 6º. Um deles, o da <strong>transparência</strong>, garante aos titulares “informações claras, precisas e facilmente acessíveis” sobre o tratamento dos seus dados. O colaborador também é titular — e o agente instalado no notebook dele é um tratamento sobre o qual ele tem o direito de saber.</p></div>
+
+<h2>Ações remotas: desligadas até você decidir</h2>
+<p>Saber do problema é metade do caminho; a outra metade é corrigir. O agente oferece 15 correções remotas e ações — aplicar atualizações, janela de atualização forçada, política de USB, bloqueio de tela, reiniciar o serviço, varredura rápida de antivírus e desinstalação, entre outras.</p>
+<p>Todas vêm <strong>desligadas de fábrica</strong>. A empresa liga só as que fazem sentido para a sua política. E cada uma pode ser <strong>recusada na própria máquina</strong>: quem está no computador não é pego de surpresa por uma reinicialização no meio de uma apresentação.</p>
+
+<h2>Um agente que se protege</h2>
+<p>Ferramenta de segurança também precisa ser segura. No Windows, o agente roda como serviço, com um “guardião” que religa o serviço se ele parar. A autoatualização é verificada: o pacote é conferido por SHA-256, passa por um autoteste e, se algo falhar, a versão anterior volta sozinha. Cada ativo tem número de série, a plataforma detecta agente adulterado e a licença é controlada por token.</p>
+<p>Para implantar em escala, use GPO, Intune ou SCCM. Depois, um ícone na bandeja do Windows mostra o status da máquina — o próprio colaborador acompanha como está o computador dele.</p>
+
+<div class="art-box art-box--hook"><b>E o CoreCyber com isso?</b><p>A monitoração por agente faz parte do plano Avançado. Os dados não ficam isolados: viram evidência para os controles de conformidade ISO e LGPD, e o colaborador pode até relatar um incidente pelo próprio agente. E, para ser claro: telemetria de processos, integridade de arquivos e isolamento de máquina — típicos de um EDR completo — estão no <a href="/plataforma/#roadmap">roadmap</a>, não no agente de hoje.</p></div>
+
+<h2>Antes de instalar, conte para a equipe</h2>
+<ol class="art-steps">
+  <li><strong>Escreva um aviso curto</strong> com o que é coletado, o que não é e para quê. As listas desta matéria servem de ponto de partida.</li>
+  <li><strong>Diga quem vê os dados</strong> e para que eles serão usados — e envolva o encarregado de dados na redação.</li>
+  <li><strong>Explique as ações remotas</strong> que a empresa decidiu ligar e como recusá-las na própria máquina.</li>
+  <li><strong>Peça consentimento para a localização</strong>, se ela for usada — e respeite quem disser não.</li>
+  <li><strong>Registre a ciência.</strong> No CoreCyber, os avisos de LGPD podem ser publicados com o botão “li e estou ciente”.</li>
+</ol>
+
+<h2>Referências</h2>
+<ul class="art-refs">
+  <li><b>Planalto</b> · Lei 13.709/2018 (LGPD), art. 6º — princípios da necessidade e da transparência — <a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>ANPD</b> · Autoridade Nacional de Proteção de Dados, guias e orientações — <a href="https://www.gov.br/anpd/pt-br" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>Microsoft</b> · Visão geral do BitLocker, a criptografia de disco do Windows — <a href="https://learn.microsoft.com/pt-br/windows/security/operating-system-security/data-protection/bitlocker/" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>Microsoft</b> · Documentação do Intune, para implantação em massa — <a href="https://learn.microsoft.com/pt-br/intune/" target="_blank" rel="noopener">acessar</a></li>
+</ul>
+
+<div class="art-author"><b>Nota do autor</b><p>Desenhamos o agente pensando em quem está do outro lado da tela: o colaborador. Segurança que precisa esconder o que faz não combina com o nosso lema — “Segurança que se vê. Controle que se prova.”</p><span>— Equipe CoreCyber · EBAEM</span></div>
+
+<div class="art-cta"><p><strong>Como o CoreCyber ajuda:</strong> computadores criptografados, atualizados e inventariados, com ações remotas que só funcionam quando você liga — e sem vigiar ninguém.</p><p><a class="btn btn--primary" href="/plataforma/#ativos">Conhecer a monitoração de ativos</a></p></div>

@@ -1,0 +1,84 @@
+<!--meta {
+  "slug": "193-controles-iso-lgpd",
+  "title": "193 controles e nenhuma planilha: ISO 27001, 27701, 22301 e LGPD num só painel",
+  "description": "Controles ISO e LGPD não precisam viver em planilhas. Veja como o CoreCyber calcula a situação de 193 controles a partir do que já monitora e gera a Declaração de Aplicabilidade com QR.",
+  "date": "2026-09-20",
+  "category": "conformidade",
+  "tags": ["ISO 27001", "LGPD", "Conformidade", "Auditoria"],
+  "icon": "clipboard",
+  "cover": {
+    "kicker": "Conformidade · ISO e LGPD",
+    "stat": "193",
+    "stat_label": "controles de ISO 27001, 27017, 27018, 27701, 22301 e LGPD",
+    "s2": "93",
+    "s2_label": "controles no Anexo A da ISO/IEC 27001:2022",
+    "s3": "17",
+    "s3_label": "verificações de conformidade no agente",
+    "question": "Se o auditor chegasse amanhã, quanto tempo levaria para juntar as evidências?"
+  },
+  "alt": "Infográfico CoreCyber — 193 controles de ISO e LGPD acompanhados num único painel"
+} -->
+
+<p class="art-lead">Faltam três semanas para a auditoria. Alguém abre a planilha de controles, atualizada pela última vez no ano passado, e começa a caça: o print do antivírus, o relatório de atualizações, a lista de notebooks criptografados. Metade das evidências está no e-mail de quem já saiu da empresa.</p>
+
+<h2>O problema não é a norma, é a evidência</h2>
+<p>As normas de gestão não pedem perfeição. Pedem um sistema que funcione e <strong>prova</strong> de que os controles existem. A planilha registra o que alguém declarou num certo dia. A realidade muda todo dia: um notebook perde a criptografia, uma atualização atrasa, um fornecedor troca de servidor.</p>
+<p>Quando a evidência depende de alguém lembrar de tirar um print, ela envelhece antes de ser usada. E a auditoria vira uma maratona de reconstrução, em vez de uma conferência.</p>
+
+<h2>Seis referências, um só painel</h2>
+<p>O módulo de conformidade do CoreCyber reúne controles de seis referências que costumam andar juntas:</p>
+<div class="table-wrap"><table class="tbl">
+  <thead><tr><th scope="col">Referência</th><th scope="col">Do que trata</th></tr></thead>
+  <tbody>
+    <tr><td>ISO/IEC 27001:2022</td><td>Sistema de gestão da segurança da informação, com o Anexo A completo</td></tr>
+    <tr><td>ISO/IEC 27017</td><td>Controles de segurança para serviços em nuvem</td></tr>
+    <tr><td>ISO/IEC 27018</td><td>Proteção de dados pessoais em nuvens públicas</td></tr>
+    <tr><td>ISO/IEC 27701</td><td>Gestão da privacidade da informação</td></tr>
+    <tr><td>ISO 22301</td><td>Gestão da continuidade de negócios</td></tr>
+    <tr><td>LGPD</td><td>Lei Geral de Proteção de Dados Pessoais, Lei nº 13.709/2018</td></tr>
+  </tbody>
+</table></div>
+<p>Somados, são <strong>193 controles</strong>, cada um com uma situação: conforme, parcial, não conforme, sem dados ou apoiado. “Sem dados” também é informação valiosa: mostra exatamente onde ainda falta evidência.</p>
+
+<div class="art-box art-box--curio"><b>Você sabia?</b><p>Na versão de 2022, o Anexo A da ISO/IEC 27001 tem <strong>93 controles em quatro temas</strong>: 37 organizacionais, 8 de pessoas, 14 físicos e 34 tecnológicos. Mais da metade fica fora do tema tecnológico. Por isso conformidade de verdade junta a visão técnica e a de gestão.</p></div>
+
+<h2>Evidência que se produz trabalhando</h2>
+<p>A grande diferença está na origem da evidência. Em vez de alguém declarar, a situação de cada controle é calculada a partir do que a plataforma já acompanha no dia a dia. Alguns exemplos do tipo de evidência que alimenta os controles:</p>
+<ul class="checks">
+  <li><strong>Criptografia de disco</strong> (BitLocker e LUKS) verificada pelo agente, com guarda das chaves de recuperação: evidência natural para o controle de uso de criptografia (A.8.24).</li>
+  <li><strong>Atualizações pendentes</strong> e a fila de vulnerabilidades com prazo por severidade: base para a gestão de vulnerabilidades técnicas (A.8.8).</li>
+  <li><strong>Antivírus e ameaças</strong> do Microsoft Defender: proteção contra malware (A.8.7).</li>
+  <li><strong>As 17 verificações de conformidade</strong> que o agente faz em cada computador.</li>
+  <li><strong>Pedidos de titulares</strong> pelo portal “Exercer meus direitos”, com protocolo e prazo de 15 dias: direitos do titular (LGPD, art. 18).</li>
+  <li><strong>ROPA</strong>, o inventário de tratamento de dados, em PDF e CSV: registro das operações (LGPD, art. 37).</li>
+</ul>
+<p>Quando a equipe corrige um problema, a evidência se atualiza junto. O trabalho de segurança e o trabalho de conformidade passam a ser o mesmo trabalho.</p>
+
+<h2>Declaração de Aplicabilidade sem retrabalho</h2>
+<p>A <strong>Declaração de Aplicabilidade</strong> é o documento em que a organização diz quais controles se aplicam, por que, e se estão implementados. Na ISO/IEC 27001, ela é um requisito do tratamento de riscos.</p>
+<p>No CoreCyber, ela sai por norma, <strong>aprovada por versão</strong> e em PDF com QR. Quem recebe confere a autenticidade numa página pública, sem login. A aprovação por versão deixa claro qual declaração valia em cada momento. Para a LGPD, a plataforma soma o encarregado cadastrado, avisos com “li e estou ciente”, pseudonimização e o registro de quem acessou dados pessoais.</p>
+
+<h2>Por onde começar</h2>
+<ol class="art-steps">
+  <li><strong>Defina o escopo.</strong> Quais referências importam para o seu negócio hoje: nem toda empresa vai buscar as seis ao mesmo tempo.</li>
+  <li><strong>Publique os agentes</strong> nos computadores, para que criptografia, atualizações e antivírus virem evidência sem esforço manual.</li>
+  <li><strong>Olhe primeiro o que está “sem dados”.</strong> É ali que uma auditoria encontraria lacunas.</li>
+  <li><strong>Aprove a primeira versão da Declaração de Aplicabilidade</strong> e revise sempre que houver mudança relevante.</li>
+</ol>
+
+<div class="callout callout--warn">{{i:alert}}<p><strong>Uma palavra honesta sobre certificação.</strong> O CoreCyber apoia o sistema de gestão e organiza as evidências, mas não certifica ninguém. A certificação é feita por organismos de certificação independentes, depois de uma auditoria. Nem a própria ISO emite certificados, e ela recomenda verificar se o organismo escolhido é acreditado.</p></div>
+
+<div class="art-box art-box--hook"><b>E o CoreCyber com isso?</b><p>Os 193 controles, a Declaração de Aplicabilidade e o descomissionamento com certificado em PDF com QR fazem parte do <a href="/planos/">plano Avançado</a>, junto com os agentes que produzem boa parte da evidência. Controles de pessoas, como conscientização e treinamento, dependem também de processo: para eles, a EBAEM tem o Alicerce360, a intranet para normas, LGPD e compliance. Detalhes em <a href="/plataforma/#conformidade">Conformidade ISO e LGPD</a>.</p></div>
+
+<h2>Referências</h2>
+<ul class="art-refs">
+  <li><b>ISO</b> · ISO/IEC 27001:2022 — sistemas de gestão da segurança da informação — <a href="https://www.iso.org/standard/27001" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>ISO</b> · ISO/IEC 27701 — sistemas de gestão da privacidade da informação — <a href="https://www.iso.org/standard/27701" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>ISO</b> · ISO 22301:2019 — sistemas de gestão da continuidade de negócios — <a href="https://www.iso.org/standard/75106.html" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>ISO</b> · Certificação: a ISO não emite certificados; organismos independentes, sim — <a href="https://www.iso.org/certification.html" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>Planalto</b> · Lei nº 13.709/2018, Lei Geral de Proteção de Dados Pessoais — <a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm" target="_blank" rel="noopener">acessar</a></li>
+</ul>
+
+<div class="art-author"><b>Nota do autor</b><p>Nos projetos de conformidade da EBAEM, vimos muitos controles vivendo em planilhas que ninguém queria abrir. Construímos este módulo para que a auditoria seja uma conferência tranquila, e não uma maratona. A certificação continua sendo mérito da sua equipe.</p><span>— Equipe CoreCyber · EBAEM</span></div>
+
+<div class="art-cta"><p><strong>Como o CoreCyber ajuda:</strong> 193 controles com situação calculada a partir de evidências reais e Declaração de Aplicabilidade em PDF com QR, pronta para o auditor conferir.</p><p><a class="btn btn--primary" href="/plataforma/#conformidade">Conhecer o módulo de conformidade</a></p></div>

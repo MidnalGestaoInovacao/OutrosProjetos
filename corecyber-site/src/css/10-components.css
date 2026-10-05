@@ -72,8 +72,8 @@
 
 /* ---------- listas ---------- */
 .cc .checks { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
-.cc .checks li { display: flex; gap: 11px; align-items: flex-start; line-height: 1.5; }
-.cc .checks li::before { content: ""; flex: none; width: 21px; height: 21px; margin-top: 1px; border-radius: 50%; background: var(--c-teal-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230a7a80' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center/13px no-repeat; }
+.cc .checks li { position: relative; display: block; padding-left: 32px; line-height: 1.55; }
+.cc .checks li::before { content: ""; position: absolute; left: 0; top: .1em; width: 21px; height: 21px; border-radius: 50%; background: var(--c-teal-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230a7a80' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center/13px no-repeat; }
 .cc .checks--x li::before { background: #fdecee url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c62f3a' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M18 6 6 18M6 6l12 12'/%3E%3C/svg%3E") center/12px no-repeat; }
 .cc .sec--navy .checks li::before { background-color: rgba(25, 195, 214, .16); }
 .cc .checks--sm li { font-size: .93rem; }
@@ -162,8 +162,8 @@
 .cc .input:focus, .cc .select:focus, .cc .textarea:focus { outline: none; border-color: var(--c-teal); box-shadow: 0 0 0 4px rgba(0, 144, 173, .18); }
 .cc .input[aria-invalid="true"], .cc .textarea[aria-invalid="true"], .cc .select[aria-invalid="true"] { border-color: var(--c-red); box-shadow: 0 0 0 4px rgba(198, 47, 58, .12); }
 .cc .help { font-size: .82rem; color: var(--c-dim); }
-.cc .check { display: flex; gap: 10px; align-items: flex-start; font-size: .9rem; color: var(--c-muted); cursor: pointer; }
-.cc .check input { width: 20px; height: 20px; margin-top: 1px; accent-color: var(--c-navy); flex: none; }
+.cc .check { display: block; position: relative; padding-left: 30px; font-size: .9rem; line-height: 1.5; color: var(--c-muted); cursor: pointer; }
+.cc .check input { position: absolute; left: 0; top: 0; width: 20px; height: 20px; margin: 0; accent-color: var(--c-navy); }
 .cc .form-msg { display: none; padding: 14px 16px; border-radius: 12px; font-size: .93rem; }
 .cc .form-msg.is-on { display: block; }
 .cc .form-msg--ok { background: var(--c-green-soft); color: var(--c-green); border: 1px solid #bfe6d5; }

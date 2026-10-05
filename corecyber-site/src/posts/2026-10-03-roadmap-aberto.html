@@ -1,0 +1,77 @@
+<!--meta {
+  "slug": "roadmap-aberto",
+  "title": "Roadmap aberto: o que já funciona, o que está evoluindo e o que ainda não prometemos",
+  "description": "Disponível, em evolução ou roadmap: dizemos em que estágio está cada recurso do CoreCyber. Entenda por que essa transparência protege a sua decisão de compra e o seu contrato.",
+  "date": "2026-10-03",
+  "category": "bastidores",
+  "tags": ["Roadmap", "Transparência", "Bastidores"],
+  "icon": "rocket",
+  "cover": {
+    "kicker": "Bastidores · Roadmap aberto",
+    "stat": "3",
+    "stat_label": "selos no site: Disponível, Em evolução e Roadmap",
+    "s2": "4",
+    "s2_label": "frentes em evolução, com parte já pronta",
+    "s3": "5",
+    "s3_label": "frentes no roadmap, sem data prometida",
+    "question": "O seu fornecedor de segurança diz com a mesma clareza o que ainda não faz?"
+  },
+  "alt": "Infográfico CoreCyber — roadmap aberto com os selos Disponível, Em evolução e Roadmap"
+} -->
+
+<p class="art-lead">Toda demonstração de software tem aquele momento: alguém pergunta se a ferramenta faz uma coisa, e a resposta é “faz, sim” — quando, na verdade, a coisa ainda está num slide de planejamento. O contrato é assinado, a equipe espera o recurso, e o recurso não chega. Em segurança, esse mal-entendido custa caro. Por isso dizemos, por escrito, <strong>em que estágio está cada parte do CoreCyber</strong>.</p>
+
+<h2>Por que transparência é um valor de segurança</h2>
+<p>Quem compra uma plataforma de segurança está tomando uma decisão de risco. Se a equipe acredita que um recurso existe, ela deixa de cobrir aquele ponto de outra forma. O buraco fica aberto justamente porque todos acham que está fechado.</p>
+<p>Há também o lado do contrato. Uma proposta que mistura o que existe com o que talvez exista abre espaço para cobrança indevida, discussão e frustração. E há a confiança: se um fornecedor exagera no que vende, como acreditar no que ele diz sobre os seus riscos?</p>
+
+<div class="art-box art-box--curio"><b>Você sabia?</b><p>Os princípios de <strong>Secure by Design</strong>, publicados pela CISA, a agência de cibersegurança dos EUA, com parceiros de vários países, pedem que fabricantes de software adotem <strong>transparência radical e responsabilização</strong>. Os outros dois princípios são assumir os resultados de segurança dos clientes e liderar o tema a partir da alta direção.</p></div>
+
+<h2>Como ler os selos do site</h2>
+<p>Na página da <a href="/plataforma/">plataforma</a>, cada módulo traz um selo. <strong>Disponível</strong> quer dizer que você usa hoje. <strong>Em evolução</strong> quer dizer que uma parte já funciona e outra está sendo construída. <strong>Roadmap</strong> quer dizer que ainda não existe. Um mesmo módulo pode ter partes em estágios diferentes — e nós dizemos qual é qual.</p>
+
+<h3>Disponível hoje</h3>
+<ul class="checks">
+  <li>Superfície de ataque externa com monitoramento contínuo a cada 10 minutos, disponibilidade e páginas de status públicas.</li>
+  <li>Vulnerabilidades priorizadas de 0 a 100 com CVSS, EPSS e o catálogo KEV, com SLA por severidade.</li>
+  <li>Segurança de código e APIs: análise de código, dependências, segredos expostos e SBOM.</li>
+  <li>Inteligência de ameaças diária, de 4 fontes públicas, e agentes para Windows, Linux, Docker, WordPress e Android.</li>
+  <li>193 controles de ISO e LGPD com Declaração de Aplicabilidade, e auditoria SAP e RACF.</li>
+  <li>Detecções correlacionadas, casos de incidente, automação por regras e 32 tipos de relatório com QR de autenticidade.</li>
+</ul>
+
+<h3>Em evolução</h3>
+<p>Aqui, uma parte já funciona e outra está sendo construída:</p>
+<ul class="checks">
+  <li><strong>Índice de risco por ativo e por empresa</strong>, com comparação entre empresas. Hoje: nota de risco por achado e visão executiva.</li>
+  <li><strong>Inventário externo</strong> com IP, provedor de rede (ASN), tecnologia e nota SSL na mesma tabela. Hoje: inventário de domínios e subdomínios com histórico.</li>
+  <li><strong>Playbooks de automação</strong> com ações de contenção e aprovação humana em etapas. Hoje: regras que abrem caso e notificam a equipe.</li>
+  <li><strong>Resumo diário e semanal de alertas</strong>, Microsoft Teams e WhatsApp. Hoje: e-mail, Telegram, Slack, webhook e GLPI.</li>
+</ul>
+
+<h3>Roadmap</h3>
+<p>Ainda não disponível, e sem data prometida:</p>
+<ul class="checks">
+  <li><strong>SIEM</strong> com coleta e retenção de logs, com núcleo de detecção em código aberto.</li>
+  <li><strong>EDR completo</strong> — telemetria de processos, integridade de arquivos, regras YARA e isolamento de máquina — e <strong>NDR</strong>, a análise de tráfego de rede.</li>
+  <li><strong>Mapeamento MITRE ATT&amp;CK</strong> e inteligência de ameaças ampliada, com plataformas de inteligência colaborativa.</li>
+  <li><strong>Assistente de IA</strong> para perguntas sobre o risco em linguagem natural, e IA preditiva. Hoje existe apenas a personalização opcional do texto do laudo por IA.</li>
+  <li><strong>App iOS</strong> e publicação na Google Play.</li>
+</ul>
+
+<div class="art-box art-box--hook"><b>E o CoreCyber com isso?</b><p>A regra vale também para o contrato. Pela nossa <a href="/politica-comercial/">Política de Comercialização</a>, recursos em evolução ou no roadmap só entram na oferta quando estiverem disponíveis ou constarem expressamente da proposta: não cobramos por recurso que ainda não existe. O add-on de IA, por exemplo, está em lista de espera, e nada é cobrado antes do lançamento e da sua adesão. Se você já tem SIEM ou EDR, o CoreCyber convive com eles: os alertas saem por webhook, e-mail, Slack ou Telegram, e os chamados vão para o GLPI.</p></div>
+
+<h2>Por que não damos datas</h2>
+<p>Data de roadmap é promessa disfarçada. Prioridades mudam quando surge uma ameaça nova ou quando os clientes pedem outra coisa. Preferimos anunciar quando estiver pronto, com nota de lançamento, a cravar um mês que talvez não se cumpra.</p>
+<p>Para quem decide uma compra, isso tem um efeito prático: <strong>avalie o CoreCyber pelo que está disponível hoje</strong>. Se o que você precisa está no roadmap, a decisão honesta é esperar ou cobrir esse ponto de outra forma. Na versão 2.0 do seu framework de cibersegurança, o NIST colocou a governança no centro, incluindo o risco que vem dos fornecedores. Saber exatamente o que cada um entrega faz parte disso.</p>
+
+<h2>Referências</h2>
+<ul class="art-refs">
+  <li><b>CISA</b> · Secure by Design — princípios para fabricantes de software, incluindo transparência radical e responsabilização — <a href="https://www.cisa.gov/securebydesign" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>NIST</b> · Cybersecurity Framework 2.0 — governança e gestão de riscos de segurança, inclusive na cadeia de fornecedores — <a href="https://www.nist.gov/cyberframework" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>MITRE</b> · ATT&amp;CK — base pública de táticas e técnicas usadas por atacantes — <a href="https://attack.mitre.org/" target="_blank" rel="noopener">acessar</a></li>
+</ul>
+
+<div class="art-author"><b>Nota do autor</b><p>Preferimos perder uma venda dizendo “ainda não” a ganhar um cliente que vai descobrir a diferença depois. Em segurança, confiança começa por não exagerar — e isso vale para nós também.</p><span>— Equipe CoreCyber · EBAEM</span></div>
+
+<div class="art-cta"><p><strong>Como o CoreCyber ajuda:</strong> um roadmap público, com selos claros em cada módulo, para você decidir pelo que existe hoje.</p><p><a class="btn btn--primary" href="/plataforma/#roadmap">Ver o roadmap completo</a></p></div>

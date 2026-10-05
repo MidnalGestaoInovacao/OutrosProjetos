@@ -1,0 +1,74 @@
+<!--meta {
+  "slug": "descomissionamento-certificado",
+  "title": "O notebook foi devolvido. E os dados que estavam nele? Descomissionamento em 5 etapas",
+  "description": "Equipamento que volta para a locadora, vai para doação ou muda de mãos leva junto o que ninguém apagou. Veja as cinco etapas de um descarte seguro e como provar que ele foi feito.",
+  "date": "2026-09-23",
+  "category": "guias",
+  "tags": ["Descomissionamento", "LGPD", "Sanitização", "ISO 27001"],
+  "icon": "trash",
+  "cover": {
+    "kicker": "Guia · Descomissionamento",
+    "stat": "5",
+    "stat_label": "etapas, da devolução do equipamento ao expurgo",
+    "s2": "QR",
+    "s2_label": "certificado final em PDF, conferível",
+    "s3": "3",
+    "s3_label": "métodos do NIST: limpar, purgar e destruir",
+    "question": "Quem garante que o notebook vendido no ano passado saiu da empresa sem os dados?"
+  },
+  "alt": "Infográfico CoreCyber — descomissionamento de equipamento em cinco etapas, com certificado"
+} -->
+
+<p class="art-lead">O contrato de locação venceu e quarenta notebooks voltam para a locadora na sexta. Alguém formatou? Alguém conferiu? Em muitas empresas, a resposta honesta é “acho que sim”. E “acho que sim” não é uma resposta que se apresente ao titular dos dados, ao auditor ou à ANPD.</p>
+
+<h2>O risco que sai pela porta da frente</h2>
+<p>Equipamento sai da empresa o tempo todo: devolução de locação, venda para colaboradores, doação, troca na garantia, descarte. Cada um desses caminhos leva junto um disco que guardou, por anos, e-mails, planilhas de clientes e senhas salvas no navegador.</p>
+<p>O problema é que apagar raramente apaga. Excluir arquivos ou fazer uma formatação rápida, em geral, remove as referências aos dados — não os dados em si.</p>
+
+<h2>O que a LGPD tem a ver com isso</h2>
+<p>A LGPD não fala em notebooks, mas fala do que está dentro deles. O art. 16 manda eliminar os dados pessoais após o término do tratamento, salvo as hipóteses de conservação previstas na própria lei, como o cumprimento de obrigação legal. E o art. 46 exige medidas de segurança, técnicas e administrativas, contra acessos não autorizados e situações acidentais ou ilícitas.</p>
+<p>Na prática: se um disco com dados de clientes vai parar nas mãos erradas porque ninguém o sanitizou, a falha não é do equipamento. É do processo.</p>
+
+<div class="art-box art-box--curio"><b>Você sabia?</b><p>A obrigação de segurança não acaba quando o tratamento termina. O art. 47 da LGPD diz que quem participa de qualquer fase do tratamento se obriga a garantir a segurança da informação em relação aos dados pessoais <strong>“mesmo após o seu término”</strong>. O notebook que saiu da empresa continua sendo assunto seu.</p></div>
+
+<h2>As cinco etapas, em ordem</h2>
+<p>Um descomissionamento bem feito tem começo, meio e fim. O CoreCyber o conduz em cinco etapas — veja o que cada uma significa na prática:</p>
+<ol class="art-steps">
+  <li><strong>Devolução.</strong> O equipamento é recolhido e identificado. Sem saber exatamente qual máquina está saindo, nada do que vem depois pode ser provado. Com o <a href="/conteudos/agente-transparente/">agente do CoreCyber</a>, cada ativo já tem número de série e inventário com histórico.</li>
+  <li><strong>Criptografia.</strong> Confirme que o disco está criptografado, com BitLocker ou LUKS, e que a chave de recuperação está guardada. Se algo se perder no caminho, os dados seguem ilegíveis sem a chave.</li>
+  <li><strong>Desinstalação.</strong> Saem os softwares licenciados e os agentes de gestão — inclusive o do CoreCyber, que tem a desinstalação entre as suas ações remotas.</li>
+  <li><strong>Sanitização.</strong> O conteúdo do disco se torna irrecuperável, com um método proporcional à sensibilidade dos dados e ao destino do equipamento.</li>
+  <li><strong>Expurgo.</strong> O ciclo se fecha com a eliminação do que não precisa mais existir — respeitando, como pede o art. 16 da LGPD, o que deve ser conservado por obrigação legal.</li>
+</ol>
+<p>Ao final, o CoreCyber emite um <strong>certificado de descomissionamento em PDF, com QR de autenticidade</strong>.</p>
+
+<h2>Limpar, purgar ou destruir?</h2>
+<p>O guia de sanitização de mídias do NIST, o SP 800-88, ganhou nova revisão em setembro de 2025. Ele define três métodos: <strong>limpar</strong> (técnicas lógicas, como sobrescrever os dados, que protegem contra a recuperação simples), <strong>purgar</strong> (técnicas que resistem até à recuperação em laboratório e mantêm o disco reutilizável, como o apagamento criptográfico) e <strong>destruir</strong> (o dispositivo é destruído fisicamente). A escolha depende do que havia no disco e de para onde ele vai. E atenção: o guia alerta que técnicas pensadas para discos magnéticos podem não alcançar todos os dados de um SSD.</p>
+<p>Na ISO/IEC 27001:2022, o tema aparece no controle 7.14 do Anexo A, sobre descarte seguro ou reúso de equipamentos, e se apoia em outros dois: 5.11, devolução de ativos, e 8.10, exclusão de informações.</p>
+
+<h2>Por que o certificado faz diferença</h2>
+<p>Fazer bem feito é metade do trabalho; a outra metade é conseguir provar depois. O próprio NIST recomenda preencher um certificado de sanitização para cada mídia sanitizada, com dados como modelo, número de série, método e ferramenta usada.</p>
+<p>O certificado do CoreCyber segue a mesma lógica dos <a href="/conteudos/laudo-com-qr/">laudos com QR</a>: qualquer pessoa confere a autenticidade numa página pública. Quando a locadora, o auditor ou o encarregado de dados perguntarem o que foi feito com aquele equipamento, a resposta é um documento — não uma lembrança.</p>
+
+<div class="art-box art-box--hook"><b>E o CoreCyber com isso?</b><p>O descomissionamento certificado faz parte do módulo de conformidade, ao lado dos 193 controles ISO e LGPD, da Declaração de Aplicabilidade e do inventário de tratamento de dados (ROPA). Como o agente já conhece cada máquina — criptografia, inventário, número de série —, o processo começa com informação, não com uma planilha. Ele está no plano Avançado; veja os detalhes em <a href="/planos/">planos</a>.</p></div>
+
+<h2>Checklist para o próximo equipamento que sair</h2>
+<ul class="checks">
+  <li>Existe uma política escrita para devolução, venda, doação e descarte?</li>
+  <li>Cada máquina que sai tem registro de quem a usou e do que havia nela?</li>
+  <li>O disco estava criptografado, com a chave de recuperação guardada?</li>
+  <li>O método de sanitização é proporcional à sensibilidade dos dados?</li>
+  <li>Há um certificado que você consegue mostrar daqui a dois anos?</li>
+</ul>
+<p>Se alguma resposta for “não sei”, comece por ela.</p>
+
+<h2>Referências</h2>
+<ul class="art-refs">
+  <li><b>Planalto</b> · Lei 13.709/2018 (LGPD), arts. 16, 46 e 47 — eliminação após o término do tratamento e dever de segurança — <a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>NIST</b> · SP 800-88 Rev. 2, Guidelines for Media Sanitization (set. 2025) — métodos limpar, purgar e destruir e modelo de certificado de sanitização — <a href="https://csrc.nist.gov/pubs/sp/800/88/r2/final" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>ISO</b> · ISO/IEC 27001:2022 — Anexo A, controles 5.11, 7.14 e 8.10 — <a href="https://www.iso.org/standard/27001" target="_blank" rel="noopener">acessar</a></li>
+</ul>
+
+<div class="art-author"><b>Nota do autor</b><p>Em projetos de conformidade, vimos muitas vezes o cuidado com o servidor conviver com o descuido com o notebook que sai pela porta. Criamos o descomissionamento em etapas para que o fim da vida de um equipamento tenha o mesmo rigor do começo.</p><span>— Equipe CoreCyber · EBAEM</span></div>
+
+<div class="art-cta"><p><strong>Como o CoreCyber ajuda:</strong> descomissionamento em cinco etapas, da devolução ao expurgo, com certificado em PDF e QR que comprova o que foi feito.</p><p><a class="btn btn--primary" href="/plataforma/#conformidade">Conhecer a conformidade no CoreCyber</a></p></div>

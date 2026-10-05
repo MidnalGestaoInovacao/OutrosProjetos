@@ -1,0 +1,84 @@
+<!--meta {
+  "slug": "spf-dmarc-dnssec",
+  "title": "Quem mais pode mandar e-mail em nome da sua empresa? SPF, DMARC e DNSSEC sem mistério",
+  "description": "Golpes com o nome da sua empresa começam num e-mail falso. Entenda SPF, DKIM, DMARC, DNSSEC, CAA, MTA-STS e TLS-RPT em linguagem simples e teste o seu domínio em segundos.",
+  "date": "2026-09-17",
+  "category": "guias",
+  "tags": ["E-mail", "DNS", "Golpes", "Guia prático"],
+  "icon": "mail",
+  "cover": {
+    "kicker": "Guia · E-mail e DNS",
+    "stat": "6",
+    "stat_label": "proteções verificadas no teste rápido, direto do navegador",
+    "s2": "10",
+    "s2_label": "consultas DNS: o limite de um registro SPF",
+    "s3": "0",
+    "s3_label": "dados enviados à EBAEM no teste rápido",
+    "question": "Alguém consegue mandar hoje um e-mail falso com o domínio da sua empresa?"
+  },
+  "alt": "Infográfico CoreCyber — seis proteções de e-mail e DNS verificadas no teste rápido do navegador"
+} -->
+
+<p class="art-lead">O seu cliente recebe um e-mail com o logotipo da sua empresa, um boleto anexo e um pedido urgente. O remetente parece ser o seu domínio. Ele paga. Você só descobre quando ele liga para reclamar. Boa parte desse golpe depende de algo que você controla: <strong>alguns registros no DNS do seu domínio</strong>.</p>
+
+<h2>Por que é tão fácil falsificar um e-mail</h2>
+<p>O e-mail nasceu numa internet de confiança mútua. O protocolo original não confere quem é o remetente: o campo “De:” funciona como o verso de um envelope, onde qualquer pessoa escreve o que quiser. As proteções vieram depois, e moram no DNS, a “lista telefônica” pública da internet.</p>
+<p>Quando elas faltam, o prejuízo não fica só na conta de quem caiu no golpe. A marca perde credibilidade, o atendimento se enche de reclamações e até os seus e-mails legítimos podem passar a ser vistos com desconfiança pelos provedores.</p>
+
+<h2>As três peças do e-mail: SPF, DKIM e DMARC</h2>
+<ul class="checks">
+  <li><strong>SPF (RFC 7208):</strong> uma lista pública dos servidores autorizados a enviar e-mail pelo seu domínio. Fica num registro TXT e termina dizendo o que fazer com quem não está na lista: “-all” para recusar, “~all” para aceitar com suspeita.</li>
+  <li><strong>DKIM (RFC 6376):</strong> uma assinatura digital em cada mensagem. A chave pública fica no DNS. Se alguém alterar a mensagem no caminho, a assinatura deixa de conferir.</li>
+  <li><strong>DMARC (RFC 7489):</strong> amarra o SPF e o DKIM ao endereço que o destinatário vê no “De:” e diz ao provedor o que fazer quando a verificação falha. Também envia relatórios sobre quem está mandando e-mail em seu nome.</li>
+</ul>
+<p>O coração do DMARC é a política, publicada no registro “_dmarc” do domínio:</p>
+<div class="table-wrap"><table class="tbl">
+  <thead><tr><th scope="col">Política</th><th scope="col">O que acontece com o e-mail falso</th><th scope="col">Quando usar</th></tr></thead>
+  <tbody>
+    <tr><td>p=none</td><td>É entregue normalmente; você só recebe relatórios.</td><td>No começo, para mapear quem envia em seu nome.</td></tr>
+    <tr><td>p=quarantine</td><td>Vai para a quarentena ou o lixo eletrônico.</td><td>Depois de ajustar SPF e DKIM dos serviços legítimos.</td></tr>
+    <tr><td>p=reject</td><td>É recusado na entrada.</td><td>A meta final: o golpe nem chega à caixa de entrada.</td></tr>
+  </tbody>
+</table></div>
+<p>Um DMARC parado em “none” é melhor do que nada, mas não protege o seu cliente. Ele só avisa você.</p>
+
+<div class="art-box art-box--curio"><b>Você sabia?</b><p>O SPF tem um limite pouco conhecido: a verificação pode fazer no máximo <strong>10 consultas ao DNS</strong>. Quem passa disso, de tanto incluir serviços de envio, recebe um erro permanente, e o registro deixa de cumprir o seu papel. A regra está na RFC 7208.</p></div>
+
+<h2>Além do e-mail: DNSSEC, CAA, MTA-STS e TLS-RPT</h2>
+<ul class="checks">
+  <li><strong>DNSSEC (RFC 4033):</strong> assina as respostas do DNS. Sem ele, alguém pode forjar uma resposta e desviar quem procura o seu site ou o seu servidor de e-mail.</li>
+  <li><strong>CAA (RFC 8659):</strong> diz quais autoridades certificadoras podem emitir certificados para o seu domínio. Dificulta que um certificado seja emitido sem o seu conhecimento.</li>
+  <li><strong>MTA-STS (RFC 8461):</strong> pede que os servidores que entregam e-mail para você usem conexão cifrada e certificado válido, impedindo que a criptografia seja “rebaixada” no caminho.</li>
+  <li><strong>TLS-RPT (RFC 8460):</strong> envia relatórios quando essa entrega cifrada falha. Você fica sabendo do problema antes de alguém reclamar.</li>
+</ul>
+
+<h2>Faça o teste agora, em segundos</h2>
+<p>Na página do <a href="/diagnostico-gratuito/#teste-rapido">diagnóstico gratuito</a> existe um teste rápido e real. Você digita o domínio e vê a nota de proteção de e-mail e DNS, verificando SPF, DMARC, DNSSEC, CAA, MTA-STS e TLS-RPT.</p>
+<p>O teste só lê registros públicos e não toca nos seus servidores. A consulta sai do seu navegador direto para o DNS público, por DNS sobre HTTPS, e nada é enviado à EBAEM. Você pode testar o seu domínio, o de um fornecedor ou o de um parceiro antes de fechar um pagamento.</p>
+
+<h2>Vai corrigir? Siga esta ordem</h2>
+<ol class="art-steps">
+  <li><strong>Liste quem envia em seu nome.</strong> Servidor corporativo, ferramenta de marketing, emissor de notas fiscais, sistema de atendimento.</li>
+  <li><strong>Publique o SPF e ative o DKIM</strong> em cada um desses serviços.</li>
+  <li><strong>Publique o DMARC com p=none</strong> e leia os relatórios por algumas semanas.</li>
+  <li><strong>Suba para quarantine e depois para reject</strong>, quando os envios legítimos estiverem passando.</li>
+  <li><strong>Complete a proteção do domínio</strong> com DNSSEC e CAA e, se fizer sentido, MTA-STS com TLS-RPT.</li>
+</ol>
+
+<div class="art-box art-box--hook"><b>E o CoreCyber com isso?</b><p>O teste rápido mostra uma foto. Na plataforma, a varredura externa não invasiva verifica SPF, DMARC e security.txt junto com portas, certificados e cabeçalhos de segurança, e compara cada execução com a anterior. Se o DMARC sumir numa troca de provedor, a falta dele aparece como achado novo na comparação. Veja mais em <a href="/conteudos/o-que-a-internet-sabe/">o que a internet já sabe sobre a sua empresa</a>.</p></div>
+
+<h2>Referências</h2>
+<ul class="art-refs">
+  <li><b>IETF</b> · RFC 7208 — Sender Policy Framework (SPF) — <a href="https://www.rfc-editor.org/rfc/rfc7208" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>IETF</b> · RFC 6376 — DomainKeys Identified Mail (DKIM) — <a href="https://www.rfc-editor.org/rfc/rfc6376" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>IETF</b> · RFC 7489 — DMARC — <a href="https://www.rfc-editor.org/rfc/rfc7489" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>IETF</b> · RFC 4033 — introdução e requisitos do DNSSEC — <a href="https://www.rfc-editor.org/rfc/rfc4033" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>IETF</b> · RFC 8659 — registro CAA — <a href="https://www.rfc-editor.org/rfc/rfc8659" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>IETF</b> · RFC 8461 — MTA-STS — <a href="https://www.rfc-editor.org/rfc/rfc8461" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>IETF</b> · RFC 8460 — relatórios de TLS para SMTP (TLS-RPT) — <a href="https://www.rfc-editor.org/rfc/rfc8460" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>CERT.br</b> · Cartilha de Segurança para Internet, com orientações sobre golpes — <a href="https://cartilha.cert.br/" target="_blank" rel="noopener">acessar</a></li>
+</ul>
+
+<div class="art-author"><b>Nota do autor</b><p>Escrevemos este guia porque, nos projetos da EBAEM, a proteção de e-mail costuma ser um dos ajustes mais simples e de efeito mais visível. São alguns registros de texto, mas eles protegem o seu cliente de um golpe com o seu nome.</p><span>— Equipe CoreCyber · EBAEM</span></div>
+
+<div class="art-cta"><p><strong>Como o CoreCyber ajuda:</strong> o teste rápido mostra a proteção do seu domínio em segundos; a plataforma acompanha SPF e DMARC continuamente, junto com toda a superfície externa.</p><p><a class="btn btn--primary" href="/diagnostico-gratuito/#teste-rapido">Testar meu domínio agora</a></p></div>

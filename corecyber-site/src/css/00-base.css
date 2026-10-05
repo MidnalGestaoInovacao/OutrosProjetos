@@ -42,6 +42,7 @@
   --c-font: var(--wp--preset--font-family--manrope, "Manrope"), system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --c-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
   --c-maxw: 1200px;
+  --c-wrap: 90%;
   --c-gutter: clamp(16px, 4vw, 32px);
   --c-header-h: 76px;
   --a11y-scale: 1;
@@ -87,9 +88,10 @@ header.wp-block-template-part, footer.wp-block-template-part { margin: 0 !import
 .cc ::selection { background: #bdeeed; color: var(--c-ink); }
 
 /* ---------- layout ---------- */
-.cc .wrap { width: 100%; max-width: var(--c-maxw); margin: 0 auto; padding: 0 var(--c-gutter); }
-.cc .wrap--narrow { max-width: 860px; }
-.cc .wrap--wide { max-width: 1360px; }
+/* largura padrão: 90% da tela, centralizado (cabeçalho, conteúdo e rodapé) */
+.cc .wrap { width: var(--c-wrap); max-width: none; margin: 0 auto; padding: 0; }
+.cc .wrap--narrow { max-width: none; }
+.cc .wrap--wide { max-width: none; }
 .cc .sec { padding: clamp(64px, 8vw, 112px) 0; position: relative; }
 .cc .sec--tight { padding: clamp(40px, 5vw, 64px) 0; }
 .cc .sec--alt { background: var(--c-bg2); }

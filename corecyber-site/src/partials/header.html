@@ -42,6 +42,8 @@
               <a href="/plataforma/#vulnerabilidades"><span class="ibox ibox--orange">{{i:bug}}</span><span><b>Vulnerabilidades e AppSec</b><span>Priorização por CVSS, EPSS e KEV</span></span></a>
               <a href="/plataforma/#ativos"><span class="ibox">{{i:laptop}}</span><span><b>Ativos e conformidade</b><span>Agentes, ISO 27001 e LGPD</span></span></a>
               <a href="/plataforma/#resposta"><span class="ibox ibox--purple">{{i:siren}}</span><span><b>Detecção e resposta</b><span>Correlação, casos e automação</span></span></a>
+              <a href="/clientes/"><span class="ibox ibox--blue">{{i:users}}</span><span><b>Clientes e indicações</b><span>Quem já usa e como indicar</span></span></a>
+              <a href="/sobre/"><span class="ibox ibox--navy">{{i:building}}</span><span><b>Sobre a EBAEM</b><span>Quem faz o CoreCyber usa o CoreCyber</span></span></a>
             </div>
             <div class="mega-promo">
               <span class="badge badge--teal">{{i:sparkles}} Diagnóstico gratuito</span>
@@ -51,9 +53,26 @@
             </div>
           </div>
         </li>
-        <li><a href="/planos/">Planos</a></li>
-        <li><a href="/comparativo/">Comparativo</a></li>
-        <li><a href="/clientes/">Clientes</a></li>
+        <li class="has-mega">
+          <button type="button" aria-expanded="false" aria-controls="mega-planos">Planos {{i:chev:chev}}</button>
+          <div class="mega" id="mega-planos">
+            <div class="mega-links">
+              <a href="/planos/"><span class="ibox">{{i:wallet}}</span><span><b>Planos e preços</b><span>Essencial, Profissional e Avançado</span></span></a>
+              <a href="/comparativo/"><span class="ibox ibox--blue">{{i:scale}}</span><span><b>Comparativo de mercado</b><span>CoreCyber ou ferramentas separadas?</span></span></a>
+              <a href="/planos/#simulador"><span class="ibox ibox--orange">{{i:coins}}</span><span><b>Simulador de economia</b><span>Faça a conta com os seus números</span></span></a>
+              <a href="/planos/#mssp"><span class="ibox ibox--navy">{{i:building}}</span><span><b>MSSP e operação gerenciada</b><span>Multiempresa ou operado pela EBAEM</span></span></a>
+              <a href="/planos/#poc"><span class="ibox ibox--purple">{{i:rocket}}</span><span><b>Prova de conceito</b><span>30 dias no seu ambiente</span></span></a>
+              <a href="/politica-comercial/"><span class="ibox">{{i:receipt}}</span><span><b>Condições comerciais</b><span>SLA, suporte, reajuste e cancelamento</span></span></a>
+            </div>
+            <div class="mega-promo">
+              <span class="badge badge--teal">{{i:coins}} Em reais, sem dólar</span>
+              <b>Uma assinatura no lugar de cinco ferramentas.</b>
+              <p>Preço por faixa de ativos, sem variação cambial. No plano anual, você paga 10 meses e leva 12.</p>
+              <a class="btn btn--light btn--sm" href="/planos/">Ver planos {{i:arrow:arrow}}</a>
+            </div>
+          </div>
+        </li>
+        <li><a href="/conteudos/">Conteúdos</a></li>
         <li class="has-mega">
           <button type="button" aria-expanded="false" aria-controls="mega-trust">Confiança {{i:chev:chev}}</button>
           <div class="mega mega--wide" id="mega-trust">
@@ -71,7 +90,6 @@
             </div>
           </div>
         </li>
-        <li><a href="/sobre/">Sobre</a></li>
         <li><a href="/contato/">Contato</a></li>
       </ul>
     </nav>
@@ -86,13 +104,19 @@
 <div class="cc-drawer" id="cc-drawer" hidden>
   <nav aria-label="Menu móvel">
     <div class="dr-group">
-      <p class="dr-title">Produto</p>
-      <a href="/plataforma/">{{i:layers}} Plataforma — visão geral</a>
+      <p class="dr-title">Plataforma</p>
+      <a href="/plataforma/">{{i:layers}} Visão geral</a>
       <a href="/telas/">{{i:monitor}} Tour de telas</a>
-      <a href="/planos/">{{i:wallet}} Planos e preços</a>
-      <a href="/comparativo/">{{i:scale}} Comparativo de mercado</a>
-      <a href="/diagnostico-gratuito/">{{i:radar}} Diagnóstico gratuito</a>
       <a href="/clientes/">{{i:users}} Clientes e indicações</a>
+      <a href="/sobre/">{{i:building}} Sobre a EBAEM</a>
+    </div>
+    <div class="dr-group">
+      <p class="dr-title">Planos</p>
+      <a href="/planos/">{{i:wallet}} Planos e preços</a>
+      <a class="dr-sub" href="/comparativo/">{{i:scale}} Comparativo de mercado</a>
+      <a class="dr-sub" href="/planos/#simulador">{{i:coins}} Simulador de economia</a>
+      <a href="/diagnostico-gratuito/">{{i:radar}} Diagnóstico gratuito</a>
+      <a href="/conteudos/">{{i:book}} Conteúdos e matérias</a>
     </div>
     <div class="dr-group">
       <p class="dr-title">Confiança</p>
@@ -106,8 +130,7 @@
       <a href="/divulgacao-responsavel/">{{i:flag}} Divulgação Responsável</a>
     </div>
     <div class="dr-group">
-      <p class="dr-title">EBAEM</p>
-      <a href="/sobre/">{{i:building}} Sobre</a>
+      <p class="dr-title">Atendimento</p>
       <a href="/contato/">{{i:message}} Contato</a>
       <a href="/area-do-cliente/">{{i:login}} Área do Cliente</a>
     </div>

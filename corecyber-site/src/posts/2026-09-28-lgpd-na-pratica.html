@@ -1,0 +1,76 @@
+<!--meta {
+  "slug": "lgpd-na-pratica",
+  "title": "A LGPD não cabe numa política de privacidade: ROPA, portal do titular e quem acessou o quê",
+  "description": "Política publicada não basta. Veja o que a LGPD pede no dia a dia — direitos com prazo, inventário de tratamento, encarregado e trilha de acesso — e como transformar isso em rotina.",
+  "date": "2026-09-28",
+  "category": "conformidade",
+  "tags": ["LGPD", "Direitos do titular", "ROPA"],
+  "icon": "user",
+  "cover": {
+    "kicker": "LGPD · Direitos do titular",
+    "stat": "15 dias",
+    "stat_label": "prazo da resposta completa ao titular (LGPD, art. 19)",
+    "s2": "ROPA",
+    "s2_label": "inventário de tratamento em PDF e CSV",
+    "s3": "180",
+    "s3_label": "dias de retenção padrão dos logs",
+    "question": "Se um titular pedisse hoje os dados dele, quanto tempo a sua empresa levaria?"
+  },
+  "alt": "Infográfico CoreCyber — LGPD na prática com portal do titular, ROPA e registro de acesso a dados pessoais"
+} -->
+
+<p class="art-lead">A política de privacidade está no site, o aviso de cookies aparece e o contrato tem uma cláusula de proteção de dados. Até que chega o primeiro e-mail: <strong>“quero saber quais dados vocês têm sobre mim”</strong>. É nesse momento que muita empresa descobre que a LGPD não é um documento — é uma rotina.</p>
+
+<h2>O que a lei pede, em cinco artigos</h2>
+<p>A Lei Geral de Proteção de Dados é extensa, mas cinco artigos concentram boa parte do trabalho do dia a dia:</p>
+<div class="table-wrap"><table class="tbl">
+  <thead><tr><th scope="col">Artigo</th><th scope="col">O que pede</th><th scope="col">Na prática</th></tr></thead>
+  <tbody>
+    <tr><td>Art. 18</td><td>Direitos do titular: confirmação, acesso, correção, eliminação, portabilidade e outros</td><td>Um canal para receber e acompanhar pedidos</td></tr>
+    <tr><td>Art. 19</td><td>Resposta simplificada imediata; resposta completa em até 15 dias</td><td>Protocolo e controle de prazo</td></tr>
+    <tr><td>Art. 37</td><td>Registro das operações de tratamento</td><td>O inventário de tratamento, conhecido como ROPA</td></tr>
+    <tr><td>Art. 41</td><td>Indicação de um encarregado</td><td>Nome e contato publicados</td></tr>
+    <tr><td>Art. 46</td><td>Medidas de segurança técnicas e administrativas</td><td>Controle de acesso, registros e evidências</td></tr>
+  </tbody>
+</table></div>
+
+<h2>Portal do titular: o pedido não pode se perder na caixa de e-mail</h2>
+<p>O pedido do titular costuma chegar de qualquer jeito: por e-mail, telefone, mensagem de rede social. Sem um caminho único, ele se perde entre outras mensagens, e o prazo da lei corre sem ninguém perceber.</p>
+<p>Um portal do titular resolve isso com três coisas simples: um lugar para pedir, um <strong>número de protocolo</strong> e um <strong>prazo visível</strong>. A nossa própria página de <a href="/lgpd/#portal">LGPD e Portal do Titular</a> funciona assim: a pessoa escolhe o direito que quer exercer, recebe um protocolo e sabe que a resposta completa chega em até 15 dias. Antes de entregar qualquer dado, confirmamos a identidade de quem pede, solicitando apenas o mínimo necessário.</p>
+
+<div class="art-box art-box--curio"><b>Você sabia?</b><p>A LGPD não exige só que a empresa tenha um encarregado. O artigo 41 determina que a <strong>identidade e o contato do encarregado sejam divulgados publicamente</strong>, de forma clara e objetiva, de preferência no site da empresa. Se o titular não encontra a quem pedir, o direito existe só no papel.</p></div>
+
+<h2>ROPA: o mapa que responde às perguntas difíceis</h2>
+<p>ROPA é a sigla em inglês para registro das atividades de tratamento — o que o artigo 37 da LGPD chama de registro das operações de tratamento. Na prática, é um inventário: quais dados pessoais a empresa trata, para quê, com qual base legal, com quem compartilha e por quanto tempo guarda.</p>
+<p>Parece burocracia até o dia em que alguém pergunta “onde estão os dados dos nossos clientes?”. Sem o ROPA, a resposta depende da memória de quem está na empresa há mais tempo. Com ele, a resposta é um documento — que também ajuda a responder pedidos de titulares e a avaliar o impacto de um incidente.</p>
+
+<h2>Quem acessou? A pergunta que só a trilha de auditoria responde</h2>
+<p>O artigo 46 pede medidas de segurança para proteger dados pessoais de acessos não autorizados. Proteger é uma parte. A outra é <strong>conseguir provar</strong> quem acessou o quê, e quando. Algumas práticas ajudam muito:</p>
+<ul class="checks">
+  <li><strong>Registro de acesso a dados pessoais:</strong> quem acessou e quando, sem depender da memória de ninguém.</li>
+  <li><strong>Pseudonimização:</strong> o dado perde a associação direta com a pessoa, que só pode ser refeita com uma informação guardada separadamente, em ambiente controlado. É um conceito da própria LGPD.</li>
+  <li><strong>Avisos com “li e estou ciente”:</strong> a ciência de quem recebe o aviso fica registrada, não presumida.</li>
+  <li><strong>Aceite de termos com evidência:</strong> IP, navegador e o hash SHA-256 do texto aceito. O hash funciona como a impressão digital do texto: se uma vírgula mudar, ele muda. Assim, dá para provar exatamente qual versão foi aceita.</li>
+</ul>
+
+<div class="art-box art-box--hook"><b>E o CoreCyber com isso?</b><p>O CoreCyber traz a LGPD para dentro da operação: encarregado cadastrado, portal “Exercer meus direitos” com protocolo e prazo de 15 dias, avisos com “li e estou ciente”, pseudonimização, registro de quem acessou dados pessoais e ROPA em PDF e CSV. Na própria plataforma, os termos são aceitos com evidência e os logs de auditoria cobrem 14 tipos, com retenção padrão de 180 dias. A LGPD e os controles da ISO/IEC 27701, a norma de gestão da privacidade, estão entre os 193 controles que a plataforma acompanha. Nenhuma ferramenta, porém, deixa uma empresa conforme sozinha: decisões como a base legal de cada tratamento continuam sendo de pessoas.</p></div>
+
+<h2>Por onde começar</h2>
+<ol class="art-steps">
+  <li><strong>Indique e publique o encarregado.</strong> Nome e contato no site, em lugar fácil de achar.</li>
+  <li><strong>Abra um canal único para o titular.</strong> Com protocolo e controle de prazo desde o primeiro pedido.</li>
+  <li><strong>Monte a primeira versão do ROPA.</strong> Comece pelos processos com mais dados pessoais, como RH, clientes e marketing.</li>
+  <li><strong>Ligue a trilha de auditoria.</strong> Registre quem acessa dados pessoais e guarde esses registros.</li>
+  <li><strong>Revise com frequência.</strong> Processos mudam, e o inventário precisa mudar junto.</li>
+</ol>
+
+<h2>Referências</h2>
+<ul class="art-refs">
+  <li><b>Planalto</b> · Lei 13.709/2018, Lei Geral de Proteção de Dados Pessoais (LGPD) — <a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>ANPD</b> · Autoridade Nacional de Proteção de Dados: guias, regulamentos e orientações — <a href="https://www.gov.br/anpd/pt-br" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>ISO</b> · ISO/IEC 27701, sistemas de gestão da privacidade da informação — <a href="https://www.iso.org/standard/27701" target="_blank" rel="noopener">acessar</a></li>
+</ul>
+
+<div class="art-author"><b>Nota do autor</b><p>A EBAEM trabalha com LGPD desde antes do CoreCyber existir, e aprendemos que a lei funciona melhor quando vira hábito, não projeto. Esta matéria é o roteiro que gostaríamos de ter recebido no começo.</p><span>— Equipe CoreCyber · EBAEM</span></div>
+
+<div class="art-cta"><p><strong>Como o CoreCyber ajuda:</strong> portal do titular com protocolo, ROPA, registro de acesso e controles de LGPD e ISO/IEC 27701 no mesmo painel.</p><p><a class="btn btn--primary" href="/plataforma/#conformidade">Ver conformidade ISO e LGPD</a></p></div>

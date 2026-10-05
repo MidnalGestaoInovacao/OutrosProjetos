@@ -1,0 +1,89 @@
+<!--meta {
+  "slug": "cvss-epss-kev",
+  "title": "Nem toda vulnerabilidade crítica é urgente: como CVSS, EPSS e KEV decidem a fila",
+  "description": "Muitas falhas, pouco tempo. Entenda o que medem CVSS, EPSS e o catálogo KEV, e como o CoreCyber junta os três numa nota de 0 a 100 para mostrar o que corrigir primeiro.",
+  "date": "2026-09-19",
+  "category": "produto",
+  "tags": ["Vulnerabilidades", "Priorização", "CVSS", "EPSS"],
+  "icon": "target",
+  "cover": {
+    "kicker": "Vulnerabilidades · Priorização",
+    "stat": "90",
+    "stat_label": "nota mínima de qualquer falha do catálogo KEV",
+    "s2": "0–100",
+    "s2_label": "nota que une CVSS, EPSS e KEV",
+    "s3": "7 dias",
+    "s3_label": "prazo para corrigir uma falha crítica",
+    "question": "Se só desse para corrigir dez falhas nesta semana, quais seriam?"
+  },
+  "alt": "Infográfico CoreCyber — fila de vulnerabilidades com nota de 0 a 100 e mínimo de 90 para falhas do catálogo KEV"
+} -->
+
+<p class="art-lead">Imagine o relatório de vulnerabilidades da semana: centenas de itens, dezenas marcados como críticos. A equipe tem poucos dias e poucas mãos. Por onde começar? Se a resposta for “pelas críticas, de cima para baixo”, talvez a sua energia esteja indo para o lugar errado.</p>
+
+<h2>Gravidade não é o mesmo que urgência</h2>
+<p>A régua mais conhecida é o <strong>CVSS</strong>, mantido pelo FIRST. Ele mede a gravidade técnica de uma falha numa escala de 0 a 10, traduzida em baixa, média, alta e crítica. A versão 4.0 foi publicada em novembro de 2023.</p>
+<p>O CVSS responde a uma pergunta importante: <em>quão ruim seria se alguém explorasse esta falha?</em> Mas ele não diz se alguém está, de fato, explorando. Uma falha crítica num sistema interno, sem exploração conhecida, pode esperar alguns dias. Uma falha “só” alta num servidor exposto, que já está sendo usada em ataques reais, não pode.</p>
+
+<h2>Três números, três perguntas</h2>
+<div class="table-wrap"><table class="tbl">
+  <thead><tr><th scope="col">Sigla</th><th scope="col">Pergunta que responde</th><th scope="col">Quem mantém</th></tr></thead>
+  <tbody>
+    <tr><td>CVSS</td><td>Quão grave é a falha, se for explorada?</td><td>FIRST</td></tr>
+    <tr><td>EPSS</td><td>Qual a probabilidade de ela ser explorada nos próximos 30 dias?</td><td>FIRST</td></tr>
+    <tr><td>KEV</td><td>Ela já está sendo explorada de verdade?</td><td>CISA, a agência de cibersegurança dos EUA</td></tr>
+  </tbody>
+</table></div>
+<p>Os dados das falhas catalogadas com um código CVE ficam reunidos na <strong>NVD</strong>, a base pública do NIST. Juntos, os três números contam uma história completa: o tamanho do estrago, a chance de acontecer e se já está acontecendo.</p>
+<h3>Por que não usar só um deles?</h3>
+<ul class="checks">
+  <li><strong>Só CVSS:</strong> a lista de críticas fica longa demais e mistura falhas exploradas com falhas apenas teóricas.</li>
+  <li><strong>Só EPSS:</strong> é uma probabilidade, não uma certeza. Uma falha grave com chance baixa ainda merece prazo.</li>
+  <li><strong>Só KEV:</strong> o catálogo reúne o que já foi visto em ataques, mas não cobre tudo o que pode ser explorado amanhã.</li>
+</ul>
+
+<div class="art-box art-box--curio"><b>Você sabia?</b><p>O EPSS é um modelo baseado em dados que estima a <strong>probabilidade de uma falha publicada ser explorada nos próximos 30 dias</strong>. O resultado vai de 0 a 1 e é publicado todos os dias, para cada CVE, de forma aberta. Por isso uma prioridade calculada com EPSS precisa ser revista com frequência.</p></div>
+
+<h2>Como o CoreCyber monta a fila</h2>
+<p>Em vez de três colunas para alguém cruzar na mão, o CoreCyber dá a cada vulnerabilidade uma <strong>nota de risco de 0 a 100</strong>, que combina a gravidade (CVSS), a probabilidade de exploração (EPSS) e a presença no catálogo KEV. Duas regras deixam a fila honesta:</p>
+<ul class="checks">
+  <li><strong>Item KEV nunca fica abaixo de 90.</strong> Se a falha já está sendo explorada no mundo real, ela não se perde no meio da lista.</li>
+  <li><strong>A nota é recalculada todo dia.</strong> O EPSS muda e o catálogo KEV cresce; a sua fila acompanha.</li>
+</ul>
+<p>Um exemplo ilustrativo. A falha A tem CVSS 9,8, está num servidor interno, tem probabilidade de exploração baixa e não aparece no KEV. A falha B tem CVSS 7,5, está num servidor exposto e acabou de entrar no KEV. Pela régua da gravidade, A viria primeiro. No CoreCyber, B ganha prioridade: a nota dela nunca fica abaixo de 90. Isso não significa ignorar a A. Ela continua na fila, com o prazo da sua severidade. O que muda é a ordem.</p>
+
+<h2>Prazo, dono e prova</h2>
+<p>Saber a ordem é metade do trabalho. A outra metade é garantir que a correção aconteça. Por isso a fila vem com prazos de correção por severidade:</p>
+<div class="table-wrap"><table class="tbl">
+  <thead><tr><th scope="col">Severidade</th><th scope="col">Prazo de correção (SLA)</th></tr></thead>
+  <tbody>
+    <tr><td>Crítica</td><td>7 dias</td></tr>
+    <tr><td>Alta</td><td>15 dias</td></tr>
+    <tr><td>Média</td><td>30 dias</td></tr>
+    <tr><td>Baixa</td><td>60 dias</td></tr>
+    <tr><td>Informativa</td><td>90 dias</td></tr>
+  </tbody>
+</table></div>
+<p>No painel, os indicadores mostram de relance as vulnerabilidades abertas, as críticas e altas, as que estão no KEV, as que têm CVE, as com SLA vencido e os riscos aceitos. E cada item tem uma ficha pensada para quem vai corrigir:</p>
+<ol class="art-steps">
+  <li><strong>Regularização passo a passo</strong>, organizada em 22 temas.</li>
+  <li><strong>Como validar a correção</strong>, para não fechar o item no escuro.</li>
+  <li><strong>Referências</strong> da NVD, do KEV, do EPSS, da CWE e da OWASP.</li>
+  <li><strong>Aceite de risco com justificativa</strong>, quando corrigir não é possível agora, com a justificativa registrada.</li>
+</ol>
+<p>A fila pode ser exportada em PDF ou Excel. E, se uma falha virar problema, ela se transforma em caso de incidente com um clique, com linha do tempo e chamado no GLPI.</p>
+
+<div class="art-box art-box--hook"><b>E o CoreCyber com isso?</b><p>A fila priorizada por CVSS, EPSS e KEV, com SLA, faz parte do plano Profissional e do Avançado. Ela conversa com o resto da plataforma: uma vulnerabilidade do catálogo KEV é uma das cinco regras das detecções correlacionadas. Veja os detalhes em <a href="/plataforma/#vulnerabilidades">Vulnerabilidades priorizadas</a>.</p></div>
+
+<h2>Referências</h2>
+<ul class="art-refs">
+  <li><b>FIRST</b> · Common Vulnerability Scoring System (CVSS) — <a href="https://www.first.org/cvss/" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>FIRST</b> · Exploit Prediction Scoring System (EPSS), probabilidade de exploração nos próximos 30 dias — <a href="https://www.first.org/epss/" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>CISA</b> · Catálogo de vulnerabilidades exploradas ativamente (KEV) — <a href="https://www.cisa.gov/known-exploited-vulnerabilities-catalog" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>NIST</b> · National Vulnerability Database (NVD) — <a href="https://nvd.nist.gov/" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>MITRE</b> · CWE, catálogo de tipos de fraqueza de software — <a href="https://cwe.mitre.org/" target="_blank" rel="noopener">acessar</a></li>
+</ul>
+
+<div class="art-author"><b>Nota do autor</b><p>Escrevemos esta matéria porque “por onde eu começo?” é a pergunta mais honesta de quem cuida de vulnerabilidades. Priorizar não é fazer menos: é fazer primeiro o que protege mais. E deixar registrado por que cada decisão foi tomada.</p><span>— Equipe CoreCyber · EBAEM</span></div>
+
+<div class="art-cta"><p><strong>Como o CoreCyber ajuda:</strong> uma fila única, com nota de 0 a 100, prazo por severidade e passo a passo de correção, recalculada todos os dias.</p><p><a class="btn btn--primary" href="/planos/">Ver o que cada plano inclui</a></p></div>

@@ -1,0 +1,70 @@
+<!--meta {
+  "slug": "mssp-multiempresa",
+  "title": "Multiempresa de verdade: 3.951 verificações para que nenhum cliente veja o dado do outro",
+  "description": "Para quem atende várias empresas, isolamento não é detalhe técnico: é o produto. Veja como o CoreCyber testa a separação entre clientes e o que isso muda para MSSPs.",
+  "date": "2026-10-01",
+  "category": "diferenciais",
+  "tags": ["MSSP", "Multiempresa", "Isolamento"],
+  "icon": "network",
+  "cover": {
+    "kicker": "MSSP · Multiempresa",
+    "stat": "3.951",
+    "stat_label": "verificações automáticas de isolamento entre empresas",
+    "s2": "0",
+    "s2_label": "falhas de isolamento no teste mais recente",
+    "s3": "50",
+    "s3_label": "empresas e 10.000 ativos na escala testada",
+    "question": "Como você prova a cada cliente que ele nunca verá os dados de outro?"
+  },
+  "alt": "Infográfico CoreCyber — 3.951 verificações de isolamento entre empresas e zero falhas"
+} -->
+
+<p class="art-lead">Você atende vinte clientes. Numa terça-feira, um deles abre o painel e encontra, na lista de vulnerabilidades, o servidor de outra empresa. Ninguém foi atacado, nenhum dado saiu da plataforma — e mesmo assim o estrago está feito. Para quem presta serviço de segurança a várias empresas, <strong>isolamento não é detalhe técnico: é o próprio produto</strong>.</p>
+
+<h2>O que significa ser multiempresa</h2>
+<p>Uma plataforma multiempresa (multi-tenant, no jargão) atende vários clientes com a mesma infraestrutura e o mesmo código. É isso que permite oferecer o serviço em escala e com custo razoável. O preço dessa eficiência é uma responsabilidade enorme: cada consulta, cada relatório, cada alerta e cada exportação precisa saber, sem margem para erro, a qual empresa pertence.</p>
+<p>A OWASP, referência mundial em segurança de aplicações, resume o risco num guia dedicado ao tema: em sistemas multiempresa, uma única falha pode expor os dados de todos os clientes. Os caminhos são muitos — um identificador trocado numa requisição, um cache compartilhado mal separado, uma função de administração que alcança mais do que deveria — e quase todos são falhas de autorização.</p>
+
+<div class="art-box art-box--curio"><b>Você sabia?</b><p>A quebra de controle de acesso — quando alguém consegue ver ou fazer o que não deveria — ocupa o <strong>primeiro lugar</strong> no OWASP Top 10, a lista dos riscos mais críticos em aplicações web. Ela subiu para o topo na edição de 2021 e continuou lá na edição de 2025.</p></div>
+
+<h2>Isolamento precisa ser testado, não prometido</h2>
+<p>Quase todo fornecedor diz que os dados dos clientes ficam separados. A pergunta que importa é outra: <strong>como você sabe?</strong> Uma regra de acesso esquecida numa tela nova, um relatório que filtra pela empresa errada, uma API que confia no identificador enviado pelo navegador. Esse tipo de falha não aparece no uso normal. Ela aparece quando alguém procura.</p>
+<p>Por isso, no CoreCyber, o isolamento entre empresas é conferido por um teste automático com <strong>3.951 verificações</strong>. No resultado mais recente, foram <strong>zero falhas</strong>. A plataforma também foi testada em escala de <strong>50 empresas e 10.000 ativos</strong> — o porte de uma operação que atende muitos clientes de verdade.</p>
+
+<h2>O que um MSSP precisa além do isolamento</h2>
+<p>Separar os dados é a base. Para operar no dia a dia, um provedor de serviços gerenciados de segurança (MSSP) precisa de mais:</p>
+<ul class="checks">
+  <li><strong>Visão de grupo:</strong> empresas administradoras de grupo enxergam todos os clientes, enquanto cada cliente enxerga só o que é seu.</li>
+  <li><strong>A cara do cliente:</strong> páginas de status públicas por empresa, com o logo de cada uma, e modelos de e-mail editáveis por empresa.</li>
+  <li><strong>Acesso por função:</strong> perfis e permissões por função, segundo fator de autenticação, reautenticação para ações sensíveis e logs de auditoria em 14 tipos de evento.</li>
+  <li><strong>O idioma de quem usa:</strong> a plataforma funciona em 8 idiomas — português, inglês, espanhol, italiano, francês, chinês, japonês e russo.</li>
+  <li><strong>Evidência por cliente:</strong> relatórios com protocolo e QR de autenticidade, emitidos para cada empresa.</li>
+</ul>
+
+<h2>A LGPD também entra nessa conta</h2>
+<p>Quando um MSSP trata dados de um cliente, quase sempre atua como operador. O artigo 39 da LGPD diz que o operador deve realizar o tratamento segundo as instruções do controlador. Na prática, isso pede uma plataforma capaz de mostrar <strong>quem acessou o quê, em nome de qual empresa</strong>. Os logs de auditoria, com retenção padrão de 180 dias, e o registro de quem acessou dados pessoais ajudam a responder com fatos.</p>
+<p>A ISO/IEC 27017, norma de controles de segurança para serviços em nuvem, vai na mesma direção: orienta provedores e clientes a dividir responsabilidades com clareza e trata da separação entre clientes que compartilham o mesmo ambiente.</p>
+
+<div class="art-box art-box--hook"><b>E o CoreCyber com isso?</b><p>O CoreCyber é multiempresa de nascença. O plano <a href="/planos/#mssp">MSSP</a> traz multiempresa com marca própria e SLA contratual, para quem atende vários clientes. Se você preferir deixar a operação com especialistas, a equipe da EBAEM pode operar a plataforma por você — sob consulta. Os módulos de superfície, vulnerabilidades, conformidade e resposta valem para cada empresa, cada uma no seu espaço. E, para quem precisa de separação física, há instância dedicada em nuvem privada, também sob consulta.</p></div>
+
+<h2>Quatro perguntas antes de escolher</h2>
+<ol class="art-steps">
+  <li><strong>Como o isolamento é testado?</strong> Peça o método e o resultado, não só a promessa.</li>
+  <li><strong>Em que escala foi testado?</strong> Dez clientes não é o mesmo que cinquenta.</li>
+  <li><strong>O cliente final vê a sua marca?</strong> Páginas de status e e-mails contam a história do seu serviço.</li>
+  <li><strong>Quem acessou o quê fica registrado?</strong> E por quanto tempo?</li>
+</ol>
+<p>Se você é um MSSP, uma consultoria ou um grupo econômico com várias empresas, vale conhecer também a <a href="/confianca/#protecao">Central de Confiança</a>, onde descrevemos como a própria plataforma é protegida.</p>
+
+<h2>Referências</h2>
+<ul class="art-refs">
+  <li><b>OWASP</b> · Multi-Tenant Security Cheat Sheet — riscos e boas práticas para isolar clientes em sistemas multiempresa — <a href="https://cheatsheetseries.owasp.org/cheatsheets/Multi_Tenant_Security_Cheat_Sheet.html" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>OWASP</b> · Authorization Cheat Sheet — boas práticas de controle de acesso em aplicações — <a href="https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>OWASP</b> · Top 10:2025, A01 — quebra de controle de acesso no primeiro lugar da lista — <a href="https://owasp.org/Top10/2025/A01_2025-Broken_Access_Control/" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>ISO</b> · ISO/IEC 27017 — controles de segurança da informação para serviços em nuvem — <a href="https://www.iso.org/standard/27017" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>Planalto</b> · Lei 13.709/2018 (LGPD), art. 39 — o operador trata dados segundo as instruções do controlador — <a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm" target="_blank" rel="noopener">acessar</a></li>
+</ul>
+
+<div class="art-author"><b>Nota do autor</b><p>Sabemos que, para quem presta serviço, a confiança de cada cliente depende de uma garantia simples: ninguém mais vê o que é dele. Por isso preferimos mostrar o teste e o resultado, em vez de pedir que você acredite na nossa palavra.</p><span>— Equipe CoreCyber · EBAEM</span></div>
+
+<div class="art-cta"><p><strong>Como o CoreCyber ajuda:</strong> multiempresa com isolamento testado, marca própria por cliente e SLA contratual — ou a operação nas mãos da equipe EBAEM.</p><p><a class="btn btn--primary" href="/planos/#mssp">Conhecer o plano MSSP</a></p></div>

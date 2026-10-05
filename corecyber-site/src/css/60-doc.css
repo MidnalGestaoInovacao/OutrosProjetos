@@ -56,6 +56,11 @@
 .cc .channel .ibox { margin: 0; }
 .cc .channel h3 { margin: 0 0 6px; }
 .cc .channel p { color: var(--c-muted); margin: 0 0 12px; font-size: .94rem; }
+.cc .answer { display: grid; gap: 10px; margin: 14px 0 0; }
+.cc .answer > div { display: block; padding: 12px 14px; border-radius: 12px; background: var(--c-bg); border: 1px solid var(--c-line); }
+.cc .answer dt { font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 800; color: var(--c-teal-ink); margin: 0 0 3px; }
+.cc .answer dd { margin: 0; color: var(--c-text); font-size: .94rem; line-height: 1.55; }
+.cc .answer dd strong { color: var(--c-ink); }
 .cc .flow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: .82rem; font-weight: 700; }
 .cc .flow span { background: var(--c-bg); border: 1px solid var(--c-line); border-radius: 999px; padding: 6px 12px; color: var(--c-ink); }
 .cc .flow i { width: 16px; height: 2px; background: var(--c-line2); }

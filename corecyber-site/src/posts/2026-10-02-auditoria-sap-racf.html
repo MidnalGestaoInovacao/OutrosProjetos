@@ -1,0 +1,65 @@
+<!--meta {
+  "slug": "auditoria-sap-racf",
+  "title": "Quem cadastra não aprova: auditoria SAP e RACF com dossiê de evidências e laudo com QR",
+  "description": "Segregação de funções é um dos controles mais antigos da auditoria e um dos mais difíceis de provar em SAP e mainframe. Veja como transformar acessos em evidência conferível.",
+  "date": "2026-10-02",
+  "category": "produto",
+  "tags": ["SAP", "RACF", "Segregação de funções", "Auditoria"],
+  "icon": "mainframe",
+  "cover": {
+    "kicker": "Auditoria · SAP e mainframe",
+    "stat": "5.3",
+    "stat_label": "controle da ISO/IEC 27001:2022 sobre segregação de funções",
+    "s2": "SoD",
+    "s2_label": "segregação de funções na autorização",
+    "s3": "QR",
+    "s3_label": "laudo autenticado e conferível na hora",
+    "question": "Quem na sua empresa consegue cadastrar um fornecedor e aprovar o pagamento dele?"
+  },
+  "alt": "Infográfico CoreCyber — auditoria de acessos SAP e RACF com segregação de funções e laudo com QR"
+} -->
+
+<p class="art-lead">Imagine uma pessoa que consegue cadastrar um fornecedor novo no sistema e, na mesma semana, aprovar o pagamento para ele. Pode ser alguém de total confiança. Pode até ser um erro de configuração que ninguém percebeu. Mas, para o auditor, a pergunta é uma só: <strong>o que impede que isso vire fraude?</strong></p>
+
+<h2>Segregação de funções, sem jargão</h2>
+<p>Segregação de funções — em inglês, segregation of duties, ou SoD — é a regra de que uma tarefa sensível não deve começar e terminar nas mãos da mesma pessoa. Quem cadastra o fornecedor não aprova o pagamento. Quem cria um usuário não aprova o próprio acesso. Quem administra a segurança não audita os registros da própria administração.</p>
+<p>A ideia é antiga e simples: quando duas pessoas precisam participar, um erro ou uma fraude passa a exigir conluio, e a chance de alguém perceber aumenta muito. O difícil não é entender a regra. É provar que ela está sendo cumprida em sistemas com milhares de usuários, perfis e transações.</p>
+
+<div class="art-box art-box--curio"><b>Você sabia?</b><p>A ISO/IEC 27001:2022 tem um controle só para isso: o <strong>5.3, Segregação de funções</strong>, que pede que funções e áreas de responsabilidade conflitantes sejam separadas. Ele fica no tema de controles organizacionais, um dos quatro em que a norma divide os 93 controles do Anexo A.</p></div>
+
+<h2>Por que SAP e mainframe ainda importam tanto</h2>
+<p>Bancos, cooperativas, seguradoras e grandes órgãos públicos ainda rodam parte do seu coração em mainframe e em SAP. Não é saudosismo. São plataformas que processam grandes volumes de transações com muita estabilidade e que acumulam, ao longo de décadas, regras de negócio que ninguém quer reescrever às pressas. Trocar tudo é caro e arriscado. Por isso elas continuam — e continuam guardando o dinheiro, a folha e os cadastros mais críticos da organização.</p>
+<p>Em muitas instalações de mainframe IBM, o controle de acesso fica com o RACF (Resource Access Control Facility), o componente de segurança do z/OS que identifica usuários, autoriza o acesso a recursos e registra as tentativas. No SAP, as autorizações vivem em perfis e funções atribuídos a cada usuário. Nos dois mundos, o problema é parecido: <strong>acessos se acumulam</strong>. A pessoa muda de área, ganha um perfil novo e mantém o antigo. Em poucos anos, ninguém sabe dizer com segurança quem pode fazer o quê.</p>
+
+<h2>O que o auditor quer ver</h2>
+<p>Auditoria interna, auditoria externa, reguladores e órgãos de controle fazem perguntas parecidas. E nenhuma delas se responde com “confie em nós”:</p>
+<ul class="checks">
+  <li><strong>Quem tem acesso a quê,</strong> com base nos dados do próprio sistema, e não numa planilha montada à mão.</li>
+  <li><strong>Quais combinações de acesso são conflitantes</strong> e quem as acumula hoje.</li>
+  <li><strong>Se as fontes conversam entre si:</strong> o que aparece num lugar e não aparece no outro costuma ser exatamente o que precisa de atenção.</li>
+  <li><strong>Se o documento é autêntico:</strong> se o relatório recebido é o mesmo que foi emitido, sem edição no caminho.</li>
+</ul>
+<p>Evidência boa tem três qualidades: vem da fonte, pode ser refeita e não muda sem que alguém perceba. Com isso, a auditoria interna acompanha a correção de uma rodada para a outra, e o regulador ou o órgão de controle recebe um documento que se sustenta sozinho, sem depender de quem o montou.</p>
+
+<div class="art-box art-box--hook"><b>E o CoreCyber com isso?</b><p>O CoreCyber faz <a href="/plataforma/#auditorias">auditoria SAP e auditoria RACF</a> a partir das extrações de acesso desses sistemas. O resultado é um <strong>dossiê de evidências</strong> com análise de segregação de funções, <strong>conciliações cruzadas</strong> entre as fontes e um <strong>laudo autenticado por QR</strong>: quem recebe aponta a câmera do celular e confere, numa página pública, se o documento é legítimo. A auditoria é contratada <a href="/planos/#complementos">por projeto</a>, como complemento de qualquer plano, com escopo, cronograma e entregáveis definidos na proposta.</p></div>
+
+<h2>Como se preparar para a primeira rodada</h2>
+<ol class="art-steps">
+  <li><strong>Defina o escopo.</strong> Quais ambientes, quais empresas do grupo e quais processos críticos — compras, pagamentos, folha, administração de segurança.</li>
+  <li><strong>Combine quem extrai os dados.</strong> A equipe que administra o SAP ou o RACF gera as extrações; a área de auditoria acompanha.</li>
+  <li><strong>Liste os conflitos que importam.</strong> Toda organização tem as suas combinações proibidas. Escrever isso antes evita discussão depois.</li>
+  <li><strong>Decida o que fazer com os achados.</strong> Remover o acesso, aceitar o risco com justificativa ou criar um controle compensatório. O laudo mostra; a decisão é da gestão.</li>
+</ol>
+<p>Uma boa auditoria de acessos não termina no relatório. Ela vira rotina: o que foi corrigido hoje precisa continuar corrigido na próxima rodada. E quando a evidência é organizada e conferível, a conversa com o auditor fica mais curta e mais objetiva — para os dois lados da mesa.</p>
+
+<h2>Referências</h2>
+<ul class="art-refs">
+  <li><b>ISO</b> · ISO/IEC 27001:2022 — Anexo A, controle 5.3, segregação de funções — <a href="https://www.iso.org/standard/27001" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>IBM</b> · RACF, o componente de segurança do z/OS para identificação, autorização e registro de acessos — <a href="https://www.ibm.com/products/resource-access-control-facility" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>ISACA</b> · associação internacional de auditoria, governança e controle de sistemas de informação — <a href="https://www.isaca.org/" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>COSO</b> · Controle Interno, Estrutura Integrada — referência em atividades de controle, incluindo a segregação de funções — <a href="https://www.coso.org/" target="_blank" rel="noopener">acessar</a></li>
+</ul>
+
+<div class="art-author"><b>Nota do autor</b><p>Sabemos que auditoria de acessos em sistemas críticos costuma acontecer sob pressão, com prazo curto e planilhas longas. Criamos esta auditoria para que a resposta ao auditor dependa menos de esforço manual e mais de evidência que qualquer pessoa consegue conferir.</p><span>— Equipe CoreCyber · EBAEM</span></div>
+
+<div class="art-cta"><p><strong>Como o CoreCyber ajuda:</strong> auditoria de acessos SAP e RACF por projeto, com segregação de funções analisada, dossiê de evidências e laudo que qualquer auditor confere pelo QR.</p><p><a class="btn btn--primary" href="/contato/">Falar sobre uma auditoria</a></p></div>

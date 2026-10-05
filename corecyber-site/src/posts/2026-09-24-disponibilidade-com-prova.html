@@ -1,0 +1,69 @@
+<!--meta {
+  "slug": "disponibilidade-com-prova",
+  "title": "Seu site caiu às 3h. Quem ficou sabendo primeiro: você ou o cliente?",
+  "description": "Monitores HTTP/S e TCP, latência p95, meta de SLA, aviso de certificado vencendo e página de status pública. Veja como trocar o “parece que caiu” por números que se provam.",
+  "date": "2026-09-24",
+  "category": "produto",
+  "tags": ["Disponibilidade", "SLA", "Página de status"],
+  "icon": "activity",
+  "cover": {
+    "kicker": "Disponibilidade · SLA",
+    "stat": "3,6 h",
+    "stat_label": "de queda num mês de 30 dias cabem numa meta de 99,5%",
+    "s2": "p95",
+    "s2_label": "a latência que a média esconde",
+    "s3": "30 d",
+    "s3_label": "uptime em 24 horas, 7 e 30 dias",
+    "question": "Se o seu portal cair esta noite, quem vai avisar você primeiro?"
+  },
+  "alt": "Infográfico CoreCyber — monitoramento de disponibilidade com meta de SLA e página de status"
+} -->
+
+<p class="art-lead">O portal ficou fora do ar das 3h às 5h da manhã. A equipe só soube às 8h, pelo e-mail de um cliente irritado. Pior do que a queda foi a conversa depois: ninguém sabia dizer quando ela começou, quanto durou nem se o SLA do contrato tinha sido cumprido.</p>
+
+<h2>O cliente sente. Você precisa medir.</h2>
+<p>Para quem usa o serviço, só existem dois estados: funciona ou não funciona. Para quem o mantém, a realidade é cheia de nuances. O site está no ar, mas lento. A API responde, mas o certificado vence em cinco dias. O servidor de e-mail aceita conexão, mas só às vezes.</p>
+<p>Monitorar disponibilidade é transformar essas nuances em números — e avisar a pessoa certa antes que o cliente perceba.</p>
+
+<h2>O que medir, em linguagem simples</h2>
+<ul class="checks">
+  <li><strong>Monitores HTTP/S e TCP:</strong> o primeiro verifica se o site ou a API respondem; o segundo, se uma porta de serviço, como a do e-mail, aceita conexão.</li>
+  <li><strong>Uptime em 24 horas, 7 e 30 dias:</strong> a porcentagem do tempo em que o serviço esteve disponível. A janela de 24 horas mostra o agora; a de 30 dias, a tendência.</li>
+  <li><strong>Latência média e p95:</strong> o tempo de resposta. A média ajuda, mas esconde os picos — explicamos logo abaixo.</li>
+  <li><strong>Meta de SLA:</strong> o compromisso de disponibilidade, lado a lado com o que foi medido.</li>
+  <li><strong>Vencimento do certificado TLS e do domínio:</strong> dois motivos evitáveis para um site sair do ar.</li>
+  <li><strong>Janelas de manutenção:</strong> para silenciar os alertas durante a parada programada de sábado.</li>
+</ul>
+
+<h2>p95: o número que a média esconde</h2>
+<p>Imagine 100 acessos ao seu site. Noventa e dois respondem em 0,3 segundo; oito demoram 3 segundos. A média fica em cerca de meio segundo — parece ótimo. Agora ordene os 100 tempos, do mais rápido para o mais lento, e olhe o 95º: ele é de 3 segundos. Esse é o <strong>p95</strong>, o percentil 95.</p>
+<p>Os dois números estão certos. Mas só o segundo mostra que quase um em cada dez acessos está lento demais. O livro de SRE (engenharia de confiabilidade) do Google descreve o mesmo efeito: a latência média pode ficar estável ao longo do dia enquanto os acessos mais lentos mudam muito — por isso recomenda olhar percentis.</p>
+
+<div class="art-box art-box--curio"><b>Você sabia?</b><p>Uma meta de 99,5% de disponibilidade parece quase perfeita, mas permite cerca de <strong>3,6 horas de indisponibilidade</strong> num mês de 30 dias: são 720 horas, e 0,5% delas dá 3 h 36 min. Com 99,9%, a folga cai para uns 43 minutos. Cada “nove” a mais custa caro — e o próprio livro de SRE do Google lembra que 100% de disponibilidade é impossível.</p></div>
+
+<h2>Certificado vencido: o apagão mais evitável</h2>
+<p>Para o visitante, um certificado TLS vencido é quase igual a um site fora do ar: o navegador mostra um aviso de segurança no lugar da página. E a janela de renovação está encolhendo. Em abril de 2025, o CA/Browser Forum, que reúne autoridades certificadoras e fabricantes de navegadores, aprovou a redução gradual da validade máxima dos certificados TLS públicos de 398 para 47 dias, em etapas entre março de 2026 e março de 2029. Renovar vai virar rotina. Esquecer, também — a menos que alguém avise.</p>
+<p>O CoreCyber avisa sobre o vencimento do certificado TLS e também do registro do domínio, o outro esquecimento que derruba site, e-mail e tudo o que depende deles.</p>
+
+<h2>Página de status: a resposta antes da pergunta</h2>
+<p>Quando algo cai, o cliente quer saber duas coisas: vocês já sabem? Quando volta? Uma página de status pública responde às duas sem que ninguém precise atender o telefone. No CoreCyber, cada empresa pode ter páginas de status públicas, com o próprio logo e versão em PDF — útil para anexar ao relatório do mês ou enviar a quem pediu prova de SLA.</p>
+
+<h2>Do alerta ao chamado, sem copiar e colar</h2>
+<p>Alerta bom chega onde a equipe já está: e-mail, Telegram, Slack ou webhook para o sistema que você preferir. Se a sua empresa usa o GLPI, os chamados são abertos e fechados automaticamente, e o histórico da queda fica no lugar certo, sem ninguém copiar dados de uma tela para outra.</p>
+<p>Para quem tem dezenas de serviços, os alvos podem ser importados de uma planilha CSV ou XLSX. E, sendo transparentes: o resumo diário ou semanal de alertas e os avisos por Microsoft Teams e WhatsApp estão <strong>em evolução</strong> — ainda não estão prontos.</p>
+
+<div class="art-box art-box--hook"><b>E o CoreCyber com isso?</b><p>A disponibilidade faz parte do plano Essencial, junto com o monitoramento contínuo da superfície de ataque. Assim, o mesmo painel mostra se o site está no ar e o que ele expõe à internet. E, quando uma queda importa para a segurança, ela entra nas detecções correlacionadas: disponibilidade é uma das cinco regras que cruzam sinais da plataforma.</p></div>
+
+<h2>Por onde começar</h2>
+<p>Liste os cinco serviços que, se caírem, fazem o telefone tocar. Cadastre um monitor para cada um, defina uma meta de SLA realista e escolha quem recebe o alerta de madrugada. Em uma semana, você terá o primeiro histórico de uptime e de p95 para mostrar. E, se quiser saber também o que esses serviços expõem, peça um <a href="/diagnostico-gratuito/">diagnóstico gratuito de exposição</a>.</p>
+
+<h2>Referências</h2>
+<ul class="art-refs">
+  <li><b>Google SRE</b> · Site Reliability Engineering, capítulo “Service Level Objectives” — SLI, SLO, SLA e uso de percentis — <a href="https://sre.google/sre-book/service-level-objectives/" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>CA/Browser Forum</b> · Ballot SC081v3 — cronograma de redução da validade dos certificados TLS públicos — <a href="https://cabforum.org/2025/04/11/ballot-sc081v3-introduce-schedule-of-reducing-validity-and-data-reuse-periods/" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>GLPI</b> · Projeto GLPI, sistema aberto de gestão de serviços de TI — <a href="https://glpi-project.org/" target="_blank" rel="noopener">acessar</a></li>
+</ul>
+
+<div class="art-author"><b>Nota do autor</b><p>Disponibilidade é o tema de segurança que o cliente sente primeiro. Queremos que a sua equipe tenha sempre a primeira palavra sobre uma queda — e números para mostrar quando ela acabou.</p><span>— Equipe CoreCyber · EBAEM</span></div>
+
+<div class="art-cta"><p><strong>Como o CoreCyber ajuda:</strong> monitores, meta de SLA, certificados, domínios e páginas de status num só painel, com alerta e chamado automático.</p><p><a class="btn btn--primary" href="/plataforma/#disponibilidade">Conhecer o monitoramento de disponibilidade</a></p></div>

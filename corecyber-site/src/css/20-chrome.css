@@ -50,22 +50,23 @@ body.admin-bar header.wp-block-template-part { top: calc(32px - var(--c-topbar-h
 .cc .cc-nav-cta { display: flex; gap: 10px; align-items: center; flex: none; }
 
 /* ---------- megamenu ---------- */
-.cc .mega { position: absolute; top: calc(100% + 12px); left: 50%; width: min(760px, 92vw); transform: translate(-50%, 8px); background: var(--c-surface); border: 1px solid var(--c-line); border-radius: 20px; box-shadow: var(--c-shadow-lg); padding: 18px; display: grid; grid-template-columns: 1.6fr 1fr; gap: 14px; opacity: 0; visibility: hidden; transition: opacity .25s, transform .25s var(--c-ease), visibility .25s; z-index: 950; }
+.cc .mega { position: absolute; top: calc(100% + 12px); left: 50%; width: min(840px, 94vw); transform: translate(-50%, 8px); background: var(--c-surface); border: 1px solid var(--c-line); border-radius: 20px; box-shadow: var(--c-shadow-lg); padding: 18px; display: grid; grid-template-columns: minmax(0, 1.75fr) minmax(0, 1fr); gap: 14px; opacity: 0; visibility: hidden; transition: opacity .25s, transform .25s var(--c-ease), visibility .25s; z-index: 950; }
 .cc .mega::before { content: ""; position: absolute; top: -14px; left: 0; right: 0; height: 14px; }
 .cc .has-mega.is-open > .mega { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
-.cc .mega-links { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+.cc .mega-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; align-content: start; }
 .cc .mega-links a { display: flex; gap: 12px; align-items: flex-start; padding: 11px 12px; border-radius: 13px; color: var(--c-text); text-decoration: none !important; transition: background .2s; }
 .cc .mega-links a:hover { background: var(--c-bg); }
+.cc .mega-links a > span:not(.ibox) { display: block; min-width: 0; }
 .cc .mega-links a b { display: block; color: var(--c-ink); font-size: .92rem; line-height: 1.3; }
-.cc .mega-links a span { display: block; color: var(--c-muted); font-size: .8rem; line-height: 1.4; margin-top: 2px; }
-.cc .mega-links .ibox { margin: 0; width: 36px; height: 36px; border-radius: 10px; }
-.cc .mega-links .ibox .ico { width: 18px; height: 18px; }
+.cc .mega-links a > span:not(.ibox) > span { display: block; color: var(--c-muted); font-size: .8rem; line-height: 1.4; margin-top: 2px; }
+.cc .mega-links .ibox { display: grid; place-items: center; flex: none; margin: 1px 0 0; width: 38px; height: 38px; border-radius: 11px; }
+.cc .mega-links .ibox .ico { display: block; width: 19px; height: 19px; }
 .cc .mega-promo { border-radius: 16px; padding: 20px; background: radial-gradient(260px 160px at 100% 0%, rgba(25, 195, 214, .35), transparent 60%), var(--c-navy); color: #c9d4ec; display: flex; flex-direction: column; gap: 10px; }
 .cc .mega-promo b { color: #fff; font-size: 1.05rem; line-height: 1.3; }
 .cc .mega-promo p { font-size: .86rem; margin: 0; color: #b9c6e3; }
 .cc .mega-promo .btn { margin-top: auto; align-self: flex-start; }
 .cc .mega--wide { width: min(860px, 94vw); grid-template-columns: 1fr; }
-.cc .mega--wide .mega-links { grid-template-columns: repeat(3, 1fr); }
+.cc .mega--wide .mega-links { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
 /* ---------- gaveta mobile ---------- */
 .cc .cc-burger { display: none; width: 46px; height: 46px; border-radius: 12px; border: 1px solid var(--c-line2); background: var(--c-surface); position: relative; flex: none; }
@@ -80,6 +81,8 @@ body.admin-bar header.wp-block-template-part { top: calc(32px - var(--c-topbar-h
 .cc .cc-drawer .dr-title { font-size: .74rem; letter-spacing: .12em; text-transform: uppercase; color: var(--c-dim); font-weight: 800; margin: 10px 0 4px; }
 .cc .cc-drawer a { display: flex; gap: 12px; align-items: center; padding: 11px 4px; color: var(--c-ink); font-weight: 700; text-decoration: none; }
 .cc .cc-drawer a .ico { color: var(--c-teal-ink); }
+.cc .cc-drawer a.dr-sub { padding: 8px 4px 8px 22px; font-weight: 600; font-size: .94rem; color: var(--c-text); }
+.cc .cc-drawer a.dr-sub .ico { width: 18px; height: 18px; }
 .cc .cc-drawer .dr-cta { display: grid; gap: 10px; margin-top: 18px; }
 @media (max-width: 1140px) {
   .cc .cc-menu > ul > li > a, .cc .cc-menu > ul > li > button { padding: 10px 9px; font-size: .9rem; }

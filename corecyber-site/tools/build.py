@@ -21,6 +21,11 @@ Marcadores aceitos nos HTML de src/:
   {{price:plano:tier}} preço mensal formatado (referência para quem não tem JS)
   {{pa:plano:tier}}    preço mensal equivalente no plano anual
   {{tier:N}}           tamanho da faixa N de ativos      {{managed}} preço inicial do gerenciado
+  {{posts:filtros}}    filtros por categoria da página Conteúdos
+  {{posts:lista}}      todos os cartões de matérias       {{posts:recentes:N}} as N mais recentes
+
+Matérias: src/posts/AAAA-MM-DD-slug.html (guia em docs/MATERIAS.md) viram /conteudos/slug/ na prévia
+e posts no WordPress (build/wp/posts/ + build/wp/posts.json). Capas: tools/covers.py.
 """
 import base64
 import gzip
@@ -117,6 +122,8 @@ def expand(text):
             return fmt_brl(CFG["pricing"]["managed_from"])
         if kind == "year":
             return "2026"
+        if kind == "posts":
+            return posts_marker(arg or "lista")
         raise SystemExit(f"marcador desconhecido: {m.group(0)}")
     return TOKEN.sub(rep, text)
 
@@ -310,9 +317,201 @@ def load_pages():
     return pages
 
 
+# ---------------------------------------------------------------- matérias
+CATS = {  # id -> (rótulo, ícone)
+    "produto": ("Produto", "cube"),
+    "diferenciais": ("Diferenciais", "star"),
+    "conformidade": ("Conformidade", "clipboard"),
+    "guias": ("Guias práticos", "book"),
+    "bastidores": ("Bastidores", "building"),
+}
+MONTHS = ("janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto",
+          "setembro", "outubro", "novembro", "dezembro")
+POSTS = []
+COVER_KEYS = ("kicker", "stat", "stat_label", "s2", "s2_label", "s3", "s3_label", "question")
+
+
+def pt_date(iso):
+    y, m, d = (int(x) for x in iso.split("-"))
+    return f"{d} de {MONTHS[m - 1]} de {y}"
+
+
+def slugify(t):
+    import unicodedata
+    t = unicodedata.normalize("NFKD", t).encode("ascii", "ignore").decode().lower()
+    return re.sub(r"[^a-z0-9]+", "-", t).strip("-")[:48]
+
+
+def load_posts():
+    posts = []
+    d = SRC / "posts"
+    for f in sorted(d.glob("*.html")) if d.exists() else []:
+        raw = f.read_text(encoding="utf-8")
+        m = META_RE.search(raw)
+        if not m:
+            raise SystemExit(f"{f.name}: falta o comentário <!--meta {{...}} -->")
+        meta = json.loads(m.group(1))
+        body = META_RE.sub("", raw, count=1).strip()
+        if meta.get("category") not in CATS:
+            raise SystemExit(f"{f.name}: categoria inválida {meta.get('category')!r}")
+        words = len(BeautifulSoup(body, "html.parser").get_text(" ").split())
+        meta.update(file=f.name, body=body, words=words, read=max(3, round(words / 200)))
+        posts.append(meta)
+    posts.sort(key=lambda p: (p["date"], p["slug"]), reverse=True)
+    return posts
+
+
+def cover_url(slug, lang):
+    for key in (f"posts/{slug}.{lang}", f"posts/{slug}.pt"):
+        if (WP_MODE and key in MEDIA) or (not WP_MODE and (SRC / "img" / f"{key}.webp").exists()):
+            return img_url(key)
+    return img_url("og")
+
+
+def cover_img(p, cls="", alt="", eager=False):
+    s = p["slug"]
+    pt, en, es = (cover_url(s, l) for l in ("pt", "en", "es"))
+    load = 'fetchpriority="high"' if eager else 'loading="lazy"'
+    return (f'<img{cls} src="{pt}" data-src-en="{en}" data-src-es="{es}" alt="{html.escape(alt, quote=True)}" '
+            f'width="1200" height="675" {load} decoding="async">')
+
+
+def post_href(p):
+    return f"/conteudos/{p['slug']}/"
+
+
+def post_card(p, extra=""):
+    label, ico = CATS[p["category"]]
+    return (f'<a class="post-card{extra}" href="{post_href(p)}" data-cat="{p["category"]}">'
+            f'<span class="pc-img">{cover_img(p)}</span>'
+            f'<span class="pc-body"><span class="pc-meta"><span class="pc-cat">{label}</span>'
+            f'<time datetime="{p["date"]}" data-date data-noi18n>{pt_date(p["date"])}</time></span>'
+            f'<b class="pc-title">{html.escape(p["title"], quote=False)}</b>'
+            f'<span class="pc-ex">{html.escape(p["description"], quote=False)}</span>'
+            f'<span class="pc-more">Ler matéria {{{{i:arrow:arrow}}}}</span></span></a>')
+
+
+def posts_marker(arg):
+    return expand(_posts_marker(arg))
+
+
+def _posts_marker(arg):
+    parts = arg.split(":")
+    if not POSTS:
+        return ""
+    if parts[0] == "filtros":
+        btns = ['<button type="button" class="chip" data-post-filter="all" aria-pressed="true">Todas</button>']
+        for cid, (label, ico) in CATS.items():
+            n = sum(1 for p in POSTS if p["category"] == cid)
+            if n:
+                btns.append(f'<button type="button" class="chip" data-post-filter="{cid}" aria-pressed="false">'
+                            f'{{{{i:{ico}}}}} {label}</button>')
+        return '<div class="post-filters" role="group" aria-label="Filtrar por categoria">' + "".join(btns) + "</div>"
+    if parts[0] == "recentes":
+        n = int(parts[1]) if len(parts) > 1 else 3
+        return '<div class="post-grid">' + "".join(post_card(p) for p in POSTS[:n]) + "</div>"
+    cards = [post_card(p, " post-card--feature" if i == 0 else "") for i, p in enumerate(POSTS)]
+    return ('<div class="post-grid post-grid--all" data-post-list>' + "".join(cards) + "</div>"
+            '<p class="post-empty muted" hidden>Nenhuma matéria nesta categoria ainda.</p>')
+
+
+def post_body(p):
+    """Página completa da matéria (antes da tradução)."""
+    soup = BeautifulSoup(expand(p["body"]), "html.parser")
+    toc, used = [], set()
+    for h in soup.find_all("h2"):
+        hid = h.get("id") or slugify(h.get_text(" "))
+        while hid in used:
+            hid += "-2"
+        used.add(hid)
+        h["id"] = hid
+        toc.append(f'<li><a href="#{hid}">{inner_html(h)}</a></li>')
+    for a in soup.find_all("a", href=True):
+        if a["href"].startswith("http") and not a.get("target"):
+            a["target"] = "_blank"; a["rel"] = "noopener"
+    body = str(soup)
+    label, ico = CATS[p["category"]]
+    i = POSTS.index(p)
+    newer = POSTS[i - 1] if i > 0 else None
+    older = POSTS[i + 1] if i + 1 < len(POSTS) else None
+    same = [q for q in POSTS if q is not p and q["category"] == p["category"]]
+    rest = [q for q in POSTS if q is not p and q not in same]
+    related = (same + rest)[:3]
+    tags = "".join(f'<span class="badge">{html.escape(t, quote=False)}</span>' for t in p.get("tags", []))
+    nav = ""
+    if older or newer:
+        nav = '<nav class="art-nav" aria-label="Outras matérias">'
+        if older:
+            nav += (f'<a class="art-nav-prev" href="{post_href(older)}">{{{{i:arrow}}}}<span><small>Matéria anterior</small>'
+                    f'<b>{html.escape(older["title"], quote=False)}</b></span></a>')
+        if newer:
+            nav += (f'<a class="art-nav-next" href="{post_href(newer)}"><span><small>Próxima matéria</small>'
+                    f'<b>{html.escape(newer["title"], quote=False)}</b></span>{{{{i:arrow}}}}</a>')
+        nav += "</nav>"
+    out = f"""
+<article class="art" itemscope itemtype="https://schema.org/BlogPosting">
+<section class="page-hero art-hero">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Você está aqui"><a href="/">Início</a><span aria-hidden="true">›</span><a href="/conteudos/">Conteúdos</a><span aria-hidden="true">›</span><span aria-current="page">{label}</span></nav>
+    <a class="badge badge--teal art-cat" href="/conteudos/?cat={p['category']}">{{{{i:{ico}}}}} {label}</a>
+    <h1 itemprop="headline">{html.escape(p['title'], quote=False)}</h1>
+    <p class="lead" itemprop="description">{html.escape(p['description'], quote=False)}</p>
+    <div class="art-meta">
+      <span>{{{{i:calendar}}}} <time datetime="{p['date']}T08:00:00-03:00" itemprop="datePublished" data-date data-noi18n>{pt_date(p['date'])}</time></span>
+      <span>{{{{i:clock}}}} <b data-noi18n>{p['read']}</b> <span>min de leitura</span></span>
+      <span itemprop="author" itemscope itemtype="https://schema.org/Organization">{{{{i:pen}}}} <span itemprop="name">Equipe CoreCyber · EBAEM</span></span>
+    </div>
+  </div>
+</section>
+<div class="wrap art-wrap">
+  <div class="art-grid">
+    <div class="art-main">
+      <figure class="art-cover">{cover_img(p, ' itemprop="image"', p.get('alt', ''), eager=True)}</figure>
+      <div class="art-body" itemprop="articleBody">
+{body}
+        <div class="art-tags">{tags}</div>
+      </div>
+    </div>
+    <aside class="art-side" aria-label="Sobre esta matéria">
+      <div class="art-side-card">
+        <b>Nesta matéria</b>
+        <ol class="art-toc">{"".join(toc)}</ol>
+      </div>
+      <div class="art-side-card art-share">
+        <b>Compartilhe</b>
+        <div class="row">
+          <button type="button" class="share-btn" data-share="linkedin" aria-label="Compartilhar no LinkedIn" title="LinkedIn">{{{{i:linkedin}}}}</button>
+          <button type="button" class="share-btn" data-share="whatsapp" aria-label="Compartilhar no WhatsApp" title="WhatsApp">{{{{if:whatsapp}}}}</button>
+          <button type="button" class="share-btn" data-share="email" aria-label="Enviar por e-mail" title="E-mail">{{{{i:mail}}}}</button>
+          <button type="button" class="share-btn" data-share="copy" aria-label="Copiar o link" title="Copiar o link">{{{{i:link}}}}</button>
+        </div>
+      </div>
+      <div class="art-side-card art-side-promo">
+        <span class="badge badge--teal">{{{{i:sparkles}}}} Gratuito</span>
+        <b>Descubra o que a internet já sabe sobre a sua empresa.</b>
+        <p>Diagnóstico externo não invasivo, com relatório em até 2 dias úteis.</p>
+        <a class="btn btn--light btn--sm" href="/diagnostico-gratuito/">Quero meu diagnóstico {{{{i:arrow:arrow}}}}</a>
+      </div>
+    </aside>
+  </div>
+  {nav}
+</div>
+</article>
+<section class="sec sec--white sec--line" aria-labelledby="rel-h">
+  <div class="wrap">
+    <div class="sec-head sec-head--row"><div><span class="eyebrow">Continue lendo</span><h2 id="rel-h">Outras matérias para você.</h2></div><a class="btn btn--ghost" href="/conteudos/">Ver todas as matérias {{{{i:arrow:arrow}}}}</a></div>
+    <div class="post-grid">{"".join(post_card(q) for q in related)}</div>
+  </div>
+</section>
+"""
+    return expand(out)
+
+
 PLAIN = WP_MODE and CFG.get("wp", {}).get("permalinks") == "plain"
 SLUGS = set()
 HREF_RE = re.compile(r'href="/([a-z0-9-]+)/(\?[^"#]*)?(#[^"]*)?"')
+POST_RE = re.compile(r'href="/conteudos/([a-z0-9-]+)/(#[^"]*)?"')
+POST_SLUGS = set()
 
 
 def plain_links(text):
@@ -325,14 +524,19 @@ def plain_links(text):
             return m.group(0)
         q = ("&" + q[1:]) if q else ""
         return f'href="/?pagename={slug}{q}{frag}"'
-    return HREF_RE.sub(rep, text)
+    text = HREF_RE.sub(rep, text)
+    def rep_post(m):
+        if m.group(1) not in POST_SLUGS:
+            return m.group(0)
+        return f'href="/?name={m.group(1)}{m.group(2) or ""}"'
+    return POST_RE.sub(rep_post, text)
 
 
 def public_cfg():
     c = CFG
     return {
         "site": c["site"], "company": c["company"], "links": c["links"],
-        "wp": {"plain": PLAIN, "slugs": sorted(SLUGS)},
+        "wp": {"plain": PLAIN, "slugs": sorted(SLUGS), "posts": sorted(POST_SLUGS)},
         "ai": {k: v for k, v in c["ai"].items() if not k.startswith("_")},
         "pricing": c["pricing"],
         "img": {"icon": img_url("icon-64"), "icon180": img_url("icon-180")},
@@ -343,6 +547,11 @@ def main():
     tr = {"en": load_tr("en"), "es": load_tr("es")}
     pages = load_pages()
     SLUGS.update(p["slug"] for p in pages if p["slug"] and p["slug"] != "404")
+    POSTS[:] = load_posts()
+    POST_SLUGS.update(p["slug"] for p in POSTS)
+    dup = {p["slug"] for p in POSTS if [q["slug"] for q in POSTS].count(p["slug"]) > 1} | (POST_SLUGS & SLUGS)
+    if dup:
+        raise SystemExit(f"slugs de matéria repetidos ou iguais a páginas: {sorted(dup)}")
 
     early = (SRC / "js" / "cc.early.js").read_text(encoding="utf-8")
     header = js_inline(early, "cc-early") + "\n" + i18n_process(
@@ -365,6 +574,25 @@ def main():
         content = (f'<div class="cc cc-page" id="cc-content" data-page="{slug or "inicio"}">\n{plain_links(body)}\n</div>\n'
                    + json_block(payload, "cc-i18n", compress=True) + mods)
         built.append({**p, "content": content})
+
+    # ------------------------------------------------ matérias
+    built_posts = []
+    for p in POSTS:
+        page = "post:" + p["slug"]
+        body = i18n_process(post_body(p), page)
+        tkey = register(html.escape(p["title"], quote=False), page)
+        dkey = register(html.escape(p["description"], quote=False), page)
+        for k in COVER_KEYS:   # textos da capa (traduzidos para as capas EN/ES em tools/covers.py)
+            v = p.get("cover", {}).get(k, "")
+            if re.search(r"[A-Za-zÀ-ÿ]", v):
+                register(html.escape(v, quote=False), "_covers")
+        keys = sorted(k for k, pg in USAGE.items() if page in pg)
+        payload = {"_meta": {"title": tkey, "desc": dkey}}
+        for lang in ("en", "es"):
+            payload[lang] = {k: plain_links(tr[lang][k]) for k in keys if k in tr[lang]}
+        content = (f'<div class="cc cc-page cc-post" id="cc-content" data-page="post" data-nav="conteudos">\n'
+                   f'{plain_links(body)}\n</div>\n' + json_block(payload, "cc-i18n", compress=True))
+        built_posts.append({**p, "content": content})
 
     chrome_keys = sorted(k for k, pg in USAGE.items() if "_chrome" in pg)
     chrome_payload = {lang: {k: plain_links(tr[lang][k]) for k in chrome_keys if k in tr[lang]} for lang in ("en", "es")}
@@ -401,6 +629,14 @@ def main():
         manifest.append({"slug": p["slug"], "title": p["title"], "description": p["description"],
                          "file": name, "order": p.get("order", 50)})
     (wp / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=1), encoding="utf-8")
+    (wp / "posts").mkdir()
+    pman = []
+    for p in built_posts:
+        (wp / "posts" / f"{p['slug']}.html").write_text(p["content"], encoding="utf-8")
+        pman.append({"slug": p["slug"], "title": p["title"], "excerpt": p["description"], "date": p["date"],
+                     "category": p["category"], "category_name": CATS[p["category"]][0], "tags": p.get("tags", []),
+                     "cover": f"posts/{p['slug']}.pt", "alt": p.get("alt", ""), "file": f"posts/{p['slug']}.html"})
+    (wp / "posts.json").write_text(json.dumps(pman, ensure_ascii=False, indent=1), encoding="utf-8")
 
     # ------------------------------------------------ prévia estática
     if DIST.exists():
@@ -413,8 +649,12 @@ def main():
     (DIST / "assets" / "css" / "corecyber.css").write_text(css, encoding="utf-8")
     font_face = ('<style>@font-face{font-family:"Manrope";src:url("/assets/fonts/Manrope-VariableFont_wght.woff2") '
                  'format("woff2");font-weight:200 800;font-display:swap}</style>') if fonts.exists() else ""
-    for p in built:
-        out = DIST / (p["slug"] or "") / "index.html" if p["slug"] else DIST / "index.html"
+    for p in built + built_posts:
+        if p in built_posts:
+            out = DIST / "conteudos" / p["slug"] / "index.html"
+            p = {**p, "og": cover_url(p["slug"], "pt")}
+        else:
+            out = DIST / (p["slug"] or "") / "index.html" if p["slug"] else DIST / "index.html"
         out.parent.mkdir(parents=True, exist_ok=True)
         doc = f"""<!doctype html>
 <html lang="pt-BR">
@@ -425,7 +665,7 @@ def main():
 <meta name="description" content="{html.escape(p['description'], quote=True)}">
 <meta property="og:title" content="{html.escape(p['title'], quote=True)} – CoreCyber">
 <meta property="og:description" content="{html.escape(p['description'], quote=True)}">
-<meta property="og:image" content="/assets/img/og.jpg">
+<meta property="og:image" content="{p.get('og', '/assets/img/og.jpg')}">
 <meta name="theme-color" content="#002141">
 <link rel="icon" href="/assets/img/icon-64.png">
 {font_face}
@@ -447,7 +687,7 @@ def main():
     nf = next((p for p in built if p["slug"] == "404"), None)
     if nf:
         shutil.copy(DIST / "404" / "index.html", DIST / "404.html")
-    print(f"[build] {len(built)} páginas · CSS {len(css)//1024} KB · núcleo JS {len(core)//1024} KB · modo {'WP' if WP_MODE else 'prévia'}")
+    print(f"[build] {len(built)} páginas · {len(built_posts)} matérias · CSS {len(css)//1024} KB · núcleo JS {len(core)//1024} KB · modo {'WP' if WP_MODE else 'prévia'}")
 
 
 def check(files):

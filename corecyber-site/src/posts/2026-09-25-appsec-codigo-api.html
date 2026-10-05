@@ -1,0 +1,72 @@
+<!--meta {
+  "slug": "appsec-codigo-api",
+  "title": "Do código à API: senhas esquecidas, bibliotecas vulneráveis e SBOM no mesmo painel",
+  "description": "SAST, SCA, DAST, SBOM e SARIF explicados sem jargão — e como o CoreCyber junta análise de código, dependências, segredos expostos e testes de API em um só lugar.",
+  "date": "2026-09-25",
+  "category": "produto",
+  "tags": ["AppSec", "SBOM", "APIs", "OWASP"],
+  "icon": "code",
+  "cover": {
+    "kicker": "AppSec · Código e APIs",
+    "stat": "3 em 1",
+    "stat_label": "código, dependências e segredos numa só análise",
+    "s2": "SBOM",
+    "s2_label": "no padrão CycloneDX 1.5",
+    "s3": "SARIF",
+    "s3_label": "entre 5 formatos de exportação",
+    "question": "Quantas senhas esquecidas existem hoje no histórico do seu repositório?"
+  },
+  "alt": "Infográfico CoreCyber — análise de código, dependências, segredos e APIs em um painel"
+} -->
+
+<p class="art-lead">Um desenvolvedor sobe uma correção às pressas numa sexta à noite. Junto vai um arquivo de configuração com a senha do banco de dados. Ninguém percebe — até que alguém de fora perceba. Muitas das falhas que chegam à produção nasceram meses antes: numa linha de código, numa biblioteca desatualizada ou numa API publicada sem revisão.</p>
+
+<h2>Uma sopa de siglas, explicada</h2>
+<p>Segurança de aplicações, o tal AppSec, tem fama de difícil, em parte por causa das siglas. Mas elas descrevem ideias simples:</p>
+<ul class="checks">
+  <li><strong>SAST</strong> (teste estático): lê o código-fonte em busca de padrões inseguros, como uma consulta ao banco montada com o texto que o usuário digitou. É revisar a receita antes de cozinhar.</li>
+  <li><strong>SCA</strong> (análise de composição): confere as bibliotecas de terceiros que o seu software usa e aponta as que têm falhas conhecidas. Muito do que roda no seu sistema não foi escrito pela sua equipe — e também precisa ser vigiado.</li>
+  <li><strong>Segredos expostos:</strong> senhas, chaves de API e tokens esquecidos no repositório.</li>
+  <li><strong>DAST</strong> (teste dinâmico): testa a aplicação em execução, de fora para dentro, como faria um atacante. É provar o prato pronto.</li>
+  <li><strong>SBOM</strong> (lista de materiais de software): o inventário de todos os componentes do seu software, com versões. A lista de ingredientes.</li>
+  <li><strong>SARIF:</strong> um formato padrão para resultados de análise, que outras ferramentas de desenvolvimento conseguem ler.</li>
+</ul>
+
+<h2>O que o CoreCyber analisa</h2>
+<p><strong>No código</strong>, a análise junta SAST, dependências (SCA) e segredos expostos, e gera o SBOM no padrão CycloneDX 1.5.</p>
+<p><strong>Na aplicação</strong>, a segurança de APIs é testada de forma dinâmica (DAST) a partir da especificação OpenAPI — o documento que descreve cada rota, parâmetro e resposta da sua API. Com o teste autenticado (white box, ou caixa branca), o teste usa o acesso que você fornece e vai além da tela de login, onde costumam estar os dados que importam.</p>
+<p>E há o ponto que costuma faltar: a <strong>correlação entre o código e a aplicação em execução</strong>. Quando um achado do código também aparece na aplicação rodando, a conversa sobre “isso é falso positivo?” fica bem mais curta — e a prioridade, mais evidente.</p>
+
+<div class="art-box art-box--curio"><b>Você sabia?</b><p>Na edição de 2023 do OWASP API Security Top 10, o primeiro lugar ficou com a <strong>falha de autorização em nível de objeto</strong> (BOLA, na sigla em inglês): a API não confere se quem pede um registro tem direito àquele registro específico. Às vezes, basta trocar um número no endereço da requisição para ver o pedido de outro cliente. É o tipo de falha que costuma exigir teste autenticado para aparecer.</p></div>
+
+<h2>SBOM: a lista de ingredientes que vão pedir a você</h2>
+<p>Quando uma falha grave aparece numa biblioteca popular, a primeira pergunta é: “nós usamos isso?”. Sem um SBOM, a resposta exige vasculhar repositórios. Com ele, é uma busca.</p>
+<p>O CycloneDX, formato usado pelo CoreCyber, é mantido pela OWASP em conjunto com a Ecma International e foi padronizado internacionalmente como ECMA-424. Um SBOM nesse formato pode ser lido por outras ferramentas, entregue a clientes que pedem transparência sobre o software e guardado como evidência.</p>
+
+<h2>Resultados que entram no fluxo de quem desenvolve</h2>
+<p>Relatório de segurança que ninguém abre não corrige nada. Por isso, os resultados saem em cinco formatos: <strong>PDF</strong> para a gestão, <strong>Excel</strong> e <strong>CSV</strong> para quem prefere planilha, <strong>JSON</strong> para integrações e <strong>SARIF</strong>, o padrão aberto da OASIS para resultados de análise, que ferramentas de desenvolvimento conseguem importar.</p>
+<p>E, como tudo está na mesma plataforma, a falha da API não vive numa ferramenta separada da falha do servidor: a equipe olha um painel só, com superfície de ataque, vulnerabilidades e disponibilidade.</p>
+
+<div class="art-box art-box--hook"><b>E o CoreCyber com isso?</b><p>A segurança de código e APIs faz parte do plano Profissional, ao lado da fila de vulnerabilidades priorizada e da inteligência de ameaças — compare em <a href="/planos/">planos</a>. Sendo honestos: ela não substitui a revisão de código feita por pessoas nem um teste de intrusão quando o seu contexto exige. É a camada contínua que pega o que escapa no dia a dia, antes que vire achado na superfície externa.</p></div>
+
+<h2>Como começar</h2>
+<ol class="art-steps">
+  <li><strong>Escolha um repositório</strong> que vai para produção em breve — ou aquele mais antigo, em que ninguém quer mexer.</li>
+  <li><strong>Comece pelos segredos expostos.</strong> São rápidos de corrigir e perigosos de ignorar. Lembre-se: apagar a senha do código não basta, porque ela continua no histórico. Troque a senha.</li>
+  <li><strong>Gere o SBOM</strong> e guarde-o como evidência da versão.</li>
+  <li><strong>Teste a API</strong> a partir da especificação OpenAPI, com credenciais de teste para o teste autenticado.</li>
+  <li><strong>Exporte para cada público:</strong> SARIF para o time de desenvolvimento, PDF para a gestão.</li>
+</ol>
+<p>Para entender cada categoria de falha, o OWASP Top 10, cuja edição mais recente é a de 2025, continua sendo o melhor ponto de partida.</p>
+
+<h2>Referências</h2>
+<ul class="art-refs">
+  <li><b>OWASP</b> · OWASP Top 10 — riscos mais críticos em aplicações web — <a href="https://owasp.org/www-project-top-ten/" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>OWASP</b> · API Security Top 10, edição 2023 — riscos mais críticos em APIs — <a href="https://owasp.org/API-Security/" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>CycloneDX</b> · Padrão de lista de materiais (SBOM), ECMA-424 — <a href="https://cyclonedx.org/" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>OASIS</b> · SARIF, formato padrão para resultados de análise estática — <a href="https://www.oasis-open.org/committees/sarif/" target="_blank" rel="noopener">acessar</a></li>
+</ul>
+
+<div class="art-author"><b>Nota do autor</b><p>Toda falha exposta na internet começou em algum lugar — muitas vezes, numa linha de código. Trouxemos a análise de código para o mesmo painel porque a conversa entre segurança e desenvolvimento fica melhor quando todos olham para os mesmos dados.</p><span>— Equipe CoreCyber · EBAEM</span></div>
+
+<div class="art-cta"><p><strong>Como o CoreCyber ajuda:</strong> SAST, dependências, segredos, SBOM e testes de API num só painel, com resultados em SARIF para o time de desenvolvimento.</p><p><a class="btn btn--primary" href="/plataforma/#appsec">Conhecer a segurança de código e APIs</a></p></div>

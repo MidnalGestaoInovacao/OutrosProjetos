@@ -1,0 +1,71 @@
+<!--meta {
+  "slug": "o-que-a-internet-sabe",
+  "title": "O que a internet já sabe sobre a sua empresa — e você ainda não",
+  "description": "Subdomínios esquecidos, portas abertas e certificados vencidos estão à vista de qualquer um. Veja como a varredura externa não invasiva mostra a sua empresa como um atacante a vê.",
+  "date": "2026-09-18",
+  "category": "produto",
+  "tags": ["Superfície de ataque", "EASM", "Subdomínios"],
+  "icon": "radar",
+  "cover": {
+    "kicker": "Superfície de ataque · EASM",
+    "stat": "10 min",
+    "stat_label": "intervalo do monitoramento externo contínuo",
+    "s2": "3",
+    "s2_label": "estados: novo, resolvido e persistente",
+    "s3": "2 dias",
+    "s3_label": "úteis para receber o diagnóstico gratuito",
+    "question": "Quantos subdomínios a sua empresa tem — e de quantos você já esqueceu?"
+  },
+  "alt": "Infográfico CoreCyber — monitoramento externo contínuo a cada 10 minutos da superfície de ataque"
+} -->
+
+<p class="art-lead">Um dia alguém criou <strong>teste.suaempresa.com.br</strong> para homologar um sistema. O projeto acabou, a equipe mudou, e o endereço continua lá, respondendo na internet. Ninguém na empresa lembra dele. Mas ele está em registros públicos que qualquer pessoa pode consultar, inclusive quem procura uma porta destrancada.</p>
+
+<h2>Todo ataque começa olhando de fora</h2>
+<p>Antes de tentar qualquer coisa, um atacante faz o reconhecimento. Ele lista os subdomínios, vê quais portas respondem, anota versões de software, confere certificados e procura painéis e arquivos esquecidos. Nada disso exige invadir: está tudo exposto, de graça, para quem souber olhar.</p>
+<p>Esse conjunto de coisas visíveis é a <strong>superfície de ataque externa</strong>. E existe um paradoxo nela: quem está de fora costuma enxergá-la melhor do que quem está dentro, porque a empresa conhece o que planejou publicar, não o que ficou publicado.</p>
+
+<h2>Onde os subdomínios esquecidos aparecem</h2>
+<p>Para um site ter o cadeado do HTTPS, ele precisa de um certificado. Os certificados emitidos por autoridades públicas costumam ser registrados em logs de <strong>Certificate Transparency</strong>, abertos a qualquer pessoa. Foram criados para que fraudes na emissão de certificados não passassem despercebidas. O efeito colateral: cada subdomínio que já teve certificado deixa rastro público.</p>
+
+<div class="art-box art-box--curio"><b>Você sabia?</b><p>A Certificate Transparency foi descrita pela IETF na <strong>RFC 6962, em 2013</strong>. Os logs são públicos, só aceitam acréscimos e podem ser acompanhados por donos de domínio, navegadores e pesquisadores. A mesma transparência que protege você também ajuda quem procura alvos. Por isso vale olhar primeiro.</p></div>
+
+<h2>O que a varredura do CoreCyber observa</h2>
+<p>O módulo de superfície de ataque, o FingerPrint, faz uma varredura externa <strong>não invasiva</strong> de sites, APIs, documentações e subdomínios. Ele observa o que já está exposto, sem explorar falhas e sem testes de carga:</p>
+<ul class="checks">
+  <li><strong>Subdomínios</strong> descobertos por certificados públicos, com histórico de descoberto, ausente e revisto.</li>
+  <li><strong>Portas e serviços</strong> que respondem na internet.</li>
+  <li><strong>SSL/TLS:</strong> versões de protocolo e certificados.</li>
+  <li><strong>Cabeçalhos de segurança</strong>, as instruções que dizem ao navegador como proteger quem visita o site, como recomenda o projeto Secure Headers da OWASP.</li>
+  <li><strong>Exposições conhecidas</strong>, como painéis, arquivos e configurações à mostra, com templates atualizados toda semana.</li>
+  <li><strong>Presença de WAF</strong>, o firewall de aplicação web.</li>
+  <li><strong>SPF e DMARC</strong>, que dificultam e-mails falsos com o seu domínio. Explicamos em <a href="/conteudos/spf-dmarc-dnssec/">SPF, DMARC e DNSSEC sem mistério</a>.</li>
+  <li><strong>security.txt</strong>, o arquivo padrão da RFC 9116 que diz a pesquisadores como relatar uma falha.</li>
+  <li><strong>Acessibilidade WCAG</strong> do site, porque um site difícil de usar deixa pessoas de fora.</li>
+</ul>
+
+<h2>Uma foto não basta</h2>
+<p>A superfície muda toda semana: um sistema novo vai ao ar, um certificado vence, um fornecedor publica um ambiente de teste. Por isso o CoreCyber não entrega só uma fotografia. Ele compara cada execução com a anterior e separa os achados em três grupos: <strong>novos, resolvidos e persistentes</strong>. Você vê o que piorou, o que a equipe já corrigiu e o que continua esperando.</p>
+<p>Entre uma varredura e outra, o <strong>monitoramento contínuo a cada 10 minutos</strong> avisa quando surge um achado crítico ou alto novo, ou um subdomínio novo. O inventário externo de domínios e subdomínios guarda o histórico, e os laudos saem em PDF ou DOCX, com agendamento e envio automático por e-mail.</p>
+<div class="callout">{{i:info}}<p><strong>Em evolução:</strong> o inventário externo com IP, provedor (ASN), tecnologia e nota SSL na mesma tabela. Hoje o inventário externo já reúne domínios e subdomínios com histórico; a visão completa ainda está sendo construída.</p></div>
+
+<h2>Só com autorização, sempre</h2>
+<p>Ver como um atacante vê não significa agir como um. O CoreCyber só analisa o que é seu ou o que você tem autorização para analisar. No diagnóstico gratuito, a titularidade é comprovada por um registro TXT no DNS ou por autorização escrita, antes de qualquer varredura. Os dados do diagnóstico ficam guardados por até 90 dias e depois são eliminados.</p>
+
+<div class="art-box art-box--hook"><b>E o CoreCyber com isso?</b><p>A superfície de ataque é a porta de entrada da plataforma e está presente desde o <a href="/planos/">plano Essencial</a>. Mudanças na superfície também entram nas detecções correlacionadas, e o mesmo painel mostra a <a href="/plataforma/#disponibilidade">disponibilidade</a> dos seus sites e, a partir do plano Profissional, a <a href="/plataforma/#vulnerabilidades">fila de vulnerabilidades priorizadas</a>. Detalhes do módulo em <a href="/plataforma/#superficie">Superfície de ataque</a>.</p></div>
+
+<h2>Por onde começar</h2>
+<p>O caminho mais curto é pedir o <a href="/diagnostico-gratuito/">diagnóstico gratuito de exposição externa</a>. Você recebe, em até 2 dias úteis após a comprovação de titularidade, um relatório em português, priorizado e com QR de autenticidade, além de uma conversa de 30 minutos com um especialista. Se fizer sentido, ele vira uma prova de conceito de 30 dias com os seus próprios ativos.</p>
+
+<h2>Referências</h2>
+<ul class="art-refs">
+  <li><b>IETF</b> · RFC 6962 — Certificate Transparency — <a href="https://www.rfc-editor.org/rfc/rfc6962" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>Certificate Transparency</b> · como funcionam os logs públicos de certificados — <a href="https://certificate.transparency.dev/" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>OWASP</b> · Secure Headers Project, cabeçalhos de segurança recomendados — <a href="https://owasp.org/www-project-secure-headers/" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>IETF</b> · RFC 9116 — o arquivo security.txt — <a href="https://www.rfc-editor.org/rfc/rfc9116" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>W3C</b> · Diretrizes de Acessibilidade para Conteúdo Web (WCAG) — <a href="https://www.w3.org/WAI/standards-guidelines/wcag/" target="_blank" rel="noopener">acessar</a></li>
+</ul>
+
+<div class="art-author"><b>Nota do autor</b><p>A análise externa não invasiva é a origem do CoreCyber: foi com ela que a EBAEM começou a olhar a exposição dos clientes nos projetos de conformidade. Ainda nos surpreende o que aparece na primeira varredura. Melhor que apareça para você primeiro.</p><span>— Equipe CoreCyber · EBAEM</span></div>
+
+<div class="art-cta"><p><strong>Como o CoreCyber ajuda:</strong> mostra a sua empresa como a internet a vê, sem invadir nada, e avisa a cada 10 minutos quando algo novo aparece.</p><p><a class="btn btn--primary" href="/diagnostico-gratuito/">Quero meu diagnóstico gratuito</a></p></div>

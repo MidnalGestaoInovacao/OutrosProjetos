@@ -7,19 +7,21 @@ A chave MCP NUNCA fica no repositório. Informe-a por variável de ambiente:
 
 Uso:
   python3 tools/deploy_wp.py                 publica tudo (mídia, CSS, cabeçalho, rodapé, modelos, páginas)
-  python3 tools/deploy_wp.py --only pages    só páginas  (também: media, css, chrome, templates, settings)
+  python3 tools/deploy_wp.py --only pages    só páginas  (também: media, css, chrome, templates, posts, settings)
   python3 tools/deploy_wp.py --dry-run       mostra o que faria, sem gravar
 
 O que é alterado no WordPress (tudo reversível pelo Editor do site / lixeira):
-  - Mídia: logos e ícones (tools/media.json guarda as URLs).
+  - Mídia: logos, ícones e capas das matérias (tools/media.json guarda URLs e IDs).
   - CSS adicional do tema (Aparência → Personalizar → CSS adicional).
   - Partes de modelo "header" e "footer" do tema ativo (HTML do cabeçalho/rodapé + scripts).
-  - Modelos "page", "page-no-title", "home" (página inicial) e "404".
+  - Modelos "page", "page-no-title", "single" (matérias), "home" (página inicial) e "404".
+  - Matérias como posts (por slug), com categoria, tags e imagem de destaque (capas em src/img/posts/).
   - Blocos reutilizáveis "CoreCyber · Início" e "CoreCyber · 404".
   - Páginas por slug (cria ou atualiza), título e descrição do site.
   - Conteúdo de exemplo do WordPress vai para a lixeira ("Olá, mundo!" e "Página de exemplo").
 """
 import base64
+import re
 import http.client
 import ssl
 import hashlib
@@ -128,19 +130,41 @@ def main():
     # ------------------------------------------------ mídia
     media = json.loads(MEDIA_FILE.read_text()) if MEDIA_FILE.exists() else {}
     hashes = media.pop("_sha1", {})
-    if step("media"):
-        for k, fn in IMAGES.items():
+    ids = media.pop("_ids", {})
+    posts_meta = {}
+    for f in sorted((ROOT / "src" / "posts").glob("*.html")):
+        m = re.search(r"<!--meta\s*(\{.*?\})\s*-->", f.read_text(encoding="utf-8"), re.S)
+        if m:
+            pm = json.loads(m.group(1)); posts_meta[pm["slug"]] = pm
+    images = dict(IMAGES)
+    for f in sorted((ROOT / "src" / "img" / "posts").glob("*.webp")):
+        images["posts/" + f.stem] = "posts/" + f.name
+    def save_media():
+        if not DRY:
+            MEDIA_FILE.write_text(json.dumps({**media, "_sha1": hashes, "_ids": ids}, indent=1) + "\n")
+    if step("media") or step("posts"):
+        for k, fn in images.items():
+            if not step("media") and not k.startswith("posts/"):
+                continue
             p = ROOT / "src" / "img" / fn
             h = hashlib.sha1(p.read_bytes()).hexdigest()
             if media.get(k) and hashes.get(k) == h:
                 continue
+            alt = "CoreCyber — um produto EBAEM"
+            if k.startswith("posts/"):
+                slug, lang = k[6:].rsplit(".", 1)
+                alt = posts_meta.get(slug, {}).get("alt") or alt
+                if lang != "pt":
+                    alt += f" ({lang.upper()})"
             log("enviando mídia", fn)
             if not DRY:
-                r = mcp.tool("wp_upload_media", {"filename": f"corecyber-{fn}", "content_base64": base64.b64encode(p.read_bytes()).decode(),
-                                                 "title": f"CoreCyber {k}", "alt_text": "CoreCyber — um produto EBAEM"})
+                r = mcp.tool("wp_upload_media", {"filename": "corecyber-" + fn.replace("/", "-"), "content_base64": base64.b64encode(p.read_bytes()).decode(),
+                                                 "title": f"CoreCyber {k}", "alt_text": alt})
                 media[k] = r["source_url"]; hashes[k] = h
-        if not DRY:
-            MEDIA_FILE.write_text(json.dumps({**media, "_sha1": hashes}, indent=1) + "\n")
+                if r.get("id"):
+                    ids[k] = r["id"]
+                save_media()
+        save_media()
 
     # ------------------------------------------------ build com URLs do WordPress
     log("gerando build (modo WordPress)")
@@ -185,7 +209,7 @@ def main():
             return ('<!-- wp:group {"tagName":"main","className":"cc-main","layout":{"type":"default"}} -->\n'
                     '<main class="wp-block-group cc-main">' + inner + '</main>\n<!-- /wp:group -->')
         page_tpl = hdr + "\n" + main_wrap('<!-- wp:post-content {"layout":{"type":"default"}} /-->') + "\n" + ftr
-        tpls = {"page": page_tpl, "page-no-title": page_tpl}
+        tpls = {"page": page_tpl, "page-no-title": page_tpl, "single": page_tpl}
         if blocks.get(""):
             tpls["home"] = hdr + "\n" + main_wrap(f'<!-- wp:block {{"ref":{blocks[""]}}} /-->') + "\n" + ftr
         if blocks.get("404"):
@@ -225,6 +249,40 @@ def main():
                 log("post de exemplo → lixeira")
                 if not DRY:
                     mcp.tool("wp_delete_post", {"post_id": p["id"], "force": False})
+
+    # ------------------------------------------------ matérias (posts)
+    if step("posts"):
+        pman = json.loads((wp / "posts.json").read_text())
+        cats = {c["slug"]: c["id"] for c in mcp.tool("wp_list_categories", {"per_page": 100, "hide_empty": False}).get("categories", [])}
+        tags = {t["name"].lower(): t["id"] for t in mcp.tool("wp_list_tags", {"per_page": 100, "hide_empty": False}).get("tags", [])}
+        existing = {p["slug"]: p for p in mcp.tool("wp_list_posts", {"status": "any", "per_page": 100}).get("posts", [])}
+        for pm in sorted(pman, key=lambda x: x["date"]):
+            if pm["category"] not in cats:
+                log("criando categoria", pm["category_name"])
+                if not DRY:
+                    cats[pm["category"]] = mcp.tool("wp_create_category", {"name": pm["category_name"], "slug": pm["category"]})["id"]
+            tag_ids = []
+            for t in pm["tags"]:
+                if t.lower() not in tags:
+                    log("criando tag", t)
+                    if not DRY:
+                        tags[t.lower()] = mcp.tool("wp_create_tag", {"name": t})["id"]
+                if t.lower() in tags:
+                    tag_ids.append(tags[t.lower()])
+            content = html_block((wp / pm["file"]).read_text())
+            args = {"title": pm["title"], "content": content, "excerpt": pm["excerpt"], "status": "publish",
+                    "date": pm["date"] + "T08:00:00", "slug": pm["slug"], "categories": [cats.get(pm["category"], 1)],
+                    "tags": tag_ids, "comment_status": "closed", "ping_status": "closed"}
+            if ids.get(pm["cover"]):
+                args["featured_media"] = ids[pm["cover"]]
+            if pm["slug"] in existing:
+                log(f"atualizando matéria {pm['slug']} ({len(content)//1024} KB)")
+                if not DRY:
+                    mcp.tool("wp_update_post", {"post_id": existing[pm["slug"]]["id"], **args})
+            else:
+                log(f"criando matéria {pm['slug']} ({len(content)//1024} KB)")
+                if not DRY:
+                    mcp.tool("wp_create_post", args)
 
     if step("settings"):
         log("título e descrição do site")

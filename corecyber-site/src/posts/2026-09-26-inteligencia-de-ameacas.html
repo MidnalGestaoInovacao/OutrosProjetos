@@ -1,0 +1,76 @@
+<!--meta {
+  "slug": "inteligencia-de-ameacas",
+  "title": "Inteligência de ameaças todo dia: rastros públicos de ataque cruzados com os seus ativos",
+  "description": "Servidores de ataque, URLs maliciosas e falhas exploradas são publicados todos os dias. Entenda o que são indicadores de ameaça e como usá-los sem ter um time de inteligência.",
+  "date": "2026-09-26",
+  "category": "produto",
+  "tags": ["Inteligência de ameaças", "Indicadores de ameaça", "CISA KEV"],
+  "icon": "crosshair",
+  "cover": {
+    "kicker": "Inteligência de ameaças · CTI",
+    "stat": "4",
+    "stat_label": "fontes públicas de indicadores de ameaça, todo dia",
+    "s2": "KEV",
+    "s2_label": "catálogo de falhas exploradas ativamente",
+    "s3": "5",
+    "s3_label": "regras de detecção correlacionada",
+    "question": "Se um endereço seu aparecesse numa lista pública de ameaças, quem saberia primeiro?"
+  },
+  "alt": "Infográfico CoreCyber — indicadores públicos de ameaça coletados todo dia e cruzados com os ativos da empresa"
+} -->
+
+<p class="art-lead">Todos os dias, pesquisadores e agências de segurança publicam listas de endereços usados em ataques, páginas que espalham golpes e falhas que criminosos já estão explorando. A informação é pública e, em boa parte, gratuita. O problema é outro: <strong>quase ninguém tem tempo de ler essas listas</strong> — e menos ainda de cruzá-las com o que a própria empresa tem exposto na internet.</p>
+
+<h2>Indicador de ameaça, em português claro</h2>
+<p>Todo ataque deixa rastros técnicos. Um endereço IP, um domínio, uma URL, um certificado. Quando esses rastros são identificados e publicados, viram <strong>indicadores de ameaça</strong> — ou IoC, sigla em inglês para “indicadores de comprometimento”. Eles funcionam como o retrato falado de um suspeito: não contam a história inteira, mas ajudam a reconhecer quem já foi visto agindo.</p>
+<p>Quatro tipos de indicador aparecem com frequência:</p>
+<ul class="checks">
+  <li><strong>Servidores de comando e controle (C2):</strong> as máquinas que o atacante usa para dar ordens a computadores já infectados e receber dados deles. Se algo da sua empresa conversa com um C2, é sinal de que alguém já entrou.</li>
+  <li><strong>URLs maliciosas:</strong> páginas que distribuem programas maliciosos ou imitam bancos e serviços para roubar senhas.</li>
+  <li><strong>Certificados SSL maliciosos:</strong> certificados ligados a infraestrutura de ataque. Eles ajudam a reconhecer um servidor hostil mesmo quando ele troca de endereço.</li>
+  <li><strong>Vulnerabilidades exploradas ativamente:</strong> falhas que não são só teóricas — já estão sendo usadas em ataques reais.</li>
+</ul>
+
+<h2>Por que isso importa para empresas pequenas e médias</h2>
+<p>Muitos ataques não escolhem a vítima pelo nome. Eles varrem a internet atrás de qualquer sistema com a mesma falha, reaproveitando a mesma infraestrutura em milhares de tentativas. Para o atacante, a sua empresa é só mais um endereço na lista. Por isso, a infraestrutura que ataca um grande banco hoje pode bater à sua porta amanhã.</p>
+<p>Grandes organizações têm equipes inteiras dedicadas à inteligência de ameaças. A maioria das empresas pequenas e médias não tem nem uma pessoa só para segurança. A inteligência pública diminui essa distância: o trabalho de identificar o rastro já foi feito por alguém. Falta apenas cruzá-lo com o seu ambiente — <strong>todos os dias</strong>, porque indicadores envelhecem rápido. O servidor que estava ativo ontem pode sumir hoje, e outro aparece no lugar.</p>
+
+<div class="art-box art-box--curio"><b>Você sabia?</b><p>O catálogo KEV, mantido pela agência de cibersegurança dos Estados Unidos (CISA), lista vulnerabilidades que já foram exploradas em ataques reais. A própria CISA recomenda que <strong>qualquer organização</strong> — não só órgãos americanos — use o catálogo como insumo para decidir o que corrigir primeiro.</p></div>
+
+<h2>Do dado bruto à decisão</h2>
+<p>Uma lista de indicadores sozinha não protege ninguém. Ela precisa encontrar o contexto certo. No CoreCyber, o caminho é este:</p>
+<ol class="art-steps">
+  <li><strong>Coleta diária.</strong> Indicadores de 4 fontes públicas reconhecidas: servidores de comando e controle, URLs maliciosas, certificados SSL maliciosos e o catálogo KEV.</li>
+  <li><strong>Cruzamento com o que é seu.</strong> Os indicadores encontram o que a plataforma já conhece da sua empresa: superfície externa, vulnerabilidades e disponibilidade. Os templates de exposição usados na varredura externa também são atualizados toda semana.</li>
+  <li><strong>Detecção correlacionada.</strong> “Indicador de ameaça” é uma das 5 regras de detecção, ao lado de vulnerabilidade KEV, risco muito alto, disponibilidade e superfície. Na fila de vulnerabilidades, item do KEV nunca fica abaixo de 90 na nota de 0 a 100.</li>
+  <li><strong>Ação registrada.</strong> A detecção pode virar caso de incidente com linha do tempo, chamado no GLPI e alerta por e-mail, Telegram, Slack ou webhook.</li>
+</ol>
+
+<h2>O que ainda está por vir</h2>
+<p>Inteligência de ameaças não é bola de cristal, e preferimos dizer com clareza o que ainda não está pronto. Estão no <a href="/plataforma/#roadmap">roadmap</a>, e ainda não disponíveis:</p>
+<ul class="checks">
+  <li><strong>Mapeamento MITRE ATT&amp;CK:</strong> a base pública de táticas e técnicas de atacantes, construída a partir de observações reais. Com ela, cada detecção poderá ser lida como uma etapa de um ataque conhecido.</li>
+  <li><strong>Inteligência ampliada:</strong> integração com plataformas colaborativas de inteligência, em que organizações compartilham indicadores entre si.</li>
+</ul>
+<p>Também vale lembrar: a análise de tráfego de rede e o EDR completo, que observam o que acontece dentro de cada máquina, ainda estão no roadmap. Hoje, o cruzamento acontece sobre os sinais que a plataforma já coleta.</p>
+
+<div class="art-box art-box--hook"><b>E o CoreCyber com isso?</b><p>O CoreCyber faz o trabalho chato todo dia: busca os indicadores, cruza com os seus ativos e só chama a sua atenção quando há motivo. Você não precisa de um analista de inteligência para se beneficiar de inteligência. Precisa saber o que tem exposto — e é por isso que a inteligência de ameaças vem junto com a superfície de ataque e a fila de vulnerabilidades, no mesmo painel e em português.</p></div>
+
+<h2>Três atitudes para começar hoje</h2>
+<ol class="art-steps">
+  <li><strong>Saiba o que você tem exposto.</strong> Ninguém cruza indicadores com ativos que não conhece. Comece pelo inventário de domínios, subdomínios e IPs públicos.</li>
+  <li><strong>Corrija primeiro o que já está sendo explorado.</strong> Uma falha listada no KEV merece prioridade sobre dezenas de falhas teóricas.</li>
+  <li><strong>Acompanhe fontes nacionais.</strong> O CERT.br publica orientações e boas práticas em português, úteis para qualquer equipe.</li>
+</ol>
+
+<h2>Referências</h2>
+<ul class="art-refs">
+  <li><b>CISA</b> · Catálogo de vulnerabilidades exploradas ativamente (KEV) e orientação de uso na priorização — <a href="https://www.cisa.gov/known-exploited-vulnerabilities-catalog" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>MITRE</b> · ATT&amp;CK, base de conhecimento de táticas e técnicas de atacantes — <a href="https://attack.mitre.org/" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>CERT.br</b> · Centro de Estudos, Resposta e Tratamento de Incidentes de Segurança no Brasil — <a href="https://www.cert.br/" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>CERT.br</b> · Cartilha de Segurança para Internet — <a href="https://cartilha.cert.br/" target="_blank" rel="noopener">acessar</a></li>
+</ul>
+
+<div class="art-author"><b>Nota do autor</b><p>Escrevemos esta matéria porque inteligência de ameaças costuma parecer coisa de grande empresa. Não precisa ser: boa parte do trabalho já é público. O que fazemos é trazer esse trabalho para perto dos seus ativos, todos os dias.</p><span>— Equipe CoreCyber · EBAEM</span></div>
+
+<div class="art-cta"><p><strong>Como o CoreCyber ajuda:</strong> indicadores públicos coletados todo dia e cruzados com a sua superfície, as suas vulnerabilidades e a sua disponibilidade.</p><p><a class="btn btn--primary" href="/plataforma/#ameacas">Ver a inteligência de ameaças</a></p></div>

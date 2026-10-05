@@ -1,0 +1,77 @@
+<!--meta {
+  "slug": "do-alerta-ao-caso",
+  "title": "Do alerta ao caso fechado: detecção correlacionada, automação e GLPI num fluxo só",
+  "description": "Alerta não é incidente. Veja como sinais soltos viram uma detecção, um caso com dono e linha do tempo, um chamado no GLPI e um registro que resiste à auditoria.",
+  "date": "2026-09-27",
+  "category": "produto",
+  "tags": ["Resposta a incidentes", "Automação", "GLPI"],
+  "icon": "siren",
+  "cover": {
+    "kicker": "Detecção · Casos · Automação",
+    "stat": "5",
+    "stat_label": "regras de detecção correlacionada na plataforma",
+    "s2": "10 min",
+    "s2_label": "intervalo de verificação das automações",
+    "s3": "3 dias",
+    "s3_label": "úteis para comunicar incidente à ANPD",
+    "question": "Quando um alerta chega, a sua equipe sabe quem decide o próximo passo?"
+  },
+  "alt": "Infográfico CoreCyber — do alerta à detecção correlacionada, ao caso de incidente e ao chamado no GLPI"
+} -->
+
+<p class="art-lead">O celular vibra: “certificado vence em 5 dias”. Depois: “subdomínio novo encontrado”. Depois: “site fora do ar”. No fim do dia, ninguém sabe dizer se algum desses avisos era sério, quem cuidou de quê e o que foi feito. <strong>Alerta sozinho é barulho.</strong> O que protege a empresa é o alerta que vira uma pergunta respondida — com dono, prazo e registro.</p>
+
+<h2>Alerta, detecção e incidente não são sinônimos</h2>
+<p>Vale separar três palavras que costumam ser usadas como se fossem a mesma coisa:</p>
+<ul class="checks">
+  <li><strong>Alerta</strong> é um sinal isolado: um certificado vencendo, uma porta nova aberta, um monitor que caiu.</li>
+  <li><strong>Detecção</strong> é quando sinais se combinam e indicam risco real. Uma falha que já está sendo explorada, num servidor exposto à internet, é bem diferente da mesma falha num ambiente de testes.</li>
+  <li><strong>Incidente</strong> é o evento que precisa de alguém responsável, investigação, contenção e encerramento formal.</li>
+</ul>
+<p>No CoreCyber, as detecções correlacionadas — o que o mercado chama de XDR, aplicado aos sinais da própria plataforma — seguem <strong>5 regras</strong>: vulnerabilidade do catálogo KEV, risco muito alto, disponibilidade, superfície e indicador de ameaça. Em vez de dez avisos soltos, a equipe recebe uma detecção com contexto.</p>
+
+<h2>O ciclo de vida de um caso</h2>
+<p>Quando uma detecção merece atenção, ela vira um <strong>caso de incidente</strong>. Cada caso percorre um caminho claro, e cada passo fica registrado na linha do tempo:</p>
+<ol class="art-steps">
+  <li><strong>Aberto.</strong> O caso nasce de uma detecção, de uma vulnerabilidade com um clique ou de um relato de colaborador.</li>
+  <li><strong>Investigando.</strong> Alguém assume, levanta o que aconteceu e registra as descobertas.</li>
+  <li><strong>Contido.</strong> O dano parou de crescer: a falha foi isolada, o acesso foi bloqueado, a senha foi trocada.</li>
+  <li><strong>Resolvido.</strong> A causa foi corrigida e a correção, verificada.</li>
+  <li><strong>Fechado.</strong> O caso termina com histórico completo, pronto para auditoria e para as lições aprendidas.</li>
+</ol>
+<p>O caso pode abrir um chamado no GLPI e, do outro lado, qualquer colaborador pode usar o botão <strong>“relatar incidente”</strong> no agente instalado no computador ou no app. Quem clicou num link estranho não precisa procurar o e-mail da TI: relata ali mesmo.</p>
+
+<div class="art-box art-box--curio"><b>Você sabia?</b><p>Pela Resolução CD/ANPD nº 15/2024, quando um incidente de segurança com dados pessoais pode causar risco ou dano relevante aos titulares, o controlador tem <strong>3 dias úteis</strong> para comunicar a ANPD e os titulares afetados. A mesma resolução exige guardar o registro de incidentes, inclusive dos não comunicados, por no mínimo cinco anos.</p></div>
+
+<h2>Automação sem susto</h2>
+<p>SOAR é a sigla para orquestração, automação e resposta de segurança. Em português simples: deixar a máquina fazer o trabalho repetitivo para a equipe cuidar do que exige julgamento. No CoreCyber, isso funciona por <strong>regras de gatilho</strong>: quando uma condição acontece, a plataforma abre um caso e notifica as pessoas certas. As regras são verificadas a cada 10 minutos, e o botão <strong>“Testar”</strong> permite conferir cada regra antes de ligá-la.</p>
+<p>Os avisos chegam onde a equipe já está: sino de notificações, e-mail com modelos editáveis por empresa, Telegram, Slack, webhook e GLPI — tanto pela API v1 quanto pela nova API v2, com OAuth2.</p>
+<div class="callout">{{i:info}}<p><strong>Em evolução:</strong> playbooks com ações de contenção e aprovação humana em etapas, resumo diário e semanal de alertas e notificações por Microsoft Teams e WhatsApp. Hoje, a automação abre o caso e avisa — a contenção continua nas mãos da sua equipe.</p></div>
+<p>E há um bom motivo para a aprovação humana: uma automação que derruba um servidor de produção por engano é, ela mesma, um novo incidente.</p>
+
+<h2>Onde o GLPI entra</h2>
+<p>O GLPI é uma ferramenta de gestão de serviços de TI de código aberto que muitas equipes brasileiras já usam para chamados. Em vez de pedir que a equipe abra mais uma tela, o CoreCyber leva o caso até lá. Nos monitores de disponibilidade, o chamado é aberto quando o serviço cai e fechado quando ele volta, sem ninguém digitar nada.</p>
+
+<div class="art-box art-box--hook"><b>E o CoreCyber com isso?</b><p>O CoreCyber junta, no mesmo fluxo, a detecção, o caso, a notificação e o chamado. Ninguém precisa copiar informação de uma ferramenta para outra, e a linha do tempo vira evidência. Sendo transparentes: SIEM com coleta de logs e EDR completo estão no <a href="/plataforma/#roadmap">roadmap</a>. Hoje, a correlação acontece sobre os sinais que a plataforma já coleta — superfície, vulnerabilidades, disponibilidade e indicadores de ameaça.</p></div>
+
+<h2>Antes do próximo incidente</h2>
+<p>A revisão 3 do guia NIST SP 800-61, publicada em 2025, trata a resposta a incidentes como parte da gestão de riscos, e não como um evento isolado. Na prática, isso começa com combinados simples:</p>
+<ul class="checks">
+  <li>Defina quem é o responsável por cada tipo de caso e quem o substitui.</li>
+  <li>Combine o que significa “contido” para a sua empresa antes de precisar decidir sob pressão.</li>
+  <li>Teste cada regra de automação antes de ligá-la.</li>
+  <li>Deixe pronto o modelo de comunicação à ANPD e aos titulares.</li>
+  <li>Feche cada caso com uma lição aprendida registrada.</li>
+</ul>
+
+<h2>Referências</h2>
+<ul class="art-refs">
+  <li><b>ANPD</b> · Resolução CD/ANPD nº 15/2024, Regulamento de Comunicação de Incidente de Segurança — <a href="https://www.in.gov.br/en/web/dou/-/resolucao-cd/anpd-n-15-de-24-de-abril-de-2024-556243024" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>ANPD</b> · Comunicação de incidente de segurança: orientações e formulário — <a href="https://www.gov.br/anpd/pt-br/canais_atendimento/agente-de-tratamento/comunicado-de-incidente-de-seguranca-cis" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>NIST</b> · SP 800-61 Rev. 3, recomendações de resposta a incidentes — <a href="https://csrc.nist.gov/pubs/sp/800/61/r3/final" target="_blank" rel="noopener">acessar</a></li>
+  <li><b>GLPI</b> · Ferramenta de código aberto para gestão de serviços de TI — <a href="https://glpi-project.org/" target="_blank" rel="noopener">acessar</a></li>
+</ul>
+
+<div class="art-author"><b>Nota do autor</b><p>Já vimos muito incidente pequeno virar problema grande só porque ninguém sabia quem estava cuidando. Escrevemos esta matéria para mostrar que um fluxo simples, bem combinado e registrado vale mais do que dezenas de alertas.</p><span>— Equipe CoreCyber · EBAEM</span></div>
+
+<div class="art-cta"><p><strong>Como o CoreCyber ajuda:</strong> detecções correlacionadas, casos com linha do tempo, automação testável e chamados no GLPI, num painel só.</p><p><a class="btn btn--primary" href="/plataforma/#resposta">Ver detecção e resposta</a></p></div>
