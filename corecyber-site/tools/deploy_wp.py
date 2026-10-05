@@ -98,11 +98,20 @@ class MCP:
         return json.loads(txt)
 
     def tool(self, name, args):
-        r = self.rpc("tools/call", {"name": name, "arguments": args})
-        res = (r or {}).get("result") or {}
-        text = "".join(c.get("text", "") for c in res.get("content", []))
-        if res.get("isError") or (r or {}).get("error"):
-            raise SystemExit(f"Erro em {name}: {text or r.get('error')}")
+        for attempt in range(8):
+            r = self.rpc("tools/call", {"name": name, "arguments": args})
+            res = (r or {}).get("result") or {}
+            text = "".join(c.get("text", "") for c in res.get("content", []))
+            err = (r or {}).get("error")
+            limited = "rate limit" in (text + json.dumps(err or "")).lower()
+            if limited and attempt < 7:
+                wait = 30 * (attempt + 1)
+                log(f"limite de requisições do MCP; aguardando {wait}s")
+                time.sleep(wait)
+                continue
+            break
+        if res.get("isError") or err:
+            raise SystemExit(f"Erro em {name}: {text or err}")
         try:
             return json.loads(text)
         except json.JSONDecodeError:
