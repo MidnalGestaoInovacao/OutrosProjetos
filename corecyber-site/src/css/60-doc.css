@@ -1,0 +1,64 @@
+/* =====================================================================
+   Documentos (políticas, termos) e Central de Confiança
+   ===================================================================== */
+.cc .doc-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+.cc .doc-meta span { display: inline-flex; gap: 6px; align-items: center; background: var(--c-surface); border: 1px solid var(--c-line); border-radius: 10px; padding: 7px 12px; font-size: .8rem; color: var(--c-muted); font-weight: 600; }
+.cc .doc-meta span b { color: var(--c-ink); }
+.cc .doc-layout { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: clamp(28px, 4vw, 56px); align-items: start; }
+@media (max-width: 960px) { .cc .doc-layout { grid-template-columns: 1fr; } }
+.cc .toc { position: sticky; top: calc(var(--c-header-h) + 24px); max-height: calc(100vh - var(--c-header-h) - 48px); overflow-y: auto; padding: 18px; background: var(--c-surface); border: 1px solid var(--c-line); border-radius: var(--c-r); font-size: .88rem; }
+.cc .toc > b { display: block; font-size: .74rem; letter-spacing: .12em; text-transform: uppercase; color: var(--c-dim); margin-bottom: 10px; }
+.cc .toc ol { list-style: none; padding: 0; margin: 0; display: grid; gap: 2px; counter-reset: tc; }
+.cc .toc li { counter-increment: tc; }
+.cc .toc a { display: flex; gap: 8px; padding: 6px 8px; border-radius: 8px; color: var(--c-muted); line-height: 1.35; text-decoration: none; }
+.cc .toc a::before { content: counter(tc) "."; color: var(--c-dim); font-weight: 700; min-width: 1.4em; }
+.cc .toc a:hover { background: var(--c-bg); color: var(--c-ink); }
+.cc .toc a.is-active { background: var(--c-teal-soft); color: var(--c-teal-ink); font-weight: 750; }
+@media (max-width: 960px) { .cc .toc { position: relative; top: 0; max-height: none; } .cc .toc ol { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .cc .toc ol { grid-template-columns: 1fr; } }
+.cc .doc { font-size: 1.01rem; min-width: 0; }
+.cc .doc > section { padding-bottom: 30px; margin-bottom: 30px; border-bottom: 1px solid var(--c-line); scroll-margin-top: calc(var(--c-header-h) + 20px); }
+.cc .doc > section:last-child { border-bottom: 0; }
+.cc .doc h2 { font-size: clamp(1.3rem, 1.1rem + .7vw, 1.6rem); display: flex; gap: 12px; align-items: baseline; margin-bottom: .7em; }
+.cc .doc h2 .n { flex: none; font-size: .8em; color: var(--c-teal-ink); font-weight: 800; }
+.cc .doc h3 { font-size: 1.08rem; margin: 1.4em 0 .5em; }
+.cc .doc p, .cc .doc li { color: var(--c-text); }
+.cc .doc ul, .cc .doc ol { padding-left: 1.3em; display: grid; gap: 6px; }
+.cc .doc li::marker { color: var(--c-teal-ink); }
+.cc .doc .table-wrap { margin: 14px 0 18px; }
+.cc .doc table.tbl { min-width: 560px; }
+.cc .tldr { border-radius: var(--c-r); padding: 22px 24px; margin-bottom: 34px; background: linear-gradient(135deg, var(--c-teal-soft), var(--c-blue-soft)); border: 1px solid #c9e9ec; }
+.cc .tldr > b { display: flex; gap: 10px; align-items: center; color: var(--c-ink); font-size: 1rem; margin-bottom: 10px; }
+.cc .tldr .checks { gap: 8px; }
+.cc .doc .law { display: flex; flex-wrap: wrap; gap: 8px; }
+.cc .doc .law span { background: var(--c-bg); border: 1px solid var(--c-line); border-radius: 8px; padding: 5px 10px; font-size: .82rem; font-weight: 650; color: var(--c-muted); }
+.cc .doc .sign { margin-top: 10px; padding: 18px 20px; border-radius: var(--c-r); background: var(--c-bg); border: 1px dashed var(--c-line2); font-size: .9rem; color: var(--c-muted); }
+
+/* direitos do titular (cartões) */
+.cc .rights { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; }
+.cc .right { padding: 18px; border-radius: var(--c-r); border: 1px solid var(--c-line); background: var(--c-surface); transition: transform .3s var(--c-ease), box-shadow .3s; }
+.cc .right:hover { transform: translateY(-3px); box-shadow: var(--c-shadow); }
+.cc .right .ibox { margin-bottom: 12px; }
+.cc .right b { display: block; color: var(--c-ink); margin-bottom: 4px; }
+.cc .right p { margin: 0; font-size: .88rem; color: var(--c-muted); }
+.cc .right small { display: block; margin-top: 8px; font-size: .74rem; color: var(--c-dim); font-weight: 700; }
+
+/* central de confiança */
+.cc .trust-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
+.cc .trust-item { display: flex; flex-direction: column; gap: 10px; padding: 22px; border-radius: var(--c-r); background: var(--c-surface); border: 1px solid var(--c-line); text-decoration: none !important; color: var(--c-text) !important; transition: transform .3s var(--c-ease), box-shadow .3s, border-color .3s; }
+.cc .trust-item:hover { transform: translateY(-4px); box-shadow: var(--c-shadow); border-color: var(--c-line2); }
+.cc .trust-item b { color: var(--c-ink); font-size: 1.04rem; }
+.cc .trust-item p { margin: 0; font-size: .9rem; color: var(--c-muted); }
+.cc .trust-item .meta { margin-top: auto; display: flex; justify-content: space-between; align-items: center; font-size: .78rem; color: var(--c-dim); font-weight: 700; }
+.cc .trust-item .meta .ico { color: var(--c-teal-ink); transition: transform .25s; }
+.cc .trust-item:hover .meta .ico { transform: translateX(4px); }
+.cc .channel { display: grid; grid-template-columns: auto 1fr; gap: 16px; padding: 24px; border-radius: var(--c-r-lg); background: var(--c-surface); border: 1px solid var(--c-line); box-shadow: var(--c-shadow-sm); }
+.cc .channel .ibox { margin: 0; }
+.cc .channel h3 { margin: 0 0 6px; }
+.cc .channel p { color: var(--c-muted); margin: 0 0 12px; font-size: .94rem; }
+.cc .flow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: .82rem; font-weight: 700; }
+.cc .flow span { background: var(--c-bg); border: 1px solid var(--c-line); border-radius: 999px; padding: 6px 12px; color: var(--c-ink); }
+.cc .flow i { width: 16px; height: 2px; background: var(--c-line2); }
+.cc .ods { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+.cc .ods div { background-image: linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .3)); text-shadow: 0 1px 2px rgba(0, 0, 0, .25); border-radius: 14px; padding: 16px; color: #fff; font-weight: 750; font-size: .88rem; line-height: 1.3; min-height: 110px; display: flex; flex-direction: column; justify-content: space-between; }
+.cc .ods div b { font-size: 1.8rem; color: #fff; line-height: 1; }

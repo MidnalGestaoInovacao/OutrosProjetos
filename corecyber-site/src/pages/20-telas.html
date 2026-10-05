@@ -1,0 +1,423 @@
+<!--meta {"slug": "telas", "title": "Tour de telas: protótipos interativos", "description": "Navegue pelos protótipos do CoreCyber: painel executivo, superfície de ataque, vulnerabilidades, disponibilidade, ativos, conformidade ISO, casos, relatórios com QR e alertas no celular.", "order": 20} -->
+
+<section class="page-hero">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Você está aqui"><a href="/">Início</a><span aria-hidden="true">›</span><a href="/plataforma/">Plataforma</a><span aria-hidden="true">›</span><span aria-current="page">Tour de telas</span></nav>
+    <span class="eyebrow">Tour de telas</span>
+    <h1>Clique, experimente e imagine a sua equipe usando.</h1>
+    <p class="lead">Protótipos navegáveis da interface do CoreCyber, com dados fictícios. Os pontos laranja explicam cada parte e os botões funcionam: rode uma varredura, filtre por severidade, corrija uma vulnerabilidade, aprove a Declaração de Aplicabilidade e confira um laudo pelo QR.</p>
+  </div>
+</section>
+
+<section class="sec" aria-label="Protótipos" data-say="Use as abas para trocar de tela. Os botões dentro dos protótipos funcionam!">
+  <div class="wrap">
+    <div class="tabs" role="tablist" aria-label="Telas do CoreCyber">
+      <button type="button" role="tab" id="tab-painel" aria-selected="true" aria-controls="pt-painel">{{i:gauge}} Painel</button>
+      <button type="button" role="tab" id="tab-superficie" aria-selected="false" aria-controls="pt-superficie" tabindex="-1">{{i:radar}} Superfície</button>
+      <button type="button" role="tab" id="tab-vulnerabilidades" aria-selected="false" aria-controls="pt-vulnerabilidades" tabindex="-1">{{i:target}} Vulnerabilidades</button>
+      <button type="button" role="tab" id="tab-disponibilidade" aria-selected="false" aria-controls="pt-disponibilidade" tabindex="-1">{{i:activity}} Disponibilidade</button>
+      <button type="button" role="tab" id="tab-ativos" aria-selected="false" aria-controls="pt-ativos" tabindex="-1">{{i:laptop}} Ativos</button>
+      <button type="button" role="tab" id="tab-conformidade" aria-selected="false" aria-controls="pt-conformidade" tabindex="-1">{{i:file-check}} Conformidade</button>
+      <button type="button" role="tab" id="tab-casos" aria-selected="false" aria-controls="pt-casos" tabindex="-1">{{i:siren}} Casos</button>
+      <button type="button" role="tab" id="tab-relatorios" aria-selected="false" aria-controls="pt-relatorios" tabindex="-1">{{i:qr}} Relatórios</button>
+      <button type="button" role="tab" id="tab-celular" aria-selected="false" aria-controls="pt-celular" tabindex="-1">{{i:phone2}} Celular e alertas</button>
+    </div>
+
+    <!-- ===== PAINEL ===== -->
+    <div role="tabpanel" id="pt-painel" aria-labelledby="tab-painel">
+      <div class="theme-pick" data-target="#app-painel" role="group" aria-label="Tema do protótipo">
+        <button type="button" data-theme-set="" aria-pressed="true"><i style="--sw:#f4f7fb"></i>Tema claro</button>
+        <button type="button" data-theme-set="escuro" aria-pressed="false"><i style="--sw:#04192f"></i>Tema escuro</button>
+      </div>
+      <div class="proto">
+        <div class="browser">
+          <div class="br-bar"><i></i><i></i><i></i><span class="br-url">{{i:lock}} <span data-noi18n>cybercore.ebaem.api.br/painel</span></span></div>
+          <div class="app" id="app-painel">
+            <aside class="app-side">
+              <div class="app-brand"><span class="lg"></span><span><b data-noi18n>CoreCyber</b><small>Grupo Exemplo</small></span></div>
+              <span class="app-nav is-on">{{i:gauge}} Painel</span><span class="app-nav">{{i:radar}} Superfície</span><span class="app-nav">{{i:target}} Vulnerabilidades <span class="cnt" data-noi18n>29</span></span><span class="app-nav">{{i:activity}} Disponibilidade</span><span class="app-nav">{{i:laptop}} Ativos</span><span class="app-nav">{{i:file-check}} Conformidade</span><span class="app-nav">{{i:siren}} Casos</span><span class="app-nav">{{i:file}} Relatórios</span>
+            </aside>
+            <div class="app-main">
+              <div class="app-top"><span class="app-search">{{i:search}} Buscar ativos, CVEs, casos…</span><span class="m-pill">{{i:building}} Todas as empresas</span><span class="bell">{{i:bell}}<b data-noi18n>4</b></span><span class="m-av" style="--c:#005783" data-noi18n>AM</span></div>
+              <div class="app-body">
+                <div class="app-h"><div><h4>Visão executiva de segurança</h4><small>Últimos 30 dias</small></div><button type="button" class="m-btn m-btn--ghost" data-demo="toast" data-msg="demo.export">{{i:download}} Exportar PDF</button></div>
+                <div class="m-grid c4">
+                  <div class="m-card m-kpi"><b data-noi18n>61<small>/100</small></b><span>Índice de risco</span> <span class="up" data-noi18n>▼ 12</span></div>
+                  <div class="m-card m-kpi"><b data-noi18n>148</b><span>Ativos monitorados</span></div>
+                  <div class="m-card m-kpi"><b data-noi18n>29</b><span>Críticas e altas</span> <span class="kev" data-noi18n>3 KEV</span></div>
+                  <div class="m-card m-kpi"><b data-noi18n>99,92%</b><span>Disponibilidade</span></div>
+                </div>
+                <div class="m-grid c21">
+                  <div class="m-card">
+                    <h5>Risco — achados em aberto <span class="m-pill m-pill--ok">Tendência de queda</span></h5>
+                    <svg class="m-spark" viewBox="0 0 300 70" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="cc-spark-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0090ad"/><stop offset="1" stop-color="#0090ad" stop-opacity="0"/></linearGradient></defs><path class="a" d="M0 18 L25 16 L50 20 L75 24 L100 22 L125 30 L150 34 L175 32 L200 42 L225 46 L250 50 L275 52 L300 56 L300 70 L0 70 Z"/><path class="l" d="M0 18 L25 16 L50 20 L75 24 L100 22 L125 30 L150 34 L175 32 L200 42 L225 46 L250 50 L275 52 L300 56"/></svg>
+                    <div class="m-hbar mt-1">
+                      <div><span data-noi18n>api</span><i style="--w:87%"></i><b data-noi18n>87</b></div>
+                      <div><span data-noi18n>portal</span><i style="--w:74%"></i><b data-noi18n>74</b></div>
+                      <div><span data-noi18n>legado</span><i style="--w:69%"></i><b data-noi18n>69</b></div>
+                      <div><span data-noi18n>mail</span><i style="--w:52%"></i><b data-noi18n>52</b></div>
+                    </div>
+                  </div>
+                  <div class="m-card">
+                    <h5>Achados por severidade</h5>
+                    <div class="m-donut" style="--a:5;--b:18;--c:45;--d:83"><b data-noi18n>165<small>achados</small></b></div>
+                    <div class="m-legend"><span><i style="--c:#b3261e"></i>Críticas <b data-noi18n>8</b></span><span><i style="--c:#d64000"></i>Altas <b data-noi18n>21</b></span><span><i style="--c:#c99a1a"></i>Médias <b data-noi18n>44</b></span><span><i style="--c:#245ea8"></i>Baixas <b data-noi18n>63</b></span></div>
+                  </div>
+                </div>
+                <div class="m-card">
+                  <h5>Alertas recentes</h5>
+                  <div class="m-row"><span class="sev sev--crit">Crítica</span><span class="tx"><b>Falha explorada ativamente encontrada no portal</b><span>Superfície · há 6 min</span></span><span class="m-pill" data-noi18n>08:41</span></div>
+                  <div class="m-row"><span class="sev sev--high">Alta</span><span class="tx"><b>Subdomínio novo com painel de administração</b><span>Monitoramento contínuo · há 22 min</span></span><span class="m-pill" data-noi18n>08:25</span></div>
+                  <div class="m-row"><span class="sev sev--med">Média</span><span class="tx"><b>3 notebooks sem criptografia de disco</b><span>Ativos · ontem</span></span><span class="m-pill" data-noi18n>17:10</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="hotspot" style="--x:27%;--y:25%" aria-label="Índice de risco">1<span class="hs-tip">Uma nota que resume o risco e a tendência — o que a diretoria precisa ver em 30 segundos.</span></button>
+        <button type="button" class="hotspot" style="--x:55%;--y:58%" aria-label="Ativos mais expostos">2<span class="hs-tip">Os ativos mais expostos primeiro: é por eles que a equipe começa a semana.</span></button>
+        <button type="button" class="hotspot" style="--x:68%;--y:12%" data-pos="left" aria-label="Recorte por empresa">3<span class="hs-tip">Multiempresa: veja todas as empresas do grupo ou recorte uma só. Base pronta para MSSPs.</span></button>
+        <p class="proto-note">Protótipo com dados fictícios. Recursos em evolução estão sinalizados no <a href="/plataforma/#roadmap">roadmap</a>.</p>
+      </div>
+    </div>
+
+    <!-- ===== SUPERFÍCIE ===== -->
+    <div role="tabpanel" id="pt-superficie" aria-labelledby="tab-superficie" hidden>
+      <div class="proto">
+        <div class="browser">
+          <div class="br-bar"><i></i><i></i><i></i><span class="br-url">{{i:lock}} <span data-noi18n>cybercore.ebaem.api.br/fingerprint</span></span></div>
+          <div class="app">
+            <aside class="app-side">
+              <div class="app-brand"><span class="lg"></span><span><b data-noi18n>CoreCyber</b><small>Sua Empresa S.A.</small></span></div>
+              <span class="app-nav">{{i:gauge}} Painel</span><span class="app-nav is-on">{{i:radar}} Superfície</span><span class="app-nav">{{i:globe}} Inventário externo</span><span class="app-nav">{{i:calendar}} Agendamentos</span><span class="app-nav">{{i:file}} Laudos</span>
+            </aside>
+            <div class="app-main">
+              <div class="app-top"><span class="app-search">{{i:globe}} <span data-noi18n>suaempresa.com.br</span></span><span class="m-pill m-pill--info">Monitoramento contínuo · a cada 10 min</span></div>
+              <div class="app-body">
+                <div class="app-h"><div><h4>FingerPrint · execução comparada</h4><small>Varredura externa não invasiva</small></div><button type="button" class="m-btn" data-demo="scan">{{i:play}} Nova execução</button></div>
+                <div class="m-grid c3">
+                  <div class="m-card m-kpi"><b data-noi18n>3</b><span>Achados novos</span></div>
+                  <div class="m-card m-kpi"><b data-noi18n>5</b><span>Resolvidos desde a última</span> <span class="up" data-noi18n>✓</span></div>
+                  <div class="m-card m-kpi"><b data-noi18n>12</b><span>Persistentes</span></div>
+                </div>
+                <div class="m-card">
+                  <h5>Achados da execução <span class="m-pill" data-scan-status>Concluída 08:02</span></h5>
+                  <div class="m-prog" style="margin-bottom:8px"><i data-scan-prog style="--w:100%"></i></div>
+                  <div class="m-tbl-wrap"><table class="m-tbl">
+                    <thead><tr><th>Situação</th><th>Ativo</th><th>Achado</th><th>Severidade</th></tr></thead>
+                    <tbody>
+                      <tr data-scan-row="new"><td><span class="m-pill m-pill--crit">Novo</span></td><td class="mono" data-noi18n>dev-api.suaempresa.com.br</td><td class="wrap">Painel de administração exposto à internet</td><td><span class="sev sev--high">Alta</span></td></tr>
+                      <tr data-scan-row="new"><td><span class="m-pill m-pill--crit">Novo</span></td><td class="mono" data-noi18n>portal.suaempresa.com.br</td><td class="wrap">Versão de servidor web com falha conhecida</td><td><span class="sev sev--crit">Crítica</span></td></tr>
+                      <tr data-scan-row="new"><td><span class="m-pill m-pill--crit">Novo</span></td><td class="mono" data-noi18n>suaempresa.com.br</td><td class="wrap">DMARC em modo apenas monitoramento</td><td><span class="sev sev--med">Média</span></td></tr>
+                      <tr data-scan-row="persist"><td><span class="m-pill m-pill--warn">Persistente</span></td><td class="mono" data-noi18n>vpn.suaempresa.com.br</td><td class="wrap">TLS 1.0 e 1.1 habilitados</td><td><span class="sev sev--high">Alta</span></td></tr>
+                      <tr data-scan-row="persist"><td><span class="m-pill m-pill--warn">Persistente</span></td><td class="mono" data-noi18n>loja.suaempresa.com.br</td><td class="wrap">Política de segurança de conteúdo ausente</td><td><span class="sev sev--low">Baixa</span></td></tr>
+                      <tr data-scan-row="fixed"><td><span class="m-pill m-pill--ok">Resolvido</span></td><td class="mono" data-noi18n>mail.suaempresa.com.br</td><td class="wrap">Certificado expirado</td><td><span class="sev sev--high">Alta</span></td></tr>
+                    </tbody>
+                  </table></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="hotspot" style="--x:86%;--y:20%" data-pos="left" aria-label="Nova execução">1<span class="hs-tip">Clique em “Nova execução”: os achados aparecem e o CoreCyber separa o que é novo, o que persiste e o que você já resolveu.</span></button>
+        <button type="button" class="hotspot" style="--x:60%;--y:27%" aria-label="Comparação">2<span class="hs-tip">A comparação entre execuções mostra a evolução real da sua exposição — perfeito para provar melhoria à diretoria.</span></button>
+        <p class="proto-note">Análise somente de ativos próprios ou autorizados, sem exploração de falhas.</p>
+      </div>
+    </div>
+
+    <!-- ===== VULNERABILIDADES ===== -->
+    <div role="tabpanel" id="pt-vulnerabilidades" aria-labelledby="tab-vulnerabilidades" hidden>
+      <div class="proto">
+        <div class="browser">
+          <div class="br-bar"><i></i><i></i><i></i><span class="br-url">{{i:lock}} <span data-noi18n>cybercore.ebaem.api.br/vulnerabilidades</span></span></div>
+          <div class="app">
+            <aside class="app-side">
+              <div class="app-brand"><span class="lg"></span><span><b data-noi18n>CoreCyber</b><small>Sua Empresa S.A.</small></span></div>
+              <span class="app-nav">{{i:gauge}} Painel</span><span class="app-nav">{{i:radar}} Superfície</span><span class="app-nav is-on">{{i:target}} Vulnerabilidades</span><span class="app-nav">{{i:code}} Código e APIs</span><span class="app-nav">{{i:globe}} Ameaças</span>
+            </aside>
+            <div class="app-main">
+              <div class="app-top"><span class="app-search">{{i:search}} Buscar CVE, ativo, responsável…</span></div>
+              <div class="app-body">
+                <div class="m-grid c4">
+                  <div class="m-card m-kpi"><b data-kpi-open data-noi18n>137</b><span>Abertas</span></div>
+                  <div class="m-card m-kpi"><b data-noi18n>29</b><span>Críticas e altas</span> <span class="kev" data-noi18n>3 KEV</span></div>
+                  <div class="m-card m-kpi"><b data-noi18n>7</b><span>SLA vencido</span></div>
+                  <div class="m-card m-kpi"><b data-noi18n>4</b><span>Riscos aceitos</span></div>
+                </div>
+                <div class="m-card">
+                  <h5>Fila priorizada <span class="m-chips" role="group" aria-label="Filtrar por severidade"><button type="button" data-sev-filter="all" aria-pressed="true">Todas</button><button type="button" data-sev-filter="crit" aria-pressed="false">Críticas</button><button type="button" data-sev-filter="high" aria-pressed="false">Altas</button><button type="button" data-sev-filter="med" aria-pressed="false">Médias</button></span></h5>
+                  <div class="m-tbl-wrap"><table class="m-tbl">
+                    <thead><tr><th>Nota</th><th>Achado</th><th>Ativo</th><th>CVSS</th><th>EPSS</th><th>SLA</th><th>Status</th></tr></thead>
+                    <tbody>
+                      <tr data-sev="crit"><td><span class="m-pill m-pill--crit" data-noi18n>98</span></td><td class="wrap"><b>Execução remota em servidor web</b> <span class="kev" data-noi18n>KEV</span></td><td class="mono" data-noi18n>portal</td><td data-noi18n>9,8</td><td data-noi18n>94%</td><td>5 dias</td><td data-cycle data-states="st.open|st.fixing|st.fixed|st.validated" data-classes="crit|warn|info|ok" data-toast="demo.cycle" data-dec="[data-kpi-open]"><button type="button" class="m-btn m-btn--ghost" data-demo="cycle" style="height:24px;padding:0 8px"><span class="m-pill m-pill--crit" data-cycle-pill>Aberta</span></button></td></tr>
+                      <tr data-sev="crit"><td><span class="m-pill m-pill--crit" data-noi18n>92</span></td><td class="wrap"><b>Falha de autenticação em VPN</b> <span class="kev" data-noi18n>KEV</span></td><td class="mono" data-noi18n>vpn</td><td data-noi18n>9,1</td><td data-noi18n>71%</td><td>2 dias</td><td data-cycle data-states="st.fixing|st.fixed|st.validated|st.open" data-classes="warn|info|ok|crit" data-toast="demo.cycle"><button type="button" class="m-btn m-btn--ghost" data-demo="cycle" style="height:24px;padding:0 8px"><span class="m-pill m-pill--warn" data-cycle-pill>Em correção</span></button></td></tr>
+                      <tr data-sev="high"><td><span class="m-pill m-pill--warn" data-noi18n>84</span></td><td class="wrap"><b>Painel administrativo exposto</b></td><td class="mono" data-noi18n>dev-api</td><td data-noi18n>8,2</td><td data-noi18n>12%</td><td>13 dias</td><td data-cycle data-states="st.open|st.fixing|st.fixed|st.validated" data-classes="crit|warn|info|ok" data-toast="demo.cycle" data-dec="[data-kpi-open]"><button type="button" class="m-btn m-btn--ghost" data-demo="cycle" style="height:24px;padding:0 8px"><span class="m-pill m-pill--crit" data-cycle-pill>Aberta</span></button></td></tr>
+                      <tr data-sev="high"><td><span class="m-pill m-pill--warn" data-noi18n>71</span></td><td class="wrap"><b>TLS 1.0 habilitado</b></td><td class="mono" data-noi18n>vpn</td><td data-noi18n>7,4</td><td data-noi18n>3%</td><td>Vencido</td><td data-cycle data-states="st.open|st.accepted|st.fixed" data-classes="crit|p|ok" data-toast="demo.cycle"><button type="button" class="m-btn m-btn--ghost" data-demo="cycle" style="height:24px;padding:0 8px"><span class="m-pill m-pill--crit" data-cycle-pill>Aberta</span></button></td></tr>
+                      <tr data-sev="med"><td><span class="m-pill" data-noi18n>48</span></td><td class="wrap"><b>Cabeçalhos de segurança ausentes</b></td><td class="mono" data-noi18n>loja</td><td data-noi18n>5,3</td><td data-noi18n>1%</td><td>24 dias</td><td data-cycle data-states="st.open|st.fixing|st.fixed|st.validated" data-classes="crit|warn|info|ok" data-toast="demo.cycle" data-dec="[data-kpi-open]"><button type="button" class="m-btn m-btn--ghost" data-demo="cycle" style="height:24px;padding:0 8px"><span class="m-pill m-pill--crit" data-cycle-pill>Aberta</span></button></td></tr>
+                    </tbody>
+                  </table></div>
+                  <p class="m-hint mt-1">{{i:info}} Clique no status para avançar o ciclo: aberta, em correção, corrigida e validada no reteste.</p>
+                </div>
+                <div class="m-card">
+                  <h5>Regularização passo a passo · Execução remota em servidor web <button type="button" class="m-btn" data-demo="toast" data-msg="demo.glpi" style="height:26px">{{i:ticket}} Abrir caso e chamado</button></h5>
+                  <div class="m-steps"><span class="done">1 · Isolar o serviço</span><i></i><span class="on">2 · Atualizar a versão</span><i></i><span>3 · Validar a correção</span><i></i><span>4 · Reteste automático</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="hotspot" style="--x:25%;--y:56%" data-pos="right" aria-label="Nota de prioridade">1<span class="hs-tip">A nota combina CVSS, EPSS e o catálogo KEV. Item explorado ativamente nunca fica abaixo de 90.</span></button>
+        <button type="button" class="hotspot" style="--x:71%;--y:41%" data-pos="left" aria-label="Filtro">2<span class="hs-tip">Filtre por severidade com um clique. SLA de 7 a 90 dias conforme a gravidade.</span></button>
+        <p class="proto-note">Dados fictícios para demonstração.</p>
+      </div>
+    </div>
+
+    <!-- ===== DISPONIBILIDADE ===== -->
+    <div role="tabpanel" id="pt-disponibilidade" aria-labelledby="tab-disponibilidade" hidden>
+      <div class="proto">
+        <div class="browser">
+          <div class="br-bar"><i></i><i></i><i></i><span class="br-url">{{i:lock}} <span data-noi18n>cybercore.ebaem.api.br/disponibilidade</span></span></div>
+          <div class="app">
+            <aside class="app-side">
+              <div class="app-brand"><span class="lg"></span><span><b data-noi18n>CoreCyber</b><small>Sua Empresa S.A.</small></span></div>
+              <span class="app-nav">{{i:gauge}} Painel</span><span class="app-nav is-on">{{i:activity}} Monitores</span><span class="app-nav">{{i:globe}} Status pages</span><span class="app-nav">{{i:clock}} Manutenções</span>
+            </aside>
+            <div class="app-main">
+              <div class="app-top"><span class="app-search">{{i:search}} Buscar monitor…</span><button type="button" class="m-btn" data-demo="toast" data-msg="demo.status" style="margin-left:auto">{{i:globe}} Publicar status</button></div>
+              <div class="app-body">
+                <div class="m-grid c4">
+                  <div class="m-card m-kpi"><b data-noi18n>99,92%</b><span>Uptime 30 dias</span></div>
+                  <div class="m-card m-kpi"><b data-noi18n>182 ms</b><span>Latência p95</span></div>
+                  <div class="m-card m-kpi"><b data-noi18n>2</b><span>Certificados a vencer</span></div>
+                  <div class="m-card m-kpi"><b data-noi18n>99,5%</b><span>Meta de SLA</span></div>
+                </div>
+                <div class="m-card" data-cycle data-states="st.up|st.maint" data-classes="ok|info" data-toast="demo.cycle">
+                  <h5>Portal do cliente <span><span class="m-pill m-pill--ok" data-cycle-pill>Operacional</span> <button type="button" class="m-btn m-btn--ghost" data-demo="cycle" style="height:24px">{{i:pause}} Silenciar 1 h</button></span></h5>
+                  <div class="m-uptime" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="w"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                </div>
+                <div class="m-card">
+                  <h5>Monitores</h5>
+                  <div class="m-tbl-wrap"><table class="m-tbl">
+                    <thead><tr><th>Serviço</th><th>Tipo</th><th>24 h</th><th>30 dias</th><th>p95</th><th>Certificado</th></tr></thead>
+                    <tbody>
+                      <tr><td>Portal do cliente</td><td data-noi18n>HTTPS</td><td data-noi18n>100%</td><td data-noi18n>99,98%</td><td data-noi18n>140 ms</td><td><span class="m-pill m-pill--ok">84 dias</span></td></tr>
+                      <tr><td>API de pagamentos</td><td data-noi18n>HTTPS</td><td data-noi18n>99,7%</td><td data-noi18n>99,91%</td><td data-noi18n>210 ms</td><td><span class="m-pill m-pill--ok">51 dias</span></td></tr>
+                      <tr><td>E-mail corporativo</td><td data-noi18n>TCP 443</td><td data-noi18n>100%</td><td data-noi18n>100%</td><td data-noi18n>95 ms</td><td><span class="m-pill m-pill--warn">12 dias</span></td></tr>
+                      <tr><td>Domínio principal</td><td data-noi18n>RDAP</td><td>—</td><td>—</td><td>—</td><td><span class="m-pill m-pill--info">Domínio vence em 41 dias</span></td></tr>
+                    </tbody>
+                  </table></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="hotspot" style="--x:84%;--y:36%" data-pos="left" aria-label="Manutenção">1<span class="hs-tip">Vai fazer manutenção? Silencie os alertas por 1, 4 ou 24 horas — sem acordar ninguém à toa.</span></button>
+        <button type="button" class="hotspot" style="--x:86%;--y:10%" data-pos="left" aria-label="Status page">2<span class="hs-tip">Publique uma página de status com a sua marca: clientes acompanham sem abrir chamado.</span></button>
+      </div>
+    </div>
+
+    <!-- ===== ATIVOS ===== -->
+    <div role="tabpanel" id="pt-ativos" aria-labelledby="tab-ativos" hidden>
+      <div class="proto">
+        <div class="browser">
+          <div class="br-bar"><i></i><i></i><i></i><span class="br-url">{{i:lock}} <span data-noi18n>cybercore.ebaem.api.br/ativos</span></span></div>
+          <div class="app">
+            <aside class="app-side">
+              <div class="app-brand"><span class="lg"></span><span><b data-noi18n>CoreCyber</b><small>Sua Empresa S.A.</small></span></div>
+              <span class="app-nav">{{i:gauge}} Painel</span><span class="app-nav is-on">{{i:laptop}} Ativos</span><span class="app-nav">{{i:shield}} Segurança dos endpoints</span><span class="app-nav">{{i:lock}} Privacidade</span><span class="app-nav">{{i:package}} Publicação de agentes</span>
+            </aside>
+            <div class="app-main">
+              <div class="app-top"><span class="app-search">{{i:search}} Buscar por nome, série ou usuário…</span></div>
+              <div class="app-body">
+                <div class="m-grid c4">
+                  <div class="m-card m-kpi"><b data-noi18n>212</b><span>Agentes ativos</span></div>
+                  <div class="m-card m-kpi"><b data-noi18n>92%</b><span>Discos criptografados</span></div>
+                  <div class="m-card m-kpi"><b data-noi18n>37</b><span>Atualizações pendentes</span></div>
+                  <div class="m-card m-kpi"><b data-noi18n>98%</b><span>Antivírus em dia</span></div>
+                </div>
+                <div class="m-grid c21">
+                  <div class="m-card">
+                    <h5><span>{{i:laptop}} <span data-noi18n>NB-FIN-014</span> · Windows 11</span> <span class="m-pill" data-noi18n>CC-7Q2M-91XA</span></h5>
+                    <div class="m-dev"><div><b data-noi18n>38%</b>CPU</div><div><b data-noi18n>61%</b>Memória</div><div><b data-noi18n>72%</b>Disco</div></div>
+                    <div class="m-row"><span class="m-ic r">{{i:unlock}}</span><span class="tx"><b>Criptografia de disco desligada</b><span>Correção remota disponível</span></span><span data-cycle data-states="st.pending|st.waiting|st.applied" data-classes="warn|info|ok" data-toast="demo.agent"><button type="button" class="m-btn m-btn--ghost" data-demo="cycle" style="height:24px;padding:0 8px"><span class="m-pill m-pill--warn" data-cycle-pill>Pendente</span></button></span></div>
+                    <div class="m-row"><span class="m-ic o">{{i:refresh}}</span><span class="tx"><b>4 atualizações pendentes</b><span>Janela de atualização: 19h–22h</span></span><span data-cycle data-states="st.pending|st.waiting|st.applied" data-classes="warn|info|ok" data-toast="demo.agent"><button type="button" class="m-btn m-btn--ghost" data-demo="cycle" style="height:24px;padding:0 8px"><span class="m-pill m-pill--warn" data-cycle-pill>Pendente</span></button></span></div>
+                    <div class="m-row"><span class="m-ic">{{i:shield-check}}</span><span class="tx"><b>Antivírus ativo, sem ameaças</b><span>Última varredura há 2 h</span></span><span class="m-pill m-pill--ok">OK</span></div>
+                  </div>
+                  <div class="m-card">
+                    <h5>Transparência</h5>
+                    <ul class="checks checks--sm" style="font-size:11.5px"><li>Não lê arquivos</li><li>Não captura tela nem teclas</li><li>Não registra navegação</li><li>Localização só com consentimento</li><li>Ações remotas recusáveis na máquina</li></ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="hotspot" style="--x:80%;--y:56%" data-pos="left" aria-label="Correção remota">1<span class="hs-tip">Clique em “Pendente”: a correção vai para a máquina, que pode aceitar ou recusar. Tudo fica registrado.</span></button>
+        <button type="button" class="hotspot" style="--x:38%;--y:44%" aria-label="Número de série">2<span class="hs-tip">Cada agente tem número de série e identidade própria. Agente adulterado é detectado.</span></button>
+      </div>
+    </div>
+
+    <!-- ===== CONFORMIDADE ===== -->
+    <div role="tabpanel" id="pt-conformidade" aria-labelledby="tab-conformidade" hidden>
+      <div class="proto">
+        <div class="browser">
+          <div class="br-bar"><i></i><i></i><i></i><span class="br-url">{{i:lock}} <span data-noi18n>cybercore.ebaem.api.br/conformidade</span></span></div>
+          <div class="app">
+            <aside class="app-side">
+              <div class="app-brand"><span class="lg"></span><span><b data-noi18n>CoreCyber</b><small>Sua Empresa S.A.</small></span></div>
+              <span class="app-nav">{{i:gauge}} Painel</span><span class="app-nav is-on">{{i:file-check}} Conformidade ISO</span><span class="app-nav">{{i:clipboard}} Aplicabilidade</span><span class="app-nav">{{i:lock}} LGPD e ROPA</span><span class="app-nav">{{i:trash}} Descomissionamento</span>
+            </aside>
+            <div class="app-main">
+              <div class="app-top"><span class="m-chips" aria-hidden="true"><span class="on">ISO 27001</span><span>ISO 27701</span><span>ISO 22301</span><span>LGPD</span></span></div>
+              <div class="app-body">
+                <div class="m-grid c21">
+                  <div class="m-card">
+                    <h5>Controles do Anexo A <span class="m-pill m-pill--ok" data-noi18n>78%</span></h5>
+                    <div class="m-ctrl"><span><b data-noi18n>A.5.15</b>Controle de acesso</span><span class="m-pill m-pill--ok">Conforme</span><span></span></div>
+                    <div class="m-ctrl"><span><b data-noi18n>A.8.7</b>Proteção contra malware</span><span class="m-pill m-pill--ok">Conforme</span><span></span></div>
+                    <div class="m-ctrl"><span><b data-noi18n>A.8.8</b>Gestão de vulnerabilidades técnicas</span><span class="m-pill m-pill--warn">Parcial</span><span></span></div>
+                    <div class="m-ctrl"><span><b data-noi18n>A.8.24</b>Uso de criptografia</span><span class="m-pill m-pill--warn">Parcial</span><span></span></div>
+                    <div class="m-ctrl"><span><b data-noi18n>A.5.30</b>Prontidão de TIC para continuidade</span><span class="m-pill m-pill--crit">Não conforme</span><span></span></div>
+                    <div class="m-ctrl"><span><b data-noi18n>A.6.3</b>Conscientização em segurança</span><span class="m-pill">Sem dados</span><span></span></div>
+                  </div>
+                  <div class="m-card" data-cycle data-states="st.draft|st.review|st.approved" data-classes="|warn|ok" data-toast="demo.cycle">
+                    <h5>Declaração de Aplicabilidade</h5>
+                    <p style="font-size:11.5px;color:var(--app-muted);margin:0 0 8px">Versão 3 · 93 controles aplicáveis, 4 excluídos com justificativa.</p>
+                    <span class="m-pill" data-cycle-pill>Rascunho</span>
+                    <div class="mt-1"><button type="button" class="m-btn" data-demo="cycle">{{i:check}} Avançar aprovação</button></div>
+                    <div class="m-qrbox mt-1"><span class="m-qr" aria-hidden="true"></span><span style="font-size:11px">PDF com QR emitido na aprovação</span></div>
+                  </div>
+                </div>
+                <div class="m-card">
+                  <h5><span>Descomissionamento de ativo · <span data-noi18n>NB-RH-007</span></span> <button type="button" class="m-btn" data-demo="steps" data-target="#decom-steps" data-toast="demo.decom" style="height:26px">{{i:play}} Executar etapas</button></h5>
+                  <div class="m-steps" id="decom-steps"><span>Devolução</span><i></i><span>Criptografia</span><i></i><span>Desinstalação</span><i></i><span>Sanitização</span><i></i><span>Expurgo</span><i></i><span>Certificado</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="hotspot" style="--x:52%;--y:26%" aria-label="Controles">1<span class="hs-tip">193 controles de ISO 27001, 27017, 27018, 27701, 22301 e LGPD, com situação calculada a partir das evidências.</span></button>
+        <button type="button" class="hotspot" style="--x:94%;--y:42%" data-pos="left" aria-label="Aplicabilidade">2<span class="hs-tip">Aprove a Declaração de Aplicabilidade por versão e gere o PDF com QR para o auditor.</span></button>
+      </div>
+    </div>
+
+    <!-- ===== CASOS ===== -->
+    <div role="tabpanel" id="pt-casos" aria-labelledby="tab-casos" hidden>
+      <div class="proto">
+        <div class="browser">
+          <div class="br-bar"><i></i><i></i><i></i><span class="br-url">{{i:lock}} <span data-noi18n>cybercore.ebaem.api.br/casos</span></span></div>
+          <div class="app">
+            <aside class="app-side">
+              <div class="app-brand"><span class="lg"></span><span><b data-noi18n>CoreCyber</b><small>Sua Empresa S.A.</small></span></div>
+              <span class="app-nav">{{i:gauge}} Painel</span><span class="app-nav">{{i:crosshair}} Detecções</span><span class="app-nav is-on">{{i:siren}} Casos</span><span class="app-nav">{{i:flow}} Automação</span>
+            </aside>
+            <div class="app-main">
+              <div class="app-top"><span class="app-search">{{i:search}} Buscar caso…</span></div>
+              <div class="app-body">
+                <div class="app-h"><div><h4><span data-noi18n>CASE-2026-0141</span> · Falha explorada ativamente no portal</h4><small>Aberto por regra de correlação · KEV + superfície</small></div><span class="sev sev--crit">Crítica</span></div>
+                <div class="m-card">
+                  <h5>Ciclo do caso <button type="button" class="m-btn" data-demo="steps" data-target="#case-steps" data-toast="demo.glpi" style="height:26px">{{i:play}} Avançar o caso</button></h5>
+                  <div class="m-steps" id="case-steps"><span class="done">Aberto</span><i></i><span class="on">Investigando</span><i></i><span>Contido</span><i></i><span>Resolvido</span><i></i><span>Fechado</span></div>
+                </div>
+                <div class="m-grid c21">
+                  <div class="m-card">
+                    <h5>Linha do tempo</h5>
+                    <div class="m-tl">
+                      <div><time data-noi18n>08:41</time><span class="dot r"></span><span><b>Detecção correlacionada</b><span>Vulnerabilidade KEV em ativo exposto à internet</span></span></div>
+                      <div><time data-noi18n>08:42</time><span class="dot o"></span><span><b>Caso aberto e equipe notificada</b><span>Telegram e e-mail</span></span></div>
+                      <div><time data-noi18n>08:42</time><span class="dot"></span><span><b>Chamado GLPI criado</b><span>Fila Infraestrutura</span></span></div>
+                      <div><time data-noi18n>09:15</time><span class="dot g"></span><span><b>Serviço isolado pela equipe</b><span>Registrado por AM</span></span></div>
+                    </div>
+                  </div>
+                  <div class="m-card">
+                    <h5>Regra de automação</h5>
+                    <p style="font-size:11.5px;color:var(--app-muted);margin:0 0 8px">Se surgir vulnerabilidade KEV em ativo exposto, abrir caso crítico e notificar o plantão.</p>
+                    <button type="button" class="m-btn" data-demo="toast" data-msg="demo.soar">{{i:zap}} Testar regra</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="hotspot" style="--x:84%;--y:31%" data-pos="left" aria-label="Ciclo do caso">1<span class="hs-tip">Aberto, investigando, contido, resolvido, fechado: cada passo fica na linha do tempo — evidência para a ANPD e para a auditoria.</span></button>
+        <button type="button" class="hotspot" style="--x:82%;--y:70%" data-pos="left" aria-label="Automação">2<span class="hs-tip">Regras de automação abrem casos e avisam a equipe. Teste antes de ligar.</span></button>
+        <p class="proto-note">Playbooks com ações de contenção automáticas estão em evolução.</p>
+      </div>
+    </div>
+
+    <!-- ===== RELATÓRIOS ===== -->
+    <div role="tabpanel" id="pt-relatorios" aria-labelledby="tab-relatorios" hidden>
+      <div class="proto">
+        <div class="browser">
+          <div class="br-bar"><i></i><i></i><i></i><span class="br-url">{{i:lock}} <span data-noi18n>cybercore.ebaem.api.br/autenticidade</span></span></div>
+          <div class="app" style="grid-template-columns:1fr">
+            <div class="app-main">
+              <div class="app-body">
+                <div class="app-h"><div><h4>Conferir autenticidade de documento</h4><small>Página pública — não exige login</small></div></div>
+                <div class="m-grid c21">
+                  <div class="m-card">
+                    <h5>Relatórios emitidos</h5>
+                    <div class="m-row"><span class="m-ic">{{i:file}}</span><span class="tx"><b>Laudo de exposição externa</b><span data-noi18n>REL-2026-004512</span></span><span class="m-pill m-pill--ok">PDF</span></div>
+                    <div class="m-row"><span class="m-ic b">{{i:file-check}}</span><span class="tx"><b>Declaração de Aplicabilidade v3</b><span data-noi18n>SOA-2026-000031</span></span><span class="m-pill m-pill--ok">PDF</span></div>
+                    <div class="m-row"><span class="m-ic p">{{i:trash}}</span><span class="tx"><b>Certificado de descomissionamento</b><span data-noi18n>DSC-2026-000118</span></span><span class="m-pill m-pill--ok">PDF</span></div>
+                    <div class="m-row"><span class="m-ic o">{{i:sap}}</span><span class="tx"><b>Dossiê de auditoria SAP</b><span data-noi18n>AUD-2026-000007</span></span><span class="m-pill m-pill--ok">DOCX</span></div>
+                  </div>
+                  <div class="m-card">
+                    <h5>Leitura do QR</h5>
+                    <div class="phone" style="width:150px;padding:6px;border-radius:24px"><div class="phone-scr" style="border-radius:19px"><div class="scan" style="height:100%;border-radius:0"><span class="m-qr"></span></div></div></div>
+                    <div class="mt-1 center"><button type="button" class="m-btn" data-demo="toast" data-msg="demo.qr">{{i:check}} Conferir</button></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="hotspot" style="--x:80%;--y:84%" data-pos="left" aria-label="Conferir">1<span class="hs-tip">Quem recebe o documento aponta a câmera para o QR e confere na hora se ele é autêntico e não foi alterado.</span></button>
+        <p class="proto-note">São 32 tipos de relatório com protocolo e QR, capa em 8 paletas e cópia no Google Drive.</p>
+      </div>
+    </div>
+
+    <!-- ===== CELULAR ===== -->
+    <div role="tabpanel" id="pt-celular" aria-labelledby="tab-celular" hidden>
+      <div class="split">
+        <div>
+          <h2>O alerta chega onde a equipe está.</h2>
+          <p class="lead">E-mail, Telegram, Slack ou webhook — e o app Android para relatar incidentes, acompanhar o próprio dispositivo e receber atualizações automáticas.</p>
+          <ul class="checks mt-2"><li>Alertas agrupados para não virar ruído</li><li>Modelos de e-mail editáveis por empresa</li><li>App Android com autoatualização pela própria plataforma</li><li>“Relatar incidente” direto do celular ou do computador</li></ul>
+          <p class="tiny mt-2">App iOS em preparação. Microsoft Teams e WhatsApp em evolução.</p>
+        </div>
+        <div class="grid g-2">
+          <div class="phone">
+            <div class="phone-scr">
+              <div class="ph-top tg-top"><b data-noi18n>CoreCyber Alertas</b><small>bot</small></div>
+              <div class="tg">
+                <div class="tg-msg"><span class="sev sev--crit">Crítica</span><br><b>Falha explorada ativamente</b> em <span data-noi18n>portal.suaempresa.com.br</span>. Caso aberto.<time data-noi18n>08:42</time></div>
+                <div class="tg-msg"><span class="sev sev--high">Alta</span><br><b>Subdomínio novo</b> com painel exposto: <span data-noi18n>dev-api</span>.<time data-noi18n>08:25</time></div>
+                <div class="tg-msg"><span class="sev sev--low">Info</span><br><b>Certificado</b> do e-mail vence em 12 dias.<time data-noi18n>07:00</time></div>
+              </div>
+            </div>
+          </div>
+          <div class="phone">
+            <div class="phone-scr">
+              <div class="ph-top"><b data-noi18n>CoreCyber</b><small>Meu dispositivo</small></div>
+              <div class="ph-body">
+                <div class="m-card center"><div class="m-gauge" style="--v:92;width:96px"><b data-noi18n>92<small>%</small></b></div><span style="font-size:11px">Proteção desta máquina</span></div>
+                <div class="m-card" style="font-size:11px"><b>Criptografia</b> ativa · <b>Antivírus</b> em dia</div>
+                <button type="button" class="m-btn" data-demo="toast" data-msg="demo.ok" style="width:100%;justify-content:center">{{i:siren}} Relatar incidente</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--tight">
+  <div class="wrap">
+    <div class="cta-band" data-reveal="zoom">
+      <div><h2>Quer ver com os seus próprios dados?</h2><p>Agende uma demonstração guiada ou comece pelo diagnóstico gratuito.</p></div>
+      <div class="row"><a class="btn btn--light btn--lg" href="/contato/#demo">Agendar demonstração {{i:arrow:arrow}}</a><a class="btn btn--outline-light btn--lg" href="/diagnostico-gratuito/">Diagnóstico gratuito</a></div>
+    </div>
+  </div>
+</section>

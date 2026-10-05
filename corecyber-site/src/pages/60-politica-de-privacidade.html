@@ -1,0 +1,405 @@
+<!--meta {"slug": "politica-de-privacidade", "title": "Política de Privacidade", "description": "Como a EBAEM trata dados pessoais no site e na plataforma CoreCyber: papéis, finalidades, bases legais, prazos, segurança e seus direitos.", "order": 60} -->
+
+<!-- ============ CABEÇALHO ============ -->
+<section class="page-hero">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Você está aqui"><a href="/">Início</a><span aria-hidden="true">›</span><a href="/confianca/">Confiança</a><span aria-hidden="true">›</span><span aria-current="page">Política de Privacidade</span></nav>
+    <span class="eyebrow">Privacidade</span>
+    <h1>Política de Privacidade</h1>
+    <p class="lead">Como coletamos, usamos, protegemos e descartamos dados pessoais no site e na plataforma CoreCyber — com a mesma transparência que pedimos a um bom fornecedor de segurança, e em linguagem que você não precisa ser advogado para entender.</p>
+    <div class="doc-meta"><span>Documento <b>POL-CCY-PRV-001</b></span><span>Versão <b>1.0</b></span><span>Vigência <b>{{c:site.policy_date}}</b></span><span>Aprovação <b>Direção Executiva EBAEM</b></span></div>
+  </div>
+</section>
+
+<!-- ============ AVISO DE PRIVACIDADE (RESUMO) ============ -->
+<section class="sec sec--white" id="aviso" aria-labelledby="aviso-h">
+  <div class="wrap wrap--narrow">
+    <div class="sec-head">
+      <span class="eyebrow">Versão curta</span>
+      <h2 id="aviso-h">Aviso de Privacidade (resumo)</h2>
+      <p class="lead">O essencial, sem rodeios: o que fazemos — e o que jamais faremos — com os seus dados pessoais. Este aviso vale para todos os formulários do site. A política completa vem logo abaixo.</p>
+    </div>
+    <div class="tldr">
+      <b>{{i:sparkles}} Resumo em 30 segundos</b>
+      <ul class="checks checks--sm">
+        <li>A EBAEM é a responsável (controladora) pelos dados deste site, dos contatos comerciais, do diagnóstico gratuito, dos contratos e das parcerias.</li>
+        <li>Na plataforma CoreCyber, quem decide sobre os dados é a empresa cliente. A EBAEM segue as instruções dela, como operadora.</li>
+        <li>O agente do CoreCyber não lê o conteúdo de arquivos, não captura tela nem teclas e não registra navegação. Localização, só com consentimento.</li>
+        <li>Coletamos só o necessário. Não vendemos dados pessoais. Nunca.</li>
+        <li>O site usa apenas o essencial. Mapa e assistente com IA só funcionam com a sua permissão, e hoje não usamos cookies de estatísticas nem de marketing.</li>
+        <li>Você pode pedir acesso, correção, eliminação, portabilidade e outros direitos, sem custo, com resposta em até 15 dias.</li>
+      </ul>
+    </div>
+    <div class="table-wrap">
+      <table class="tbl">
+        <caption class="sr-only">O essencial sobre o tratamento de dados pessoais</caption>
+        <thead><tr><th scope="col">Pergunta</th><th scope="col">Resposta direta</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Quem trata seus dados?</th><td>{{c:company.legal_name}}, CNPJ <span data-noi18n>{{c:company.cnpj}}</span>, em Brasília/DF — fabricante, licenciadora e primeira cliente do CoreCyber.</td></tr>
+          <tr><th scope="row">O que coletamos no site?</th><td>O que você decide nos enviar (nome, e-mail, telefone, empresa, mensagem) e registros técnicos de acesso. Os formulários não gravam nada no site: abrem o seu e-mail ou o WhatsApp com a mensagem pronta e um protocolo.</td></tr>
+          <tr><th scope="row">Para quê?</th><td>Responder você, fazer o diagnóstico que pediu, prestar os serviços contratados, proteger os sistemas e cumprir a lei.</td></tr>
+          <tr><th scope="row">E os dados na plataforma?</th><td>Pertencem à gestão da empresa cliente. Tratamos esses dados só para prestar o serviço, conforme o contrato e as instruções dela.</td></tr>
+          <tr><th scope="row">Vendemos seus dados?</th><td>Não. Nunca.</td></tr>
+          <tr><th scope="row">Com quem compartilhamos?</th><td>Só com fornecedores essenciais sob contrato (nuvem, envio de e-mails, contabilidade, pagamentos), com integrações que o próprio cliente ativa, com provedores de IA do assistente se você permitir, e com autoridades, quando a lei exigir.</td></tr>
+          <tr><th scope="row">Por quanto tempo?</th><td>Pelo tempo necessário à finalidade e aos prazos legais. Veja a <a href="#s10">tabela de retenção</a>.</td></tr>
+          <tr><th scope="row">Seus direitos?</th><td>Confirmação, acesso, correção, eliminação, portabilidade, revogação do consentimento e outros — pelo <a href="/lgpd/#portal">Portal do Titular</a>.</td></tr>
+          <tr><th scope="row">Como falar conosco?</th><td>Encarregado (DPO): <a href="mailto:{{c:company.email_dpo}}" data-noi18n>{{c:company.email_dpo}}</a> · Telefone e WhatsApp: <span data-noi18n>{{c:company.phone_display}}</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="center mt-2"><a class="btn btn--ghost" href="#s1">Ler a política completa {{i:arrow:arrow}}</a></p>
+  </div>
+</section>
+
+<!-- ============ POLÍTICA COMPLETA ============ -->
+<section class="sec" aria-label="Política de Privacidade completa">
+  <div class="wrap doc-layout">
+    <aside class="toc" aria-label="Sumário">
+      <b>Sumário</b>
+      <ol>
+        <li><a href="#s1">Quem somos e nossos papéis</a></li>
+        <li><a href="#s2">Dados que tratamos como controladora</a></li>
+        <li><a href="#s3">Dados na plataforma CoreCyber</a></li>
+        <li><a href="#s4">Como coletamos</a></li>
+        <li><a href="#s5">Finalidades e bases legais</a></li>
+        <li><a href="#s6">Recursos do site</a></li>
+        <li><a href="#s7">Compartilhamento</a></li>
+        <li><a href="#s8">Transferência internacional</a></li>
+        <li><a href="#s9">Segurança</a></li>
+        <li><a href="#s10">Retenção</a></li>
+        <li><a href="#s11">Seus direitos</a></li>
+        <li><a href="#s12">Cookies</a></li>
+        <li><a href="#s13">Crianças e adolescentes</a></li>
+        <li><a href="#s14">Incidentes</a></li>
+        <li><a href="#s15">Encarregado (DPO)</a></li>
+        <li><a href="#s16">Links de terceiros</a></li>
+        <li><a href="#s17">Atualizações</a></li>
+        <li><a href="#s18">Legislação de base</a></li>
+      </ol>
+    </aside>
+
+    <article class="doc">
+
+      <section id="s1">
+        <h2><span class="n">1.</span> Quem somos e quando esta política se aplica</h2>
+        <p>A <strong>{{c:company.legal_name}}</strong>, inscrita no CNPJ sob nº <span data-noi18n>{{c:company.cnpj}}</span>, com sede no {{c:company.address}} (“EBAEM”, “nós”), desenvolve, licencia e usa o <strong>CoreCyber</strong> — plataforma de cibersegurança em nuvem (SaaS) que reúne superfície de ataque, disponibilidade, vulnerabilidades, monitoração de ativos por agente, conformidade ISO e LGPD, casos de incidente e relatórios.</p>
+        <p>Esta política explica como tratamos dados pessoais neste site (<span data-noi18n>corecyber.com.br</span>), no portal da plataforma (<span data-noi18n>cybercore.ebaem.api.br</span>), nos contatos comerciais, no diagnóstico gratuito, nas propostas e contratos, no suporte e nas parcerias, em conformidade com a Lei nº 13.709/2018, a Lei Geral de Proteção de Dados Pessoais (LGPD).</p>
+
+        <h3>Quando somos controladora</h3>
+        <p>Somos <strong>controladora</strong> — quem decide por que e como os dados são tratados — dos dados de visitantes deste site, de quem fala conosco, de quem pede o diagnóstico gratuito, de representantes de clientes, fornecedores e parceiros, de participantes do programa de indicação, de pesquisadores que nos relatam vulnerabilidades e dos dados necessários para gerir contratos, licenças e cobrança.</p>
+
+        <h3>Quando somos operadora</h3>
+        <p>Quando uma empresa usa o CoreCyber, os dados que ela coloca ou coleta na plataforma — contas da equipe, telemetria dos equipamentos com agente, resultados de varreduras, casos de incidente, pedidos de titulares que ela gerencia — pertencem à gestão dessa empresa. Nesses casos, <strong>o cliente é o controlador</strong> e a EBAEM atua como <strong>operadora</strong>: tratamos os dados somente para prestar o serviço contratado, conforme as instruções do cliente e o contrato, que traz cláusulas de proteção de dados.</p>
+        <div class="table-wrap">
+          <table class="tbl">
+            <caption class="sr-only">Papel da EBAEM em cada situação</caption>
+            <thead><tr><th scope="col">Situação</th><th scope="col">Papel da EBAEM</th><th scope="col">Quem responde ao titular</th></tr></thead>
+            <tbody>
+              <tr><td>Navegação neste site, formulários, assistente Cy e contatos</td><td>Controladora</td><td>EBAEM</td></tr>
+              <tr><td>Diagnóstico gratuito de exposição externa</td><td>Controladora</td><td>EBAEM</td></tr>
+              <tr><td>Propostas, contratos, licenças, cobrança e suporte</td><td>Controladora</td><td>EBAEM</td></tr>
+              <tr><td>Programa de indicação, parcerias e relatos de vulnerabilidade</td><td>Controladora</td><td>EBAEM</td></tr>
+              <tr><td>Dados que a empresa cliente coloca ou coleta na plataforma, inclusive durante a prova de conceito</td><td>Operadora</td><td>A empresa cliente, com nosso apoio</td></tr>
+              <tr><td>Operação gerenciada (MSSP) contratada pelo cliente</td><td>Operadora</td><td>A empresa cliente, com nosso apoio</td></tr>
+              <tr><td>Equipamentos da própria EBAEM monitorados pelo CoreCyber</td><td>Controladora, como qualquer cliente</td><td>EBAEM</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout">{{i:info}}<p>Seu computador de trabalho tem o agente do CoreCyber? Quem decide sobre esses dados é a empresa em que você trabalha. Para exercer seus direitos, procure o encarregado dela — e, se preferir, fale conosco: encaminhamos o pedido e apoiamos a resposta. Veja como na página <a href="/lgpd/#portal">LGPD e Portal do Titular</a>.</p></div>
+        <div class="law"><span>LGPD, art. 5º, VI e VII</span><span>LGPD, art. 39</span></div>
+      </section>
+
+      <section id="s2">
+        <h2><span class="n">2.</span> Dados que tratamos como controladora</h2>
+        <p>Tratamos apenas o necessário para cada finalidade (princípio da necessidade). Não pedimos dados sensíveis, como saúde, religião ou biometria, para usar o site ou contratar nossos serviços.</p>
+        <div class="table-wrap">
+          <table class="tbl">
+            <caption class="sr-only">Dados tratados por contexto</caption>
+            <thead><tr><th scope="col">Contexto</th><th scope="col">Dados</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Navegação no site</th><td>Endereço IP, data e hora de acesso, páginas visitadas, tipo de navegador e dispositivo, registrados pelo servidor. No seu navegador ficam suas escolhas de privacidade, idioma e acessibilidade, conforme a <a href="/politica-de-cookies/">Política de Cookies</a>.</td></tr>
+              <tr><th scope="row">Contatos e formulários</th><td>Nome, e-mail, telefone, empresa, cargo e o conteúdo da sua mensagem. Os formulários não gravam nada no servidor do site: abrem o seu e-mail ou o WhatsApp com a mensagem pronta e um número de protocolo, e só recebemos o que você decidir enviar.</td></tr>
+              <tr><th scope="row">Diagnóstico gratuito</th><td>Dados de contato de quem solicita, o domínio a analisar, a comprovação de que a empresa é titular do domínio e o resultado da varredura externa não invasiva, que pode conter dados públicos, como endereços de e-mail publicados em registros DNS ou em arquivos de segurança.</td></tr>
+              <tr><th scope="row">Propostas, contratos e licenças</th><td>Dados dos representantes do cliente (nome, cargo, e-mail, telefone), dados de faturamento e cobrança, faixa de ativos contratada, prazos de licença e informações necessárias à implantação.</td></tr>
+              <tr><th scope="row">Aceite dos termos da plataforma</th><td>Registro de quem aceitou os termos de uso, com data, hora, endereço IP, navegador e o resumo criptográfico (hash SHA-256) do texto aceito, guardado como prova da contratação.</td></tr>
+              <tr><th scope="row">Suporte</th><td>Nome, contato, descrição do problema, anexos que você enviar e o histórico do atendimento. Quando você autorizar acesso ao ambiente para resolver um chamado, poderemos ver dados ali armazenados, apenas na medida do necessário.</td></tr>
+              <tr><th scope="row">Programa de indicação e parcerias</th><td>Dados de contato e profissionais de quem se candidata ao programa ou à parceria e, nas indicações, os dados profissionais de contato da pessoa indicada, conforme as regras da <a href="/politica-comercial/">Política Comercial</a>.</td></tr>
+              <tr><th scope="row">Divulgação responsável</th><td>Nome ou apelido, contato e o relato técnico de quem nos informa uma vulnerabilidade pelo programa de <a href="/divulgacao-responsavel/">divulgação responsável</a>.</td></tr>
+              <tr><th scope="row">Assistente Cy do site</th><td>Sem a sua permissão, o Cy responde com uma base de conhecimento local e nada é enviado. Quando o assistente com IA estiver habilitado e você permitir, a pergunta que você digitar e as últimas mensagens da conversa são enviadas ao nosso servidor de IA para gerar a resposta. Veja a <a href="#s6">seção 6</a>.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Quem indica um contato deve ter uma relação legítima com a pessoa indicada. Usamos esses dados só para um primeiro contato profissional, informamos a origem da indicação e excluímos os dados se a pessoa não quiser seguir.</p>
+      </section>
+
+      <section id="s3">
+        <h2><span class="n">3.</span> Dados na plataforma CoreCyber — a EBAEM como operadora</h2>
+        <p>A plataforma é usada por empresas para proteger os próprios ambientes. Os dados abaixo são tratados por conta e ordem da empresa cliente, que define quem acessa, o que é coletado e por quanto tempo, dentro do que o produto permite:</p>
+        <div class="table-wrap">
+          <table class="tbl">
+            <caption class="sr-only">Categorias de dados tratados na plataforma em nome dos clientes</caption>
+            <thead><tr><th scope="col">Categoria</th><th scope="col">O que inclui</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Contas de usuários da equipe do cliente</th><td>Nome, e-mail, perfil e permissões, idioma, registros de login (data, hora, IP e navegador), códigos de 2º fator enviados por e-mail e, quando usados, o vínculo com o login Google ou Microsoft e os dados do certificado digital ICP-Brasil necessários para identificar a pessoa.</td></tr>
+              <tr><th scope="row">Telemetria dos equipamentos com agente</th><td>Nome e número de série do ativo, sistema operacional, inventário de hardware e software com histórico, uso de CPU, memória e disco, situação da criptografia de disco (com guarda das chaves de recuperação), antivírus e ameaças detectadas pelo Microsoft Defender, atualizações pendentes, resultado das verificações de conformidade, endereço IP da conexão e o <strong>nome do usuário logado</strong>. A <strong>localização</strong> só é coletada com consentimento.</td></tr>
+              <tr><th scope="row">Varreduras de ativos do cliente</th><td>Resultados da análise externa de sites, APIs e subdomínios que pertencem ao cliente, da monitoração de disponibilidade e da análise de código, dependências e segredos expostos. Podem conter dados pessoais de forma incidental, como e-mails publicados em registros públicos.</td></tr>
+              <tr><th scope="row">Casos de incidente e automação</th><td>Descrição, linha do tempo, responsáveis, evidências anexadas, notificações e chamados GLPI vinculados, inclusive relatos de incidente feitos pelo agente ou pelo app.</td></tr>
+              <tr><th scope="row">Conformidade e LGPD do cliente</th><td>Pedidos de titulares que o cliente gerencia no portal “Exercer meus direitos”, registros de ciência de avisos, inventário de tratamento (ROPA) e o registro de quem acessou dados pessoais.</td></tr>
+              <tr><th scope="row">Auditorias SAP e RACF</th><td>Identificadores de usuários, perfis e permissões dos sistemas auditados, usados para verificar segregação de funções.</td></tr>
+              <tr><th scope="row">Registros de auditoria da plataforma</th><td>Quem fez o quê e quando, em 14 tipos de evento, para rastreabilidade e segurança.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>O que o agente não faz — por projeto</h3>
+        <ul class="checks checks--x">
+          <li>Não lê o conteúdo dos seus arquivos.</li>
+          <li>Não captura a tela nem as teclas digitadas.</li>
+          <li>Não registra os sites que você visita.</li>
+          <li>Não coleta localização sem consentimento.</li>
+        </ul>
+        <p class="mt-2">As 15 correções remotas disponíveis — como aplicar atualizações, bloquear a tela ou rodar uma varredura de antivírus — vêm <strong>desligadas de fábrica</strong>, dependem de habilitação pela empresa e podem ser recusadas na própria máquina. No Windows, um ícone na bandeja mostra que o agente está ativo e qual é a situação do equipamento.</p>
+
+        <h3>Nossos compromissos como operadora</h3>
+        <ul>
+          <li>Tratamos os dados só para prestar o serviço contratado, conforme as instruções documentadas do cliente.</li>
+          <li>Não usamos os dados dos clientes para finalidades próprias e não os vendemos nem compartilhamos para marketing.</li>
+          <li>Pessoas da EBAEM só acessam dados de um cliente quando necessário para suporte, operação gerenciada ou segurança, com perfil de acesso e registro em trilha de auditoria.</li>
+          <li>Ajudamos o cliente a atender os titulares, a responder à ANPD e a comunicar incidentes.</li>
+          <li>Ao fim do contrato, devolvemos os dados por exportação e, depois, eliminamos ou anonimizamos, conforme a <a href="#s10">seção 10</a>.</li>
+        </ul>
+        <div class="law"><span>LGPD, art. 37</span><span>LGPD, art. 39</span><span>LGPD, art. 46</span></div>
+      </section>
+
+      <section id="s4">
+        <h2><span class="n">4.</span> Como coletamos</h2>
+        <ul>
+          <li><strong>Diretamente de você:</strong> por e-mail, WhatsApp, telefone, reuniões, propostas, contratos e mensagens preparadas pelos formulários do site.</li>
+          <li><strong>Automaticamente:</strong> registros técnicos do servidor a cada acesso ao site e à plataforma, e as preferências guardadas no seu navegador, sempre de acordo com as suas escolhas de cookies.</li>
+          <li><strong>Pela plataforma e pelo agente:</strong> conforme a configuração definida pela empresa cliente, nos termos da <a href="#s3">seção 3</a>.</li>
+          <li><strong>De fontes públicas:</strong> nas varreduras externas e no diagnóstico gratuito (registros DNS, certificados públicos e cabeçalhos de sites) e em bases oficiais, como o cadastro de CNPJ.</li>
+          <li><strong>De terceiros legítimos:</strong> da organização em que você trabalha, quando ela nos indica como contato, e de participantes do programa de indicação.</li>
+        </ul>
+      </section>
+
+      <section id="s5">
+        <h2><span class="n">5.</span> Para que usamos e com quais bases legais</h2>
+        <p>Cada uso tem uma finalidade definida e uma base legal prevista no art. 7º da LGPD — e, para dados sensíveis, no art. 11:</p>
+        <div class="table-wrap">
+          <table class="tbl">
+            <caption class="sr-only">Finalidades e bases legais</caption>
+            <thead><tr><th scope="col">Finalidade</th><th scope="col">Exemplos</th><th scope="col">Base legal</th></tr></thead>
+            <tbody>
+              <tr><td>Responder contatos e preparar propostas</td><td>Retorno de mensagens, demonstrações, orçamentos</td><td>Procedimentos preliminares a contrato, a seu pedido (art. 7º, V); legítimo interesse (art. 7º, IX)</td></tr>
+              <tr><td>Diagnóstico gratuito e prova de conceito</td><td>Comprovar a titularidade do domínio, rodar a varredura não invasiva, entregar o relatório, preparar o ambiente de teste</td><td>Procedimentos preliminares a contrato, a seu pedido (art. 7º, V)</td></tr>
+              <tr><td>Executar contratos</td><td>Implantação, licenças, suporte, operação gerenciada, cobrança</td><td>Execução de contrato (art. 7º, V)</td></tr>
+              <tr><td>Comprovar o aceite dos termos</td><td>Registro de IP, navegador, data e hash do texto aceito</td><td>Execução de contrato (art. 7º, V); exercício regular de direitos (art. 7º, VI)</td></tr>
+              <tr><td>Cumprir obrigações legais</td><td>Notas fiscais, registros contábeis, guarda de registros de acesso, comunicação de incidentes</td><td>Cumprimento de obrigação legal ou regulatória (art. 7º, II)</td></tr>
+              <tr><td>Segurança e prevenção a fraudes</td><td>Registros de acesso, trilhas de auditoria, bloqueio de abusos, proteção do site e da plataforma</td><td>Legítimo interesse (art. 7º, IX); obrigação legal (art. 7º, II)</td></tr>
+              <tr><td>Programa de indicação e parcerias</td><td>Avaliar candidaturas, registrar indicações, contatar a pessoa indicada</td><td>Procedimentos preliminares a contrato (art. 7º, V); legítimo interesse quanto à pessoa indicada (art. 7º, IX)</td></tr>
+              <tr><td>Relatos de vulnerabilidade</td><td>Analisar, corrigir e dar crédito a quem relatou, se a pessoa quiser</td><td>Legítimo interesse (art. 7º, IX)</td></tr>
+              <tr><td>Atender titulares e autoridades</td><td>Respostas a pedidos da LGPD, comunicações à ANPD</td><td>Cumprimento de obrigação legal (art. 7º, II)</td></tr>
+              <tr><td>Comunicação institucional</td><td>Novidades do produto, conteúdos e convites</td><td>Consentimento (art. 7º, I) ou legítimo interesse (art. 7º, IX), sempre com descadastro fácil</td></tr>
+              <tr><td>Recursos opcionais do site</td><td>Mapa incorporado e assistente com IA</td><td>Consentimento (art. 7º, I)</td></tr>
+              <tr><td>Acessibilidade e preferências</td><td>Idioma, ajustes de leitura, tradução para Libras</td><td>Legítimo interesse (art. 7º, IX), em cumprimento ao dever de acessibilidade</td></tr>
+              <tr><td>Defesa de direitos</td><td>Gestão de contratos, cobranças, processos</td><td>Exercício regular de direitos (art. 7º, VI)</td></tr>
+              <tr><td>Dados sensíveis, só por exceção</td><td>Um pedido de titular ou um caso de incidente que revele dado de saúde, por exemplo</td><td>Obrigação legal (art. 11, II, a) ou exercício regular de direitos (art. 11, II, d), com acesso restrito</td></tr>
+              <tr><td>Tratamento na plataforma, como operadora</td><td>Monitoração de ativos, varreduras, casos, conformidade</td><td>Definida pelo cliente controlador; a localização do equipamento depende do consentimento do usuário (art. 7º, I)</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Quando usamos o legítimo interesse, avaliamos antes se ele é compatível com as suas expectativas e direitos, usamos só os dados estritamente necessários e você pode se opor a qualquer momento.</p>
+        <div class="law"><span>LGPD, art. 7º</span><span>LGPD, art. 10</span><span>LGPD, art. 11</span></div>
+      </section>
+
+      <section id="s6">
+        <h2><span class="n">6.</span> Recursos do site e o que acontece com seus dados</h2>
+
+        <h3>Formulários com protocolo</h3>
+        <p>Contato, diagnóstico, prova de conceito, indicação, parceria, Portal do Titular e demais formulários <strong>não gravam nada no servidor do site</strong>. Ao enviar, o site gera um número de protocolo (por exemplo, <span data-noi18n>CTT-2026-123456</span>) e abre o seu e-mail ou o WhatsApp com a mensagem pronta. A mensagem só chega até nós quando você a envia. No WhatsApp, valem as regras da Meta.</p>
+
+        <h3>Experiência com a câmera</h3>
+        <p>Na página inicial, o “controle com a mão” só usa a câmera se você clicar para ativá-la e autorizar no navegador. A imagem é analisada <strong>somente no seu dispositivo</strong> para detectar a posição da mão; nenhum quadro de vídeo é gravado, guardado ou enviado à EBAEM ou a terceiros.</p>
+        <h3>Consulta rápida de DNS e e-mail</h3>
+        <p>Na página de <a href="/diagnostico-gratuito/">diagnóstico gratuito</a>, a consulta rápida verifica registros públicos de um domínio, como SPF e DMARC. Ela só roda quando você clica, e a consulta sai <strong>direto do seu navegador</strong> para resolvedores DNS públicos — Google Public DNS (<span data-noi18n>dns.google</span>) e Cloudflare (<span data-noi18n>cloudflare-dns.com</span>) — com o domínio digitado. <strong>A EBAEM não recebe o domínio nem o resultado.</strong> Esses provedores recebem o domínio consultado e os dados técnicos da conexão, como o seu IP, conforme as políticas deles.</p>
+
+        <h3>Assistente Cy</h3>
+        <p>O Cy, sentinela do CoreCyber, responde por padrão com uma <strong>base de conhecimento local</strong>, que roda no seu navegador, sem enviar nada. Só quando o assistente com IA estiver habilitado <strong>e</strong> você permitir a categoria “Funcionais” nas preferências de cookies, a sua pergunta e as últimas mensagens da conversa vão para o servidor de IA da EBAEM — um gateway FreeLLMAPI operado por nós, que encaminha o texto a provedores de modelos de IA de terceiros para gerar a resposta. O servidor da EBAEM foi configurado para não guardar as perguntas em registros de acesso; os provedores de IA podem manter registros conforme as próprias políticas.</p>
+        <div class="callout callout--warn">{{i:alert}}<p>Não digite dados pessoais, sensíveis ou confidenciais no assistente — nem informações sobre vulnerabilidades da sua empresa. Para isso, fale com uma pessoa da nossa equipe.</p></div>
+
+        <h3>Mapa e acessibilidade</h3>
+        <p>O mapa do Google na página de <a href="/contato/">contato</a> só carrega com a sua permissão. O VLibras, ferramenta pública de tradução para Libras do Governo Federal, é carregado de <span data-noi18n>vlibras.gov.br</span> para que a tradução esteja disponível a quem precisa. Suas preferências de acessibilidade ficam só no seu navegador.</p>
+        <div class="law"><span>LGPD, art. 7º, I e IX</span><span>LGPD, art. 9º</span></div>
+      </section>
+
+      <section id="s7">
+        <h2><span class="n">7.</span> Com quem compartilhamos</h2>
+        <p><strong>Não vendemos dados pessoais — nunca.</strong> Compartilhamos somente o necessário, com fornecedores que atuam como nossos suboperadores, contratualmente obrigados a padrões de segurança e confidencialidade compatíveis com os nossos:</p>
+        <div class="table-wrap">
+          <table class="tbl">
+            <caption class="sr-only">Categorias de destinatários</caption>
+            <thead><tr><th scope="col">Categoria</th><th scope="col">Para quê</th><th scope="col">Quem decide</th></tr></thead>
+            <tbody>
+              <tr><td>Provedores de infraestrutura e nuvem</td><td>Manter no ar o site, a plataforma e o servidor de IA do assistente</td><td>EBAEM</td></tr>
+              <tr><td>Serviço de envio de e-mails</td><td>Alertas, códigos de 2º fator, relatórios agendados e respostas</td><td>EBAEM</td></tr>
+              <tr><td>Contabilidade, meios de pagamento e assinatura eletrônica</td><td>Cobrar, cumprir obrigações fiscais e formalizar contratos</td><td>EBAEM</td></tr>
+              <tr><td>Integrações opcionais: Google Drive, Telegram, Slack, webhook e GLPI</td><td>Copiar relatórios, enviar alertas e abrir chamados no destino escolhido pelo cliente</td><td>Empresa cliente, que ativa e configura cada uma</td></tr>
+              <tr><td>Login com Google ou Microsoft</td><td>Confirmar a identidade de quem escolhe entrar com essas contas</td><td>Empresa cliente e o próprio usuário</td></tr>
+              <tr><td>IA compatível com a API da OpenAI, opcional</td><td>Personalizar o texto do laudo, só se o cliente ativar e configurar o provedor</td><td>Empresa cliente</td></tr>
+              <tr><td>Provedores de modelos de IA via FreeLLMAPI</td><td>Gerar respostas do assistente do site</td><td>Você, ao permitir a categoria “Funcionais”</td></tr>
+              <tr><td>Google (Maps)</td><td>Mostrar nossa localização na página de contato</td><td>Você, ao permitir a categoria “Funcionais”</td></tr>
+              <tr><td>Google Public DNS e Cloudflare</td><td>Responder à consulta rápida de DNS, direto do seu navegador</td><td>Você, ao clicar na consulta</td></tr>
+              <tr><td>Governo Federal (VLibras)</td><td>Traduzir o conteúdo do site para Libras</td><td>EBAEM, por acessibilidade</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Também podemos compartilhar dados com <strong>autoridades públicas</strong>, quando houver obrigação legal ou ordem judicial, e com assessores jurídicos, para defesa de direitos. A lista de suboperadores da plataforma está disponível aos clientes, e mudanças relevantes são comunicadas conforme o contrato.</p>
+        <div class="law"><span>LGPD, art. 18, VII</span><span>LGPD, art. 39</span></div>
+      </section>
+
+      <section id="s8">
+        <h2><span class="n">8.</span> Transferência internacional</h2>
+        <p>Alguns fornecedores — como provedores de nuvem e de e-mail, serviços do Google e da Cloudflare, provedores de IA e as integrações que o cliente escolher, como Slack e Telegram — podem tratar dados em servidores fora do Brasil. Quando isso acontece, a transferência ocorre somente nas hipóteses do art. 33 da LGPD: para países com grau de proteção adequado, mediante garantias como cláusulas-padrão contratuais aprovadas pela ANPD, ou quando necessária à execução de contrato ou a procedimentos preliminares a pedido do titular.</p>
+        <p>Nas integrações ativadas pelo cliente, cabe a ele, como controlador, avaliar a transferência; a EBAEM informa onde cada serviço opera e apoia essa avaliação. Clientes que precisam manter os dados em ambiente exclusivo podem contratar uma instância dedicada, sob consulta.</p>
+        <div class="law"><span>LGPD, arts. 33 a 36</span><span>Resolução CD/ANPD nº 19/2024</span></div>
+      </section>
+
+      <section id="s9">
+        <h2><span class="n">9.</span> Como protegemos</h2>
+        <p>Somos uma empresa de segurança: aplicamos à nossa casa os controles que recomendamos aos clientes, proporcionais ao risco. Entre eles:</p>
+        <ul>
+          <li><strong>Perfis e permissões por função (RBAC)</strong> e princípio do menor privilégio.</li>
+          <li><strong>2º fator de autenticação</strong> por e-mail, login com Google ou Microsoft e opção de entrada com <strong>certificado digital ICP-Brasil</strong> (e-CPF ou e-CNPJ).</li>
+          <li><strong>Reautenticação</strong> para ações sensíveis e sessão encerrada após 30 minutos de inatividade.</li>
+          <li><strong>Segredos cifrados</strong>, conexão segura (HTTPS) e proteção contra ataques de falsificação de requisições no servidor (SSRF).</li>
+          <li><strong>Isolamento entre empresas</strong> testado automaticamente: 3.951 verificações, 0 falhas.</li>
+          <li><strong>Logs de auditoria</strong> com 14 tipos de evento e registro de quem acessou dados pessoais.</li>
+          <li><strong>Agente íntegro:</strong> atualização verificada por SHA-256, com autoteste e retorno automático à versão anterior, e detecção de agente adulterado.</li>
+          <li><strong>Pessoas preparadas:</strong> treinamento de privacidade e segurança para a equipe e plano de resposta a incidentes.</li>
+        </ul>
+        <p>Nosso programa usa como referência as normas ISO/IEC 27001 e ISO/IEC 27701. Isso orienta nossos controles, mas não significa que o site ou o produto tenham certificação. Os detalhes estão na <a href="/confianca/">Central de Confiança</a>. Nenhum sistema é invulnerável — por isso mantemos o processo de incidentes da <a href="#s14">seção 14</a> e um programa de <a href="/divulgacao-responsavel/">divulgação responsável</a> de vulnerabilidades.</p>
+        <div class="law"><span>LGPD, art. 46</span><span>LGPD, art. 50</span></div>
+      </section>
+
+      <section id="s10">
+        <h2><span class="n">10.</span> Por quanto tempo guardamos</h2>
+        <p>Guardamos os dados pelo tempo necessário à finalidade e aos prazos legais. Como referência:</p>
+        <div class="table-wrap">
+          <table class="tbl">
+            <caption class="sr-only">Prazos de retenção por categoria</caption>
+            <thead><tr><th scope="col">Categoria</th><th scope="col">Prazo de retenção</th></tr></thead>
+            <tbody>
+              <tr><td>Contatos, leads, propostas sem contratação e diagnósticos gratuitos</td><td>Até 24 meses após o último contato</td></tr>
+              <tr><td>Contratos, cobrança, documentos fiscais e aceite dos termos</td><td>Durante o contrato e por 5 anos após o término, conforme os prazos do Código Civil e da legislação tributária</td></tr>
+              <tr><td>Registros de acesso ao site e à plataforma</td><td>Mínimo de 6 meses, conforme o Marco Civil da Internet</td></tr>
+              <tr><td>Dados da plataforma, tratados como operadora</td><td>Durante o contrato e mais 30 dias para o cliente exportar. Depois, eliminação ou anonimização, com certificado de descomissionamento, se o cliente pedir</td></tr>
+              <tr><td>Logs de auditoria e de segurança da plataforma</td><td>180 dias por padrão, ou o prazo configurado pelo cliente</td></tr>
+              <tr><td>Chamados de suporte</td><td>Durante o contrato e, depois, pelo tempo necessário ao exercício regular de direitos</td></tr>
+              <tr><td>Programa de indicação e parcerias</td><td>Durante a participação e, depois, pelos prazos legais aplicáveis a eventuais pagamentos</td></tr>
+              <tr><td>Relatos de vulnerabilidade</td><td>Durante a análise e a correção e, depois, até 24 meses como histórico de segurança</td></tr>
+              <tr><td>Pedidos de titulares</td><td>Preservados como evidência de cumprimento da LGPD, pelo tempo necessário ao exercício regular de direitos</td></tr>
+              <tr><td>Registro de incidentes de segurança</td><td>Mínimo de 5 anos, conforme a regulamentação da ANPD</td></tr>
+              <tr><td>Conversa com o assistente Cy</td><td>No seu navegador, só até você fechar ou recarregar a página</td></tr>
+              <tr><td>Preferências do site no seu navegador</td><td>Até você limpar o navegador; a escolha de cookies vale por 12 meses</td></tr>
+              <tr><td>Dados tratados com consentimento</td><td>Até a revogação ou o fim da finalidade</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Cópias de segurança seguem um ciclo de rotação: dados eliminados da base ativa deixam de existir nas cópias ao fim desse ciclo e não são restaurados para uso. Quando a lei exige guardar algo que você pediu para eliminar — como um documento fiscal —, mantemos o dado bloqueado, com acesso restrito, só pelo prazo obrigatório. Ao final dos prazos, os dados são eliminados de forma segura ou anonimizados.</p>
+        <div class="law"><span>LGPD, arts. 15 e 16</span><span>Marco Civil, art. 15</span><span>Código Civil, art. 206</span></div>
+      </section>
+
+      <section id="s11">
+        <h2><span class="n">11.</span> Seus direitos como titular</h2>
+        <p>A LGPD garante a você, sem custo:</p>
+        <ul>
+          <li>confirmação de que tratamos seus dados e acesso a eles;</li>
+          <li>correção de dados incompletos, inexatos ou desatualizados;</li>
+          <li>anonimização, bloqueio ou eliminação de dados desnecessários, excessivos ou tratados em desconformidade;</li>
+          <li>portabilidade a outro fornecedor;</li>
+          <li>eliminação dos dados tratados com consentimento, ressalvadas as hipóteses legais de guarda;</li>
+          <li>informação sobre com quem compartilhamos seus dados;</li>
+          <li>informação sobre a possibilidade de não dar consentimento e suas consequências;</li>
+          <li>revogação do consentimento, a qualquer momento;</li>
+          <li>oposição a tratamento feito em desconformidade com a lei;</li>
+          <li>revisão de decisões tomadas unicamente com base em tratamento automatizado.</li>
+        </ul>
+        <p>O caminho mais rápido é o <a href="/lgpd/#portal">Portal do Titular</a>. Você também pode escrever ao Encarregado em <a href="mailto:{{c:company.email_dpo}}" data-noi18n>{{c:company.email_dpo}}</a>. Para proteger você, confirmamos sua identidade antes de entregar ou alterar dados. Respondemos em até 15 dias e, se continuar insatisfeito, você pode peticionar à Autoridade Nacional de Proteção de Dados (ANPD).</p>
+        <p>Se os seus dados estiverem na plataforma por conta da empresa em que você trabalha, o pedido é respondido por ela, como controladora. Se nos procurar, encaminhamos o pedido à empresa e avisamos você.</p>
+        <p>Não tomamos decisões baseadas unicamente em tratamento automatizado que afetem seus interesses. O score de risco do CoreCyber avalia vulnerabilidades e ativos, não pessoas.</p>
+        <p><a class="btn btn--primary" href="/lgpd/#portal">{{i:user}} Exercer meus direitos</a></p>
+        <div class="law"><span>LGPD, art. 18</span><span>LGPD, art. 19</span><span>LGPD, art. 20</span></div>
+      </section>
+
+      <section id="s12">
+        <h2><span class="n">12.</span> Cookies e armazenamento no navegador</h2>
+        <p>Este site usa somente o essencial para funcionar e lembrar suas escolhas (consentimento, idioma, acessibilidade e o mascote) e carrega o VLibras, ferramenta pública de Libras do Governo Federal. O mapa do Google e o assistente com IA só são ativados com a sua permissão. Hoje não usamos cookies de estatísticas nem de marketing, e nada disso será ativado sem o seu consentimento.</p>
+        <p>Os detalhes, com a lista completa e os prazos, estão na <a href="/politica-de-cookies/">Política de Cookies</a>. Você pode rever suas escolhas quando quiser:</p>
+        <p><button class="btn btn--ghost" type="button" data-cookie-open>{{i:cookie}} Preferências de cookies</button></p>
+      </section>
+
+      <section id="s13">
+        <h2><span class="n">13.</span> Crianças e adolescentes</h2>
+        <p>O site e a plataforma são destinados a empresas e profissionais e não se dirigem a menores de idade. Não coletamos intencionalmente dados de crianças. Se uma empresa cliente monitorar equipamentos usados por adolescentes — por exemplo, jovens aprendizes —, cabe a ela, como controladora, observar o melhor interesse desses titulares e as regras do art. 14 da LGPD. Como operadora, seguimos as instruções que ela nos der.</p>
+        <div class="law"><span>LGPD, art. 14</span></div>
+      </section>
+
+      <section id="s14">
+        <h2><span class="n">14.</span> Incidentes de segurança</h2>
+        <p>Todo evento que possa colocar dados pessoais em risco segue nosso plano de resposta: contenção, preservação de evidências, avaliação do risco aos titulares e correção da causa. Quando o incidente puder causar risco ou dano relevante, comunicamos a ANPD e as pessoas afetadas em até <strong>3 dias úteis</strong>, como determina a regulamentação, e registramos todos os incidentes, inclusive os não comunicados.</p>
+        <p>Nos serviços em que somos operadora, avisamos o cliente controlador sem demora injustificada, em prazo que permita a ele cumprir os 3 dias úteis, e fornecemos as informações de que ele precisa para fazer as comunicações que lhe cabem.</p>
+        <p>Suspeita de incidente? Escreva para <a href="mailto:{{c:company.email_security}}" data-noi18n>{{c:company.email_security}}</a> e <a href="mailto:{{c:company.email_dpo}}" data-noi18n>{{c:company.email_dpo}}</a>. Encontrou uma vulnerabilidade? Siga a página de <a href="/divulgacao-responsavel/">divulgação responsável</a>.</p>
+        <div class="law"><span>LGPD, art. 48</span><span>Resolução CD/ANPD nº 15/2024</span></div>
+      </section>
+
+      <section id="s15">
+        <h2><span class="n">15.</span> Encarregado pelo tratamento de dados (DPO)</h2>
+        <p>O Encarregado é o canal oficial entre você, a EBAEM e a ANPD. Ele recebe reclamações e comunicações, presta esclarecimentos e orienta a equipe sobre proteção de dados.</p>
+        <ul>
+          <li><strong>Quem:</strong> Encarregado pelo Tratamento de Dados Pessoais da EBAEM, que atende também o CoreCyber</li>
+          <li><strong>E-mail:</strong> <a href="mailto:{{c:company.email_dpo}}" data-noi18n>{{c:company.email_dpo}}</a></li>
+          <li><strong>Endereço:</strong> {{c:company.address}}</li>
+          <li><strong>Atendimento:</strong> {{c:company.hours}}</li>
+        </ul>
+        <div class="law"><span>LGPD, art. 41</span><span>Resolução CD/ANPD nº 18/2024</span></div>
+      </section>
+
+      <section id="s16">
+        <h2><span class="n">16.</span> Links e serviços de terceiros</h2>
+        <p>O site tem links para serviços de terceiros, como WhatsApp, redes sociais, Google Maps e o site institucional da EBAEM. Ao abri-los, valem as políticas de privacidade de cada um. Recomendamos que você as leia. O portal da plataforma (<span data-noi18n>cybercore.ebaem.api.br</span>) segue esta política e os <a href="/termos-de-uso/">Termos de Uso</a>.</p>
+        <p>Para relatos sobre ética, conduta ou integridade, use o <a href="/compliance/#canal">Canal de Integridade</a>, que tem regras próprias de sigilo e anonimato.</p>
+      </section>
+
+      <section id="s17">
+        <h2><span class="n">17.</span> Atualizações desta política</h2>
+        <p>Revisamos esta política sempre que necessário e, no mínimo, uma vez por ano — por exemplo, quando o produto ganha um recurso que trata dados de outra forma. Cada mudança relevante gera nova versão e data de vigência, registradas no histórico ao final desta página. Se a mudança afetar uma base de consentimento, pediremos sua concordância de novo; clientes são avisados conforme o contrato.</p>
+      </section>
+
+      <section id="s18">
+        <h2><span class="n">18.</span> Legislação de base e referências</h2>
+        <ul>
+          <li><a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm" target="_blank" rel="noopener">Lei nº 13.709/2018 — Lei Geral de Proteção de Dados Pessoais (LGPD)</a></li>
+          <li><a href="https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l12965.htm" target="_blank" rel="noopener">Lei nº 12.965/2014 — Marco Civil da Internet</a></li>
+          <li><a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/decreto/d8771.htm" target="_blank" rel="noopener">Decreto nº 8.771/2016 — regulamenta o Marco Civil</a></li>
+          <li><a href="https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm" target="_blank" rel="noopener">Lei nº 10.406/2002 — Código Civil</a>, quanto aos prazos de guarda de documentos</li>
+          <li><a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13146.htm" target="_blank" rel="noopener">Lei nº 13.146/2015 — Lei Brasileira de Inclusão</a>, quanto à acessibilidade do site</li>
+          <li>Resolução CD/ANPD nº 2/2022 — agentes de tratamento de pequeno porte</li>
+          <li>Resolução CD/ANPD nº 15/2024 — comunicação de incidente de segurança</li>
+          <li>Resolução CD/ANPD nº 18/2024 — atuação do encarregado</li>
+          <li>Resolução CD/ANPD nº 19/2024 — transferência internacional de dados</li>
+          <li>Normas ISO/IEC 27001 e 27701 — referências do nosso programa interno</li>
+        </ul>
+      </section>
+
+      <div class="sign">
+        <p><strong>{{c:company.legal_name}}</strong> · CNPJ <span data-noi18n>{{c:company.cnpj}}</span> · {{c:company.address}}</p>
+        <p>Dúvidas sobre esta política? Fale com o Encarregado em <a href="mailto:{{c:company.email_dpo}}" data-noi18n>{{c:company.email_dpo}}</a>.</p>
+        <p><strong>Histórico de versões</strong></p>
+        <ul>
+          <li>Versão 1.0 — vigência em {{c:site.policy_date}} — publicação inicial para o site do CoreCyber, coerente com a Política de Privacidade da EBAEM.</li>
+        </ul>
+      </div>
+
+    </article>
+  </div>
+</section>

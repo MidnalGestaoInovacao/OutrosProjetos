@@ -1,0 +1,48 @@
+/* =====================================================================
+   Modos de acessibilidade (classes aplicadas em <html> pelo painel)
+   ===================================================================== */
+
+/* alto contraste */
+html.a11y-contrast body { background: #000 !important; }
+html.a11y-contrast .cc, html.a11y-contrast .cc *:not(svg):not(path):not(circle):not(rect):not(canvas):not(img):not(video):not(i.mini),
+html.a11y-contrast .ccw, html.a11y-contrast .ccw *:not(svg):not(path):not(circle):not(rect):not(img) {
+  background-color: #000 !important; background-image: none !important; color: #fff !important; border-color: #fff !important; box-shadow: none !important; text-shadow: none !important; -webkit-text-fill-color: currentColor !important; backdrop-filter: none !important;
+}
+html.a11y-contrast .cc a, html.a11y-contrast .cc a *, html.a11y-contrast .ccw a { color: #ffef00 !important; text-decoration: underline !important; }
+html.a11y-contrast .cc .btn, html.a11y-contrast .ccw button { border: 2px solid #ffef00 !important; color: #ffef00 !important; }
+html.a11y-contrast .cc .ico, html.a11y-contrast .ccw .ico { stroke: currentColor !important; }
+html.a11y-contrast .cc :focus-visible, html.a11y-contrast .ccw :focus-visible { outline: 3px solid #ffef00 !important; }
+html.a11y-contrast .cc .checks li::before { background: #000 !important; border: 2px solid #fff; }
+html.a11y-contrast .cc .hero-bg, html.a11y-contrast .cc .float-card { display: none !important; }
+
+/* escala de cinza (no elemento raiz para não quebrar position:fixed) */
+html.a11y-gray { filter: grayscale(1); }
+
+/* links destacados */
+html.a11y-links .cc a, html.a11y-links .ccw a { text-decoration: underline !important; text-decoration-thickness: 2px !important; outline: 1px dashed currentColor; outline-offset: 2px; }
+
+/* fonte legível */
+html.a11y-font .cc, html.a11y-font .cc *, html.a11y-font .ccw, html.a11y-font .ccw * { font-family: "Atkinson Hyperlegible", Verdana, Tahoma, sans-serif !important; letter-spacing: .01em !important; }
+
+/* espaçamento de texto */
+html.a11y-spacing .cc p, html.a11y-spacing .cc li, html.a11y-spacing .cc dd, html.a11y-spacing .cc td, html.a11y-spacing .cc .lead { line-height: 1.95 !important; letter-spacing: .06em !important; word-spacing: .14em !important; }
+
+/* pausar animações */
+html.a11y-motion *, html.a11y-motion *::before, html.a11y-motion *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
+html.a11y-motion .cc .marquee-track { animation: none !important; }
+
+/* cursor ampliado */
+html.a11y-cursor, html.a11y-cursor * { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24'%3E%3Cpath d='M4 2l15 11-7 1 4 8-3 1-4-8-5 5z' fill='%23000' stroke='%23fff' stroke-width='1.4'/%3E%3C/svg%3E") 4 2, auto !important; }
+
+/* ocultar imagens decorativas */
+html.a11y-noimg .cc img:not(.keep), html.a11y-noimg .cc canvas, html.a11y-noimg .cc .hero-bg, html.a11y-noimg .cc .float-card { visibility: hidden !important; }
+
+/* destaque de foco ao navegar por teclado */
+html.cc-kbd .cc :focus, html.cc-kbd .ccw :focus { outline: 3px solid var(--c-orange) !important; outline-offset: 3px !important; }
+
+/* impressão */
+@media print {
+  .cc-fab, .cc-dock, .cc-mascot, .cc-mascot-min, .cc-chat, .cc-cookie, .cc-totop, header.wp-block-template-part, .cc.cc-foot .foot-strip, .cc .toc, #vw-access-button, div[vw] { display: none !important; }
+  .cc .doc-layout { grid-template-columns: 1fr; }
+  body { background: #fff !important; }
+}

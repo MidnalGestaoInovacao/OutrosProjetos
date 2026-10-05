@@ -1,0 +1,240 @@
+<!--meta {"slug": "planos", "title": "Planos e preços", "description": "Planos do CoreCyber por faixa de ativos, em reais e sem variação cambial: Essencial, Profissional, Avançado e MSSP. Anual com 2 meses grátis, diagnóstico gratuito e prova de conceito.", "order": 30} -->
+
+<section class="page-hero">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Você está aqui"><a href="/">Início</a><span aria-hidden="true">›</span><span aria-current="page">Planos e preços</span></nav>
+    <span class="eyebrow">Planos e preços</span>
+    <h1>Segurança de verdade, com preço em reais e sem surpresa no câmbio.</h1>
+    <p class="lead">Você paga por <strong>faixa de ativos monitorados</strong>, não por ferramenta nem por usuário. Comece pela camada que mais dói e evolua quando quiser — no plano anual, são 2 meses grátis.</p>
+  </div>
+</section>
+
+<section class="sec" id="precos" aria-label="Configurador de preços" data-say="Arraste a faixa de ativos e veja os preços mudarem na hora.">
+  <div class="wrap">
+    <div data-pricing>
+      <div class="pricing-controls">
+        <div class="seg" role="group" aria-label="Ciclo de cobrança">
+          <button type="button" data-bill="m" aria-pressed="false">Mensal</button>
+          <button type="button" data-bill="y" aria-pressed="true">Anual <span class="save">2 meses grátis</span></button>
+        </div>
+        <div class="users-ctl">
+          <label for="assets">Ativos monitorados</label>
+          <input class="range" id="assets" type="range" min="0" max="4" step="1" value="2" data-assets aria-describedby="assets-help">
+          <output data-assets-out data-dyn for="assets">até 100 ativos</output>
+        </div>
+        <div class="seg" role="group" aria-label="Onde a plataforma vai rodar">
+          <button type="button" data-host="cloud" aria-pressed="true">{{i:cloud}} Nuvem CoreCyber</button>
+          <button type="button" data-host="dedicated" aria-pressed="false">{{i:server}} Instância dedicada</button>
+        </div>
+      </div>
+      <p id="assets-help" class="sr-only">Faixas disponíveis: até 25, 50, 100, 250 e 500 ativos.</p>
+      <div class="plans">
+        <article class="plan" data-plan="essencial" data-plan-name="Essencial">
+          <div class="plan-name"><span class="ibox ibox--sm">{{i:radar}}</span><div><h3>Essencial</h3><small>Superfície e disponibilidade</small></div></div>
+          <p class="plan-desc">Para saber o que está exposto na internet e ser avisado antes do cliente.</p>
+          <div class="price"><span class="cur">R$</span><span class="val" data-price data-dyn>{{pa:essencial:2}}</span><span class="per">/mês</span></div>
+          <p class="price-note" data-note data-dyn></p>
+          <p class="tiny" data-perasset data-dyn></p>
+          <ul class="checks checks--sm">
+            <li>Varredura externa não invasiva e monitoramento a cada 10 minutos</li>
+            <li>Inventário externo de domínios e subdomínios com histórico</li>
+            <li>Disponibilidade, latência, SSL e domínio a vencer</li>
+            <li>Status pages públicas com a sua marca</li>
+            <li>Alertas por e-mail, Telegram, Slack e webhook</li>
+            <li>Laudos em PDF com QR de autenticidade</li>
+          </ul>
+          <p class="tiny" data-hostnote data-dyn></p>
+          <div class="plan-cta"><a class="btn btn--ghost btn--block" data-plan-cta href="{{wa}}" target="_blank" rel="noopener">Quero o Essencial</a><a class="btn btn--link" href="/diagnostico-gratuito/">ou comece pelo diagnóstico gratuito</a></div>
+        </article>
+        <article class="plan plan--featured" data-plan="profissional" data-plan-name="Profissional">
+          <span class="ribbon">Mais escolhido</span>
+          <div class="plan-name"><span class="ibox ibox--sm ibox--grad">{{i:target}}</span><div><h3>Profissional</h3><small>Vulnerabilidades e ameaças</small></div></div>
+          <p class="plan-desc">Para priorizar o que está sendo explorado de verdade — e provar a correção.</p>
+          <div class="price"><span class="cur">R$</span><span class="val" data-price data-dyn>{{pa:profissional:2}}</span><span class="per">/mês</span></div>
+          <p class="price-note" data-note data-dyn></p>
+          <p class="tiny" data-perasset data-dyn></p>
+          <ul class="checks checks--sm">
+            <li>Tudo do Essencial</li>
+            <li>Fila priorizada por CVSS, EPSS e KEV com SLA por severidade</li>
+            <li>Regularização passo a passo e aceite de risco</li>
+            <li>Inteligência de ameaças diária</li>
+            <li>Código, dependências, segredos, SBOM e APIs</li>
+            <li>Relatórios executivos e exportação SARIF</li>
+          </ul>
+          <p class="tiny" data-hostnote data-dyn></p>
+          <div class="plan-cta"><a class="btn btn--primary btn--block" data-plan-cta href="{{wa}}" target="_blank" rel="noopener">Quero o Profissional</a><a class="btn btn--link" href="#poc">ou faça uma prova de conceito</a></div>
+        </article>
+        <article class="plan" data-plan="avancado" data-plan-name="Avançado">
+          <div class="plan-name"><span class="ibox ibox--sm ibox--navy">{{i:shield-check}}</span><div><h3>Avançado</h3><small>Ativos, conformidade e resposta</small></div></div>
+          <p class="plan-desc">Para ter cada computador sob controle e a auditoria ISO e LGPD em dia.</p>
+          <div class="price"><span class="cur">R$</span><span class="val" data-price data-dyn>{{pa:avancado:2}}</span><span class="per">/mês</span></div>
+          <p class="price-note" data-note data-dyn></p>
+          <p class="tiny" data-perasset data-dyn></p>
+          <ul class="checks checks--sm">
+            <li>Tudo do Profissional</li>
+            <li>Agentes para Windows, Linux, Docker, WordPress e Android</li>
+            <li>15 correções remotas recusáveis na máquina</li>
+            <li>193 controles ISO e LGPD e Declaração de Aplicabilidade</li>
+            <li>ROPA, pedidos de titulares e descomissionamento certificado</li>
+            <li>Detecções correlacionadas, casos, automação e GLPI</li>
+          </ul>
+          <p class="tiny" data-hostnote data-dyn></p>
+          <div class="plan-cta"><a class="btn btn--ghost btn--block" data-plan-cta href="{{wa}}" target="_blank" rel="noopener">Quero o Avançado</a><a class="btn btn--link" href="/contato/#demo">ou agende uma demonstração</a></div>
+        </article>
+      </div>
+      <div class="callout callout--teal mt-3" data-big hidden>{{i:info}}<p><strong>Mais de 500 ativos?</strong> Fazemos proposta sob medida, com faixas maiores e condições para grupos econômicos. <a href="/contato/">Fale com a gente</a>.</p></div>
+      <p class="tiny center mt-2">Valores de referência para contratação direta com a EBAEM. Valem as condições da proposta assinada. Detalhes na <a href="/politica-comercial/">Política de Comercialização</a>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MSSP -->
+<section class="sec sec--white sec--line" id="mssp" aria-labelledby="mssp-h">
+  <div class="wrap split">
+    <div data-reveal="left">
+      <span class="eyebrow">{{i:users}} MSSP e operação gerenciada</span>
+      <h2 id="mssp-h">Para quem protege muitas empresas — ou quer que a EBAEM opere por você.</h2>
+      <p class="lead">O CoreCyber é multiempresa de nascença: uma empresa administradora enxerga todos os clientes, cada um isolado dos demais. Ideal para provedores de serviços gerenciados de segurança, consultorias e grupos econômicos.</p>
+      <ul class="checks mt-2"><li>Marca própria e páginas de status por cliente</li><li>Recorte por empresa em todas as telas</li><li>SLA contratual e, se quiser, operação pela equipe da EBAEM</li><li>Isolamento entre empresas testado: 3.951 verificações, zero falhas</li></ul>
+    </div>
+    <article class="plan" data-reveal="right">
+      <div class="plan-name"><span class="ibox ibox--sm ibox--purple">{{i:building}}</span><div><h3>MSSP / Gerenciado</h3><small>Multiempresa com SLA</small></div></div>
+      <div class="price"><span class="per">a partir de</span> <span class="cur">R$</span><span class="val" data-noi18n>{{managed}}</span><span class="per">/mês</span></div>
+      <p class="price-note">Sob consulta, conforme número de empresas, ativos e nível de serviço.</p>
+      <div class="plan-cta"><a class="btn btn--primary btn--block" href="/contato/#parceria">Quero ser parceiro</a></div>
+    </article>
+  </div>
+</section>
+
+<!-- complementos -->
+<section class="sec" id="complementos" aria-labelledby="add-h">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Complementos</span><h2 id="add-h">Adicione quando precisar.</h2></div>
+    <div class="grid g-4" data-stagger>
+      <div class="card card--hover" data-reveal><span class="ibox ibox--navy">{{i:sap}}</span><h3>Auditoria SAP e RACF</h3><p>Dossiê de evidências, segregação de funções e laudo com QR. Por projeto.</p></div>
+      <div class="card card--hover" data-reveal><span class="ibox ibox--blue">{{i:server}}</span><h3>Instância dedicada</h3><p>Ambiente exclusivo em nuvem privada para quem precisa de isolamento físico. Sob consulta.</p></div>
+      <div class="card card--hover" data-reveal><span class="ibox">{{i:history}}</span><h3>Retenção estendida</h3><p>Mais tempo de histórico de achados, logs de auditoria e relatórios.</p></div>
+      <div class="card card--hover" data-reveal><span class="ibox ibox--purple">{{i:sparkles}}</span><h3>Add-on de IA <span class="badge badge--soon">Roadmap</span></h3><p>Assistente e IA preditiva. Lista de espera — valor referencial de R$ {{addon}}/mês no lançamento.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- recursos por plano -->
+<section class="sec sec--white sec--line" id="recursos" aria-labelledby="rec-h">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Recursos por plano</span><h2 id="rec-h">Compare os planos lado a lado.</h2></div>
+    <div class="table-wrap">
+      <table class="tbl">
+        <caption class="sr-only">Recursos incluídos em cada plano do CoreCyber</caption>
+        <thead><tr><th scope="col">Recurso</th><th scope="col">Essencial</th><th scope="col" class="is-us">Profissional</th><th scope="col">Avançado</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Superfície externa e monitoramento a cada 10 min</th><td><span class="yes">{{i:check}}</span></td><td class="is-us"><span class="yes">{{i:check}}</span></td><td><span class="yes">{{i:check}}</span></td></tr>
+          <tr><th scope="row">Disponibilidade, SSL, domínio e status pages</th><td><span class="yes">{{i:check}}</span></td><td class="is-us"><span class="yes">{{i:check}}</span></td><td><span class="yes">{{i:check}}</span></td></tr>
+          <tr><th scope="row">Alertas por e-mail, Telegram, Slack e webhook</th><td><span class="yes">{{i:check}}</span></td><td class="is-us"><span class="yes">{{i:check}}</span></td><td><span class="yes">{{i:check}}</span></td></tr>
+          <tr><th scope="row">Relatórios com QR de autenticidade</th><td><span class="yes">{{i:check}} Laudos de exposição</span></td><td class="is-us"><span class="yes">{{i:check}} + executivos</span></td><td><span class="yes">{{i:check}} Todos os 32</span></td></tr>
+          <tr><th scope="row">Vulnerabilidades com CVSS, EPSS, KEV e SLA</th><td><span class="no">{{i:x}}</span></td><td class="is-us"><span class="yes">{{i:check}}</span></td><td><span class="yes">{{i:check}}</span></td></tr>
+          <tr><th scope="row">Inteligência de ameaças diária</th><td><span class="no">{{i:x}}</span></td><td class="is-us"><span class="yes">{{i:check}}</span></td><td><span class="yes">{{i:check}}</span></td></tr>
+          <tr><th scope="row">Código, dependências, segredos, SBOM e APIs</th><td><span class="no">{{i:x}}</span></td><td class="is-us"><span class="yes">{{i:check}}</span></td><td><span class="yes">{{i:check}}</span></td></tr>
+          <tr><th scope="row">Agentes e correções remotas</th><td><span class="no">{{i:x}}</span></td><td class="is-us"><span class="no">{{i:x}}</span></td><td><span class="yes">{{i:check}}</span></td></tr>
+          <tr><th scope="row">193 controles ISO/LGPD e Declaração de Aplicabilidade</th><td><span class="no">{{i:x}}</span></td><td class="is-us"><span class="no">{{i:x}}</span></td><td><span class="yes">{{i:check}}</span></td></tr>
+          <tr><th scope="row">Detecções, casos, automação e GLPI</th><td><span class="no">{{i:x}}</span></td><td class="is-us"><span class="part">{{i:minus}} Casos e GLPI</span></td><td><span class="yes">{{i:check}}</span></td></tr>
+          <tr><th scope="row">Login com Google, Microsoft e ICP-Brasil, 2º fator e perfis</th><td><span class="yes">{{i:check}}</span></td><td class="is-us"><span class="yes">{{i:check}}</span></td><td><span class="yes">{{i:check}}</span></td></tr>
+          <tr><th scope="row">Suporte em português</th><td>E-mail e chamados</td><td class="is-us">+ WhatsApp</td><td>+ reunião periódica de acompanhamento</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- diagnóstico e POC -->
+<section class="sec" id="poc" aria-labelledby="poc-h" data-say="Sem compromisso: teste com os seus próprios ativos por 30 dias.">
+  <div class="wrap split">
+    <div data-reveal="left">
+      <span class="eyebrow">Experimente antes de decidir</span>
+      <h2 id="poc-h">Diagnóstico gratuito e prova de conceito de 30 dias.</h2>
+      <div class="grid g-2 mt-2">
+        <div class="card card--soft" id="diagnostico"><span class="ibox ibox--sm">{{i:radar}}</span><h3 class="mt-1">Diagnóstico gratuito</h3><p>Análise externa não invasiva do seu domínio, com relatório em até 2 dias úteis. Basta comprovar a titularidade.</p><a class="btn btn--link" href="/diagnostico-gratuito/">Pedir agora {{i:arrow:arrow}}</a></div>
+        <div class="card card--soft"><span class="ibox ibox--sm ibox--navy">{{i:rocket}}</span><h3 class="mt-1">Prova de conceito</h3><p>30 dias com até 25 ativos, escopo combinado e acompanhamento da equipe. No fim, os dados são migrados ou apagados.</p></div>
+      </div>
+    </div>
+    <form class="form card" data-form="poc" data-mail="{{c:company.email_sales}}" novalidate data-reveal="right">
+      <h3>Quero uma prova de conceito</h3>
+      <div class="two">
+        <div class="field"><label for="p-nome">Nome <span class="req">*</span></label><input class="input" id="p-nome" name="nome" required autocomplete="name"></div>
+        <div class="field"><label for="p-mail">E-mail corporativo <span class="req">*</span></label><input class="input" id="p-mail" name="email" type="email" required autocomplete="email"></div>
+      </div>
+      <div class="two">
+        <div class="field"><label for="p-emp">Empresa <span class="req">*</span></label><input class="input" id="p-emp" name="empresa" required autocomplete="organization"></div>
+        <div class="field"><label for="p-tel">Telefone</label><input class="input" id="p-tel" name="telefone" type="tel" autocomplete="tel"></div>
+      </div>
+      <div class="two">
+        <div class="field"><label for="p-plano">Plano de interesse</label><select class="select" id="p-plano" name="plano"><option>Profissional</option><option>Essencial</option><option>Avançado</option><option>MSSP / Gerenciado</option><option>Ainda não sei</option></select></div>
+        <div class="field"><label for="p-ativos">Quantidade aproximada de ativos</label><select class="select" id="p-ativos" name="ativos"><option>Até 25</option><option>26 a 100</option><option>101 a 500</option><option>Mais de 500</option></select></div>
+      </div>
+      <div class="field"><label for="p-msg">O que você quer resolver primeiro?</label><textarea class="textarea" id="p-msg" name="mensagem"></textarea></div>
+      <fieldset class="field"><legend class="lbl">Enviar por</legend><div class="radio-cards"><label><input type="radio" name="via" value="email" checked> E-mail</label><label><input type="radio" name="via" value="whatsapp"> WhatsApp</label></div></fieldset>
+      <label class="check"><input type="checkbox" name="ok" required> Li a <a href="/politica-de-privacidade/">Política de Privacidade</a> e concordo com o contato da EBAEM.</label>
+      <button class="btn btn--primary" type="submit">Solicitar prova de conceito</button>
+      <div class="form-msg" aria-live="polite"></div>
+    </form>
+  </div>
+</section>
+
+<!-- simulador -->
+<section class="sec sec--white sec--line" id="simulador" aria-labelledby="sim-h">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Simulador</span><h2 id="sim-h">Compare com o custo de montar a pilha com ferramentas separadas.</h2></div>
+    <div class="sim" data-sim>
+      <div class="sim-in">
+        <div class="q">
+          <div class="q-top"><label for="sim-a2">Ativos monitorados</label><output data-sim-assets-out data-dyn for="sim-a2">100 ativos</output></div>
+          <input class="range" id="sim-a2" type="range" min="10" max="1000" step="5" value="100" data-sim-assets>
+          <div class="range-labels" aria-hidden="true"><span data-noi18n>10</span><span data-noi18n>250</span><span data-noi18n>500</span><span data-noi18n>1.000</span></div>
+        </div>
+        <fieldset class="q">
+          <legend class="lbl">Ferramentas que você compraria separadamente</legend>
+          <div class="tools-pick">
+            <label><input type="checkbox" data-sim-tool="easm" checked> Superfície externa</label>
+            <label><input type="checkbox" data-sim-tool="vm" checked> Vulnerabilidades</label>
+            <label><input type="checkbox" data-sim-tool="cti" checked> Inteligência de ameaças</label>
+            <label><input type="checkbox" data-sim-tool="grc" checked> Conformidade ISO e LGPD</label>
+            <label><input type="checkbox" data-sim-tool="soar"> Automação e casos</label>
+            <label><input type="checkbox" data-sim-tool="edr"> EDR</label>
+            <label><input type="checkbox" data-sim-tool="siem"> SIEM</label>
+          </div>
+        </fieldset>
+        <div class="q">
+          <div class="q-top"><label for="sim-f2">Ajuste ao preço que você conhece</label><output data-sim-factor-out data-dyn for="sim-f2">100% do preço de referência</output></div>
+          <input class="range" id="sim-f2" type="range" min="40" max="160" step="5" value="100" data-sim-factor>
+          <p class="help">Custos médios referenciais por ativo e por mês de cada categoria. Não são cotações de nenhum fornecedor.</p>
+        </div>
+      </div>
+      <div class="sim-out" aria-live="polite">
+        <h3>Em 12 meses</h3>
+        <div class="vs">
+          <div class="vs-row"><div class="lbl"><span>Ferramentas separadas</span><b data-sim-them data-dyn>R$ 74.400</b></div><div class="vs-bar them"><i data-sim-them-bar></i></div></div>
+          <div class="vs-row"><div class="lbl"><span data-sim-plan data-dyn>CoreCyber Avançado (anual)</span><b data-sim-us data-dyn>R$ 48.900</b></div><div class="vs-bar us"><i data-sim-us-bar></i></div></div>
+        </div>
+        <div class="save-big" data-sim-save data-dyn>R$ 25.500</div>
+        <p data-sim-pct data-dyn></p>
+        <p class="tiny" data-sim-more data-dyn hidden></p>
+        <a class="btn btn--light" href="/comparativo/">Ver o comparativo completo {{i:arrow:arrow}}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec" aria-labelledby="pfaq-h">
+  <div class="wrap wrap--narrow">
+    <div class="sec-head"><span class="eyebrow">Dúvidas sobre preços</span><h2 id="pfaq-h">Perguntas frequentes.</h2></div>
+    <div class="faq">
+      <details><summary>O que conta como um ativo?</summary><div class="faq-a"><p>Cada domínio, subdomínio que você escolhe monitorar, IP público, API, computador ou servidor com agente conta como 1 ativo. Monitores de disponibilidade e relatórios não contam.</p></div></details>
+      <details><summary>Os preços são em dólar?</summary><div class="faq-a"><p>Não. Todos os valores são em reais, sem variação cambial. O reajuste é anual, pelo IPCA, conforme a <a href="/politica-comercial/">Política de Comercialização</a>.</p></div></details>
+      <details><summary>Posso mudar de plano ou de faixa?</summary><div class="faq-a"><p>Sim. Upgrade a qualquer momento, com cobrança proporcional. Se passar da faixa contratada, ajustamos sem interromper o monitoramento.</p></div></details>
+      <details><summary>Como funciona o pagamento?</summary><div class="faq-a"><p>Boleto, PIX ou transferência, com nota fiscal de serviço. No anual, você paga 10 meses e leva 12.</p></div></details>
+      <details><summary>Órgãos públicos podem contratar?</summary><div class="faq-a"><p>Sim. Fornecemos a documentação para os processos previstos na Lei 14.133/2021 e laudos com QR que facilitam a fiscalização do contrato.</p></div></details>
+      <details><summary>O que acontece com meus dados se eu cancelar?</summary><div class="faq-a"><p>Você tem 30 dias para exportar tudo. Depois, os dados são eliminados e você pode pedir um certificado de descomissionamento.</p></div></details>
+    </div>
+  </div>
+</section>

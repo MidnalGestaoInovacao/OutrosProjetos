@@ -1,0 +1,246 @@
+<!--meta {"slug": "divulgacao-responsavel", "title": "Divulgação Responsável de Vulnerabilidades", "description": "Como relatar uma vulnerabilidade no CoreCyber: escopo, regras de conduta, porto seguro, prazos de resposta e divulgação coordenada.", "order": 76} -->
+
+<section class="page-hero">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Você está aqui"><a href="/">Início</a><span aria-hidden="true">›</span><a href="/confianca/">Confiança</a><span aria-hidden="true">›</span><span aria-current="page">Divulgação Responsável</span></nav>
+    <span class="eyebrow">Política de Divulgação Responsável</span>
+    <h1>Encontrou uma falha? <span class="grad-text">Conte para nós primeiro.</span></h1>
+    <p class="lead">Pesquisadores de segurança tornam a internet mais segura para todo mundo. Esta política explica o que você pode testar, como testar sem causar dano, em quanto tempo respondemos e o nosso compromisso de tratar quem age de boa-fé como parceiro — não como ameaça.</p>
+    <div class="doc-meta"><span>Documento <b data-noi18n>POL-CCY-VDP-001</b></span><span>Versão <b>1.0</b></span><span>Vigência <b>{{c:site.policy_date}}</b></span><span>Aprovação <b>Direção Executiva EBAEM</b></span></div>
+    <div class="row mt-2">
+      <a class="btn btn--primary" href="#s6">{{i:bug}} Relatar uma vulnerabilidade</a>
+      <a class="btn btn--ghost" href="mailto:{{c:company.email_security}}?subject=VULNERABILIDADE">{{i:mail}} <span data-noi18n>{{c:company.email_security}}</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap doc-layout">
+    <aside class="toc" aria-label="Sumário"><b>Sumário</b><ol>
+      <li><a href="#s1">Por que esta política existe</a></li>
+      <li><a href="#s2">Escopo</a></li>
+      <li><a href="#s3">Fora do escopo</a></li>
+      <li><a href="#s4">Regras de conduta</a></li>
+      <li><a href="#s5">Porto seguro</a></li>
+      <li><a href="#s6">Como relatar</a></li>
+      <li><a href="#s7">Prazos de resposta</a></li>
+      <li><a href="#s8">Divulgação coordenada</a></li>
+      <li><a href="#s9">Reconhecimento</a></li>
+      <li><a href="#s10">Seus dados pessoais</a></li>
+      <li><a href="#s11">security.txt e revisões</a></li>
+      <li><a href="#s12">Perguntas frequentes</a></li>
+    </ol></aside>
+
+    <article class="doc">
+      <div class="tldr"><b>{{i:sparkles}} Resumo em 30 segundos</b><ul class="checks checks--sm">
+        <li>Relate para <a href="mailto:{{c:company.email_security}}" data-noi18n>{{c:company.email_security}}</a> ou pelo formulário da seção 6.</li>
+        <li>No escopo: o site, a plataforma, a API, os agentes, o plugin WordPress e o app Android do CoreCyber.</li>
+        <li>Use contas próprias, pare na prova de conceito e nunca acesse dados de outros clientes.</li>
+        <li>Confirmamos o recebimento em até 3 dias úteis e fazemos a triagem em até 10 dias úteis.</li>
+        <li>Pesquisa de boa-fé dentro destas regras não será alvo de medidas legais da EBAEM.</li>
+        <li>Não há programa de recompensa em dinheiro neste momento, mas há reconhecimento público, se você quiser.</li>
+      </ul></div>
+
+      <section id="s1"><h2><span class="n">1.</span> Por que esta política existe</h2>
+        <p>O CoreCyber é uma plataforma de cibersegurança da {{c:company.legal_name}}, a EBAEM. Nossos clientes confiam a nós informações sobre os próprios riscos, e nenhum software está livre de falhas. Quando alguém encontra uma, o melhor desfecho para todos é que ela chegue rápido a quem pode corrigi-la, sem expor ninguém no caminho.</p>
+        <p>Esta política dá a pesquisadores, clientes e qualquer pessoa um caminho claro e seguro para isso. Ela é a mesma lógica que recomendamos aos nossos clientes: a análise de superfície do CoreCyber verifica, por exemplo, se os sites publicam um contato de segurança. Seria incoerente não fazermos o mesmo.</p>
+        <div class="callout callout--teal">{{i:info}}<p><strong>Suspeita de incidente em andamento?</strong> Se você acredita que dados de clientes estão sendo expostos agora, escreva imediatamente para <a href="mailto:{{c:company.email_security}}?subject=URGENTE" data-noi18n>{{c:company.email_security}}</a> com o assunto <strong>URGENTE</strong> e, se possível, avise também pelo WhatsApp <span data-noi18n>{{c:company.phone_display}}</span>.</p></div>
+      </section>
+
+      <section id="s2"><h2><span class="n">2.</span> Escopo</h2>
+        <p>Estão cobertos por esta política, inclusive pelo porto seguro da seção 5, os seguintes ativos mantidos pela EBAEM:</p>
+        <div class="table-wrap"><table class="tbl">
+          <caption class="sr-only">Ativos no escopo da política de divulgação responsável</caption>
+          <thead><tr><th scope="col">Ativo</th><th scope="col">O que é</th><th scope="col">Observações</th></tr></thead>
+          <tbody>
+            <tr><th scope="row" data-noi18n>corecyber.com.br</th><td>Site institucional do CoreCyber, incluindo formulários e o assistente do site</td><td>Domínio principal; para outros subdomínios, confirme conosco antes de testar</td></tr>
+            <tr><th scope="row" data-noi18n>cybercore.ebaem.api.br</th><td>Plataforma web CoreCyber, que hoje se identifica como EBAEM CyberCore</td><td>Teste apenas com a sua própria conta ou com uma conta de teste fornecida por nós</td></tr>
+            <tr><th scope="row" data-noi18n>cybercore-api.ebaem.api.br</th><td>API da plataforma</td><td>Apenas com credenciais da sua própria conta ou de teste</td></tr>
+            <tr><th scope="row">Agentes CoreCyber</th><td>Agentes para Windows, Linux e Docker, com instaladores, serviço, guardião e autoatualização</td><td>Teste apenas em máquinas suas</td></tr>
+            <tr><th scope="row">Plugin CoreCyber para WordPress</th><td>Plugin que conecta sites WordPress à plataforma</td><td>Teste apenas em um WordPress seu</td></tr>
+            <tr><th scope="row">Aplicativo Android CoreCyber</th><td>App distribuído pela EBAEM</td><td>Teste apenas em aparelhos seus</td></tr>
+          </tbody>
+        </table></div>
+        <p>Precisa de um ambiente ou de uma conta de teste? Peça pelo e-mail de segurança, explicando brevemente o que pretende avaliar. Analisamos cada pedido.</p>
+        <p>Outros sites da EBAEM, como <span data-noi18n>ebaem.com.br</span>, não fazem parte deste escopo. Se você notar algo neles, avise pelo mesmo e-mail: o relato será bem-vindo, mas sem os prazos e o porto seguro desta política.</p>
+      </section>
+
+      <section id="s3"><h2><span class="n">3.</span> Fora do escopo</h2>
+        <p>Para proteger clientes, parceiros e a própria disponibilidade do serviço, não estão cobertos por esta política:</p>
+        <ul class="checks checks--x">
+          <li><strong>Serviços de terceiros</strong>, como provedores de nuvem e de e-mail, login com Google ou Microsoft, Google Drive, Telegram, Slack, VLibras e provedores de inteligência artificial. Relate falhas neles diretamente aos respectivos fornecedores.</li>
+          <li><strong>Sites, sistemas e equipamentos dos clientes do CoreCyber</strong>, incluindo o GLPI de cada cliente e as páginas públicas de status. Eles pertencem aos clientes, e não podemos autorizar testes em nome deles.</li>
+          <li><strong>Engenharia social</strong>, como phishing, ligações ou mensagens para colaboradores, clientes ou parceiros da EBAEM.</li>
+          <li><strong>Ataques físicos</strong> a escritórios, data centers ou equipamentos.</li>
+          <li><strong>Negação de serviço e testes volumétricos</strong>, inclusive varreduras automatizadas em alto volume ou força bruta.</li>
+          <li><strong>Spam</strong> ou envio em massa por formulários, e-mails ou pelo assistente do site.</li>
+        </ul>
+        <h3>Achados que, sozinhos, normalmente não aceitamos</h3>
+        <p>Valorizamos relatos com impacto demonstrado. Por isso, salvo se você mostrar um cenário de exploração concreto, não tratamos como vulnerabilidade:</p>
+        <ul>
+          <li>Ausência isolada de cabeçalhos de segurança em páginas sem conteúdo ou ação sensível.</li>
+          <li>Clickjacking em páginas que não têm ações sensíveis.</li>
+          <li>Ausência de limitação de taxa em endpoints que não envolvem autenticação, envio de mensagens ou dados sensíveis.</li>
+          <li>Divulgação de versões de software sem uma vulnerabilidade explorável associada.</li>
+          <li>Relatórios gerados só por ferramentas automáticas, sem validação manual e sem prova de conceito.</li>
+          <li>Problemas que exigem um aparelho já comprometido, acesso físico desbloqueado ou um navegador desatualizado e sem suporte.</li>
+        </ul>
+      </section>
+
+      <section id="s4"><h2><span class="n">4.</span> Regras de conduta</h2>
+        <p>Ao pesquisar ativos no escopo, pedimos que você:</p>
+        <ul class="checks">
+          <li><strong>Use apenas contas de teste próprias</strong> ou fornecidas por nós. Nunca use credenciais de outras pessoas, mesmo que as encontre.</li>
+          <li><strong>Pare na prova de conceito.</strong> Demonstre a falha com o mínimo de acesso necessário e não vá além disso.</li>
+          <li><strong>Não acesse, modifique, apague ou retire dados de outros clientes</strong> ou de qualquer pessoa. Se encontrar dados pessoais ou de terceiros, pare, não guarde cópias, avise-nos imediatamente e apague o que tiver obtido.</li>
+          <li><strong>Não mantenha persistência</strong>: nada de backdoors, webshells, contas extras, tarefas agendadas ou movimentação lateral para outros sistemas.</li>
+          <li><strong>Preserve a disponibilidade:</strong> limite o volume de requisições automatizadas e interrompa o teste se perceber degradação do serviço.</li>
+          <li><strong>Mantenha sigilo</strong> sobre a falha até que ela seja corrigida e a divulgação seja combinada conosco.</li>
+          <li><strong>Não condicione o relato a pagamento</strong> nem faça exigências ou ameaças. Isso descaracteriza a boa-fé.</li>
+          <li><strong>Respeite a legislação brasileira</strong> e a de onde você estiver.</li>
+        </ul>
+      </section>
+
+      <section id="s5"><h2><span class="n">5.</span> Porto seguro</h2>
+        <p>A Lei nº 12.737/2012 incluiu no Código Penal o crime de invasão de dispositivo informático sem autorização do titular. Por isso é importante deixar claro: <strong>esta política é a autorização da EBAEM, como titular dos ativos no escopo, para pesquisas de segurança feitas de boa-fé e dentro destas regras.</strong></p>
+        <p>Se você agir assim, a EBAEM se compromete a:</p>
+        <ul class="checks">
+          <li>considerar a sua pesquisa autorizada e não tratá-la como violação dos <a href="/termos-de-uso/">Termos de Uso</a>;</li>
+          <li>não iniciar medidas judiciais, cíveis ou criminais, nem apresentar representação ou notícia-crime contra você em razão da pesquisa;</li>
+          <li>caso um terceiro inicie alguma medida contra você por atividade conforme esta política, informar, quando solicitado, que a sua pesquisa foi autorizada pela EBAEM;</li>
+          <li>trabalhar com você para entender e resolver o problema rapidamente.</li>
+        </ul>
+        <div class="callout callout--warn">{{i:alert}}<p><strong>Limites do porto seguro.</strong> Esta política não pode autorizar testes em nome de clientes, fornecedores ou outros terceiros, e não vincula o Ministério Público ou outras autoridades. Ela também não protege quem violar intencionalmente as regras da seção 4, como acessar dados de outros clientes além do mínimo necessário, manter persistência ou fazer ameaças. Em caso de dúvida sobre um teste, pergunte antes pelo e-mail de segurança.</p></div>
+        <p>Esta política não afasta os deveres legais da EBAEM. Se um relato revelar um incidente de segurança com dados pessoais, faremos as comunicações exigidas pela Lei Geral de Proteção de Dados à Autoridade Nacional de Proteção de Dados e aos titulares, sem identificar você sem o seu consentimento, salvo obrigação legal.</p>
+        <div class="law"><span>Lei nº 12.737/2012</span><span>Código Penal, art. 154-A</span><span>LGPD, arts. 46 e 48</span></div>
+      </section>
+
+      <section id="s6"><h2><span class="n">6.</span> Como relatar</h2>
+        <p>Escreva para <a href="mailto:{{c:company.email_security}}?subject=VULNERABILIDADE" data-noi18n>{{c:company.email_security}}</a> ou use o formulário abaixo, que prepara a mensagem com um protocolo e abre o seu programa de e-mail. Nada é enviado automaticamente: você revisa antes de mandar.</p>
+        <h3>Um bom relato tem</h3>
+        <ul>
+          <li>O ativo ou endereço afetado e o tipo de vulnerabilidade.</li>
+          <li>Os passos para reproduzir, com requisições, parâmetros e capturas de tela que ajudem a entender.</li>
+          <li>O impacto que você conseguiu demonstrar e a sua estimativa de severidade, de preferência em CVSS.</li>
+          <li>Como prefere ser reconhecido, se quiser.</li>
+        </ul>
+        <form class="form card mt-2" data-form="disclosure" data-mail="{{c:company.email_security}}" novalidate>
+          <div class="two">
+            <div class="field"><label for="v-nome">Nome ou pseudônimo <span class="req">*</span></label><input class="input" id="v-nome" name="nome" required autocomplete="nickname"></div>
+            <div class="field"><label for="v-mail">E-mail para contato <span class="req">*</span></label><input class="input" id="v-mail" name="email" type="email" required autocomplete="email"></div>
+          </div>
+          <div class="field"><label for="v-ativo">Ativo afetado ou URL <span class="req">*</span></label><input class="input" id="v-ativo" name="ativo" required placeholder="Endereço, endpoint da API, versão do agente ou do app"></div>
+          <div class="two">
+            <div class="field"><label for="v-tipo">Tipo de vulnerabilidade</label><select class="select" id="v-tipo" name="tipo">
+              <option>Controle de acesso quebrado ou acesso a objeto de outro usuário</option>
+              <option>Falha de isolamento entre empresas</option>
+              <option>Autenticação, segundo fator ou sessão</option>
+              <option>Injeção de SQL, comandos ou templates</option>
+              <option>Cross-site scripting</option>
+              <option>Falsificação de requisição do lado do servidor, SSRF</option>
+              <option>Exposição de dados sensíveis ou segredos</option>
+              <option>Configuração insegura</option>
+              <option>Agente: atualização, adulteração ou elevação de privilégio</option>
+              <option>Plugin WordPress</option>
+              <option>Aplicativo Android</option>
+              <option>Outro tipo</option>
+            </select></div>
+            <div class="field"><label for="v-sev">Severidade estimada, CVSS</label><select class="select" id="v-sev" name="severidade">
+              <option>Crítica, CVSS de 9,0 a 10,0</option>
+              <option>Alta, CVSS de 7,0 a 8,9</option>
+              <option>Média, CVSS de 4,0 a 6,9</option>
+              <option>Baixa, CVSS de 0,1 a 3,9</option>
+              <option>Informativa ou não sei avaliar</option>
+            </select></div>
+          </div>
+          <div class="field"><label for="v-passos">Passos para reproduzir <span class="req">*</span></label><textarea class="textarea" id="v-passos" name="passos" required></textarea></div>
+          <div class="field"><label for="v-impacto">Impacto demonstrado <span class="req">*</span></label><textarea class="textarea" id="v-impacto" name="impacto" required></textarea><span class="help">O que um atacante conseguiria fazer de fato, e com que pré-requisitos.</span></div>
+          <div class="field"><label for="v-cred">Reconhecimento</label><select class="select" id="v-cred" name="reconhecimento">
+            <option>Quero ser reconhecido com o nome ou pseudônimo informado</option>
+            <option>Prefiro não ser reconhecido publicamente</option>
+          </select></div>
+          <label class="check"><input type="checkbox" name="ok" required> Li esta política e a <a href="/politica-de-privacidade/">Política de Privacidade</a>, fiz os testes dentro das regras da seção 4 e manterei o relato em sigilo até a divulgação combinada.</label>
+          <button class="btn btn--primary" type="submit">{{i:send}} Preparar relato por e-mail</button>
+          <div class="form-msg" aria-live="polite"></div>
+        </form>
+        <div class="callout mt-2">{{i:lock}}<p><strong>Detalhes sensíveis podem vir depois.</strong> No primeiro contato, descreva o essencial. Não envie dados pessoais de terceiros, senhas reais ou exploits completos por e-mail comum: depois da confirmação, combinamos com você um canal seguro para o restante, como mensagem cifrada ou compartilhamento protegido.</p></div>
+      </section>
+
+      <section id="s7"><h2><span class="n">7.</span> Prazos de resposta</h2>
+        <p>Assim que o relato chega, ele segue um ciclo com responsável definido e você é informado a cada mudança de situação.</p>
+        <div class="flow" aria-label="Ciclo de um relato de vulnerabilidade"><span>Relato</span><i></i><span>Confirmação</span><i></i><span>Triagem</span><i></i><span>Correção</span><i></i><span>Validação</span><i></i><span>Divulgação combinada</span></div>
+        <div class="table-wrap"><table class="tbl">
+          <caption class="sr-only">Metas de resposta para relatos de vulnerabilidade</caption>
+          <thead><tr><th scope="col">Etapa</th><th scope="col">Meta</th><th scope="col">O que você recebe</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Confirmação de recebimento</th><td>Até 3 dias úteis</td><td>Número de protocolo e uma pessoa de referência</td></tr>
+            <tr><th scope="row">Triagem</th><td>Até 10 dias úteis</td><td>Se a falha foi reproduzida, a severidade que atribuímos e a meta de correção</td></tr>
+            <tr><th scope="row">Andamento</th><td>A cada mudança de situação</td><td>Atualizações e, quando a correção sair, um convite para validar</td></tr>
+          </tbody>
+        </table></div>
+        <h3>Metas de correção por severidade</h3>
+        <p>Usamos o CVSS como ponto de partida e ajustamos pelo contexto real, como exposição, dados envolvidos e facilidade de exploração. Os prazos são os mesmos que o CoreCyber usa como acordo de nível de serviço para as vulnerabilidades dos clientes, contados em dias corridos a partir da conclusão da triagem.</p>
+        <div class="table-wrap"><table class="tbl">
+          <caption class="sr-only">Metas de correção por severidade</caption>
+          <thead><tr><th scope="col">Severidade</th><th scope="col">Faixa CVSS</th><th scope="col">Meta de correção</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Crítica</th><td>9,0 a 10,0</td><td>Até 7 dias</td></tr>
+            <tr><th scope="row">Alta</th><td>7,0 a 8,9</td><td>Até 15 dias</td></tr>
+            <tr><th scope="row">Média</th><td>4,0 a 6,9</td><td>Até 30 dias</td></tr>
+            <tr><th scope="row">Baixa</th><td>0,1 a 3,9</td><td>Até 60 dias</td></tr>
+            <tr><th scope="row">Informativa</th><td>Sem pontuação ou sem impacto direto</td><td>Até 90 dias, quando houver correção aplicável</td></tr>
+          </tbody>
+        </table></div>
+        <p>São metas, não garantias contratuais. Quando a correção depender de um fornecedor ou exigir mudança estrutural, explicamos o motivo, adotamos uma mitigação temporária e combinamos um novo prazo com você. Correções nos agentes chegam aos equipamentos pela autoatualização verificada.</p>
+      </section>
+
+      <section id="s8"><h2><span class="n">8.</span> Divulgação coordenada</h2>
+        <p>Acreditamos que falhas corrigidas devem ser conhecidas, porque isso ajuda toda a comunidade. Por isso a publicação é <strong>combinada entre você e a EBAEM</strong>:</p>
+        <ul>
+          <li>Em regra, a divulgação acontece depois que a correção estiver publicada e validada, ou 90 dias após o relato, o que ocorrer primeiro.</li>
+          <li>O prazo pode ser ajustado de comum acordo: mais tempo para uma correção complexa já em andamento, ou divulgação antecipada se a falha estiver sendo explorada ativamente.</li>
+          <li>Quando a correção exigir ação dos clientes, como atualizar um plugin ou um aplicativo, avisamos os clientes antes da divulgação pública.</li>
+          <li>Pedimos que a publicação não inclua dados de clientes, credenciais ou detalhes que facilitem ataques contra quem ainda não atualizou.</li>
+        </ul>
+        <p>Podemos publicar um aviso de segurança com o resumo da falha, as versões afetadas e o crédito a você, se autorizado.</p>
+      </section>
+
+      <section id="s9"><h2><span class="n">9.</span> Reconhecimento</h2>
+        <p>Não oferecemos recompensa em dinheiro, o chamado bug bounty, neste momento. Se isso mudar, esta política será atualizada antes. O que oferecemos desde já:</p>
+        <div class="grid g-2">
+          <div class="card card--soft"><span class="ibox ibox--sm">{{i:award}}</span><h3>Agradecimentos públicos</h3><p>Uma lista de agradecimentos a pesquisadores, com nome ou pseudônimo e link de sua escolha, publicada somente com a sua permissão.</p></div>
+          <div class="card card--soft"><span class="ibox ibox--sm">{{i:file-check}}</span><h3>Declaração de agradecimento</h3><p>Mediante pedido, uma declaração da EBAEM sobre a sua contribuição, útil para portfólio e currículo.</p></div>
+        </div>
+        <p class="mt-2">O reconhecimento é dado à primeira pessoa que relatar a falha de forma válida e dentro destas regras.</p>
+      </section>
+
+      <section id="s10"><h2><span class="n">10.</span> Seus dados pessoais</h2>
+        <p>Usamos o seu nome ou pseudônimo e o seu e-mail apenas para tratar o relato, conversar com você e, se autorizado, dar o crédito. Não compartilhamos esses dados com terceiros sem a sua permissão, salvo obrigação legal. Os registros do relato são guardados pelo tempo necessário para a correção e para o cumprimento de obrigações legais.</p>
+        <p>Você pode exercer os seus direitos de titular a qualquer momento pelo Encarregado de Dados, em <a href="mailto:{{c:company.email_dpo}}" data-noi18n>{{c:company.email_dpo}}</a>, ou pelo <a href="/lgpd/#portal">Portal do Titular</a>. Mais detalhes na <a href="/politica-de-privacidade/">Política de Privacidade</a>.</p>
+        <div class="law"><span>LGPD, art. 7º, I e IX</span><span>LGPD, art. 18</span></div>
+      </section>
+
+      <section id="s11"><h2><span class="n">11.</span> security.txt e revisões</h2>
+        <p>O padrão <strong>security.txt</strong>, definido pela RFC 9116, é um pequeno arquivo publicado em um endereço conhecido de cada domínio, para que pesquisadores e ferramentas encontrem o contato de segurança e a política de divulgação.</p>
+        <p><span class="badge badge--soon">Planejado</span> Vamos publicar o arquivo security.txt nos domínios do CoreCyber, apontando para esta página e para o e-mail de segurança. Até lá, esta página é o canal oficial.</p>
+        <p>Esta política é revista pelo menos uma vez por ano e sempre que houver mudança relevante no escopo ou nos prazos. Relatos recebidos são tratados conforme a versão vigente na data do envio.</p>
+        <div class="law"><span>RFC 9116 — security.txt</span></div>
+      </section>
+
+      <section id="s12"><h2><span class="n">12.</span> Perguntas frequentes</h2>
+        <div class="faq">
+          <details><summary>Preciso pedir autorização antes de começar a testar?</summary><div class="faq-a"><p>Não, para os ativos do escopo e dentro das regras da seção 4: esta política é a autorização. Se o teste exigir uma conta ou um ambiente específico, ou se você estiver em dúvida, pergunte antes pelo e-mail de segurança.</p></div></details>
+          <details><summary>Posso usar ferramentas automáticas de varredura?</summary><div class="faq-a"><p>Sim, com moderação: baixa taxa de requisições, sem força bruta e sem nada que degrade o serviço. Resultados automáticos precisam de validação manual e de prova de conceito para serem aceitos.</p></div></details>
+          <details><summary>Encontrei dados de outro cliente sem querer. O que faço?</summary><div class="faq-a"><p>Pare imediatamente, não guarde nem compartilhe cópias e avise-nos com o assunto URGENTE. Depois, apague o que tiver obtido. Agir assim é exatamente o que esta política espera de você.</p></div></details>
+          <details><summary>Vocês pagam recompensa pelas falhas encontradas?</summary><div class="faq-a"><p>Não neste momento. Oferecemos agradecimento público, com a sua permissão, e uma declaração de agradecimento mediante pedido. Relatos condicionados a pagamento não são aceitos.</p></div></details>
+          <details><summary>Posso relatar sem me identificar?</summary><div class="faq-a"><p>Sim. Use um pseudônimo e um e-mail que você acompanhe, para que possamos tirar dúvidas e avisar quando a correção sair.</p></div></details>
+          <details><summary>A falha está em uma biblioteca ou serviço de terceiro usado pelo CoreCyber. A quem relato?</summary><div class="faq-a"><p>Relate ao fornecedor responsável e também a nós, se a falha afetar o CoreCyber. Podemos ajudar a coordenar a correção e a divulgação com o fornecedor.</p></div></details>
+          <details><summary>E se eu discordar da severidade ou do prazo?</summary><div class="faq-a"><p>Converse com a equipe pelo mesmo e-mail: revemos a avaliação com base em novos elementos. Se ainda assim não houver acordo, a Ouvidoria está em <a href="mailto:{{c:company.email_ombudsman}}" data-noi18n>{{c:company.email_ombudsman}}</a>.</p></div></details>
+          <details><summary>Sou cliente e encontrei um problema de segurança na plataforma. Uso este canal?</summary><div class="faq-a"><p>Sim. Clientes também são bem-vindos a usar esta política, e o suporte pode ser acionado em paralelo para questões de uso. As mesmas regras valem: teste apenas dentro da sua própria empresa na plataforma.</p></div></details>
+        </div>
+      </section>
+
+      <div class="sign">{{c:company.legal_name}} · CNPJ <span data-noi18n>{{c:company.cnpj}}</span> · {{c:company.address}}.<br>Contato de segurança: <a href="mailto:{{c:company.email_security}}" data-noi18n>{{c:company.email_security}}</a>.<br>Histórico: versão 1.0, de {{c:site.policy_date}} — publicação inicial. Veja também a <a href="/confianca/">Central de Confiança</a> e os <a href="/termos-de-uso/">Termos de Uso</a>.</div>
+    </article>
+  </div>
+</section>

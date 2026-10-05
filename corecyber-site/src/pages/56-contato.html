@@ -1,0 +1,112 @@
+<!--meta {"slug": "contato", "title": "Contato", "description": "Fale com a EBAEM sobre o CoreCyber: WhatsApp, telefone, comercial, suporte, segurança, encarregado de dados e ouvidoria. Demonstração guiada e parcerias. Brasília/DF.", "order": 56} -->
+
+<section class="page-hero">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Você está aqui"><a href="/">Início</a><span aria-hidden="true">›</span><span aria-current="page">Contato</span></nav>
+    <span class="eyebrow">Contato</span>
+    <h1>Fale com gente que entende de segurança — e responde.</h1>
+    <p class="lead">Comercial, suporte, segurança, privacidade ou integridade: escolha o canal certo e receba retorno com dono e prazo. {{c:company.hours}}.</p>
+    <div class="row mt-2"><a class="btn btn--wa btn--lg" href="{{wa}}" target="_blank" rel="noopener">{{if:whatsapp}} Chamar no WhatsApp</a><a class="btn btn--ghost btn--lg" href="tel:{{c:company.phone_e164}}">{{i:phone}} <span data-noi18n>{{c:company.phone_display}}</span></a><button type="button" class="btn btn--ghost btn--lg" data-chat-open>{{i:bot}} Perguntar ao Cy</button></div>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="form-h">
+  <div class="wrap split" style="align-items:start">
+    <form class="form card" data-form="contact" data-mail="{{c:company.email_sales}}" novalidate data-reveal="left">
+      <h2 id="form-h" style="font-size:1.5rem">Envie sua mensagem</h2>
+      <p class="muted">Ao enviar, abrimos o seu WhatsApp ou o seu e-mail com a mensagem pronta e um número de protocolo para acompanhamento.</p>
+      <div class="two">
+        <div class="field"><label for="c-nome">Nome <span class="req">*</span></label><input class="input" id="c-nome" name="nome" required autocomplete="name"></div>
+        <div class="field"><label for="c-mail">E-mail <span class="req">*</span></label><input class="input" id="c-mail" name="email" type="email" required autocomplete="email"></div>
+      </div>
+      <div class="two">
+        <div class="field"><label for="c-emp">Empresa ou órgão</label><input class="input" id="c-emp" name="empresa" autocomplete="organization"></div>
+        <div class="field"><label for="c-tel">Telefone</label><input class="input" id="c-tel" name="telefone" type="tel" autocomplete="tel"></div>
+      </div>
+      <div class="field"><label for="c-ass">Assunto</label><select class="select" id="c-ass" name="assunto"><option>Planos e propostas</option><option>Diagnóstico gratuito</option><option>Prova de conceito</option><option>Parcerias, revenda e MSSP</option><option>Suporte a cliente</option><option>Contratação pública</option><option>Imprensa</option><option>Outro assunto</option></select></div>
+      <div class="field"><label for="c-msg">Mensagem <span class="req">*</span></label><textarea class="textarea" id="c-msg" name="mensagem" required></textarea></div>
+      <fieldset class="field"><legend class="lbl">Enviar por</legend><div class="radio-cards"><label><input type="radio" name="via" value="whatsapp" checked> WhatsApp</label><label><input type="radio" name="via" value="email"> E-mail</label></div></fieldset>
+      <label class="check"><input type="checkbox" name="ok" required> Concordo com o uso destes dados para responder ao meu contato, conforme a <a href="/politica-de-privacidade/">Política de Privacidade</a>.</label>
+      <button class="btn btn--primary btn--lg" type="submit">{{i:send}} Enviar mensagem</button>
+      <div class="form-msg" aria-live="polite"></div>
+    </form>
+    <div class="stack" data-reveal="right">
+      <div class="channel"><span class="ibox">{{i:mail}}</span><div><h3>Comercial e parcerias</h3><p>Propostas, planos, MSSP e revenda.</p><a href="mailto:{{c:company.email_sales}}" data-noi18n>{{c:company.email_sales}}</a></div></div>
+      <div class="channel"><span class="ibox ibox--blue">{{i:help}}</span><div><h3>Suporte técnico</h3><p>Chamados de clientes, com acompanhamento.</p><a href="mailto:{{c:company.email_support}}" data-noi18n>{{c:company.email_support}}</a></div></div>
+      <div class="channel"><span class="ibox ibox--navy">{{i:flag}}</span><div><h3>Segurança e vulnerabilidades</h3><p>Encontrou uma falha? Siga a política de divulgação.</p><a href="/divulgacao-responsavel/">Divulgação Responsável</a> · <a href="mailto:{{c:company.email_security}}" data-noi18n>{{c:company.email_security}}</a></div></div>
+      <div class="channel"><span class="ibox ibox--purple">{{i:lock}}</span><div><h3>Privacidade (DPO)</h3><p>Direitos de titulares de dados pessoais.</p><a href="/lgpd/#portal">Portal do Titular</a> · <a href="mailto:{{c:company.email_dpo}}" data-noi18n>{{c:company.email_dpo}}</a></div></div>
+      <div class="channel"><span class="ibox ibox--orange">{{i:scale}}</span><div><h3>Ouvidoria e integridade</h3><p>Relatos com sigilo e proteção contra retaliação.</p><a href="/compliance/#canal">Canal de Integridade</a> · <a href="mailto:{{c:company.email_ombudsman}}" data-noi18n>{{c:company.email_ombudsman}}</a></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--white sec--line" id="demo" aria-labelledby="demo-h">
+  <div class="wrap split" style="align-items:start">
+    <div data-reveal="left">
+      <span class="eyebrow">{{i:monitor}} Demonstração guiada</span>
+      <h2 id="demo-h">45 minutos para ver o CoreCyber resolvendo os seus problemas.</h2>
+      <ul class="checks mt-2"><li>Tour pela plataforma com um especialista</li><li>Foco nas dores que você indicar</li><li>Proposta e próximos passos na mesma conversa</li></ul>
+    </div>
+    <form class="form card" data-form="demo" data-mail="{{c:company.email_sales}}" novalidate data-reveal="right">
+      <div class="two">
+        <div class="field"><label for="m-nome">Nome <span class="req">*</span></label><input class="input" id="m-nome" name="nome" required autocomplete="name"></div>
+        <div class="field"><label for="m-mail">E-mail corporativo <span class="req">*</span></label><input class="input" id="m-mail" name="email" type="email" required autocomplete="email"></div>
+      </div>
+      <div class="two">
+        <div class="field"><label for="m-emp">Empresa ou órgão <span class="req">*</span></label><input class="input" id="m-emp" name="empresa" required autocomplete="organization"></div>
+        <div class="field"><label for="m-per">Melhor período</label><select class="select" id="m-per" name="periodo"><option>Manhã</option><option>Tarde</option><option>Tanto faz</option></select></div>
+      </div>
+      <div class="field"><label for="m-foco">Foco da demonstração</label><select class="select" id="m-foco" name="foco"><option>Visão geral</option><option>Superfície e vulnerabilidades</option><option>Ativos e agentes</option><option>Conformidade ISO e LGPD</option><option>MSSP e multiempresa</option></select></div>
+      <fieldset class="field"><legend class="lbl">Enviar por</legend><div class="radio-cards"><label><input type="radio" name="via" value="whatsapp" checked> WhatsApp</label><label><input type="radio" name="via" value="email"> E-mail</label></div></fieldset>
+      <label class="check"><input type="checkbox" name="ok" required> Li a <a href="/politica-de-privacidade/">Política de Privacidade</a>.</label>
+      <button class="btn btn--primary" type="submit">{{i:calendar}} Agendar demonstração</button>
+      <div class="form-msg" aria-live="polite"></div>
+    </form>
+  </div>
+</section>
+
+<section class="sec" id="parceria" aria-labelledby="par-h">
+  <div class="wrap split" style="align-items:start">
+    <div data-reveal="left">
+      <span class="eyebrow">{{i:handshake}} Parcerias e MSSP</span>
+      <h2 id="par-h">Ofereça o CoreCyber com a sua marca.</h2>
+      <p class="lead">Provedores de serviços gerenciados, integradores, consultorias de LGPD e ISO e revendas de TI: o CoreCyber é multiempresa e foi feito para escalar com você.</p>
+      <ul class="checks mt-2"><li>Marca própria e status pages por cliente</li><li>Condições comerciais para parceiros</li><li>Capacitação técnica e material de vendas em português</li></ul>
+    </div>
+    <form class="form card" data-form="partner" data-mail="{{c:company.email_sales}}" novalidate data-reveal="right">
+      <div class="two">
+        <div class="field"><label for="r-nome">Nome <span class="req">*</span></label><input class="input" id="r-nome" name="nome" required autocomplete="name"></div>
+        <div class="field"><label for="r-mail">E-mail <span class="req">*</span></label><input class="input" id="r-mail" name="email" type="email" required autocomplete="email"></div>
+      </div>
+      <div class="two">
+        <div class="field"><label for="r-emp">Empresa <span class="req">*</span></label><input class="input" id="r-emp" name="empresa" required autocomplete="organization"></div>
+        <div class="field"><label for="r-tipo">Perfil</label><select class="select" id="r-tipo" name="perfil"><option>MSSP ou SOC</option><option>Integrador ou revenda de TI</option><option>Consultoria de LGPD e ISO</option><option>Outro</option></select></div>
+      </div>
+      <div class="field"><label for="r-cli">Quantos clientes você atende?</label><select class="select" id="r-cli" name="clientes"><option>Até 10</option><option>11 a 50</option><option>Mais de 50</option></select></div>
+      <fieldset class="field"><legend class="lbl">Enviar por</legend><div class="radio-cards"><label><input type="radio" name="via" value="email" checked> E-mail</label><label><input type="radio" name="via" value="whatsapp"> WhatsApp</label></div></fieldset>
+      <label class="check"><input type="checkbox" name="ok" required> Li a <a href="/politica-de-privacidade/">Política de Privacidade</a>.</label>
+      <button class="btn btn--primary" type="submit">{{i:handshake}} Quero ser parceiro</button>
+      <div class="form-msg" aria-live="polite"></div>
+    </form>
+  </div>
+</section>
+
+<section class="sec sec--white sec--line" aria-labelledby="map-h">
+  <div class="wrap split">
+    <div data-reveal="left">
+      <span class="eyebrow">Onde estamos</span>
+      <h2 id="map-h">Brasília, com os olhos no Brasil inteiro.</h2>
+      <p class="lead" data-noi18n>{{c:company.address}}</p>
+      <ul class="checks mt-2"><li>Atendimento presencial com agendamento</li><li>Implantação remota em todo o país</li><li>Suporte em português, no horário de Brasília</li></ul>
+      <div class="row mt-2"><a class="btn btn--ghost" href="{{c:company.maps_url}}" target="_blank" rel="noopener">{{i:pin}} Abrir no Google Maps</a></div>
+    </div>
+    <div class="card" style="min-height:340px;padding:0;overflow:hidden" data-map data-src="{{c:company.maps_embed}}" data-title="Mapa da sede da EBAEM em Brasília">
+      <div class="center" style="padding:48px 24px">
+        <span class="ibox" style="margin:0 auto 14px">{{i:map}}</span>
+        <p class="muted">O mapa é fornecido pelo Google e só é carregado com a sua permissão.</p>
+        <button type="button" class="btn btn--primary" data-map-load>{{i:pin}} Carregar mapa</button>
+        <p class="tiny mt-1">Você também pode autorizar em <button type="button" class="btn btn--link" data-cookie-open>Preferências de cookies</button>.</p>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,357 @@
+<!--meta {"slug": "plataforma", "title": "A plataforma", "description": "Conheça o CoreCyber por dentro: superfície de ataque, disponibilidade, vulnerabilidades, AppSec, inteligência de ameaças, agentes, ISO/LGPD, detecção, casos e relatórios com QR.", "order": 10} -->
+
+<section class="page-hero" data-say="Esta é a visão completa. Use o sumário para pular direto ao que interessa.">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Você está aqui"><a href="/">Início</a><span aria-hidden="true">›</span><span aria-current="page">Plataforma</span></nav>
+    <span class="eyebrow">A plataforma</span>
+    <h1>Tudo o que protege a sua empresa, em <span class="grad-text">um só painel</span>.</h1>
+    <p class="lead">O CoreCyber une o que normalmente exige cinco ferramentas: superfície de ataque, disponibilidade, vulnerabilidades, segurança de código, inteligência de ameaças, monitoração de computadores, conformidade ISO e LGPD, detecção e resposta. Um só cadastro de ativos, um só idioma, um só contrato — e evidências que se provam.</p>
+    <div class="row mt-2"><a class="btn btn--primary" href="/diagnostico-gratuito/">Pedir diagnóstico gratuito {{i:arrow:arrow}}</a><a class="btn btn--ghost" href="/telas/">{{i:monitor}} Ver as telas</a></div>
+  </div>
+</section>
+
+<section class="sec sec--tight">
+  <div class="wrap">
+    <div class="kpis" data-stagger>
+      <div class="stat" data-reveal><b data-count="193">193</b><span>controles ISO e LGPD com situação calculada</span></div>
+      <div class="stat" data-reveal><b data-count="32">32</b><span>tipos de relatório com QR de autenticidade</span></div>
+      <div class="stat" data-reveal><b data-count="10" data-suffix=" min">10 min</b><span>intervalo do monitoramento externo contínuo</span></div>
+      <div class="stat" data-reveal><b data-count="8">8</b><span>idiomas na interface da plataforma</span></div>
+    </div>
+    <div class="status-legend mt-3"><span class="badge badge--live">{{i:check}} Disponível</span><span class="badge badge--plan">{{i:refresh}} Em evolução</span><span class="badge badge--soon">{{i:clock}} Roadmap</span></div>
+    <nav class="chips center" aria-label="Nesta página">
+      <a href="#como">Como funciona</a><a href="#superficie">Superfície</a><a href="#disponibilidade">Disponibilidade</a><a href="#vulnerabilidades">Vulnerabilidades</a><a href="#appsec">Código e APIs</a><a href="#ameacas">Ameaças</a><a href="#ativos">Ativos</a><a href="#conformidade">Conformidade</a><a href="#auditorias">SAP e RACF</a><a href="#resposta">Resposta</a><a href="#relatorios">Relatórios</a><a href="#integracoes">Integrações</a><a href="#seguranca">Segurança da plataforma</a><a href="#roadmap">Roadmap</a>
+    </nav>
+  </div>
+</section>
+
+<!-- como funciona -->
+<section class="sec sec--white sec--line" id="como" aria-labelledby="como-h">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Como funciona</span><h2 id="como-h">Do “não sei o que tenho exposto” ao “está provado” em cinco passos.</h2></div>
+    <div class="steps" data-stagger>
+      <div class="step" data-reveal><h3>Conecte</h3><p>Cadastre domínios, sites e APIs. Distribua o agente nos computadores por GPO, Intune ou SCCM — ou importe uma lista em CSV.</p></div>
+      <div class="step" data-reveal><h3>Descubra</h3><p>O CoreCyber mapeia subdomínios, portas, certificados, software instalado e configurações. O inventário se atualiza sozinho.</p></div>
+      <div class="step" data-reveal><h3>Priorize</h3><p>Cada achado recebe nota de 0 a 100 com gravidade, probabilidade de exploração e o catálogo de falhas exploradas ativamente.</p></div>
+      <div class="step" data-reveal><h3>Aja</h3><p>Abra casos, dispare correções remotas, crie chamados no GLPI e avise a equipe por e-mail, Telegram, Slack ou webhook.</p></div>
+      <div class="step" data-reveal><h3>Comprove</h3><p>Emita laudos, Declaração de Aplicabilidade e certificados com QR que qualquer auditor confere na hora.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- superfície -->
+<section class="sec" id="superficie" aria-labelledby="sup-h" data-say="A superfície externa é o que um atacante vê primeiro. Aqui você vê antes dele.">
+  <div class="wrap split">
+    <div data-reveal="left">
+      <span class="eyebrow">{{i:radar}} Superfície de ataque (EASM) <span class="badge badge--live">Disponível</span></span>
+      <h2 id="sup-h">Veja a sua empresa como um atacante vê — a cada 10 minutos.</h2>
+      <p class="lead">O módulo FingerPrint faz uma varredura externa <strong>não invasiva</strong> de sites, APIs, documentações e subdomínios. Ele observa o que já está exposto, sem explorar falhas, e compara cada execução com a anterior.</p>
+      <ul class="checks mt-2">
+        <li>Portas abertas, versões de TLS e certificados, cabeçalhos de segurança, WAF e exposições conhecidas com templates atualizados toda semana</li>
+        <li>Descoberta de subdomínios por certificados públicos, com histórico de descoberto, ausente e revisto</li>
+        <li>SPF, DMARC e security.txt — e até a acessibilidade WCAG do seu site</li>
+        <li>Achados <strong>novos, resolvidos e persistentes</strong> entre duas execuções</li>
+        <li>Monitoramento contínuo que avisa sobre achado crítico ou alto novo e sobre subdomínio novo</li>
+        <li>Laudo em PDF ou DOCX e agendamentos com envio automático por e-mail</li>
+      </ul>
+      <div class="row mt-2"><a class="btn btn--ghost" href="/telas/#superficie">Ver a tela {{i:arrow:arrow}}</a></div>
+    </div>
+    <div data-reveal="right">
+      <div class="radar" role="img" aria-label="Radar ilustrativo detectando ativos e exposições">
+        <span class="blip crit" style="--x:32%;--y:36%"></span><span class="blip high" style="--x:66%;--y:28%;--dl:.5s"></span><span class="blip" style="--x:58%;--y:62%;--dl:1s"></span><span class="blip ok" style="--x:28%;--y:68%;--dl:1.5s"></span><span class="blip high" style="--x:74%;--y:56%;--dl:2s"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- disponibilidade -->
+<section class="sec sec--white sec--line" id="disponibilidade" aria-labelledby="disp-h">
+  <div class="wrap split split--rev">
+    <div data-reveal="right">
+      <span class="eyebrow">{{i:activity}} Disponibilidade e status <span class="badge badge--live">Disponível</span></span>
+      <h2 id="disp-h">Saiba que caiu antes do cliente ligar. E mostre que voltou.</h2>
+      <ul class="checks mt-2">
+        <li>Monitores HTTP/S e TCP com uptime de 24 horas, 7 e 30 dias, latência média e p95 e meta de SLA</li>
+        <li>Aviso de vencimento de certificado TLS e de domínio</li>
+        <li>Janelas de manutenção para silenciar alertas por 1, 4 ou 24 horas</li>
+        <li><strong>Várias páginas de status públicas</strong> por empresa, com logo e PDF</li>
+        <li>Importação de alvos por planilha e chamados no GLPI abertos e fechados automaticamente</li>
+      </ul>
+    </div>
+    <div class="proto" data-reveal="left">
+      <div class="browser">
+        <div class="br-bar"><i></i><i></i><i></i><span class="br-url">{{i:lock}} <span data-noi18n>status.suaempresa.com.br</span></span></div>
+        <div class="app" style="grid-template-columns:1fr;min-height:0">
+          <div class="app-body">
+            <div class="app-h"><div><h4>Status dos serviços</h4><small>Todos os sistemas operacionais</small></div><span class="m-pill m-pill--ok">{{i:check}} Operacional</span></div>
+            <div class="m-card"><h5>Portal do cliente <span class="m-pill m-pill--ok" data-noi18n>99,98%</span></h5><div class="m-uptime" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="w"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+            <div class="m-card"><h5>API de pagamentos <span class="m-pill m-pill--ok" data-noi18n>99,91%</span></h5><div class="m-uptime" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="d"></i><i class="w"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+            <div class="m-card"><h5>E-mail corporativo <span class="m-pill m-pill--warn">Certificado vence em 12 dias</span></h5><div class="m-uptime" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- vulnerabilidades -->
+<section class="sec" id="vulnerabilidades" aria-labelledby="vul-h" data-say="O segredo é a prioridade: o que está sendo explorado de verdade vem primeiro.">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">{{i:target}} Vulnerabilidades priorizadas <span class="badge badge--live">Disponível</span></span>
+      <h2 id="vul-h">Pare de brigar com 5.000 CVEs. Corrija primeiro as que estão sendo exploradas.</h2>
+      <p class="lead">Cada achado recebe uma nota de 0 a 100 que combina a gravidade técnica com a probabilidade real de exploração — e nenhum item do catálogo de falhas exploradas ativamente fica abaixo de 90. A nota é recalculada todos os dias.</p>
+    </div>
+    <div class="grid g-3" data-stagger>
+      <div class="card card--hover" data-reveal><span class="ibox ibox--orange">{{i:gauge}}</span><h3>CVSS</h3><p>Quão grave é a falha, na escala técnica padrão do mercado.</p></div>
+      <div class="card card--hover" data-reveal><span class="ibox ibox--blue">{{i:chart}}</span><h3>EPSS</h3><p>Qual a probabilidade de ela ser explorada nos próximos dias, segundo dados globais atualizados.</p></div>
+      <div class="card card--hover" data-reveal><span class="ibox ibox--navy">{{i:fire}}</span><h3>KEV</h3><p>Se ela já está sendo explorada ativamente, segundo o catálogo público mantido pela agência de cibersegurança dos EUA (CISA).</p></div>
+    </div>
+    <div class="split mt-4">
+      <ul class="checks" data-reveal="left">
+        <li>Indicadores de abertas, críticas e altas, KEV, com CVE, SLA vencido e riscos aceitos</li>
+        <li><strong>SLA por severidade</strong>: 7, 15, 30, 60 e 90 dias</li>
+        <li>Aceite de risco com justificativa registrada</li>
+        <li>Ficha com risco, <strong>regularização passo a passo em 22 temas</strong>, como validar a correção e referências</li>
+        <li>Exportação em PDF ou planilha e criação de caso com um clique</li>
+      </ul>
+      <div class="table-wrap" data-reveal="right">
+        <table class="tbl">
+          <caption class="sr-only">Prazos de correção por severidade</caption>
+          <thead><tr><th scope="col">Severidade</th><th scope="col">Prazo de correção (SLA)</th></tr></thead>
+          <tbody>
+            <tr><td><span class="sev sev--crit">Crítica</span></td><td>7 dias</td></tr>
+            <tr><td><span class="sev sev--high">Alta</span></td><td>15 dias</td></tr>
+            <tr><td><span class="sev sev--med">Média</span></td><td>30 dias</td></tr>
+            <tr><td><span class="sev sev--low">Baixa</span></td><td>60 dias</td></tr>
+            <tr><td><span class="sev sev--info">Informativa</span></td><td>90 dias</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- appsec -->
+<section class="sec sec--white sec--line" id="appsec" aria-labelledby="app-h">
+  <div class="wrap split">
+    <div data-reveal="left">
+      <span class="eyebrow">{{i:code}} Segurança de código e APIs <span class="badge badge--live">Disponível</span></span>
+      <h2 id="app-h">Encontre a falha no código antes que ela chegue à produção.</h2>
+      <ul class="checks mt-2">
+        <li><strong>Análise de código</strong>: padrões inseguros, dependências vulneráveis e segredos expostos (senhas e chaves esquecidas no repositório)</li>
+        <li><strong>SBOM</strong> no padrão CycloneDX 1.5 — a lista de ingredientes do seu software</li>
+        <li><strong>Segurança de APIs</strong> a partir da especificação OpenAPI e teste autenticado</li>
+        <li>Correlação entre o que aparece no código e o que aparece na aplicação em execução</li>
+        <li>Resultados em PDF, planilha, CSV, JSON e <strong>SARIF</strong>, prontos para o seu fluxo de desenvolvimento</li>
+      </ul>
+    </div>
+    <div class="card card--navy" data-reveal="right">
+      <p class="tiny" style="color:#9fe6ee;font-family:var(--c-mono)" data-noi18n>$ corecyber scan --repo api-pagamentos</p>
+      <ul class="checks checks--sm" style="color:#d6e6f1">
+        <li>Segredo exposto em arquivo de configuração</li>
+        <li>Dependência com falha crítica conhecida</li>
+        <li>Endpoint de API sem autenticação</li>
+        <li>SBOM gerado com 214 componentes</li>
+      </ul>
+      <p class="tiny" style="color:#8fb4cc">Exemplo ilustrativo de resultado.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ameaças -->
+<section class="sec" id="ameacas" aria-labelledby="cti-h">
+  <div class="wrap split split--rev">
+    <div data-reveal="right">
+      <span class="eyebrow">{{i:globe}} Inteligência de ameaças <span class="badge badge--plan">Em evolução</span></span>
+      <h2 id="cti-h">Contexto diário sobre quem está atacando — cruzado com os seus ativos.</h2>
+      <ul class="checks mt-2">
+        <li>Indicadores coletados <strong>todos os dias</strong> de 4 fontes públicas reconhecidas: servidores de comando e controle, URLs maliciosas, certificados SSL maliciosos e o catálogo KEV</li>
+        <li>Templates de exposição atualizados semanalmente</li>
+        <li>Cruzamento automático com superfície, vulnerabilidades e disponibilidade</li>
+      </ul>
+      <div class="callout callout--teal mt-2">{{i:info}}<p><strong>No roadmap:</strong> mapeamento MITRE ATT&amp;CK e integração com plataformas colaborativas de inteligência.</p></div>
+    </div>
+    <div data-reveal="left">
+      <div class="ticker" aria-hidden="true"><div class="ticker-in">
+        <span><i>C2</i> <b>Servidor de comando e controle</b> listado hoje</span><span><i class="k">KEV</i> <b>Falha nova</b> no catálogo de exploradas</span><span><i>URL</i> <b>Campanha de phishing</b> adicionada</span><span><i class="c">SSL</i> <b>Certificado malicioso</b> bloqueado</span>
+        <span><i>C2</i> <b>Servidor de comando e controle</b> listado hoje</span><span><i class="k">KEV</i> <b>Falha nova</b> no catálogo de exploradas</span><span><i>URL</i> <b>Campanha de phishing</b> adicionada</span><span><i class="c">SSL</i> <b>Certificado malicioso</b> bloqueado</span>
+      </div></div>
+      <p class="tiny center mt-1">Exemplos ilustrativos.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ativos -->
+<section class="sec sec--white sec--line" id="ativos" aria-labelledby="atv-h" data-say="Transparência total: veja exatamente o que o agente coleta — e o que ele nunca coleta.">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">{{i:laptop}} Monitoração de ativos por agente <span class="badge badge--live">Disponível</span></span>
+      <h2 id="atv-h">Cada computador saudável, criptografado e atualizado — sem vigiar ninguém.</h2>
+      <p class="lead">Agentes leves para <strong>Windows</strong> (como serviço, com “guardião” que o religa), <strong>Linux</strong>, <strong>Docker</strong>, <strong>WordPress</strong> e <strong>Android</strong>. Implantação em massa por GPO, Intune ou SCCM e autoatualização com verificação de integridade e retorno automático à versão anterior se algo falhar.</p>
+    </div>
+    <div class="grid g-2" data-stagger>
+      <div class="card" data-reveal>
+        <h3>{{i:check}} O que o agente acompanha</h3>
+        <ul class="checks checks--sm">
+          <li>CPU, memória e disco, com histórico</li>
+          <li>Criptografia de disco (BitLocker e LUKS), com guarda das chaves de recuperação</li>
+          <li>Antivírus e ameaças detectadas pelo Microsoft Defender</li>
+          <li>Atualizações pendentes, item a item</li>
+          <li>Inventário de software, hardware e periféricos com histórico</li>
+          <li>17 verificações de conformidade e usuário conectado</li>
+          <li>Localização <strong>somente com consentimento</strong></li>
+        </ul>
+      </div>
+      <div class="card" data-reveal>
+        <h3>{{i:eye-off}} O que o agente nunca faz</h3>
+        <ul class="checks checks--x checks--sm">
+          <li>Não lê o conteúdo de arquivos</li>
+          <li>Não captura tela nem teclas digitadas</li>
+          <li>Não registra a navegação</li>
+          <li>Não executa ações remotas sem que estejam habilitadas</li>
+        </ul>
+        <p class="mt-2"><strong>15 correções remotas</strong> — aplicar atualizações, janela de atualização forçada, política de USB, bloqueio de tela, reiniciar serviço, varredura rápida de antivírus e mais — vêm <strong>desligadas de fábrica</strong> e podem ser recusadas na própria máquina.</p>
+      </div>
+    </div>
+    <div class="callout mt-3">{{i:info}}<p>Plataformas: Windows, Linux, Docker, WordPress e Android disponíveis; app iOS em preparação; macOS ainda não suportado. Cada agente tem número de série, detecção de adulteração e licença por token com validade de 1 a 60 meses ou vitalícia.</p></div>
+  </div>
+</section>
+
+<!-- conformidade -->
+<section class="sec" id="conformidade" aria-labelledby="iso-h">
+  <div class="wrap split">
+    <div data-reveal="left">
+      <span class="eyebrow">{{i:file-check}} Conformidade ISO e LGPD <span class="badge badge--live">Disponível</span></span>
+      <h2 id="iso-h">A auditoria pede evidência. O CoreCyber entrega — com QR.</h2>
+      <ul class="checks mt-2">
+        <li><strong>193 controles</strong> de ISO/IEC 27001:2022 (Anexo A completo), 27017, 27018, 27701, ISO 22301 e LGPD, cada um com situação: conforme, parcial, não conforme, sem dados ou apoiado</li>
+        <li><strong>Declaração de Aplicabilidade</strong> por norma, aprovada por versão, em PDF com QR</li>
+        <li>LGPD na prática: encarregado cadastrado, portal “Exercer meus direitos” com protocolo e prazo de 15 dias, avisos com “li e estou ciente”, pseudonimização e registro de quem acessou dados pessoais</li>
+        <li><strong>ROPA</strong> — o inventário de tratamento de dados — em PDF e CSV</li>
+        <li><strong>Descomissionamento</strong> em etapas (devolução, criptografia, desinstalação, sanitização e expurgo) com certificado em PDF com QR</li>
+      </ul>
+    </div>
+    <div class="card" data-reveal="right">
+      <h3>Exemplo de controles</h3>
+      <div class="m-ctrl"><span><b data-noi18n>A.5.15</b>Controle de acesso</span><span class="m-pill m-pill--ok">Conforme</span><span></span></div>
+      <div class="m-ctrl"><span><b data-noi18n>A.8.8</b>Gestão de vulnerabilidades técnicas</span><span class="m-pill m-pill--warn">Parcial</span><span></span></div>
+      <div class="m-ctrl"><span><b data-noi18n>A.8.24</b>Uso de criptografia</span><span class="m-pill m-pill--ok">Conforme</span><span></span></div>
+      <div class="m-ctrl"><span><b data-noi18n>A.5.30</b>Prontidão de TIC para continuidade</span><span class="m-pill m-pill--crit">Não conforme</span><span></span></div>
+      <div class="m-ctrl"><span><b data-noi18n>LGPD 18</b>Direitos do titular</span><span class="m-pill m-pill--ok">Conforme</span><span></span></div>
+      <p class="tiny mt-1">Situação calculada a partir das evidências coletadas pela plataforma. Dados ilustrativos.</p>
+    </div>
+  </div>
+</section>
+
+<!-- auditorias -->
+<section class="sec sec--white sec--line" id="auditorias" aria-labelledby="aud-h">
+  <div class="wrap split split--rev">
+    <div data-reveal="right">
+      <span class="eyebrow">{{i:sap}} Auditorias especializadas <span class="badge badge--live">Disponível</span></span>
+      <h2 id="aud-h">Raro no mercado: auditoria de acessos SAP e RACF (mainframe).</h2>
+      <p class="lead">Para empresas e órgãos que rodam sistemas críticos, o CoreCyber analisa as extrações de SAP e de RACF e entrega um dossiê de evidências — com laudo autenticado por QR.</p>
+      <ul class="checks mt-2">
+        <li>Validação dos arquivos e segregação de funções na autorização</li>
+        <li>Conciliações cruzadas entre fontes</li>
+        <li>Dossiê de evidências e laudo com QR</li>
+        <li>Contratado por projeto, como complemento de qualquer plano</li>
+      </ul>
+    </div>
+    <div class="grid g-2" data-reveal="left">
+      <div class="card card--soft center"><span class="ibox ibox--navy">{{i:sap}}</span><h3>SAP</h3><p>9 arquivos de entrada, 3 obrigatórios.</p></div>
+      <div class="card card--soft center"><span class="ibox ibox--navy">{{i:mainframe}}</span><h3>RACF</h3><p>7 arquivos de entrada, 3 obrigatórios.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- resposta -->
+<section class="sec" id="resposta" aria-labelledby="resp-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">{{i:siren}} Detecção e resposta <span class="badge badge--plan">Em evolução</span></span>
+      <h2 id="resp-h">Quando algo acontece, todos sabem o que fazer — e fica tudo registrado.</h2>
+    </div>
+    <div class="grid g-3" data-stagger>
+      <div class="card card--hover" data-reveal><span class="ibox ibox--orange">{{i:crosshair}}</span><h3>Detecções correlacionadas</h3><p>5 regras cruzam sinais da plataforma: vulnerabilidade KEV, risco muito alto, queda de disponibilidade, mudança de superfície e indicador de ameaça.</p></div>
+      <div class="card card--hover" data-reveal><span class="ibox ibox--navy">{{i:siren}}</span><h3>Casos de incidente</h3><p>Ciclo aberto, investigando, contido, resolvido e fechado, com linha do tempo e chamado no GLPI. Colaboradores podem relatar incidentes pelo agente ou pelo app.</p></div>
+      <div class="card card--hover" data-reveal><span class="ibox ibox--blue">{{i:flow}}</span><h3>Automação</h3><p>Regras de gatilho que abrem caso e notificam a equipe, verificadas a cada 10 minutos — com botão para testar antes de ligar.</p></div>
+    </div>
+    <div class="callout callout--teal mt-3">{{i:info}}<p><strong>Em evolução:</strong> playbooks com ações de contenção e aprovação humana em etapas, resumo diário de alertas e notificações por Microsoft Teams e WhatsApp.</p></div>
+  </div>
+</section>
+
+<!-- relatórios -->
+<section class="sec sec--white sec--line" id="relatorios" aria-labelledby="rel-h">
+  <div class="wrap split">
+    <div data-reveal="left">
+      <span class="eyebrow">{{i:qr}} Relatórios e evidências <span class="badge badge--live">Disponível</span></span>
+      <h2 id="rel-h">32 relatórios que qualquer pessoa confere com a câmera do celular.</h2>
+      <p class="lead">Cada relatório sai em PDF ou DOCX com protocolo e QR Code. Quem recebe — diretoria, auditor, cliente ou órgão de controle — confere a autenticidade numa página pública, sem precisar de login.</p>
+      <ul class="checks mt-2"><li>Capa com 8 paletas de cor</li><li>Cópia automática no Google Drive</li><li>Histórico de relatórios emitidos com protocolo</li></ul>
+    </div>
+    <div class="m-qrbox card" data-reveal="right"><span class="m-qr" aria-hidden="true"></span><div><b>Laudo de Exposição Externa</b><br><span class="tiny">Protocolo <span data-noi18n>REL-2026-004512</span> · emitido em {{c:site.policy_date}}</span><br><span class="m-pill m-pill--ok">{{i:check}} Documento autêntico</span></div></div>
+  </div>
+</section>
+
+<!-- integrações -->
+<section class="sec" id="integracoes" aria-labelledby="int-h">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Integrações</span><h2 id="int-h">Conversa com o que você já usa.</h2></div>
+    <div class="grid g-4" data-stagger>
+      <div class="card card--flat" data-reveal><span class="ibox ibox--sm">{{i:ticket}}</span><h4 class="mt-1">GLPI</h4><p>API legada e a nova API v2 com OAuth2: chamados abertos e fechados sozinhos.</p></div>
+      <div class="card card--flat" data-reveal><span class="ibox ibox--sm ibox--blue">{{i:telegram}}</span><h4 class="mt-1">Telegram, Slack e webhook</h4><p>Alertas onde a equipe já está.</p></div>
+      <div class="card card--flat" data-reveal><span class="ibox ibox--sm ibox--purple">{{i:mail}}</span><h4 class="mt-1">E-mail</h4><p>Servidor de envio por empresa, com modelos editáveis.</p></div>
+      <div class="card card--flat" data-reveal><span class="ibox ibox--sm ibox--navy">{{i:drive}}</span><h4 class="mt-1">Google Drive</h4><p>Cópia automática dos relatórios emitidos.</p></div>
+      <div class="card card--flat" data-reveal><span class="ibox ibox--sm">{{i:login}}</span><h4 class="mt-1">Google e Microsoft</h4><p>Login corporativo com OIDC e PKCE.</p></div>
+      <div class="card card--flat" data-reveal><span class="ibox ibox--sm ibox--orange">{{i:key}}</span><h4 class="mt-1">Certificado ICP-Brasil</h4><p>Login com e-CPF ou e-CNPJ.</p></div>
+      <div class="card card--flat" data-reveal><span class="ibox ibox--sm ibox--blue">{{i:database}}</span><h4 class="mt-1">Dados públicos</h4><p>Catálogo KEV, NVD, EPSS, feeds de ameaças e RDAP.</p></div>
+      <div class="card card--flat" data-reveal><span class="ibox ibox--sm ibox--purple">{{i:sparkles}}</span><h4 class="mt-1">IA compatível com OpenAI</h4><p>Opcional, para personalizar o texto dos laudos.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- segurança da plataforma -->
+<section class="sec sec--navy" id="seguranca" aria-labelledby="seg-h">
+  <div class="wrap split">
+    <div data-reveal="left">
+      <span class="eyebrow">Segurança da própria plataforma</span>
+      <h2 id="seg-h">Uma ferramenta de segurança precisa ser segura primeiro.</h2>
+      <p class="lead">Multiempresa de nascença, com isolamento entre empresas testado automaticamente: <strong>3.951 verificações, zero falhas</strong>. Escala testada com 50 empresas e 10.000 ativos.</p>
+      <div class="row mt-2"><a class="btn btn--light" href="/confianca/">Central de Confiança {{i:arrow:arrow}}</a></div>
+    </div>
+    <ul class="checks" data-reveal="right">
+      <li>Perfis e permissões por função, 2º fator e reautenticação para ações sensíveis</li>
+      <li>Login com Google, Microsoft ou certificado ICP-Brasil</li>
+      <li>Sessão encerrada por inatividade após 30 minutos, com aviso</li>
+      <li>Logs de auditoria em 14 tipos, retenção padrão de 180 dias</li>
+      <li>Segredos cifrados e proteção contra falsificação de requisições ao servidor</li>
+      <li>Aceite de termos com evidência: IP, navegador e hash do texto</li>
+      <li>8 idiomas: português, inglês, espanhol, italiano, francês, chinês, japonês e russo</li>
+    </ul>
+  </div>
+</section>
+
+<!-- roadmap -->
+<section class="sec" id="roadmap" aria-labelledby="road-h" data-say="Roadmap aberto: sem promessas escondidas.">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Roadmap transparente</span><h2 id="road-h">O que já existe, o que está evoluindo e o que vem por aí.</h2><p class="lead">Em segurança, confiança começa por não exagerar. Clientes acompanham cada versão pelas notas de lançamento.</p></div>
+    <div class="road" data-stagger>
+      <div class="road-col road-col--live" data-reveal><h3><span class="badge badge--live">{{i:check}} Disponível</span></h3><ul>
+        <li>Superfície de ataque contínua</li><li>Disponibilidade e status pages</li><li>Vulnerabilidades com CVSS, EPSS e KEV</li><li>Código, dependências, segredos e APIs</li><li>Agentes Windows, Linux, Docker, WordPress e Android</li><li>193 controles ISO e LGPD e Declaração de Aplicabilidade</li><li>Auditoria SAP e RACF</li><li>Casos de incidente e GLPI</li><li>32 relatórios com QR</li></ul></div>
+      <div class="road-col road-col--plan" data-reveal><h3><span class="badge badge--plan">{{i:refresh}} Em evolução</span></h3><ul>
+        <li>Índice de risco por ativo e por empresa e comparação entre empresas</li><li>Inventário externo com IP, provedor, tecnologia e nota SSL</li><li>Playbooks com ações de contenção e aprovação humana</li><li>Resumo diário de alertas, Microsoft Teams e WhatsApp</li><li>Inteligência de ameaças ampliada</li></ul></div>
+      <div class="road-col road-col--soon" data-reveal><h3><span class="badge badge--soon">{{i:clock}} Roadmap</span></h3><ul>
+        <li>SIEM com coleta e retenção de logs</li><li>EDR completo, com isolamento de máquina</li><li>Análise de tráfego de rede (NDR)</li><li>Mapeamento MITRE ATT&amp;CK</li><li>Assistente de IA e IA preditiva</li><li>App iOS e publicação na Google Play</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--tight">
+  <div class="wrap">
+    <div class="cta-band" data-reveal="zoom">
+      <div><h2>Quer ver isso com os seus próprios ativos?</h2><p>Comece pelo diagnóstico gratuito ou peça uma prova de conceito de 30 dias.</p></div>
+      <div class="row"><a class="btn btn--light btn--lg" href="/diagnostico-gratuito/">Diagnóstico gratuito {{i:arrow:arrow}}</a><a class="btn btn--outline-light btn--lg" href="/planos/#poc">Prova de conceito</a></div>
+    </div>
+  </div>
+</section>

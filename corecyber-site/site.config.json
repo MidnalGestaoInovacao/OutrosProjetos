@@ -1,0 +1,139 @@
+{
+  "_comment": "Fonte única de dados do site CoreCyber. Preços e condições comerciais são PROPOSTAS para validação da EBAEM — ajuste aqui e rode tools/build.py.",
+  "site": {
+    "name": "CoreCyber",
+    "url": "https://corecyber.com.br",
+    "tagline": "Cibersegurança unificada, em português — um produto EBAEM",
+    "version": "1.0.0",
+    "policy_date": "05/10/2026"
+  },
+  "company": {
+    "name": "EBAEM",
+    "legal_name": "EBAEM — Empresa Brasileira de Assessoria Executiva e Multidisciplinar Ltda.",
+    "cnpj": "55.054.849/0001-30",
+    "address": "SRTVN Quadra 702, Lote P — Edifício Rádio Center, Salas SS18 a SS28, Asa Norte, Brasília/DF, CEP 70719-900",
+    "address_short": "SRTVN Quadra 702 — Ed. Rádio Center, Asa Norte, Brasília/DF",
+    "hours": "Seg–Sex · 8h–18h (Brasília)",
+    "site": "https://ebaem.com.br",
+    "phone_display": "(61) 98128-6479",
+    "phone_e164": "+5561981286479",
+    "whatsapp": "5561981286479",
+    "email_sales": "contato@ebaem.com.br",
+    "email_support": "suporte@ebaem.com.br",
+    "email_dpo": "lgpd@ebaem.com.br",
+    "email_ombudsman": "ouvidoria@ebaem.com.br",
+    "email_security": "seguranca@ebaem.com.br",
+    "maps_url": "https://www.google.com/maps/search/?api=1&query=SRTVN+Quadra+702+Edif%C3%ADcio+R%C3%A1dio+Center+Bras%C3%ADlia+DF",
+    "maps_embed": "https://www.google.com/maps?q=SRTVN%20Quadra%20702%20Edif%C3%ADcio%20R%C3%A1dio%20Center%20Bras%C3%ADlia&output=embed",
+    "instagram": "https://www.instagram.com/ebaemgestao/",
+    "linkedin": "https://www.linkedin.com/company/ebaem/",
+    "facebook": "https://www.facebook.com/profile.php?id=61561541121970"
+  },
+  "links": {
+    "app": "https://cybercore.ebaem.api.br/",
+    "portal_titular": "https://ebaem.com.br/?pagename=portal-do-titular",
+    "canal_integridade": "https://ebaem.com.br/?pagename=canal-de-integridade",
+    "minha_conta": "https://ebaem.com.br/?pagename=minha-conta",
+    "chamados": "https://ebaem.com.br/?pagename=meus-chamados",
+    "ead": "https://ead.ebaem.com.br",
+    "ebaem_conformidade": "https://ebaem.com.br/?pagename=conformidade",
+    "alicerce360": "https://www.alicerce360.com.br"
+  },
+  "ai": {
+    "_comment": "Endpoint OpenAI-compatível do FreeLLMAPI publicado atrás do proxy em freellmapi/ (a chave fica no servidor). Vazio = assistente local por base de conhecimento.",
+    "endpoint": "",
+    "model": "auto",
+    "max_tokens": 450
+  },
+  "pricing": {
+    "_comment": "Valores mensais em BRL por faixa de ativos monitorados (endpoint, servidor, domínio, IP público ou API = 1 ativo). PROPOSTA para validação.",
+    "currency": "BRL",
+    "annual_months_paid": 10,
+    "dedicated_factor": 1.35,
+    "tiers": [
+      25,
+      50,
+      100,
+      250,
+      500
+    ],
+    "default_tier": 2,
+    "ai_addon": 390,
+    "managed_from": 6900,
+    "plans": [
+      {
+        "id": "essencial",
+        "monthly": [
+          490,
+          790,
+          1290,
+          2490,
+          3990
+        ]
+      },
+      {
+        "id": "profissional",
+        "monthly": [
+          990,
+          1590,
+          2590,
+          4990,
+          7990
+        ],
+        "featured": true
+      },
+      {
+        "id": "avancado",
+        "monthly": [
+          1890,
+          2990,
+          4890,
+          8990,
+          14990
+        ]
+      }
+    ],
+    "_market_comment": "Custo referencial médio por ativo/mês de ferramentas separadas (estimativa editável no simulador; não é cotação de nenhum fornecedor).",
+    "market": [
+      {
+        "id": "easm",
+        "per_asset": 12,
+        "on": true
+      },
+      {
+        "id": "vm",
+        "per_asset": 22,
+        "on": true
+      },
+      {
+        "id": "cti",
+        "per_asset": 8,
+        "on": true
+      },
+      {
+        "id": "siem",
+        "per_asset": 38,
+        "on": true
+      },
+      {
+        "id": "edr",
+        "per_asset": 34,
+        "on": true
+      },
+      {
+        "id": "grc",
+        "per_asset": 10,
+        "on": true
+      },
+      {
+        "id": "soar",
+        "per_asset": 14,
+        "on": false
+      }
+    ]
+  },
+  "wp": {
+    "_comment": "permalinks: 'plain' quando o WordPress usa links simples (?page_id=); o build reescreve /slug/ para /?pagename=slug. Use 'pretty' se ativar 'Nome do post' em Configurações → Links permanentes.",
+    "permalinks": "plain"
+  }
+}

@@ -1,0 +1,203 @@
+<!--meta {"slug": "acessibilidade", "title": "Acessibilidade", "description": "Recursos de acessibilidade do site CoreCyber, Libras com VLibras, atalhos de teclado, limitações conhecidas e como relatar uma barreira. Meta: WCAG 2.2 AA.", "order": 74} -->
+
+<section class="page-hero">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Você está aqui"><a href="/">Início</a><span aria-hidden="true">›</span><a href="/confianca/">Confiança</a><span aria-hidden="true">›</span><span aria-current="page">Acessibilidade</span></nav>
+    <span class="eyebrow">Acessibilidade é segurança para todos</span>
+    <h1>Declaração de Acessibilidade</h1>
+    <p class="lead">Informação sobre segurança só protege quem consegue acessá-la. Este site foi feito para ser usado com mouse, teclado, leitor de tela, ampliação ou Libras. Aqui está o que já funciona, o que ainda pode melhorar e como nos contar quando algo atrapalhar.</p>
+    <div class="doc-meta"><span>Documento <b data-noi18n>POL-CCY-ACS-001</b></span><span>Versão <b>1.0</b></span><span>Vigência <b>{{c:site.policy_date}}</b></span><span>Aprovação <b>Direção Executiva EBAEM</b></span></div>
+    <div class="row mt-2">
+      <button class="btn btn--primary" type="button" data-a11y-open>{{i:access}} Abrir o painel de acessibilidade</button>
+      <a class="btn btn--ghost" href="#s10">{{i:message}} Relatar uma barreira</a>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap doc-layout">
+    <aside class="toc" aria-label="Sumário"><b>Sumário</b><ol>
+      <li><a href="#s1">Nosso compromisso</a></li>
+      <li><a href="#s2">Painel de acessibilidade</a></li>
+      <li><a href="#s3">Libras</a></li>
+      <li><a href="#s4">Atalhos de teclado</a></li>
+      <li><a href="#s5">Idiomas</a></li>
+      <li><a href="#s6">Padrões de referência</a></li>
+      <li><a href="#s7">Experiências interativas</a></li>
+      <li><a href="#s8">Limitações conhecidas</a></li>
+      <li><a href="#s9">Acessibilidade na plataforma</a></li>
+      <li><a href="#s10">Como relatar barreiras</a></li>
+      <li><a href="#s11">Revisão desta declaração</a></li>
+    </ol></aside>
+
+    <article class="doc">
+      <div class="tldr"><b>{{i:sparkles}} Resumo em 30 segundos</b><ul class="checks checks--sm">
+        <li>Painel de acessibilidade em todas as páginas: botão de acessibilidade ou <kbd>Alt</kbd> + <kbd>4</kbd>.</li>
+        <li>Tradução para Libras com o VLibras, ferramenta pública do Governo Federal.</li>
+        <li>Meta: WCAG 2.2 nível AA, com eMAG, Lei Brasileira de Inclusão e ABNT NBR 17225 como referência.</li>
+        <li>Experiências 3D e com câmera são opcionais, têm alternativa por teclado e a imagem da câmera nunca sai do seu navegador.</li>
+        <li>Encontrou uma barreira? Respondemos em até 5 dias úteis.</li>
+      </ul></div>
+
+      <section id="s1"><h2><span class="n">1.</span> Nosso compromisso</h2>
+        <p>A {{c:company.legal_name}}, responsável pelo CoreCyber, entende acessibilidade como direito, e não como recurso opcional. Uma pessoa cega que administra a rede de uma prefeitura, um gestor com baixa visão ou alguém que prefere Libras ao português escrito precisam entender riscos de segurança tanto quanto qualquer outra pessoa.</p>
+        <p>Buscamos atender ao nível AA das Diretrizes de Acessibilidade para Conteúdo Web, as WCAG, versão 2.2, e às recomendações do eMAG. Tratamos cada barreira relatada como prioridade. Acessibilidade se constrói com escuta: se algo dificultou a sua navegação, queremos saber.</p>
+        <div class="callout">{{i:info}}<p>Esta declaração descreve o site público <span data-noi18n>corecyber.com.br</span>. A acessibilidade da plataforma CoreCyber, usada pelos clientes, está descrita na seção 9.</p></div>
+      </section>
+
+      <section id="s2"><h2><span class="n">2.</span> Painel de acessibilidade</h2>
+        <p>O painel fica no botão fixo da lateral da tela e reúne os ajustes abaixo. Suas escolhas ficam salvas apenas no seu navegador e valem nas próximas visitas. Para voltar ao padrão, use o botão de restaurar no próprio painel.</p>
+        <p><button class="btn btn--primary" type="button" data-a11y-open>{{i:access}} Abrir o painel de acessibilidade</button></p>
+        <div class="grid g-2 mt-2">
+          <div class="card card--flat"><span class="ibox ibox--sm">{{i:type}}</span><h3>Tamanho do texto</h3><p>Botões A− e A+ ajustam o texto de 90% a 160%, sem quebrar o layout.</p></div>
+          <div class="card card--flat"><span class="ibox ibox--sm">{{i:book}}</span><h3>Fonte legível</h3><p>Troca a fonte pela Atkinson Hyperlegible, desenhada para pessoas com baixa visão, com letras mais fáceis de distinguir.</p></div>
+          <div class="card card--flat"><span class="ibox ibox--sm">{{i:sliders}}</span><h3>Espaçar texto</h3><p>Aumenta o espaço entre letras, palavras e linhas para uma leitura mais confortável, o que ajuda também pessoas com dislexia.</p></div>
+          <div class="card card--flat"><span class="ibox ibox--sm">{{i:contrast}}</span><h3>Alto contraste</h3><p>Reforça a diferença entre texto e fundo em todo o site.</p></div>
+          <div class="card card--flat"><span class="ibox ibox--sm">{{i:eye}}</span><h3>Escala de cinza</h3><p>Remove as cores para reduzir estímulos visuais. A informação nunca depende só de cor: selos e alertas também têm texto.</p></div>
+          <div class="card card--flat"><span class="ibox ibox--sm">{{i:link}}</span><h3>Destacar links</h3><p>Sublinha e contorna todos os links para que sejam encontrados com facilidade.</p></div>
+          <div class="card card--flat"><span class="ibox ibox--sm">{{i:eye-off}}</span><h3>Ocultar imagens</h3><p>Esconde imagens e cenas decorativas para reduzir distrações.</p></div>
+          <div class="card card--flat"><span class="ibox ibox--sm">{{i:minus}}</span><h3>Guia de leitura</h3><p>Uma faixa acompanha o ponteiro e ajuda a não perder a linha.</p></div>
+          <div class="card card--flat"><span class="ibox ibox--sm">{{i:mouse}}</span><h3>Cursor ampliado</h3><p>Deixa o ponteiro do mouse maior e mais visível.</p></div>
+          <div class="card card--flat"><span class="ibox ibox--sm">{{i:volume}}</span><h3>Ouvir a página</h3><p>Lê o conteúdo em voz alta com as vozes do seu próprio navegador, no idioma escolhido.</p></div>
+          <div class="card card--flat"><span class="ibox ibox--sm">{{i:hand}}</span><h3>Libras</h3><p>Abre o VLibras para traduzir o conteúdo para a Língua Brasileira de Sinais.</p></div>
+          <div class="card card--flat"><span class="ibox ibox--sm">{{i:pause}}</span><h3>Pausar animações</h3><p>Interrompe transições, contadores e efeitos de movimento em todo o site.</p></div>
+        </div>
+        <h3>Também em todas as páginas</h3>
+        <ul>
+          <li>Navegação completa por teclado, com indicador de foco bem visível e o link “Pular para o conteúdo”, que aparece ao pressionar <kbd>Tab</kbd> no início da página.</li>
+          <li>Títulos em ordem hierárquica, textos alternativos em imagens informativas e rótulos em todos os campos de formulário.</li>
+          <li>Mensagens de erro de formulário anunciadas ao leitor de tela e ligadas ao campo correspondente.</li>
+          <li>Respeito à preferência “reduzir movimento” do seu sistema operacional: com ela ativa, animações e contadores aparecem já no estado final.</li>
+          <li>Tabelas com cabeçalhos marcados, para que leitores de tela anunciem a que coluna cada dado pertence.</li>
+        </ul>
+        <div class="callout callout--teal">{{i:cookie}}<p>As preferências de acessibilidade são guardadas em um item técnico necessário do seu navegador, sem identificar você. A fonte legível é baixada do Google Fonts apenas quando você a ativa. <button class="btn btn--link" type="button" data-cookie-open>Rever preferências de cookies</button></p></div>
+      </section>
+
+      <section id="s3"><h2><span class="n">3.</span> Libras</h2>
+        <p>Usamos o <strong>VLibras</strong>, ferramenta pública e gratuita do Governo Federal que traduz conteúdos digitais para a Língua Brasileira de Sinais por meio de um avatar 3D.</p>
+        <div class="steps">
+          <div class="step"><h3>Abra o VLibras</h3><p>Clique no botão de Libras na lateral da tela ou na opção Libras do painel de acessibilidade.</p></div>
+          <div class="step"><h3>Escolha o texto</h3><p>Com o VLibras aberto, clique em um trecho da página.</p></div>
+          <div class="step"><h3>Acompanhe a tradução</h3><p>O avatar sinaliza o conteúdo. Você pode ajustar a velocidade e repetir.</p></div>
+        </div>
+        <div class="callout mt-2">{{i:info}}<p>A tradução do VLibras é automática e pode não captar todas as nuances, especialmente de termos técnicos de segurança. Se precisar de um conteúdo importante com mais precisão, fale conosco pelos canais da seção 10.</p></div>
+        <div class="law mt-2"><span>Lei nº 10.436/2002 — Libras</span><span>Lei nº 13.146/2015 — LBI</span></div>
+      </section>
+
+      <section id="s4"><h2><span class="n">4.</span> Atalhos de teclado</h2>
+        <p>Os atalhos funcionam em qualquer página do site.</p>
+        <div class="table-wrap"><table class="tbl">
+          <caption class="sr-only">Atalhos de teclado do site</caption>
+          <thead><tr><th scope="col">Atalho</th><th scope="col">O que faz</th></tr></thead>
+          <tbody>
+            <tr><td><kbd>Alt</kbd> + <kbd>1</kbd></td><td>Vai direto para o conteúdo principal.</td></tr>
+            <tr><td><kbd>Alt</kbd> + <kbd>2</kbd></td><td>Vai para o menu principal.</td></tr>
+            <tr><td><kbd>Alt</kbd> + <kbd>3</kbd></td><td>Vai para o rodapé, com contatos e políticas.</td></tr>
+            <tr><td><kbd>Alt</kbd> + <kbd>4</kbd></td><td>Abre o painel de acessibilidade.</td></tr>
+            <tr><td><kbd>Tab</kbd> e <kbd>Shift</kbd> + <kbd>Tab</kbd></td><td>Avança e volta entre links, botões e campos.</td></tr>
+            <tr><td><kbd>Enter</kbd> ou <kbd>Espaço</kbd></td><td>Ativa o link ou o botão em foco.</td></tr>
+            <tr><td><kbd>Esc</kbd></td><td>Fecha menus, painéis, janelas e o assistente.</td></tr>
+          </tbody>
+        </table></div>
+        <p>Os atalhos <kbd>Alt</kbd> + <kbd>1</kbd> a <kbd>Alt</kbd> + <kbd>3</kbd> seguem a convenção do eMAG, familiar a quem usa sites públicos brasileiros. No macOS, use a tecla <kbd>Option</kbd> no lugar de <kbd>Alt</kbd>. Alguns leitores de tela e navegadores reservam combinações com <kbd>Alt</kbd>; nesse caso, use o botão de acessibilidade ou o link “Pular para o conteúdo”.</p>
+      </section>
+
+      <section id="s5"><h2><span class="n">5.</span> Idiomas</h2>
+        <p>O site está disponível em <strong>português, inglês e espanhol</strong>, pelo seletor de idioma no topo da página. A escolha fica salva no seu navegador, e o idioma da página é informado às tecnologias assistivas para que a leitura em voz alta use a pronúncia correta.</p>
+        <p>A plataforma CoreCyber vai além e funciona em <strong>8 idiomas</strong>: português, inglês, espanhol, italiano, francês, chinês, japonês e russo.</p>
+        <div class="callout callout--warn">{{i:alert}}<p>As versões em inglês e espanhol do site são geradas com apoio de tradução automática e revisadas progressivamente. Em políticas e documentos legais, pode haver diferenças de redação; em caso de dúvida, prevalece o texto em português.</p></div>
+      </section>
+
+      <section id="s6"><h2><span class="n">6.</span> Padrões de referência</h2>
+        <div class="table-wrap"><table class="tbl">
+          <caption class="sr-only">Normas e leis de acessibilidade adotadas como referência</caption>
+          <thead><tr><th scope="col">Referência</th><th scope="col">O que é</th><th scope="col">Como usamos</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">WCAG 2.2, nível AA</th><td>Diretrizes internacionais de acessibilidade para conteúdo web, publicadas pelo W3C.</td><td>Meta de conformidade do site.</td></tr>
+            <tr><th scope="row">eMAG 3.1</th><td>Modelo de Acessibilidade em Governo Eletrônico, referência brasileira para sites.</td><td>Complemento, sobretudo em atalhos e padrões de navegação familiares ao público brasileiro, inclusive do setor público.</td></tr>
+            <tr><th scope="row">Lei nº 13.146/2015, art. 63</th><td>Lei Brasileira de Inclusão: torna obrigatória a acessibilidade nos sites mantidos por empresas com sede ou representação no País.</td><td>Obrigação legal que orienta todo o projeto.</td></tr>
+            <tr><th scope="row">ABNT NBR 17225:2025</th><td>Norma brasileira com requisitos de acessibilidade para conteúdo e aplicações web.</td><td>Referência na revisão de páginas e componentes.</td></tr>
+            <tr><th scope="row">Lei nº 10.436/2002</th><td>Reconhece a Libras como meio legal de comunicação e expressão.</td><td>Fundamento para a oferta de tradução em Libras.</td></tr>
+          </tbody>
+        </table></div>
+        <div class="law"><span>Lei 13.146/2015, art. 63</span><span>Lei 10.436/2002</span><span>W3C WCAG 2.2</span><span>eMAG 3.1</span><span>ABNT NBR 17225:2025</span></div>
+      </section>
+
+      <section id="s7"><h2><span class="n">7.</span> Experiências interativas e alternativas</h2>
+        <p>Algumas páginas têm cenas 3D e uma experiência opcional controlada por gestos com a câmera, como o papel amassado que vira laudo verificável. Elas enriquecem a visita, mas nada importante depende delas.</p>
+        <ul>
+          <li><strong>A câmera é opcional</strong> e só liga quando você clica para ativá-la. A imagem é processada no seu próprio navegador, sem gravação e sem envio para a EBAEM ou para terceiros.</li>
+          <li><strong>Há sempre outro caminho:</strong> um controle deslizante e as teclas de seta fazem o mesmo que os gestos, e o mouse ou o toque substituem a inclinação do celular.</li>
+          <li><strong>A informação também está em texto:</strong> o que as cenas mostram é explicado no texto ao lado, e as cenas decorativas ficam ocultas para leitores de tela, que recebem a descrição textual.</li>
+          <li><strong>Movimento sob controle:</strong> as animações respeitam a preferência “reduzir movimento” do sistema e podem ser pausadas no painel. Evitamos efeitos que piscam.</li>
+          <li><strong>O mascote Cy é discreto:</strong> o sentinela do CoreCyber pode ser minimizado com um clique e continua assim nas próximas visitas. As falas dele são anunciadas de forma educada, sem interromper o leitor de tela.</li>
+        </ul>
+      </section>
+
+      <section id="s8"><h2><span class="n">8.</span> Limitações conhecidas</h2>
+        <p>Preferimos ser transparentes sobre o que ainda não está perfeito:</p>
+        <ul>
+          <li><strong>Conteúdos de terceiros incorporados</strong>, como o mapa de localização, o VLibras e o assistente com inteligência artificial, seguem os padrões de acessibilidade dos respectivos fornecedores, que não controlamos por completo.</li>
+          <li><strong>Cenas 3D</strong> são desenhadas em canvas, que leitores de tela não conseguem percorrer. Por isso cada cena tem uma alternativa em texto, e nenhuma informação existe só dentro dela.</li>
+          <li><strong>Protótipos de telas</strong> da plataforma, na página de telas, são ilustrações: representam a interface, mas parte dos elementos é decorativa. As funcionalidades estão descritas em texto.</li>
+          <li><strong>A tradução automática</strong> de alguns textos legais para inglês e espanhol pode conter imprecisões, como descrito na seção 5.</li>
+          <li><strong>A leitura em voz alta</strong> depende das vozes instaladas no seu navegador e sistema, e a qualidade pode variar conforme o idioma.</li>
+        </ul>
+        <div class="callout callout--teal">{{i:info}}<p>Barreiras relatadas entram em uma fila de correções priorizada pelo impacto: o que impede o acesso vem primeiro, como fazemos com vulnerabilidades.</p></div>
+      </section>
+
+      <section id="s9"><h2><span class="n">9.</span> Acessibilidade na plataforma CoreCyber</h2>
+        <p>O mesmo cuidado orienta a plataforma usada pelos clientes:</p>
+        <ul class="checks">
+          <li><strong>8 idiomas</strong> na plataforma, para equipes multinacionais e para quem se sente mais seguro lendo em outra língua.</li>
+          <li><strong>Prioridade explicada em linguagem clara:</strong> cada vulnerabilidade tem score de 0 a 100 e regularização passo a passo, para que a decisão não dependa de jargão técnico.</li>
+          <li><strong>Relatórios também em DOCX</strong>, além do PDF: um formato editável que funciona bem com leitores de tela, ampliação e ajustes de fonte.</li>
+          <li><strong>Acessibilidade como achado de segurança:</strong> a análise de superfície externa do CoreCyber também verifica a acessibilidade WCAG dos sites dos próprios clientes, para que cada organização descubra e corrija barreiras nas suas páginas.</li>
+        </ul>
+        <div class="callout">{{i:info}}<p>A plataforma evolui a cada versão, e relatos de barreiras dentro dela são tão bem-vindos quanto os do site. Use os mesmos canais da seção 10, informando que se trata da plataforma.</p></div>
+      </section>
+
+      <section id="s10"><h2><span class="n">10.</span> Como relatar barreiras</h2>
+        <p>Se algo neste site ou na plataforma dificultou o seu acesso, conte para nós pelo canal mais confortável. O formulário abaixo prepara a mensagem com protocolo e abre o seu e-mail ou o WhatsApp; nada é enviado sem a sua confirmação.</p>
+        <form class="form card" data-form="contact" data-mail="{{c:company.email_support}}" novalidate>
+          <div class="two">
+            <div class="field"><label for="a-nome">Nome <span class="req">*</span></label><input class="input" id="a-nome" name="nome" required autocomplete="name"></div>
+            <div class="field"><label for="a-mail">E-mail <span class="req">*</span></label><input class="input" id="a-mail" name="email" type="email" required autocomplete="email"></div>
+          </div>
+          <div class="two">
+            <div class="field"><label for="a-onde">Página ou recurso</label><input class="input" id="a-onde" name="pagina" placeholder="Endereço da página ou nome da tela"></div>
+            <div class="field"><label for="a-tipo">Tipo de barreira</label><select class="select" id="a-tipo" name="tipo">
+              <option>Acessibilidade — navegação por teclado</option>
+              <option>Acessibilidade — leitor de tela</option>
+              <option>Acessibilidade — contraste, cores ou tamanho do texto</option>
+              <option>Acessibilidade — Libras ou VLibras</option>
+              <option>Acessibilidade — animações ou movimento</option>
+              <option>Acessibilidade — formulários</option>
+              <option>Acessibilidade — tradução ou idioma</option>
+              <option>Acessibilidade — plataforma CoreCyber</option>
+              <option>Acessibilidade — outra barreira</option>
+            </select></div>
+          </div>
+          <div class="field"><label for="a-tec">Navegador e tecnologia assistiva, se quiser informar</label><input class="input" id="a-tec" name="tecnologia" placeholder="Por exemplo: Chrome com NVDA, Safari com VoiceOver"></div>
+          <div class="field"><label for="a-msg">O que você tentou fazer e o que aconteceu <span class="req">*</span></label><textarea class="textarea" id="a-msg" name="mensagem" required></textarea></div>
+          <fieldset class="field"><legend class="lbl">Enviar por</legend><div class="radio-cards"><label><input type="radio" name="via" value="email" checked> E-mail</label><label><input type="radio" name="via" value="whatsapp"> WhatsApp</label></div></fieldset>
+          <label class="check"><input type="checkbox" name="ok" required> Li a <a href="/politica-de-privacidade/">Política de Privacidade</a> e concordo com o uso destes dados para responder ao meu relato.</label>
+          <button class="btn btn--primary" type="submit">{{i:send}} Enviar relato</button>
+          <div class="form-msg" aria-live="polite"></div>
+        </form>
+        <div class="grid g-2 mt-2">
+          <div class="card card--soft"><span class="ibox ibox--sm">{{i:mail}}</span><h3>E-mail direto</h3><p>Escreva para <a href="mailto:{{c:company.email_support}}?subject=ACESSIBILIDADE" data-noi18n>{{c:company.email_support}}</a> com o assunto <strong>ACESSIBILIDADE</strong>.</p></div>
+          <div class="card card--soft"><span class="ibox ibox--sm">{{i:whatsapp}}</span><h3>WhatsApp</h3><p>Fale com a equipe pelo <span data-noi18n>{{c:company.phone_display}}</span>. Atendimento: {{c:company.hours}}.</p><a class="btn btn--wa btn--sm" href="{{wa:Olá! Encontrei uma barreira de acessibilidade no CoreCyber.}}" target="_blank" rel="noopener">{{if:whatsapp}} Relatar pelo WhatsApp</a></div>
+        </div>
+        <div class="flow mt-2" aria-label="Ciclo de um relato de acessibilidade"><span>Recebido</span><i></i><span>Análise</span><i></i><span>Resposta em até 5 dias úteis</span><i></i><span>Correção</span><i></i><span>Retorno a você</span></div>
+        <p class="mt-2">Respondemos em <strong>até 5 dias úteis</strong> com o diagnóstico e a previsão de correção. Se você precisar da informação antes disso, enviamos o conteúdo em formato alternativo, por texto ou atendimento pessoal, enquanto corrigimos. Se a resposta não resolver, a Ouvidoria está em <a href="mailto:{{c:company.email_ombudsman}}" data-noi18n>{{c:company.email_ombudsman}}</a>.</p>
+      </section>
+
+      <section id="s11"><h2><span class="n">11.</span> Revisão desta declaração</h2>
+        <p>Esta declaração foi revisada pela última vez em <strong>{{c:site.policy_date}}</strong>. Ela é revista pelo menos uma vez por ano e sempre que houver mudança relevante no site, na plataforma ou nos recursos de acessibilidade. A avaliação independente de acessibilidade está entre os <a href="/esg/#compromissos">compromissos ESG</a> da EBAEM.</p>
+      </section>
+
+      <div class="sign">{{c:company.legal_name}} · CNPJ <span data-noi18n>{{c:company.cnpj}}</span> · {{c:company.address}}.<br>Histórico: versão 1.0, de {{c:site.policy_date}} — publicação inicial. Veja também a <a href="/confianca/">Central de Confiança</a> e os <a href="/esg/">compromissos ESG</a>.</div>
+    </article>
+  </div>
+</section>

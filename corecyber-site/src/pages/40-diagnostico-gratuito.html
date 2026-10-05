@@ -1,0 +1,91 @@
+<!--meta {"slug": "diagnostico-gratuito", "title": "Diagnóstico gratuito de exposição", "description": "Descubra o que a internet já sabe sobre a sua empresa: diagnóstico de exposição externa gratuito, não invasivo, com relatório em até 2 dias úteis. Teste também o seu e-mail agora.", "order": 40} -->
+
+<section class="page-hero" data-say="Comece pelo teste rápido aqui embaixo: leva segundos e não precisa de cadastro.">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Você está aqui"><a href="/">Início</a><span aria-hidden="true">›</span><span aria-current="page">Diagnóstico gratuito</span></nav>
+    <span class="eyebrow">{{i:radar}} Diagnóstico gratuito</span>
+    <h1>Descubra o que a internet <span class="grad-text">já sabe</span> sobre a sua empresa.</h1>
+    <p class="lead">Atacantes começam olhando de fora: subdomínios esquecidos, portas abertas, certificados vencidos, e-mails fáceis de falsificar. O diagnóstico do CoreCyber faz o mesmo caminho — <strong>sem invadir nada</strong> — e entrega um relatório em português, priorizado, em até 2 dias úteis.</p>
+    <div class="row mt-2"><a class="btn btn--primary btn--lg" href="#pedido">Pedir meu diagnóstico {{i:arrow:arrow}}</a><a class="btn btn--ghost btn--lg" href="#teste-rapido">{{i:search}} Teste rápido de e-mail</a></div>
+  </div>
+</section>
+
+<section class="sec" id="teste-rapido" aria-labelledby="dns-h">
+  <div class="wrap split">
+    <div data-reveal="left">
+      <span class="eyebrow">Teste rápido, agora</span>
+      <h2 id="dns-h">O e-mail da sua empresa pode ser falsificado?</h2>
+      <p class="lead">Digite o domínio e veja a nota de proteção de e-mail e DNS em segundos: SPF, DMARC, DNSSEC, CAA, MTA-STS e TLS-RPT.</p>
+      <ul class="checks checks--sm mt-2"><li>Leitura de registros públicos, sem tocar nos seus servidores</li><li>A consulta sai do seu navegador direto para o DNS público</li><li>Nada é enviado à EBAEM</li></ul>
+    </div>
+    <div class="dnscheck" data-reveal="right">
+      <form data-dnscheck novalidate>
+        <label class="sr-only" for="dns-dom2">Domínio da empresa</label>
+        <input class="input" id="dns-dom2" name="dominio" type="text" inputmode="url" autocomplete="url" placeholder="suaempresa.com.br" required data-prefill="dominio">
+        <button class="btn btn--primary" type="submit">{{i:search}} Verificar</button>
+      </form>
+      <p class="hint">Exemplo: digite o domínio do seu site, sem “https://”.</p>
+      <div class="dns-out" data-dns-out aria-live="polite" hidden></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--white sec--line" aria-labelledby="inc-h">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">O que o diagnóstico completo analisa</span><h2 id="inc-h">A visão de fora, organizada por prioridade.</h2></div>
+    <div class="grid g-4" data-stagger>
+      <div class="card card--hover" data-reveal><span class="ibox">{{i:globe}}</span><h3>Subdomínios</h3><p>Descoberta por certificados públicos: ambientes de teste e sistemas esquecidos aparecem aqui.</p></div>
+      <div class="card card--hover" data-reveal><span class="ibox ibox--blue">{{i:network}}</span><h3>Portas e serviços</h3><p>O que responde na internet, com versões que podem ter falhas conhecidas.</p></div>
+      <div class="card card--hover" data-reveal><span class="ibox ibox--purple">{{i:lock}}</span><h3>TLS e certificados</h3><p>Protocolos antigos, cifras fracas, certificados vencidos ou a vencer.</p></div>
+      <div class="card card--hover" data-reveal><span class="ibox ibox--orange">{{i:shield}}</span><h3>Cabeçalhos e WAF</h3><p>Proteções do navegador ausentes e presença de firewall de aplicação.</p></div>
+      <div class="card card--hover" data-reveal><span class="ibox ibox--navy">{{i:bug}}</span><h3>Exposições conhecidas</h3><p>Painéis, arquivos e configurações expostas, com templates atualizados toda semana.</p></div>
+      <div class="card card--hover" data-reveal><span class="ibox">{{i:mail}}</span><h3>E-mail</h3><p>SPF, DMARC e outros registros que impedem golpes em nome da empresa.</p></div>
+      <div class="card card--hover" data-reveal><span class="ibox ibox--blue">{{i:access}}</span><h3>Acessibilidade</h3><p>Pontos de atenção de acessibilidade WCAG no seu site — bônus que poucos oferecem.</p></div>
+      <div class="card card--hover" data-reveal><span class="ibox ibox--purple">{{i:qr}}</span><h3>Relatório com QR</h3><p>PDF em português, priorizado, com autenticidade conferível — pronto para a diretoria.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="how-h">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Como funciona</span><h2 id="how-h">Simples, rápido e com autorização.</h2></div>
+    <div class="steps" data-stagger>
+      <div class="step" data-reveal><h3>Você pede</h3><p>Preencha o formulário com o domínio e um contato corporativo.</p></div>
+      <div class="step" data-reveal><h3>Comprovamos a titularidade</h3><p>Por um registro TXT no DNS ou por autorização escrita. Só analisamos o que é seu.</p></div>
+      <div class="step" data-reveal><h3>Varremos sem invadir</h3><p>Observamos apenas o que já está exposto, sem explorar falhas e sem testes de carga.</p></div>
+      <div class="step" data-reveal><h3>Você recebe o relatório</h3><p>Em até 2 dias úteis, com prioridades claras e uma conversa de 30 minutos para tirar dúvidas.</p></div>
+    </div>
+    <div class="callout callout--warn mt-3">{{i:alert}}<p><strong>Ética em primeiro lugar:</strong> não analisamos domínios de terceiros sem autorização. Varredura não autorizada pode configurar crime (Código Penal, art. 154-A) e viola os nossos <a href="/termos-de-uso/">Termos de Uso</a>.</p></div>
+  </div>
+</section>
+
+<section class="sec sec--white sec--line" id="pedido" aria-labelledby="ped-h" data-say="Pronto! Preencha e a nossa equipe entra em contato em horário comercial.">
+  <div class="wrap split" style="align-items:start">
+    <div data-reveal="left">
+      <span class="eyebrow">Pedido de diagnóstico</span>
+      <h2 id="ped-h">Sem custo, sem compromisso, sem cartão.</h2>
+      <ul class="checks mt-2"><li>Relatório em até 2 dias úteis após a comprovação de titularidade</li><li>Conversa de 30 minutos com um especialista</li><li>Dados do diagnóstico guardados por até 90 dias e depois eliminados</li><li>Se gostar, transforme em prova de conceito de 30 dias</li></ul>
+      <p class="tiny mt-2">Ao enviar, abrimos o seu e-mail ou WhatsApp com a mensagem pronta e um protocolo.</p>
+    </div>
+    <form class="form card" data-form="diagnostic" data-mail="{{c:company.email_sales}}" novalidate data-reveal="right">
+      <div class="two">
+        <div class="field"><label for="d-nome">Nome <span class="req">*</span></label><input class="input" id="d-nome" name="nome" required autocomplete="name"></div>
+        <div class="field"><label for="d-mail">E-mail corporativo <span class="req">*</span></label><input class="input" id="d-mail" name="email" type="email" required autocomplete="email"></div>
+      </div>
+      <div class="two">
+        <div class="field"><label for="d-emp">Empresa ou órgão <span class="req">*</span></label><input class="input" id="d-emp" name="empresa" required autocomplete="organization"></div>
+        <div class="field"><label for="d-cargo">Cargo</label><input class="input" id="d-cargo" name="cargo" autocomplete="organization-title"></div>
+      </div>
+      <div class="two">
+        <div class="field"><label for="d-dom">Domínio principal <span class="req">*</span></label><input class="input" id="d-dom" name="dominio" required placeholder="suaempresa.com.br" data-prefill="dominio"></div>
+        <div class="field"><label for="d-tel">Telefone</label><input class="input" id="d-tel" name="telefone" type="tel" autocomplete="tel"></div>
+      </div>
+      <div class="field"><label for="d-obj">O que mais preocupa você hoje?</label><select class="select" id="d-obj" name="objetivo"><option>Saber o que está exposto na internet</option><option>Vulnerabilidades e correções</option><option>Auditoria ISO 27001 ou LGPD</option><option>Golpes por e-mail em nome da empresa</option><option>Disponibilidade dos sistemas</option><option>Outro</option></select></div>
+      <label class="check"><input type="checkbox" name="titular" required> Declaro que o domínio é da minha organização ou que tenho autorização para solicitar a análise.</label>
+      <fieldset class="field"><legend class="lbl">Enviar por</legend><div class="radio-cards"><label><input type="radio" name="via" value="email" checked> E-mail</label><label><input type="radio" name="via" value="whatsapp"> WhatsApp</label></div></fieldset>
+      <label class="check"><input type="checkbox" name="ok" required> Li a <a href="/politica-de-privacidade/">Política de Privacidade</a> e concordo com o contato da EBAEM.</label>
+      <button class="btn btn--primary btn--lg" type="submit">{{i:radar}} Pedir diagnóstico gratuito</button>
+      <div class="form-msg" aria-live="polite"></div>
+    </form>
+  </div>
+</section>
