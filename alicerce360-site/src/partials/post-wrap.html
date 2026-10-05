@@ -1,0 +1,40 @@
+<div class="wrap art-grid">
+  <div class="art-main">
+    <div class="art-meta"><span class="badge badge--teal">{{i:clock}} <span><b data-noi18n>%%READ%%</b> min de leitura</span></span><span class="badge">{{i:building}} Equipe EBAEM</span></div>
+    <div class="art-body">
+%%BODY%%
+    </div>
+    <div class="art-share" role="group" aria-label="Compartilhar">
+      <span class="lbl">Compartilhe:</span>
+      <button type="button" class="btn btn--ghost btn--sm" data-share="linkedin">{{i:linkedin}} LinkedIn</button>
+      <button type="button" class="btn btn--ghost btn--sm" data-share="whatsapp">{{if:whatsapp}} WhatsApp</button>
+      <button type="button" class="btn btn--ghost btn--sm" data-share="email">{{i:mail}} E-mail</button>
+      <button type="button" class="btn btn--ghost btn--sm" data-share="copy">{{i:link}} Copiar link</button>
+    </div>
+  </div>
+  <aside class="art-aside">
+    <nav class="toc" aria-label="Nesta matéria"><b>Nesta matéria</b><ol data-autotoc></ol></nav>
+    <div class="card card--grad art-cta-card">
+      <span class="ibox ibox--grad">{{i:rocket}}</span>
+      <h3>Veja na prática, sem compromisso</h3>
+      <p>Teste o Alicerce360 por 30 dias, com todos os módulos disponíveis e sem limite de usuários.</p>
+      <a class="btn btn--primary btn--block" href="/planos/#teste">Começar teste grátis</a>
+      <a class="btn btn--link" href="/telas/">ou faça o tour de telas</a>
+    </div>
+  </aside>
+</div>
+<section class="sec sec--alt art-related" aria-labelledby="rel-h">
+  <div class="wrap">
+    <div class="sec-head sec-head--left"><span class="eyebrow">Continue lendo</span><h2 id="rel-h">Matérias relacionadas</h2></div>
+    <div class="post-grid" data-stagger>%%RELATED%%</div>
+    <p class="center mt-3"><a class="btn btn--ghost" href="/materias/">Ver todas as matérias {{i:arrow:arrow}}</a></p>
+  </div>
+</section>
+<section class="sec sec--tight">
+  <div class="wrap">
+    <div class="cta-band" data-reveal="zoom">
+      <div><h2>Quer ver isso funcionando na sua empresa?</h2><p>Converse com quem implanta normas há anos. Em 30 minutos mostramos o caminho — sem apresentação enlatada.</p></div>
+      <div class="row"><a class="btn btn--light btn--lg" href="/planos/#teste">Testar grátis por 30 dias</a><a class="btn btn--outline-light btn--lg" href="{{wa}}" target="_blank" rel="noopener">{{if:whatsapp}} Falar com especialista</a></div>
+    </div>
+  </div>
+</section>

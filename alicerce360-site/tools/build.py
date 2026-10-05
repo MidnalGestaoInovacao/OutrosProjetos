@@ -45,6 +45,114 @@ if (ROOT / "tools" / "media.json").exists():
     MEDIA = json.loads((ROOT / "tools" / "media.json").read_text(encoding="utf-8"))
 
 ICONS = (SRC / "partials" / "icons.svg").read_text(encoding="utf-8")
+POSTLINKS = {}
+if (ROOT / "tools" / "posts.json").exists():
+    POSTLINKS = json.loads((ROOT / "tools" / "posts.json").read_text(encoding="utf-8"))
+CAT_STYLE = {  # categoria -> variante de cor do ícone
+    "Gestão e Conformidade": "", "Compliance e Integridade": "orange", "LGPD e Privacidade": "purple",
+    "Segurança da Informação": "navy", "Pessoas e Treinamentos": "blue", "Comunicação Interna": "grad",
+    "Negócios e Licitações": "orange", "Hospedagem e Infraestrutura": "blue",
+}
+MESES = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"]
+
+
+def slugify(t):
+    import unicodedata
+    t = unicodedata.normalize("NFD", t.lower())
+    t = "".join(c for c in t if unicodedata.category(c) != "Mn")
+    return re.sub(r"[^a-z0-9]+", "-", t).strip("-")
+
+
+def date_pt(iso):
+    y, m, d = iso[:10].split("-")
+    return f"{int(d)} de {MESES[int(m) - 1]} de {y}"
+
+
+def post_url(slug):
+    if WP_MODE:
+        return (POSTLINKS.get(slug) or {}).get("link") or f"/?name={slug}"
+    return f"/materias/{slug}/"
+
+
+def load_posts():
+    posts = []
+    for f in sorted((SRC / "posts").glob("*.html")):
+        raw = f.read_text(encoding="utf-8")
+        m = re.search(r"<!--meta\s*(\{.*?\})\s*-->", raw, re.S)
+        if not m:
+            raise SystemExit(f"{f.name}: falta o comentário <!--meta {{...}} -->")
+        try:
+            meta = json.loads(m.group(1))
+            meta["slug"], meta["title"], meta["date"], meta["category"]
+        except Exception as e:  # não derruba o build por causa de um rascunho
+            print(f"AVISO {f.name}: meta inválido ({e}) — matéria ignorada", file=sys.stderr)
+            continue
+        body = raw[m.end():].strip()
+        words = len(re.sub(r"<[^>]+>", " ", body).split())
+        meta.update(file=f.name, body=body, read=max(3, round(words / 210)), words=words,
+                    cat_slug=slugify(meta["category"]), cover=f"posts/{meta['slug']}")
+        posts.append(meta)
+    posts.sort(key=lambda p: p["date"], reverse=True)
+    return posts
+
+
+POSTS = load_posts() if (SRC / "posts").exists() else []
+
+
+def cover_url(p):
+    try:
+        return img_url(p["cover"])
+    except SystemExit:
+        return img_url("icon-512")
+
+
+def post_card(p):
+    tone = CAT_STYLE.get(p["category"], "")
+    return (f'<a class="post-card" href="{html.escape(post_url(p["slug"]), quote=True)}" data-slug="{p["slug"]}" data-cat="{p["cat_slug"]}" data-reveal>'
+            f'<span class="pc-cover"><img src="{cover_url(p)}" alt="" width="1200" height="630" loading="lazy"></span>'
+            f'<span class="pc-body"><span class="pc-cat"><span class="ibox ibox--sm{" ibox--" + tone if tone else ""}">{icon(p.get("icon", "book"))}</span><span>{html.escape(p["category"])}</span></span>'
+            f'<b class="pc-title">{html.escape(p["title"])}</b>'
+            f'<span class="pc-ex">{html.escape(p["description"])}</span>'
+            f'<span class="pc-meta"><time datetime="{p["date"]}" data-fmt data-noi18n>{date_pt(p["date"])}</time><span class="sep" aria-hidden="true">·</span>'
+            f'<span><b data-noi18n>{p["read"]}</b> min de leitura</span></span></span></a>')
+
+
+# emblema 3D do cabeçalho de cada página: slug -> (cena, ícone do fallback)
+EMBLEM = {
+    "intranet": ("layers", "layers"), "telas": ("screen", "monitor"), "planos": ("coins", "coins"),
+    "hospedagem": ("server", "server"), "clientes": ("people", "users"), "area-do-cliente": ("key", "key"),
+    "sobre": ("house", "home"), "contato": ("chat", "message"), "materias": ("book", "book"),
+    "confianca": ("shield", "shield"), "politica-de-privacidade": ("lock", "lock"),
+    "politica-de-cookies": ("cookie", "cookie"), "lgpd": ("id", "user"), "compliance": ("scale", "scale"),
+    "politica-comercial": ("coins", "coins"), "termos-de-uso": ("doc", "file-check"), "esg": ("leaf", "leaf"),
+    "acessibilidade": ("access", "access"),
+}
+
+
+def hero_emblem(body, slug):
+    """Põe o banner 3D ao lado do texto do primeiro .page-hero (sem reprocessar o HTML)."""
+    kind, ico = EMBLEM.get(slug, (None, None))
+    m = re.search(r'<section class="page-hero">\s*<div class="wrap">', body)
+    if not kind or not m:
+        return body, False
+    end = body.find("</section>", m.end())
+    inner = body[m.end():end].rstrip()
+    assert inner.endswith("</div>"), slug
+    text = inner[:-len("</div>")]
+    vis = (f'<div class="ph-visual" aria-hidden="true"><div class="stage-3d stage-3d--emblem" data-3d="emblem" '
+           f'data-emblem="{kind}"><span class="emb-fb">{icon(ico)}</span></div></div>')
+    new = f'<section class="page-hero">\n  <div class="wrap ph-grid">\n<div class="ph-text">{text}</div>\n{vis}\n  </div>\n'
+    return body[:m.start()] + new + body[end:], True
+
+
+def post_chips():
+    cats = {}
+    for p in POSTS:
+        cats.setdefault(p["category"], [p["cat_slug"], 0])[1] += 1
+    out = [f'<button type="button" class="chip-f" data-filter="*" aria-pressed="true">Todas <span class="n" data-noi18n>{len(POSTS)}</span></button>']
+    for name, (slug, n) in sorted(cats.items(), key=lambda x: (-x[1][1], x[0])):
+        out.append(f'<button type="button" class="chip-f" data-filter="{slug}" aria-pressed="false">{html.escape(name)} <span class="n" data-noi18n>{n}</span></button>')
+    return "".join(out)
 
 # ---------------------------------------------------------------- templating
 def cfg_get(path):
@@ -116,6 +224,13 @@ def expand(text):
             return fmt_brl(p["monthly"])
         if kind == "year":
             return "2026"
+        if kind == "postcards":
+            sel = POSTS[: int(arg)] if arg else POSTS
+            return "".join(post_card(p) for p in sel)
+        if kind == "postchips":
+            return post_chips()
+        if kind == "post":
+            return html.escape(post_url(arg), quote=True)
         raise SystemExit(f"marcador desconhecido: {m.group(0)}")
     return TOKEN.sub(rep, text)
 
@@ -331,7 +446,8 @@ def main():
     built = []
     for p in pages:
         slug = p["slug"]
-        body = i18n_process(expand(p["body"]), slug or "inicio")
+        raw, has_emblem = hero_emblem(expand(p["body"]), slug)
+        body = i18n_process(raw, slug or "inicio")
         tkey = register(p["title"], slug or "inicio")
         dkey = register(p["description"], slug or "inicio")
         keys = sorted(k for k, pg in USAGE.items() if (slug or "inicio") in pg)
@@ -339,11 +455,41 @@ def main():
         for lang in ("en", "es"):
             payload[lang] = {k: tr[lang][k] for k in keys if k in tr[lang]}
         mods = ""
-        if "3d" in p.get("modules", []):
+        if "3d" in p.get("modules", []) or has_emblem:
             mods += text_block((SRC / "js" / "a360.three.js").read_text(encoding="utf-8"), "a3-mod-3d")
         content = (f'<div class="a3 a3-page" id="a3-content" data-page="{slug or "inicio"}">\n{body}\n</div>\n'
                    + json_block(payload, "a3-i18n", compress=True) + mods)
         built.append({**p, "content": content})
+
+    # ------------------------------------------------ matérias (posts)
+    crumbs = i18n_process(expand((SRC / "partials" / "post-crumbs.html").read_text(encoding="utf-8")), "_chrome")
+    wrap_tpl = expand((SRC / "partials" / "post-wrap.html").read_text(encoding="utf-8"))
+    by_slug = {p["slug"]: p for p in POSTS}
+    built_posts = []
+    for p in POSTS:
+        pid = "post-" + p["slug"]
+        soup = BeautifulSoup(expand(p["body"]), "html.parser")
+        used = set()
+        for h in soup.find_all("h2"):
+            if not h.get("id"):
+                base = slugify(h.get_text())[:60] or "secao"
+                hid, n = base, 2
+                while hid in used:
+                    hid, n = f"{base}-{n}", n + 1
+                h["id"] = hid
+            used.add(h["id"])
+        related = "".join(post_card(by_slug[r]) for r in p.get("related", []) if r in by_slug and r != p["slug"])
+        full = (wrap_tpl.replace("%%READ%%", str(p["read"])).replace("%%BODY%%", str(soup))
+                .replace("%%RELATED%%", related))
+        body = i18n_process(full, pid)
+        tkey, dkey, ckey = register(p["title"], pid), register(p["description"], pid), register(p["category"], pid)
+        keys = sorted(k for k, pg in USAGE.items() if pid in pg)
+        payload = {"_meta": {"title": tkey, "desc": dkey, "h1": True, "cats": {p["category"]: [ckey, p["cat_slug"]]}}}
+        for lang in ("en", "es"):
+            payload[lang] = {k: tr[lang][k] for k in keys if k in tr[lang]}
+        content = (f'<div class="a3 a3-page a3-article" id="a3-content" data-page="{pid}">\n{body}\n</div>\n'
+                   + json_block(payload, "a3-i18n", compress=True))
+        built_posts.append({**p, "content": content})
 
     chrome_keys = sorted(k for k, pg in USAGE.items() if "_chrome" in pg)
     chrome_payload = {lang: {k: tr[lang][k] for k in chrome_keys if k in tr[lang]} for lang in ("en", "es")}
@@ -379,6 +525,13 @@ def main():
         manifest.append({"slug": p["slug"], "title": p["title"], "description": p["description"],
                          "file": name, "order": p.get("order", 50)})
     (wp / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=1), encoding="utf-8")
+    (wp / "posts").mkdir()
+    (wp / "post-crumbs.html").write_text(crumbs, encoding="utf-8")
+    pman = []
+    for p in built_posts:
+        (wp / "posts" / f'{p["slug"]}.html').write_text(p["content"], encoding="utf-8")
+        pman.append({k: p[k] for k in ("slug", "title", "description", "date", "category", "cat_slug", "cover", "read")})
+    (wp / "posts.json").write_text(json.dumps(pman, ensure_ascii=False, indent=1), encoding="utf-8")
 
     # ------------------------------------------------ prévia estática
     if DIST.exists():
@@ -418,10 +571,44 @@ def main():
 </body>
 </html>"""
         out.write_text(doc, encoding="utf-8")
+    for p in built_posts:
+        out = DIST / "materias" / p["slug"] / "index.html"
+        out.parent.mkdir(parents=True, exist_ok=True)
+        head = (f'<section class="wp-block-group a3 a3-post-head"><div class="wp-block-group wrap a3-post-grid"><div class="wp-block-group a3-post-head-text">{crumbs}'
+                f'<div class="taxonomy-category wp-block-post-terms"><a href="/materias/?cat={p["cat_slug"]}" rel="tag">{html.escape(p["category"])}</a></div>'
+                f'<h1 class="wp-block-post-title">{html.escape(p["title"])}</h1>'
+                f'<div class="wp-block-group a3-post-meta"><div class="wp-block-post-date"><time datetime="{p["date"]}">{date_pt(p["date"])}</time></div></div>'
+                f'</div><figure class="wp-block-post-featured-image a3-post-cover">'
+                f'<img src="{cover_url(p)}" alt="" width="1200" height="630"></figure></div></section>')
+        doc = f"""<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{html.escape(p['title'])} – Alicerce360</title>
+<meta name="description" content="{html.escape(p['description'], quote=True)}">
+<link rel="icon" href="/assets/img/icon-64.png">
+{font_face}
+<link rel="stylesheet" href="/assets/css/a360.css">
+</head>
+<body class="wp-site single">
+<div class="wp-site-blocks">
+<header class="wp-block-template-part">{header}</header>
+<main class="wp-block-group a3-main a3-single" id="wp--skip-link--target">
+{head}
+<div class="entry-content wp-block-post-content">
+{p['content']}
+</div>
+</main>
+<footer class="wp-block-template-part">{footer_full}</footer>
+</div>
+</body>
+</html>"""
+        out.write_text(doc, encoding="utf-8")
     nf = next((p for p in built if p["slug"] == "404"), None)
     if nf:
         shutil.copy(DIST / "404" / "index.html", DIST / "404.html")
-    print(f"[build] {len(built)} páginas · CSS {len(css)//1024} KB · núcleo JS {len(core)//1024} KB · modo {'WP' if WP_MODE else 'prévia'}")
+    print(f"[build] {len(built)} páginas · {len(built_posts)} matérias · CSS {len(css)//1024} KB · núcleo JS {len(core)//1024} KB · modo {'WP' if WP_MODE else 'prévia'}")
 
 
 def check(files):

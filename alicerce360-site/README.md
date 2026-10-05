@@ -9,16 +9,21 @@ Site institucional e comercial do **Alicerce360**, a intranet para WordPress da 
 | Produto | Início, A intranet (35 módulos, roadmap, segurança), Tour de telas (8 protótipos interativos), Planos e preços (simulador e comparativo), Hospedagem (site, e-mail, backup, antivírus, SSL) |
 | Relacionamento | Clientes e programa de indicação, Área do Cliente, Sobre (EBAEM), Contato |
 | Confiança | Central de Confiança, Política de Privacidade (com Aviso de Privacidade), Política de Cookies, LGPD e Portal do Titular, Compliance e Canal de Integridade, Política de Comercialização, Termos de Uso, ESG, Acessibilidade, 404 |
+| Matérias | Listagem `/materias/` (busca, filtro por categoria, destaque) e 10 matérias publicadas como posts do WordPress, com capa, sumário, compartilhamento e relacionadas |
 
 Recursos em todas as páginas: aviso de privacidade/cookies com preferências por categoria (estilo CookieYes, com Consent Mode), **VLibras**, painel de acessibilidade (texto, contraste, fonte legível, régua, leitura em voz alta, pausar animações, atalhos Alt+1…4), **português, inglês e espanhol**, botão de contato no canto inferior direito (WhatsApp, e-mail, telefone, mapa, redes, assistente), mascote **Ali** que reage à rolagem e assistente com base de conhecimento (pronto para **FreeLLMAPI**).
 
-Interações: camadas animadas (vista explodida do produto), identidade oculta até o hover (holofote e cartões de clientes), personagem que reage ao scroll, papel amassado controlado por **rastreamento de mãos** (MediaPipe, câmera opcional e local), papel com **paralaxe real** (câmera 3D) e cena 3D do logo (three.js) — tudo carregado sob demanda e respeitando “reduzir movimento”.
+Interações: camadas animadas (vista explodida do produto), identidade oculta até o hover (holofote e cartões de clientes), personagem que reage ao scroll, papel amassado controlado por **rastreamento de mãos** (MediaPipe, câmera opcional e local), papel com **paralaxe real** (câmera 3D), cena 3D do logo (three.js) na página inicial e um **banner 3D temático** no cabeçalho de cada página interna (casa, camadas, tela, moedas, servidores, escudo, cadeado, balança, livro…) — tudo carregado sob demanda e respeitando “reduzir movimento”.
+
+Menu: **Intranet**, **Planos** (megamenu com Planos da intranet, Simulador, Hospedagem, E-mail, Clientes e Indique e ganhe), **Confiança**, **Matérias**, Sobre e Contato. Todas as páginas, o cabeçalho e o rodapé usam 90% da largura da tela.
 
 ## Estrutura
 
 ```
 site.config.json        contatos, links, preços (fonte única — preços são PROPOSTAS a validar)
 src/pages/*.html        conteúdo das páginas em PT (cabeçalho <!--meta {...}--> em cada arquivo)
+src/posts/*.html        matérias (posts do WordPress), uma por arquivo
+src/img/posts/*.webp    capas das matérias (geradas por tools/covers.mjs)
 src/partials/           cabeçalho, rodapé e ícones SVG
 src/css/                design system (tons claros e sóbrios com as cores do logo)
 src/js/a360.early.js    preferências de acessibilidade e Consent Mode (topo da página)
@@ -28,7 +33,8 @@ src/js/a360.three.js    cenas 3D (módulo ES carregado sob demanda)
 src/i18n/{en,es}.json   traduções (chave = hash do texto em PT)
 tools/build.py          build: prévia estática em dist/ e pacotes WordPress em build/wp/
 tools/i18n.py           divide, junta e valida traduções
-tools/deploy_wp.py      publica no WordPress pelo MCP
+tools/deploy_wp.py      publica no WordPress pelo MCP (páginas, matérias, categorias, capas e modelos)
+tools/covers.mjs        gera as capas das matérias (Playwright) → tools/covers_webp.py converte para WebP
 freellmapi/             kit para ligar o assistente ao FreeLLMAPI
 docs/COMPONENTES.md     guia de componentes para editar páginas
 ```
@@ -49,7 +55,10 @@ python3 tools/i18n.py merge && python3 tools/i18n.py check
 # publicar (a chave MCP nunca entra no repositório)
 export WPMCP_KEY=wpmcp_...                  # ou WPMCP_KEY_FILE=/caminho/arquivo
 python3 tools/deploy_wp.py                  # tudo
-python3 tools/deploy_wp.py --only pages     # só páginas (também: media, css, chrome, templates, settings)
+python3 tools/deploy_wp.py --only pages     # só páginas (também: media, posts, css, chrome, templates, settings)
+
+# nova matéria: crie src/posts/NN-slug.html (ver docs/COMPONENTES.md) e gere a capa
+npm i playwright && node tools/covers.mjs slug-da-materia && python3 tools/covers_webp.py
 ```
 
 ### Como funciona no WordPress
@@ -58,6 +67,7 @@ python3 tools/deploy_wp.py --only pages     # só páginas (também: media, css,
 - **Cabeçalho e rodapé**: partes de modelo `header` e `footer` do tema Twenty Twenty-Five (bloco HTML). O JavaScript vai embutido em gzip + base64 para não ser alterado pelos filtros de conteúdo do WordPress.
 - **Página inicial**: modelo `home` exibindo o bloco reutilizável “Alicerce360 · Início”. Página 404: modelo `404` com o bloco “Alicerce360 · 404”.
 - **Páginas**: criadas/atualizadas pelo slug, com o modelo `page` simplificado (largura total).
+- **Matérias**: posts do WordPress criados/atualizados pelo slug, com categoria, resumo e imagem destacada; os links definitivos ficam em `tools/posts.json`. O modelo `single` mostra categoria, título, data e capa (blocos do WordPress) e o conteúdo da matéria. A listagem `/materias/` também acrescenta sozinha os posts escritos direto no painel do WordPress (via REST).
 - Tudo é reversível: o Editor do site permite “Restaurar” modelos, e o conteúdo de exemplo foi para a lixeira.
 
 ### Editar textos e preços

@@ -1,0 +1,65 @@
+<!--meta {"slug": "trilha-de-auditoria-hash",
+          "title": "Trilha de auditoria encadeada por hash: a prova de que nada foi alterado",
+          "description": "Como funciona uma trilha de auditoria encadeada por hash, o que ela registra e por que alterar ou apagar um evento deixa rastro. Um recurso que já está disponível no Alicerce360.",
+          "date": "2026-10-05T09:25:00",
+          "category": "Segurança da Informação",
+          "icon": "finger",
+          "related": ["intranet-que-produz-evidencias", "politicas-com-aceite-li-e-estou-ciente", "hospedagem-segura-wordpress-email"]} -->
+<p class="lead">Quase todo sistema guarda algum tipo de log. A pergunta que um auditor experiente faz é outra: “como eu sei que ninguém mexeu nesses registros?”. A trilha de auditoria encadeada por hash existe para responder a essa pergunta com uma verificação, e não com um pedido de confiança.</p>
+
+<h2>O problema dos logs comuns</h2>
+<p>Na maioria dos sistemas, o log é apenas uma tabela no banco de dados. Quem tem acesso ao banco pode editar uma linha, trocar uma data ou apagar um evento inteiro — e nada indica que isso aconteceu. O backup ajuda, mas raramente alguém compara o log atual com uma cópia antiga.</p>
+<p>No fim, a confiabilidade do registro depende de confiar em quem administra o sistema. E, numa auditoria ou numa investigação interna, essa costuma ser justamente uma das pessoas cujos atos estão sendo examinados. Um bom registro precisa se defender sozinho.</p>
+
+<h2>A corrente de impressões digitais, explicada sem matemática</h2>
+<p>Cada registro da trilha guarda quem fez, o quê, sobre qual objeto, quando, de qual endereço IP e navegador, além dos detalhes do evento. A partir desse conteúdo, o sistema calcula um <strong>hash SHA-256</strong>: uma impressão digital de 64 caracteres que muda por completo se qualquer detalhe mudar.</p>
+<p>O pulo do gato está no encadeamento: o cálculo de cada registro inclui também a impressão digital do registro anterior. É como uma corrente em que cada elo é soldado ao elo de trás. Isso cria três situações que a verificação detecta:</p>
+<ul class="checks">
+  <li><strong>Alguém altera um registro:</strong> o conteúdo não bate mais com a impressão digital gravada, e a verificação aponta aquele registro.</li>
+  <li><strong>Alguém apaga um registro do meio:</strong> o registro seguinte passa a apontar para um elo que não existe mais, e a corrente se rompe ali.</li>
+  <li><strong>Alguém apaga os últimos registros:</strong> o sistema guarda, à parte, qual foi o último registro gravado e a sua impressão digital. Se o fim da corrente não corresponder a essa referência, a verificação avisa que os registros mais recentes foram apagados.</li>
+</ul>
+<figure class="art-fig">
+  <div class="m-card">
+    <h5>Trilha de auditoria <span class="m-pill m-pill--crit">Comprometida no registro 1043</span></h5>
+    <div class="m-chain">
+      <div class="m-row is-ok"><span class="tx"><b data-noi18n>auth.login</b><span>Login · anterior <code data-noi18n>7d30…e1b9</code></span></span><span class="m-hash" data-noi18n>a91f…0c2e</span></div>
+      <div class="m-row is-ok"><span class="tx"><b data-noi18n>user.role_changed</b><span>Editor para Administrador · anterior <code data-noi18n>a91f…0c2e</code></span></span><span class="m-hash" data-noi18n>5be0…77d1</span></div>
+      <div class="m-row is-bad"><span class="tx"><b data-noi18n>user.deleted</b><span>Conteúdo alterado depois de gravado</span></span><span class="m-hash" data-noi18n>e7c4…19aa</span></div>
+      <div class="m-row"><span class="tx"><b data-noi18n>plugin.activated</b><span>Anterior <code data-noi18n>e7c4…19aa</code></span></span><span class="m-hash" data-noi18n>3d02…b8f5</span></div>
+      <div class="m-row"><span class="tx"><b data-noi18n>auth.login_failed</b><span>Anterior <code data-noi18n>3d02…b8f5</code></span></span><span class="m-hash" data-noi18n>c11a…6e30</span></div>
+    </div>
+    <small style="color:var(--app-muted)">1.042 registros íntegros até a quebra · verificação registrada na própria trilha</small>
+  </div>
+  <figcaption>Cada elo carrega a impressão digital do anterior; a verificação aponta o primeiro registro afetado e o motivo.</figcaption>
+</figure>
+<p>A verificação percorre a corrente do primeiro ao último registro e, se encontrar um problema, informa o primeiro registro afetado e o motivo. A própria verificação também entra na trilha, com data e resultado.</p>
+<p>Uma observação honesta: o encadeamento torna a adulteração <strong>evidente</strong>, mas não substitui controle de acesso ao banco, backups e boas práticas de administração. Guardar periodicamente uma exportação fora do servidor cria uma referência externa para comparar a corrente no futuro.</p>
+
+<h2>O que fica registrado — e como exportar</h2>
+<p>Na versão atual, a trilha registra automaticamente logins, saídas e tentativas sem sucesso, criação e exclusão de usuários, mudanças de papel, ativação e desativação de plugins, eventos de licença, módulos ligados e desligados, além das verificações e exportações da própria trilha. À medida que os novos módulos chegam, aceites de políticas, leituras, downloads e protocolos dos canais entram na mesma corrente. A única exceção planejada é o canal de denúncias anônimo, que não registra nenhum dado capaz de identificar quem relata.</p>
+<p>No painel, é possível filtrar por evento, usuário e período e exportar o resultado em CSV. A exportação inclui a impressão digital de cada registro e a do anterior, e as datas ficam em UTC, para evitar confusão de fuso horário. Ela também é <strong>protegida contra fórmulas</strong>: se um valor começar com sinais como “=”, “+”, “-” ou “@” — por exemplo, um nome de usuário malicioso digitado numa tentativa de login —, o arquivo o grava como texto, e a planilha não o executa como fórmula.</p>
+
+<h2>Licença assinada e somente leitura: a evidência não fica refém</h2>
+<p>De nada adianta uma trilha íntegra se o acesso a ela puder ser cortado. Por isso, o licenciamento do Alicerce360 foi desenhado em torno das evidências:</p>
+<ul class="checks">
+  <li><strong>Licença assinada com Ed25519:</strong> a EBAEM assina a licença digitalmente, e o plugin confere a assinatura com uma chave pública embutida, mesmo sem internet. Editar a licença no banco de dados não a torna válida.</li>
+  <li><strong>Somente leitura em vez de bloqueio:</strong> se a licença vencer ou for suspensa, todos continuam consultando e exportando; só não é possível criar conteúdo novo.</li>
+  <li><strong>Nada some por acidente:</strong> nenhum dado é apagado automaticamente, e a desinstalação preserva os dados por padrão.</li>
+</ul>
+
+<h2>Onde isso encontra a ISO/IEC 27001 e a LGPD</h2>
+<p>A <strong>ISO/IEC 27001:2022</strong> traz, no Anexo A, o controle 8.15, sobre registro de eventos: logs de atividades, exceções, falhas e outros eventos relevantes devem ser produzidos, armazenados, protegidos e analisados. O encadeamento por hash responde diretamente à parte do “protegidos”, com uma verificação que pode ser demonstrada ao auditor.</p>
+<p>Na <strong>LGPD</strong>, o art. 46 pede medidas de segurança que protejam os dados pessoais contra acessos não autorizados e situações de alteração, perda ou destruição. O art. 37 pede que controlador e operador mantenham registro das operações de tratamento, e o princípio da responsabilização (art. 6º, X) exige demonstrar que as medidas adotadas são eficazes. Uma trilha verificável é uma forma concreta de fazer essa demonstração.</p>
+<div class="art-box"><b>{{i:sparkles}} Na prática</b><p>Durante a auditoria, o auditor pergunta como saber que o histórico de permissões não foi editado. O administrador abre a tela de auditoria e clica em “Verificar integridade agora”. O resultado aparece com a data, a hora e o número de registros verificados. Em seguida, ele filtra o período auditado, exporta o CSV e entrega o arquivo. A verificação e a exportação ficam registradas na própria trilha.</p></div>
+
+<h2>Como o Alicerce360 ajuda</h2>
+<ul class="checks">
+  <li>Trilha de auditoria encadeada por hash SHA-256, com verificação de integridade no painel — <a href="/intranet/#seguranca">veja a demonstração interativa</a>.</li>
+  <li>Detecção de alteração, de exclusão no meio da corrente e de exclusão dos registros mais recentes.</li>
+  <li>Registro automático de logins, falhas, usuários, papéis, plugins, licença e módulos.</li>
+  <li>Filtros por evento, usuário e período, com exportação CSV protegida contra fórmulas.</li>
+  <li>Licença assinada com Ed25519, validada mesmo sem internet, e modo somente leitura que preserva as evidências.</li>
+  <li>Incluída em todos os <a href="/planos/">planos</a> e liberada no <a href="/planos/#teste">teste de 30 dias</a>.</li>
+</ul>
+<p>A trilha já está disponível desde a versão 0.1.0, da Fundação, e os módulos que vão alimentá-la com aceites e protocolos chegam por fases, conforme o <a href="/intranet/#roadmap">roadmap público</a>.</p>

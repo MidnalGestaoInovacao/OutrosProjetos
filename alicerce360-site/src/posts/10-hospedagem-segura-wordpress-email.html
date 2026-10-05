@@ -1,0 +1,73 @@
+<!--meta {"slug": "hospedagem-segura-wordpress-email",
+          "title": "Hospedagem segura para WordPress: SSL, backup, antivírus e e-mail autenticado",
+          "description": "O que olhar ao escolher hospedagem para WordPress e e-mail: SSL, backup com restauração testada, antivírus, firewall, SPF, DKIM e DMARC explicados de forma simples e cláusulas de LGPD.",
+          "date": "2026-10-05T09:00:00",
+          "category": "Hospedagem e Infraestrutura",
+          "icon": "server",
+          "related": ["trilha-de-auditoria-hash", "lgpd-atender-titular-em-15-dias", "quanto-custa-uma-intranet"]} -->
+<p class="lead">Site fora do ar, e-mail caindo no spam, uma página estranha aparecendo dentro do seu domínio. Quase sempre, a origem é uma hospedagem escolhida só pelo preço da primeira mensalidade. Este guia mostra o que olhar antes de contratar — e o que perguntar ao fornecedor que você já tem.</p>
+
+<h2>O que olhar antes de contratar</h2>
+<p>Segurança em hospedagem não é um item de luxo: é o básico que impede que um problema pequeno vire incidente. Use esta lista para comparar propostas.</p>
+<ul class="checks">
+  <li><strong>SSL automático</strong> em todos os domínios e subdomínios, com renovação sem ninguém precisar lembrar</li>
+  <li><strong>Backup diário</strong>, com retenção informada em dias, restauração pelo painel e uma resposta clara para a pergunta “quando foi o último teste de restauração?”</li>
+  <li><strong>Antivírus e antimalware no servidor</strong>, com varredura dos arquivos enviados e quarentena automática</li>
+  <li><strong>Firewall de aplicação</strong>, que filtra tentativas de ataque antes de chegarem ao WordPress</li>
+  <li><strong>Proteção contra força bruta</strong> no login, com bloqueio de IPs agressivos</li>
+  <li><strong>PHP atualizado</strong>, na versão 8.2 ou 8.3, com OPcache para páginas rápidas</li>
+  <li><strong>Cron real</strong> do servidor, para que tarefas agendadas não dependam de visitas ao site</li>
+  <li><strong>Suporte humano</strong>, em português, por canais que você realmente usa</li>
+</ul>
+<p>O item do cron costuma passar despercebido. Por padrão, o WordPress só executa tarefas agendadas quando alguém acessa o site. Em uma intranet, isso significa lembretes, filas de e-mail e rotinas de limpeza atrasados. Com o cron real, o servidor dispara essas tarefas no horário certo.</p>
+<p>Sobre o backup, a pergunta mais importante não é “vocês fazem backup?”, e sim “em quanto tempo eu recupero o site de ontem?”. Backup que nunca foi restaurado é uma promessa, não uma garantia.</p>
+
+<h2>E-mail autenticado: SPF, DKIM e DMARC sem mistério</h2>
+<p>Qualquer pessoa consegue escrever um e-mail com o seu domínio no remetente. Os três registros abaixo ajudam os provedores de destino a separar o que é seu do que é falsificação.</p>
+<ul>
+  <li><strong>SPF</strong> é a lista de convidados: o domínio publica quais servidores podem enviar e-mail em seu nome.</li>
+  <li><strong>DKIM</strong> é o lacre: cada mensagem sai com uma assinatura digital que o destino confere para saber se ela veio mesmo do domínio e não foi alterada no caminho.</li>
+  <li><strong>DMARC</strong> é a regra da portaria: diz ao destino o que fazer quando uma mensagem falha nas verificações — apenas observar, mandar para a quarentena ou rejeitar — e envia relatórios ao dono do domínio.</li>
+</ul>
+<p>O caminho seguro é começar o DMARC em modo de observação, ler os relatórios e endurecer a política aos poucos. Desde 2024, Google e Yahoo exigem autenticação dos remetentes, e DMARC publicado de quem envia grandes volumes. Para uma intranet, isso faz diferença no dia a dia: aviso que cai no spam é aviso que ninguém leu.</p>
+
+<h2>As armadilhas mais comuns</h2>
+<ul class="checks checks--x">
+  <li><strong>Renovação que dispara:</strong> o preço promocional vale no primeiro ano e depois sobe muito. Peça o valor de renovação por escrito.</li>
+  <li><strong>Backup pago à parte:</strong> ou feito só uma vez por semana, com retenção curta. Você descobre na hora em que mais precisa.</li>
+  <li><strong>Segurança como complemento:</strong> antivírus e firewall vendidos separadamente, como se fossem opcionais.</li>
+  <li><strong>E-mail sem autenticação:</strong> o painel entrega a caixa postal, mas SPF, DKIM e DMARC ficam por sua conta.</li>
+  <li><strong>Suporte por robô:</strong> fila longa e respostas com links para artigos, quando o site está fora do ar.</li>
+</ul>
+<div class="art-box"><b>{{i:sparkles}} Na prática</b><p>Antes da próxima renovação, envie cinco perguntas ao seu fornecedor atual: qual será o valor renovado; quantos dias de backup ficam guardados e onde; como pedir uma restauração e em quanto tempo ela acontece; se SPF, DKIM e DMARC estão publicados para o seu domínio; e se o contrato tem cláusulas de proteção de dados. As respostas — ou a falta delas — dizem muito.</p></div>
+
+<h2>Hospedagem também é assunto de LGPD</h2>
+<p>Seu site e seus e-mails guardam dados pessoais: formulários de contato, currículos, conversas com clientes. Quem hospeda esses dados atua como operador, isto é, trata dados pessoais em nome da sua empresa, que é a controladora. A LGPD exige que o operador siga as instruções do controlador (art. 39) e que os agentes de tratamento adotem medidas de segurança técnicas e administrativas (art. 46).</p>
+<p>Se houver um incidente relevante, o controlador precisa comunicar a ANPD e os titulares (art. 48) — e o regulamento da ANPD, a Resolução CD/ANPD nº 15/2024, fixa o prazo de três dias úteis para a comunicação. Por isso o contrato precisa prever como e quando o fornecedor avisa você. Procure cláusulas sobre finalidade e instruções, segurança, confidencialidade, subcontratados, comunicação de incidentes e devolução ou eliminação dos dados no fim do contrato.</p>
+
+<h2>Como a EBAEM ajuda</h2>
+<p>A hospedagem gerenciada da EBAEM foi pensada por quem implanta LGPD e ISO 27001 no dia a dia. SSL, backup diário, antivírus, firewall e e-mail autenticado vêm em todos os planos.</p>
+<figure class="art-fig">
+  <div class="table-wrap">
+    <table class="tbl">
+      <caption class="sr-only">Planos de hospedagem da EBAEM</caption>
+      <thead><tr><th scope="col">Plano</th><th scope="col">Para quem</th><th scope="col">Destaques</th><th scope="col">Mensal</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Site</th><td>Quem está começando</td><td>1 site, 20 GB, 10 e-mails, backup de 7 dias</td><td>R$ {{hprice:site}}</td></tr>
+        <tr><th scope="row">Negócios</th><td>Empresas com vários e-mails</td><td>3 sites, 50 GB, 30 e-mails, backup de 30 dias, homologação e CDN</td><td>R$ {{hprice:negocios}}</td></tr>
+        <tr><th scope="row">Pro</th><td>Intranet e sites com mais acesso</td><td>10 sites, 100 GB, 100 e-mails, cópia externa, cron real e cache de objetos</td><td>R$ {{hprice:pro}}</td></tr>
+        <tr><th scope="row">VPS Gerenciada</th><td>Intranets grandes</td><td>Recursos dedicados, monitoramento contínuo e disponibilidade de 99,9%</td><td>a partir de R$ {{hprice:vps}}</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <figcaption>Valores de referência no plano mensal; no anual, dois meses grátis. A proposta comercial prevalece.</figcaption>
+</figure>
+<ul class="checks">
+  <li>Renovação pelo mesmo critério, com reajuste anual por índice previsto em contrato</li>
+  <li>SPF, DKIM e DMARC configurados, além de webmail e IMAP/SMTP no celular e no Outlook</li>
+  <li>Restauração de arquivos, bancos de dados e e-mails pelo painel, ou pela nossa equipe</li>
+  <li>Contrato com cláusulas de operador de dados, conforme a LGPD</li>
+  <li>Migração assistida grátis a partir do plano Negócios, com planejamento para evitar quedas</li>
+  <li>Suporte em português por WhatsApp, e-mail e chamados, com especialistas</li>
+</ul>
+<p>Veja os detalhes em <a href="/hospedagem/">hospedagem gerenciada</a>. Quem usa o Alicerce360 acompanha SSL, SPF, DKIM e DMARC também no painel de segurança da intranet; os módulos são entregues por fases, conforme o <a href="/intranet/#roadmap">roadmap</a>. Para avaliar a sua hospedagem atual, <a href="/contato/">fale com a EBAEM</a>.</p>

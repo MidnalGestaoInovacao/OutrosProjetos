@@ -41,7 +41,7 @@
   --a-shadow-lg: 0 34px 70px -24px rgba(14, 31, 77, .32);
   --a-font: var(--wp--preset--font-family--manrope, "Manrope"), system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --a-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
-  --a-maxw: 1200px;
+  --a-maxw: 90%;
   --a-gutter: clamp(16px, 4vw, 32px);
   --a-header-h: 76px;
   --a11y-scale: 1;
@@ -87,9 +87,8 @@ header.wp-block-template-part, footer.wp-block-template-part { margin: 0 !import
 .a3 ::selection { background: #bdeeed; color: var(--a-ink); }
 
 /* ---------- layout ---------- */
-.a3 .wrap { width: 100%; max-width: var(--a-maxw); margin: 0 auto; padding: 0 var(--a-gutter); }
-.a3 .wrap--narrow { max-width: 860px; }
-.a3 .wrap--wide { max-width: 1360px; }
+/* todo o conteúdo, inclusive cabeçalho e rodapé, ocupa 90% da largura da tela */
+.a3 .wrap, .a3 .wrap--narrow, .a3 .wrap--wide { width: 90%; max-width: none; margin-left: auto; margin-right: auto; padding: 0; }
 .a3 .sec { padding: clamp(64px, 8vw, 112px) 0; position: relative; }
 .a3 .sec--tight { padding: clamp(40px, 5vw, 64px) 0; }
 .a3 .sec--alt { background: var(--a-bg2); }
@@ -130,7 +129,7 @@ header.wp-block-template-part, footer.wp-block-template-part { margin: 0 !import
 .a3 .lead { font-size: clamp(1.06rem, 1rem + .35vw, 1.24rem); color: var(--a-muted); line-height: 1.7; max-width: 62ch; }
 .a3 .sec--navy .lead { color: #b9c6e3; }
 .a3 .center .lead, .a3 .lead.center { margin-left: auto; margin-right: auto; }
-.a3 .sec-head { max-width: 760px; margin: 0 auto clamp(36px, 5vw, 60px); text-align: center; }
+.a3 .sec-head { max-width: min(1080px, 100%); margin: 0 auto clamp(36px, 5vw, 60px); text-align: center; }
 .a3 .sec-head--left { margin-left: 0; text-align: left; }
 .a3 .grad-text { background: var(--a-grad); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
 .a3 .hl { background: linear-gradient(transparent 62%, rgba(47, 221, 190, .38) 62%); padding: 0 .08em; color: inherit; }

@@ -177,6 +177,10 @@
       var h = a.getAttribute('href') || '';
       if (h === path || (h.length > 1 && path.indexOf(h) === 0)) a.setAttribute('aria-current', 'page');
     });
+    qsa('.a3-menu .has-mega').forEach(function (li) {
+      if (!qs('.a3-menu li.is-current') && qsa('.mega a', li).some(function (a) { var h = a.getAttribute('href') || ''; return h.length > 1 && h.indexOf('#') < 0 && path.indexOf(h) === 0; })) li.classList.add('is-current');
+    });
+    if (/^\/materias\//.test(path) || qs('.a3-post-head')) { var m = qs('.a3-menu a[href="/materias/"]'); if (m) m.setAttribute('aria-current', 'page'); }
   })();
   /* megamenu */
   var megaTimer;
@@ -1123,6 +1127,17 @@
     if (navigator.clipboard) navigator.clipboard.writeText(v).then(function () { toast(t('toast.copied')); });
   });
 
+  /* ------------------------------------------------------------ sumário automático (matérias) */
+  function autoToc() {
+    qsa('[data-autotoc]').forEach(function (ol) {
+      var scope = ol.closest('.art-grid') || d;
+      ol.innerHTML = qsa('.art-body h2[id]', scope).map(function (h) {
+        return '<li><a href="#' + h.id + '">' + esc(h.textContent.trim()) + '</a></li>';
+      }).join('');
+    });
+  }
+  autoToc();
+
   /* ------------------------------------------------------------ sumário com destaque (políticas) */
   var tocLinks = qsa('.toc a[href^="#"]');
   if (tocLinks.length && 'IntersectionObserver' in w) {
@@ -1138,6 +1153,96 @@
     }, { rootMargin: '-30% 0px -60% 0px' });
     Object.keys(map).forEach(function (id) { var s = d.getElementById(id); if (s) tio.observe(s); });
   }
+
+  /* ------------------------------------------------------------ matérias */
+  function locale() { return A3.lang === 'en' ? 'en-US' : (A3.lang === 'es' ? 'es-ES' : 'pt-BR'); }
+  function formatDates() {
+    qsa('time[data-fmt], .wp-block-post-date time').forEach(function (t) {
+      var dt = new Date(t.getAttribute('datetime'));
+      if (!isNaN(dt)) t.textContent = new Intl.DateTimeFormat(locale(), { day: 'numeric', month: 'long', year: 'numeric' }).format(dt);
+    });
+  }
+  function translateSingle() {
+    if (!META || !META.h1) return;
+    var h1 = qs('.a3-post-head .wp-block-post-title');
+    if (h1) {
+      if (h1.__pt === undefined) h1.__pt = h1.innerHTML;
+      var tt = A3.lang === 'pt' ? null : DICT[A3.lang][META.title];
+      h1.innerHTML = tt || h1.__pt;
+    }
+    var cats = META.cats || {};
+    qsa('.a3-post-head .wp-block-post-terms a').forEach(function (a) {
+      if (a.__pt === undefined) a.__pt = a.textContent.trim();
+      var c = cats[a.__pt];
+      if (!c) return;
+      a.href = '/materias/?cat=' + c[1];
+      a.textContent = (A3.lang !== 'pt' && DICT[A3.lang][c[0]]) || a.__pt;
+    });
+  }
+  translateSingle(); formatDates();
+
+  qsa('[data-posts]').forEach(function (box) {
+    var grid = qs('[data-posts-grid]', box), empty = qs('[data-posts-empty]', box), input = qs('[data-post-search] input', box);
+    var chipsBox = qs('.post-chips', box), filter = new URLSearchParams(location.search).get('cat') || '*';
+    function apply() {
+      var q = fold(input ? input.value : '').trim(), shown = 0;
+      qsa('.post-card', grid).forEach(function (c) {
+        var ok = (filter === '*' || c.getAttribute('data-cat') === filter) && (!q || fold(c.textContent).indexOf(q) >= 0);
+        c.hidden = !ok; if (ok) { shown++; c.classList.add('is-in'); }
+      });
+      qsa('[data-filter]', box).forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-filter') === filter ? 'true' : 'false'); });
+      if (empty) empty.hidden = shown > 0;
+      grid.classList.toggle('is-filtered', filter !== '*' || !!q);
+    }
+    on(box, 'click', function (e) {
+      var b = e.target.closest('[data-filter]'); if (!b) return;
+      filter = b.getAttribute('data-filter');
+      if (history.replaceState) history.replaceState(null, '', filter === '*' ? location.pathname : '?cat=' + filter);
+      apply();
+    });
+    on(input, 'input', apply);
+    on(qs('[data-post-search]', box), 'submit', function (e) { e.preventDefault(); apply(); });
+    apply();
+    /* matérias publicadas direto no WordPress entram na lista automaticamente */
+    if (!/^https?:$/.test(location.protocol) || !w.fetch) return;
+    fetch('/wp-json/wp/v2/posts?per_page=50&_embed=wp:featuredmedia,wp:term&_fields=id,slug,link,title,excerpt,date,_links,_embedded', { credentials: 'omit' })
+      .then(function (r) { return r.ok ? r.json() : []; })
+      .then(function (list) {
+        var have = {};
+        qsa('.post-card', grid).forEach(function (c) { have[c.getAttribute('data-slug')] = 1; });
+        (list || []).forEach(function (p) {
+          if (!p || have[p.slug]) return;
+          var emb = p._embedded || {}, term = ((emb['wp:term'] || [])[0] || [])[0] || {}, media = (emb['wp:featuredmedia'] || [])[0] || {};
+          var cat = term.slug || 'geral', a = d.createElement('a');
+          a.className = 'post-card is-in'; a.href = p.link; a.setAttribute('data-slug', p.slug); a.setAttribute('data-cat', cat);
+          var tmp = d.createElement('div'); tmp.innerHTML = (p.excerpt && p.excerpt.rendered) || '';
+          a.innerHTML = '<span class="pc-cover">' + (media.source_url ? '<img src="' + esc(media.source_url) + '" alt="" loading="lazy">' : '') + '</span>' +
+            '<span class="pc-body"><span class="pc-cat"><span class="ibox ibox--sm">' + icon('book') + '</span><span>' + esc(term.name || '') + '</span></span>' +
+            '<b class="pc-title">' + (p.title && p.title.rendered || '') + '</b><span class="pc-ex">' + esc(tmp.textContent.trim().slice(0, 220)) + '</span>' +
+            '<span class="pc-meta"><time datetime="' + esc(p.date) + '" data-fmt></time></span></span>';
+          grid.appendChild(a);
+          if (chipsBox && !qs('[data-filter="' + cat + '"]', chipsBox) && term.name) {
+            var b = d.createElement('button'); b.type = 'button'; b.className = 'chip-f'; b.setAttribute('data-filter', cat); b.setAttribute('aria-pressed', 'false');
+            b.innerHTML = esc(term.name) + ' <span class="n">1</span>'; chipsBox.appendChild(b);
+          } else if (chipsBox) {
+            var n = qs('[data-filter="' + cat + '"] .n', chipsBox); if (n) n.textContent = +n.textContent + 1;
+          }
+          var all = chipsBox && qs('[data-filter="*"] .n', chipsBox); if (all) all.textContent = +all.textContent + 1;
+        });
+        qsa('.post-card', grid).map(function (c) { var tm = qs('time[datetime]', c); return [Date.parse(tm ? tm.getAttribute('datetime') : '') || 0, c]; })
+          .sort(function (a, b) { return b[0] - a[0]; }).forEach(function (x) { grid.appendChild(x[1]); });
+        formatDates(); apply();
+      }).catch(function () { /* REST indisponível: fica a lista estática */ });
+  });
+
+  on(d, 'click', function (e) {
+    var b = e.target.closest('[data-share]'); if (!b) return;
+    var u = location.href.split('#')[0], ti = d.title, k = b.getAttribute('data-share');
+    if (k === 'linkedin') w.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(u), '_blank', 'noopener');
+    if (k === 'whatsapp') w.open('https://wa.me/?text=' + encodeURIComponent(ti + ' ' + u), '_blank', 'noopener');
+    if (k === 'email') location.href = 'mailto:?subject=' + encodeURIComponent(ti) + '&body=' + encodeURIComponent(u);
+    if (k === 'copy' && navigator.clipboard) navigator.clipboard.writeText(u).then(function () { toast(t('toast.copied')); });
+  });
 
   /* ------------------------------------------------------------ diversos */
   qsa('[data-year]').forEach(function (el) { el.textContent = new Date().getFullYear(); });
@@ -1164,6 +1269,7 @@
     if (chat) renderChat();
     if (mascot) { qs('.m-hit', mascot).setAttribute('aria-label', t('m.ask')); qs('.m-close', mascot).setAttribute('aria-label', t('m.hide')); mMin.setAttribute('aria-label', t('m.show')); }
     totop.setAttribute('aria-label', t('totop'));
+    autoToc(); translateSingle(); formatDates();
   });
 
 
@@ -1175,9 +1281,12 @@
     function start() {
       if (started) return; started = true;
       try {
+        var load = function (code) { return import(URL.createObjectURL(new Blob([code], { type: 'text/javascript' }))); };
         unzipText(src).then(function (code) {
-          var url = URL.createObjectURL(new Blob([code], { type: 'text/javascript' }));
-          return import(url);
+          /* se o CDN principal falhar, tenta o espelho (jsDelivr) uma vez */
+          return load(code).catch(function () {
+            return load(code.replace(/https:\/\/cdnjs\.cloudflare\.com\/ajax\/libs\/three\.js\/([\d.]+)\/three\.module\.min\.js/, 'https://cdn.jsdelivr.net/npm/three@$1/build/three.module.min.js'));
+          });
         }).then(function (m) { if (m && m.init) m.init(A3); }).catch(function (err) { if (w.console) console.warn('[Alicerce360] 3D indisponível:', err); });
       } catch (err) { /* navegador sem suporte */ }
     }

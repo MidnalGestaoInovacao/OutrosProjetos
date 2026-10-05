@@ -56,10 +56,11 @@ body.admin-bar header.wp-block-template-part { top: calc(32px - var(--a-topbar-h
 .a3 .mega-links { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
 .a3 .mega-links a { display: flex; gap: 12px; align-items: flex-start; padding: 11px 12px; border-radius: 13px; color: var(--a-text); text-decoration: none !important; transition: background .2s; }
 .a3 .mega-links a:hover { background: var(--a-bg); }
+.a3 .mega-links a > span:not(.ibox) { display: block; min-width: 0; }
 .a3 .mega-links a b { display: block; color: var(--a-ink); font-size: .92rem; line-height: 1.3; }
-.a3 .mega-links a span { display: block; color: var(--a-muted); font-size: .8rem; line-height: 1.4; margin-top: 2px; }
-.a3 .mega-links .ibox { margin: 0; width: 36px; height: 36px; border-radius: 10px; }
-.a3 .mega-links .ibox .ico { width: 18px; height: 18px; }
+.a3 .mega-links a > span:not(.ibox) > span { display: block; color: var(--a-muted); font-size: .8rem; line-height: 1.4; margin-top: 2px; }
+.a3 .mega-links .ibox { margin: 0; width: 38px; height: 38px; border-radius: 11px; display: grid; place-items: center; flex: none; }
+.a3 .mega-links .ibox .ico { width: 19px; height: 19px; margin: 0; }
 .a3 .mega-promo { border-radius: 16px; padding: 20px; background: radial-gradient(260px 160px at 100% 0%, rgba(47, 221, 190, .35), transparent 60%), var(--a-navy); color: #c9d4ec; display: flex; flex-direction: column; gap: 10px; }
 .a3 .mega-promo b { color: #fff; font-size: 1.05rem; line-height: 1.3; }
 .a3 .mega-promo p { font-size: .86rem; margin: 0; color: #b9c6e3; }
@@ -125,3 +126,4 @@ body.admin-bar header.wp-block-template-part { top: calc(32px - var(--a-topbar-h
 .a3 .foot-legal button { background: none; border: 0; padding: 0; font: inherit; cursor: pointer; }
 @media (max-width: 980px) { .a3 .foot-grid { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 560px) { .a3 .foot-grid { grid-template-columns: 1fr; gap: 28px; } .a3 .foot-strip .row { width: 100%; } }
+.a3 .a3-menu > ul > li.is-current > button { color: var(--a-teal-ink); box-shadow: inset 0 -2px 0 var(--a-teal); border-radius: 10px 10px 4px 4px; }

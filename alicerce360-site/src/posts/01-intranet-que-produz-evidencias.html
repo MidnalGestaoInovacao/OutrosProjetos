@@ -1,0 +1,81 @@
+<!--meta {"slug": "intranet-que-produz-evidencias",
+          "title": "Intranet que produz evidências: por que avisar não basta",
+          "description": "Comunicar não é comprovar. Veja o que auditores, fiscais e juízes costumam pedir, o que torna uma evidência auditável e como a intranet pode gerar prova a cada aceite, leitura e protocolo.",
+          "date": "2026-10-05T09:45:00",
+          "category": "Gestão e Conformidade",
+          "icon": "layers",
+          "related": ["politicas-com-aceite-li-e-estou-ciente", "trilha-de-auditoria-hash", "quanto-custa-uma-intranet"]} -->
+<p class="lead">Toda empresa avisa. Manda e-mail com a política nova, cola cartaz no refeitório, fala na reunião de segunda. O problema aparece meses depois, quando alguém pergunta: “como vocês provam que essa pessoa sabia?”. Este texto mostra a diferença entre comunicar e comprovar — e por que a intranet é o lugar natural para fazer as duas coisas ao mesmo tempo.</p>
+
+<h2>Comunicar e comprovar são coisas diferentes</h2>
+<p>Comunicar resolve o presente: as pessoas ficam sabendo da regra, do treinamento, do novo procedimento. Comprovar protege o futuro: quando houver uma auditoria, uma fiscalização ou uma ação judicial, a empresa consegue mostrar o que fez, para quem e quando.</p>
+<p>Os meios mais comuns de comunicação interna não foram feitos para isso. Um e-mail enviado não prova que foi lido. Um cartaz não prova que alguém parou para ler. A lista de presença em papel se perde na mudança de sala. A planilha de controle pode ser editada por qualquer pessoa com acesso — e ninguém consegue dizer, depois, o que estava escrito no dia da auditoria.</p>
+<p>Não é falta de cuidado de quem cuida da Qualidade, do Compliance ou do RH. É que a ferramenta foi pensada para avisar, não para registrar. E evidência montada às pressas, na véspera da auditoria, costuma ser justamente a mais frágil.</p>
+
+<h2>O que auditor, fiscal e juiz costumam pedir</h2>
+<p>Cada um fala a sua língua, mas as perguntas se parecem muito: quem recebeu, qual versão do documento, quando, por qual meio — e como se sabe que o registro não foi alterado depois. Algumas referências ajudam a entender por que essas perguntas aparecem:</p>
+<ul class="checks">
+  <li><strong>ISO 9001:</strong> várias cláusulas pedem que a organização retenha informação documentada como evidência — por exemplo, da competência das pessoas (7.2). A cláusula 7.5 trata de como essa informação é controlada.</li>
+  <li><strong>LGPD:</strong> o princípio da responsabilização e prestação de contas (art. 6º, X) exige que o agente demonstre a adoção de medidas eficazes e capazes de comprovar o cumprimento da lei.</li>
+  <li><strong>Lei Anticorrupção (Lei 12.846/2013):</strong> a existência de mecanismos de integridade, auditoria e incentivo à denúncia é considerada na aplicação das sanções (art. 7º, VIII) — desde que funcionem de fato e possam ser demonstrados.</li>
+  <li><strong>Processos judiciais:</strong> o Código de Processo Civil admite todos os meios legais e moralmente legítimos de prova (art. 369). Um registro com data, hora e versão costuma pesar mais do que a lembrança de quem organizou o treinamento.</li>
+</ul>
+<figure class="art-fig">
+  <div class="table-wrap">
+    <table class="tbl">
+      <thead><tr><th scope="col">Pergunta</th><th scope="col">Resposta frágil</th><th scope="col">Resposta com evidência</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">A equipe conhece a política?</th><td>“Enviamos por e-mail.”</td><td>Aceite nominal, com versão, data, hora e dispositivo.</td></tr>
+        <tr><th scope="row">Qual texto foi aceito?</th><td>“O que estava na pasta.”</td><td>Versão com impressão digital (hash) ligada a cada aceite.</td></tr>
+        <tr><th scope="row">O treinamento aconteceu?</th><td>Lista de presença em papel.</td><td>Conclusão, nota da prova e certificado verificável.</td></tr>
+        <tr><th scope="row">A denúncia foi tratada?</th><td>Troca de e-mails espalhada.</td><td>Protocolo com etapas, prazos e parecer final.</td></tr>
+        <tr><th scope="row">O registro foi alterado?</th><td>“Confie em nós.”</td><td>Trilha de auditoria encadeada, com verificação de integridade.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <figcaption>As mesmas perguntas, com respostas de pesos muito diferentes.</figcaption>
+</figure>
+
+<h2>O que torna uma evidência auditável</h2>
+<p>Evidência auditável não é um arquivo bonito. É um registro que responde, sozinho, às perguntas de quem não estava lá. Na prática, ela reúne seis atributos:</p>
+<div class="grid g-3">
+  <div class="card"><span class="ibox">{{i:user}}</span><h3>Quem</h3><p>A pessoa identificada pelo próprio login, não por um nome digitado numa lista.</p></div>
+  <div class="card"><span class="ibox ibox--blue">{{i:file-check}}</span><h3>O quê, exatamente</h3><p>A versão do conteúdo, com impressão digital que muda se uma vírgula mudar.</p></div>
+  <div class="card"><span class="ibox ibox--purple">{{i:clock}}</span><h3>Quando</h3><p>Data e hora registradas pelo sistema, no momento da ação.</p></div>
+  <div class="card"><span class="ibox ibox--orange">{{i:monitor}}</span><h3>Como</h3><p>Dispositivo, endereço de rede e método de login usados naquela ação.</p></div>
+  <div class="card"><span class="ibox">{{i:shield}}</span><h3>Íntegra</h3><p>Qualquer alteração ou exclusão posterior deixa rastro detectável.</p></div>
+  <div class="card"><span class="ibox ibox--blue">{{i:download}}</span><h3>Disponível</h3><p>Fácil de encontrar e exportar quando pedirem — inclusive anos depois.</p></div>
+</div>
+<div class="art-box"><b>{{i:sparkles}} Na prática</b><p>Na auditoria de certificação da ISO/IEC 27001, o auditor pergunta se os colaboradores conhecem a Política de Segurança da Informação. Com e-mail, a resposta é “mandamos para todos”. Com evidência, a resposta é um relatório: a versão 2 da política, a impressão digital do texto, quem aceitou e quando, quem ainda está pendente e as datas dos lembretes automáticos. A conversa muda de tom — e de duração.</p></div>
+
+<h2>Onde as evidências nascem no dia a dia</h2>
+<p>O segredo é não criar trabalho extra. A evidência precisa ser um efeito colateral da rotina, gerado no mesmo clique que a pessoa já daria. Em uma intranet desenhada para isso, ela surge em momentos assim:</p>
+<ul class="checks">
+  <li><strong>Aceites de políticas:</strong> o “li e estou ciente” amarrado à versão exata do texto.</li>
+  <li><strong>Leituras de avisos críticos:</strong> confirmação obrigatória e reenvio automático a quem não leu.</li>
+  <li><strong>Treinamentos:</strong> progresso, provas, notas e certificados com código de verificação.</li>
+  <li><strong>Protocolos:</strong> relatos de Compliance e pedidos de titulares de dados com etapas e prazos.</li>
+  <li><strong>Versões de documentos:</strong> quem elaborou, revisou e aprovou, e qual versão está vigente.</li>
+  <li><strong>Acessos e mudanças:</strong> logins, permissões alteradas, downloads de documentos restritos.</li>
+</ul>
+<p>Quando tudo isso acontece no mesmo ambiente, a evidência deixa de ser uma caça ao tesouro em caixas de e-mail e pastas compartilhadas. Ela já está organizada, com o mesmo padrão, pronta para virar relatório.</p>
+
+<h2>As camadas do Alicerce360</h2>
+<p>O Alicerce360 é uma intranet para WordPress pensada a partir dessa ideia: cada ação relevante gera uma evidência que resiste a auditor, fiscal e advogado. O produto se organiza em camadas que se apoiam umas nas outras:</p>
+<div class="steps">
+  <div class="step"><h3>Fundação</h3><p>Núcleo modular, licença assinada digitalmente, trilha de auditoria encadeada por hash e modo somente leitura que preserva as evidências.</p></div>
+  <div class="step"><h3>Comunicação e conformidade</h3><p>Avisos com ciência, políticas com aceite versionado, canais de Compliance e LGPD com protocolo e documentos com acesso controlado.</p></div>
+  <div class="step"><h3>Pessoas e aprendizagem</h3><p>Treinamentos com regras de progressão, provas e certificados com QR Code, além de currículos e competências.</p></div>
+  <div class="step"><h3>Gestão ISO</h3><p>Controle de documentos, não conformidades, ações corretivas e um portal com acesso temporário e somente leitura para auditores.</p></div>
+</div>
+<p>A Fundação, com a trilha de auditoria, já está disponível, e as demais camadas chegam por fases, conforme o <a href="/intranet/#roadmap">roadmap público</a>.</p>
+
+<h2>Como o Alicerce360 ajuda</h2>
+<ul class="checks">
+  <li>Transforma avisos, aceites, treinamentos e protocolos em registros com quem, o quê, quando e como.</li>
+  <li>Liga cada aceite à versão exata do documento, com impressão digital SHA-256 — veja em <a href="/telas/">Tour de telas</a>.</li>
+  <li>Protege os registros com uma <a href="/intranet/#seguranca">trilha de auditoria encadeada por hash</a>, que denuncia alterações e exclusões.</li>
+  <li>Mantém as evidências acessíveis mesmo se a licença vencer: a intranet fica em somente leitura, sem apagar nada.</li>
+  <li>Entrega canais de <a href="/intranet/#canais">Compliance e LGPD com protocolo</a>, prazos e relatórios para a diretoria.</li>
+  <li>Cobra por faixa de colaboradores, não por usuário — confira os <a href="/planos/">planos</a> ou <a href="/planos/#teste">teste por 30 dias</a> sem custo.</li>
+</ul>

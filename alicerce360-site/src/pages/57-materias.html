@@ -1,0 +1,38 @@
+<!--meta {"slug": "materias", "title": "Matérias e novidades", "description": "Guias práticos sobre intranet, LGPD, compliance, normas ISO, treinamentos e hospedagem — escritos por quem implanta, não por quem só observa.", "order": 57} -->
+
+<section class="page-hero">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Você está aqui"><a href="/">Início</a><span aria-hidden="true">›</span><span aria-current="page">Matérias</span></nav>
+    <span class="eyebrow">Matérias e novidades</span>
+    <h1>Conteúdo para quem precisa comprovar, não só comunicar.</h1>
+    <p class="lead">Guias práticos sobre intranet, LGPD, compliance, normas ISO, treinamentos e hospedagem — escritos por quem implanta, não por quem só observa.</p>
+  </div>
+</section>
+
+<section class="sec" aria-label="Lista de matérias" data-say="Use a busca ou os filtros para achar o assunto que interessa a você.">
+  <div class="wrap" data-posts>
+    <div class="post-filter">
+      <form class="post-search" role="search" data-post-search>
+        <label class="sr-only" for="ps-q">Buscar matérias</label>
+        {{i:search}}<input id="ps-q" type="search" placeholder="Buscar por assunto, lei ou recurso…" autocomplete="off">
+      </form>
+      <div class="post-chips" role="group" aria-label="Filtrar por categoria">{{postchips}}</div>
+    </div>
+    <div class="post-grid post-grid--feature" data-posts-grid data-stagger>{{postcards}}</div>
+    <div class="post-empty" data-posts-empty hidden>
+      <span class="ibox">{{i:search}}</span>
+      <h3>Nenhuma matéria encontrada</h3>
+      <p class="muted">Tente outra palavra ou escolha “Todas”. Se preferir, pergunte ao nosso assistente.</p>
+      <button type="button" class="btn btn--ghost btn--sm" data-chat-open>{{i:bot}} Perguntar ao Ali</button>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--tight">
+  <div class="wrap">
+    <div class="cta-band" data-reveal="zoom">
+      <div><h2>Quer receber os próximos conteúdos?</h2><p>Fale com a nossa equipe e entre para a lista de novidades da EBAEM — sem spam, só o que ajuda a decidir.</p></div>
+      <div class="row"><a class="btn btn--light btn--lg" href="{{wa:Olá! Quero receber as novidades e matérias do Alicerce360.}}" target="_blank" rel="noopener">{{if:whatsapp}} Quero receber</a><a class="btn btn--outline-light btn--lg" href="/planos/#teste">Testar grátis</a></div>
+    </div>
+  </div>
+</section>

@@ -1,6 +1,7 @@
 /* =====================================================================
    Alicerce360 · cenas 3D (módulo ES carregado sob demanda pelo núcleo)
    - hero: alicerce + anéis do logo, reage ao mouse e à rolagem
+   - emblem: anéis do logo + objeto temático no cabeçalho das páginas internas
    - paper-hand: papel amassado controlado pela mão (MediaPipe, opcional)
    - paper-parallax: papéis em profundidade real (câmera em perspectiva)
    ===================================================================== */
@@ -134,6 +135,404 @@ function initHero(host) {
     cubes.forEach((c) => {
       const u = c.userData, a = u.a + (still ? 0 : time * u.s);
       c.position.set(Math.cos(a) * u.r, u.y + (still ? 0 : Math.sin(time + u.ph) * 0.15), Math.sin(a) * u.r * 0.45 - 0.8);
+      c.rotation.set(time * u.s * 2, time * u.s * 3, 0);
+    });
+    renderer.render(scene, camera);
+    if (first) { first = false; host.classList.add('is-3d'); }
+  });
+  loop.once();
+}
+
+/* ------------------------------------------------------------ EMBLEMA (cabeçalho das páginas internas)
+   Anéis do logo + um objeto 3D temático por página (data-emblem), com a mesma
+   reação a mouse e rolagem do hero da página inicial. */
+const PAL = { teal: 0x2fddbe, teal2: 0x18bec0, blue: 0x2f7cf0, blue2: 0x1f8bf0, purple: 0x6b3be6, orange: 0xff9a1f, navy: 0x0e1f4d, white: 0xf7fafc, silver: 0xc9d6e6, green: 0x22b573, gold: 0xf2b544 };
+const pm = (color, o = {}) => new THREE.MeshPhysicalMaterial({ color, roughness: 0.32, metalness: 0.05, clearcoat: 0.6, clearcoatRoughness: 0.3, ...o });
+const sm = (color, o = {}) => new THREE.MeshStandardMaterial({ color, roughness: 0.4, ...o });
+function rrShape(w, h, r) {
+  const s = new THREE.Shape(), x = -w / 2, y = -h / 2;
+  s.moveTo(x + r, y); s.lineTo(x + w - r, y); s.quadraticCurveTo(x + w, y, x + w, y + r);
+  s.lineTo(x + w, y + h - r); s.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+  s.lineTo(x + r, y + h); s.quadraticCurveTo(x, y + h, x, y + h - r);
+  s.lineTo(x, y + r); s.quadraticCurveTo(x, y, x + r, y);
+  return s;
+}
+function extrude(shape, depth, mat, bevel = 0.03) {
+  const g = new THREE.ExtrudeGeometry(shape, { depth, bevelEnabled: bevel > 0, bevelThickness: bevel, bevelSize: bevel, bevelSegments: 3, curveSegments: 14 });
+  g.translate(0, 0, -depth / 2);
+  return new THREE.Mesh(g, mat);
+}
+const slab = (w, h, d, r, mat) => extrude(rrShape(w, h, r), d, mat);
+function bar(w, h, color, x, y, z) { const m = slab(w, h, 0.02, Math.min(w, h) / 2.2, sm(color)); m.position.set(x + w / 2, y, z); return m; }
+function checkBadge(r = 0.34, color = PAL.teal2) {
+  const b = new THREE.Group(), k = r / 0.34;
+  b.add(new THREE.Mesh(new THREE.CylinderGeometry(r, r, 0.1 * k, 48).rotateX(Math.PI / 2), pm(color, { clearcoat: 1 })));
+  const ck = new THREE.CatmullRomCurve3([new THREE.Vector3(-0.15 * k, 0.01 * k, 0.07 * k), new THREE.Vector3(-0.04 * k, -0.1 * k, 0.07 * k), new THREE.Vector3(0.17 * k, 0.13 * k, 0.07 * k)], false, 'catmullrom', 0);
+  b.add(new THREE.Mesh(new THREE.TubeGeometry(ck, 24, 0.035 * k, 8, false), sm(0xffffff, { roughness: 0.3 })));
+  b.add(new THREE.Mesh(new THREE.TorusGeometry(r * 1.06, 0.035 * k, 12, 48), sm(PAL.navy)));
+  return b;
+}
+function canvasTex(w, h, draw) {
+  const c = document.createElement('canvas'); c.width = w; c.height = h;
+  draw(c.getContext('2d'), w, h);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4;
+  return t;
+}
+const bob = (t, still, sp = 1.2, a = 0.06, ph = 0) => (still ? 0 : Math.sin(t * sp + ph) * a);
+const ease = (x) => x * x * (3 - 2 * x);
+
+const EMBLEMS = {
+  /* alicerce: bloco + casa + selo (Sobre) */
+  house() {
+    const g = new THREE.Group();
+    const side = sm(0x2457d6, { roughness: 0.38, metalness: 0.1 }), side2 = sm(0x3b2cb8, { roughness: 0.38, metalness: 0.1 });
+    const top = sm(0x6fe6ea, { roughness: 0.25, emissive: PAL.teal, emissiveIntensity: 0.12 });
+    const base = new THREE.Mesh(new THREE.BoxGeometry(1.7, 0.55, 1.25), [side2, side, top, side, side, side2]);
+    base.position.y = -0.62; g.add(base);
+    const house = extrude(houseShape(), 0.42, pm(PAL.blue, { roughness: 0.25 }), 0.04);
+    house.position.set(0, 0.24, -0.04); g.add(house);
+    const badge = checkBadge(); badge.position.set(0.72, 0.42, 0.3); g.add(badge);
+    g.rotation.set(0.12, -0.35, 0);
+    g.userData.tick = (t, still) => { badge.rotation.y = still ? 0 : Math.sin(t * 1.6) * 0.5; house.position.y = 0.24 + bob(t, still, 1.4, 0.05); };
+    return g;
+  },
+  /* camadas da plataforma (Intranet) */
+  layers() {
+    const g = new THREE.Group(), s = [];
+    [PAL.purple, PAL.blue, PAL.teal].forEach((c, i) => {
+      const m = slab(1.8, 1.25, 0.14, 0.2, pm(c, { emissive: c, emissiveIntensity: 0.06 }));
+      m.rotation.x = -Math.PI / 2; g.add(m); s.push(m);
+    });
+    const top = s[2];
+    const c1 = slab(0.55, 0.36, 0.06, 0.07, pm(PAL.white)); c1.position.set(-0.4, 0.15, 0.12); top.add(c1);
+    const c2 = slab(0.55, 0.36, 0.06, 0.07, pm(PAL.white)); c2.position.set(0.38, -0.2, 0.12); top.add(c2);
+    const c3 = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.16, 0.1, 32).rotateX(Math.PI / 2), pm(PAL.orange)); c3.position.set(0.45, 0.28, 0.13); top.add(c3);
+    g.rotation.set(0.62, -0.62, 0);
+    g.userData.tick = (t, still) => s.forEach((m, i) => { m.position.y = (i - 1) * (0.5 + (still ? 0 : Math.sin(t * 1.3) * 0.08)); });
+    return g;
+  },
+  /* tela com protótipo (Tour de telas) */
+  screen() {
+    const g = new THREE.Group();
+    g.add(slab(2.3, 1.5, 0.1, 0.12, pm(PAL.navy)));
+    const tex = canvasTex(640, 400, (c, w, h) => {
+      c.fillStyle = '#f4f7fb'; c.fillRect(0, 0, w, h);
+      c.fillStyle = '#0e1f4d'; c.fillRect(0, 0, w, 46);
+      ['#2fddbe', '#ff9a1f', '#6b3be6'].forEach((col, i) => { c.fillStyle = col; c.beginPath(); c.arc(28 + i * 22, 23, 7, 0, 7); c.fill(); });
+      c.fillStyle = '#e6edf5'; c.fillRect(0, 46, 120, h - 46);
+      for (let i = 0; i < 6; i++) { c.fillStyle = i === 1 ? '#c9f2ec' : '#d5dfeb'; roundRect(c, 16, 70 + i * 40, 88, 20, 8); c.fill(); }
+      const card = (x, y, cw, ch, col) => { c.fillStyle = '#fff'; roundRect(c, x, y, cw, ch, 14); c.fill(); c.fillStyle = col; roundRect(c, x + 16, y + 18, cw * 0.5, 14, 7); c.fill(); c.fillStyle = '#e2e8f0'; roundRect(c, x + 16, y + 44, cw - 32, 10, 5); c.fill(); roundRect(c, x + 16, y + 62, cw * 0.6, 10, 5); c.fill(); };
+      card(140, 66, 230, 110, '#2fddbe'); card(386, 66, 230, 110, '#6b3be6');
+      c.fillStyle = '#fff'; roundRect(c, 140, 192, 476, 186, 14); c.fill();
+      [0.55, 0.8, 0.45, 0.95, 0.7, 0.6, 0.85].forEach((v, i) => { const gr = c.createLinearGradient(0, 360, 0, 360 - v * 140); gr.addColorStop(0, '#1f6feb'); gr.addColorStop(1, '#2fddbe'); c.fillStyle = gr; roundRect(c, 170 + i * 62, 360 - v * 140, 34, v * 140, 8); c.fill(); });
+    });
+    const scr = new THREE.Mesh(new THREE.PlaneGeometry(2.14, 1.34), new THREE.MeshBasicMaterial({ map: tex, toneMapped: false }));
+    scr.position.z = 0.09; g.add(scr);
+    const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.09, 0.5, 20), pm(PAL.silver, { metalness: 0.4 })); neck.position.set(0, -0.98, -0.06); g.add(neck);
+    const foot = new THREE.Mesh(new THREE.CylinderGeometry(0.46, 0.52, 0.07, 40), pm(PAL.silver, { metalness: 0.4 })); foot.position.set(0, -1.24, -0.06); g.add(foot);
+    const pop = new THREE.Group(); pop.add(slab(0.8, 0.46, 0.06, 0.1, pm(0xffffff)));
+    pop.add(bar(0.42, 0.08, PAL.teal2, -0.3, 0.08, 0.05)); pop.add(bar(0.56, 0.06, 0xd5dfeb, -0.3, -0.08, 0.05));
+    pop.position.set(1.05, 0.62, 0.42); g.add(pop);
+    const bdg = checkBadge(0.26); bdg.position.set(-1.1, -0.55, 0.4); g.add(bdg);
+    g.position.y = 0.12; g.scale.setScalar(0.88); g.rotation.y = -0.18;
+    g.userData.tick = (t, still) => { pop.position.y = 0.62 + bob(t, still, 1.5, 0.07); bdg.rotation.y = still ? 0 : Math.sin(t * 1.4) * 0.5; };
+    return g;
+  },
+  /* pilhas de moedas + seta de economia (Planos, Política comercial) */
+  coins() {
+    const g = new THREE.Group(), stacks = [];
+    const geo = new THREE.CylinderGeometry(0.34, 0.34, 0.11, 44);
+    const face = pm(0xffc65a, { metalness: 0.35, roughness: 0.28, emissive: PAL.orange, emissiveIntensity: 0.08 }), edge = pm(0xe89a1c, { metalness: 0.4, roughness: 0.3 });
+    [[-0.85, 2], [0, 4], [0.85, 6]].forEach(([x, n], i) => {
+      const st = new THREE.Group(); st.position.x = x;
+      for (let k = 0; k < n; k++) { const m = new THREE.Mesh(geo, [edge, face, face]); m.position.y = -0.95 + k * 0.125; m.rotation.y = k * 0.7; st.add(m); }
+      g.add(st); stacks.push(st);
+    });
+    const curve = new THREE.CatmullRomCurve3([new THREE.Vector3(-1.3, -0.35, 0.55), new THREE.Vector3(-0.45, -0.05, 0.6), new THREE.Vector3(0.35, 0.2, 0.6), new THREE.Vector3(1.15, 0.78, 0.55)]);
+    const arrowMat = pm(PAL.teal2, { emissive: PAL.teal, emissiveIntensity: 0.15 });
+    g.add(new THREE.Mesh(new THREE.TubeGeometry(curve, 48, 0.06, 12, false), arrowMat));
+    const head = new THREE.Mesh(new THREE.ConeGeometry(0.16, 0.34, 24), arrowMat);
+    const end = curve.getPoint(1), tan = curve.getTangent(1);
+    head.position.copy(end).addScaledVector(tan, 0.12); head.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), tan); g.add(head);
+    g.rotation.set(0.28, -0.3, 0); g.position.y = 0.15;
+    g.userData.tick = (t, still) => { stacks.forEach((s, i) => { s.position.y = bob(t, still, 1.6, 0.05, i * 0.9); }); arrowMat.emissiveIntensity = still ? 0.15 : 0.12 + (Math.sin(t * 2.4) + 1) * 0.12; };
+    return g;
+  },
+  /* servidores com LEDs (Hospedagem) */
+  server() {
+    const g = new THREE.Group(), units = [], leds = [];
+    for (let i = 0; i < 3; i++) {
+      const u = new THREE.Group(); u.position.y = (i - 1) * 0.56;
+      u.add(slab(1.9, 0.46, 1.1, 0.08, pm(0x16306e, { roughness: 0.35 })));
+      const plate = slab(1.78, 0.34, 0.04, 0.07, pm(0x23489c)); plate.position.z = 0.58; u.add(plate);
+      [-0.55, -0.25].forEach((x) => { [0.06, -0.06].forEach((y) => { const l = new THREE.Mesh(new THREE.BoxGeometry(0.24, 0.03, 0.02), sm(0x8aa4cf)); l.position.set(x, y, 0.61); u.add(l); }); });
+      [PAL.teal, PAL.green, PAL.orange].forEach((c, k) => { const l = new THREE.Mesh(new THREE.SphereGeometry(0.045, 16, 12), new THREE.MeshBasicMaterial({ color: c, toneMapped: false })); l.position.set(0.48 + k * 0.14, 0, 0.62); u.add(l); leds.push(l); });
+      g.add(u); units.push(u);
+    }
+    const sh = checkBadge(0.3); sh.position.set(1.0, 0.95, 0.55); g.add(sh);
+    g.rotation.set(0.32, -0.55, 0);
+    g.userData.tick = (t, still) => {
+      units[1].position.z = still ? 0 : Math.max(0, Math.sin(t * 0.9)) * 0.28;
+      leds.forEach((l, i) => { l.visible = still || Math.sin(t * (3 + (i % 3)) + i * 1.7) > -0.35; });
+      sh.rotation.y = still ? 0 : Math.sin(t * 1.4) * 0.5;
+    };
+    return g;
+  },
+  /* pessoas conectadas (Clientes) */
+  people() {
+    const g = new THREE.Group(), ps = [];
+    const person = (c, s) => { const p = new THREE.Group(); const head = new THREE.Mesh(new THREE.SphereGeometry(0.22, 32, 24), pm(c)); head.position.y = 0.32; p.add(head); const body = new THREE.Mesh(new THREE.CapsuleGeometry(0.3, 0.3, 8, 24), pm(c)); body.position.y = -0.32; p.add(body); p.scale.setScalar(s); return p; };
+    [[PAL.teal2, -0.82, -0.12, -0.25, 0.85], [PAL.purple, 0.82, -0.12, -0.25, 0.85], [PAL.blue, 0, 0.0, 0.3, 1.12]].forEach(([c, x, y, z, s]) => { const p = person(c, s); p.position.set(x, y, z); g.add(p); ps.push(p); });
+    const arc = new THREE.CatmullRomCurve3([new THREE.Vector3(-0.82, 0.3, -0.25), new THREE.Vector3(-0.42, 0.85, 0.05), new THREE.Vector3(0, 0.95, 0.3), new THREE.Vector3(0.42, 0.85, 0.05), new THREE.Vector3(0.82, 0.3, -0.25)]);
+    const arcMat = sm(PAL.orange, { emissive: PAL.orange, emissiveIntensity: 0.2 });
+    g.add(new THREE.Mesh(new THREE.TubeGeometry(arc, 60, 0.025, 8, false), arcMat));
+    const dot = new THREE.Mesh(new THREE.SphereGeometry(0.07, 16, 12), new THREE.MeshBasicMaterial({ color: PAL.orange, toneMapped: false })); g.add(dot);
+    g.position.y = -0.05;
+    g.userData.tick = (t, still) => { ps.forEach((p, i) => { p.position.y = (i === 2 ? 0 : -0.12) + bob(t, still, 1.3, 0.05, i * 1.2); }); dot.position.copy(arc.getPoint(still ? 0.5 : (Math.sin(t * 0.9) + 1) / 2)); };
+    return g;
+  },
+  /* chave (Área do Cliente) */
+  key() {
+    const g = new THREE.Group(), mat = pm(PAL.gold, { metalness: 0.55, roughness: 0.25 });
+    const bow = new THREE.Mesh(new THREE.TorusGeometry(0.42, 0.13, 20, 48), mat); bow.position.x = -0.75; g.add(bow);
+    const gem = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.2, 0.12, 32).rotateX(Math.PI / 2), pm(PAL.teal2)); gem.position.x = -0.75; g.add(gem);
+    const shaft = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.09, 1.5, 24).rotateZ(Math.PI / 2), mat); shaft.position.x = 0.38; g.add(shaft);
+    [[0.75, 0.24], [0.98, 0.17], [1.08, 0.3]].forEach(([x, h]) => { const t = new THREE.Mesh(new THREE.BoxGeometry(0.12, h, 0.12), mat); t.position.set(x, -h / 2 - 0.04, 0); g.add(t); });
+    const card = slab(1.4, 0.85, 0.06, 0.1, pm(0xffffff)); card.position.set(0.1, -0.15, -0.55); card.rotation.z = 0.12; g.add(card);
+    card.add(bar(0.5, 0.09, PAL.blue, -0.5, 0.18, 0.05)); card.add(bar(0.8, 0.07, 0xd5dfeb, -0.5, 0, 0.05)); card.add(bar(0.6, 0.07, 0xd5dfeb, -0.5, -0.16, 0.05));
+    g.rotation.z = 0.35; g.position.y = 0.05;
+    g.userData.tick = (t, still) => { g.rotation.x = still ? 0 : Math.sin(t * 0.8) * 0.35; };
+    return g;
+  },
+  /* balões de conversa (Contato) */
+  chat() {
+    const g = new THREE.Group();
+    const bubble = (w, h, r, right) => {
+      const s = new THREE.Shape(), x = -w / 2, y = -h / 2, a = right ? 0.58 : 0.12, b = right ? 0.88 : 0.42, tip = right ? 0.82 : 0.12;
+      s.moveTo(x + r, y); s.lineTo(x + w * a, y); s.lineTo(x + w * tip, y - 0.3); s.lineTo(x + w * b, y); s.lineTo(x + w - r, y);
+      s.quadraticCurveTo(x + w, y, x + w, y + r); s.lineTo(x + w, y + h - r); s.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+      s.lineTo(x + r, y + h); s.quadraticCurveTo(x, y + h, x, y + h - r); s.lineTo(x, y + r); s.quadraticCurveTo(x, y, x + r, y);
+      return s;
+    };
+    const big = extrude(bubble(1.9, 1.15, 0.3, false), 0.24, pm(PAL.teal2, { emissive: PAL.teal, emissiveIntensity: 0.08 }), 0.05);
+    big.position.set(-0.2, 0.28, 0.1); g.add(big);
+    const dots = [-0.55, -0.2, 0.15].map((x) => { const d = new THREE.Mesh(new THREE.SphereGeometry(0.11, 24, 16), sm(0xffffff, { roughness: 0.3 })); d.position.set(x, 0.28, 0.3); g.add(d); return d; });
+    const small = extrude(bubble(1.15, 0.66, 0.2, true), 0.18, pm(PAL.navy), 0.04);
+    small.position.set(0.72, -0.72, -0.3); g.add(small);
+    small.add(bar(0.6, 0.07, 0x8aa4cf, -0.35, 0.1, 0.13)); small.add(bar(0.42, 0.07, PAL.orange, -0.35, -0.08, 0.13));
+    g.rotation.y = -0.25;
+    g.userData.tick = (t, still) => { dots.forEach((d, i) => { d.position.y = 0.28 + (still ? 0 : Math.max(0, Math.sin(t * 4 - i * 0.7)) * 0.12); }); small.position.y = -0.72 + bob(t, still, 1.2, 0.05, 1); };
+    return g;
+  },
+  /* livro aberto que folheia (Matérias) */
+  book() {
+    const g = new THREE.Group();
+    const pageTex = (title) => canvasTex(256, 340, (c, w, h) => { c.fillStyle = '#fbfcfe'; c.fillRect(0, 0, w, h); c.fillStyle = title; roundRect(c, 24, 30, 150, 18, 9); c.fill(); c.fillStyle = '#dbe3ee'; for (let i = 0; i < 9; i++) { roundRect(c, 24, 76 + i * 26, i % 4 === 3 ? 120 : 208, 10, 5); c.fill(); } });
+    const leftTex = pageTex('#2fddbe'), rightTex = pageTex('#6b3be6'), flipTex = pageTex('#ff9a1f');
+    const half = (tex, sign, cover) => {
+      const pv = new THREE.Group();
+      const cv = slab(1.08, 1.46, 0.05, 0.06, pm(cover)); cv.position.set(sign * 0.54, 0, -0.06); pv.add(cv);
+      const pg = new THREE.Mesh(new THREE.BoxGeometry(1.0, 1.38, 0.06), [sm(0xeef2f7), sm(0xeef2f7), sm(0xeef2f7), sm(0xeef2f7), new THREE.MeshStandardMaterial({ map: tex, roughness: 0.6 }), sm(0xeef2f7)]);
+      pg.position.set(sign * 0.52, 0, 0); pv.add(pg);
+      pv.rotation.y = sign * -0.32; return pv;
+    };
+    g.add(half(leftTex, -1, PAL.navy)); g.add(half(rightTex, 1, PAL.navy));
+    const flip = new THREE.Group();
+    const fp = new THREE.Mesh(new THREE.PlaneGeometry(1.0, 1.38), new THREE.MeshStandardMaterial({ map: flipTex, roughness: 0.6, side: THREE.DoubleSide }));
+    fp.position.set(0.5, 0, 0.04); flip.add(fp); g.add(flip);
+    const rib = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.7, 0.01), sm(PAL.orange)); rib.position.set(0.05, -0.9, 0.08); g.add(rib);
+    g.rotation.set(0.45, 0, 0); g.position.y = 0.05; g.scale.setScalar(1.1);
+    g.userData.tick = (t, still) => {
+      const ph = still ? 0 : (t % 4.5) / 4.5, k = ph < 0.55 ? 0 : ease(Math.min(1, (ph - 0.55) / 0.4));
+      flip.rotation.y = -0.32 - k * (Math.PI - 0.64);
+    };
+    return g;
+  },
+  /* escudo (Central de Confiança) */
+  shield() {
+    const g = new THREE.Group();
+    const sh = (k) => { const s = new THREE.Shape(); s.moveTo(0, 0.9 * k); s.quadraticCurveTo(0.42 * k, 0.66 * k, 0.8 * k, 0.66 * k); s.lineTo(0.8 * k, 0.05 * k); s.quadraticCurveTo(0.76 * k, -0.62 * k, 0, -1.0 * k); s.quadraticCurveTo(-0.76 * k, -0.62 * k, -0.8 * k, 0.05 * k); s.lineTo(-0.8 * k, 0.66 * k); s.quadraticCurveTo(-0.42 * k, 0.66 * k, 0, 0.9 * k); return s; };
+    g.add(extrude(sh(1), 0.26, pm(PAL.blue, { roughness: 0.25 }), 0.05));
+    const inner = extrude(sh(0.78), 0.06, pm(PAL.teal2, { emissive: PAL.teal, emissiveIntensity: 0.1 }), 0.02); inner.position.z = 0.17; g.add(inner);
+    const ck = new THREE.CatmullRomCurve3([new THREE.Vector3(-0.32, 0.02, 0.24), new THREE.Vector3(-0.08, -0.22, 0.24), new THREE.Vector3(0.36, 0.28, 0.24)], false, 'catmullrom', 0);
+    g.add(new THREE.Mesh(new THREE.TubeGeometry(ck, 32, 0.075, 12, false), sm(0xffffff, { roughness: 0.3 })));
+    g.userData.tick = (t, still) => { g.rotation.y = still ? -0.2 : Math.sin(t * 0.8) * 0.4; };
+    return g;
+  },
+  /* cadeado que abre e fecha (Privacidade) */
+  lock() {
+    const g = new THREE.Group();
+    const body = slab(1.3, 1.02, 0.5, 0.16, pm(PAL.blue, { roughness: 0.28 })); body.position.y = -0.34; g.add(body);
+    const metal = pm(PAL.silver, { metalness: 0.65, roughness: 0.22 });
+    const sk = new THREE.Group();
+    const arcM = new THREE.Mesh(new THREE.TorusGeometry(0.4, 0.1, 18, 48, Math.PI), metal); arcM.position.y = 0.42; sk.add(arcM);
+    [-0.4, 0.4].forEach((x) => { const l = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 0.5, 20), metal); l.position.set(x, 0.17, 0); sk.add(l); });
+    g.add(sk);
+    const hole = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.12, 0.06, 28).rotateX(Math.PI / 2), sm(PAL.navy)); hole.position.set(0, -0.26, 0.29); g.add(hole);
+    const slot = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.26, 0.06), sm(PAL.navy)); slot.position.set(0, -0.42, 0.29); g.add(slot);
+    const bdg = checkBadge(0.28); bdg.position.set(0.72, -0.72, 0.4); g.add(bdg);
+    g.position.y = 0.1; g.rotation.y = -0.25;
+    g.userData.tick = (t, still) => { const ph = still ? 0 : (t % 5) / 5, k = ph < 0.6 ? 0 : Math.sin((ph - 0.6) / 0.4 * Math.PI); sk.position.y = k * 0.28; sk.rotation.y = k * 0.6; bdg.rotation.y = still ? 0 : Math.sin(t * 1.5) * 0.5; };
+    return g;
+  },
+  /* cookie com gotas (Política de Cookies) */
+  cookie() {
+    const g = new THREE.Group();
+    const dough = (r, c) => { const m = new THREE.Mesh(new THREE.CylinderGeometry(r, r * 0.97, 0.24, 64).rotateX(Math.PI / 2), [pm(0xc98f4c, { roughness: 0.7, clearcoat: 0 }), pm(c, { roughness: 0.65, clearcoat: 0 }), pm(c, { roughness: 0.65, clearcoat: 0 })]); return m; };
+    const main = new THREE.Group(); main.add(dough(0.9, 0xe7b878));
+    const chip = new THREE.DodecahedronGeometry(0.09), choc = pm(0x5a3520, { roughness: 0.5 });
+    [[-0.4, 0.35], [0.1, 0.5], [0.45, 0.15], [-0.15, 0.05], [-0.5, -0.25], [0.2, -0.35], [0.55, -0.4], [-0.1, -0.6], [0.35, 0.55]].forEach(([x, y], i) => { const c = new THREE.Mesh(chip, choc); c.position.set(x, y, 0.13); c.rotation.set(i, i * 2, 0); c.scale.setScalar(0.8 + (i % 3) * 0.2); main.add(c); });
+    g.add(main);
+    const sm2 = dough(0.45, 0xeec48a); sm2.position.set(-0.95, -0.7, -0.4); g.add(sm2);
+    const bdg = checkBadge(0.3); bdg.position.set(0.8, -0.68, 0.35); g.add(bdg);
+    g.userData.tick = (t, still) => { main.rotation.z = still ? 0 : t * 0.25; main.rotation.y = still ? -0.2 : Math.sin(t * 0.9) * 0.3; sm2.position.y = -0.7 + bob(t, still, 1.4, 0.06, 2); };
+    return g;
+  },
+  /* crachá do titular (LGPD) */
+  id() {
+    const g = new THREE.Group();
+    const card = slab(2.0, 1.28, 0.08, 0.14, pm(0xffffff, { roughness: 0.35 })); g.add(card);
+    const head = new THREE.Mesh(new THREE.CylinderGeometry(0.34, 0.34, 0.05, 40).rotateX(Math.PI / 2), pm(PAL.purple)); head.position.set(-0.5, 0.1, 0.07); g.add(head);
+    const face = new THREE.Mesh(new THREE.SphereGeometry(0.11, 24, 16), sm(0xffffff)); face.position.set(-0.5, 0.17, 0.11); g.add(face);
+    const sh = new THREE.Mesh(new THREE.SphereGeometry(0.19, 24, 16, 0, Math.PI * 2, 0, Math.PI / 2), sm(0xffffff)); sh.position.set(-0.5, -0.12, 0.09); sh.scale.set(1, 0.7, 0.4); g.add(sh);
+    g.add(bar(0.75, 0.1, PAL.navy, 0.0, 0.26, 0.07)); g.add(bar(0.65, 0.07, 0xd5dfeb, 0.0, 0.07, 0.07)); g.add(bar(0.5, 0.07, 0xd5dfeb, 0.0, -0.08, 0.07));
+    g.add(bar(1.6, 0.1, PAL.teal2, -0.8, -0.44, 0.07));
+    const clip = slab(0.36, 0.14, 0.1, 0.05, pm(PAL.silver, { metalness: 0.5 })); clip.position.set(0, 0.7, 0); g.add(clip);
+    const lockB = new THREE.Group(); lockB.add(slab(0.42, 0.34, 0.16, 0.06, pm(PAL.orange)));
+    const ar = new THREE.Mesh(new THREE.TorusGeometry(0.12, 0.035, 12, 32, Math.PI), pm(PAL.silver, { metalness: 0.6 })); ar.position.y = 0.17; lockB.add(ar);
+    lockB.position.set(0.85, -0.55, 0.35); g.add(lockB);
+    g.rotation.set(0.1, -0.3, 0.06);
+    g.userData.tick = (t, still) => { g.rotation.y = still ? -0.3 : -0.3 + Math.sin(t * 0.8) * 0.25; lockB.position.y = -0.55 + bob(t, still, 1.6, 0.06); };
+    return g;
+  },
+  /* balança (Compliance) */
+  scale() {
+    const g = new THREE.Group(), gold = pm(PAL.gold, { metalness: 0.55, roughness: 0.25 });
+    const base = new THREE.Mesh(new THREE.CylinderGeometry(0.55, 0.66, 0.14, 48), pm(PAL.navy)); base.position.y = -1.08; g.add(base);
+    const pillar = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.09, 1.55, 20), gold); pillar.position.y = -0.25; g.add(pillar);
+    const knob = new THREE.Mesh(new THREE.SphereGeometry(0.11, 24, 16), gold); knob.position.y = 0.6; g.add(knob);
+    const beam = new THREE.Mesh(new THREE.BoxGeometry(2.0, 0.07, 0.07), gold); beam.position.y = 0.5; g.add(beam);
+    const sides = [-1, 1].map((sgn, i) => {
+      const s = new THREE.Group();
+      const str = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 0.7, 8), sm(0x8aa4cf)); str.position.y = -0.35; s.add(str);
+      const pan = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.28, 0.07, 40), pm(i ? PAL.teal2 : PAL.purple)); pan.position.y = -0.72; s.add(pan);
+      g.add(s); return s;
+    });
+    const docM = slab(0.34, 0.42, 0.05, 0.04, pm(0xffffff)); docM.rotation.x = -1.2; docM.position.y = -0.58; sides[0].add(docM);
+    const bdg = checkBadge(0.18); bdg.position.y = -0.48; sides[1].add(bdg);
+    g.userData.tick = (t, still) => {
+      const a = still ? 0.04 : Math.sin(t * 0.9) * 0.12;
+      beam.rotation.z = a;
+      sides.forEach((s, i) => { const sg = i ? 1 : -1; s.position.set(sg * 0.95 * Math.cos(a), 0.5 + sg * 0.95 * Math.sin(a), 0); });
+      bdg.rotation.y = still ? 0 : Math.sin(t * 1.5) * 0.5;
+    };
+    return g;
+  },
+  /* documento assinado (Termos de Uso) */
+  doc() {
+    const g = new THREE.Group();
+    const s = new THREE.Shape(); s.moveTo(-0.72, -0.98); s.lineTo(0.72, -0.98); s.lineTo(0.72, 0.6); s.lineTo(0.36, 0.98); s.lineTo(-0.72, 0.98); s.closePath();
+    const back = extrude(s, 0.08, pm(0xe8eef6), 0.02); back.position.set(-0.22, 0.14, -0.3); back.rotation.z = 0.1; g.add(back);
+    g.add(extrude(s, 0.08, pm(0xffffff), 0.02));
+    const f = new THREE.Shape(); f.moveTo(0.36, 0.98); f.lineTo(0.36, 0.62); f.lineTo(0.72, 0.6); f.closePath();
+    const fold = extrude(f, 0.02, pm(0xd5dfeb), 0); fold.position.z = 0.07; g.add(fold);
+    g.add(bar(0.75, 0.1, PAL.teal2, -0.55, 0.62, 0.07));
+    [[1.1, 0.36], [0.95, 0.2], [1.12, 0.04], [0.7, -0.12]].forEach(([w, y]) => g.add(bar(w, 0.06, 0xdbe3ee, -0.55, y, 0.07)));
+    const sig = new THREE.CatmullRomCurve3([new THREE.Vector3(-0.5, -0.55, 0.07), new THREE.Vector3(-0.35, -0.42, 0.07), new THREE.Vector3(-0.22, -0.62, 0.07), new THREE.Vector3(-0.05, -0.45, 0.07), new THREE.Vector3(0.1, -0.6, 0.07), new THREE.Vector3(0.3, -0.5, 0.07)]);
+    g.add(new THREE.Mesh(new THREE.TubeGeometry(sig, 60, 0.022, 8, false), sm(PAL.navy)));
+    const pen = new THREE.Group();
+    const bodyP = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.9, 20), pm(PAL.navy)); bodyP.position.y = 0.55; pen.add(bodyP);
+    const tip = new THREE.Mesh(new THREE.ConeGeometry(0.06, 0.16, 20).rotateX(Math.PI), pm(PAL.gold, { metalness: 0.6 })); tip.position.y = 0.04; pen.add(tip);
+    pen.rotation.z = -0.55; g.add(pen);
+    const bdg = checkBadge(0.26); bdg.position.set(0.66, -0.82, 0.25); g.add(bdg);
+    g.rotation.y = -0.22;
+    g.userData.tick = (t, still) => { const p = sig.getPoint(still ? 1 : (Math.sin(t * 0.9) + 1) / 2); pen.position.set(p.x, p.y, 0.25); bdg.rotation.y = still ? 0 : Math.sin(t * 1.4) * 0.5; };
+    return g;
+  },
+  /* planeta com brotos (ESG) */
+  leaf() {
+    const g = new THREE.Group();
+    const globe = new THREE.Group(); g.add(globe);
+    globe.add(new THREE.Mesh(new THREE.SphereGeometry(0.66, 48, 32), pm(PAL.blue2, { roughness: 0.3 })));
+    globe.add(new THREE.Mesh(new THREE.SphereGeometry(0.675, 18, 12), new THREE.MeshBasicMaterial({ color: PAL.teal, wireframe: true, transparent: true, opacity: 0.55 })));
+    const ls = new THREE.Shape(); ls.moveTo(0, 0); ls.quadraticCurveTo(0.34, 0.26, 0, 0.82); ls.quadraticCurveTo(-0.34, 0.26, 0, 0);
+    const sprout = new THREE.Group(); sprout.position.y = 0.62; g.add(sprout);
+    const stem = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.035, 0.3, 12), sm(PAL.green)); stem.position.y = 0.12; sprout.add(stem);
+    const l1 = extrude(ls, 0.04, pm(PAL.green), 0.015); l1.position.y = 0.25; l1.rotation.z = -0.75; sprout.add(l1);
+    const l2 = extrude(ls, 0.04, pm(PAL.teal2), 0.015); l2.position.y = 0.25; l2.rotation.z = 0.75; l2.scale.setScalar(0.8); sprout.add(l2);
+    const orbit = new THREE.Mesh(new THREE.TorusGeometry(1.08, 0.02, 10, 120), sm(PAL.orange)); orbit.rotation.set(1.25, 0.2, 0); g.add(orbit);
+    const sat = new THREE.Mesh(new THREE.SphereGeometry(0.09, 20, 14), new THREE.MeshBasicMaterial({ color: PAL.orange, toneMapped: false })); g.add(sat);
+    g.position.y = -0.15;
+    const ax = new THREE.Vector3();
+    g.userData.tick = (t, still) => {
+      globe.rotation.y = still ? 0.4 : t * 0.35;
+      sprout.rotation.z = still ? 0 : Math.sin(t * 1.3) * 0.08;
+      const a = still ? 0.8 : t * 0.9; ax.set(Math.cos(a) * 1.08, Math.sin(a) * 1.08, 0).applyEuler(orbit.rotation); sat.position.copy(ax);
+    };
+    return g;
+  },
+  /* símbolo de acessibilidade (Acessibilidade) */
+  access() {
+    const g = new THREE.Group();
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(0.98, 0.1, 20, 90), pm(PAL.blue)); g.add(ring);
+    const disc = new THREE.Mesh(new THREE.CylinderGeometry(0.88, 0.88, 0.08, 64).rotateX(Math.PI / 2), pm(0xffffff, { roughness: 0.35 })); disc.position.z = -0.06; g.add(disc);
+    const mat = pm(PAL.navy), fig = new THREE.Group(); g.add(fig);
+    const head = new THREE.Mesh(new THREE.SphereGeometry(0.15, 28, 20), mat); head.position.set(0, 0.5, 0.08); fig.add(head);
+    const arms = new THREE.Mesh(new THREE.CapsuleGeometry(0.055, 0.95, 6, 16).rotateZ(Math.PI / 2), mat); arms.position.set(0, 0.22, 0.08); fig.add(arms);
+    const torso = new THREE.Mesh(new THREE.CapsuleGeometry(0.075, 0.36, 6, 16), mat); torso.position.set(0, -0.02, 0.08); fig.add(torso);
+    [-1, 1].forEach((sg) => { const l = new THREE.Mesh(new THREE.CapsuleGeometry(0.06, 0.42, 6, 16), mat); l.position.set(sg * 0.14, -0.45, 0.08); l.rotation.z = sg * 0.32; fig.add(l); });
+    g.userData.tick = (t, still) => { ring.rotation.z = still ? 0 : t * 0.4; arms.rotation.z = still ? 0 : Math.sin(t * 2) * 0.12; g.rotation.y = still ? -0.2 : Math.sin(t * 0.7) * 0.35; };
+    return g;
+  },
+};
+
+function initEmblem(host) {
+  const kind = host.getAttribute('data-emblem');
+  const build = EMBLEMS[kind] || EMBLEMS.house;
+  const renderer = makeRenderer(host);
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
+  camera.position.set(0, 0.2, 9.2);
+  scene.add(new THREE.HemisphereLight(0xffffff, 0xcfe3ff, 1.3));
+  const key = new THREE.DirectionalLight(0xffffff, 2.1); key.position.set(-4, 6, 6); scene.add(key);
+  const rim = new THREE.PointLight(0x2fddbe, 16, 20); rim.position.set(3.5, -2, 3); scene.add(rim);
+  const warm = new THREE.PointLight(0xff9a1f, 9, 18); warm.position.set(3, 3, 2); scene.add(warm);
+
+  const root = new THREE.Group(); scene.add(root);
+  const ring = new THREE.Group(); root.add(ring);
+  const colors = [PAL.teal, PAL.orange, PAL.purple, PAL.blue2];
+  colors.forEach((c, i) => {
+    const g = new THREE.ExtrudeGeometry(crescentShape(i * Math.PI / 2 + 0.3, Math.PI * 0.92, 2.18, 0.36), { depth: 0.14, bevelEnabled: true, bevelThickness: 0.05, bevelSize: 0.04, bevelSegments: 3, curveSegments: 48 });
+    g.translate(0, 0, -0.7 + i * 0.02);
+    ring.add(new THREE.Mesh(g, pm(c, { clearcoat: 0.8, clearcoatRoughness: 0.25, emissive: c, emissiveIntensity: 0.06 })));
+  });
+  const halo = new THREE.Mesh(new THREE.TorusGeometry(2.6, 0.03, 12, 160), sm(PAL.navy)); halo.position.z = -0.7; ring.add(halo);
+  const obj = build(); obj.scale.multiplyScalar(1.28); root.add(obj);
+  const cubes = [], cubeGeo = new THREE.BoxGeometry(0.2, 0.2, 0.2);
+  for (let i = 0; i < 8; i++) {
+    const m = new THREE.Mesh(cubeGeo, sm(colors[i % 4], { roughness: 0.35 }));
+    m.userData = { a: (i / 8) * Math.PI * 2, r: 2.7 + (i % 3) * 0.25, s: 0.18 + (i % 4) * 0.06, y: ((i * 37) % 10) / 10 * 2.4 - 1.2, ph: i * 1.3 };
+    m.scale.setScalar(0.55 + (i % 3) * 0.25);
+    root.add(m); cubes.push(m);
+  }
+  root.scale.setScalar(0.94);
+
+  let tx = 0, ty = 0, scrollK = 0;
+  window.addEventListener('pointermove', (e) => { tx = (e.clientX / innerWidth - 0.5); ty = (e.clientY / innerHeight - 0.5); }, { passive: true });
+  window.addEventListener('scroll', () => { scrollK = Math.min(1, scrollY / 700); }, { passive: true });
+  const resize = () => fit(renderer, camera, host);
+  new ResizeObserver(resize).observe(host); resize();
+  let first = true;
+  const loop = runLoop(host, (dt, time) => {
+    const still = A3.motionOff();
+    ring.rotation.z = still ? 0.2 : ring.rotation.z - dt * 0.16;
+    root.rotation.y = lerp(root.rotation.y, tx * 0.55 + (still ? 0 : Math.sin(time * 0.4) * 0.06), 0.06);
+    root.rotation.x = lerp(root.rotation.x, ty * 0.3 + scrollK * 0.35, 0.06);
+    obj.position.y = (obj.userData.y0 ??= obj.position.y) + bob(time, still, 1.1, 0.05);
+    if (obj.userData.tick) obj.userData.tick(time, still);
+    cubes.forEach((c) => {
+      const u = c.userData, a = u.a + (still ? 0 : time * u.s);
+      c.position.set(Math.cos(a) * u.r, u.y + (still ? 0 : Math.sin(time + u.ph) * 0.15), Math.sin(a) * u.r * 0.45 - 0.9);
       c.rotation.set(time * u.s * 2, time * u.s * 3, 0);
     });
     renderer.render(scene, camera);
@@ -457,7 +856,7 @@ export function init(api) {
   A3 = api;
   const test = document.createElement('canvas');
   if (!(test.getContext('webgl2') || test.getContext('webgl'))) return;
-  const scenes = { hero: initHero, 'paper-hand': initPaperHand, 'paper-parallax': initPaperParallax };
+  const scenes = { hero: initHero, emblem: initEmblem, 'paper-hand': initPaperHand, 'paper-parallax': initPaperParallax };
   document.querySelectorAll('[data-3d]').forEach((el) => {
     const fn = scenes[el.getAttribute('data-3d')];
     if (!fn || el.__a3) return;

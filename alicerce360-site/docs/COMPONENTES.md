@@ -37,7 +37,8 @@ Referência rápida para escrever ou editar páginas em `src/pages/*.html`. Toda
 ## Blocos de página
 
 ```html
-<!-- cabeçalho de página interna -->
+<!-- cabeçalho de página interna: o build acrescenta sozinho o banner 3D ao lado do texto
+     (cena escolhida pelo slug em EMBLEM, em tools/build.py; sem WebGL aparece o anel do logo com o ícone) -->
 <section class="page-hero">
   <div class="wrap">
     <nav class="crumbs" aria-label="Você está aqui"><a href="/">Início</a><span aria-hidden="true">›</span><a href="/confianca/">Confiança</a><span aria-hidden="true">›</span><span aria-current="page">Título</span></nav>
@@ -114,3 +115,31 @@ Referência rápida para escrever ou editar páginas em `src/pages/*.html`. Toda
 `data-form` aceita: `contact`, `titular`, `integrity`, `referral`, `trial`, `partner` (define o prefixo do protocolo).
 
 Outros atalhos: `data-cookie-open` (abre preferências de cookies), `data-chat-open` (abre o assistente), `data-a11y-open` (painel de acessibilidade), `data-copy="texto"` (copia).
+
+## Matérias (posts do WordPress)
+
+Cada matéria é um arquivo em `src/posts/NN-slug.html`. O build gera o post, a capa, o sumário lateral, os botões de compartilhar, as matérias relacionadas e a chamada final — o arquivo traz só o conteúdo.
+
+```html
+<!--meta {"slug": "politicas-com-aceite-li-e-estou-ciente",
+          "title": "Políticas com aceite: como transformar o “li e estou ciente” em prova",
+          "description": "Resumo de 150 a 200 caracteres: aparece na listagem, no Google e ao compartilhar.",
+          "date": "2026-10-05T09:20:00",
+          "category": "Compliance e Integridade",
+          "icon": "file-check",
+          "related": ["canal-de-denuncias-anonimato-real", "trilha-de-auditoria-hash"]} -->
+<p class="lead">Abertura de 2 a 3 frases que prende o leitor.</p>
+<h2>Primeiro subtítulo</h2>
+<p>Texto…</p>
+<div class="art-box"><b>{{i:sparkles}} Na prática</b><p>Exemplo concreto.</p></div>
+<figure class="art-fig">… um mini protótipo com classes .m-card/.m-row/.m-pill ou uma tabela .tbl …<figcaption>Legenda curta.</figcaption></figure>
+<h2>Como o Alicerce360 ajuda</h2>
+<ul class="checks">…</ul>
+```
+
+- Somente `<h2>` e `<h3>` como subtítulos (os `<h2>` viram o sumário automaticamente). Não use `<h1>` (o título vem do post).
+- Categorias usadas: Gestão e Conformidade · Compliance e Integridade · LGPD e Privacidade · Segurança da Informação · Pessoas e Treinamentos · Comunicação Interna · Negócios e Licitações · Hospedagem e Infraestrutura.
+- Componentes úteis: `.lead`, `.callout`, `.art-box`, `.art-fig` (com `<figcaption>`), `.checks`, `.steps`, `.table-wrap > table.tbl`, `.quote`, `.flow`, `.bigstat`, `.grid.g-3` com `.card`. Mini protótipos: as classes `.m-card`, `.m-row`, `.m-ic`, `.m-pill`, `.m-prog`, `.m-hash` (ver `src/pages/20-telas.html`).
+- Mesmas regras de texto das páginas: sem emoticons, sem colchetes `[ ]`, sem `<` solto; contatos sempre por `{{c:...}}`.
+- Capa: `node tools/covers.mjs slug` (1200×630, sem texto, vale para os 3 idiomas; cor pela categoria e ícone pelo campo `icon`) e depois `python3 tools/covers_webp.py`.
+- Na listagem, a matéria mais recente aparece em destaque (cartão largo) quando não há filtro ou busca ativos. Os marcadores `{{postcards}}`, `{{postcards:3}}` e `{{postchips}}` geram os cartões e os filtros em qualquer página.

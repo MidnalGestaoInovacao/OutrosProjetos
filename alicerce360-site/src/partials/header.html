@@ -50,9 +50,25 @@
             </div>
           </div>
         </li>
-        <li><a href="/planos/">Planos</a></li>
-        <li><a href="/hospedagem/">Hospedagem</a></li>
-        <li><a href="/clientes/">Clientes</a></li>
+        <li class="has-mega">
+          <button type="button" aria-expanded="false" aria-controls="mega-planos">Planos {{i:chev:chev}}</button>
+          <div class="mega" id="mega-planos">
+            <div class="mega-links">
+              <a href="/planos/"><span class="ibox">{{i:wallet}}</span><span><b>Planos da intranet</b><span>Essencial, Profissional, Enterprise e sob medida</span></span></a>
+              <a href="/planos/#simulador"><span class="ibox ibox--blue">{{i:coins}}</span><span><b>Simulador de economia</b><span>Compare com a cobrança por usuário</span></span></a>
+              <a href="/hospedagem/"><span class="ibox ibox--purple">{{i:server}}</span><span><b>Hospedagem</b><span>Sites, e-mail, backup, antivírus e SSL</span></span></a>
+              <a href="/hospedagem/#recursos"><span class="ibox ibox--orange">{{i:mail}}</span><span><b>E-mail profissional</b><span>Seu domínio com SPF, DKIM e DMARC</span></span></a>
+              <a href="/clientes/"><span class="ibox">{{i:users}}</span><span><b>Clientes</b><span>Quem já constrói com o Alicerce360</span></span></a>
+              <a href="/clientes/#indique"><span class="ibox ibox--blue">{{i:gift}}</span><span><b>Indique e ganhe</b><span>Benefícios para quem indica e parceiros</span></span></a>
+            </div>
+            <div class="mega-promo">
+              <span class="badge badge--teal">{{i:calendar}} Plano anual</span>
+              <b>Pague 10 meses e use 12. Sem cobrança por usuário.</b>
+              <p>Preço fixo por faixa de colaboradores, com teste grátis de 30 dias antes de decidir.</p>
+              <a class="btn btn--light btn--sm" href="/planos/">Ver planos e preços {{i:arrow:arrow}}</a>
+            </div>
+          </div>
+        </li>
         <li class="has-mega">
           <button type="button" aria-expanded="false" aria-controls="mega-trust">Confiança {{i:chev:chev}}</button>
           <div class="mega mega--wide" id="mega-trust">
@@ -69,6 +85,7 @@
             </div>
           </div>
         </li>
+        <li><a href="/materias/">Matérias</a></li>
         <li><a href="/sobre/">Sobre</a></li>
         <li><a href="/contato/">Contato</a></li>
       </ul>
@@ -90,6 +107,7 @@
       <a href="/planos/">{{i:wallet}} Planos e preços</a>
       <a href="/hospedagem/">{{i:server}} Hospedagem</a>
       <a href="/clientes/">{{i:users}} Clientes e indicações</a>
+      <a href="/materias/">{{i:book}} Matérias</a>
     </div>
     <div class="dr-group">
       <p class="dr-title">Confiança</p>
