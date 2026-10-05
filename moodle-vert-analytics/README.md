@@ -190,3 +190,44 @@ cabeçalho do bloco.
 ### Bloco "Monitor do Site"
 Título renomeado de "Monitor do Site Edwiser" para "Monitor do Site" (script do rodapé) e abas
 "Plugins recomendados" e "Entre em contato" ocultadas (CSS). O bloco só é visível para administradores.
+
+## Página inicial com a identidade Vert Academy (05/10/2026)
+
+Fonte: protótipo `vert-academy.adding` (HTML/CSS de alta fidelidade com tokens, assets e `context.md`).
+O template foi convertido para o Moodle por `homepage/build_home.py`:
+
+* **Classes com prefixo `va-` e CSS escopado em `.va-home`**, para não conflitar com o Bootstrap/RemUI.
+  O CSS gerado (`homepage/home.css`) foi anexado ao final de `customcss.css` (item 15) e vale só dentro
+  dos blocos da página inicial.
+* **Seções → blocos "Bloco Avançado Edwiser" já existentes na página inicial** (conteúdo HTML trocado;
+  CSS/JS do bloco esvaziados; o JS antigo do bloco 9 continha texto inválido):
+
+| Bloco | Região | Conteúdo novo |
+|---|---|---|
+| 9 | full-width-top | Hero "Aprenda. Evolua. Transforme." + faixa de números (12+, 6+, 100%, 24/7) |
+| 10 | full-bottom | Trilhas de Aprendizagem (4 cartões com personagens e cenário no hover) |
+| 11 | full-bottom | Formações Recomendadas (4 cartões 3D) + CTA "Seu próximo aprendizado começa aqui." |
+| 12 | full-bottom | Rodapé institucional (navegação, recursos/políticas, contatos, redes sociais) |
+
+* **Imagens** (31 arquivos: hero, banner do CTA, logos, ícones, destaques, trilhas, cursos) hospedadas na
+  pasta "Recursos visuais da página inicial (não remover)" da página inicial (módulo 24, contexto 72),
+  acessível sem login: `https://ead.vert.com.br/pluginfile.php/72/mod_folder/content/0/...`.
+  **Não excluir essa pasta**, ou as imagens da página inicial deixam de carregar.
+* **Links do protótipo → páginas reais:** "Explorar treinamentos" e "Iniciar agora" → Meus cursos;
+  "Ver minha jornada" → Painel; "Explorar trilha" e "Ver todas as formações" → catálogo de cursos;
+  seta dos cartões de curso → busca do catálogo pelo nome do curso; rodapé → políticas públicas deste
+  site (os links antigos apontavam para outro domínio e para telas de administração) e redes oficiais.
+* **Largura:** as seções usam 90% da tela (como as demais páginas principais) no lugar dos 1320 px do
+  protótipo.
+* **Tipografia:** a fonte Mundial não está disponível como webfont; vale o fallback do protótipo
+  (*Plus Jakarta Sans* / *Syne*, Google Fonts). Para usar a Mundial, hospede os arquivos `.woff2` e
+  acrescente o `@font-face` no Custom CSS.
+* **Tour e botão "?"** da página inicial atualizados para os novos elementos.
+* **Backup do conteúdo anterior** dos blocos 9 a 12 em `homepage/backup-2026-10-05/` (HTML/CSS/JS de
+  cada bloco). Para voltar: colar o conteúdo nos campos do bloco (modo de edição → ⚙ do bloco).
+
+**Atenção — conteúdo de demonstração herdado do protótipo:** os 4 cursos de "Formações Recomendadas"
+(Introdução ao SAS Code, Python para Análise de Dados, Data Visualization no SAS VA, LGPD e Governança de
+Dados Corporativa) e as contagens das trilhas (12/18/14/9 cursos) vêm dos dados fictícios do protótipo e
+ainda não existem no catálogo; ajuste os textos em `homepage/bloco-10.html` e `bloco-11.html` (ou direto
+no bloco) quando os cursos reais forem publicados.

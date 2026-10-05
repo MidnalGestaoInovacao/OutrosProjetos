@@ -1,0 +1,335 @@
+
+        
+        
+        
+        <section class="vert-pillars-section">
+   <section class="vert-learning-section">
+
+    <span class="vert-learning-tag">CAPACITAÇÃO CONTÍNUA</span>
+    <h2 class="vert-learning-title">Trilhas de Aprendizagem</h2>
+
+    <div class="vert-learning-container">
+
+        <!-- CLOUD & INFRAESTRUTURA -->
+        <div class="vert-learning-card track-cloud">
+            <div class="vert-learning-icon">
+                <i class="fas fa-cloud"></i>
+            </div>
+
+            <h3>Cloud &amp; Infraestrutura</h3>
+
+            <p>
+                Aprenda sobre AWS, Google Cloud, Huawei Cloud,
+                Cloudera, Kubernetes e DevOps.
+            </p>
+        </div>
+
+        <!-- ANALYTICS & CIÊNCIA DE DADOS -->
+        <div class="vert-learning-card track-analytics">
+            <div class="vert-learning-icon">
+                <i class="fas fa-chart-line"></i>
+            </div>
+
+            <h3>Analytics &amp; Ciência de Dados</h3>
+
+            <p>
+                SAS, Python, Estatística, Machine Learning,
+                Visualização de Dados e muito mais.
+            </p>
+        </div>
+
+        <!-- ENGENHARIA DE DADOS -->
+        <div class="vert-learning-card track-engineering">
+            <div class="vert-learning-icon">
+                <i class="fas fa-database"></i>
+            </div>
+
+            <h3>Engenharia de Dados</h3>
+
+            <p>
+                Hadoop, Spark, Kafka, ETL,
+                Modelagem e Arquitetura de Dados.
+            </p>
+        </div>
+
+        <!-- GOVERNANÇA & ESTRATÉGIA -->
+        <div class="vert-learning-card track-governance">
+            <div class="vert-learning-icon">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+
+            <h3>Governança &amp; Estratégia</h3>
+
+            <p>
+                LGPD, Governança de Dados,
+                Gestão de Projetos e Transformação Digital.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+
+    /* =========================================================
+       SEÇÃO PRINCIPAL
+       ========================================================= */
+
+    .vert-learning-section {
+        background-color: #0E193B;
+        padding: 90px 30px 100px;
+        text-align: center;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .vert-learning-tag {
+        color: #00DE8F;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        font-weight: 700;
+        font-size: 0.8rem;
+        display: block;
+        margin-bottom: 15px;
+    }
+
+    .vert-learning-title {
+        color: #ffffff;
+        font-size: 2.8rem;
+        font-weight: 900;
+        margin-bottom: 55px;
+    }
+
+
+    /* =========================================================
+       CONTAINER DOS CARDS
+       ========================================================= */
+
+    .vert-learning-container {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 28px;
+
+        max-width: 1500px;
+        margin: 0 auto;
+    }
+
+
+    /* =========================================================
+       CARD BASE
+       ========================================================= */
+
+    .vert-learning-card {
+        background: #171F3D;
+
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 14px;
+
+        padding: 42px 34px;
+
+        min-height: 330px;
+
+        text-align: left;
+
+        transition:
+            transform 0.35s ease,
+            box-shadow 0.35s ease,
+            border-color 0.35s ease;
+
+        position: relative;
+        overflow: hidden;
+    }
+
+    .vert-learning-card:hover {
+        transform: translateY(-8px);
+    }
+
+
+    /* =========================================================
+       ÍCONES
+       ========================================================= */
+
+    .vert-learning-icon {
+        font-size: 38px;
+        margin-bottom: 32px;
+
+        transition:
+            transform 0.35s ease,
+            filter 0.35s ease;
+    }
+
+    .vert-learning-card:hover .vert-learning-icon {
+        transform: scale(1.08);
+    }
+
+
+    /* =========================================================
+       TÍTULOS
+       ========================================================= */
+
+    .vert-learning-card h3 {
+        font-size: 1.45rem;
+        font-weight: 700;
+        margin-bottom: 22px;
+        line-height: 1.25;
+    }
+
+
+    /* =========================================================
+       DESCRIÇÕES
+       ========================================================= */
+
+    .vert-learning-card p {
+        color: rgba(255,255,255,0.88);
+
+        font-size: 1rem;
+        line-height: 1.7;
+        font-weight: 300;
+
+        margin: 0;
+    }
+
+
+    /* =========================================================
+       TRILHA 01 - CLOUD
+       ========================================================= */
+
+    .track-cloud {
+        border-color: rgba(24, 201, 139, 0.18);
+    }
+
+    .track-cloud .vert-learning-icon,
+    .track-cloud h3 {
+        color: #18C98B;
+    }
+
+    .track-cloud .vert-learning-icon {
+        text-shadow: 0 0 14px rgba(24, 201, 139, 0.45);
+    }
+
+    .track-cloud:hover {
+        border-color: #18C98B;
+
+        box-shadow:
+            0 14px 38px rgba(24, 201, 139, 0.10);
+    }
+
+
+    /* =========================================================
+       TRILHA 02 - ANALYTICS
+       ========================================================= */
+
+    .track-analytics {
+        border-color: rgba(176, 106, 214, 0.18);
+    }
+
+    .track-analytics .vert-learning-icon,
+    .track-analytics h3 {
+        color: #B06AD6;
+    }
+
+    .track-analytics .vert-learning-icon {
+        text-shadow: 0 0 14px rgba(176, 106, 214, 0.45);
+    }
+
+    .track-analytics:hover {
+        border-color: #B06AD6;
+
+        box-shadow:
+            0 14px 38px rgba(176, 106, 214, 0.10);
+    }
+
+
+    /* =========================================================
+       TRILHA 03 - ENGENHARIA
+       ========================================================= */
+
+    .track-engineering {
+        border-color: rgba(58, 141, 224, 0.18);
+    }
+
+    .track-engineering .vert-learning-icon,
+    .track-engineering h3 {
+        color: #3A8DE0;
+    }
+
+    .track-engineering .vert-learning-icon {
+        text-shadow: 0 0 14px rgba(58, 141, 224, 0.45);
+    }
+
+    .track-engineering:hover {
+        border-color: #3A8DE0;
+
+        box-shadow:
+            0 14px 38px rgba(58, 141, 224, 0.10);
+    }
+
+
+    /* =========================================================
+       TRILHA 04 - GOVERNANÇA
+       ========================================================= */
+
+    .track-governance {
+        border-color: rgba(227, 163, 43, 0.18);
+    }
+
+    .track-governance .vert-learning-icon,
+    .track-governance h3 {
+        color: #E3A32B;
+    }
+
+    .track-governance .vert-learning-icon {
+        text-shadow: 0 0 14px rgba(227, 163, 43, 0.45);
+    }
+
+    .track-governance:hover {
+        border-color: #E3A32B;
+
+        box-shadow:
+            0 14px 38px rgba(227, 163, 43, 0.10);
+    }
+
+
+    /* =========================================================
+       RESPONSIVIDADE
+       ========================================================= */
+
+    @media (max-width: 1200px) {
+
+        .vert-learning-container {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+    }
+
+    @media (max-width: 700px) {
+
+        .vert-learning-section {
+            padding: 70px 20px;
+        }
+
+        .vert-learning-title {
+            font-size: 2.2rem;
+        }
+
+        .vert-learning-container {
+            grid-template-columns: 1fr;
+        }
+
+        .vert-learning-card {
+            min-height: auto;
+        }
+
+    }
+
+</style>
+
+
+
+    
+
+    
+
+    
+</section>
+    

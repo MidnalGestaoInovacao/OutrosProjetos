@@ -1,0 +1,199 @@
+
+        
+        
+        
+        
+        
+        
+        
+    <style>
+    /* Container Principal - Fundo Dark Profundo */
+    .vert-footer-v2 {
+        background-color: #101B3B; /* Seu #101B3B */
+        color: #ffffff;
+        padding: 60px 5% 30px;
+        font-family: 'Poppins', sans-serif;
+        border-top: 4px solid #00DE8F; /* Linha de destaque Verde Neon */
+    }
+
+    .v-footer-container {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 40px;
+        max-width: 1300px;
+        margin: 0 auto;
+    }
+
+    /* Colunas */
+    .v-footer-col {
+        flex: 1;
+        min-width: 250px;
+    }
+
+    /* Títulos das Colunas - Estilo Vert */
+    .v-footer-col h5 {
+        color: #00DE8F; /* Título chamativo */
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 25px;
+        position: relative;
+        display: inline-block;
+    }
+
+    /* O detalhe da linha embaixo do título, igual ao modelo BrBPO */
+    .v-footer-col h5::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -5px;
+        width: 30px;
+        height: 2px;
+        background-color: #00DE8F;
+    }
+
+    /* Textos e Listas */
+    .v-footer-col p {
+        font-size: 0.95rem;
+        line-height: 1.7;
+        opacity: 0.8;
+        margin-top: 10px;
+    }
+
+    .v-footer-links {
+        list-style: none;
+        padding: 0;
+        margin-top: 10px;
+    }
+
+    .v-footer-links li {
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+    }
+
+    .v-footer-links li a {
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 0.95rem;
+        opacity: 0.8;
+        transition: 0.3s;
+    }
+
+    /* Ícone de seta igual ao modelo BrBPO mas na cor Vert */
+    .v-footer-links li::before {
+        content: '›';
+        color: #00DE8F;
+        font-size: 1.4rem;
+        margin-right: 10px;
+        line-height: 0;
+    }
+
+    .v-footer-links li a:hover {
+        opacity: 1;
+        color: #00DE8F;
+        padding-left: 5px;
+    }
+
+    /* Ícones de Contato (Matriz, Fone, Mail) */
+    .v-contact-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+        margin-bottom: 18px;
+        opacity: 0.9;
+    }
+
+    .v-contact-item i {
+        color: #00DE8F;
+        font-size: 1.1rem;
+        margin-top: 4px;
+    }
+
+    /* Barra Inferior (Copyright) */
+    .v-footer-bottom {
+        margin-top: 50px;
+        padding-top: 25px;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.85rem;
+        opacity: 0.6;
+    }
+
+    .v-social-icons a {
+        color: #ffffff;
+        font-size: 1.2rem;
+        margin-left: 15px;
+        transition: 0.3s;
+    }
+
+    .v-social-icons a:hover {
+        color: #00DE8F;
+    }
+
+    @media (max-width: 768px) {
+        .v-footer-container { flex-direction: column; }
+    }
+</style>
+
+<footer class="vert-footer-v2">
+    <div class="v-footer-container">
+        
+        <div class="v-footer-col">
+            <h5>Sobre o Academy</h5>
+            <p>O portal de capacitação oficial da Vert Analytics. Nossa missão é preparar nossos talentos para os desafios de Big Data e Cloud, com foco em inteligência aplicada.</p>
+        </div>
+
+        <div class="v-footer-col">
+            <h5>Recursos</h5>
+            <ul class="v-footer-links">
+                <li><a href="#">Suporte ao Colaborador</a></li>
+                <li><a href="https://academyvertanalytics.ultramidnal.com.br/admin/tool/policy/view.php?policyid=1&amp;versionid=1&amp;manage=1&amp;returnurl=%2Fadmin%2Ftool%2Fpolicy%2Fmanagedocs.php">Política de Privacidade</a></li>
+                <li><a href="https://academyvertanalytics.ultramidnal.com.br/admin/tool/policy/view.php?policyid=3&amp;versionid=3&amp;manage=1&amp;returnurl=%2Fadmin%2Ftool%2Fpolicy%2Fmanagedocs.php">Compliance &amp; LGPD</a></li>
+                
+            </ul>
+        </div>
+
+        <div class="v-footer-col">
+            <h5>Contatos Oficiais</h5>
+            <div class="v-contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <span><strong>Brasília:</strong> SCN Qd. 01 Bloco G 12ºandar, sala 1203 a 1212. Setor Comercial Norte, Asa Norte, Brasília - DF,
+70711-070</span>
+            </div>
+            <div class="v-contact-item">
+                <i class="fas fa-phone-alt"></i>
+                <span>+55 (61) 2103-1000</span>
+            </div>
+            <div class="v-contact-item">
+                
+                
+            </div>
+        </div>
+
+    </div>
+
+    <div class="v-footer-bottom">
+        <div>© 2026 Vert Analytics. Todos os direitos reservados.</div>
+        <div class="v-social-icons">
+            <a href="https://www.linkedin.com/company/vertanalytics/"><i class="fab fa-linkedin"></i></a>
+            <a href="https://www.instagram.com/vertanalytics"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.youtube.com/channel/UCKaLCLFtJ8BFtM89x5E1lZA"><i class="fab fa-youtube"></i></a>
+                   </div>
+    </div>
+</footer>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    

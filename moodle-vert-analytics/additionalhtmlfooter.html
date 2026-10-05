@@ -3,8 +3,10 @@
 (function () {
     function addHelpButton() {
         if (document.querySelector('.vert-tour-help')) { return; }
-        var title = document.querySelector('#page-header .page-header-headings h1.header-heading') ||
-                    document.querySelector('body#page-site-index .axia-content-v2 h1');
+        // Página inicial: o título visível é o do hero (o cabeçalho padrão do Moodle fica oculto)
+        var title = document.querySelector('body#page-site-index .va-hero-title') ||
+                    document.querySelector('body#page-site-index .axia-content-v2 h1') ||
+                    document.querySelector('#page-header .page-header-headings h1.header-heading');
         if (!title) { return; }
         var a = document.createElement('a');
         a.href = '#';

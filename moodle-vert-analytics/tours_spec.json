@@ -3,7 +3,7 @@
     {
       "key": "home",
       "name": "Vert Academy – Página inicial",
-      "description": "Apresenta ao colaborador os elementos da Página inicial do Academy Vert Analytics: barra superior, botão Explorar Treinamentos, Trilhas de Aprendizagem e rodapé.",
+      "description": "Apresenta ao colaborador a Página inicial da Vert Academy: barra superior, hero, diferenciais, trilhas, formações recomendadas e rodapé.",
       "pathmatch": "FRONTPAGE",
       "cssselector": "",
       "placement": "bottom",
@@ -12,7 +12,7 @@
       "steps": [
         {
           "title": "Bem-vindo ao Academy Vert Analytics",
-          "content": "<p>Esta é a <strong>Página inicial</strong> do portal de capacitação da Vert Analytics. Aqui você encontra o acesso rápido aos seus cursos, às trilhas de aprendizagem e aos canais de apoio.</p><p>Nos próximos passos, você vai conhecer cada elemento desta tela.</p>",
+          "content": "<p>Esta é a <strong>Página inicial</strong> da Vert Academy, o portal de capacitação da Vert Analytics: aqui você acessa seus cursos, conhece as trilhas de aprendizagem e encontra os canais de apoio.</p><p>Nos próximos passos, você vai conhecer cada elemento desta tela.</p>",
           "unattached": true,
           "placement": "bottom",
           "backdrop": true
@@ -81,35 +81,53 @@
           "orphan": false
         },
         {
-          "title": "Explorar Treinamentos",
-          "content": "<p>O botão <strong>Explorar Treinamentos</strong> leva você direto para a página <strong>Meus cursos</strong>, com os treinamentos em que já está inscrito.</p><p>Comece por aqui para ver o que está disponível para você.</p>",
+          "title": "Comece por aqui",
+          "content": "<p><strong>Explorar treinamentos</strong> abre a página <strong>Meus cursos</strong>, com os treinamentos em que você está inscrito.</p><p><strong>Ver minha jornada</strong> leva ao seu <strong>Painel</strong>, com prazos e progresso.</p>",
           "unattached": false,
-          "selector": ".axia-btn-v2",
+          "selector": "#va-hero .va-hero-cta-group",
+          "placement": "bottom",
+          "backdrop": true,
+          "orphan": false
+        },
+        {
+          "title": "Diferenciais da Academy",
+          "content": "<p>Os números resumem o que a plataforma oferece: trilhas técnicas, certificações, conteúdo on-demand e apoio ao aluno.</p>",
+          "unattached": false,
+          "selector": "#va-stats .va-stats-grid",
           "placement": "top",
           "backdrop": true,
           "orphan": false
         },
         {
           "title": "Trilhas de Aprendizagem",
-          "content": "<p>Nesta seção você conhece as quatro <strong>Trilhas de Aprendizagem</strong> do Academy: <em>Cloud &amp; Infraestrutura</em>, <em>Analytics &amp; Ciência de Dados</em>, <em>Engenharia de Dados</em> e <em>Governança &amp; Estratégia</em>.</p><p>Cada cartão resume os temas e tecnologias abordados na trilha, para você identificar o caminho mais alinhado à sua evolução.</p>",
+          "content": "<p>As quatro trilhas organizam os temas da Vert: <em>Cloud &amp; Infraestrutura</em>, <em>Analytics &amp; Ciência de Dados</em>, <em>Engenharia de Dados</em> e <em>Governança &amp; Estratégia</em>.</p><p><strong>Explorar trilha</strong> abre o catálogo de cursos.</p>",
           "unattached": false,
-          "selector": ".vert-learning-section",
-          "placement": "top",
+          "selector": "#va-trilhas .va-section-header",
+          "placement": "bottom",
+          "backdrop": true,
+          "orphan": false
+        },
+        {
+          "title": "Formações Recomendadas",
+          "content": "<p>Cursos em destaque, com nível e carga horária. O botão verde com a seta busca o curso no catálogo, e <strong>Ver todas as formações</strong> abre o catálogo completo.</p>",
+          "unattached": false,
+          "selector": "#va-cursos .va-section-header",
+          "placement": "bottom",
           "backdrop": true,
           "orphan": false
         },
         {
           "title": "Rodapé e canais de apoio",
-          "content": "<p>No rodapé você encontra <strong>Sobre o Academy</strong>, a seção <strong>Recursos</strong> com os links <em>Suporte ao Colaborador</em>, <em>Política de Privacidade</em> e <em>Compliance &amp; LGPD</em>, e os <strong>Contatos Oficiais</strong> da Vert Analytics em Brasília.</p><p>Recorra a ele sempre que precisar de ajuda ou consultar as políticas da plataforma.</p>",
+          "content": "<p>No rodapé ficam os atalhos de navegação, as políticas da plataforma (Privacidade, Compliance e LGPD) e os contatos oficiais da Vert Analytics.</p>",
           "unattached": false,
-          "selector": ".vert-footer-v2",
+          "selector": "#va-footer .va-footer-grid",
           "placement": "top",
           "backdrop": true,
           "orphan": false
         },
         {
           "title": "Pronto para começar",
-          "content": "<p>Você concluiu o tour da Página inicial. Para revê-lo a qualquer momento, clique no ícone <strong>?</strong> ao lado do título <strong>Academy Vert Analytics</strong>.</p><p>Próximo passo: clique em <strong>Explorar Treinamentos</strong> ou em <strong>Minhas Inscrições</strong> para acessar seus cursos.</p>",
+          "content": "<p>Você concluiu o tour da Página inicial. Para revê-lo, clique no ícone <strong>?</strong> ao lado do título <strong>Aprenda. Evolua. Transforme.</strong></p><p>Próximo passo: clique em <strong>Explorar treinamentos</strong> para acessar seus cursos.</p>",
           "unattached": true,
           "placement": "bottom",
           "backdrop": true
