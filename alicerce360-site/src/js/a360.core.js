@@ -1180,6 +1180,7 @@
     });
   }
   translateSingle(); formatDates();
+  dictReady.then(function () { translateSingle(); });
 
   qsa('[data-posts]').forEach(function (box) {
     var grid = qs('[data-posts-grid]', box), empty = qs('[data-posts-empty]', box), input = qs('[data-post-search] input', box);
