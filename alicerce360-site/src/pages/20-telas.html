@@ -1,0 +1,317 @@
+<!--meta {"slug": "telas", "title": "Tour de telas: protótipos interativos", "description": "Navegue pelos protótipos do Alicerce360: painel, políticas com aceite, canais com protocolo, treinamentos com quiz, segurança, CRM, celular e 10 templates visuais.", "order": 20} -->
+
+<section class="page-hero">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Você está aqui"><a href="/">Início</a><span aria-hidden="true">›</span><a href="/intranet/">A intranet</a><span aria-hidden="true">›</span><span aria-current="page">Tour de telas</span></nav>
+    <span class="eyebrow">Tour de telas</span>
+    <h1>Clique, experimente, imagine a sua equipe usando.</h1>
+    <p class="lead">Protótipos navegáveis da interface do Alicerce360. Os pontos laranja explicam cada parte e os botões funcionam de verdade — registre um aceite, aprove um quiz, verifique a auditoria e troque o template.</p>
+  </div>
+</section>
+
+<section class="sec" aria-label="Protótipos">
+  <div class="wrap">
+    <div class="tabs" role="tablist" aria-label="Telas do Alicerce360">
+      <button type="button" role="tab" id="tab-painel" aria-selected="true" aria-controls="pt-painel">{{i:home}} Painel</button>
+      <button type="button" role="tab" id="tab-politicas" aria-selected="false" aria-controls="pt-politicas" tabindex="-1">{{i:file-check}} Políticas</button>
+      <button type="button" role="tab" id="tab-canais" aria-selected="false" aria-controls="pt-canais" tabindex="-1">{{i:shield}} Canais</button>
+      <button type="button" role="tab" id="tab-treinamentos" aria-selected="false" aria-controls="pt-treinamentos" tabindex="-1">{{i:grad}} Treinamentos</button>
+      <button type="button" role="tab" id="tab-seguranca" aria-selected="false" aria-controls="pt-seguranca" tabindex="-1">{{i:gauge}} Segurança</button>
+      <button type="button" role="tab" id="tab-crm" aria-selected="false" aria-controls="pt-crm" tabindex="-1">{{i:kanban}} CRM</button>
+      <button type="button" role="tab" id="tab-mobile" aria-selected="false" aria-controls="pt-mobile" tabindex="-1">{{i:phone2}} Celular</button>
+      <button type="button" role="tab" id="tab-templates" aria-selected="false" aria-controls="pt-templates" tabindex="-1">{{i:layout}} Templates</button>
+    </div>
+
+    <!-- PAINEL -->
+    <div role="tabpanel" id="pt-painel" aria-labelledby="tab-painel">
+      <div class="proto">
+        <div class="browser">
+          <div class="br-bar"><i></i><i></i><i></i><span class="br-url">{{i:lock}} <span data-noi18n>intranet.suaempresa.com.br</span></span></div>
+          <div class="app">
+            <aside class="app-side">
+              <div class="app-brand"><span class="lg"></span><span><b data-noi18n>Sua Empresa</b><small>Intranet</small></span></div>
+              <span class="app-nav is-on">{{i:home}} Início</span><span class="app-nav">{{i:megaphone}} Comunicados <span class="cnt" data-noi18n>3</span></span><span class="app-nav">{{i:file-check}} Políticas</span><span class="app-nav">{{i:grad}} Treinamentos</span><span class="app-nav">{{i:file}} Documentos</span><span class="app-nav">{{i:users}} Pessoas</span><span class="app-nav">{{i:calendar}} Agenda</span><span class="app-nav">{{i:link}} Sistemas</span>
+            </aside>
+            <div class="app-main">
+              <div class="app-top"><span class="app-search">{{i:search}} Buscar pessoas, documentos, cursos…</span><span class="bell">{{i:bell}}<b data-noi18n>4</b></span><span class="m-av" style="--c:#6b3be6" data-noi18n>AM</span></div>
+              <div class="app-body">
+                <div class="m-card" style="background:linear-gradient(120deg,#0e1f4d,#1f6feb);color:#fff;border:0"><h5 style="color:#fff">{{i:megaphone}} Aviso importante</h5><span>Nova Política de Segurança da Informação em vigor a partir de segunda. Confirme a leitura até sexta.</span></div>
+                <div class="m-grid c3">
+                  <div class="m-card"><h5>Minhas pendências <span class="m-pill m-pill--warn" data-noi18n>3</span></h5>
+                    <div class="m-row"><span class="m-ic p">{{i:file-check}}</span><span class="tx"><b>Segurança da Informação v2</b><span>Leitura obrigatória</span></span></div>
+                    <div class="m-row"><span class="m-ic b">{{i:grad}}</span><span class="tx"><b>LGPD para todos</b><span>Módulo 2 de 4</span></span></div>
+                    <div class="m-row"><span class="m-ic o">{{i:receipt}}</span><span class="tx"><b>Aprovar 2 reembolsos</b><span>Equipe Comercial</span></span></div>
+                  </div>
+                  <div class="m-card"><h5>Feed</h5>
+                    <div class="m-row"><span class="m-av" style="--c:#12805c" data-noi18n>RH</span><span class="tx"><b>Boas-vindas aos novos colegas!</b><span>RH · há 2 h · 34 reações</span></span></div>
+                    <div class="m-row"><span class="m-av" style="--c:#c62f3a" data-noi18n>QA</span><span class="tx"><b>Auditoria interna em 15 dias</b><span>Qualidade · ontem</span></span></div>
+                    <div class="m-row"><span class="m-av" style="--c:#1f6feb" data-noi18n>TI</span><span class="tx"><b>Ative o 2FA no seu login</b><span>TI · ontem</span></span></div>
+                  </div>
+                  <div class="m-card"><h5>Conformidade da área</h5>
+                    <div class="m-bars"><i style="--h:62%"></i><i style="--h:70%"></i><i style="--h:68%"></i><i style="--h:81%"></i><i style="--h:88%"></i><i style="--h:92%"></i></div>
+                    <small style="color:var(--app-muted)">Ciência de políticas nos últimos 6 meses</small>
+                  </div>
+                </div>
+                <div class="m-grid c4">
+                  <div class="m-card m-kpi"><b data-noi18n>92%</b><span>Ciência</span></div>
+                  <div class="m-card m-kpi"><b data-noi18n>47</b><span>Certificados</span></div>
+                  <div class="m-card m-kpi"><b data-noi18n>2</b><span>Protocolos</span></div>
+                  <div class="m-card m-kpi"><b data-noi18n>86</b><span>Nota de segurança</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="hotspot" style="--x:52%;--y:21%" aria-label="Aviso">1<span class="hs-tip">Avisos críticos aparecem no topo e exigem confirmação. Quem não leu recebe lembrete automático.</span></button>
+        <button type="button" class="hotspot" style="--x:36%;--y:47%" aria-label="Pendências">2<span class="hs-tip">Cada colaborador vê as próprias pendências: leituras, cursos e aprovações — de todos os módulos em um só lugar.</span></button>
+        <button type="button" class="hotspot" style="--x:84%;--y:47%" data-pos="left" aria-label="Indicadores">3<span class="hs-tip">Gestores acompanham a conformidade da área em tempo real.</span></button>
+        <button type="button" class="hotspot" style="--x:10%;--y:70%" data-pos="right" aria-label="Menu">4<span class="hs-tip">Menus renomeáveis e reordenáveis; módulos aparecem só para os grupos com permissão.</span></button>
+      </div>
+    </div>
+
+    <!-- POLÍTICAS -->
+    <div role="tabpanel" id="pt-politicas" aria-labelledby="tab-politicas" hidden>
+      <div class="proto">
+        <div class="browser">
+          <div class="br-bar"><i></i><i></i><i></i><span class="br-url">{{i:lock}} <span data-noi18n>intranet.suaempresa.com.br/politicas</span></span></div>
+          <div class="app">
+            <aside class="app-side">
+              <div class="app-brand"><span class="lg"></span><span><b data-noi18n>Sua Empresa</b><small>Intranet</small></span></div>
+              <span class="app-nav">{{i:home}} Início</span><span class="app-nav is-on">{{i:file-check}} Políticas</span><span class="app-nav">{{i:grad}} Treinamentos</span><span class="app-nav">{{i:file}} Documentos</span><span class="app-nav">{{i:shield}} Canais</span>
+            </aside>
+            <div class="app-main">
+              <div class="app-top"><span class="app-search">{{i:search}} Buscar políticas…</span><span class="bell">{{i:bell}}</span><span class="m-av" style="--c:#6b3be6" data-noi18n>AM</span></div>
+              <div class="app-body">
+                <div class="app-h"><div><h4>Políticas e termos</h4><small>Versões vigentes com impressão digital SHA-256</small></div><button type="button" class="m-btn" data-demo="ack">{{i:check}} Ler pendente</button></div>
+                <div class="m-card">
+                  <div class="m-row"><span class="m-ic p">{{i:file-check}}</span><span class="tx"><b>Política de Privacidade — v3</b><span data-noi18n>sha256 9f2c…a71e · vigente desde 01/09/2026</span></span><span class="m-pill m-pill--warn" data-ack-pill>Pendente</span></div>
+                  <div class="m-row"><span class="m-ic b">{{i:lock}}</span><span class="tx"><b>Segurança da Informação — v2</b><span data-noi18n>sha256 e09a…13fd</span></span><span class="m-pill m-pill--ok">✓ Ciente</span></div>
+                  <div class="m-row"><span class="m-ic o">{{i:scale}}</span><span class="tx"><b>Código de Conduta — v4</b><span data-noi18n>sha256 7c1e…44b2</span></span><span class="m-pill m-pill--ok">✓ Ciente</span></div>
+                </div>
+                <div class="m-grid c2">
+                  <div class="m-card"><h5>Ciência da Política de Privacidade <span data-ack-pct data-noi18n>91%</span></h5><div class="m-prog"><i data-ack-prog style="--w:91%"></i></div><small style="color:var(--app-muted)">Faltam 13 pessoas · lembrete automático amanhã às 9h</small></div>
+                  <div class="m-card"><h5>Comprovante</h5><small style="color:var(--app-muted)">Usuário, versão, hash, data e hora, dispositivo e método de login — em PDF.</small></div>
+                </div>
+              </div>
+            </div>
+            <div class="m-modal" hidden>
+              <div class="mm" role="dialog" aria-label="Política de Privacidade versão 3">
+                <h5>Política de Privacidade — v3</h5>
+                <div class="doc">1. Esta política descreve como a empresa trata dados pessoais. 2. Princípios: finalidade, necessidade, transparência e segurança. 3. Direitos do titular e canal do Encarregado…</div>
+                <small>Hash <span class="m-hash" data-noi18n>sha256: 9f2c…a71e</span></small>
+                <div class="row"><button type="button" class="m-btn" data-demo="ack-ok">{{i:check}} Li e estou ciente</button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="hotspot" style="--x:88%;--y:21%" data-pos="left" aria-label="Aceite">1<span class="hs-tip">Clique em “Ler pendente” e registre o aceite: a tela mostra a hora e o hash gravados.</span></button>
+        <button type="button" class="hotspot" style="--x:40%;--y:36%" aria-label="Versão">2<span class="hs-tip">Cada versão tem impressão digital. Se o texto mudar, a assinatura muda — e o novo aceite é exigido.</span></button>
+        <button type="button" class="hotspot" style="--x:40%;--y:71%" aria-label="Percentual">3<span class="hs-tip">Relatório de quem leu e de quem falta ler, por área, com cobrança automática.</span></button>
+      </div>
+    </div>
+
+    <!-- CANAIS -->
+    <div role="tabpanel" id="pt-canais" aria-labelledby="tab-canais" hidden>
+      <div class="proto">
+        <div class="browser">
+          <div class="br-bar"><i></i><i></i><i></i><span class="br-url">{{i:lock}} <span data-noi18n>intranet.suaempresa.com.br/canais/lgpd</span></span></div>
+          <div class="app">
+            <aside class="app-side">
+              <div class="app-brand"><span class="lg"></span><span><b data-noi18n>Sua Empresa</b><small>Intranet</small></span></div>
+              <span class="app-nav">{{i:home}} Início</span><span class="app-nav is-on">{{i:shield}} Canais <span class="cnt" data-noi18n>2</span></span><span class="app-nav">{{i:file-check}} Políticas</span><span class="app-nav">{{i:chart}} Relatórios</span>
+            </aside>
+            <div class="app-main">
+              <div class="app-top"><span class="app-search">{{i:search}} Buscar protocolo…</span><span class="bell">{{i:bell}}</span><span class="m-av" style="--c:#12805c" data-noi18n>DP</span></div>
+              <div class="app-body">
+                <div class="app-h"><div><h4>Fila do Encarregado (DPO)</h4><small>Canal de Privacidade e LGPD</small></div><button type="button" class="m-btn" data-demo="ticket">{{i:arrow}} Avançar protocolo</button></div>
+                <div class="m-card">
+                  <div class="m-row"><span class="m-ic">{{i:ticket}}</span><span class="tx"><b data-noi18n>LGPD-2026-000045</b><span>Acesso aos dados · titular verificado · prazo em 12 dias</span></span><span class="m-pill m-pill--warn" data-ticket-pill data-proto="LGPD-2026-000045" data-step="0">Recebido</span></div>
+                  <div class="m-row"><span class="m-ic o">{{i:ticket}}</span><span class="tx"><b data-noi18n>LGPD-2026-000044</b><span>Eliminação · aguardando informações</span></span><span class="m-pill m-pill--info">Aguardando</span></div>
+                  <div class="m-row"><span class="m-ic r">{{i:eye-off}}</span><span class="tx"><b data-noi18n>COMP-2026-000123</b><span>Relato anônimo · acesso restrito ao comitê</span></span><span class="m-pill m-pill--p">Apuração</span></div>
+                </div>
+                <div class="m-grid c3">
+                  <div class="m-card m-kpi"><b data-noi18n>3,4</b><span>dias em média para responder</span></div>
+                  <div class="m-card m-kpi"><b data-noi18n>100%</b><span>dentro do prazo legal</span></div>
+                  <div class="m-card m-kpi"><b data-noi18n>0</b><span>IPs registrados em relatos anônimos</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="hotspot" style="--x:88%;--y:21%" data-pos="left" aria-label="Avançar">1<span class="hs-tip">Simule o atendimento: cada clique avança o protocolo e registra o histórico.</span></button>
+        <button type="button" class="hotspot" style="--x:45%;--y:62%" aria-label="Anonimato">2<span class="hs-tip">No relato anônimo não há IP, nem dispositivo, nem metadados de anexos. Quem relata acompanha pelo protocolo e uma chave de acesso.</span></button>
+        <button type="button" class="hotspot" style="--x:60%;--y:83%" aria-label="Prazos">3<span class="hs-tip">Indicadores de prazo e volume prontos para o relatório à diretoria e ao programa de integridade.</span></button>
+      </div>
+    </div>
+
+    <!-- TREINAMENTOS -->
+    <div role="tabpanel" id="pt-treinamentos" aria-labelledby="tab-treinamentos" hidden>
+      <div class="proto">
+        <div class="browser">
+          <div class="br-bar"><i></i><i></i><i></i><span class="br-url">{{i:lock}} <span data-noi18n>intranet.suaempresa.com.br/cursos/lgpd-para-todos</span></span></div>
+          <div class="app">
+            <aside class="app-side">
+              <div class="app-brand"><span class="lg"></span><span><b data-noi18n>Sua Empresa</b><small>Intranet</small></span></div>
+              <span class="app-nav">{{i:home}} Início</span><span class="app-nav is-on">{{i:grad}} Treinamentos</span><span class="app-nav">{{i:award}} Meus certificados</span>
+            </aside>
+            <div class="app-main">
+              <div class="app-top"><span class="app-search">{{i:search}} Buscar cursos…</span><span class="bell">{{i:bell}}</span><span class="m-av" style="--c:#6b3be6" data-noi18n>AM</span></div>
+              <div class="app-body">
+                <div class="app-h"><div><h4>LGPD para todos</h4><small>Trilha obrigatória · 2 h · reciclagem anual</small></div><span class="m-pill m-pill--info" data-quiz-pill>Quiz pendente</span></div>
+                <div class="m-steps"><span class="done">Aula 1</span><i></i><span class="on">Quiz do módulo 1</span><i></i><span>Módulo 2</span><i></i><span>Prova final</span><i></i><span>Pesquisa de reação</span></div>
+                <div class="m-grid c2">
+                  <div class="m-card">
+                    <h5>Módulos</h5>
+                    <div class="m-row"><span class="m-ic">{{i:check}}</span><span class="tx"><b>1 · O que é dado pessoal</b><span>Vídeo assistido 100%</span></span></div>
+                    <div class="m-row m-lock"><span class="m-ic b">{{i:play}}</span><span class="tx"><b>2 · Direitos dos titulares</b><span>Libera com nota mínima de 70% no quiz</span></span><span class="lk">{{i:lock}}</span></div>
+                    <div class="m-row m-lock"><span class="m-ic b">{{i:play}}</span><span class="tx"><b>3 · Incidentes e boas práticas</b><span>Libera após o módulo 2</span></span><span class="lk">{{i:lock}}</span></div>
+                    <div class="row" style="margin-top:8px"><button type="button" class="m-btn" data-demo="quiz">{{i:check}} Responder quiz</button></div>
+                  </div>
+                  <div class="m-card">
+                    <h5>Certificado</h5>
+                    <div class="m-cert"><div><b>Certificado de conclusão</b><small style="color:var(--app-muted)">Código <span data-noi18n>A360-7F3K-92QX</span> · verificação pública pelo QR</small></div><span class="m-qr" aria-hidden="true"></span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="hotspot" style="--x:46%;--y:31%" aria-label="Regras">1<span class="hs-tip">Regras de progressão: sequência, percentual de vídeo, quiz entre módulos, prova final e pesquisa de reação.</span></button>
+        <button type="button" class="hotspot" style="--x:22%;--y:80%" data-pos="right" aria-label="Quiz">2<span class="hs-tip">Clique em “Responder quiz” e veja o módulo 2 ser liberado.</span></button>
+        <button type="button" class="hotspot" style="--x:86%;--y:58%" data-pos="left" aria-label="Certificado">3<span class="hs-tip">O certificado só sai quando todas as regras forem cumpridas. O QR abre a página pública de verificação.</span></button>
+      </div>
+    </div>
+
+    <!-- SEGURANÇA -->
+    <div role="tabpanel" id="pt-seguranca" aria-labelledby="tab-seguranca" hidden>
+      <div class="proto">
+        <div class="browser">
+          <div class="br-bar"><i></i><i></i><i></i><span class="br-url">{{i:lock}} <span data-noi18n>intranet.suaempresa.com.br/admin/seguranca</span></span></div>
+          <div class="app">
+            <aside class="app-side">
+              <div class="app-brand"><span class="lg"></span><span><b data-noi18n>Sua Empresa</b><small>Administração</small></span></div>
+              <span class="app-nav">{{i:home}} Painel</span><span class="app-nav is-on">{{i:gauge}} Segurança</span><span class="app-nav">{{i:history}} Auditoria</span><span class="app-nav">{{i:key}} Licença</span><span class="app-nav">{{i:grid}} Módulos</span>
+            </aside>
+            <div class="app-main">
+              <div class="app-top"><span class="app-search">{{i:search}} Buscar…</span><span class="bell">{{i:bell}}<b data-noi18n>1</b></span><span class="m-av" style="--c:#0e1f4d" data-noi18n>TI</span></div>
+              <div class="app-body">
+                <div class="m-grid c21">
+                  <div class="m-card">
+                    <h5>Verificações</h5>
+                    <div class="m-row"><span class="m-ic">{{i:lock}}</span><span class="tx"><b>Certificado SSL</b><span>Válido por 74 dias · renovação automática</span></span><span class="m-pill m-pill--ok">OK</span></div>
+                    <div class="m-row"><span class="m-ic">{{i:mail}}</span><span class="tx"><b>SPF, DKIM e DMARC</b><span>Domínio protegido contra falsificação</span></span><span class="m-pill m-pill--ok">OK</span></div>
+                    <div class="m-row"><span class="m-ic o">{{i:users}}</span><span class="tx"><b>Usuários sem 2FA</b><span>7 administradores e gestores</span></span><span class="m-pill m-pill--warn">Atenção</span></div>
+                    <div class="m-row"><span class="m-ic r">{{i:alert}}</span><span class="tx"><b>Plugin com vulnerabilidade conhecida</b><span>Atualização disponível</span></span><span class="m-pill m-pill--crit">Corrigir</span></div>
+                  </div>
+                  <div class="m-card" style="text-align:center"><h5>Nota de segurança</h5><div class="m-gauge" style="--v:86"><b data-noi18n>86<small>/100</small></b></div><small style="color:var(--app-muted)">Com recomendações de “como corrigir”</small></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="hotspot" style="--x:80%;--y:42%" data-pos="left" aria-label="Nota">1<span class="hs-tip">Nota de 0 a 100 com relatório mensal em PDF e alertas por e-mail.</span></button>
+        <button type="button" class="hotspot" style="--x:44%;--y:66%" aria-label="Ações">2<span class="hs-tip">Ações rápidas: forçar 2FA, encerrar sessões, desativar inativos e bloquear IPs.</span></button>
+      </div>
+    </div>
+
+    <!-- CRM -->
+    <div role="tabpanel" id="pt-crm" aria-labelledby="tab-crm" hidden>
+      <div class="proto">
+        <div class="browser">
+          <div class="br-bar"><i></i><i></i><i></i><span class="br-url">{{i:lock}} <span data-noi18n>intranet.suaempresa.com.br/crm</span></span></div>
+          <div class="app">
+            <aside class="app-side">
+              <div class="app-brand"><span class="lg"></span><span><b data-noi18n>Sua Empresa</b><small>Comercial</small></span></div>
+              <span class="app-nav">{{i:home}} Início</span><span class="app-nav is-on">{{i:kanban}} Funil</span><span class="app-nav">{{i:building}} Contas</span><span class="app-nav">{{i:award}} Atestados</span><span class="app-nav">{{i:chart}} Relatórios</span>
+            </aside>
+            <div class="app-main">
+              <div class="app-top"><span class="app-search">{{i:search}} Buscar oportunidade…</span><span class="bell">{{i:bell}}</span><span class="m-av" style="--c:#ff9a1f" data-noi18n>RL</span></div>
+              <div class="app-body">
+                <div class="app-h"><div><h4>Funil de vendas</h4><small>Previsão ponderada do trimestre: <b data-noi18n>R$ 412 mil</b></small></div><span class="m-btn">{{i:plus}} Oportunidade</span></div>
+                <div class="m-kanban">
+                  <div class="m-col"><b>Lead <span data-noi18n>4</span></b><div class="m-kc"><b>Consultoria ISO 27001</b><div class="ft"><span class="m-pill">10%</span><span class="m-av" style="--c:#1f6feb" data-noi18n>RL</span></div></div><div class="m-kc"><b>Canal comercial · protocolo convertido</b><div class="ft"><span class="m-pill m-pill--info">Novo</span></div></div></div>
+                  <div class="m-col"><b>Proposta <span data-noi18n>3</span></b><div class="m-kc"><b>Intranet para 300 pessoas</b><div class="ft"><span class="m-pill m-pill--warn">40%</span><span class="m-av" style="--c:#12805c" data-noi18n>MC</span></div></div></div>
+                  <div class="m-col"><b>Negociação <span data-noi18n>2</span></b><div class="m-kc"><b>Treinamentos de Compliance</b><div class="ft"><span class="m-pill m-pill--p">70%</span><span class="m-av" style="--c:#6b3be6" data-noi18n>AM</span></div></div></div>
+                  <div class="m-col"><b>Ganho <span data-noi18n>5</span></b><div class="m-kc"><b>Hospedagem + e-mail</b><div class="ft"><span class="m-pill m-pill--ok">✓ Projeto criado</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="hotspot" style="--x:30%;--y:62%" data-pos="right" aria-label="Canal">1<span class="hs-tip">Mensagens do canal comercial viram leads com um clique — nada se perde na caixa de entrada.</span></button>
+        <button type="button" class="hotspot" style="--x:90%;--y:52%" data-pos="left" aria-label="Ganho">2<span class="hs-tip">Oportunidade ganha cria o projeto, que alimenta equipe, despesas, pesquisa de satisfação e o atestado técnico.</span></button>
+      </div>
+    </div>
+
+    <!-- CELULAR -->
+    <div role="tabpanel" id="pt-mobile" aria-labelledby="tab-mobile" hidden>
+      <div class="split">
+        <div>
+          <span class="eyebrow">No bolso de cada colaborador</span>
+          <h2>Intranet que cabe no celular — e funciona como aplicativo.</h2>
+          <p class="lead">Instalável na tela inicial (PWA), com notificações push, leitura de QR Code e foto de notas fiscais. Sem loja de aplicativos e sem custo por aparelho.</p>
+          <ul class="checks mt-2"><li>Reembolso em 30 segundos: foto, leitura da chave da NF-e e envio</li><li>Detecção de nota duplicada entre pedidos</li><li>Presença em treinamento por QR Code</li><li>Avisos críticos com confirmação de leitura</li></ul>
+        </div>
+        <div class="phone" aria-hidden="true">
+          <div class="phone-scr">
+            <div class="ph-top"><b>Novo reembolso</b><small>Viagem · Projeto Atlas</small></div>
+            <div class="ph-body">
+              <div class="scan"><span class="m-qr"></span></div>
+              <div class="m-card"><div class="m-row"><span class="m-ic">{{i:receipt}}</span><span class="tx"><b>NF-e lida com sucesso</b><span data-noi18n>CNPJ 12.345.678/0001-90 · R$ 186,40</span></span></div></div>
+              <div class="m-card"><div class="m-row"><span class="m-ic b">{{i:flow}}</span><span class="tx"><b>Gestor → Financeiro</b><span>Aprovação em andamento</span></span></div></div>
+              <span class="m-btn" style="justify-content:center">{{i:send}} Enviar para aprovação</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TEMPLATES -->
+    <div role="tabpanel" id="pt-templates" aria-labelledby="tab-templates" hidden>
+      <div class="sec-head" style="margin-bottom:18px"><h2>10 templates. Troque e veja a mesma intranet com outra cara.</h2><p class="lead">Templates usam variáveis de design: trocar de visual não perde conteúdo. Experimente:</p></div>
+      <div class="theme-pick" data-target="#app-tpl" role="group" aria-label="Escolher template">
+        <button type="button" data-theme-set="corporativo" aria-pressed="true" style="--sw:#0a7a80"><i></i>Corporativo</button>
+        <button type="button" data-theme-set="social" aria-pressed="false" style="--sw:#6b3be6"><i></i>Social</button>
+        <button type="button" data-theme-set="revista" aria-pressed="false" style="--sw:#c62f3a"><i></i>Revista</button>
+        <button type="button" data-theme-set="hub" aria-pressed="false" style="--sw:#1f6feb"><i></i>Hub de Serviços</button>
+        <button type="button" data-theme-set="qualidade" aria-pressed="false" style="--sw:#12805c"><i></i>Qualidade e Compliance</button>
+        <button type="button" data-theme-set="operacional" aria-pressed="false" style="--sw:#ffb000"><i></i>Operacional</button>
+        <button type="button" data-theme-set="minimalista" aria-pressed="false" style="--sw:#0b1a3f"><i></i>Minimalista</button>
+        <button type="button" data-theme-set="classico" aria-pressed="false" style="--sw:#7a5c2e"><i></i>Institucional Clássico</button>
+        <button type="button" data-theme-set="tech" aria-pressed="false" style="--sw:#05070d"><i></i>Escuro / Tech</button>
+      </div>
+      <div class="browser">
+        <div class="br-bar"><i></i><i></i><i></i><span class="br-url">{{i:lock}} <span data-noi18n>intranet.suaempresa.com.br</span></span></div>
+        <div class="app" id="app-tpl">
+          <aside class="app-side">
+            <div class="app-brand"><span class="lg"></span><span><b data-noi18n>Sua Empresa</b><small>Intranet</small></span></div>
+            <span class="app-nav is-on">{{i:home}} Início</span><span class="app-nav">{{i:megaphone}} Comunicados</span><span class="app-nav">{{i:file-check}} Políticas</span><span class="app-nav">{{i:grad}} Treinamentos</span><span class="app-nav">{{i:users}} Pessoas</span>
+          </aside>
+          <div class="app-main">
+            <div class="app-top"><span class="app-search">{{i:search}} Buscar…</span><span class="bell">{{i:bell}}<b data-noi18n>2</b></span><span class="m-av" style="--c:#6b3be6" data-noi18n>AM</span></div>
+            <div class="app-body">
+              <div class="app-h"><div><h4>Bom dia, equipe!</h4><small>Semana da Qualidade · 3 eventos</small></div><span class="m-btn">{{i:plus}} Publicar</span></div>
+              <div class="m-grid c3">
+                <div class="m-card m-kpi"><b data-noi18n>92%</b><span>Ciência das políticas</span><div class="m-prog" style="margin-top:8px"><i style="--w:92%"></i></div></div>
+                <div class="m-card m-kpi"><b data-noi18n>47</b><span>Certificados no mês</span><div class="m-prog" style="margin-top:8px"><i style="--w:64%"></i></div></div>
+                <div class="m-card m-kpi"><b data-noi18n>18</b><span>Novas pessoas</span><div class="m-prog" style="margin-top:8px"><i style="--w:40%"></i></div></div>
+              </div>
+              <div class="m-card"><h5>Feed</h5><div class="m-row"><span class="m-av" style="--c:#12805c" data-noi18n>RH</span><span class="tx"><b>Programa de reconhecimento: indique um colega!</b><span>RH · há 1 h</span></span><span class="m-pill m-pill--info">Novo</span></div><div class="m-row"><span class="m-av" style="--c:#c62f3a" data-noi18n>QA</span><span class="tx"><b>Resultado da auditoria interna</b><span>Qualidade · ontem</span></span><span class="m-pill m-pill--ok">Aprovado</span></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="proto-note">O 10º template, “Painel”, traz cartões de produtividade e menu lateral complementar.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--tight">
+  <div class="wrap">
+    <div class="callout">{{i:info}}<p>Os protótipos ilustram a experiência planejada. As funcionalidades são entregues por fases, conforme o <a href="/intranet/#roadmap">roadmap transparente</a>. Quer ver algo específico? <a href="/contato/">Peça uma demonstração guiada</a>.</p></div>
+    <div class="cta-band mt-3" data-reveal="zoom">
+      <div><h2>Gostou do que viu? Ela pode estar no ar com a sua marca.</h2><p>30 dias grátis, sem limite de usuários e sem cartão de crédito.</p></div>
+      <div class="row"><a class="btn btn--light btn--lg" href="/planos/#teste">Começar teste grátis</a><a class="btn btn--outline-light btn--lg" href="/planos/">Ver planos</a></div>
+    </div>
+  </div>
+</section>

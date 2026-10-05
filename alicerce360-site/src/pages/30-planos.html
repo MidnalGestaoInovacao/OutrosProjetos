@@ -1,0 +1,262 @@
+<!--meta {"slug": "planos", "title": "Planos e preços da intranet", "description": "Planos Essencial, Profissional e Enterprise com preço fixo por faixa de colaboradores, sem cobrança por usuário. Simule, compare com o mercado e teste grátis por 30 dias.", "order": 30} -->
+
+<section class="page-hero">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Você está aqui"><a href="/">Início</a><span aria-hidden="true">›</span><span aria-current="page">Planos e preços</span></nav>
+    <span class="eyebrow">Planos e preços</span>
+    <h1>Preço justo, previsível e sem cobrança por usuário.</h1>
+    <p class="lead">Escolha a faixa de colaboradores e o plano. Todo mundo entra — do conselho ao chão de fábrica — sem a conta crescer a cada contratação.</p>
+    <div class="chips mt-2"><span class="chip">{{i:gift}} 30 dias grátis</span><span class="chip">{{i:calendar}} Anual: pague 10, use 12</span><span class="chip">{{i:refresh}} Renovação sem surpresas</span><span class="chip">{{i:download}} Seus dados sempre exportáveis</span></div>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="pr-h" data-celebrate data-say="Arraste o controle de colaboradores: o preço é por faixa, não por pessoa!">
+  <div class="wrap">
+    <h2 id="pr-h" class="sr-only">Escolha seu plano</h2>
+    <div data-pricing>
+      <div class="pricing-controls">
+        <div class="seg" role="group" aria-label="Ciclo de cobrança">
+          <button type="button" data-bill="m" aria-pressed="false">Mensal</button>
+          <button type="button" data-bill="y" aria-pressed="true">Anual <span class="save">2 meses grátis</span></button>
+        </div>
+        <div class="users-ctl">
+          <label for="users">Colaboradores</label>
+          <input class="range" id="users" type="range" min="0" max="4" step="1" value="2" data-users aria-describedby="users-help">
+          <output data-users-out data-dyn for="users">até 200 usuários</output>
+        </div>
+        <div class="seg" role="group" aria-label="Onde a intranet vai rodar">
+          <button type="button" data-host="cloud" aria-pressed="true">{{i:cloud}} Nuvem EBAEM</button>
+          <button type="button" data-host="self" aria-pressed="false">{{i:server}} Seu servidor</button>
+        </div>
+      </div>
+      <p id="users-help" class="sr-only">Faixas disponíveis: até 50, 100, 200, 500 e 1.000 colaboradores.</p>
+      <div class="plans plans--4">
+        <article class="plan" data-plan="essencial" data-plan-name="Essencial">
+          <div class="plan-name"><span class="ibox ibox--sm">{{i:megaphone}}</span><div><h3>Essencial</h3><small>Comunicação e Canais</small></div></div>
+          <p class="plan-desc">Para organizar a comunicação, as políticas e os canais obrigatórios.</p>
+          <div class="price"><span class="cur">R$</span><span class="val" data-price data-dyn>{{pa:essencial:2}}</span><span class="per">/mês</span></div>
+          <p class="price-note" data-note data-dyn></p>
+          <p class="tiny" data-peruser data-dyn></p>
+          <ul class="checks checks--sm">
+            <li>Portal público com canais e políticas</li>
+            <li>Login com 2FA, megamenu e home personalizável</li>
+            <li>Feed, avisos com ciência, agenda e links</li>
+            <li>Políticas com aceite e comprovante</li>
+            <li>Canais de Compliance e LGPD com protocolo</li>
+            <li>Área do usuário, diretório e downloads restritos</li>
+            <li>4 templates visuais</li>
+          </ul>
+          <p class="tiny" data-hostnote data-dyn></p>
+          <div class="plan-cta"><a class="btn btn--ghost btn--block" data-plan-cta href="{{wa}}" target="_blank" rel="noopener">Quero o Essencial</a><a class="btn btn--link" href="#teste">ou teste grátis por 30 dias</a></div>
+        </article>
+        <article class="plan plan--featured" data-plan="profissional" data-plan-name="Profissional">
+          <span class="ribbon">Mais escolhido</span>
+          <div class="plan-name"><span class="ibox ibox--sm ibox--grad">{{i:users}}</span><div><h3>Profissional</h3><small>Pessoas e Colaboração</small></div></div>
+          <p class="plan-desc">Para engajar, capacitar e comprovar — com RH e colaboração no mesmo lugar.</p>
+          <div class="price"><span class="cur">R$</span><span class="val" data-price data-dyn>{{pa:profissional:2}}</span><span class="per">/mês</span></div>
+          <p class="price-note" data-note data-dyn></p>
+          <p class="tiny" data-peruser data-dyn></p>
+          <ul class="checks checks--sm">
+            <li><strong>Tudo do Essencial</strong></li>
+            <li>Treinamentos com regras e certificado QR</li>
+            <li>Pesquisas internas, externas e NPS</li>
+            <li>Kanban, chat, área social e wiki</li>
+            <li>Vagas públicas e banco de talentos</li>
+            <li>Google Drive e Microsoft 365</li>
+            <li>Todos os 10 templates</li>
+          </ul>
+          <p class="tiny" data-hostnote data-dyn></p>
+          <div class="plan-cta"><a class="btn btn--primary btn--block" data-plan-cta href="{{wa}}" target="_blank" rel="noopener">Quero o Profissional</a><a class="btn btn--link" href="#teste">ou teste grátis por 30 dias</a></div>
+        </article>
+        <article class="plan" data-plan="enterprise" data-plan-name="Enterprise">
+          <div class="plan-name"><span class="ibox ibox--sm ibox--navy">{{i:building}}</span><div><h3>Enterprise</h3><small>Gestão completa</small></div></div>
+          <p class="plan-desc">Para quem vende, executa e presta contas com rigor de norma ISO.</p>
+          <div class="price"><span class="cur">R$</span><span class="val" data-price data-dyn>{{pa:enterprise:2}}</span><span class="per">/mês</span></div>
+          <p class="price-note" data-note data-dyn></p>
+          <p class="tiny" data-peruser data-dyn></p>
+          <ul class="checks checks--sm">
+            <li><strong>Tudo do Profissional</strong></li>
+            <li>CRM, canal comercial e projetos</li>
+            <li>Reembolsos com leitura de NF-e</li>
+            <li>Atestados técnicos com assinatura digital</li>
+            <li>Documentos ISO, SGQ e matriz de competências</li>
+            <li>Portal do Auditor e segurança avançada</li>
+            <li>White-label</li>
+          </ul>
+          <p class="tiny" data-hostnote data-dyn></p>
+          <div class="plan-cta"><a class="btn btn--ghost btn--block" data-plan-cta href="{{wa}}" target="_blank" rel="noopener">Quero o Enterprise</a><a class="btn btn--link" href="#teste">ou teste grátis por 30 dias</a></div>
+        </article>
+        <article class="plan" data-plan="custom">
+          <div class="plan-name"><span class="ibox ibox--sm ibox--orange">{{i:handshake}}</span><div><h3>Sob medida</h3><small>Governo e grandes contas</small></div></div>
+          <p class="plan-desc">Para mais de 1.000 colaboradores, órgãos públicos e exigências específicas.</p>
+          <div class="price"><span class="val" style="font-size:2rem">Proposta</span></div>
+          <p class="price-note">Dimensionada para o seu cenário, com documentação técnica para contratação.</p>
+          <ul class="checks checks--sm">
+            <li>VPS dedicada ou no seu datacenter</li>
+            <li>Níveis de serviço sob medida</li>
+            <li>Integrações com ERP e login único</li>
+            <li>Múltiplas empresas e unidades</li>
+            <li>Implantação com consultoria EBAEM</li>
+          </ul>
+          <div class="plan-cta"><a class="btn btn--ghost btn--block" href="{{wa:Olá! Quero uma proposta sob medida do Alicerce360 para minha organização.}}" target="_blank" rel="noopener">Pedir proposta</a><a class="btn btn--link" href="/contato/">ou fale com um especialista</a></div>
+        </article>
+      </div>
+      <p class="center tiny mt-2" data-big data-dyn hidden>Mais de 1.000 usuários? Temos proposta sob medida.</p>
+      <p class="center tiny mt-2">Valores de referência em reais, por mês. Tributos conforme a nota fiscal. A proposta comercial prevalece — veja a <a href="/politica-comercial/">Política de Comercialização</a>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTE GRÁTIS -->
+<section class="sec sec--alt" id="teste" aria-labelledby="teste-h">
+  <div class="wrap split">
+    <div data-reveal="left">
+      <span class="eyebrow">Teste grátis</span>
+      <h2 id="teste-h">30 dias com tudo liberado. Sem cartão, sem pegadinha.</h2>
+      <p class="lead">Você recebe uma chave de teste sem limite de usuários ou módulos. Ao fim do prazo, nada é apagado: a intranet fica em somente leitura até você decidir.</p>
+      <ul class="checks mt-2">
+        <li>Ambiente pronto na nuvem EBAEM ou instalação no seu servidor</li>
+        <li>Implantação guiada pelo assistente e pela nossa equipe</li>
+        <li>Chave definitiva aplicada por cima, sem perder nada do teste</li>
+      </ul>
+      <div class="callout callout--teal mt-2">{{i:star}}<p><strong>Programa Cliente Fundador:</strong> os primeiros clientes ajudam a priorizar o roadmap e garantem condições especiais de lançamento. Pergunte na sua solicitação.</p></div>
+    </div>
+    <form class="form card" data-form="trial" data-mail="{{c:company.email_sales}}" novalidate data-reveal="right">
+      <h3>Solicitar meu teste</h3>
+      <div class="two">
+        <div class="field"><label for="tr-nome">Seu nome <span class="req">*</span></label><input class="input" id="tr-nome" name="nome" required autocomplete="name"></div>
+        <div class="field"><label for="tr-mail">E-mail corporativo <span class="req">*</span></label><input class="input" id="tr-mail" name="email" type="email" required autocomplete="email"></div>
+      </div>
+      <div class="two">
+        <div class="field"><label for="tr-emp">Empresa <span class="req">*</span></label><input class="input" id="tr-emp" name="empresa" required autocomplete="organization"></div>
+        <div class="field"><label for="tr-tel">Telefone ou WhatsApp</label><input class="input" id="tr-tel" name="telefone" type="tel" autocomplete="tel"></div>
+      </div>
+      <div class="two">
+        <div class="field"><label for="tr-qtd">Colaboradores</label><select class="select" id="tr-qtd" name="colaboradores"><option>Até 50</option><option>51 a 100</option><option selected>101 a 200</option><option>201 a 500</option><option>501 a 1.000</option><option>Mais de 1.000</option></select></div>
+        <div class="field"><label for="tr-onde">Onde vai rodar</label><select class="select" id="tr-onde" name="hospedagem"><option>Nuvem EBAEM</option><option>Meu servidor</option><option>Ainda não sei</option></select></div>
+      </div>
+      <div class="field"><label for="tr-obj">O que você quer resolver primeiro?</label><textarea class="textarea" id="tr-obj" name="objetivo" placeholder="Ex.: comunicação interna, aceite de políticas, canal de denúncias, treinamentos…"></textarea></div>
+      <fieldset class="field"><legend class="lbl">Prefiro receber o retorno por</legend><div class="radio-cards"><label><input type="radio" name="via" value="email" checked> E-mail</label><label><input type="radio" name="via" value="whatsapp"> WhatsApp</label></div></fieldset>
+      <label class="check"><input type="checkbox" name="ok" required> Concordo com o uso destes dados para responder à minha solicitação, conforme a <a href="/politica-de-privacidade/">Política de Privacidade</a>.</label>
+      <button class="btn btn--primary btn--lg" type="submit">{{i:rocket}} Quero meu teste grátis</button>
+      <div class="form-msg" aria-live="polite"></div>
+    </form>
+  </div>
+</section>
+
+<!-- COMPARATIVO DE RECURSOS -->
+<section class="sec" id="recursos" aria-labelledby="rec-h">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Compare os planos</span><h2 id="rec-h">O que está em cada plano.</h2><p class="lead">Módulos avulsos podem ser liberados por licença — por exemplo, o CRM no plano Profissional.</p></div>
+    <div class="table-wrap" data-reveal>
+      <table class="tbl">
+        <caption class="sr-only">Recursos por plano</caption>
+        <thead><tr><th scope="col">Recurso</th><th scope="col">Essencial</th><th scope="col" class="is-us">Profissional</th><th scope="col">Enterprise</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Usuários na faixa contratada</th><td><span class="yes">{{i:check}} Ilimitados na faixa</span></td><td class="is-us"><span class="yes">{{i:check}} Ilimitados na faixa</span></td><td><span class="yes">{{i:check}} Ilimitados na faixa</span></td></tr>
+          <tr><th scope="row">Portal público, canais e políticas</th><td><span class="yes">{{i:check}}</span></td><td class="is-us"><span class="yes">{{i:check}}</span></td><td><span class="yes">{{i:check}}</span></td></tr>
+          <tr><th scope="row">Trilha de auditoria encadeada por hash</th><td><span class="yes">{{i:check}}</span></td><td class="is-us"><span class="yes">{{i:check}}</span></td><td><span class="yes">{{i:check}}</span></td></tr>
+          <tr><th scope="row">Feed, avisos, agenda e e-mails com marca</th><td><span class="yes">{{i:check}}</span></td><td class="is-us"><span class="yes">{{i:check}}</span></td><td><span class="yes">{{i:check}}</span></td></tr>
+          <tr><th scope="row">Treinamentos e certificados QR</th><td><span class="no">{{i:x}}</span></td><td class="is-us"><span class="yes">{{i:check}}</span></td><td><span class="yes">{{i:check}}</span></td></tr>
+          <tr><th scope="row">Pesquisas e NPS</th><td><span class="no">{{i:x}}</span></td><td class="is-us"><span class="yes">{{i:check}}</span></td><td><span class="yes">{{i:check}}</span></td></tr>
+          <tr><th scope="row">Kanban, chat, social e wiki</th><td><span class="no">{{i:x}}</span></td><td class="is-us"><span class="yes">{{i:check}}</span></td><td><span class="yes">{{i:check}}</span></td></tr>
+          <tr><th scope="row">Vagas e banco de talentos</th><td><span class="no">{{i:x}}</span></td><td class="is-us"><span class="yes">{{i:check}}</span></td><td><span class="yes">{{i:check}}</span></td></tr>
+          <tr><th scope="row">CRM, projetos e canal comercial</th><td><span class="no">{{i:x}}</span></td><td class="is-us"><span class="part">{{i:plus}} Avulso</span></td><td><span class="yes">{{i:check}}</span></td></tr>
+          <tr><th scope="row">Reembolsos e atestados técnicos</th><td><span class="no">{{i:x}}</span></td><td class="is-us"><span class="part">{{i:plus}} Avulso</span></td><td><span class="yes">{{i:check}}</span></td></tr>
+          <tr><th scope="row">Gestão ISO, SGQ e Portal do Auditor</th><td><span class="no">{{i:x}}</span></td><td class="is-us"><span class="no">{{i:x}}</span></td><td><span class="yes">{{i:check}}</span></td></tr>
+          <tr><th scope="row">Templates visuais</th><td>4</td><td class="is-us">10</td><td>10 + white-label</td></tr>
+          <tr><th scope="row">Suporte</th><td>Horário comercial</td><td class="is-us">Horário comercial, prioridade alta</td><td>Prioritário com gerente de conta</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="tiny mt-1">Disponibilidade de cada módulo conforme o <a href="/intranet/#roadmap">roadmap</a>; a licença libera os módulos à medida que são entregues, sem custo adicional dentro do plano.</p>
+  </div>
+</section>
+
+<!-- COMPARATIVO DE MERCADO + SIMULADOR -->
+<section class="sec sec--white sec--line" id="comparativo" aria-labelledby="mk-h">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Alicerce360 x mercado</span><h2 id="mk-h">Faça as contas: o modelo por usuário pesa — e só aumenta.</h2><p class="lead">Intranets cobradas por usuário costumam custar dezenas de reais por pessoa, todo mês. Ajuste os controles com o valor que você conhece e compare.</p></div>
+    <div class="sim" id="simulador" data-sim data-reveal>
+      <div class="sim-in">
+        <div><span class="eyebrow">Simulador de economia</span><h3>Quanto sobra no orçamento em um ano?</h3></div>
+        <div class="q">
+          <div class="q-top"><label for="sim-u2">Colaboradores</label><output data-sim-users-out data-dyn for="sim-u2">200 colaboradores</output></div>
+          <input class="range" id="sim-u2" type="range" min="20" max="1500" step="10" value="200" data-sim-users>
+          <div class="range-labels" aria-hidden="true"><span data-noi18n>20</span><span data-noi18n>500</span><span data-noi18n>1.000</span><span data-noi18n>1.500</span></div>
+        </div>
+        <div class="q">
+          <div class="q-top"><label for="sim-p2">Preço por usuário/mês da alternativa</label><output data-sim-price-out data-dyn for="sim-p2">R$ 25</output></div>
+          <input class="range" id="sim-p2" type="range" min="5" max="80" step="1" value="25" data-sim-price>
+          <p class="help">Comparação com o plano Profissional em cobrança anual, na faixa que cobre a sua equipe.</p>
+        </div>
+      </div>
+      <div class="sim-out" aria-live="polite">
+        <h3>Em 12 meses</h3>
+        <div class="vs">
+          <div class="vs-row"><div class="lbl"><span>Cobrança por usuário</span><b data-sim-them data-dyn>R$ 60.000</b></div><div class="vs-bar them"><i data-sim-them-bar></i></div></div>
+          <div class="vs-row"><div class="lbl"><span>Alicerce360 Profissional</span><b data-sim-us data-dyn>R$ 11.900</b></div><div class="vs-bar us"><i data-sim-us-bar></i></div></div>
+        </div>
+        <div class="save-big" data-sim-save data-dyn>R$ 48.100</div>
+        <p data-sim-pct data-dyn></p>
+        <p class="tiny" data-sim-more data-dyn hidden></p>
+      </div>
+    </div>
+    <div class="grid g-3 mt-4" data-stagger>
+      <div class="card" data-reveal><span class="ibox">{{i:coins}}</span><h3>Previsibilidade</h3><p>Contratou 30 pessoas? A conta não muda até a próxima faixa. Orçamento anual sem sustos.</p></div>
+      <div class="card" data-reveal><span class="ibox ibox--blue">{{i:database}}</span><h3>Posse dos dados</h3><p>Tudo fica no seu WordPress. Se um dia sair, você leva tudo — e a intranet não “some” no dia seguinte.</p></div>
+      <div class="card" data-reveal><span class="ibox ibox--purple">{{i:award}}</span><h3>Conformidade incluída</h3><p>Aceites, canais, auditoria e treinamentos vêm no produto. Em outras soluções, cada um é uma ferramenta a mais.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ADICIONAIS -->
+<section class="sec" aria-labelledby="add-h">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Serviços adicionais</span><h2 id="add-h">Para ir mais longe, com quem entende do assunto.</h2></div>
+    <div class="grid g-3" data-stagger>
+      <div class="card card--hover" data-reveal><span class="ibox">{{i:rocket}}</span><h3>Implantação assistida</h3><p>Configuração completa, importação de usuários, políticas iniciais e kit de lançamento.</p></div>
+      <div class="card card--hover" data-reveal><span class="ibox ibox--blue">{{i:refresh}}</span><h3>Migração</h3><p>Saindo do Workplace, de pastas compartilhadas ou do Outline? Levamos o conteúdo para a nova casa.</p></div>
+      <div class="card card--hover" data-reveal><span class="ibox ibox--purple">{{i:grad}}</span><h3>Capacitação</h3><p>Treinamento de administradores, comunicadores e equipes de Qualidade e Compliance.</p></div>
+      <div class="card card--hover" data-reveal><span class="ibox ibox--orange">{{i:grid}}</span><h3>Módulos avulsos</h3><p>Libere só o CRM, os reembolsos ou os atestados no plano Profissional.</p></div>
+      <div class="card card--hover" data-reveal><span class="ibox ibox--navy">{{i:server}}</span><h3>VPS dedicada</h3><p>Chat em tempo real, busca avançada e cache dedicado para equipes grandes.</p></div>
+      <div class="card card--hover" data-reveal><span class="ibox ibox--grad">{{i:award}}</span><h3>Consultoria em normas</h3><p>LGPD, Compliance e ISO com a EBAEM — o produto e o método na mesma mesa.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- GARANTIAS -->
+<section class="sec sec--navy" aria-labelledby="gar-h">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Nossas garantias</span><h2 id="gar-h">Compromissos escritos, não letras miúdas.</h2></div>
+    <div class="grid g-4" data-stagger>
+      <div class="card card--navy" data-reveal><span class="ibox ibox--grad">{{i:gift}}</span><h3>30 dias grátis</h3><p>Sem cartão e sem limite de usuários.</p></div>
+      <div class="card card--navy" data-reveal><span class="ibox ibox--grad">{{i:refresh}}</span><h3>Sem fidelidade no mensal</h3><p>Cancele quando quiser, com efeito no fim do ciclo pago.</p></div>
+      <div class="card card--navy" data-reveal><span class="ibox ibox--grad">{{i:download}}</span><h3>Dados exportáveis</h3><p>Mesmo com a licença vencida, nada é apagado.</p></div>
+      <div class="card card--navy" data-reveal><span class="ibox ibox--grad">{{i:coins}}</span><h3>Renovação transparente</h3><p>Reajuste anual por índice previsto no contrato, com aviso prévio.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec" aria-labelledby="pfaq-h">
+  <div class="wrap wrap--narrow">
+    <div class="sec-head"><span class="eyebrow">Dúvidas sobre a compra</span><h2 id="pfaq-h">Perguntas frequentes</h2></div>
+    <div class="faq">
+      <details><summary>O que acontece se minha equipe passar da faixa?</summary><div class="faq-a"><p>Avisamos com antecedência e você muda para a faixa seguinte quando fizer sentido. Não há cobrança surpresa por usuário excedente.</p></div></details>
+      <details><summary>Qual a diferença entre Nuvem EBAEM e Seu servidor?</summary><div class="faq-a"><p>Na nuvem, cuidamos de tudo: hospedagem, SSL, backup, atualizações e e-mail de envio. No seu servidor, você paga apenas a licença e mantém a infraestrutura; nós damos suporte à instalação.</p></div></details>
+      <details><summary>Como funciona o pagamento?</summary><div class="faq-a"><p>Mensal ou anual, por boleto, PIX ou cartão, conforme a proposta. No anual você paga 10 meses e usa 12. Emitimos nota fiscal de todos os pagamentos.</p></div></details>
+      <details><summary>Atendem órgãos públicos?</summary><div class="faq-a"><p>Sim. A EBAEM atende órgãos públicos e prepara a documentação técnica necessária para a contratação. Use o plano Sob medida.</p></div></details>
+      <details><summary>Posso mudar de plano depois?</summary><div class="faq-a"><p>Pode subir de plano a qualquer momento — a nova chave é aplicada sem perder dados. Reduções valem a partir do próximo ciclo.</p></div></details>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--tight">
+  <div class="wrap">
+    <div class="cta-band" data-reveal="zoom">
+      <div><h2>Ainda em dúvida sobre o plano? A gente ajuda a escolher.</h2><p>Em 30 minutos entendemos o seu cenário e indicamos o caminho mais econômico — mesmo que seja começar pelo Essencial.</p></div>
+      <div class="row"><a class="btn btn--light btn--lg" href="{{wa:Olá! Quero ajuda para escolher o plano do Alicerce360.}}" target="_blank" rel="noopener">{{if:whatsapp}} Conversar no WhatsApp</a><a class="btn btn--outline-light btn--lg" href="/contato/">Agendar conversa</a></div>
+    </div>
+  </div>
+</section>

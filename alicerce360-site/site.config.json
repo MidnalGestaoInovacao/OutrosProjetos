@@ -1,0 +1,75 @@
+{
+  "_comment": "Fonte única de dados do site Alicerce360. Preços e condições comerciais são PROPOSTAS para validação da EBAEM — ajuste aqui e rode tools/build.py.",
+  "site": {
+    "name": "Alicerce360",
+    "url": "https://www.alicerce360.com.br",
+    "tagline": "Intranet, normas e padrões — um produto EBAEM",
+    "version": "1.0.0",
+    "policy_date": "05/10/2026"
+  },
+  "company": {
+    "name": "EBAEM",
+    "legal_name": "EBAEM — Empresa Brasileira de Assessoria Executiva e Multidisciplinar Ltda.",
+    "cnpj": "55.054.849/0001-30",
+    "address": "SRTVN Quadra 702, Lote P — Edifício Rádio Center, Salas SS18 a SS28, Asa Norte, Brasília/DF, CEP 70719-900",
+    "address_short": "SRTVN Quadra 702 — Ed. Rádio Center, Asa Norte, Brasília/DF",
+    "hours": "Seg–Sex · 8h–18h (Brasília)",
+    "site": "https://ebaem.com.br",
+    "phone_display": "(61) 98128-6479",
+    "phone_e164": "+5561981286479",
+    "whatsapp": "5561981286479",
+    "email_sales": "contato@ebaem.com.br",
+    "email_support": "suporte@ebaem.com.br",
+    "email_dpo": "lgpd@ebaem.com.br",
+    "email_ombudsman": "ouvidoria@ebaem.com.br",
+    "maps_url": "https://www.google.com/maps/search/?api=1&query=SRTVN+Quadra+702+Edif%C3%ADcio+R%C3%A1dio+Center+Bras%C3%ADlia+DF",
+    "maps_embed": "https://www.google.com/maps?q=SRTVN%20Quadra%20702%20Edif%C3%ADcio%20R%C3%A1dio%20Center%20Bras%C3%ADlia&output=embed",
+    "instagram": "https://www.instagram.com/ebaemgestao/",
+    "linkedin": "https://www.linkedin.com/company/ebaem/",
+    "facebook": "https://www.facebook.com/profile.php?id=61561541121970"
+  },
+  "links": {
+    "portal_titular": "https://ebaem.com.br/?pagename=portal-do-titular",
+    "canal_integridade": "https://ebaem.com.br/?pagename=canal-de-integridade",
+    "minha_conta": "https://ebaem.com.br/?pagename=minha-conta",
+    "chamados": "https://ebaem.com.br/?pagename=meus-chamados",
+    "ead": "https://ead.ebaem.com.br",
+    "ebaem_conformidade": "https://ebaem.com.br/?pagename=conformidade",
+    "registro_br": "https://registro.br/busca-dominio/?fqdn="
+  },
+  "ai": {
+    "_comment": "Endpoint OpenAI-compatível do FreeLLMAPI publicado atrás do proxy em freellmapi/ (a chave fica no servidor). Vazio = assistente local por base de conhecimento.",
+    "endpoint": "",
+    "model": "auto",
+    "max_tokens": 450
+  },
+  "pricing": {
+    "currency": "BRL",
+    "annual_months_paid": 10,
+    "self_hosted_factor": 0.7,
+    "tiers": [50, 100, 200, 500, 1000],
+    "default_tier": 2,
+    "market_per_user_default": 25,
+    "intranet": [
+      {
+        "id": "essencial",
+        "monthly": [290, 390, 590, 990, 1590]
+      },
+      {
+        "id": "profissional",
+        "monthly": [590, 790, 1190, 1990, 2990],
+        "featured": true
+      },
+      {
+        "id": "enterprise",
+        "monthly": [990, 1390, 1990, 3290, 4990]
+      }
+    ],
+    "hosting": [
+      { "id": "site", "monthly": 34.9 },
+      { "id": "negocios", "monthly": 69.9, "featured": true },
+      { "id": "pro", "monthly": 149.9 },
+      { "id": "vps", "monthly": 389 }
+    ]
+  }
+}

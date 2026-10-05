@@ -1,0 +1,167 @@
+<!--meta {"slug": "acessibilidade", "title": "Declaração de Acessibilidade", "description": "Recursos de acessibilidade do site Alicerce360, Libras com VLibras, atalhos de teclado, padrões seguidos e como relatar uma barreira. Meta: WCAG 2.2 AA.", "order": 74} -->
+
+<section class="page-hero">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Você está aqui"><a href="/">Início</a><span aria-hidden="true">›</span><a href="/confianca/">Confiança</a><span aria-hidden="true">›</span><span aria-current="page">Acessibilidade</span></nav>
+    <span class="eyebrow">Acessibilidade é respeito</span>
+    <h1>Declaração de Acessibilidade</h1>
+    <p class="lead">Este site foi feito para ser usado por todas as pessoas — com mouse, teclado, leitor de tela, ampliação ou Libras. Aqui está o que já funciona, o que ainda pode melhorar e como nos contar quando algo atrapalhar.</p>
+    <div class="doc-meta"><span>Documento <b data-noi18n>DEC-A360-ACESS-001</b></span><span>Versão <b>1.0</b></span><span>Vigência <b>{{c:site.policy_date}}</b></span><span>Aprovação <b>Direção Executiva EBAEM</b></span></div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap doc-layout">
+    <aside class="toc" aria-label="Sumário"><b>Sumário</b><ol>
+      <li><a href="#s1">Nosso compromisso</a></li>
+      <li><a href="#s2">Recursos disponíveis</a></li>
+      <li><a href="#s3">Libras</a></li>
+      <li><a href="#s4">Atalhos de teclado</a></li>
+      <li><a href="#s5">Padrões de referência</a></li>
+      <li><a href="#s6">Experiências interativas</a></li>
+      <li><a href="#s7">Limitações conhecidas</a></li>
+      <li><a href="#s8">Como relatar barreiras</a></li>
+      <li><a href="#s9">Acessibilidade no produto</a></li>
+      <li><a href="#s10">Revisão desta declaração</a></li>
+    </ol></aside>
+
+    <article class="doc">
+      <div class="tldr"><b>{{i:sparkles}} Resumo em 30 segundos</b><ul class="checks checks--sm">
+        <li>Painel de acessibilidade em todas as páginas: botão de acessibilidade ou <kbd>Alt</kbd> + <kbd>4</kbd>.</li>
+        <li>Tradução para Libras com o VLibras, ferramenta pública do Governo Federal.</li>
+        <li>Meta: WCAG 2.2 nível AA, com eMAG, Lei Brasileira de Inclusão e ABNT NBR 17225 como referência.</li>
+        <li>Encontrou uma barreira? Responderemos em até 5 dias úteis.</li>
+      </ul></div>
+
+      <section id="s1"><h2><span class="n">1.</span> Nosso compromisso</h2>
+        <p>A {{c:company.legal_name}}, responsável pelo Alicerce360, entende acessibilidade como direito, não como recurso opcional. Nossa Política de Equidade inclui acessibilidade em ambientes, sistemas e comunicações — e este site é parte disso.</p>
+        <p>Buscamos atender ao nível AA das Diretrizes de Acessibilidade para Conteúdo Web, versão 2.2, e tratamos cada barreira relatada como prioridade. Acessibilidade se constrói com escuta: se algo dificultou sua navegação, queremos saber.</p>
+      </section>
+
+      <section id="s2"><h2><span class="n">2.</span> Recursos disponíveis</h2>
+        <p>O painel de acessibilidade fica no botão fixo da lateral da tela e reúne os ajustes abaixo. Suas escolhas ficam salvas apenas no seu navegador e valem nas próximas visitas.</p>
+        <p><button class="btn btn--primary" type="button" data-a11y-open>{{i:access}} Abrir o painel de acessibilidade</button></p>
+        <div class="grid g-2 mt-2">
+          <div class="card card--flat"><span class="ibox ibox--sm">{{i:type}}</span><h3>Tamanho do texto</h3><p>Botões A− e A+ ajustam o tamanho do texto de 90% a 160%.</p></div>
+          <div class="card card--flat"><span class="ibox ibox--sm">{{i:book}}</span><h3>Fonte legível</h3><p>Troca a fonte por uma família desenhada para baixa visão, com letras mais fáceis de distinguir.</p></div>
+          <div class="card card--flat"><span class="ibox ibox--sm">{{i:sliders}}</span><h3>Espaçar texto</h3><p>Aumenta o espaço entre letras, palavras e linhas para uma leitura mais confortável.</p></div>
+          <div class="card card--flat"><span class="ibox ibox--sm">{{i:contrast}}</span><h3>Alto contraste</h3><p>Reforça a diferença entre texto e fundo em todo o site.</p></div>
+          <div class="card card--flat"><span class="ibox ibox--sm">{{i:eye}}</span><h3>Escala de cinza</h3><p>Remove as cores para reduzir estímulos visuais e ajudar na concentração.</p></div>
+          <div class="card card--flat"><span class="ibox ibox--sm">{{i:link}}</span><h3>Destacar links</h3><p>Sublinha e contorna todos os links para que sejam encontrados com facilidade.</p></div>
+          <div class="card card--flat"><span class="ibox ibox--sm">{{i:eye-off}}</span><h3>Ocultar imagens</h3><p>Esconde imagens e cenas decorativas para reduzir distrações.</p></div>
+          <div class="card card--flat"><span class="ibox ibox--sm">{{i:minus}}</span><h3>Régua de leitura</h3><p>Uma faixa acompanha o ponteiro e ajuda a não perder a linha.</p></div>
+          <div class="card card--flat"><span class="ibox ibox--sm">{{i:mouse}}</span><h3>Cursor ampliado</h3><p>Deixa o ponteiro do mouse maior e mais visível.</p></div>
+          <div class="card card--flat"><span class="ibox ibox--sm">{{i:volume}}</span><h3>Ouvir a página</h3><p>Lê o conteúdo em voz alta com as vozes do seu próprio navegador, no idioma escolhido.</p></div>
+          <div class="card card--flat"><span class="ibox ibox--sm">{{i:hand}}</span><h3>Libras</h3><p>Abre o VLibras para traduzir o conteúdo para a Língua Brasileira de Sinais.</p></div>
+          <div class="card card--flat"><span class="ibox ibox--sm">{{i:pause}}</span><h3>Pausar animações</h3><p>Interrompe transições e efeitos de movimento em todo o site.</p></div>
+        </div>
+        <h3>Também em todas as páginas</h3>
+        <ul>
+          <li>Navegação completa por teclado, com indicador de foco visível e link “Pular para o conteúdo” no início da página.</li>
+          <li>Títulos em ordem hierárquica, textos alternativos em imagens e rótulos em todos os campos de formulário.</li>
+          <li>Conteúdo em português, inglês e espanhol, escolhido no seletor de idioma.</li>
+          <li>Respeito à preferência “reduzir movimento” do seu sistema operacional.</li>
+        </ul>
+      </section>
+
+      <section id="s3"><h2><span class="n">3.</span> Libras</h2>
+        <p>Usamos o <strong>VLibras</strong>, ferramenta pública e gratuita do Governo Federal que traduz conteúdos digitais para a Língua Brasileira de Sinais por meio de um avatar 3D.</p>
+        <div class="steps">
+          <div class="step"><h3>Abra o VLibras</h3><p>Clique no botão azul na lateral direita da tela ou na opção Libras do painel de acessibilidade.</p></div>
+          <div class="step"><h3>Escolha o texto</h3><p>Com o VLibras aberto, clique em um trecho da página.</p></div>
+          <div class="step"><h3>Acompanhe a tradução</h3><p>O avatar sinaliza o conteúdo. Você pode ajustar a velocidade e repetir.</p></div>
+        </div>
+        <div class="callout mt-2">{{i:info}}<p>A tradução do VLibras é automática e pode não captar todas as nuances. Se precisar de um conteúdo importante com mais precisão, fale conosco pelos canais da seção 8.</p></div>
+        <div class="law mt-2"><span>Lei nº 10.436/2002 — Libras</span><span>Lei nº 13.146/2015 — LBI</span></div>
+      </section>
+
+      <section id="s4"><h2><span class="n">4.</span> Atalhos de teclado</h2>
+        <p>Os atalhos funcionam em qualquer página do site.</p>
+        <div class="table-wrap"><table class="tbl">
+          <caption class="sr-only">Atalhos de teclado do site</caption>
+          <thead><tr><th scope="col">Atalho</th><th scope="col">O que faz</th></tr></thead>
+          <tbody>
+            <tr><td><kbd>Alt</kbd> + <kbd>1</kbd></td><td>Vai direto para o conteúdo principal.</td></tr>
+            <tr><td><kbd>Alt</kbd> + <kbd>2</kbd></td><td>Vai para o menu principal.</td></tr>
+            <tr><td><kbd>Alt</kbd> + <kbd>3</kbd></td><td>Vai para o rodapé, com contatos e políticas.</td></tr>
+            <tr><td><kbd>Alt</kbd> + <kbd>4</kbd></td><td>Abre o painel de acessibilidade.</td></tr>
+            <tr><td><kbd>Tab</kbd> e <kbd>Shift</kbd> + <kbd>Tab</kbd></td><td>Avança e volta entre links, botões e campos.</td></tr>
+            <tr><td><kbd>Enter</kbd> ou <kbd>Espaço</kbd></td><td>Ativa o link ou botão em foco.</td></tr>
+            <tr><td><kbd>Esc</kbd></td><td>Fecha menus, painéis, janelas e o assistente.</td></tr>
+          </tbody>
+        </table></div>
+        <p>Os atalhos <kbd>Alt</kbd> + <kbd>1</kbd> e <kbd>Alt</kbd> + <kbd>2</kbd> seguem a convenção do eMAG. No macOS, use a tecla <kbd>Option</kbd> no lugar de <kbd>Alt</kbd>. Alguns leitores de tela reservam combinações com <kbd>Alt</kbd>; nesse caso, use o botão de acessibilidade ou o link “Pular para o conteúdo”, que aparece ao pressionar <kbd>Tab</kbd> no início da página.</p>
+      </section>
+
+      <section id="s5"><h2><span class="n">5.</span> Padrões de referência</h2>
+        <div class="table-wrap"><table class="tbl">
+          <caption class="sr-only">Normas e leis de acessibilidade adotadas como referência</caption>
+          <thead><tr><th scope="col">Referência</th><th scope="col">O que é</th><th scope="col">Como usamos</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">WCAG 2.2, nível AA</th><td>Diretrizes internacionais de acessibilidade para conteúdo web, publicadas pelo W3C.</td><td>Meta de conformidade do site e da intranet.</td></tr>
+            <tr><th scope="row">eMAG 3.1</th><td>Modelo de Acessibilidade em Governo Eletrônico, referência brasileira para sites.</td><td>Complemento, sobretudo em atalhos e padrões de navegação familiares ao público brasileiro.</td></tr>
+            <tr><th scope="row">Lei nº 13.146/2015, art. 63</th><td>Lei Brasileira de Inclusão: torna obrigatória a acessibilidade em sites de empresas com sede ou representação no País.</td><td>Obrigação legal que orienta todo o projeto.</td></tr>
+            <tr><th scope="row">ABNT NBR 17225:2025</th><td>Norma brasileira com requisitos de acessibilidade para conteúdo e aplicações web.</td><td>Referência na revisão de páginas e componentes.</td></tr>
+          </tbody>
+        </table></div>
+        <div class="law"><span>Lei 13.146/2015, art. 63</span><span>W3C WCAG 2.2</span><span>eMAG 3.1</span><span>ABNT NBR 17225:2025</span></div>
+      </section>
+
+      <section id="s6"><h2><span class="n">6.</span> Experiências interativas e alternativas</h2>
+        <p>Algumas páginas têm cenas 3D e uma experiência opcional controlada por gestos com a câmera. Elas enriquecem a visita, mas nada importante depende delas.</p>
+        <ul>
+          <li><strong>A câmera é opcional</strong> e só liga quando você clica em “Ativar câmera”. A imagem é processada no seu navegador, sem gravação nem envio.</li>
+          <li><strong>Há sempre outro caminho:</strong> controle deslizante e teclas de seta fazem o mesmo que os gestos, e o mouse ou o toque substituem a inclinação do celular.</li>
+          <li><strong>A informação também está em texto:</strong> o que as cenas mostram é explicado no texto ao lado, e as cenas têm descrição para leitores de tela.</li>
+          <li><strong>Movimento sob controle:</strong> as animações respeitam a preferência “reduzir movimento” do sistema e podem ser pausadas no painel. Evitamos efeitos que piscam.</li>
+          <li><strong>O mascote Ali é discreto:</strong> pode ser escondido com um clique e continua oculto nas próximas visitas.</li>
+        </ul>
+      </section>
+
+      <section id="s7"><h2><span class="n">7.</span> Limitações conhecidas</h2>
+        <p>Preferimos ser transparentes sobre o que ainda não está perfeito:</p>
+        <ul>
+          <li><strong>Conteúdos de terceiros</strong>, como o mapa de localização, o VLibras e vídeos de plataformas externas, seguem os padrões de acessibilidade dos respectivos fornecedores, que não controlamos por completo.</li>
+          <li><strong>Protótipos de telas</strong> da intranet são ilustrações interativas: representam a interface, mas parte dos elementos é decorativa. As funcionalidades estão descritas em texto ao lado de cada protótipo.</li>
+          <li><strong>A leitura em voz alta</strong> depende das vozes instaladas no seu navegador e sistema, e a qualidade pode variar conforme o idioma.</li>
+          <li><strong>As versões em inglês e espanhol</strong> podem ter pequenas diferenças de redação; em caso de dúvida, prevalece o texto em português.</li>
+        </ul>
+        <div class="callout callout--teal">{{i:info}}<p>Barreiras relatadas entram em uma fila de correções priorizada pelo impacto: o que impede o acesso vem primeiro.</p></div>
+      </section>
+
+      <section id="s8"><h2><span class="n">8.</span> Como relatar barreiras</h2>
+        <p>Se algo neste site dificultou sua navegação, conte para nós pelo canal que for mais confortável:</p>
+        <div class="grid g-2">
+          <div class="card card--soft"><span class="ibox ibox--sm">{{i:mail}}</span><h3>E-mail</h3><p>Escreva para <a href="mailto:{{c:company.email_support}}?subject=ACESSIBILIDADE" data-noi18n>{{c:company.email_support}}</a> com o assunto <strong>ACESSIBILIDADE</strong>.</p></div>
+          <div class="card card--soft"><span class="ibox ibox--sm">{{i:whatsapp}}</span><h3>WhatsApp</h3><p>Fale com a equipe pelo <span data-noi18n>{{c:company.phone_display}}</span>. Atendimento: {{c:company.hours}}.</p><a class="btn btn--wa btn--sm" href="{{wa:Olá! Encontrei uma barreira de acessibilidade no site do Alicerce360.}}" target="_blank" rel="noopener">{{if:whatsapp}} Relatar pelo WhatsApp</a></div>
+        </div>
+        <h3>O que ajuda a resolver mais rápido</h3>
+        <ul>
+          <li>O endereço da página ou o nome da seção.</li>
+          <li>O que você tentou fazer e o que aconteceu.</li>
+          <li>Se quiser, o navegador e a tecnologia assistiva que estava usando.</li>
+        </ul>
+        <div class="flow mt-2"><span>Recebido</span><i></i><span>Análise</span><i></i><span>Resposta em até 5 dias úteis</span><i></i><span>Correção</span><i></i><span>Retorno a você</span></div>
+        <p class="mt-2">Respondemos em <strong>até 5 dias úteis</strong> com o diagnóstico e o prazo de correção. Se você precisar da informação antes disso, enviamos o conteúdo em formato alternativo, por texto ou atendimento pessoal, enquanto corrigimos. Se a resposta não resolver, a Ouvidoria está em <a href="mailto:{{c:company.email_ombudsman}}" data-noi18n>{{c:company.email_ombudsman}}</a>.</p>
+      </section>
+
+      <section id="s9"><h2><span class="n">9.</span> Acessibilidade no produto</h2>
+        <p>O mesmo cuidado vale para a intranet Alicerce360, usada todos os dias por equipes inteiras:</p>
+        <ul class="checks">
+          <li><strong>Meta WCAG 2.2 AA</strong> na área logada, como requisito de produto e em atenção ao art. 63 da Lei Brasileira de Inclusão.</li>
+          <li><strong>Template Operacional</strong> com alto contraste, botões grandes e modo quiosque, pensado para a indústria, a logística e o varejo.</li>
+          <li><strong>Modo claro, escuro ou automático</strong>, conforme a preferência de cada pessoa.</li>
+          <li><strong>Verificador de contraste</strong> ao personalizar as cores da marca, para que a identidade visual não comprometa a leitura.</li>
+          <li><strong>Celular como aplicativo</strong>, com navegação simples para quem não fica no computador.</li>
+        </ul>
+        <div class="callout">{{i:info}}<p>A intranet é entregue em fases. Para saber o que já está disponível e o que vem a seguir, consulte o <a href="/intranet/#roadmap">roadmap público</a>.</p></div>
+      </section>
+
+      <section id="s10"><h2><span class="n">10.</span> Revisão desta declaração</h2>
+        <p>Esta declaração foi revisada pela última vez em <strong>{{c:site.policy_date}}</strong>. Ela é revista pelo menos uma vez por ano e sempre que houver mudança relevante no site ou nos recursos de acessibilidade.</p>
+      </section>
+
+      <div class="sign">{{c:company.legal_name}} · CNPJ <span data-noi18n>{{c:company.cnpj}}</span> · {{c:company.address}}.<br>Histórico: versão 1.0, de {{c:site.policy_date}} — publicação inicial. Veja também a <a href="/confianca/">Central de Confiança</a> e os <a href="/esg/">compromissos ESG</a>.</div>
+    </article>
+  </div>
+</section>

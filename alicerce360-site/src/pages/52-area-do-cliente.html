@@ -1,0 +1,69 @@
+<!--meta {"slug": "area-do-cliente", "title": "Área do Cliente", "description": "Acesse sua intranet, faturas, licenças, chamados de suporte e documentação do Alicerce360. Indique outras empresas e acompanhe seus benefícios.", "order": 52} -->
+
+<section class="page-hero">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Você está aqui"><a href="/">Início</a><span aria-hidden="true">›</span><span aria-current="page">Área do Cliente</span></nav>
+    <span class="eyebrow">Área do Cliente</span>
+    <h1>Tudo o que você contratou, a um clique.</h1>
+    <p class="lead">Entre na sua intranet, consulte faturas e licenças, abra chamados e acompanhe as novidades. Precisa de ajuda? Nosso time responde em horário comercial.</p>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="acc-h">
+  <div class="wrap split">
+    <div class="card" data-reveal="left">
+      <span class="ibox ibox--grad">{{i:login}}</span>
+      <h2 id="acc-h" style="font-size:1.5rem">Entrar na sua intranet</h2>
+      <p class="muted">Digite o endereço da intranet da sua empresa. Você será levado à tela de login com os métodos que ela habilitou (e-mail corporativo, Google, Microsoft e 2FA).</p>
+      <form class="domain-box mt-2" data-go style="margin:0" aria-label="Ir para a minha intranet">
+        <label class="sr-only" for="go-dom">Endereço da intranet</label>
+        <input id="go-dom" type="text" inputmode="url" autocomplete="url" placeholder="intranet.suaempresa.com.br">
+        <button class="btn btn--primary" type="submit">{{i:arrow}} Acessar</button>
+      </form>
+      <hr>
+      <h3>Conta comercial EBAEM</h3>
+      <p class="muted">Pedidos, faturas, segunda via e dados cadastrais ficam na sua conta de cliente EBAEM.</p>
+      <div class="row"><a class="btn btn--ghost" href="{{c:links.minha_conta}}" target="_blank" rel="noopener">{{i:user}} Minha conta {{i:external}}</a><a class="btn btn--ghost" href="{{c:links.chamados}}" target="_blank" rel="noopener">{{i:ticket}} Meus chamados {{i:external}}</a></div>
+    </div>
+    <div data-reveal="right">
+      <div class="grid g-2">
+        <a class="trust-item" href="mailto:{{c:company.email_support}}?subject=Suporte%20Alicerce360"><span class="ibox">{{i:help}}</span><b>Abrir chamado de suporte</b><p>Resposta com dono, prazo e acompanhamento.</p><span class="meta"><span data-noi18n>{{c:company.email_support}}</span>{{i:arrow}}</span></a>
+        <a class="trust-item" href="{{c:links.minha_conta}}" target="_blank" rel="noopener"><span class="ibox ibox--blue">{{i:receipt}}</span><b>Faturas e segunda via</b><p>Boletos, notas fiscais e histórico de pagamentos.</p><span class="meta">Conta EBAEM {{i:external}}</span></a>
+        <a class="trust-item" href="/intranet/#roadmap"><span class="ibox ibox--purple">{{i:key}}</span><b>Licenças e versões</b><p>Status do roadmap e novidades de cada versão.</p><span class="meta">Roadmap {{i:arrow}}</span></a>
+        <a class="trust-item" href="{{c:links.ead}}" target="_blank" rel="noopener"><span class="ibox ibox--orange">{{i:grad}}</span><b>Cursos e capacitação</b><p>Portal EAD da EBAEM para administradores e equipes.</p><span class="meta">Portal EAD {{i:external}}</span></a>
+        <a class="trust-item" href="/confianca/"><span class="ibox">{{i:badge}}</span><b>Documentos e políticas</b><p>Privacidade, comercialização, termos e segurança.</p><span class="meta">Central de Confiança {{i:arrow}}</span></a>
+        <a class="trust-item" href="/clientes/#indique"><span class="ibox ibox--blue">{{i:gift}}</span><b>Indicar um cliente</b><p>Ganhe benefícios quando a indicação fechar negócio.</p><span class="meta">Indique e ganhe {{i:arrow}}</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--white sec--line" aria-labelledby="sup-h">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Suporte</span><h2 id="sup-h">Como falar com a gente, conforme a urgência.</h2></div>
+    <div class="table-wrap" data-reveal>
+      <table class="tbl">
+        <caption class="sr-only">Canais de suporte</caption>
+        <thead><tr><th scope="col">Situação</th><th scope="col">Canal recomendado</th><th scope="col">Primeira resposta (horas úteis)</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Intranet ou site fora do ar</th><td>WhatsApp e e-mail de suporte, com “URGENTE” no assunto</td><td>Até 4 horas</td></tr>
+          <tr><th scope="row">Funcionalidade com erro</th><td>Chamado por e-mail ou Central de Chamados</td><td>Até 8 horas</td></tr>
+          <tr><th scope="row">Dúvida de uso ou configuração</th><td>Chamado ou WhatsApp</td><td>Até 2 dias úteis</td></tr>
+          <tr><th scope="row">Pedido de melhoria</th><td>Chamado com a etiqueta “sugestão”</td><td>Avaliado no planejamento do roadmap</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="tiny mt-1">Atendimento {{c:company.hours}}. Prazos de referência; os níveis de serviço do seu contrato prevalecem.</p>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="oc-h">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Comunidade de clientes</span><h2 id="oc-h">Você não constrói sozinho.</h2><p class="lead">Clientes fundadores participam da priorização do roadmap, recebem novidades antes e trocam boas práticas de implantação.</p></div>
+    <div class="grid g-3" data-stagger>
+      <div class="card" data-reveal><span class="ibox">{{i:target}}</span><h3>Voto no roadmap</h3><p>Sugestões viram itens priorizados com transparência.</p></div>
+      <div class="card" data-reveal><span class="ibox ibox--blue">{{i:sparkles}}</span><h3>Novidades em primeira mão</h3><p>Versões novas chegam pela Central EBAEM, com notas de atualização.</p></div>
+      <div class="card" data-reveal><span class="ibox ibox--purple">{{i:users}}</span><h3>Boas práticas</h3><p>Modelos de políticas, trilhas de treinamento e campanhas de lançamento.</p></div>
+    </div>
+  </div>
+</section>
