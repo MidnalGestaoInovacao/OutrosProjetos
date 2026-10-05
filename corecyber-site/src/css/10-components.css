@@ -219,7 +219,7 @@
 
 /* ---------- página interna: cabeçalho ---------- */
 .cc .page-hero { padding: clamp(56px, 7vw, 96px) 0 clamp(40px, 5vw, 64px); position: relative; overflow: hidden; background: radial-gradient(900px 380px at 90% -10%, rgba(25, 195, 214, .16), transparent 60%), radial-gradient(700px 360px at -10% 120%, rgba(58, 79, 160, .10), transparent 60%), var(--c-bg); border-bottom: 1px solid var(--c-line); }
-.cc .page-hero h1 { font-size: clamp(2rem, 1.3rem + 2.8vw, 3.3rem); max-width: 22ch; }
+.cc .page-hero h1 { font-size: clamp(2rem, 1.3rem + 2.8vw, 3.3rem); max-width: none; }
 .cc .page-hero .lead { margin-top: 6px; }
 .cc .crumbs { display: flex; gap: 8px; flex-wrap: wrap; font-size: .84rem; color: var(--c-dim); margin-bottom: 18px; }
 .cc .crumbs a { color: var(--c-muted); }

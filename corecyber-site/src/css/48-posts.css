@@ -2,7 +2,7 @@
    Matérias: cartões, página Conteúdos e página da matéria
    ========================================================= */
 .cc .sec-head--row { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 18px 32px; text-align: left; max-width: none; margin-left: 0; margin-right: 0; }
-.cc .sec-head--row > div { max-width: 720px; }
+.cc .sec-head--row > div { flex: 1 1 520px; max-width: none; }
 .cc .sec-head--row .eyebrow { justify-content: flex-start; }
 .cc .sec-head--row .lead { margin-left: 0; }
 
@@ -35,8 +35,8 @@
 .cc .post-empty { text-align: center; margin: 24px 0 0; }
 
 /* página da matéria */
-.cc .art-hero h1 { max-width: 920px; font-size: clamp(1.9rem, 3.6vw, 2.9rem); line-height: 1.12; margin: 14px 0 14px; }
-.cc .art-hero .lead { max-width: 820px; }
+.cc .art-hero h1 { max-width: none; font-size: clamp(1.9rem, 3.6vw, 2.9rem); line-height: 1.12; margin: 14px 0 14px; }
+.cc .art-hero .lead { max-width: none; }
 .cc .art-cat { text-decoration: none !important; }
 .cc .art-meta { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 18px; color: var(--c-muted); font-size: .9rem; }
 .cc .art-meta > span { display: inline-flex; align-items: center; gap: 7px; }
@@ -47,7 +47,7 @@
 .cc .art-cover { margin: 0 0 40px; border-radius: 22px; overflow: hidden; border: 1px solid var(--c-line); box-shadow: var(--c-shadow-lg); background: var(--c-bg2); }
 .cc .art-cover img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
 .cc .art-grid { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 56px; align-items: start; }
-.cc .art-body { max-width: 880px; font-size: 1.06rem; line-height: 1.78; color: var(--c-text); }
+.cc .art-body { max-width: none; font-size: clamp(1.04rem, .96rem + .22vw, 1.16rem); line-height: 1.78; color: var(--c-text); }
 .cc .art-body > :first-child { margin-top: 0; }
 .cc .art-body h2 { font-size: clamp(1.35rem, 2.2vw, 1.65rem); line-height: 1.25; margin: 2.1em 0 .6em; scroll-margin-top: 110px; }
 .cc .art-body h3 { font-size: 1.2rem; margin: 1.6em 0 .5em; }

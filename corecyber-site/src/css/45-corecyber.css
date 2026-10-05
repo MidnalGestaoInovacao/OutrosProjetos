@@ -224,6 +224,6 @@ html.a11y-motion .cc-mascot .m-ring, html.a11y-motion .cc-mascot .m-sig, html.a1
 .cc .cc-menu > ul > li.is-current > button { color: var(--c-teal-ink); box-shadow: inset 0 -2px 0 var(--c-teal); border-radius: 10px 10px 4px 4px; }
 .cc .mega-links a[aria-current="page"] { background: var(--c-bg); }
 /* linhas de leitura confortáveis dentro do contêiner de 90% */
-.cc .doc p, .cc .doc li, .cc .faq-a p, .cc .tldr li { max-width: 110ch; }
-.cc .sec-head .lead, .cc .page-hero .lead { max-width: 900px; }
+/* cabeçalhos e textos acompanham a largura do conteúdo */
+.cc .page-hero .lead, .cc .sec-head--row .lead { max-width: none; }
 html.cc-drawer-open .cc-mascot, html.cc-drawer-open .cc-mascot-min, html.cc-drawer-open .cc-fab, html.cc-drawer-open .cc-dock, html.cc-drawer-open .cc-totop { display: none !important; }
