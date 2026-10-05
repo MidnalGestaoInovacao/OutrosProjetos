@@ -1,0 +1,11 @@
+{
+ "t3ddca4ca4": "No one receives the image",
+ "t48f2c048a": "Only when you turn on the camera",
+ "t605246630": "Hand detector (MediaPipe)",
+ "t644a0ef12": "Only if you turn on the camera on the home page",
+ "t7b77b4b11": "Camera experience",
+ "t9ab4d82e4": "On the home page, the <strong>“hand control”</strong> experience only turns on the camera when you click “Turn camera on” and your browser asks for your permission. The image is processed <strong>only in your browser</strong> by a hand detector (MediaPipe): no video frame is recorded or sent, and the camera turns off when you click “Turn camera off” or leave the page.",
+ "ta638128e5": "On the home page, the “hand control” only uses the camera if you click to turn it on and allow it in your browser. The image is analyzed <strong>only on your device</strong> to detect the position of your hand; no video frame is recorded, stored or sent to EBAEM or to third parties.",
+ "td14eb9005": "jsDelivr and Google Cloud Storage",
+ "tf62df76d9": "Hand-controlled paper (camera)"
+}

@@ -1,0 +1,11 @@
+{
+ "t3ddca4ca4": "Nadie recibe la imagen",
+ "t48f2c048a": "Solo cuando usted activa la cámara",
+ "t605246630": "Detector de manos (MediaPipe)",
+ "t644a0ef12": "Solo si usted activa la cámara en la página de inicio",
+ "t7b77b4b11": "Experiencia con la cámara",
+ "t9ab4d82e4": "En la página de inicio, la experiencia <strong>“control con la mano”</strong> solo enciende la cámara cuando usted hace clic en “Activar cámara” y el navegador le pide permiso. La imagen se procesa <strong>solo en su navegador</strong> mediante un detector de manos (MediaPipe): ningún cuadro de video se graba ni se envía, y la cámara se apaga cuando usted hace clic en “Apagar cámara” o sale de la página.",
+ "ta638128e5": "En la página de inicio, el “control con la mano” solo usa la cámara si usted hace clic para activarla y la autoriza en el navegador. La imagen se analiza <strong>solo en su dispositivo</strong> para detectar la posición de la mano; ningún cuadro de video se graba, almacena ni envía a EBAEM o a terceros.",
+ "td14eb9005": "jsDelivr y Google Cloud Storage",
+ "tf62df76d9": "Papel controlado con la mano (cámara)"
+}

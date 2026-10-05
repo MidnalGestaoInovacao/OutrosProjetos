@@ -148,6 +148,11 @@
       try { var tx = new URL(a.href).searchParams.get('text'); if (!tx || waDefaults.indexOf(tx) >= 0) a.href = waUrl(); } catch (e) { /* link inválido */ }
     });
     qsa('.cc-skip').forEach(function (a) { a.textContent = t('skip'); });
+    /* preços fixos (formatados em PT no build) seguem o formato do idioma */
+    qsa('.price .val[data-noi18n]:not([data-price])').forEach(function (v) {
+      if (v.__ptnum === undefined) v.__ptnum = parseInt(String(v.textContent).replace(/\D/g, ''), 10);
+      if (!isNaN(v.__ptnum)) v.textContent = num(v.__ptnum);
+    });
     if (!silent) store('cc_lang', l);
     d.dispatchEvent(new CustomEvent('cc:lang', { detail: l }));
   }

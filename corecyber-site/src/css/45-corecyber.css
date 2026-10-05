@@ -216,3 +216,5 @@ html.a11y-motion .cc-mascot .m-ring, html.a11y-motion .cc-mascot .m-sig, html.a1
 @media (max-width: 900px) { .cc .who { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 960px) { .cc .doc-layout { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 640px) { .cc .g-2, .cc .g-3, .cc .g-4 { grid-template-columns: minmax(0, 1fr); } }
+
+.cc .cc-menu a, .cc .cc-menu button { white-space: nowrap; }
