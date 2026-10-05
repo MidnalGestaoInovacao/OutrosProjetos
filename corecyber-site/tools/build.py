@@ -584,7 +584,7 @@ def main():
         dkey = register(html.escape(p["description"], quote=False), page)
         for k in COVER_KEYS:   # textos da capa (traduzidos para as capas EN/ES em tools/covers.py)
             v = p.get("cover", {}).get(k, "")
-            if re.search(r"[A-Za-zÀ-ÿ]", v):
+            if any(c.isalpha() for c in v):
                 register(html.escape(v, quote=False), "_covers")
         keys = sorted(k for k, pg in USAGE.items() if page in pg)
         payload = {"_meta": {"title": tkey, "desc": dkey}}

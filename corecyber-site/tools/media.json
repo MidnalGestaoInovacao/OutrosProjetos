@@ -28,6 +28,7 @@
  "posts/roadmap-aberto.pt": "https://corecyber.com.br/wp-content/uploads/2026/10/corecyber-posts-roadmap-aberto.pt_.webp",
  "posts/seguranca-em-pedacos.pt": "https://corecyber.com.br/wp-content/uploads/2026/10/corecyber-posts-seguranca-em-pedacos.pt_.webp",
  "posts/spf-dmarc-dnssec.pt": "https://corecyber.com.br/wp-content/uploads/2026/10/corecyber-posts-spf-dmarc-dnssec.pt_.webp",
+ "posts/193-controles-iso-lgpd.en": "https://corecyber.com.br/wp-content/uploads/2026/10/corecyber-posts-193-controles-iso-lgpd.en_.webp",
  "_sha1": {
   "logo-h": "e951f60d2e70e2be1967741a60e201e63af67c74",
   "logo-h-neg": "cb3c96b9b8aced154cdc543950f50f4707386ca9",
@@ -57,7 +58,8 @@
   "posts/quem-faz-usa.pt": "3099a84926e121ee095542c5b422fd27896cff9b",
   "posts/roadmap-aberto.pt": "98f56c74f1da253d077424e9e793f42c6ba8a876",
   "posts/seguranca-em-pedacos.pt": "eed48bc299d29691632536b4c686abf8bb61b2d1",
-  "posts/spf-dmarc-dnssec.pt": "4a7d021bbd229bd0dc6a891d992fe22e91422a5f"
+  "posts/spf-dmarc-dnssec.pt": "4a7d021bbd229bd0dc6a891d992fe22e91422a5f",
+  "posts/193-controles-iso-lgpd.en": "cc5460bbaf03d62965304a52509669ba344e502d"
  },
  "_ids": {
   "posts/193-controles-iso-lgpd.pt": 77,
@@ -79,6 +81,7 @@
   "posts/quem-faz-usa.pt": 93,
   "posts/roadmap-aberto.pt": 94,
   "posts/seguranca-em-pedacos.pt": 95,
-  "posts/spf-dmarc-dnssec.pt": 96
+  "posts/spf-dmarc-dnssec.pt": 96,
+  "posts/193-controles-iso-lgpd.en": 97
  }
 }
