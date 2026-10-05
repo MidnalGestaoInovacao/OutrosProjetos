@@ -99,17 +99,25 @@ def load_posts():
 POSTS = load_posts() if (SRC / "posts").exists() else []
 
 
-def cover_url(p):
-    try:
-        return img_url(p["cover"])
-    except SystemExit:
-        return img_url("icon-512")
+def cover_url(p, lang="pt"):
+    """Capa da matéria no idioma pedido (as capas trazem título e chamada); cai para a capa em PT."""
+    for key in ([f'{p["cover"]}.{lang}'] if lang != "pt" else []) + [p["cover"]]:
+        try:
+            return img_url(key)
+        except SystemExit:
+            continue
+    return img_url("icon-512")
+
+
+def cover_attrs(p):
+    """Atributos para o JS trocar a capa conforme o idioma."""
+    return "".join(f' data-src-{l}="{html.escape(cover_url(p, l), quote=True)}"' for l in ("en", "es"))
 
 
 def post_card(p):
     tone = CAT_STYLE.get(p["category"], "")
     return (f'<a class="post-card" href="{html.escape(post_url(p["slug"]), quote=True)}" data-slug="{p["slug"]}" data-cat="{p["cat_slug"]}" data-reveal>'
-            f'<span class="pc-cover"><img src="{cover_url(p)}" alt="" width="1200" height="630" loading="lazy"></span>'
+            f'<span class="pc-cover"><img src="{cover_url(p)}"{cover_attrs(p)} alt="" width="1200" height="630" loading="lazy"></span>'
             f'<span class="pc-body"><span class="pc-cat"><span class="ibox ibox--sm{" ibox--" + tone if tone else ""}">{icon(p.get("icon", "book"))}</span><span>{html.escape(p["category"])}</span></span>'
             f'<b class="pc-title">{html.escape(p["title"])}</b>'
             f'<span class="pc-ex">{html.escape(p["description"])}</span>'
@@ -484,7 +492,8 @@ def main():
         body = i18n_process(full, pid)
         tkey, dkey, ckey = register(p["title"], pid), register(p["description"], pid), register(p["category"], pid)
         keys = sorted(k for k, pg in USAGE.items() if pid in pg)
-        payload = {"_meta": {"title": tkey, "desc": dkey, "h1": True, "cats": {p["category"]: [ckey, p["cat_slug"]]}}}
+        payload = {"_meta": {"title": tkey, "desc": dkey, "h1": True, "cats": {p["category"]: [ckey, p["cat_slug"]]},
+                             "covers": {l: cover_url(p, l) for l in ("en", "es")}}}
         for lang in ("en", "es"):
             payload[lang] = {k: tr[lang][k] for k in keys if k in tr[lang]}
         content = (f'<div class="a3 a3-page a3-article" id="a3-content" data-page="{pid}">\n{body}\n</div>\n'

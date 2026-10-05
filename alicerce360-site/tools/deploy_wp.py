@@ -11,7 +11,8 @@ Uso:
   python3 tools/deploy_wp.py --dry-run       mostra o que faria, sem gravar
 
 O que é alterado no WordPress (tudo reversível pelo Editor do site / lixeira):
-  - Mídia: logos e ícones (tools/media.json guarda as URLs).
+  - Mídia: logos, ícones e capas das matérias em PT/EN/ES (tools/media.json guarda URLs e ids;
+    capas substituídas saem da biblioteca depois que páginas e matérias apontam para as novas).
   - CSS adicional do tema (Aparência → Personalizar → CSS adicional).
   - Partes de modelo "header" e "footer" do tema ativo (HTML do cabeçalho/rodapé + scripts).
   - Modelos "page", "page-no-title", "home" (página inicial), "404" e "single" (matérias).
@@ -114,6 +115,25 @@ def log(*a):
     print("·", *a, flush=True)
 
 
+def cover_alt(key):
+    """Texto alternativo das capas das matérias (título + chamada, no idioma da imagem)."""
+    import re
+    name = key.split("/", 1)[1]
+    slug, _, lang = name.partition(".")
+    lang = lang or "pt"
+    title = ""
+    for f in (ROOT / "src" / "posts").glob("*.html"):
+        m = re.search(r"<!--meta\s*(\{.*?\})\s*-->", f.read_text(encoding="utf-8"), re.S)
+        if m and json.loads(m.group(1)).get("slug") == slug:
+            title = json.loads(m.group(1))["title"]
+    if title and lang != "pt":
+        k = "t" + hashlib.sha1(" ".join(title.split()).encode("utf-8")).hexdigest()[:9]
+        title = json.loads((ROOT / "src" / "i18n" / f"{lang}.json").read_text(encoding="utf-8")).get(k, title)
+    spec = json.loads((ROOT / "src" / "covers.json").read_text(encoding="utf-8")).get(slug, {})
+    hook = (spec.get("hook") or {}).get(lang, "")
+    return " — ".join(x for x in (re.sub(r"<[^>]+>", "", title), hook) if x) or "Alicerce360 — um produto EBAEM"
+
+
 def main():
     mcp = MCP()
     log("conectado a", WP_URL)
@@ -124,6 +144,7 @@ def main():
     media = json.loads(MEDIA_FILE.read_text()) if MEDIA_FILE.exists() else {}
     hashes = media.pop("_sha1", {})
     ids = media.pop("_ids", {})
+    stale = []
     images = dict(IMAGES)
     for f in sorted((ROOT / "src" / "img" / "posts").glob("*.webp")):
         images[f"posts/{f.stem}"] = f"posts/{f.name}"
@@ -135,8 +156,11 @@ def main():
                 continue
             log("enviando mídia", fn)
             if not DRY:
+                alt = cover_alt(k) if k.startswith("posts/") else "Alicerce360 — um produto EBAEM"
                 r = mcp.tool("wp_upload_media", {"filename": f"alicerce360-{fn.replace('/', '-')}", "content_base64": base64.b64encode(p.read_bytes()).decode(),
-                                                 "title": f"Alicerce360 {k}", "alt_text": "Alicerce360 — um produto EBAEM"})
+                                                 "title": f"Alicerce360 {k}", "alt_text": alt})
+                if k.startswith("posts/") and ids.get(k):
+                    stale.append(ids[k])  # capa antiga: sai da biblioteca depois que páginas e matérias apontarem para a nova
                 media[k] = r["source_url"]; hashes[k] = h; ids[k] = r["id"]
         if not DRY:
             MEDIA_FILE.write_text(json.dumps({**media, "_sha1": hashes, "_ids": ids}, indent=1) + "\n")
@@ -291,6 +315,14 @@ def main():
             log(f"atualizando matéria {pm['slug']} ({len(content)//1024} KB)")
             if not DRY:
                 mcp.tool("wp_update_post", args)
+
+    if stale and step("pages") and step("posts") and not DRY:
+        for mid in stale:
+            log("removendo capa antiga da biblioteca de mídia", mid)
+            try:
+                mcp.tool("wp_delete_media", {"media_id": mid, "force": True})
+            except SystemExit as e:
+                log("  não removida:", e)
 
     if step("settings"):
         log("título e descrição do site")

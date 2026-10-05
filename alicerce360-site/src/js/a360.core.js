@@ -1179,8 +1179,29 @@
       a.textContent = (A3.lang !== 'pt' && DICT[A3.lang][c[0]]) || a.__pt;
     });
   }
+  /* capas das matérias trazem título e chamada: troca a imagem conforme o idioma */
+  function swapCovers() {
+    var l = A3.lang || 'pt';
+    qsa('img[data-src-en]').forEach(function (img) {
+      if (img.__pt === undefined) img.__pt = img.getAttribute('src');
+      var u = l === 'pt' ? img.__pt : img.getAttribute('data-src-' + l) || img.__pt;
+      if (img.getAttribute('src') !== u) img.setAttribute('src', u);
+    });
+    var cov = META && META.covers, fig = qs('.a3-post-head .a3-post-cover img');
+    if (cov && fig) {
+      if (fig.__pt === undefined) fig.__pt = { src: fig.getAttribute('src'), srcset: fig.getAttribute('srcset'), sizes: fig.getAttribute('sizes'), alt: fig.getAttribute('alt') };
+      if (l === 'pt' || !cov[l]) {
+        fig.setAttribute('src', fig.__pt.src);
+        ['srcset', 'sizes', 'alt'].forEach(function (k) { if (fig.__pt[k] != null) fig.setAttribute(k, fig.__pt[k]); });
+      } else {
+        fig.removeAttribute('srcset'); fig.removeAttribute('sizes');
+        fig.setAttribute('src', cov[l]);
+        var tt = DICT[l][META.title]; if (tt) fig.setAttribute('alt', tt.replace(/<[^>]+>/g, ''));
+      }
+    }
+  }
   translateSingle(); formatDates();
-  dictReady.then(function () { translateSingle(); });
+  dictReady.then(function () { translateSingle(); swapCovers(); });
 
   qsa('[data-posts]').forEach(function (box) {
     var grid = qs('[data-posts-grid]', box), empty = qs('[data-posts-empty]', box), input = qs('[data-post-search] input', box);
@@ -1270,7 +1291,7 @@
     if (chat) renderChat();
     if (mascot) { qs('.m-hit', mascot).setAttribute('aria-label', t('m.ask')); qs('.m-close', mascot).setAttribute('aria-label', t('m.hide')); mMin.setAttribute('aria-label', t('m.show')); }
     totop.setAttribute('aria-label', t('totop'));
-    autoToc(); translateSingle(); formatDates();
+    autoToc(); translateSingle(); formatDates(); swapCovers();
   });
 
 

@@ -23,7 +23,8 @@ Menu: **Intranet**, **Planos** (megamenu com Planos da intranet, Simulador, Hosp
 site.config.json        contatos, links, preços (fonte única — preços são PROPOSTAS a validar)
 src/pages/*.html        conteúdo das páginas em PT (cabeçalho <!--meta {...}--> em cada arquivo)
 src/posts/*.html        matérias (posts do WordPress), uma por arquivo
-src/img/posts/*.webp    capas das matérias (geradas por tools/covers.mjs)
+src/covers.json         chamada e infográfico da capa de cada matéria, em PT/EN/ES
+src/img/posts/*.webp    capas das matérias: <slug>.webp (PT), <slug>.en.webp e <slug>.es.webp
 src/partials/           cabeçalho, rodapé e ícones SVG
 src/css/                design system (tons claros e sóbrios com as cores do logo)
 src/js/a360.early.js    preferências de acessibilidade e Consent Mode (topo da página)
@@ -34,7 +35,7 @@ src/i18n/{en,es}.json   traduções (chave = hash do texto em PT)
 tools/build.py          build: prévia estática em dist/ e pacotes WordPress em build/wp/
 tools/i18n.py           divide, junta e valida traduções
 tools/deploy_wp.py      publica no WordPress pelo MCP (páginas, matérias, categorias, capas e modelos)
-tools/covers.mjs        gera as capas das matérias (Playwright) → tools/covers_webp.py converte para WebP
+tools/covers.mjs        gera as capas (categoria, título, chamada e infográfico) nos 3 idiomas → tools/covers_webp.py converte para WebP
 freellmapi/             kit para ligar o assistente ao FreeLLMAPI
 docs/COMPONENTES.md     guia de componentes para editar páginas
 ```
@@ -57,7 +58,7 @@ export WPMCP_KEY=wpmcp_...                  # ou WPMCP_KEY_FILE=/caminho/arquivo
 python3 tools/deploy_wp.py                  # tudo
 python3 tools/deploy_wp.py --only pages     # só páginas (também: media, posts, css, chrome, templates, settings)
 
-# nova matéria: crie src/posts/NN-slug.html (ver docs/COMPONENTES.md) e gere a capa
+# nova matéria: crie src/posts/NN-slug.html, traduza (i18n acima), descreva a capa em src/covers.json e gere-a
 npm i playwright && node tools/covers.mjs slug-da-materia && python3 tools/covers_webp.py
 ```
 

@@ -1,0 +1,165 @@
+{
+ "_ui": {
+  "read": {"pt": "min de leitura", "en": "min read", "es": "min de lectura"},
+  "kind": {"pt": "Matéria", "en": "Article", "es": "Artículo"}
+ },
+ "intranet-que-produz-evidencias": {
+  "hook": {"pt": "Comunicar não é comprovar. Veja como cada aviso, aceite e treinamento pode virar prova.", "en": "Communicating isn’t proving. See how every notice, acknowledgment and training can become evidence.", "es": "Comunicar no es comprobar. Mira cómo cada aviso, aceptación y capacitación puede convertirse en prueba."},
+  "info": {"type": "compare",
+   "head": {"pt": "Avisar × comprovar", "en": "Notify × prove", "es": "Avisar × comprobar"},
+   "weak": {"pt": "Resposta frágil", "en": "Weak answer", "es": "Respuesta frágil"},
+   "strong": {"pt": "Com evidência", "en": "With evidence", "es": "Con evidencia"},
+   "rows": [
+    {"q": {"pt": "A equipe conhece a política?", "en": "Does the team know the policy?", "es": "¿El equipo conoce la política?"},
+     "a": {"pt": "Enviamos por e-mail", "en": "We emailed it", "es": "La enviamos por correo"},
+     "b": {"pt": "Aceite nominal com versão", "en": "Named acknowledgment, versioned", "es": "Aceptación nominal con versión"}},
+    {"q": {"pt": "Qual texto foi aceito?", "en": "Which text was accepted?", "es": "¿Qué texto se aceptó?"},
+     "a": {"pt": "O que estava na pasta", "en": "Whatever was in the folder", "es": "Lo que estaba en la carpeta"},
+     "b": {"pt": "Versão com hash SHA-256", "en": "Version with SHA-256 hash", "es": "Versión con hash SHA-256"}},
+    {"q": {"pt": "O treinamento aconteceu?", "en": "Did the training happen?", "es": "¿Se hizo la capacitación?"},
+     "a": {"pt": "Lista de presença", "en": "Attendance sheet", "es": "Lista de asistencia"},
+     "b": {"pt": "Certificado com QR Code", "en": "Certificate with QR code", "es": "Certificado con código QR"}}
+   ]}
+ },
+ "politicas-com-aceite-li-e-estou-ciente": {
+  "hook": {"pt": "Quem, qual versão, quando e de onde: o aceite que se sustenta numa auditoria.", "en": "Who, which version, when and from where: the acknowledgment that holds up in an audit.", "es": "Quién, qué versión, cuándo y desde dónde: la aceptación que se sostiene en una auditoría."},
+  "info": {"type": "seal",
+   "doc": {"pt": "Política Anticorrupção · v4", "en": "Anti-Corruption Policy · v4", "es": "Política Anticorrupción · v4"},
+   "check": {"pt": "Li e estou ciente", "en": "I have read and understood", "es": "He leído y entendido"},
+   "fields": [
+    [{"pt": "Usuário", "en": "User", "es": "Usuario"}, "ana.souza"],
+    [{"pt": "Versão", "en": "Version", "es": "Versión"}, "v4"],
+    [{"pt": "Data e hora", "en": "Date and time", "es": "Fecha y hora"}, "2026-10-05 09:41"],
+    [{"pt": "Dispositivo", "en": "Device", "es": "Dispositivo"}, "Notebook · Chrome"],
+    ["Hash SHA-256", "d3f0e7e0…b2a144"]
+   ],
+   "pct": 87,
+   "pctLabel": {"pt": "já aceitaram a v4", "en": "acknowledged v4", "es": "ya aceptaron la v4"},
+   "pending": {"pt": "26 pendentes com lembrete automático", "en": "26 pending, with automatic reminders", "es": "26 pendientes con recordatorio automático"}}
+ },
+ "canal-de-denuncias-anonimato-real": {
+  "hook": {"pt": "O que a lei e as normas ISO pedem — e o que garante anonimato e não retaliação de verdade.", "en": "What the law and ISO standards require — and what truly guarantees anonymity and no retaliation.", "es": "Lo que piden la ley y las normas ISO — y lo que garantiza de verdad el anonimato y la no represalia."},
+  "info": {"type": "flow",
+   "head": {"pt": "Ciclo do relato", "en": "Report lifecycle", "es": "Ciclo de la denuncia"},
+   "code": "INT-2026-000128",
+   "steps": [
+    [{"pt": "Recebido", "en": "Received", "es": "Recibida"}, "done"],
+    [{"pt": "Triagem", "en": "Triage", "es": "Clasificación"}, "done"],
+    [{"pt": "Em apuração", "en": "Under investigation", "es": "En investigación"}, "active"],
+    [{"pt": "Concluído", "en": "Closed", "es": "Concluida"}, "todo"]
+   ],
+   "badges": [
+    ["eye-off", {"pt": "Sem rastros técnicos", "en": "No technical traces", "es": "Sin rastros técnicos"}],
+    ["file-check", {"pt": "Anexos limpos", "en": "Clean attachments", "es": "Adjuntos limpios"}],
+    ["key", {"pt": "Protocolo e chave", "en": "Case number and key", "es": "Protocolo y clave"}]
+   ]}
+ },
+ "lgpd-atender-titular-em-15-dias": {
+  "hook": {"pt": "Direitos do art. 18, prazos do art. 19 e um fluxo simples para responder ao titular com registro.", "en": "Art. 18 rights, art. 19 deadlines and a simple flow to answer data subjects with a record.", "es": "Derechos del art. 18, plazos del art. 19 y un flujo simple para responder al titular con registro."},
+  "info": {"type": "countdown",
+   "big": "15",
+   "unit": {"pt": "dias", "en": "days", "es": "días"},
+   "label": {"pt": "para confirmação e acesso completos (art. 19, II)", "en": "for full confirmation and access (art. 19, II)", "es": "para confirmación y acceso completos (art. 19, II)"},
+   "steps": [
+    [0, {"pt": "Pedido vira protocolo", "en": "Request becomes a case", "es": "La solicitud se vuelve protocolo"}],
+    [1, {"pt": "Identidade confirmada", "en": "Identity verified", "es": "Identidad confirmada"}],
+    [7, {"pt": "Dados reunidos", "en": "Data gathered", "es": "Datos reunidos"}],
+    [12, {"pt": "Resposta enviada", "en": "Response sent", "es": "Respuesta enviada"}]
+   ],
+   "day": {"pt": "Dia", "en": "Day", "es": "Día"},
+   "spare": {"pt": "3 dias de folga no prazo", "en": "3 days to spare", "es": "3 días de margen en el plazo"}}
+ },
+ "trilha-de-auditoria-hash": {
+  "hook": {"pt": "Cada registro carrega a impressão digital do anterior: alterar ou apagar um evento deixa rastro.", "en": "Each record carries the previous one’s fingerprint: changing or deleting an event leaves a trace.", "es": "Cada registro lleva la huella del anterior: alterar o borrar un evento deja rastro."},
+  "info": {"type": "chain",
+   "head": {"pt": "Trilha de auditoria", "en": "Audit trail", "es": "Registro de auditoría"},
+   "blocks": [
+    ["1041", "auth.login", "a91f…0c2e", "ok"],
+    ["1042", "user.role_changed", "5be0…77d1", "ok"],
+    ["1043", "user.deleted", "e7c4…19aa", "bad"],
+    ["1044", "plugin.activated", "3d02…b8f5", "off"]
+   ],
+   "bad": {"pt": "alterado depois de gravado", "en": "changed after it was written", "es": "alterado después de grabado"},
+   "button": {"pt": "Verificar integridade agora", "en": "Verify integrity now", "es": "Verificar integridad ahora"},
+   "result": {"pt": "Quebra no registro 1043", "en": "Break at record 1043", "es": "Ruptura en el registro 1043"}}
+ },
+ "treinamentos-com-evidencia-iso-9001": {
+  "hook": {"pt": "O que o requisito 7.2 pede, por que a lista de presença não basta e como provar competência.", "en": "What clause 7.2 requires, why an attendance sheet isn’t enough and how to prove competence.", "es": "Lo que pide el requisito 7.2, por qué la lista de asistencia no basta y cómo probar competencia."},
+  "info": {"type": "course",
+   "head": {"pt": "Integração ao SGQ · 8 h", "en": "QMS onboarding · 8 h", "es": "Integración al SGC · 8 h"},
+   "steps": [
+    [{"pt": "Vídeos assistidos", "en": "Videos watched", "es": "Videos vistos"}, "90%", "done"],
+    [{"pt": "Quiz entre módulos", "en": "Quiz between modules", "es": "Quiz entre módulos"}, "70%+", "done"],
+    [{"pt": "Prova final", "en": "Final exam", "es": "Examen final"}, "85%", "done"],
+    [{"pt": "Eficácia pelo gestor", "en": "Effectiveness by manager", "es": "Eficacia por el gestor"}, "30 d", "active"]
+   ],
+   "cert": {"pt": "Certificado", "en": "Certificate", "es": "Certificado"},
+   "verify": {"pt": "Verificável por QR Code", "en": "Verifiable by QR code", "es": "Verificable por código QR"},
+   "iso": "ISO 9001 · 7.2"}
+ },
+ "fim-do-workplace-migrar-comunicacao-interna": {
+  "hook": {"pt": "O Workplace saiu do ar em 1º de junho de 2026. Um checklist em cinco passos para migrar sem perder dados.", "en": "Workplace went offline on June 1, 2026. A five-step checklist to migrate without losing data.", "es": "Workplace salió del aire el 1 de junio de 2026. Un checklist de cinco pasos para migrar sin perder datos."},
+  "info": {"type": "timeline",
+   "dates": [
+    [{"pt": "2024", "en": "2024", "es": "2024"}, {"pt": "Fim anunciado", "en": "Shutdown announced", "es": "Cierre anunciado"}, "past"],
+    [{"pt": "set. 2025", "en": "Sep 2025", "es": "sep. 2025"}, {"pt": "Somente leitura", "en": "Read-only", "es": "Solo lectura"}, "past"],
+    [{"pt": "jun. 2026", "en": "Jun 2026", "es": "jun. 2026"}, {"pt": "Fora do ar", "en": "Offline", "es": "Fuera del aire"}, "end"]
+   ],
+   "head": {"pt": "Migração em 5 passos", "en": "Migration in 5 steps", "es": "Migración en 5 pasos"},
+   "steps": [
+    {"pt": "Inventário", "en": "Inventory", "es": "Inventario"},
+    {"pt": "Exportação e guarda", "en": "Export and storage", "es": "Exportación y resguardo"},
+    {"pt": "Grupos viram áreas", "en": "Groups become areas", "es": "Los grupos se vuelven áreas"},
+    {"pt": "Comunicação às pessoas", "en": "Tell your people", "es": "Comunicación a las personas"},
+    {"pt": "Kit de lançamento", "en": "Launch kit", "es": "Kit de lanzamiento"}
+   ]}
+ },
+ "quanto-custa-uma-intranet": {
+  "hook": {"pt": "Licença por usuário, custos ocultos e saída: compare os modelos com um exemplo neutro.", "en": "Per-user licenses, hidden costs and exit: compare pricing models with a neutral example.", "es": "Licencia por usuario, costos ocultos y salida: compara los modelos con un ejemplo neutral."},
+  "info": {"type": "bars",
+   "head": {"pt": "Custo anual por tamanho de equipe", "en": "Annual cost by team size", "es": "Costo anual por tamaño de equipo"},
+   "people": {"pt": "pessoas", "en": "people", "es": "personas"},
+   "groups": [150, 200, 300],
+   "series": [
+    {"name": {"pt": "Por usuário (R$ 25/mês)", "en": "Per user (R$ 25/month)", "es": "Por usuario (R$ 25/mes)"}, "color": "#f29a3a",
+     "values": [45000, 60000, 90000]},
+    {"name": {"pt": "Alicerce360 Profissional, anual", "en": "Alicerce360 Professional, annual", "es": "Alicerce360 Profesional, anual"}, "color": "#0e9fa3",
+     "values": [11900, 11900, 19900]}
+   ],
+   "fmt": {"pt": "mil", "en": "k", "es": "mil"},
+   "badge": "−80%",
+   "badgeLabel": {"pt": "no exemplo com 200 pessoas", "en": "in the 200-person example", "es": "en el ejemplo con 200 personas"}}
+ },
+ "atestados-de-capacidade-tecnica-lei-14133": {
+  "hook": {"pt": "O que a Lei 14.133/2021 pede e como organizar pedido, minuta, assinatura digital e acervo.", "en": "What Law 14,133/2021 requires and how to organize request, draft, digital signature and archive.", "es": "Lo que pide la Ley 14.133/2021 y cómo organizar solicitud, borrador, firma digital y acervo."},
+  "info": {"type": "flow",
+   "head": {"pt": "Do pedido ao acervo", "en": "From request to archive", "es": "De la solicitud al acervo"},
+   "code": "Lei 14.133/2021 · art. 67",
+   "codeT": {"pt": "Lei 14.133/2021 · art. 67", "en": "Law 14,133/2021 · art. 67", "es": "Ley 14.133/2021 · art. 67"},
+   "steps": [
+    [{"pt": "Pedido ao cliente", "en": "Request to the client", "es": "Solicitud al cliente"}, "done"],
+    [{"pt": "Minuta e revisão", "en": "Draft and review", "es": "Borrador y revisión"}, "done"],
+    [{"pt": "Assinatura ICP-Brasil ou gov.br", "en": "ICP-Brasil or gov.br signature", "es": "Firma ICP-Brasil o gov.br"}, "done"],
+    [{"pt": "Acervo pesquisável", "en": "Searchable archive", "es": "Acervo consultable"}, "active"]
+   ],
+   "badges": [
+    ["search", {"pt": "Busca por serviço e ano", "en": "Search by service and year", "es": "Búsqueda por servicio y año"}],
+    ["clock", {"pt": "Prazo e responsável", "en": "Deadline and owner", "es": "Plazo y responsable"}],
+    ["history", {"pt": "Histórico completo", "en": "Full history", "es": "Historial completo"}]
+   ]}
+ },
+ "hospedagem-segura-wordpress-email": {
+  "hook": {"pt": "SSL, backup testado, antivírus e e-mail com SPF, DKIM e DMARC: o que olhar antes de contratar.", "en": "SSL, tested backups, antivirus and email with SPF, DKIM and DMARC: what to check before you buy.", "es": "SSL, backup probado, antivirus y correo con SPF, DKIM y DMARC: qué revisar antes de contratar."},
+  "info": {"type": "checklist",
+   "head": {"pt": "Checklist de segurança", "en": "Security checklist", "es": "Checklist de seguridad"},
+   "items": [
+    ["lock", "SSL", {"pt": "Renovação automática", "en": "Automatic renewal", "es": "Renovación automática"}],
+    ["refresh", "Backup", {"pt": "Diário e testado", "en": "Daily and tested", "es": "Diario y probado"}],
+    ["shield", {"pt": "Antivírus", "en": "Antivirus", "es": "Antivirus"}, {"pt": "Quarentena automática", "en": "Automatic quarantine", "es": "Cuarentena automática"}],
+    ["fire", "Firewall", {"pt": "Antes do WordPress", "en": "In front of WordPress", "es": "Antes de WordPress"}],
+    ["mail", {"pt": "E-mail", "en": "Email", "es": "Correo"}, "SPF · DKIM · DMARC"],
+    ["login", "Login", {"pt": "Bloqueio de força bruta", "en": "Brute-force blocking", "es": "Bloqueo de fuerza bruta"}]
+   ],
+   "score": "6/6"}
+ }
+}
