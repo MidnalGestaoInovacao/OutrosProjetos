@@ -44,7 +44,7 @@
 .a3-dock button .ico { width: 24px; height: 24px; }
 .a3-dock .tip { position: absolute; left: 54px; top: 50%; transform: translateY(-50%); background: var(--a-ink); color: #fff; font-size: .78rem; font-weight: 700; padding: 6px 10px; border-radius: 8px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .2s; }
 .a3-dock button:hover .tip, .a3-dock button:focus-visible .tip { opacity: 1; }
-@media (max-width: 640px) { .a3-dock { top: auto; bottom: 150px; transform: none; } .a3-dock button { width: 40px; height: 40px; } }
+@media (max-width: 640px) { .a3-dock { top: auto; bottom: 112px; transform: none; padding: 4px 4px 4px 2px; border-radius: 0 12px 12px 0; } .a3-dock button { width: 40px; height: 40px; } .a3-dock [data-dock="libras"], .a3-dock [data-dock="cookie"] { display: none; } }
 
 /* ---------- painel de acessibilidade ---------- */
 .a3-panel { position: fixed; z-index: 99990; top: 0; bottom: 0; left: 0; width: min(390px, 100vw); background: var(--a-surface); box-shadow: 30px 0 70px -20px rgba(14, 31, 77, .35); transform: translateX(-104%); transition: transform .4s var(--a-ease); display: flex; flex-direction: column; }
@@ -156,7 +156,8 @@
 .a3-mascot.st-think .m-arm-r { transform: rotate(-120deg); }
 .a3-mascot.st-think .m-eyes { transform: translate(2px, -2px); }
 .a3-mascot .m-bubble { position: absolute; left: 86px; bottom: 74px; width: max-content; max-width: min(260px, calc(100vw - 130px)); background: var(--a-surface); color: var(--a-ink); border: 1px solid var(--a-line); border-radius: 16px 16px 16px 4px; box-shadow: var(--a-shadow); padding: 11px 14px; font-size: .86rem; font-weight: 650; line-height: 1.4; opacity: 0; transform: translateY(8px) scale(.96); transform-origin: 0 100%; transition: opacity .3s, transform .35s var(--a-ease); pointer-events: none; }
-.a3-mascot .m-bubble.is-on { opacity: 1; transform: none; pointer-events: auto; }
+.a3-mascot .m-bubble.is-on { opacity: 1; transform: none; }
+.a3-mascot .m-bubble.is-on a { pointer-events: auto; }
 .a3-mascot .m-bubble a { font-weight: 800; }
 .a3-mascot .m-close { position: absolute; left: 70px; bottom: 96px; width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--a-line2); background: var(--a-surface); color: var(--a-muted); display: grid; place-items: center; pointer-events: auto; opacity: 0; transition: opacity .2s; padding: 0; }
 .a3-mascot:hover .m-close, .a3-mascot:focus-within .m-close { opacity: 1; }
