@@ -7,7 +7,8 @@ A chave MCP NUNCA fica no repositório. Informe-a por variável de ambiente:
 
 Uso:
   python3 tools/deploy_wp.py                 publica tudo (mídia, CSS, cabeçalho, rodapé, modelos, páginas)
-  python3 tools/deploy_wp.py --only pages    só páginas  (também: media, css, chrome, templates, posts, settings)
+  python3 tools/deploy_wp.py --only pages    só páginas  (também: media, css, chrome, templates, posts, settings, mailer)
+  RESEND_KEY_FILE=/caminho python3 tools/deploy_wp.py --only mailer   envio de e-mail pelo Resend (snippet + chave)
   python3 tools/deploy_wp.py --dry-run       mostra o que faria, sem gravar
 
 O que é alterado no WordPress (tudo reversível pelo Editor do site / lixeira):
@@ -16,6 +17,8 @@ O que é alterado no WordPress (tudo reversível pelo Editor do site / lixeira):
   - Partes de modelo "header" e "footer" do tema ativo (HTML do cabeçalho/rodapé + scripts).
   - Modelos "page", "page-no-title", "single" (matérias), "home" (página inicial) e "404".
   - Matérias como posts (por slug), com categoria, tags e imagem de destaque (capas em src/img/posts/).
+  - Snippet "CoreCyber · E-mail via Resend" (plugin Code Snippets) com o código de wordpress/corecyber-resend.php;
+    a chave do Resend (RESEND_KEY ou RESEND_KEY_FILE) vai só para o WordPress, nunca para o repositório.
   - Blocos reutilizáveis "CoreCyber · Início" e "CoreCyber · 404".
   - Páginas por slug (cria ou atualiza), título e descrição do site.
   - Conteúdo de exemplo do WordPress vai para a lixeira ("Olá, mundo!" e "Página de exemplo").
@@ -292,6 +295,40 @@ def main():
                 log(f"criando matéria {pm['slug']} ({len(content)//1024} KB)")
                 if not DRY:
                     mcp.tool("wp_create_post", args)
+
+    # ------------------------------------------------ e-mail pelo Resend (snippet do Code Snippets)
+    if ONLY is not None and "mailer" in ONLY:
+        name = "CoreCyber · E-mail via Resend"
+        code = (ROOT / "wordpress" / "corecyber-resend.php").read_text(encoding="utf-8")
+        code = re.sub(r"^<\?php\s*", "", code, count=1)
+        snippets = mcp.tool("wp_rest_read", {"route": "/code-snippets/v1/snippets"}).get("data", [])
+        cur = next((x for x in snippets if x.get("name") == name and not x.get("trashed")), None)
+        body = {"name": name, "code": code, "scope": "global", "priority": 10, "tags": ["corecyber", "email"],
+                "desc": "Envio de e-mails do site e dos formulários pelo Resend. Código mantido em corecyber-site/wordpress/corecyber-resend.php."}
+        if cur:
+            log(f"atualizando snippet #{cur['id']}")
+            if not DRY:
+                r = mcp.tool("wp_rest_write", {"route": f"/code-snippets/v1/snippets/{cur['id']}", "method": "PUT", "body": body})
+                sid = cur["id"]
+        else:
+            log("criando snippet (inativo)")
+            if not DRY:
+                r = mcp.tool("wp_rest_write", {"route": "/code-snippets/v1/snippets", "method": "POST", "body": {**body, "active": False}})
+                sid = r["data"]["id"]
+        if not DRY:
+            err = (r.get("data") or {}).get("code_error")
+            if err:
+                raise SystemExit(f"snippet com erro: {err}")
+            r = mcp.tool("wp_rest_write", {"route": f"/code-snippets/v1/snippets/{sid}/activate", "method": "POST", "body": {}})
+            log("snippet ativo:", (r.get("data") or {}).get("active"))
+        key = os.environ.get("RESEND_KEY", "").strip()
+        if not key and os.environ.get("RESEND_KEY_FILE"):
+            key = Path(os.environ["RESEND_KEY_FILE"]).read_text().strip()
+        if key and not DRY:
+            r = mcp.tool("wp_rest_write", {"route": "/corecyber/v1/config", "method": "POST", "body": {"key": key}})
+            log("chave do Resend:", (r.get("data") or {}).get("key"))
+        if not DRY:
+            log("configuração:", json.dumps(mcp.tool("wp_rest_read", {"route": "/corecyber/v1/config"}).get("data"), ensure_ascii=False))
 
     if step("settings"):
         log("título e descrição do site")

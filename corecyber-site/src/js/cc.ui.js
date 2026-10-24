@@ -90,6 +90,7 @@ var CC_UI = {
     /* formulários */
     'f.required': 'Preencha este campo.', 'f.email': 'Informe um e-mail válido.', 'f.consent': 'Para continuar, marque a caixa de concordância.',
     'f.ok.wa': 'Pronto! Abrimos o WhatsApp com sua mensagem preenchida. Protocolo de referência: {p}.',
+    'f.sending': 'Enviando…', 'f.ok.sent': 'Pronto! Recebemos sua mensagem. Protocolo: {p}.', 'f.ok.confirm': 'Enviamos uma confirmação para o seu e-mail.', 'f.err.fallback': 'Não conseguimos enviar agora, então abrimos o seu e-mail com a mensagem pronta para você enviar.', 'f.t.a11y': 'Acessibilidade',
     'f.ok.mail': 'Pronto! Abrimos seu aplicativo de e-mail com a mensagem preenchida. Protocolo de referência: {p}.',
     'f.ok.hint': 'Se nada abriu, escreva para {m} informando o protocolo.',
     'f.subject': 'CoreCyber · {t} · {p}', 'f.proto': 'Protocolo',
@@ -224,6 +225,7 @@ var CC_UI = {
     'sim.none': 'With this combination the price is similar — the gain is one console, one language and one contract.',
     'f.required': 'Please fill in this field.', 'f.email': 'Please enter a valid email.', 'f.consent': 'To continue, please tick the consent box.',
     'f.ok.wa': 'Done! We opened WhatsApp with your message filled in. Reference number: {p}.',
+    'f.sending': 'Sending…', 'f.ok.sent': 'Done! We received your message. Reference number: {p}.', 'f.ok.confirm': 'We sent a confirmation to your email.', 'f.err.fallback': 'We could not send it right now, so we opened your email app with the message ready for you to send.', 'f.t.a11y': 'Accessibility',
     'f.ok.mail': 'Done! We opened your email app with the message filled in. Reference number: {p}.',
     'f.ok.hint': 'If nothing opened, write to {m} quoting the reference number.',
     'f.subject': 'CoreCyber · {t} · {p}', 'f.proto': 'Reference',
@@ -354,6 +356,7 @@ var CC_UI = {
     'sim.none': 'Con esta combinación el valor es similar: la ganancia está en una sola consola, un solo idioma y un solo contrato.',
     'f.required': 'Complete este campo.', 'f.email': 'Introduzca un correo válido.', 'f.consent': 'Para continuar, marque la casilla de conformidad.',
     'f.ok.wa': '¡Listo! Abrimos WhatsApp con su mensaje completado. Número de referencia: {p}.',
+    'f.sending': 'Enviando…', 'f.ok.sent': '¡Listo! Recibimos su mensaje. Protocolo: {p}.', 'f.ok.confirm': 'Le enviamos una confirmación a su correo.', 'f.err.fallback': 'No pudimos enviarlo ahora, así que abrimos su correo con el mensaje listo para que usted lo envíe.', 'f.t.a11y': 'Accesibilidad',
     'f.ok.mail': '¡Listo! Abrimos su aplicación de correo con el mensaje completado. Número de referencia: {p}.',
     'f.ok.hint': 'Si no se abrió nada, escriba a {m} indicando el número de referencia.',
     'f.subject': 'CoreCyber · {t} · {p}', 'f.proto': 'Referencia',

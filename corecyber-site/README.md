@@ -43,6 +43,7 @@ tools/i18n.py           divide, junta e valida traduções
 tools/llm_i18n.py       traduz textos novos com o FreeLLMAPI (opcional)
 tools/covers.py         gera as capas-infográfico das matérias (Playwright + Pillow; só refaz o que mudou)
 tools/deploy_wp.py      publica no WordPress pelo MCP
+wordpress/corecyber-resend.php  envio de e-mails pelo Resend (snippet do plugin Code Snippets)
 freellmapi/             kit para ligar o assistente Cy (e as traduções) ao FreeLLMAPI
 docs/COMPONENTES.md     guia de componentes para editar páginas
 docs/PRODUTO.md         fatos do produto (o que está disponível, em evolução e no roadmap)
@@ -83,6 +84,16 @@ python3 tools/deploy_wp.py --only posts     # envia capas novas e cria/atualiza 
 - **Páginas**: criadas/atualizadas pelo slug, com o modelo `page` simplificado (largura total).
 - Tudo é reversível: o Editor do site permite “Restaurar” modelos, e o conteúdo de exemplo foi para a lixeira.
 
+### E-mails pelo Resend
+
+- Todos os formulários do site enviam pelo servidor: `POST /?rest_route=/corecyber/v1/enviar` gera o protocolo (ex.: `CTT-2026-000123`), envia à caixa responsável e manda a confirmação ao visitante no idioma dele. Se o servidor falhar, o site volta a abrir o e-mail do visitante com a mensagem pronta. A opção WhatsApp continua igual.
+- Destinos: contato, demonstração, prova de conceito, parceria, indicação e diagnóstico → contato@; Portal do Titular → lgpd@; Canal de Integridade → ouvidoria@; divulgação responsável → seguranca@; acessibilidade → suporte@ (tudo @corecyber.com.br). Remetente: `CoreCyber <contato@corecyber.com.br>`.
+- Todo e-mail do WordPress (`wp_mail`) também sai pela API do Resend; se o Resend falhar, o WordPress usa o envio padrão do servidor.
+- Proteções: só aceita envios do próprio site, campo-armadilha e tempo mínimo contra robôs, limite de 5 envios por conexão a cada 10 minutos (sem guardar o IP), validação e tamanho máximo. Nada é gravado no banco além do contador de protocolos. A confirmação ao visitante não repete o texto enviado.
+- O código fica em `wordpress/corecyber-resend.php` e roda como snippet do plugin **Code Snippets**. Para publicar uma alteração: `python3 tools/deploy_wp.py --only mailer`.
+- **Chave do Resend** (nunca no repositório): `RESEND_KEY_FILE=/caminho python3 tools/deploy_wp.py --only mailer` grava a chave no WordPress. Alternativa mais restrita: definir `CORECYBER_RESEND_KEY` no `wp-config.php`, que tem prioridade.
+- Rotas de administração (somente administradores, por exemplo via `wp_rest_read`/`wp_rest_write` do MCP): `GET /corecyber/v1/config` mostra a configuração com a chave mascarada; `POST /corecyber/v1/config {"test_to": "voce@exemplo.com"}` liga o modo de teste (cópias da equipe vão para esse endereço) e `{"test_to": ""}` desliga; `POST /corecyber/v1/teste {"to": "...", "via": "wp_mail"}` envia um e-mail de teste.
+
 ### Editar textos e preços
 
 - Preços, contatos e links: `site.config.json` → `python3 tools/deploy_wp.py`.
@@ -96,5 +107,6 @@ python3 tools/deploy_wp.py --only posts     # envia capas novas e cria/atualiza 
 - Confirmar o status de **ASSBAN, MOORE e MIDNAL** (hoje exibidos como “Em implantação”) e a autorização para exibir os nomes; enviar logotipos oficiais, se autorizados.
 - Criar as caixas de e-mail do domínio **@corecyber.com.br** usadas no site (contato, suporte, lgpd, ouvidoria e seguranca) — ou trocar em `site.config.json`.
 - Confirmar a exibição do nome do Encarregado (DPO) na Política de Privacidade.
+- Depois de algumas semanas de relatórios DMARC sem problemas, endurecer a política de `_dmarc.corecyber.com.br` de `p=none` para `p=quarantine`.
 - Ativar links permanentes “Nome do post” no WordPress (opcional, melhora SEO) e instalar um plugin de SEO (Yoast ou Rank Math) para meta descrição, Open Graph (`og.jpg` já está na mídia) e ícone do site.
 - Opcional: publicar o FreeLLMAPI (`freellmapi/README.md`) e preencher `ai.endpoint`.

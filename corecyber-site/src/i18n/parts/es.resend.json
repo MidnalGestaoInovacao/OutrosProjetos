@@ -1,0 +1,19 @@
+{
+ "t35bc71785": "Resend, servicio de envío de correos del sitio",
+ "t473bb3d01": "no guardan el contenido en la base de datos del sitio",
+ "t4a06a7d09": "Entregar los mensajes de los formularios a nuestro equipo y las confirmaciones a usted",
+ "t66dff5efe": "Servicio de envío de correos de la plataforma",
+ "t7a756325b": "Al enviar, la solicitud va directo a nuestro encargado de protección de datos, con un número de protocolo, y usted recibe una confirmación en el correo informado. El sitio no guarda el contenido en una base de datos.",
+ "t7c91b4919": "El envío de correos del sitio usa Resend, empresa con sede en Estados Unidos, con envío desde infraestructura en São Paulo. El proveedor puede tratar registros técnicos de envío desde el exterior, en las mismas condiciones del art. 33.",
+ "t838f0d4f9": "Lo que usted decide enviarnos (nombre, correo, teléfono, empresa, mensaje) y registros técnicos de acceso. Los formularios envían el mensaje directo a nuestro equipo, con protocolo y confirmación en su correo, sin guardar el contenido en la base de datos del sitio.",
+ "t857339b6e": "Complete el formulario y envíelo: el reporte va directo a la Defensoría, con un número de protocolo de referencia. Puede dejar el nombre en blanco. Si lo prefiere, envíelo por WhatsApp.",
+ "t9ac9874ae": "Contador de envíos de los formularios (código derivado de la dirección IP, contra abusos)",
+ "t9fdf2e98b": "Los formularios de este sitio no guardan nada en su navegador ni usan cookies: el mensaje se envía directo desde el sitio a nuestro equipo, con protocolo y confirmación en su correo. En WhatsApp, rigen las reglas de Meta.",
+ "ta63eae974": "Si algo en este sitio o en la plataforma le dificultó el acceso, cuéntenos por el canal que le resulte más cómodo. El formulario de abajo envía el mensaje directo a nuestro soporte, con protocolo y confirmación en su correo. Si lo prefiere, elija WhatsApp.",
+ "tc04ba791e": ") y reenvía el mensaje por correo al equipo responsable, mediante el servicio de envío Resend. Usted recibe una confirmación en el correo informado. Para evitar abusos, el sitio cuenta los envíos hechos desde cada conexión durante 10 minutos, usando un código derivado de la dirección IP, sin guardar la IP. Si usted elige WhatsApp, el mensaje sigue por su aplicación y rigen las reglas de Meta.",
+ "tc415658fd": "Nombre, correo, teléfono, empresa, cargo y el contenido de su mensaje. El formulario envía el mensaje por correo al equipo responsable, mediante el servicio de envío Resend, sin guardar el contenido en la base de datos del sitio. Si usted elige WhatsApp, el mensaje sigue por su aplicación.",
+ "tcde140708": "Al enviar, usted recibe al instante un número de protocolo y una confirmación en su correo. Si lo prefiere, elija WhatsApp.",
+ "td59d21e84": "Los formularios envían el mensaje desde el propio sitio, con un protocolo de referencia y una confirmación por correo. Si usted elige WhatsApp, el envío se realiza desde su aplicación.",
+ "td6a931112": "o use el formulario de abajo, que envía el reporte directo a nuestro equipo de seguridad, con un protocolo y la confirmación de recepción en su correo.",
+ "tfc13b429d": "Puede serlo. Elija “Prefiero no informar mi nombre” y deje el contacto en blanco: el reporte llega a la Defensoría desde el sitio, sin su nombre ni su correo, y la dirección IP no se registra junto al reporte. El proveedor de hospedaje mantiene registros técnicos de acceso por seguridad. Si el anonimato es esencial, use el canal oficial desde un dispositivo y una red personales."
+}

@@ -36,7 +36,7 @@
         <thead><tr><th scope="col">Pergunta</th><th scope="col">Resposta direta</th></tr></thead>
         <tbody>
           <tr><th scope="row">Quem trata seus dados?</th><td>{{c:company.legal_name}}, CNPJ <span data-noi18n>{{c:company.cnpj}}</span>, em Brasília/DF — fabricante, licenciadora e primeira cliente do CoreCyber.</td></tr>
-          <tr><th scope="row">O que coletamos no site?</th><td>O que você decide nos enviar (nome, e-mail, telefone, empresa, mensagem) e registros técnicos de acesso. Os formulários não gravam nada no site: abrem o seu e-mail ou o WhatsApp com a mensagem pronta e um protocolo.</td></tr>
+          <tr><th scope="row">O que coletamos no site?</th><td>O que você decide nos enviar (nome, e-mail, telefone, empresa, mensagem) e registros técnicos de acesso. Os formulários enviam a mensagem direto à nossa equipe, com protocolo e confirmação no seu e-mail, sem guardar o conteúdo no banco de dados do site.</td></tr>
           <tr><th scope="row">Para quê?</th><td>Responder você, fazer o diagnóstico que pediu, prestar os serviços contratados, proteger os sistemas e cumprir a lei.</td></tr>
           <tr><th scope="row">E os dados na plataforma?</th><td>Pertencem à gestão da empresa cliente. Tratamos esses dados só para prestar o serviço, conforme o contrato e as instruções dela.</td></tr>
           <tr><th scope="row">Vendemos seus dados?</th><td>Não. Nunca.</td></tr>
@@ -118,7 +118,7 @@
             <thead><tr><th scope="col">Contexto</th><th scope="col">Dados</th></tr></thead>
             <tbody>
               <tr><th scope="row">Navegação no site</th><td>Endereço IP, data e hora de acesso, páginas visitadas, tipo de navegador e dispositivo, registrados pelo servidor. No seu navegador ficam suas escolhas de privacidade, idioma e acessibilidade, conforme a <a href="/politica-de-cookies/">Política de Cookies</a>.</td></tr>
-              <tr><th scope="row">Contatos e formulários</th><td>Nome, e-mail, telefone, empresa, cargo e o conteúdo da sua mensagem. Os formulários não gravam nada no servidor do site: abrem o seu e-mail ou o WhatsApp com a mensagem pronta e um número de protocolo, e só recebemos o que você decidir enviar.</td></tr>
+              <tr><th scope="row">Contatos e formulários</th><td>Nome, e-mail, telefone, empresa, cargo e o conteúdo da sua mensagem. O formulário envia a mensagem por e-mail à equipe responsável, pelo serviço de envio Resend, sem guardar o conteúdo no banco de dados do site. Se você escolher o WhatsApp, a mensagem segue pelo seu aplicativo.</td></tr>
               <tr><th scope="row">Diagnóstico gratuito</th><td>Dados de contato de quem solicita, o domínio a analisar, a comprovação de que a empresa é titular do domínio e o resultado da varredura externa não invasiva, que pode conter dados públicos, como endereços de e-mail publicados em registros DNS ou em arquivos de segurança.</td></tr>
               <tr><th scope="row">Propostas, contratos e licenças</th><td>Dados dos representantes do cliente (nome, cargo, e-mail, telefone), dados de faturamento e cobrança, faixa de ativos contratada, prazos de licença e informações necessárias à implantação.</td></tr>
               <tr><th scope="row">Aceite dos termos da plataforma</th><td>Registro de quem aceitou os termos de uso, com data, hora, endereço IP, navegador e o resumo criptográfico (hash SHA-256) do texto aceito, guardado como prova da contratação.</td></tr>
@@ -216,7 +216,7 @@
         <h2><span class="n">6.</span> Recursos do site e o que acontece com seus dados</h2>
 
         <h3>Formulários com protocolo</h3>
-        <p>Contato, diagnóstico, prova de conceito, indicação, parceria, Portal do Titular e demais formulários <strong>não gravam nada no servidor do site</strong>. Ao enviar, o site gera um número de protocolo (por exemplo, <span data-noi18n>CTT-2026-123456</span>) e abre o seu e-mail ou o WhatsApp com a mensagem pronta. A mensagem só chega até nós quando você a envia. No WhatsApp, valem as regras da Meta.</p>
+        <p>Contato, diagnóstico, prova de conceito, indicação, parceria, Portal do Titular e demais formulários <strong>não guardam o conteúdo no banco de dados do site</strong>. Ao enviar, o site gera um número de protocolo (por exemplo, <span data-noi18n>CTT-2026-000123</span>) e encaminha a mensagem por e-mail à equipe responsável, pelo serviço de envio Resend. Você recebe uma confirmação no e-mail informado. Para evitar abusos, o site conta os envios feitos a partir de cada conexão durante 10 minutos, usando um código derivado do endereço IP, sem guardar o IP. Se você escolher o WhatsApp, a mensagem segue pelo seu aplicativo e valem as regras da Meta.</p>
 
         <h3>Experiência com a câmera</h3>
         <p>Na página inicial, o “controle com a mão” só usa a câmera se você clicar para ativá-la e autorizar no navegador. A imagem é analisada <strong>somente no seu dispositivo</strong> para detectar a posição da mão; nenhum quadro de vídeo é gravado, guardado ou enviado à EBAEM ou a terceiros.</p>
@@ -241,7 +241,8 @@
             <thead><tr><th scope="col">Categoria</th><th scope="col">Para quê</th><th scope="col">Quem decide</th></tr></thead>
             <tbody>
               <tr><td>Provedores de infraestrutura e nuvem</td><td>Manter no ar o site, a plataforma e o servidor de IA do assistente</td><td>EBAEM</td></tr>
-              <tr><td>Serviço de envio de e-mails</td><td>Alertas, códigos de 2º fator, relatórios agendados e respostas</td><td>EBAEM</td></tr>
+              <tr><td>Resend, serviço de envio de e-mails do site</td><td>Entregar as mensagens dos formulários à nossa equipe e as confirmações a você</td><td>EBAEM</td></tr>
+              <tr><td>Serviço de envio de e-mails da plataforma</td><td>Alertas, códigos de 2º fator, relatórios agendados e respostas</td><td>EBAEM</td></tr>
               <tr><td>Contabilidade, meios de pagamento e assinatura eletrônica</td><td>Cobrar, cumprir obrigações fiscais e formalizar contratos</td><td>EBAEM</td></tr>
               <tr><td>Integrações opcionais: Google Drive, Telegram, Slack, webhook e GLPI</td><td>Copiar relatórios, enviar alertas e abrir chamados no destino escolhido pelo cliente</td><td>Empresa cliente, que ativa e configura cada uma</td></tr>
               <tr><td>Login com Google ou Microsoft</td><td>Confirmar a identidade de quem escolhe entrar com essas contas</td><td>Empresa cliente e o próprio usuário</td></tr>
@@ -260,6 +261,7 @@
       <section id="s8">
         <h2><span class="n">8.</span> Transferência internacional</h2>
         <p>Alguns fornecedores — como provedores de nuvem e de e-mail, serviços do Google e da Cloudflare, provedores de IA e as integrações que o cliente escolher, como Slack e Telegram — podem tratar dados em servidores fora do Brasil. Quando isso acontece, a transferência ocorre somente nas hipóteses do art. 33 da LGPD: para países com grau de proteção adequado, mediante garantias como cláusulas-padrão contratuais aprovadas pela ANPD, ou quando necessária à execução de contrato ou a procedimentos preliminares a pedido do titular.</p>
+        <p>O envio de e-mails do site usa o Resend, empresa sediada nos Estados Unidos, com envio a partir de infraestrutura em São Paulo. O fornecedor pode tratar registros técnicos de envio a partir do exterior, nas mesmas condições do art. 33.</p>
         <p>Nas integrações ativadas pelo cliente, cabe a ele, como controlador, avaliar a transferência; a EBAEM informa onde cada serviço opera e apoia essa avaliação. Clientes que precisam manter os dados em ambiente exclusivo podem contratar uma instância dedicada, sob consulta.</p>
         <div class="law"><span>LGPD, arts. 33 a 36</span><span>Resolução CD/ANPD nº 19/2024</span></div>
       </section>
@@ -290,6 +292,7 @@
             <thead><tr><th scope="col">Categoria</th><th scope="col">Prazo de retenção</th></tr></thead>
             <tbody>
               <tr><td>Contatos, leads, propostas sem contratação e diagnósticos gratuitos</td><td>Até 24 meses após o último contato</td></tr>
+              <tr><td>Contador de envios dos formulários (código derivado do endereço IP, contra abusos)</td><td>10 minutos</td></tr>
               <tr><td>Contratos, cobrança, documentos fiscais e aceite dos termos</td><td>Durante o contrato e por 5 anos após o término, conforme os prazos do Código Civil e da legislação tributária</td></tr>
               <tr><td>Registros de acesso ao site e à plataforma</td><td>Mínimo de 6 meses, conforme o Marco Civil da Internet</td></tr>
               <tr><td>Dados da plataforma, tratados como operadora</td><td>Durante o contrato e mais 30 dias para o cliente exportar. Depois, eliminação ou anonimização, com certificado de descomissionamento, se o cliente pedir</td></tr>

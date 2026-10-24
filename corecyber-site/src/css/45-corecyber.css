@@ -227,3 +227,4 @@ html.a11y-motion .cc-mascot .m-ring, html.a11y-motion .cc-mascot .m-sig, html.a1
 /* cabeçalhos e textos acompanham a largura do conteúdo */
 .cc .page-hero .lead, .cc .sec-head--row .lead { max-width: none; }
 html.cc-drawer-open .cc-mascot, html.cc-drawer-open .cc-mascot-min, html.cc-drawer-open .cc-fab, html.cc-drawer-open .cc-dock, html.cc-drawer-open .cc-totop { display: none !important; }
+.cc .cc-hp { position: absolute !important; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden; }
