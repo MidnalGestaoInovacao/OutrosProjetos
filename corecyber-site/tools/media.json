@@ -68,6 +68,7 @@
  "posts/seguranca-em-pedacos.es": "https://corecyber.com.br/wp-content/uploads/2026/10/corecyber-posts-seguranca-em-pedacos.es_.webp",
  "posts/spf-dmarc-dnssec.en": "https://corecyber.com.br/wp-content/uploads/2026/10/corecyber-posts-spf-dmarc-dnssec.en_.webp",
  "posts/spf-dmarc-dnssec.es": "https://corecyber.com.br/wp-content/uploads/2026/10/corecyber-posts-spf-dmarc-dnssec.es_.webp",
+ "email-header": "https://corecyber.com.br/wp-content/uploads/2026/10/corecyber-email-header.jpg",
  "_sha1": {
   "logo-h": "e951f60d2e70e2be1967741a60e201e63af67c74",
   "logo-h-neg": "cb3c96b9b8aced154cdc543950f50f4707386ca9",
@@ -137,7 +138,8 @@
   "posts/seguranca-em-pedacos.en": "681558cae1d81cf433c1d86aa2b493c94ea12771",
   "posts/seguranca-em-pedacos.es": "126d300b9a69107c51b08254e559c07c7241ed1c",
   "posts/spf-dmarc-dnssec.en": "84bf5e06c9588075e378ae0162ea20cf2c7e8e51",
-  "posts/spf-dmarc-dnssec.es": "e8c588f59a16773ae99b39f8e44ffcc3e999786e"
+  "posts/spf-dmarc-dnssec.es": "e8c588f59a16773ae99b39f8e44ffcc3e999786e",
+  "email-header": "aed1126cb5ef665bfcfe83270204cd72b573eb76"
  },
  "_ids": {
   "posts/193-controles-iso-lgpd.pt": 77,
@@ -199,6 +201,7 @@
   "posts/seguranca-em-pedacos.en": 133,
   "posts/seguranca-em-pedacos.es": 134,
   "posts/spf-dmarc-dnssec.en": 135,
-  "posts/spf-dmarc-dnssec.es": 136
+  "posts/spf-dmarc-dnssec.es": 136,
+  "email-header": 196
  }
 }

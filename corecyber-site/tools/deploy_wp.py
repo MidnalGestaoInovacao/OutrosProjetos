@@ -46,6 +46,7 @@ IMAGES = {  # chave -> arquivo em src/img
     "logo-h": "logo-h.webp", "logo-h-neg": "logo-h-neg.webp", "logo-v": "logo-v.webp",
     "icon-512": "icon-512.webp", "icon-180": "icon-180.png", "icon-64": "icon-64.png",
     "icon-32": "icon-32.png", "icon-neg-256": "icon-neg-256.webp", "og": "og.jpg",
+    "email-header": "email-header.jpg",
 }
 
 
@@ -301,6 +302,11 @@ def main():
         name = "CoreCyber · E-mail via Resend"
         code = (ROOT / "wordpress" / "corecyber-resend.php").read_text(encoding="utf-8")
         code = re.sub(r"^<\?php\s*", "", code, count=1)
+        def media_url(m):   # imagens dos e-mails: {{img:chave}} -> URL na mídia do WordPress
+            if m.group(1) not in media:
+                raise SystemExit(f"imagem '{m.group(1)}' ausente em tools/media.json — rode --only media antes")
+            return media[m.group(1)]
+        code = re.sub(r"\{\{img:([a-z0-9-]+)\}\}", media_url, code)
         snippets = mcp.tool("wp_rest_read", {"route": "/code-snippets/v1/snippets"}).get("data", [])
         cur = next((x for x in snippets if x.get("name") == name and not x.get("trashed")), None)
         body = {"name": name, "code": code, "scope": "global", "priority": 10, "tags": ["corecyber", "email"],
@@ -319,8 +325,10 @@ def main():
             err = (r.get("data") or {}).get("code_error")
             if err:
                 raise SystemExit(f"snippet com erro: {err}")
-            r = mcp.tool("wp_rest_write", {"route": f"/code-snippets/v1/snippets/{sid}/activate", "method": "POST", "body": {}})
-            log("snippet ativo:", (r.get("data") or {}).get("active"))
+            if not (r.get("data") or {}).get("active"):
+                mcp.tool("wp_rest_write", {"route": f"/code-snippets/v1/snippets/{sid}/activate", "method": "POST", "body": {}})
+            state = mcp.tool("wp_rest_read", {"route": f"/code-snippets/v1/snippets/{sid}"}).get("data") or {}
+            log("snippet ativo:", state.get("active"), "· erro:", state.get("code_error"))
         key = os.environ.get("RESEND_KEY", "").strip()
         if not key and os.environ.get("RESEND_KEY_FILE"):
             key = Path(os.environ["RESEND_KEY_FILE"]).read_text().strip()

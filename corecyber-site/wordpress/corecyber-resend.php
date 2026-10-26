@@ -147,10 +147,14 @@ if ( ! function_exists( 'ccy_pre_wp_mail' ) ) {
 			'to'      => $to,
 			'subject' => isset( $atts['subject'] ) ? (string) $atts['subject'] : '',
 		);
+		/* tudo sai com o modelo da marca (logo e rodapé); textos simples também ganham a versão HTML */
+		$subject = $payload['subject'];
 		if ( 'text/html' === $ctype ) {
-			$payload['html'] = $message;
+			$payload['html'] = ( false !== stripos( $message, '<html' ) ) ? $message : ccy_mail_layout( $subject, $message );
 		} else {
+			$body            = nl2br( esc_html( $message ) );
 			$payload['text'] = $message;
+			$payload['html'] = ccy_mail_layout( $subject, '<div>' . ( function_exists( 'make_clickable' ) ? make_clickable( $body ) : $body ) . '</div>' );
 		}
 		if ( $reply ) {
 			$payload['reply_to'] = $reply;
@@ -246,15 +250,37 @@ if ( ! function_exists( 'ccy_t' ) ) {
 }
 
 if ( ! function_exists( 'ccy_mail_layout' ) ) {
-	function ccy_mail_layout( $title, $inner ) {
-		return '<!doctype html><html><body style="margin:0;padding:24px 12px;background:#f2f6f9">'
-			. '<div style="max-width:600px;margin:0 auto;font-family:Arial,Helvetica,sans-serif;color:#0b2545;font-size:15px;line-height:1.55">'
-			. '<div style="background:#002141;border-radius:14px 14px 0 0;padding:18px 24px"><b style="color:#ffffff;font-size:19px">CoreCyber</b>'
-			. ' <span style="color:#19c3d6;font-size:13px">· um produto EBAEM</span></div>'
-			. '<div style="background:#ffffff;border:1px solid #d6e2ec;border-top:0;border-radius:0 0 14px 14px;padding:24px">'
-			. '<h1 style="margin:0 0 14px;font-size:19px;color:#002141">' . esc_html( $title ) . '</h1>' . $inner . '</div>'
-			. '<p style="margin:14px 4px 0;font-size:12px;color:#6b7f95">CoreCyber · Segurança que se vê. Controle que se prova. · <a href="https://corecyber.com.br" style="color:#00708a">corecyber.com.br</a></p>'
-			. '</div></body></html>';
+	/**
+	 * Modelo de e-mail com a identidade CoreCyber (tabelas e estilos inline, compatível com Outlook,
+	 * Gmail e celular). As imagens ficam na mídia do site: {{img:...}} é trocado pelo deploy.
+	 */
+	function ccy_mail_layout( $title, $inner, $lang = 'pt', $preheader = '' ) {
+		$foot = array(
+			'pt' => array( 'Segurança que se vê. Controle que se prova.', 'Um produto <b style="color:#002141">EBAEM</b> · Brasília/DF', 'Plataforma de cibersegurança' ),
+			'en' => array( 'Security you can see. Control you can prove.', 'An <b style="color:#002141">EBAEM</b> product · Brasília, Brazil', 'Cybersecurity platform' ),
+			'es' => array( 'Seguridad que se ve. Control que se prueba.', 'Un producto de <b style="color:#002141">EBAEM</b> · Brasilia, Brasil', 'Plataforma de ciberseguridad' ),
+		);
+		$f     = isset( $foot[ $lang ] ) ? $foot[ $lang ] : $foot['pt'];
+		$inner = preg_replace( '/<a (?![^>]*style=)/i', '<a style="color:#00708a;text-decoration:underline" ', (string) $inner );
+		$font = "font-family:Arial,Helvetica,sans-serif;";
+		$pre  = '' !== $preheader ? '<div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent;mso-hide:all">' . esc_html( $preheader ) . '</div>' : '';
+		return '<!doctype html><html lang="' . ( 'pt' === $lang ? 'pt-BR' : $lang ) . '"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
+			. '<meta name="color-scheme" content="light"><meta name="supported-color-schemes" content="light"><title>' . esc_html( $title ) . '</title></head>'
+			. '<body style="margin:0;padding:0;background:#eef3f7;-webkit-text-size-adjust:100%">' . $pre
+			. '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#eef3f7"><tr><td align="center" style="padding:24px 12px">'
+			. '<table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;border-collapse:separate">'
+			. '<tr><td style="background:#002141;border-radius:16px 16px 0 0;line-height:0;font-size:0">'
+			. '<a href="https://corecyber.com.br" target="_blank" style="text-decoration:none"><img src="{{img:email-header}}" width="600" alt="CoreCyber — um produto EBAEM"'
+			. ' style="display:block;width:100%;max-width:600px;height:auto;border:0;border-radius:16px 16px 0 0;' . $font . 'font-size:22px;font-weight:bold;line-height:60px;color:#ffffff;text-align:center"></a></td></tr>'
+			. '<tr><td style="background:#ffffff;border-left:1px solid #d6e2ec;border-right:1px solid #d6e2ec;padding:30px 30px 26px;' . $font . 'color:#0b2545;font-size:15px;line-height:1.6">'
+			. '<h1 style="margin:0 0 16px;' . $font . 'font-size:21px;line-height:1.3;color:#002141">' . esc_html( $title ) . '</h1>' . $inner . '</td></tr>'
+			. '<tr><td style="background:#f6f9fb;border:1px solid #d6e2ec;border-radius:0 0 16px 16px;padding:18px 30px">'
+			. '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>'
+			. '<td width="46" valign="middle" style="padding-right:12px"><a href="https://corecyber.com.br" target="_blank"><img src="{{img:icon-64}}" width="40" height="40" alt="CoreCyber" style="display:block;border:0;border-radius:10px"></a></td>'
+			. '<td valign="middle" style="' . $font . 'font-size:12px;line-height:1.55;color:#5b7088"><b style="color:#002141;font-size:13px">CoreCyber</b> · ' . esc_html( $f[2] ) . '<br>'
+			. esc_html( $f[0] ) . '<br>' . $f[1] . ' · <a href="https://corecyber.com.br" target="_blank" style="color:#00708a;text-decoration:none">corecyber.com.br</a></td>'
+			. '</tr></table></td></tr>'
+			. '</table></td></tr></table></body></html>';
 	}
 }
 
@@ -397,7 +423,7 @@ if ( ! function_exists( 'ccy_rest_enviar' ) ) {
 			'from'    => $cfg['from'],
 			'to'      => array( $test_to ? $test_to : $form['to'] ),
 			'subject' => ( $test_to ? '[TESTE → ' . $form['to'] . '] ' : '[Site] ' ) . $form['pt'] . ' · ' . $protocol . ( $name ? ' · ' . $name : '' ),
-			'html'    => ccy_mail_layout( 'Novo envio pelo site', $meta . '<table role="presentation" cellspacing="0" cellpadding="0" style="width:100%;border-collapse:collapse;font-size:14px">' . $table . '</table>' . $extra ),
+			'html'    => ccy_mail_layout( 'Novo envio pelo site', $meta . '<table role="presentation" cellspacing="0" cellpadding="0" style="width:100%;border-collapse:collapse;font-size:14px">' . $table . '</table>' . $extra, 'pt', $form['pt'] . ' · ' . $protocol ),
 			'text'    => $form['pt'] . ' · ' . $protocol . ' · ' . $when . "\n\n" . implode( "\n", $plain ) . ( $consents ? "\n\nConfirmações: " . implode( ' | ', $consents ) : '' ) . ( $page ? "\n\nPágina: " . $page : '' ),
 			'tags'    => array( array( 'name' => 'formulario', 'value' => $kind ) ),
 		);
@@ -426,7 +452,7 @@ if ( ! function_exists( 'ccy_rest_enviar' ) ) {
 				'to'       => array( $email ),
 				'reply_to' => array( $form['to'] ),
 				'subject'  => ccy_t( $lang, 'subject', array( 'p' => $protocol ) ),
-				'html'     => ccy_mail_layout( $label, $inner ),
+				'html'     => ccy_mail_layout( $label, $inner, $lang, ccy_t( $lang, 'protocol' ) . ' ' . $protocol ),
 				'text'     => wp_strip_all_tags( $hello ) . "\n\n" . wp_strip_all_tags( ccy_t( $lang, 'intro', array( 'f' => $label ) ) ) . ' ' . $protocol . "\n\n" . ccy_t( $lang, $form['sla'] ) . "\n\n" . ccy_t( $lang, 'reply' ) . ' ' . ccy_t( $lang, 'safety' ) . "\n\n" . ccy_t( $lang, 'why' ),
 				'tags'     => array( array( 'name' => 'formulario', 'value' => $kind . '_confirmacao' ) ),
 			);
